@@ -19,8 +19,7 @@
 			
 			\item The hypothesis: most of people are at home on any given weeknight. 
 			%La hipótesis: la mayoría de los días, las personas se encuentran en sus casas durante la noche.
-			
-			%\bigskip
+
 			%Así, cada antena queda asociada a un conjunto de usuarios: sus \textit{habitantes}.
 			\item Note: users for which the inferred home antenna is located in \textit{Gran Chaco} (the risk area) will
 			be considered the set of \textit{residents of Gran Chaco}. 
@@ -30,7 +29,80 @@
 		\end{itemize}
 	\end{block}
 
-% Tambien aclarar que obtenemos el conjunto de usuarios que viven en la zona endemica
 \subsection{Detection of vulnerable users}
-% Estos son los que sacamos con la difusion
+	\begin{block}{Vulnerable users}
+		\begin{itemize}
+			\item For every user, we listed all of the call receivers in a given month.
+			%Para cada usuario, obtuvimos la lista de todos los usuarios con los que se comunicó. %ojo que esto podria cambiar en versiones posteriores cuando cambie la definicion de 'vulnerable'
+			
+			\item If a given user communicated with the \textit{Gran Chaco}, we considered him to have higher risk
+			of having Chagas and we tagged him as potentially \textit{vulnerable}.
+			%Si un usuario tuvo comunicaciones con la zona endémica (Gran Chaco), se considera que tiene mayor riesgo de tener Mal de Chagas, y lo marcamos como potentialmente \textit{vulnerable}.
+		\end{itemize}
+	\end{block}
+	
+		\begin{block}{Antenna aggregation}
+		\begin{itemize}
+			\item  We aggregated vulnerable users and total users (residents) per antenna.
+			%Agregamos usuarios vulnerables y usuarios totales (habitantes) para cada antena.
+			
+			\item We also aggregated the total volume of outgoing calls from every antenna and from these we extracted
+			every call that had a user whose home is in the \textit{Gran Chaco} area as a receiver (\textit{vulnerable calls}).
+			%Tambien agregamos el volumen total de llamados salientes de cada antena,
+			%y de estos, los que tenían un habitante de Gran Chaco como destinatario (\textit{llamados vulnerables}).
+			
+			%\bigskip
+			%Por lo tanto se obtuvieron, para cada antena, cuatro indicadores:
+			%\begin{itemize}
+			%	\item Cantidad de usuarios habitantes
+			%	\item Cantidad de usuarios vulnerables entre los habitantes.
+			%	\item Volumen de llamados salientes
+			%	\item Volumen de llamados vulnerables salientes.
+			%\end{itemize}
+		\end{itemize}
+		
+	\end{block}
 \subsection{Heatmap generation}
+
+		We generated heat maps from the processed data where each cell was represented by its communications with
+		the ecoregion.
+		%A partir de los datos obtenidos, generamos mapas de calor que representan las comunicaciones de la celda con el Gran Chaco.
+		
+		We generated a circle for each cell where:
+		%Generamos un c\'irculo por cada celda donde:
+		\begin{itemize}
+			\item the \textbf{area} depends on the on the volume of use.
+			%el \textbf{\'area} depende de la cantidad de usuarios (habitantes),
+			\item the \textbf{color} corresponds to the percentage of use which is vulnerable in that antenna.
+			%el \textbf{color} corresponde al porcentaje de usuarios vulnerables que viven en esa antena.
+		\end{itemize}
+		
+	\end{block}
+	
+	\pause
+	
+	\begin{block}{Antenna Filter}
+		We built two filtering parameters $\beta$ and $min\_volumen$ which will control the antennas to be plotted.
+		Every antenna will be plotted if:
+		% Notar que en ningún lado antes de esto dijimos que íbamos a pintar un mapa de Argentina con las antenas.
+		%Dos par\'ametros $\beta$ y $min\_volumen$  filtran la lista de antenas a ser visualizadas.
+		%Cada antena se grafica si:
+		\begin{itemize}
+			\item the percentage of vulnerable users/calls is bigger than  $\beta$.
+			%el porcentaje de usuarios vulnerables es mayor que $\beta$,
+			\item the volume of vulnerable users/calls is bigger than $min\_volumen$. 
+			%el volumen de uso vulnerable es mayor que $min\_volumen$ de llamados o usuarios.
+		\end{itemize}
+		
+		%
+		%\bigskip
+		%Por lo tanto, el modelo permitiría ver las antenas donde existen mayores lazos familiares con el Gran Chaco.	% Creo que 'familiares' es muy fuerte
+		
+		%\bigskip
+		%A\'un con los par\'ametros anteriores, fue necesario separar el filtrado por distintas regiones:
+		%
+		%\smallskip
+		%Una antena de baja proporción a nivel nacional ($\beta=10\%$) puede ser llamativa, por ejemplo, en Tierra del Fuego.
+		%%aca se inserta imagen x ejemplo?? %No, la imagen es demasiado grande me parece. Lo podemos discutir.
+		
+	\end{block}
