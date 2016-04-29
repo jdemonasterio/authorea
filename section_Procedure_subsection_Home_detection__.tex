@@ -1,5 +1,35 @@
+% Procedimiento:
+	% Obtener la lista de antenas de GC
+	% Determinar la casa de los usuarios
+	% Determinar, para cada usuario, si se comunicó con un habitante de GC
+	% Determinar las agregaciones por antena
+	% Visualizar (agrego alfa, min_volume y zoom en regiones)
+
 \section{Procedure}
 \subsection{Home detection}
+	\begin{block}{Home Prediction}
+		\begin{itemize}
+			\item As a first step, we determined each user's residence antenna.
+			%Como primer paso, determinamos para cada usuario, su lugar de residencia.
+			%No es la ubicación de su casa exactamente, pero es una buena aproximación. % Aclarar más esto? Aclararlo menos? %creo que esta bien
+			
+			\item This was chosen to be the most used frequently used antenna, considering only calls made in week evenings.
+			%La antena elegida como hogar es la más frecuentemente usada, 
+			%considerando llamados nocturnos en días de semana.
+			
+			\item The hypothesis: most of people are at home on any given weeknight. 
+			%La hipótesis: la mayoría de los días, las personas se encuentran en sus casas durante la noche.
+			
+			%\bigskip
+			%Así, cada antena queda asociada a un conjunto de usuarios: sus \textit{habitantes}.
+			\item Note: users for which the inferred home antenna is located in \textit{Gran Chaco} (the risk area) will
+			be considered the set of \textit{residents of Gran Chaco}. 
+			%Nota: Los usuarios cuya antena inferida pertenece al Gran Chaco (la zona de riesgo)
+			%se consideran el conjunto de \textit{habitantes de Gran Chaco}.
+			
+		\end{itemize}
+	\end{block}
+
 % Tambien aclarar que obtenemos el conjunto de usuarios que viven en la zona endemica
 \subsection{Detection of vulnerable users}
 % Estos son los que sacamos con la difusion
