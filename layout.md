@@ -1,6 +1,6 @@
 section_Introduction__.tex
 section_Data_sources__.tex
-section_Procedure_subsection_Home_detection__.tex
+Procedimiento_Obtener_la_lista_de__.tex
 section_Results_subsection_Maps_for__.tex
 section_Ongoing_work_subsection_Maps__.tex
 section_Conclusions_and_future_work__.tex
