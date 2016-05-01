@@ -7,11 +7,12 @@
 
 \section{Procedure}
 \subsection{Home detection}
+    The first step is to determine the area in which each user lives. The granularity of the geolocated data we have is at the antenna level, so the objective for this part is to match each user $u$ with its \textit{home antenna} $H_u$.
+    
+    We predict $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights. This, according to our categorization of types of days of the week, corresponds to Monday to Thursday nights, from 8pm to 6am of the following day.
+
 	\begin{block}{Home Prediction}
 		\begin{itemize}
-			\item As a first step, we determined each user's residence antenna.
-			%Como primer paso, determinamos para cada usuario, su lugar de residencia.
-			%No es la ubicación de su casa exactamente, pero es una buena aproximación. % Aclarar más esto? Aclararlo menos? %creo que esta bien
 			
 			\item This was chosen to be the most used frequently used antenna, considering only calls made in week evenings.
 			%La antena elegida como hogar es la más frecuentemente usada, 
