@@ -10,37 +10,14 @@
     The first step is to determine the area in which each user lives. The granularity of the geolocated data we have is at the antenna level, so the objective for this part is to match each user $u$ with its \textit{home antenna} $H_u$.
     
     We predict $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights. This, according to our categorization of types of days of the week, corresponds to Monday to Thursday nights, from 8pm to 6am of the following day.
-
-	\begin{block}{Home Prediction}
-		\begin{itemize}
-			
-			\item This was chosen to be the most used frequently used antenna, considering only calls made in week evenings.
-			%La antena elegida como hogar es la más frecuentemente usada, 
-			%considerando llamados nocturnos en días de semana.
-			
-			\item The hypothesis: most of people are at home on any given weeknight. 
-			%La hipótesis: la mayoría de los días, las personas se encuentran en sus casas durante la noche.
-
-			%Así, cada antena queda asociada a un conjunto de usuarios: sus \textit{habitantes}.
-			\item Note: users for which the inferred home antenna is located in \textit{Gran Chaco} (the risk area) will
-			be considered the set of \textit{residents of Gran Chaco}. 
-			%Nota: Los usuarios cuya antena inferida pertenece al Gran Chaco (la zona de riesgo)
-			%se consideran el conjunto de \textit{habitantes de Gran Chaco}.
-			
-		\end{itemize}
-	\end{block}
+    % Speak about the min number of calls needed to say that we can know the home.
+    
+    Note that users for which the inferred home antenna is located in \textit{Gran Chaco} (the risk area) will be considered the set of \textit{residents of Gran Chaco}.
 
 \subsection{Detection of vulnerable users}
-	\begin{block}{Vulnerable users}
-		\begin{itemize}
-			\item For every user, we listed all of the call receivers in a given month.
-			%Para cada usuario, obtuvimos la lista de todos los usuarios con los que se comunicó. %ojo que esto podria cambiar en versiones posteriores cuando cambie la definicion de 'vulnerable'
-			
-			\item If a given user communicated with the \textit{Gran Chaco}, we considered him to have higher risk
-			of having Chagas and we tagged him as potentially \textit{vulnerable}.
-			%Si un usuario tuvo comunicaciones con la zona endémica (Gran Chaco), se considera que tiene mayor riesgo de tener Mal de Chagas, y lo marcamos como potentialmente \textit{vulnerable}.
-		\end{itemize}
-	\end{block}
+    Given the set of inhabitants of the risk area, we want to find those with a high communication with the residents of the endemic zone.
+    
+    We get the list of calls for each user, and, using this data, we determine the set of neighbors in the social graph. Then, we tag the neighbors of any resident of the endemic zone as potentially vulnerable.
 	
 		\begin{block}{Antenna aggregation}
 		\begin{itemize}
