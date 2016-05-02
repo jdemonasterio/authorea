@@ -17,29 +17,17 @@
 \subsection{Detection of vulnerable users}
     Given the set of inhabitants of the risk area, we want to find those with a high communication with the residents of the endemic zone.
     
-    We get the list of calls for each user, and, using this data, we determine the set of neighbors in the social graph. Then, we tag the neighbors of any resident of the endemic zone as potentially vulnerable.
-	
-		\begin{block}{Antenna aggregation}
-		\begin{itemize}
-			\item  We aggregated vulnerable users and total users (residents) per antenna.
-			%Agregamos usuarios vulnerables y usuarios totales (habitantes) para cada antena.
-			
-			\item We also aggregated the total volume of outgoing calls from every antenna and from these we extracted
-			every call that had a user whose home is in the \textit{Gran Chaco} area as a receiver (\textit{vulnerable calls}).
-			%Tambien agregamos el volumen total de llamados salientes de cada antena,
-			%y de estos, los que tenían un habitante de Gran Chaco como destinatario (\textit{llamados vulnerables}).
-			
-			%\bigskip
-			%Por lo tanto se obtuvieron, para cada antena, cuatro indicadores:
-			%\begin{itemize}
-			%	\item Cantidad de usuarios habitantes
-			%	\item Cantidad de usuarios vulnerables entre los habitantes.
-			%	\item Volumen de llamados salientes
-			%	\item Volumen de llamados vulnerables salientes.
-			%\end{itemize}
-		\end{itemize}
-		
-	\end{block}
+    We get the list of calls for each user, and, using this data, we determine the set of neighbors in the social graph. Then, we tag the neighbors of any resident of the endemic zone as potentially vulnerable. We also tag the calls to (from) a certain antenna from (to) residents of the endemic area as \textit{vulnerable calls}.
+    
+    The next step is to aggregate this data for each antenna. This means that, for each antenna, we have:
+    \begin{itemize}
+        \item The total number of residents (this is, the number of people for which that is their home antenna).
+        \item The total number of residents which are vulnerable.
+    \end{itemize}
+    
+    We also aggregated the total volume of outgoing calls from every antenna and from these we extracted every call that had a user whose home is in the endemic area as a receiver (\textit{vulnerable calls}).
+    
+    These four numbers are the indicators for each antenna in the studied country.
 \subsection{Heatmap generation}
 
 		We generated heat maps from the processed data where each cell was represented by its communications with
