@@ -31,20 +31,19 @@
 
 % Reviewed up to here
 \subsection{Heatmap generation}
+    With the collected data, we generated heatmaps to make a visualization of the mentioned indicators for each antenna.
+    
+	We generated a circle for each cell where:
+	%Generamos un c\'irculo por cada celda donde:
+	\begin{itemize}
+		\item the \textbf{area} depends on the on the population of the antenna's area.
+		%el \textbf{\'area} depende de la cantidad de usuarios (habitantes),
+		\item the \textbf{color}, to the percentage of vulnerable users living there.
+		%el \textbf{color} corresponde al porcentaje de usuarios vulnerables que viven en esa antena.
+	\end{itemize}
 
-		We generated heat maps from the processed data where each cell was represented by its communications with
-		the ecoregion.
-		%A partir de los datos obtenidos, generamos mapas de calor que representan las comunicaciones de la celda con el Gran Chaco.
-		
-		We generated a circle for each cell where:
-		%Generamos un c\'irculo por cada celda donde:
-		\begin{itemize}
-			\item the \textbf{area} depends on the on the volume of use.
-			%el \textbf{\'area} depende de la cantidad de usuarios (habitantes),
-			\item the \textbf{color} corresponds to the percentage of use which is vulnerable in that antenna.
-			%el \textbf{color} corresponde al porcentaje de usuarios vulnerables que viven en esa antena.
-		\end{itemize}
-		
+
+	
 		\begin{block}{Antenna Filter}
 		We built two filtering parameters $\beta$ and $min\_volumen$ which will control the antennas to be plotted.
 		Every antenna will be plotted if:
