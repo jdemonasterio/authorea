@@ -1,7 +1,18 @@
 \section{Ongoing work}
 
 The CDR logs available for Argentina span for 5 months, precluding the prediction of long-term mobilities in a supervised way. For the mexican dataset, users living in the ecoregion can be tested to their area of influence one year to the past. Looking at the period from January '14 to April '15 our target variable $Y $ is defined in the following way: 
-\equation{}
+
+% \eqref{PP1} reduces to
+%\[
+    \begin{equation}
+    Y_u =
+      \begin{cases}
+        &1 if H_u is from epidemic region
+        &0 else.
+      \end{cases}
+    \end{equation}
+%    \]
+
 user $u$ 
 
 This opens the possibility of modeling the question as a supervised learning problem where a users's past 
