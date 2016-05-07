@@ -7,9 +7,10 @@
 
 \section{Procedure}
 \subsection{Home detection}
-    The first step is to determine the area in which each user lives. The granularity of the geolocated data we have is at the antenna level, so the objective for this part is to match each user $u$ with its \textit{home antenna} $H_u$.
-    
-    We predict $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights. This, according to our categorization of types of days of the week, corresponds to Monday to Thursday nights, from 8pm to 6am of the following day.
+
+The first step of the process involves determineing the to determine the area in which each user lives. Having the granularity of the geolocated data at the antenna level, we can at most match each user $u$ with its \textit{home antenna} $H_u$.
+
+To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights. This, according to our categorization of types of days of the week, corresponds to Monday to Thursday nights, from 8pm to 6am of the following day.
     % Speak about the min number of calls needed to say that we can know the home.
     
     Note that users for which the inferred home antenna is located in \textit{Gran Chaco} (the risk area) will be considered the set of \textit{residents of Gran Chaco}.
