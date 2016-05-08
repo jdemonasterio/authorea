@@ -5,7 +5,6 @@ The_dynamic_interaction_of_the__1.tex
 section_Data_sources_As_a__.tex
 Procedimiento_Obtener_la_lista_de__.tex
 section_Results_subsection_Argentinian_maps__.tex
-section_Ongoing_work_The_CDR__.tex
 section_Conclusions_The_heatmaps_expose__.tex
 section_Ongoing_work_The_CDR__1.tex
 section_Future_Work_Apply_best__.tex
