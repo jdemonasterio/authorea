@@ -7,3 +7,4 @@ Procedimiento_Obtener_la_lista_de__.tex
 section_Results_subsection_Argentinian_maps__.tex
 section_Ongoing_work_The_CDR__.tex
 section_Conclusions_The_heatmaps_expose__.tex
+section_Ongoing_work_The_CDR__1.tex
