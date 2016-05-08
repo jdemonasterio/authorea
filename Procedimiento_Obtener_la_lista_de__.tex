@@ -32,9 +32,9 @@ To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the ti
 
 % Reviewed up to here
 \subsection{Heatmap generation}
-    With the collected data, we generated heatmaps to make a visualization of the mentioned indicators for each antenna.
+    With the collected data, we generated heatmaps to visualize the mentioned indicators for each antenna. We overlap these heatmaps with regular political maps of the region.
     
-	We generated a circle for each cell where:
+	We generate a circle for each cell, where:
 	%Generamos un c\'irculo por cada celda donde:
 	\begin{itemize}
 		\item the \textbf{area} depends on the on the population of the antenna's area.
@@ -42,31 +42,11 @@ To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the ti
 		\item the \textbf{color}, to the percentage of vulnerable users living there.
 		%el \textbf{color} corresponde al porcentaje de usuarios vulnerables que viven en esa antena.
 	\end{itemize}
-
-
-	
-		\begin{block}{Antenna Filter}
-		We built two filtering parameters $\beta$ and $min\_volumen$ which will control the antennas to be plotted.
-		Every antenna will be plotted if:
-		% Notar que en ningún lado antes de esto dijimos que íbamos a pintar un mapa de Argentina con las antenas.
-		%Dos par\'ametros $\beta$ y $min\_volumen$  filtran la lista de antenas a ser visualizadas.
-		%Cada antena se grafica si:
-		\begin{itemize}
-			\item the percentage of vulnerable users/calls is bigger than  $\beta$.
-			%el porcentaje de usuarios vulnerables es mayor que $\beta$,
-			\item the volume of vulnerable users/calls is bigger than $min\_volumen$. 
-			%el volumen de uso vulnerable es mayor que $min\_volumen$ de llamados o usuarios.
-		\end{itemize}
-		
-		%
-		%\bigskip
-		%Por lo tanto, el modelo permitiría ver las antenas donde existen mayores lazos familiares con el Gran Chaco.	% Creo que 'familiares' es muy fuerte
-		
-		%\bigskip
-		%A\'un con los par\'ametros anteriores, fue necesario separar el filtrado por distintas regiones:
-		%
-		%\smallskip
-		%Una antena de baja proporción a nivel nacional ($\beta=10\%$) puede ser llamativa, por ejemplo, en Tierra del Fuego.
-		%%aca se inserta imagen x ejemplo?? %No, la imagen es demasiado grande me parece. Lo podemos discutir.
-		
-	\end{block}
+    
+    We built two filtering parameters to control which antennas are plotted.
+    \begin{itemize}
+        \item $\beta$: The antenna is plotted if its percentage of vulnerable users is higher than $\beta$.
+        \item $min\_volumen$: The antenna is plotted if its population is bigger than $min\_volumen$.
+    \end{itemize}
+    
+    These parameters had to be tuned differently when zooming in particular regions. For example: an antenna whose percentage would be considered low taking the whole country can be locally high when zooming in a particular area that is further away from the endemic zone.
