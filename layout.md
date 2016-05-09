@@ -16,4 +16,4 @@ figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta20/201112_hi_res_amb
 This_analysis_allowed_us_to__.tex
 section_Conclusions_The_heatmaps_expose__.tex
 section_Ongoing_work_The_CDR__1.tex
-section_Future_Work_Apply_best__.tex
+section_Future_Work_Lines_for__.tex
