@@ -12,12 +12,20 @@ The CDR logs available for Argentina span for 5 months, precluding the predictio
       \end{cases}
     %\end{equation}
     \]
+    
+\subsection{Data Attributes}
+Setting the five month timespan limitation, CDRs are being processed to extract features at the user level. 
 
-ATTRIBUTES extracted from 
+For every individual, the top ten most used antennas are logged along with the amount of use in each one. Users are tagged as 'epidemic' if their home antenna is in the the risk area and 'exposed' if any of the antennas used are in the epidemic zone. A mobility diameter is also processed from the radius of the convex hull defined by the user's logged antennas. This length is representative of the radius of influence of that individual and we are expecting to see a high correlation between a high mobility-diameter and high long-term movements of people.
 
+Calling information is aggregated and binned according to the hour of the day and during the weekends. For every user, the duration and individual count of these calls are processed, differentiating between calls made to vulnerable and non-vulnerable users. 
+
+Finally, social information processed from the data include the total amount of epidemic, exposed and total neighbours that any given user interacts with over the timeperiod. 
+
+\subsection{Supervised Algorithms}
+Based on 
 ALGORITHMS being tested (Random Forests, Gradient Boosting, Multinomial Naive Bayes (Benchmark), Logistic Regression)
 
 
 \subsection{Maps for Mexico}
-
-EJEMPLOS DE MAPAS??
+MOSTRAR MAPAS O NO??
