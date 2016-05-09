@@ -13,7 +13,7 @@ The CDR logs available for Argentina span for 5 months, precluding the predictio
     %\end{equation}
     \]
     
-\subsection{Data Attributes}
+\subsection{Model Attributes}
 Setting the five month timespan limitation, CDRs are being processed to extract features at the user level. 
 
 For every individual, the top ten most used antennas are logged along with the amount of use in each one. Users are tagged as 'epidemic' if their home antenna is in the the risk area and 'exposed' if any of the antennas used are in the epidemic zone. A mobility diameter is also processed from the radius of the convex hull defined by the user's logged antennas. This length is representative of the radius of influence of that individual and we are expecting to see a high correlation between a high mobility-diameter and high long-term movements of people.
