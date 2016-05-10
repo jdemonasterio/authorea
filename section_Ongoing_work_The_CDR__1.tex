@@ -14,13 +14,17 @@ The CDR logs available for Argentina span for 5 months, precluding the predictio
     \]
     
 \subsection{Model Attributes}
-Setting the five month timespan limitation, CDRs are being processed to extract features at the user level. 
 
-For every individual, the top ten most used antennas are logged along with the amount of use in each one. Users are tagged as 'epidemic' if their home antenna is in the the risk area and 'exposed' if any of the antennas used are in the epidemic zone. A mobility diameter is also processed from the radius of the convex hull defined by the user's logged antennas. This length is representative of the radius of influence of that individual and we are expecting to see a high correlation between a high mobility-diameter and high long-term movements of people.
+Setting the five month timespan limitation, CDRs are being processed to extract features at the user level. The quality of the classification will rely heavily on the ability to characterize the user and his communication pattern as differentiating as possible. In general, the features constructed reflect calling and mobility patterns. Differentiating by the time they were done during the week and tagging the action or object if it is epidemic. 
 
-Calling information is aggregated and binned according to the hour of the day and during the weekends. For every user, the duration and individual count of these calls are processed, differentiating between calls made to vulnerable and non-vulnerable users. 
+The model's first version consists of the following features:
 
-Finally, social information processed from the data include the total amount of epidemic, exposed and total neighbours that any given user interacts with over the timeperiod. 
+\begin{itemize}
+    \item Antennas: The top ten most used antennas with the number of uses. From this, users were tagged as 'epidemic' if their home antenna is in the epidemic area and 'exposed' if any of the ten antennas logged is in the risk area.
+    \item Mobility diameter: The user's logged antennas define a convex hull in space and the radius of the hull is taken to be as the mobility diameter. This length is representative of the area of influence of that individual. We are expecting that these feature be correlated with long-term migrations.
+    \item Neighbours: From the social graph built from the CDRs we extracted the total count of neighbours in the communicaction graph and the total count of epidemic neighbors. 
+    \item Calls: The total time and count of calls made during the five month period is aggregated per user. This information is also segmented according to the hour of the day that the calls were made and whether they were made during the weekends. Special care was taken with calls placed to and from vulnerable users and aggregated accordingly.
+\end{itemiize}
 
 \subsection{Supervised Algorithms}
 Based on 
