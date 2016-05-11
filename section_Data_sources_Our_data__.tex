@@ -6,7 +6,7 @@ where user $i$ is the caller, user $j$ is the callee, $t$ is the date and time o
 $d$ is the direction of the call (incoming or outgoing, with respect to the mobile operator client), and $l$ is the location of the tower that routed the communication.
 The dataset does not include personal information from the users, such as name or phone number. The users privacy is assured by differentiating users by their hashed ID, with encryption keys managed exclusively by the telephone company.
 
-As data preprocessing, to exclude outlying users such as call-centers or dead phones, the users whose monthly cellphone use did not surpass a minimal number of calls $\mu$ or exceeded a maximal number $M$ were automatically filtered. In both dataset, we used $\mu = 5$ and $M = 400$.
+As data preprocessing, to exclude outlying users such as call-centers or dead phones, the users whose monthly cellphone use did not surpass a minimal number of calls $\mu$ or exceeded a maximal number $M$ were automatically filtered. In both datasets, we used $\mu = 5$ and $M = 400$.
 
 We then aggregate the call records for a five 
 month period into an edge list $(n_i, n_j, w_{i,j})$ where nodes $n_i$ and $n_j$ 
