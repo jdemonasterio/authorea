@@ -1,14 +1,20 @@
 \section{Data sources}
 
-As a general rule, privacy is assured by handling data in private servers and by differentiating users by their hashed ID, with encryption keys managed exclusively by the TelCo.
+Our data source is anonymized traffic information from two mobile operators, in Argentina and in Mexico.
+For our purposes, each record is represented as a tuple $\left < x, y, t, d, l \right >$,
+where user $x$ is the caller, user $y$ is the callee, $t$ is the date and time of the call,
+$d$ is the direction of the call (incoming or outgoing, with respect to the mobile operator client), and $l$ is the location of the tower that routed the communication.
+The dataset does not include personal information from the users, such as name or phone number. The users privacy is assured by differentiating users by their hashed ID, with encryption keys managed exclusively by the telephone company.
 
-Other general characteristics are that logs are timestamped and geolocalized by the position of the antenna used to place the call. To exclude outlying users such as call-centers or dead phones, numbers whose monthly cellphone use did not surpass 5 calls and fall to at most 400 calls were automatically filtered.
+As data preprocessing, to exclude outlying users such as call-centers or dead phones, the users whose monthly cellphone use did not surpass a minimal number of calls $\mu$ or exceeded a maximal number $M$ were automatically filtered. In both dataset, we used $\mu = 5$ and $M = 400$.
 
 \subsection{Argentina}
 
+We used the information from a mobile operator in Argentina, collected over a period of 5 months. The raw data logs contain around 50 million calls per day.
+
 \subsection{Mexico}
 
-The mexican data source is an anonymized dataset from a national mobile phone operator. Data is available for every call made within a period of 19 months from January 2014 to September 2015. The raw logs contain about 12 million calls per day for more than 8 million users that accessed the telecommunication company's (TelCo) network to place the call. This means that users from other TelCos are logged, as long as one of the users registering the call is a client of the operator. In practice, we only considered CDRs between TelCo users since geolocalization was only possible for this group.
+The Mexican data source is an anonymized dataset from a national mobile phone operator. Data is available for every call made within a period of 19 months from January 2014 to September 2015. The raw logs contain about 12 million calls per day for more than 8 million users that accessed the telecommunication company's (TelCo) network to place the call. This means that users from other companies are logged, as long as one of the users registering the call is a client of the operator. In practice, we only considered CDRs between TelCo users since geolocalization was only possible for this group.
 
 Information logged for each call included the duration and timestamp of the call, the users participating in the call and the antenna id that transmitted the call to the TelCo client. 
 
