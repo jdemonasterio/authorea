@@ -18,15 +18,15 @@
 \subsection{Detection of vulnerable users}
     Given the set of inhabitants of the risk area, we want to find those with a high communication with residents of the endemic zone.
     
-    To do this, we get the list of calls for each user and then determine the set of neighbors in the social graph. For each resident of the endemic zone, we tag all his neighbors as potentially vulnerable. We also tag the calls to (from) a certain antenna from (to) residents of the endemic area as \textit{vulnerable calls}.
+    To do this, we get the list of calls for each user and then determine the set of neighbors in the social graph $\calG_C$. For each resident of the endemic zone, we tag all his neighbors as potentially vulnerable. We also tag the calls to (from) a certain antenna from (to) residents of the endemic area as \textit{vulnerable calls}.
     
-    The next step is to aggregate this data for every antenna. Given an antenna, we will have:
+    The next step is to aggregate this data for every antenna. Given an antenna $a$, we will have:
     \begin{itemize}
-        \item The total number of residents (this is, the number of people for which that is their home antenna).
-        \item The total number of residents which are vulnerable.
+        \item The total number of residents $N_a$ (this is, the number of people for which that is their home antenna).
+        \item The total number of residents which are vulnerable $V_a$.
     \end{itemize}
     
-    We also aggregated the total volume of outgoing calls from every antenna and from these we extracted every call that had a user whose home is in the endemic area as a receiver (\textit{vulnerable calls}).
+    We also aggregated the total volume of outgoing calls $C_a$ from every antenna and from these we extracted every call that had a user whose home is in the endemic area as a receiver $VC_a$ (\textit{vulnerable calls}).
     
     These four numbers are the indicators for each antenna in the studied country.
 
@@ -37,16 +37,17 @@
 	A circle is generated for each cell, where:
 	%Generamos un c\'irculo por cada celda donde:
 	\begin{itemize}
-		\item the \textbf{area} depends on the population living in the antenna.
+		\item the \textbf{area} depends on the population living in the antenna $N_a$.
 		%el \textbf{\'area} depende de la cantidad de usuarios (habitantes),
-		\item the \textbf{color}, is related to the percentage of vulnerable users living there.
+		\item the \textbf{color}, is related to the fraction $V_a / N_a$ of vulnerable users living there.
 		%el \textbf{color} corresponde al porcentaje de usuarios vulnerables que viven en esa antena.
 	\end{itemize}
     
     We used two filtering parameters to control which antennas are plotted.
     \begin{itemize}
         \item $\beta$: The antenna is plotted if its percentage of vulnerable users is higher than $\beta$.
-        \item $min\_volumen$: The antenna is plotted if its population is bigger than $min\_volumen$.
+        \item $min\_volume$: The antenna is plotted if its population is bigger than $min\_volume$.
     \end{itemize}
     
-    These parameters had to be tuned differently for different regions. For example: an antenna whose vulnerable percentage would be considered low at the national level can be locally high when zooming in at a more regional level.
+    These parameters were tuned differently for different regions. For example: an antenna whose vulnerable percentage would be considered low at the national level can be locally high when zooming in at a more regional level.
+    
