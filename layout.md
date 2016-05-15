@@ -20,6 +20,7 @@ section_Ongoing_work_The_CDR__1.tex
 subsection_Supervised_Algorithms_Classification_algorithms__1.tex
 subsection_Maps_of_Mexico_In__.tex
 figures/Ambientes_Gran_Chaco-Mexico1/Ambientes_Gran_Chaco-Mexico1.png
+With_the_data_provided_by__.tex
 From_this_initial_region_and__.tex
 section_Future_Work_The_mobility__.tex
 section_Acknowledgements_We_thank_Diego__.tex
