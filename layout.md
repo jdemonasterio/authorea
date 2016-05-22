@@ -1,7 +1,6 @@
 section_Introduction_Chagas_disease_is__.tex
 section_Chagas_disease_in_Argentina__.tex
 The_dynamic_interaction_of_the__1.tex
-subsection_Related_Work_There_exist__.tex
 section_Data_sources_Our_data__.tex
 Procedimiento_Obtener_la_lista_de__.tex
 section_Results_subsection_Argentinian_maps__.tex
