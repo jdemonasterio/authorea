@@ -4,5 +4,4 @@ The_dynamic_interaction_of_the__1.tex
 begin_figure_htp_centering_figure__.tex
 This_analysis_allowed_us_to__.tex
 section_Conclusions_The_heatmaps_expose__.tex
-section_Ongoing_work_The_CDR__1.tex
 subsection_Supervised_Algorithms_Classification_algorithms__1.tex
