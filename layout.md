@@ -1,6 +1,5 @@
 section_Introduction_Chagas_disease_is__.tex
 section_Chagas_disease_in_Argentina__.tex
-figures/Ambientes_GranChaco_TNC-Argentina/Ambientes_GranChaco_TNC-Argentina.png
 The_dynamic_interaction_of_the__1.tex
 subsection_Related_Work_There_exist__.tex
 section_Data_sources_Our_data__.tex
