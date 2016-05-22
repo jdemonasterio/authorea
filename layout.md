@@ -1,7 +1,6 @@
 section_Introduction_Chagas_disease_is__.tex
 section_Chagas_disease_in_Argentina__.tex
 The_dynamic_interaction_of_the__1.tex
-section_Data_sources_Our_data__.tex
 begin_figure_htp_centering_figure__.tex
 This_analysis_allowed_us_to__.tex
 section_Conclusions_The_heatmaps_expose__.tex
