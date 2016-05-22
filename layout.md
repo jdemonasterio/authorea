@@ -7,4 +7,3 @@ section_Conclusions_The_heatmaps_expose__.tex
 section_Ongoing_work_The_CDR__1.tex
 subsection_Supervised_Algorithms_Classification_algorithms__1.tex
 subsection_Maps_of_Mexico_In__.tex
-With_the_data_provided_by__.tex
