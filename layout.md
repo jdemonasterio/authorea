@@ -10,4 +10,3 @@ subsection_Maps_of_Mexico_In__.tex
 With_the_data_provided_by__.tex
 From_this_initial_region_and__.tex
 section_Future_Work_The_mobility__.tex
-section_Acknowledgements_We_thank_Diego__.tex
