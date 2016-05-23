@@ -20,16 +20,18 @@ In this way probabilities can be used to describe different assumptions and to m
 
 \textbf{Prior probability}: given to that belief before “evidence” is taken into account ie. the probability distribution of the parameters. It is the marginal probability of that proposition. 
 
-\textbf{Likelihood function(of the parameters)}: $P(x|\theta)$ is the conditional probability of the data given the parameters but is always taken as a function of the params. Observe that it is not a probability since it doesn't “add up” to 1. But if we fix the params then p(x|params) is indeed a probability. 
+\textbf{Likelihood function(of the parameters)}: $P(x|\theta)$ is the conditional probability of the data given the parameters but is always taken as a function of \theta (the parameters). Observe that it is not a probability since it doesn't “add up” to 1. But if we fix \theta then $P(x|\theta)$ is indeed a probability. 
 Don’t say the likelihood of the data!
 
-Posterior probability: the probability of the params, given the data.
-Hypothesis: we hypothesize the different alternatives to the parameter values. 
-Difference to classical view: in the classical view one hypothesizes over the model’s parameters and then tests that hypothesis (or a bunch of them) to test its plausability. Whereas in the bayesian view the different hypothesis are all being ‘marginalized over’.
+\textbf{Posterior probability}: the probability of the params, given the data.
 
-Subjective priors: in general, we need to make assumptions about the probability priors of the parameters. The values of these are unkown (or just fixed as some data) and a model needs to be assigned to test the hypothesis. The same goes to the likelihoods, assigning a distribution to the parameters in subjective way will change our likelihood function.
+\textbf{Hypothesis}: we hypothesize the different alternatives to the parameter values. 
 
-Likelihood principle: The likelihood principle: given a generative model for data d given parameters θ, P (d | θ), and having observed a particular outcome d_1 , all inferences and predictions should depend only on the function P (d_1 | θ) i.e. they depend only on the data at hand, on what actually happened. 
+\textbf{Difference to classical view}: in the classical view one hypothesizes over the model’s parameters and then tests that hypothesis (or a bunch of them) to test its plausability. Whereas in the bayesian view the different hypothesis are all being ‘marginalized over’.
+
+\textbf{Subjective priors}: in general, we need to make assumptions about the probability priors of the parameters. The values of these are unknown (or just fixed as some data) and a model needs to be assigned to test the hypothesis. The same goes to the likelihoods, assigning a distribution to the parameters in subjective way will change our likelihood function.
+
+\textbf{Likelihood principle}: The likelihood principle: given a generative model for data d given parameters θ, P (d | θ), and having observed a particular outcome d_1 , all inferences and predictions should depend only on the function P (d_1 | θ) i.e. they depend only on the data at hand, on what actually happened. 
 
 Shannon information content of an outcome: let x be an event/ outcome then h(x) is defined to be h(x) = log _2[1/ P(x)]
 Note that it is measured in bits and that less probable events carry more “information”.
