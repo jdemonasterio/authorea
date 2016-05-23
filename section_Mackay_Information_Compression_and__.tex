@@ -1,3 +1,44 @@
 \section{Mackay - Information, Compression and Probability}
 
-asdf
+Probabilities can be viewed  as frequencies of outcomes of an event or..\\
+Probabilities can be used to describe degrees of beliefs of outcomes.
+
+Cox axioms of consistency map beliefs to probability spaces if they satisfy the following axioms:
+
+Degrees of belief are transitive i.e. if B(x) is greater than B(y) and B(y) is greater than B(z) then B(x) gt B(z). \\
+The degree of belief of x and its negation x are related i.e. there exists a function f such that B(x) = f(B(x)) \\
+The degree of belief of a conjunction x and y is related to the degree of belief of the conditional proposition $x | y$ and $B(y)$ i.e. there exists a function g s.t. $B(x) = g(B(x | y)B(y))$
+
+Where x is a proposition with a true/false outcome, B(x) is the degree of belief on that proposition, the negation of x is x and the degree of belief of prop x given that y is true is B(x | y).
+
+The bayesian view is subjective in the way that  probabilities depend on assumptions and you can’t make inference without assumptions.
+In this way probabilities can be used to describe different assumptions and to make an inference on those. 
+
+Forward probability problems: a generative models, in which a process is described and a model is given to characterize how the data at hand was generated. For example, taking white and black balls from urns. The model gives an explicit definition of the data’s distribution or certain moment (such as expectation, variance, etc).
+
+Inverse probability problems: also a generative models, but instead of computing the prob. Distr. Of the process assumed to produce the data, the conditional probability of one or more unobserved variables in the process, given the observed variables i.e. the data.
+
+Prior probability: given to that belief before “evidence” is taken into account ie. the probability distribution of the parameters. It is the marginal probability of that proposition. 
+
+Likelihood function(of the parameters): p(x|params) is the conditional probability of the data given the parameters but is always taken as a function of the params. Observe that it is not a probability since it doesn't “add up” to 1. But if we fix the params then p(x|params) is indeed a probability. 
+Don’t say the likelihood of the data!
+
+Posterior probability: the probability of the params, given the data.
+Hypothesis: we hypothesize the different alternatives to the parameter values. 
+Difference to classical view: in the classical view one hypothesizes over the model’s parameters and then tests that hypothesis (or a bunch of them) to test its plausability. Whereas in the bayesian view the different hypothesis are all being ‘marginalized over’.
+
+Subjective priors: in general, we need to make assumptions about the probability priors of the parameters. The values of these are unkown (or just fixed as some data) and a model needs to be assigned to test the hypothesis. The same goes to the likelihoods, assigning a distribution to the parameters in subjective way will change our likelihood function.
+
+Likelihood principle: The likelihood principle: given a generative model for data d given parameters θ, P (d | θ), and having observed a particular outcome d_1 , all inferences and predictions should depend only on the function P (d_1 | θ) i.e. they depend only on the data at hand, on what actually happened. 
+
+Shannon information content of an outcome: let x be an event/ outcome then h(x) is defined to be h(x) = log _2[1/ P(x)]
+Note that it is measured in bits and that less probable events carry more “information”.
+This number is a measure of the information content of a bit. 
+
+Entropy: defined as H(X) =  E[log(1/P((X)] random variable X where 0*log(1/0) =0. H(x)>=0 and is equal to 0 only if x P(x)=1. 
+Entropy is maxmized when P(x)~Uniform and as such for any given X it goes that H(X) <=log(|A(x)|)
+Entropy is additive for two random variables i.e. H(X,Y) = H(X) + H(Y)
+
+Decomposability of entropy:  if {p1,p2,..,pn}
+
+
