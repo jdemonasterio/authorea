@@ -14,13 +14,13 @@ Where x is a proposition with a true/false outcome, $B(x)$ is the degree of beli
 The bayesian view is subjective in the way that  probabilities depend on assumptions and you can’t make inference without assumptions.
 In this way probabilities can be used to describe different assumptions and to make an inference on those. 
 
-Forward probability problems: a generative models, in which a process is described and a model is given to characterize how the data at hand was generated. For example, taking white and black balls from urns. The model gives an explicit definition of the data’s distribution or certain moment (such as expectation, variance, etc).
+\textbf{Forward probability problems}: a generative model, in which a process is described and a model is given to characterize how the data at hand was generated. For example, taking white and black balls from urns. The model gives an explicit definition of the data’s distribution or certain moment (such as expectation, variance, etc).
 
-Inverse probability problems: also a generative models, but instead of computing the prob. Distr. Of the process assumed to produce the data, the conditional probability of one or more unobserved variables in the process, given the observed variables i.e. the data.
+\textbf{Inverse probability problems}: also a generative models, but instead of computing the prob. Distr. Of the process assumed to produce the data, the conditional probability of one or more unobserved variables in the process, given the observed variables i.e. the data.
 
-Prior probability: given to that belief before “evidence” is taken into account ie. the probability distribution of the parameters. It is the marginal probability of that proposition. 
+\textbf{Prior probability}: given to that belief before “evidence” is taken into account ie. the probability distribution of the parameters. It is the marginal probability of that proposition. 
 
-Likelihood function(of the parameters): p(x|params) is the conditional probability of the data given the parameters but is always taken as a function of the params. Observe that it is not a probability since it doesn't “add up” to 1. But if we fix the params then p(x|params) is indeed a probability. 
+\textbf{Likelihood function(of the parameters)}: $P(x|\theta)$ is the conditional probability of the data given the parameters but is always taken as a function of the params. Observe that it is not a probability since it doesn't “add up” to 1. But if we fix the params then p(x|params) is indeed a probability. 
 Don’t say the likelihood of the data!
 
 Posterior probability: the probability of the params, given the data.
