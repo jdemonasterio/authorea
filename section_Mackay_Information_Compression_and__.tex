@@ -34,14 +34,17 @@ Don’t say the likelihood of the data!
 \textbf{The likelihood principle}: given a generative model for data $d$, given parameters $\theta$, the likelihood is defined as $P (d | \theta)$, and having observed a particular outcome $d_1$ , all inferences and predictions should depend only on the function $P(d_1 | \theta)$ i.e. they depend only on the data at hand, on what actually happened. 
 
 \textbf{Shannon information content of an outcome}: let x be an event/outcome then $h(x)$ is defined to be 
-$h(x) = log _2(\frac{1}{ P(x)})$
+$= log _2(\frac{1}{ P(x)})$
 Note that it is measured in bits and that less probable events carry more “information”.
 This number is a measure of the information content of a bit. 
 
-Entropy: defined as H(X) =  E[log(1/P((X)] random variable X where 0*log(1/0) =0. H(x)>=0 and is equal to 0 only if x P(x)=1. 
-Entropy is maxmized when P(x)~Uniform and as such for any given X it goes that H(X) <=log(|A(x)|)
-Entropy is additive for two random variables i.e. H(X,Y) = H(X) + H(Y)
+\textbf{Entropy}: defined as $H(X) =  E[log _2(\frac{1}{ P(x)})]$  where $X$ is a random variable and by convention $0*log(\frac{1}{0}) = 0$. 
+It is clear from the definition that $H(x)\geq 0$ and is equal to 0 only if x is s.t. $P(x)=1$. 
 
-Decomposability of entropy:  if {p1,p2,..,pn}
+Entropy is maximized when $P(x)~Uniform$ and as such for any given $X$ it goes that $H(X) \leq log(|A(x)|)$
+
+Entropy is additive for two independent random variables i.e. $H(X,Y) = H(X) + H(Y)$
+
+\textbf{Decomposability of entropy}:  if ${p1,p2,..,pn}$
 
 
