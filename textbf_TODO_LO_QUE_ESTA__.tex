@@ -7,19 +7,18 @@
 \textbf{Gral}
 \textit{The generalization performance of a learning method relates to its prediction capability on independent test data. Assessment of this performance is extremely important in practice, since it guides the choice of learning method or model, and gives us a measure of the quality of the ultimately chosen model.}
 
-\textit{Let $k : {1,..,N} &\mapsto {1, .., K}$ be an indexing function are more details be an indexing
-function that indicates the partition to which observation i is allocated by the randomization. Denote by}
-
-\textit{}
-
-\textit{}
-
 \textbf{Cross Validation}:  
 \textit{simplest and most widely used method... This method directly estimates the expected extra-sample error
 $Error = E[L(Y,\hat{f}(X))] $ i.e. the average the average generalization error when the method $\hat{f(X)}$ is applied to an independent test sample from the joint distribution of $X$ and $Y$ . As mentioned earlier, we might hope that cross-validation estimates the conditional error, with the training set. $\mathrm{T}$ held fixed. But cross-validation typically estimates well only the expected prediction error.}
 
 \textit{Ideally, if we had enough data, we would set aside a validation set and use it to assess the performance of our prediction model. Since data are often scarce, this is usually not possible. To finesse the problem, K-fold cross-validation uses part of the available data to fit the model, and a different part to test it. We split the data into K roughly equal-sized parts; }
 
+\textit{Let $k : {1,..,N} &\mapsto {1, .., K}$ be an indexing function are more details be an indexing
+function that indicates the partition to which observation i is allocated by the randomization. Denote by}
+
+\textit{}
+
+\textit{}
 
 
 \textbf{The likelihood principle}: given a generative model for data $d$, given parameters $\theta$, the likelihood is defined as $P (d | \theta)$, and having observed a particular outcome $d_1$ , all inferences and predictions should depend only on the function $P(d_1 | \theta)$ i.e. they depend only on the data at hand, on what actually happened. 
