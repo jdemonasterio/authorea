@@ -1,35 +1,24 @@
-\section{Mackay - Information, Compression and Probability}
+\textbf{TODO LO QUE ESTA EN ITALICA ES TIPO HIGHLIGHTER}
 
-Probabilities can be viewed  as frequencies of outcomes of an event or..\\
-Probabilities can be used to describe degrees of beliefs of outcomes.
+\section{Bias, Variance, Generalization and Model Complexity}
 
-Cox axioms of consistency map beliefs to probability spaces if they satisfy the following axioms:
+\subsection{Hastie Tibshiranie Friedman}
 
-Degrees of belief are transitive i.e. if $B(x) \geq B(y)$ and $B(y) \geq B(z)$ then $B(x) \geq B(z)$. \\
-The degree of belief of x and its negation \overline{x} are related i.e. there exists a function $f$ such that $B(x) = f(B(x))$ \\
-The degree of belief of a conjunction x and y is related to the degree of belief of the conditional proposition $x | y$ and $B(y)$ i.e. there exists a function $g$ s.t. $B(x) = g(B(x | y)B(y))$
+\textbf{Gral}
+\textit{The generalization performance of a learning method relates to its prediction capability on independent test data. Assessment of this performance is extremely important in practice, since it guides the choice of learning method or model, and gives us a measure of the quality of the ultimately chosen model.}
 
-Where x is a proposition with a true/false outcome, $B(x)$ is the degree of belief on that proposition, the negation of x is \overline{x} and the degree of belief of prop x given that y is true is $B(x | y)$.
+\textit{}
 
-The bayesian view is subjective in the way that  probabilities depend on assumptions and you can’t make inference without assumptions.
-In this way probabilities can be used to describe different assumptions and to make an inference on those. 
+\textit{}
 
-\textbf{Forward probability problems}: a generative model, in which a process is described and a model is given to characterize how the data at hand was generated. For example, taking white and black balls from urns. The model gives an explicit definition of the data’s distribution or certain moment (such as expectation, variance, etc).
+\textit{}
 
-\textbf{Inverse probability problems}: also a generative models, but instead of computing the prob. Distr. Of the process assumed to produce the data, the conditional probability of one or more unobserved variables in the process, given the observed variables i.e. the data.
+\textbf{Cross Validation}:  
+\textit{simplest and most widely used method... This method directly estimates the expected extra-sample error
+$Error = E[L(Y,\hat{f}(X))] $ i.e. the average the average generalization error when the method $\hat{f(X)}$ is applied to an independent test sample from the joint distribution of $X$ and $Y$ . As mentioned earlier, we might hope that cross-validation estimates the conditional error, with the training set. $\mathrm{T}$}
 
-\textbf{Prior probability}: given to that belief before “evidence” is taken into account ie. the probability distribution of the parameters. It is the marginal probability of that proposition. 
 
-\textbf{Likelihood function(of the parameters)}: $P(x|\theta)$ is the conditional probability of the data given the parameters but is always taken as a function of \theta (the parameters). Observe that it is not a probability since it doesn't “add up” to 1. But if we fix \theta then $P(x|\theta)$ is indeed a probability. 
-Don’t say the likelihood of the data!
 
-\textbf{Posterior probability}: the probability of the params, given the data.
-
-\textbf{Hypothesis}: we hypothesize the different alternatives to the parameter values. 
-
-\textbf{Difference to classical view}: in the classical view one hypothesizes over the model’s parameters and then tests that hypothesis (or a bunch of them) to test its plausability. Whereas in the bayesian view the different hypothesis are all being ‘marginalized over’.
-
-\textbf{Subjective priors}: in general, we need to make assumptions about the probability priors of the parameters. The values of these are unknown (or just fixed as some data) and a model needs to be assigned to test the hypothesis. The same goes to the likelihoods, assigning a distribution to the parameters in subjective way will change our likelihood function.
 
 \textbf{The likelihood principle}: given a generative model for data $d$, given parameters $\theta$, the likelihood is defined as $P (d | \theta)$, and having observed a particular outcome $d_1$ , all inferences and predictions should depend only on the function $P(d_1 | \theta)$ i.e. they depend only on the data at hand, on what actually happened. 
 
