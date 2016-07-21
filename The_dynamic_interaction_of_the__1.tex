@@ -1,3 +1,16 @@
+\section{Technical Observations}
+Python, sklearn, pandas, graphlab, etc
+
+Data process raw data by reading in chunks from huge files (compressed filesizes amount to 1TB), applying filters like modulus 10.
+
+On the nature of computational issues such as memory size, disk size, parallelization, multi-core, linear algebra routines.
+
+In general, algorithms will load all data in RAM and execute optimization routines. If KFolds is used, some impelnemntations will run learning routines simultaneously in each fold group and keep the "best" scores at the end.
+
+Joblib, sklearn and Graphlab are all Python modules
+
+
+
 The dynamic interaction of the triatomine infested areas and the human mobility patterns create a difficult scenario to track down individuals or spots with high prevalence of infected people or transmission risk. Available methods of surveying the state of the Chagas disease in Argentina nowadays are limited to individual screenings of individuals. The work described here is the first attempt to use mobile phone data to correlate migrations and cellphone usage to understand Chagas’ epidemic spatial structure.
 
 Recent national estimates indicate that there exist between 1.5 and 2 million individuals carrying the parasite, with more than seven million exposed. 
