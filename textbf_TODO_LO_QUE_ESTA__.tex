@@ -1,5 +1,10 @@
 \textbf{TODO LO QUE ESTA EN ITALICA ES TIPO HIGHLIGHTER}
 
+\section{Supervised vs. Unsupervised and then Classification vs. Regression}
+
+\subsection{}
+
+
 \section{Bias, Variance, Generalization and Model Complexity}
 
 \subsection{Hastie Tibshiranie Friedman}
@@ -15,6 +20,22 @@ $Error = E[L(Y,\hat{f}(X))] $ i.e. the average the average generalization error 
 
 \textit{Let $k : \{1,..,N\} \mapsto \{1, .., K\}$ be an indexing function are more details be an indexing
 function that indicates the partition to which observation i is allocated by the randomization. Denote by}
+
+
+\subsection{Bengio, GrandValet - No Unbiased Estimator of the Variance of K-Fold Cross-Validation}
+\textbf{Cross Validation}: 
+\textit{The standard measure of accuracy for trained models is the prediction error (PE), i.e. the expected loss on future examples. Learning algorithms themselves are often compared on their average performance, which estimates expected value of prediction error (EPE) over training sets.
+The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
+Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
+We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
+}
+
+
+
+
+\textbf{HyperParameters}:
+Como van apareciendo en algunos algoritmos y are different from the "parameters" or coefficients of the learners. They appear as a consequence of numerical, computational and sometimes statistical fine-tuning of algorithms (give an example?). 
+La relacion entre cross-validation y la busqueda de hiper parametros. 
 
 \textit{}
 
