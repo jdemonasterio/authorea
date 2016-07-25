@@ -1,50 +1,55 @@
 
-
-\section{Introduction}
-
 \textbf{TODO LO QUE ESTA EN ITALICA ES TIPO HIGHLIGHTER}
 
 \section{ Brief introduction to machine learning and supervised classification problems}
 
-Machine learning is a subfield of computer science with broad \textit{theoeretical} intersections with statistics and mathematical optimization. At present time it has a wide range of application. A non-exhausitve list of applicaitons include self-driving cars, spam detection systems, face-voice recognition , AI opponents in games, disease prediction in patients, stock pricing, etc. Examples of these machine learning programs are now widespread to the point where their use has direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
+Machine learning is a subfield of computer science with broad \textit{theoeretical} intersections with statistics and mathematical optimization. At present time it has a wide range of application. A non-exhausitve list of applicaitons include self-driving cars, spam detection systems, face-voice recognition, temperature prediction in weather, AI opponents in games, disease prediction in patients, stock pricing, etc. Examples of these machine learning programs are now widespread to the point where their use has direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
 
 The most widely used definition of machine learning is attributed to Tom Mitchell: 	\textbf{Mitchell, T. (1997). Machine Learning, McGraw Hill. ISBN 0-07-042807-7, p.2.} 
 "A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E" . To our purpose it is clear though that this definition \footnote{Other authors might reference mahchine learning as \textit{statistical learning}. See CITA A HASTIE TIBSHIRANIE} is not formally well-defined. However it serves to convey the idea of algorithms that automatically \textit{learns} better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this,\textit{learning} is less associated with a cognitive definition in this context and more to a performance based approach.
 
 
-
 It is divided into two main categories: Supervised and Unsupervised. The difference is that in the fist case algorithms are set to produce outputs, noted by $Y$, from input data, noted by $X$ i.e. the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$. The second type of problems is where the output data is missing altogether from data. In this scenario the most common objectives are clustering samples, density estimation and data compression. Linear regression and K-means clustering are examples of algorithms in each of these categories respectively.
+
+Supervised learning is then sub-categorized according to the type of information available in the data for the task at hand. When outputs $Y$ are encoding samples into classes then it is said that it is a supervised classification problem. On the other hand, when the output takes continuous (or $\mathbb{R}$ dense) range of values the problem is said to be of supervised regression. For this work we will focus on the supervised aspect of machine learning.
 
 \subsubsection{Notation}
 
 For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. An example lets consider Fisher's widely known Iris dataset where samples can belong to any of following Iris flower species: \textit{Iris setosa}, \textit{Iris virginica} and \textit{Iris versicolor}. 
 %\url{http://stackoverflow.com/}
 \footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
-Four measurements were made on all of the observations to account for the length and width of the flower's petals and sepals.
-
-
-An short example of this  dataset can be seen below:
+Four measurements were made on all of the observations to account for the length and width of the flower's petals and sepals.A short example of this dataset can be seen below:
 
 \begin{table}[ht]
-\caption{Head of Iris Dataset}
-\label{tab:results}
+\caption{Head of the Iris dataset}
+\label{tab:iris_dataset}
 \centering
 \begin{tabular}{ l l l l l }
 \toprule
 Sepal length & Sepal width & Petal length & Petal width & Species \\
 \midrule
-5.1  & 3.5 &  1.4 & 0.2 & \textit{setosa} \\
+5.1  & 3.5 &  1.4 & 0.2 & \textit{setosa}\\
 5.7  & 2.8 &  4.1 & 1.3 & \textit{versicolor} \\
 6.3  & 3.3 &  6.0 & 2.5 & \textit{virginica} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+Here rows are representing available data for each flower and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set  $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Note that even though the last column of the dataset in \ref{tab:iris_dataset} is not really a measurement, it gives information on each flower's species. Examples of problems that a machine learning algorithm could tackle from this data are: 
+
+\begin{itemize}
+	\item Predict a flower's species when given information on only the first four measurements.
+	\item Predict a flower's sepal length when given information on the last four measurements.
+	\item Give an estimate of the probability density function for a flower's sepal width.
+\end{itemize}
+
+The first two problems are examples of supervised learning problems where the $Y$ variables or \textit{targets} are the last and first features (columns) respectively. Even more, the first problem is a classification one since flowers have to be classified in one of the three possible species and the second one is a regression problem for which the output could be any number of possible values in a range.
+
+Note here that we are not assuming nothing about the data and it is given to us in this way. Thus, the type of problems and questions that could be done depends entirely on the training set. Sometimes the target variable is as also referred to as the \textit{label}. In this context, both have the same meaning.
+
+The last problem is an example of a unsupervised problem where there is no need to have a label on the data and the question is on the structure of a specific column, namely the unobservable probability distribution underlying the sepal width.
 
 
-
-
-we will focus on the supervised aspect of machine learning. This area is then sub-categorized according to the type of information encoded in the data. When outputs $Y$ are encoding samples into classes then it is said that it is a supervised classification problem. On the other hand, when the output takes continuous (or $\mathbb{R}$ dense) range of values the problem is said to be of supervised regression.
 
 For supervised classification algorithms, a brief notation outline is described below, following a standard logistic regression classifier example:
 
@@ -52,10 +57,9 @@ For supervised classification algorithms, a brief notation outline is described 
 The objective is
 
 
+It is important to start noting at this point certain subtleties in the naming convention used for machine learning and the objectives it perpetrates. Most terms have equivalent notations in other closely relted areas of knowledge like statistics. 
 
-
-
-It is important to start noting at this point certain subtleties in the naming convention used for machine learning. Most terms have equivalent notations in other areas of knowledge, even in closely related ones like statistics. A typical machine learning problem starts with an object of study, for example flowers, and data collected from these objects. In the flower scenario 
+A typical machine learning problem starts with an object of study, for example flowers, and data collected from these objects. In the flower scenario 
 
 Other subtleties worth noting is the 
 
