@@ -1,4 +1,4 @@
-textbf_TODO_LO_QUE_ESTA__.tex
+La_idea_es_contar_de__.tex
 textbf_ACA_ARRANCAN_LAS_DESCRIPCIONES__.tex
 section_Gradient_Boosting_Variation_subection__.tex
 section_Technical_Observations_Python_sklearn__.tex
