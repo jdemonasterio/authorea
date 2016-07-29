@@ -29,45 +29,48 @@ Supervised learning is then sub-categorized according to the type of information
 
 \subsubsection{Notation}
 
-For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. An example lets consider Fisher's widely known Iris dataset where samples can belong to any of following Iris flower species: \textit{Iris setosa}, \textit{Iris virginica} and \textit{Iris versicolor}. 
+For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. As an example let's consider a reduced dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}. 
 %\url{http://stackoverflow.com/}
-\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
-Four measurements were made on all of the observations to account for the length and width of the flower's petals and sepals.A short example of this dataset can be seen below:
+%\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
+Five measurements were made on all of the observations to account for the user's number of calls and total duration of calls  during a week of measurements. A short example of this dataset can be seen below:
 
 \begin{table}[ht]
-\caption{Head of the Iris dataset}
-\label{tab:iris_dataset}
+\caption{Head of the CDR dataset}
+\label{tab:sample_CDR}
 \centering
-\begin{tabular}{ l l l l l }
+\begin{tabular}{ l l l l l l }
 \toprule
-Sepal length & Sepal width & Petal length & Petal width & Species \\
+User & CallsWeekend & TimeWeekend & CallsWeekDays & TimeWeekday & Province \\
 \midrule
-5.1  & 3.5 &  1.4 & 0.2 & \textit{setosa}\\
-5.7  & 2.8 &  4.1 & 1.3 & \textit{versicolor} \\
-6.3  & 3.3 &  6.0 & 2.5 & \textit{virginica} \\
+BA343E  & 15 &  89 & 8 & 24 &  \textit{Santa Fe}\\
+73F169  & 10 &  121 & 2 & 98  &  \textit{Cordoba} \\
+EA23AD  & 12 &  43 & 5 & 154 &  \textit{Buenos Aires} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-In this form a row is representing the available data for each flower and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set  $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Note that even though the last column of the dataset in \ref{tab:iris_dataset} is not really a measurement, it gives information on each flower's species. Examples of problems that a machine learning algorithm could tackle from this data are: 
+In this form a row is representing the available data acquired from each acquired and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set  $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Note that even though the last column of the dataset in \ref{tab:sample_CDR} is not a measurement \texit{per se}, it gives information on each user's province of residence. Examples of problems that a machine learning algorithm could tackle from this data are: 
 
 \begin{itemize}
-	\item Predict a flower's species when given information on only the first four measurements.
-	\item Predict a flower's sepal length when given information on the last four measurements.
-	\item Give an estimate of the probability density function for a flower's sepal width.
+	\item Predict a user's province when given information on only the first four measurements.
+	\item Predict a user's number of calls made on weekends when given information on the last four measurements.
+	\item Give an estimate of the probability density function for a user's calling time during weekdays.
 \end{itemize}
 
-The first two problems are examples of supervised learning where the $Y$ variables or \textit{labels} are the last and first features (columns) respectively. Even more, the first problem is a classification one since flowers are to be classified in one of the three possible species and the second one is a regression problem for which the output could be any of a range of numerical values. The labels in classification problems are numerically encoded with a finite range of numbers being usually ${0,1}$ or ${-1,1}$ for the binary case.
+The first two problems are examples of supervised learning where the $Y$ variables or \textit{labels} are the last and first features (columns) respectively. Even more, the first problem is a classification one since users are to be classified according to one of the three possible provinces whilst the second one is a regression problem for which the output could be any of a range of numerical values. The labels in classification problems are numerically encoded with a finite range of numbers being usually ${0,1}$ or ${-1,1}$ for the binary case.
 
-Note here that we are not assuming nothing about the data and it is given to us in this way. This is common in machine learning applications and algorithms tend to account for this situation. The type of problems and questions that could be done then depend entirely on the training set. 
+Note here that there are no assumptions made here about the data which we take as is given %to us in this way. 
+This is common in machine learning applications and algorithms tend to be designed to account for this situation. The type of problems and questions that could be done then depend entirely on the training set. 
 
-The last example problem in the list belongs to the unsupervised learning category where there is no need to have a label on the data. Here the question is on the structure of a specific column, namely the unobservable probability distribution underlying the sepal width. There is no output expected for new samples.
+The last example problem in the list before, belongs to the unsupervised learning category where there is no need to have a label on the data. Here the question is on the structure of a specific column, namely the unobservable probability distribution underlying the calling time. In this setting there is no output expected for new samples.
 
 To illustrate further the supervised classification scenario, a brief notation outline is described below, following a standard logistic regression classifier example:
 
-Let's suppose that the problem is to determine if a flower belongs to the \textit{setosa} species or any other, bringing us to a two class learning problem.
+Let's suppose that the problem is to determine if a user belongs to the province of \textit{Cordoba} vs all of the rest provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem.
  
 The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y =  f(\sum_{j}\theta_jx_j)$. In practical cases thought, the learner will approximate the target with $y \approx \hat{y} = f(\sum_{j}\theta_jx_j)$. Then 
+
+\footnote{In this setting it is common to say that the classifier is a generalized linear model. This might confuse the reader when observing that a logistic regression's output is certainly \textbf{not} linear on the inputs. However, the term referrs to the fact that there exists a bijective function $g(x) = f^{-1}(x)$ such that the transformed outputs are linear in the inputs i.e. $g(y) = \langle x, \theta \rangle$ }
 
 At this point it is important to start noting certain subtleties in the standard terminology used for machine learning. Most terms have equivalent or similar notations in other closely related areas of knowledge like statistics. As it was shown before the \textit{dependent} $Y$ is called the target or label. Also, the \textit{independent} variables or \textit{covariates} are named as features and their 
 Labels that are representing categorical or discrete variables are also named factors or \textit{qualitative} variables. 
