@@ -45,7 +45,24 @@ To illustrate further the supervised classification scenario, a brief notation o
 
 Let's suppose that the problem is to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem.
  
-The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta_jx_j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter directly if we allow for an implicit feature $X_0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. Under this model we would have the logistic function
+The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta_jx_j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter directly if we allow for an implicit feature $X_0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. 
+
+If we let $ t^i = \theta \bullet\x^i \forall$ ,in the ideal case we could have that $\exists \theta s.t. \forall i $ 
+\[
+    %\begin{equation}
+    t^i =
+      \begin{cases}
+        &>0 \ \mbox{if} y =1 \\
+        &<0 \ \mbox{if} y =0.
+      \end{cases}
+    %\end{equation}
+    \]
+%       \forall 1 \leq i \leq n = y^i $
+
+
+A more tractable function for this task is the logistic function
+
+Under this model we would have the logistic function
 
 \begin{equation} \label{eq:logit}
 h(t)  = \frac{e^{t}}{1 + e^{t}} = \frac{1}{1 + e^{-t}}  
@@ -54,6 +71,11 @@ h(t)  = \frac{e^{t}}{1 + e^{t}} = \frac{1}{1 + e^{-t}}
 %= \Expect_{\textbf{x}} \left[ \Expect_{\textbf{y}|\textbf{x}} \left[  \left( \textbf{y} - f(\textbf{x})  \right)^2 \right]  \right]
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
+
+The logistic function has the advantages of being smooth, invertible and well defined for all real numbers whereas the image is ${0,1}$. This property helps to the interpretability of a  . 
+
+It also happens to be an approximating function to the
+
 
 
 However the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea will be to find the best fit parameter $\hat{\theta}$. Then what is left is to find the parameters that best fit the model according to a certain criteria. This choice will certainly . In machine learning both the theoretical aspect of the problem as well as the computational aspect are of interest, since algorithms are expected to be executed in a reasonable amount of time. \footnote{Here the word \textit{reasonable} is used in a broad sense. It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.}
