@@ -41,11 +41,11 @@ This is common in machine learning applications and algorithms tend to be design
 
 The last example problem in the list before, belongs to the unsupervised learning category where there is no need to have a label on the data. Here the question is on the structure of a specific column, namely the unobservable probability distribution underlying the calling time. In this setting there is no output expected for new samples.
 
-To illustrate further the supervised classification scenario, a brief notation outline is described below, following a standard logistic regression classifier example:
+To illustrate further the supervised classification scenario, a brief notation outline is described below following a standard logistic regression classifier example:
 
 Let's suppose that the problem is to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem.
  
-The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y =  f\left(\sum_{j}\theta_jx_j\right)$. In practical cases though, the learner will approximate the target with $y \approx \hat{y} = f\left(\sum_{j}\theta_jx_j\right)$. Then 
+The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y =  f\left(\theta_0 + \sum_{j}\theta_jx_j\right)$ where $\theta$ is unknown generally referred to as coefficient or parameter. However the learner will approximate the target with $y \approx \hat{y} = f\left(\theta_0 +\sum_{j}\theta_jx_j\right)$ and the first idea will be to find the best fit parameters $\hat{\theta}$. Then 
 
 \footnote{In this setting it is common to say that the classifier is a generalized linear model. This might confuse the reader when observing that a logistic regression's output is certainly \textbf{not} linear on the inputs. However, the term referrs to the fact that there exists a bijective function $g(x) = f^{-1}(x)$ such that the transformed outputs are linear in the inputs i.e. $g(y) = \langle x, \theta \rangle$ }
 
