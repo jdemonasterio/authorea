@@ -1,8 +1,8 @@
 
 
-\subsubsection{Notation and definitions}
+\subsubsection{Notation and Terminology}
 
-For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. Here $\mathrm{T}$ will take the form of a paired couple of datasets $(X,Y)$ where $X$ is a matrix and $Y$ is generally a vector. Here we will denote for $X_j$ for each AAAAAAAAAAAAAA
+For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. 
 
 As an example let's consider a reduced dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}. 
 %\url{http://stackoverflow.com/}
@@ -24,7 +24,7 @@ EA23AD  & 12 &  43 & 5 & 154 &  \textit{Buenos Aires} \\
 \end{tabular}
 \end{table}
 
-In this form a row is representing the available data acquired from each acquired and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set  $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Note that even though the last column of the dataset in \ref{tab:sample_CDR} is not a measurement \texit{per se}, it gives information on each user's province of residence. Examples of problems that a machine learning algorithm could tackle from this data are: 
+In this form a row is representing the available data acquired from each acquired and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Here $\mathrm{T}$ will take the form of a paired couple of datasets $(X,Y)$ where $X$ is a matrix and $Y$ is, in general, a vector. The $jth$ column of $X$ or equivalently the $jth$ feature of the data is denoted by $X_j$. Similarly, the $ith$ row or sample of $X$ is denoted by $X^i$ or $x$ when the superscript is understood from context. Note that even though the last column of the dataset in \ref{tab:sample_CDR} is not a measurement \texit{per se}, it gives information on each user's province of residence. Examples of problems that a machine learning algorithm could tackle from this data are: 
 
 \begin{itemize}
 	\item Predict a user's province when given information on only the first four measurements.
