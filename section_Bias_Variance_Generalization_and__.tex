@@ -17,6 +17,7 @@ For the the squared loss case, we would have that
 
 \begin{equation} \label{eq:expectedError}
 EPE\left(f \right) = \int [y - f(x)]^2 P(x,y)dxdy
+ = E_{\textbf{x}|} \left[ E_{\textbf{y}|\textbf{x}} \left[  \left( \textbf{y} - f(\textbf{x})  \right)^2 \right]  \right]
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
