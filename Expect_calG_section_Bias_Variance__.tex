@@ -17,7 +17,8 @@ For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input va
 
 We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a cuadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
 
-For the the squared loss case, we would have that  
+For the the squared loss case and when conditioning on $\textbf{x}$ it results that
+
 
 \begin{equation} \label{eq:expectedError}
 EPE\left(f \right) = \int [y - f(x)]^2 P(x,y)dxdy
@@ -27,7 +28,6 @@ EPE\left(f \right) = \int [y - f(x)]^2 P(x,y)dxdy
 
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
-if we decide to condition on $\textbf{x}$
 
 %\textit{The generalization performance of a learning method relates to its prediction capability on independent test data. Assessment of this performance is extremely important in practice, since it guides the choice of learning method or model, and gives us a measure of the quality of the ultimately chosen model.}
 
