@@ -1,8 +1,10 @@
 
 
-\subsubsection{Notation}
+\subsubsection{Notation and definitions}
 
-For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. As an example let's consider a reduced dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}. 
+For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. Here $\mathrm{T}$ will take the form of a paired couple of datasets $(X,Y)$ where $X$ is a matrix and $Y$ is generally a vector. Here we will denote for $X_j$ for each AAAAAAAAAAAAAA
+
+As an example let's consider a reduced dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}. 
 %\url{http://stackoverflow.com/}
 %\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
 Five measurements were made on all of the observations to account for the user's number of calls and total duration of calls  during a week of measurements. A short example of this dataset can be seen below:
@@ -39,7 +41,7 @@ The last example problem in the list before, belongs to the unsupervised learnin
 
 To illustrate further the supervised classification scenario, a brief notation outline is described below, following a standard logistic regression classifier example:
 
-Let's suppose that the problem is to determine if a user belongs to the province of \textit{Cordoba} vs all of the rest provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem.
+Let's suppose that the problem is to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem.
  
 The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y =  f\left(\sum_{j}\theta_jx_j\right)$. In practical cases thought, the learner will approximate the target with $y \approx \hat{y} = f\left(\sum_{j}\theta_jx_j\right)$. Then 
 
