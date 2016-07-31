@@ -15,7 +15,7 @@ Conceputally the first type of error grows
 
 For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input variable and \textbf{y}  $\in \mathbb{R}$ will denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$ while $f$ will represent a function. 
 
-We define $EPE\left(f \right) = \mathop{E}\left(L\left(\textbf{y} - f(\textbf{x}) \right) \right)  $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a cuadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
+We define $EPE\left(f \right) = \Expect\left(L\left(\textbf{y} - f(\textbf{x}) \right) \right)  $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a cuadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
 
 For the the squared loss case, we would have that  
 
@@ -23,7 +23,7 @@ For the the squared loss case, we would have that
 EPE\left(f \right) = \int [y - f(x)]^2 P(x,y)dxdy
 
 \\
-= \mathop{\mathbb{E}}_{\textbf{x}} \left[ \mathop{\mathbb{E}}_{\textbf{y}|\textbf{x}} \left[  \left( \textbf{y} - f(\textbf{x})  \right)^2 \right]  \right]
+= \Expect_{\textbf{x}} \left[ \Expect_{\textbf{y}|\textbf{x}} \left[  \left( \textbf{y} - f(\textbf{x})  \right)^2 \right]  \right]
 
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
@@ -35,7 +35,7 @@ if we decide to condition on $\textbf{x}$
 
 \textbf{Cross Validation}:  
 \textit{simplest and most widely used method... This method directly estimates the expected extra-sample error
-$Error = \mathop{\mathbb{E}}[L(Y,\hat{f}(X))] $ i.e. the average the average generalization error when the method $\hat{f(X)}$ is applied to an independent test sample from the joint distribution of $X$ and $Y$ . As mentioned earlier, we might hope that cross-validation estimates the conditional error, with the training set. $\mathrm{T}$ held fixed. But cross-validation typically estimates well only the expected prediction error.}
+$Error = \Expect[L(Y,\hat{f}(X))] $ i.e. the average the average generalization error when the method $\hat{f(X)}$ is applied to an independent test sample from the joint distribution of $X$ and $Y$ . As mentioned earlier, we might hope that cross-validation estimates the conditional error, with the training set. $\mathrm{T}$ held fixed. But cross-validation typically estimates well only the expected prediction error.}
 
 \textit{Ideally, if we had enough data, we would set aside a validation set and use it to assess the performance of our prediction model. Since data are often scarce, this is usually not possible. To finesse the problem, K-fold cross-validation uses part of the available data to fit the model, and a different part to test it. We split the data into K roughly equal-sized parts; }
 
