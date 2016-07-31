@@ -62,28 +62,23 @@ Other subtleties worth noting is the
 
 (CITAR BREIMAN \cite{breiman-statisticalmodeling} TWO cultures IN STATISTICal modelling)
 
-typically shown as 
 
 
-%Their merits have already been put to the test both academically and industrially
-
-The 
-Algorithms that can automatically perform or learn a specific task and which need not be directed to do so. 
-
-
-
-In virtually all cases, 
-
-Supervised machine learning refers to the 
-
-
-\subsection{}
 \section{Bias, Variance, Generalization and Model Complexity}
 
 \subsection{Hastie Tibshiranie Friedman}
 
-\textbf{Gral}
-\textit{The generalization performance of a learning method relates to its prediction capability on independent test data. Assessment of this performance is extremely important in practice, since it guides the choice of learning method or model, and gives us a measure of the quality of the ultimately chosen model.}
+\textbf{Gralization}
+Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data amongst models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error} where this error can be divided into an "error" due to \textit{bias} and an "error" due to \textit{variance}.
+
+Conceputally the first type of error grows 
+
+
+$EPE\left(f \right) = E\left(L\left(Y - f(X) \right)\right)  $
+
+%\textit{The generalization performance of a learning method relates to its prediction capability on independent test data. Assessment of this performance is extremely important in practice, since it guides the choice of learning method or model, and gives us a measure of the quality of the ultimately chosen model.}
+
+
 
 \textbf{Cross Validation}:  
 \textit{simplest and most widely used method... This method directly estimates the expected extra-sample error
