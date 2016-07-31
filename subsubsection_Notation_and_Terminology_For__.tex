@@ -4,7 +4,7 @@
 
 For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. 
 
-As an example let's consider a reduced dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}. 
+For concreteness, let's consider a reduced dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}. 
 %\url{http://stackoverflow.com/}
 %\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
 Five measurements were made on all of the observations to account for the user's number of calls and total duration of calls  during a week of measurements. A short example of this dataset can be seen below:
@@ -26,7 +26,7 @@ EA23AD  & 12 &  43 & 5 & 154 &  \textit{Buenos Aires} \\
 
 In this form a row is representing the available data acquired from each acquired and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Here $\mathrm{T}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \ x \ p}$  and $Y$ is, in general, a real valued vector of length $n$. The $jth$ column of $X$ or equivalently the $jth$ feature of the data is denoted by $X_j$. Similarly, the $ith$ row or sample of $X$ is denoted by $X^i$ or $x$ when the superscript is understood from context. A similar notation is used with the outputs, where $Y^i$ of $y$ will be used to denote the target of a specific sample depending on context. 
 
-In this particular case, even that even though the last column of the dataset in \ref{tab:sample_CDR} is not a measurement \textit{per se}, it gives information on each user's province of residence. From here, there are various questions one could try to answer. Examples of problems that a machine learning algorithm could tackle from this data could be: 
+In this particular case, even though the last column of the dataset in \ref{tab:sample_CDR} is not a measurement \textit{per se}, it gives information on each user's province of residence. From here, there are various questions one could try to answer. Examples of problems that a machine learning algorithm could tackle from this data could be: 
 
 \begin{itemize}
 	\item Predict a user's province when given information on only the first four measurements.
@@ -36,8 +36,8 @@ In this particular case, even that even though the last column of the dataset in
 
 The first two problems are examples of supervised learning where the $Y$ variables or \textit{labels} are the last and first features (columns) respectively. Even more, the first problem is a classification one since users are to be classified according to one of the three possible provinces whilst the second one is a regression problem for which the output could be any of a range of numerical values. The labels in classification problems are numerically encoded with a finite range of numbers where $\{0,1\}$ or $\{-1,1\}$ are usually used for the binary case.
 
-Note here that there are no assumptions made here about the data which we take as is given %to us in this way. 
-This is common in machine learning applications and algorithms tend to be designed to account for this situation. The type of problems and questions that could be done then depend entirely on the training set. 
+Note that there are no assumptions made here about the data which we take as is given. %to us in this way. 
+This is common in machine learning applications and because of this, algorithms tend to be designed to account for this situation. The type of problems and questions that could be done then depend entirely on the training set. 
 
 The last example problem in the list before, belongs to the unsupervised learning category where there is no need to have a label on the data. Here the question is on the structure of a specific column, namely the unobservable probability distribution underlying the calling time. In this setting there is no output expected for new samples.
 
@@ -47,8 +47,20 @@ Let's suppose that the problem is to determine if a user belongs to the province
  
 The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y =  f\left(\sum_{j}\theta_jx_j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter directly if we allow for an implicit feature $X_0$ in $X$ which is a vector with all of its components equal to 1.  } where $\hat{\theta}$ is unknown and generally referred to as a coefficient or parameter. However the learner will approximate the target with $y \approx \hat{y} = f\left(\sum_{j}\theta_jx_j\right)$ and the first idea will be to find the best fit parameter $\hat{\theta}$. Then what is left is to find the parameters that best fit the model according to a certain criteria. This choice will certainly . In machine learning both the theoretical aspect of the problem as well as the computational aspect are of interest, since algorithms are expected to be executed in a reasonable amount of time. \footnote{Here the word \textit{reasonable} is used in a broad sense. It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.}
 
-A naive approach to fitting the parameters in this case is to minimize the residual sum of squares. Typical of other scenarios, such as linear regression, one would like to find the parameters that  
+A naive approach to fitting the parameters is to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the following function:  
 
+
+\begin{equation} \label{eq:rss}
+RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
+=  \sum_{i=1}^n [y^i - f( \theta \bullet x^i)]^2
+
+P(x,y)dxdy \left(f \right)
+
+\\
+= \Expect_{\textbf{x}} \left[ \Expect_{\textbf{y}|\textbf{x}} \left[  \left( \textbf{y} - f(\textbf{x})  \right)^2 \right]  \right]
+
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
 
 
 At this point it is important to start noting certain subtleties in the standard terminology used for machine learning. Most terms have equivalent or similar notations in other closely related areas of knowledge like statistics. As it was shown before the \textit{dependent} $Y$ is called the target or label. Also, the \textit{independent} variables or \textit{covariates} are named as features and their 
