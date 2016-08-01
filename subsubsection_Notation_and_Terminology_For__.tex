@@ -45,7 +45,7 @@ Let's suppose that the problem is to determine if a user belongs to the province
  
 The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta_jx_j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter directly if we allow for an implicit feature $X_0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. 
 
-If we let $ t^i = \theta \bullet x^i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
+If we let $ t^i = \theta \cdot x^i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
 \[
     %\begin{equation}
     t^i =
@@ -87,7 +87,7 @@ and \  H(z) \approx \frac{1}{2} + \frac{1}{2}tanh(kz) = \frac{1}{1+e^{kz}}
 \end{equation}
 
 
-The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is ${0,1}$. This property helps to read outputs as probabilities. For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$. Notice that having $h(x \bullet \theta) = 0.5$ implies that $x \bullet \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$. 
+The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is ${0,1}$. This property helps to read outputs as probabilities. For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$. 
 
 %This means that 
 
@@ -100,7 +100,7 @@ In our problem, a naive approach to fit the parameters is to minimize the residu
 
 \begin{equation} \label{eq:rss}
 RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
-=  \sum_{i=1}^n [y^i - f( \theta \bullet x^i)]^2
+=  \sum_{i=1}^n [y^i - f( \theta \cdot x^i)]^2
 
 %P(x,y)dxdy \left(f \right)
 %= \Expect_{\textbf{x}} \left[ \Expect_{\textbf{y}|\textbf{x}} \left[  \left( \textbf{y} - f(\textbf{x})  \right)^2 \right]  \right]
