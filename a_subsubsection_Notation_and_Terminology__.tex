@@ -80,7 +80,7 @@ A more tractable function for this task is the logistic function which is an app
 \begin{equation} \label{eq:logit}
 h(t)  = \frac{e^{t}}{1 + e^{t}} = \frac{1}{1 + e^{-t}}  \\
 
-$and$ \  H(z) \approx = \frac{1}{2} + \frac{1}{2}tanh(kz) = \frac{1}{1+e^{kz}}  
+and \  H(z) \approx = \frac{1}{2} + \frac{1}{2}tanh(kz) = \frac{1}{1+e^{kz}}  
 
 
 %P(x,y)dxdy \left(f \right)
@@ -95,9 +95,9 @@ The logistic function has the advantages of being smooth, invertible, well defin
 
 %It also happens to be an approximating function to the
 
-As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea leads to find the hyperplane that best separates the two classes, by fitting parameter $\hat{\theta}$ . What is left is to find the parameters in some way we meet a certain criteria. This choice will certainly . In machine learning both the theoretical aspect of the problem as well as the computational aspect are of interest, since algorithms are expected to be executed in a reasonable amount of time. \footnote{Here the word \textit{reasonable} is used in a broad sense. It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.}
+As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea leads to find the hyperplane that best separates the two classes by fitting parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter in some way we're optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. In the context of machine learning the criteria used to choose the best parameters is called a \textit{metrics].
 
-A naive approach to fitting the parameters is to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the following function:  
+In our problem, a naive approach to fit the parameters is to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the following function:  
 
 
 \begin{equation} \label{eq:rss}
@@ -110,15 +110,6 @@ RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
 \end{equation}
 
 
-At this point it is important to start noting certain subtleties in the standard terminology used for machine learning. Most terms have equivalent or similar notations in other closely related areas of knowledge like statistics. As it was shown before the \textit{dependent} $Y$ is called the target or label. Also, the \textit{independent} variables or \textit{covariates} are named as features and their 
-Labels that are representing categorical or discrete variables are also named factors or \textit{qualitative} variables. 
 
-A typical machine learning problem starts with an object of study, for example flowers, and data collected from these objects. In the flower scenario 
-
-Other subtleties worth noting is the 
-
-\textit{any reasonable machine learning method can be formulated as a formal probabilistic model, so in this sense machine learning is very much the same as statistics, but it differs in that it generally doesn't care about parameter estimates (just prediction) and it focuses on computational efficiency and large datasets.}
-
-(CITAR BREIMAN \cite{breiman-statisticalmodeling} TWO cultures IN STATISTICal modelling)
 
 
