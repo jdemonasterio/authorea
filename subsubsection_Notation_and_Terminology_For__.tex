@@ -1,4 +1,4 @@
-
+ a
 
 \subsubsection{Notation and Terminology}
 
@@ -78,14 +78,16 @@ Under the assumption that $\nexists\  i \  s.t. \ t^i = 0$, the algorithm would 
 A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
 
 \begin{equation} \label{eq:logit}
-h(t)  = \frac{e^{t}}{1 + e^{t}} = \frac{1}{1 + e^{-t}}  
+h(t)  = \frac{e^{t}}{1 + e^{t}} = \frac{1}{1 + e^{-t}}  \\
+
+$and$ \  H(z) \approx = \frac{1}{2} + \frac{1}{2}tanh(kz) = \frac{1}{1+e^{kz}}  
+
 
 %P(x,y)dxdy \left(f \right)
 %= \Expect_{\textbf{x}} \left[ \Expect_{\textbf{y}|\textbf{x}} \left[  \left( \textbf{y} - f(\textbf{x})  \right)^2 \right]  \right]
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
-and $H(z) \approx = \frac{1}{2} + \frac{1}{2}tanh(kz) = \frac{1}{1+e^{kz}} $ 
 
 The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is ${0,1}$. This property helps to read outputs as probabilities. For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$. Notice that having $h(x \bullet \theta) = 0.5$ implies that $x \bullet \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$. 
 
