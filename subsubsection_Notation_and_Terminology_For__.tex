@@ -78,7 +78,7 @@ A more tractable function for this task is the logistic function which is an app
 \begin{equation} \label{eq:logit}
 h(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}  \\
 
-and \  H(z) \approx = \frac{1}{2} + \frac{1}{2}tanh(kz) = \frac{1}{1+e^{kz}}  
+and \  H(z) \approx \frac{1}{2} + \frac{1}{2}tanh(kz) = \frac{1}{1+e^{kz}}  
 
 
 %P(x,y)dxdy \left(f \right)
@@ -93,7 +93,7 @@ The logistic function has the advantages of being smooth, invertible, well defin
 
 %It also happens to be an approximating function to the
 
-As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea leads to find the hyperplane that best separates the two classes by fitting parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter in some way we're optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. In the context of machine learning the criteria used to choose the best parameters is called a \textit{metrics].
+As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea leads to find the hyperplane that best separates the two classes by fitting parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter in some way we're optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. In the context of machine learning the criteria used to choose the best parameters is called a \textit{metrics}.
 
 In our problem, a naive approach to fit the parameters is to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the following function:  
 
