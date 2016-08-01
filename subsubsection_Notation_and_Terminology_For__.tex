@@ -93,4 +93,9 @@ RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
 =  \sum_{i=1}^n [y^i - h( \theta \cdot x^i)]^2
 \end{equation}
 
-If we assume that $y  =  f(x)  +  \epsilon $ is a good relationship for our data, where $\epsilon \sim \calN(0,1) $ 
+If we assume that $y  =  f(x)  +  \epsilon $ is a good relationship for our data, where $\epsilon \sim \calN(0,1) $ then the equation in \ref{eq:rss} can be read as the parameter error given the samples, and can be decomposed into two types of errors
+
+\[
+    Err(\theta) \approx \Expect_{\theta | \mathrm{T}}[(y - h(x \cdot \theta) )^2]
+    = 
+    \]
