@@ -92,7 +92,7 @@ The logistic function has the advantages of being smooth, invertible, well defin
 
 As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea leads to find the hyperplane that best separates the two classes by fitting parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter in some way we're optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. For example the choice of $0.5$ as a threshold in \ref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning the criteria used to choose the best parameters is called a \textit{metric}.
 
-In our problem, a naive approach to find the parameters would be to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the residual sum of squares (RSS)  
+A naive approach to find the parameters in our problem would be to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the residual sum of squares (RSS)  
 
 \begin{equation} \label{eq:rss}
 RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
