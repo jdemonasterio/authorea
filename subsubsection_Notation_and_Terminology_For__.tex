@@ -70,10 +70,7 @@ Then if we were to use the heavside step function $h(z)$  where
     %\end{equation}
     \]
 
-Under the assumption that $\nexists\  i \  s.t. \ t^i = 0$, the algorithm would then correctly classify all samples to their targets. 
-
-
-A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
+Under the assumption that $\nexists\  i \  s.t. \ t^i = 0$, the algorithm would then correctly classify all samples to their targets. This situation is hardly the case, so a different approach is taken. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
 
 \begin{equation} \label{eq:logit}
 h(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}  \\
@@ -87,16 +84,15 @@ and \  H(z) \approx \frac{1}{2} + \frac{1}{2}tanh(kz) = \frac{1}{1+e^{kz}}
 \end{equation}
 
 
-The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is ${0,1}$. This property helps to read outputs as probabilities. For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$. 
+The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is ${0,1}$. This property helps to read outputs as probabilities. For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$.
 
 %This means that 
 
 %It also happens to be an approximating function to the
 
-As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea leads to find the hyperplane that best separates the two classes by fitting parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter in some way we're optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. In the context of machine learning the criteria used to choose the best parameters is called a \textit{metrics}.
+As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea leads to find the hyperplane that best separates the two classes by fitting parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter in some way we're optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. For example the choice of $0.5$ as a threshold in \ref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning the criteria used to choose the best parameters is called a \textit{metric}.
 
 In our problem, a naive approach to find the parameters would be to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the residual sum of squares (RSS)  
-
 
 \begin{equation} \label{eq:rss}
 RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
