@@ -57,7 +57,7 @@ If we let $ t^i = \theta \cdot x^i  \ \forall \ i $,in the ideal case we will ha
     \]
 %       \forall 1 \leq i \leq n = y^i $
 
-Then if we were to use the heavside step function $h(z)$  where
+Then if we were to use the heavyside step function $h(z)$  where
 
 \[
     %\begin{equation}
@@ -93,11 +93,23 @@ RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
 =  \sum_{i=1}^n [y^i - h( \theta \cdot x^i)]^2
 \end{equation}
 
+The equation reflects our goal to correctly classify all training samples with their targets. But in truth we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones. The previous equation is a bad attempt to generalize the classification model to any sample of the \textit{true} distribution for \mathrm{T}. 
+
+Given a choice of parameter \theta, the \textbf{prediction error} for the resulting classifier $f_\theta$ is
+
+\[
+    Err_{true}(\theta)  = \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
+    = \int (\textbf{y} - h(\textbf{x} \cdot \theta) )^2 p(x,y)dxdy
+    \]
+
 If we assume that $y  =  f(x)  +  \epsilon $ is a good relationship for our data, where $\epsilon \sim \calN(0,1) $ then the equation in \ref{eq:rss} can be read as the parameter error given the training set.
-%, and can be decomposed into two types of errors
+
+Our interest should then focus on minimizing the error
+
 
 \[
     Err_{train}(\theta) \approx \frac{1}{n} \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2]
     \]
-    
-    
+
+
+%, and can be decomposed into two types of errors
