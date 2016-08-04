@@ -99,17 +99,28 @@ Given a choice of parameter \theta, the \textbf{prediction error} for the result
 
 \[
     Err_{true}(\theta)  = \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
-    = \int (\textbf{y} - h(\textbf{x} \cdot \theta) )^2 p(x,y)dxdy
-    \]
+    = \int (\y - h(x \cdot \theta) )^2 p(x,y)dxdy
+\]
+
+In practical cases though, this integral is not solvable for $\theta$. Sampling $M$ iid points from $p(x,y)$ and approximating by a Monte Carlo scheme such as 
+
+\begin{equation} \label{eq:mcarlo-approx}
+
+    Err_{true}(\theta)  \approx \frac{1}{M} \sum_i^M (\y - h(x \cdot \theta) )^2
+\end{equation}
+
+would be unfeasible as well, since the sampling process should be done for each specific $\theta$. Notice however that this last equation \ref{eq:mcarlo-approx} resembles the form in \ref{eq:rss}. However, using the equation from the residual sum of squares to 
+
+
+virtually  incomplete information on $p(x,y)$ it is then assumed that 
 
 If we assume that $y  =  f(x)  +  \epsilon $ is a good relationship for our data, where $\epsilon \sim \calN(0,1) $ then the equation in \ref{eq:rss} can be read as the parameter error given the training set.
 
 Our interest should then focus on minimizing the error
-
-
 \[
-    Err_{train}(\theta) \approx \frac{1}{n} \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2]
-    \]
+Err_{train}(\theta) \approx \frac{1}{n} \Expect_{ \mathrm{T}}[(y - h(x \cdot \theta) )^2]
+\]
+
 
 
 %, and can be decomposed into two types of errors
