@@ -20,7 +20,7 @@ Given a choice of parameter \theta, the \textbf{prediction error} for the result
 In practical cases though, this integral is not solvable for $\theta$. Sampling $M$ iid points from $p(x,y)$ and approximating by a Monte Carlo scheme such as 
 
 \begin{equation} \label{eq:mcarlo-approx}
-    Err_{true}(\theta)  \approx \frac{1}{M} \sum_i^M (y - h(x \cdot \theta) )^2
+    Err_{true}(\theta)  \approx \frac{1}{M} \sum_i^M ( y - h(x \cdot \theta) )^2
 \end{equation}
 
 would be unfeasible as well, since the sampling process should be done for each specific $\theta$. Notice however that this last equation \ref{eq:mcarlo-approx} resembles the form in \ref{eq:rss}. However, using the equation from the residual sum of squares to 
