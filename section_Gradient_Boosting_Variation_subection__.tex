@@ -25,7 +25,15 @@ The objective function would account for these relationships in the trees and th
 
 %    
 
-Here we would have that 
+Here we would have that \Theta is in fact concentrating each of the tree's parameters information. Thus, to learn this model, an optimization routine would have to collectively fit model parameters per tree and fit for interactions among trees. In practice though, this is prohibitively costly, so other heuristics are chosen to fit. 
+
+\subsubsection{Additive Training}
+
+A first take on this optimization problem goes along the way a greedy optimization. Where one tree is fit at a time and new trees are then succesively added to improve on the previous trees errors. 
+
+Let 
+
+aggregating 
 %$Obj
 \subection{sklearn}
 
