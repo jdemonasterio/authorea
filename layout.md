@@ -1,6 +1,7 @@
 section_Meta_Section_Writing_plan__.tex
 section_Brief_introduction_to_machine__1.tex
 subsubsection_A_working_example_For__.tex
+As_we_know_the_learner__.tex
 Expect_calG_calN_calE_calL__.tex
 textbf_ACA_ARRANCAN_LAS_DESCRIPCIONES__.tex
 section_Gradient_Boosting_Variation_subection__.tex
