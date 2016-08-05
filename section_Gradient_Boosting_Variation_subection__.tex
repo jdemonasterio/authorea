@@ -16,9 +16,12 @@ Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
-When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models, then 
-\[    y = \sum_k f_k(x) , \ f_k \in Tr \forall k \]
+When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models, then $ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall k $ and the objective function $Obj(\Theta) = \sum_i^n l(y_i,\hat{y_i}))  +  \sum_k R(f_k) $ 
 
+%\[    \]
+
+Here we would have that 
+%$Obj
 \subection{sklearn}
 
 
