@@ -79,7 +79,13 @@ and \  H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right
 \end{equation}
 
 
-The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is $(0,1)$. This property helps to read outputs as probabilities. For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$. Also, having a higher $\hat{y}$ for a given sample implies that it is further away from the hyperplane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is showing a higher confidence in class  then it corresponds to having a higher confidence in the classification.
+The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is $(0,1)$. This property leads to reading outputs as probabilities of targets belonging to a certain class. 
+
+For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyperplane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modelling the posterior probability $P(\textbf{y} = y | \textbf{x} = x)$. Here the model is said to be \textit{linear} because it is linear in $X$, implying that the decision boundary is linear too. 
+
+
+
+then it corresponds to having a higher confidence in the classification.
 
 %This means that 
 
