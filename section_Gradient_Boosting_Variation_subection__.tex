@@ -16,16 +16,15 @@ Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
-When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models, then trees are the model's parameters and
-\[ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall k \]
+When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ a tree indexer over $Tr$, then trees are the model's parameters and
+\[ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall k \in K \]
  
 The objective function would account for these relationships in the trees and thus we would have that
  
 \[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y_i}))  +  \sum_k R(f_k) \] 
-
 %    
 
-Here we would have that \Theta is in fact concentrating each of the tree's parameters information. Thus, to learn this model, an optimization routine would have to collectively fit model parameters per tree and fit for interactions among trees. In practice though, this is prohibitively costly, so other heuristics are chosen to fit. 
+At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\theta_k$ is the parameter associated for teach tree $f_k \in Tr$ then $\Theta = {}$ where the parameter $\theta_0$ is not associated to any tree and reserved to characterize the tree ensemble. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice, so optimization heuristics are used for the fit. 
 
 \subsubsection{Additive Training}
 
