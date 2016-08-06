@@ -16,19 +16,19 @@ Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
-When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ a tree indexer over $Tr$, then trees are the model's parameters and
+When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ a finite tree indexer over $Tr$, then trees are the model's parameters and
 \[ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall k \in K \]
  
 The objective function would account for these relationships in the trees and thus we would have that
  
-\[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y_i}))  +  \sum_k R(f_k) \] 
+\[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y_i}))  +  \sum_k R(f_k) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
 %    
 
-At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\theta_k$ is the parameter associated for teach tree $f_k \in Tr$ then $\Theta = {}$ where the parameter $\theta_0$ is not associated to any tree and reserved to characterize the tree ensemble. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice, so optimization heuristics are used for the fit. 
+At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\theta_k$ is the parameter associated for each tree $f_k$ then $\Theta =  \bigcup_{k \in K} f_k  \cup \theta_0$ where the parameter $\theta_0$ is not associated to any tree and reserved to characterize the general tree ensemble. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice so optimization heuristics are used for the fit. 
 
 \subsubsection{Additive Training}
 
-A first take on this optimization problem goes along the way a greedy optimization. Where one tree is fit at a time and new trees are then succesively added to improve on the previous trees errors. 
+A first take on this optimization problem goes along the way of greedy algorithms. One tree is fit at a time and new trees are then succesively added to improve on previous trees' errors.
 
 Let 
 
