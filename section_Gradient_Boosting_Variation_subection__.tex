@@ -30,10 +30,36 @@ At a higher level we would have that $\Theta$ is a parameter encoding lower tree
 
 A first take on this optimization problem goes along the way of greedy algorithms. One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
 
-Let $\hat{y}_t^i$ be the predictive target at step $t$ of the algorithm, $t \in {0,..,T}$. 
+Consider $t$ the step indexer of the algorithm, where $t \in {0,..,K}$. In step $t$, let $Obj_t(\Theta)$ be the objective function and $\hat{y}_t^i$ be the predictive target respectively. Then the $i$-eth target's value at each step would iterate in the following way:
+
+\begin{equation} \label{eq:gb-targetSteps}
+\hat{y}_0^i = 0 \\
+ \ \ \ ... \\ 
+ \hat{y}_t^i = \sum_{k=1}^{t} f_k(x^i) = \hat{y}_{t-1}^i +  f_t(x^i)
+
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
+where each trees is added in such a way that we are minimizing
+
+\begin{equation} \label{eq:gb-objSteps}
+\Obj_t(\Theta) = \sum_i^n l(y_t^i,\hat{y_t}^i)) +   \sum_k^t R(f_k) \\
+= \sum_i^n l(y_t^i,\hat{y_t}^i)) +   \sum_k^t R(f_k)
+
+
+\hat{y}_0^i = 0 \\
+ \ \ \ ... \\ 
+ \hat{y}_t^i = \sum_{k=1}^{t} f_k(x^i) = \hat{y}_{t-1}^i +  f_t(x^i)
+
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
 
 aggregating 
 %$Obj
+
+
+
+
+
 \subection{sklearn}
 
 
