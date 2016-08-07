@@ -62,7 +62,12 @@ where $g^i$ and $h^i$ are first and second order approximations of the loss func
     h^i =  \frac{\partial^2 l(y^i, \hat{y}_{t-1}^i)}{\partial (\hat{y}_{t-1}^i)^2 }
 \]
 
-Then $ Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1}) $. This results in that at the $t$-th step, tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$
+Then
+
+\[
+Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1}) 
+\]
+This results in that at the $t$-th step, tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$
 
 where a second order Taylor expansion was used 
 
