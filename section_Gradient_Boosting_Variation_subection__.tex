@@ -41,18 +41,25 @@ Consider $t$ the step indexer of the algorithm, where $t \in {0,..,K}$. In step 
 \end{equation}
 where each trees is added in such a way that we are minimizing
 
-\begin{equation} \label{eq:gb-objSteps}
+%\begin{equation} \label{eq:gb-objSteps}
+\[
 Obj_t(\Theta) = \sum_i^n l(y_t^i,\hat{y_t}^i)) +   \sum_k^t R(f_k) \\
-= \sum_i^n l(y_t^i,\hat{y}_{t-1}^i +  f_t(x^i) ) +   \sum_k^t R(f_k)
-= \sum_i^n (y_t^i -(\hat{y}_{t-1}^i +  f_t(x^i)) )^2 + (\hat{y}_{t-1}^i +  f_t(x^i))^2 +   \sum_k^t R(f_k) + c
+= \sum_i^n l(y_^i,\hat{y}_{t-1}^i +  f_t(x^i) ) +   c(t) + R(f_t) \\
+%= \sum_i^n {2(y_^i -(\hat{y}_{t-1}^i +  f_t(x^i)) )} + (\hat{y}_{t-1}^i +  f_t(x^i))^2 +  f_t + c'(t)
+\]
 
+where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second order Taylor approximation yields
+\[
+Obj_t(\Theta) = \sum_i^n l(y_^i, \hat{y}_{t-1}^i +  f_t(x^i) ) +   c(t) + R(f_t) \\
 
-\hat{y}_0^i = 0 \\
- \ \ \ ... \\ 
- \hat{y}_t^i = \sum_{k=1}^{t} f_k(x^i) = \hat{y}_{t-1}^i +  f_t(x^i)
+= \sum_i^n {l(y_^i, \hat{y}_{t-1}^i) + g^if_t(x^i) + \frac{1}{2}h^if_t(x^i)^2 } +  R(f_t) c'(t)
+%= \sum_i^n {2(y_^i -(\hat{y}_{t-1}^i +  f_t(x^i)) )} + (\hat{y}_{t-1}^i +  f_t(x^i))^2 +  f_t + c'(t)
+\]
 
-%\sum_{i=0}^{\infty} a_i x^i
-\end{equation}
+%\sum_{i=0}^{\infty} a_i x^i 
+
+%\end{equation}
+where a second order Taylor expansion was used 
 
 aggregating 
 %$Obj
