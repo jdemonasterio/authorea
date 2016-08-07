@@ -53,18 +53,16 @@ where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second 
 
 \[
     Obj_t(\Theta) = \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
-    = \sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) c'(t)
-%= \sum_i^n {2(y_^i -(\hat{y}_{t-1}^i +  f_t(x^i)) )} + (\hat{y}_{t-1}^i +  f_t(x^i))^2 +  f_t + c'(t)
+    = \sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) +  c'(t)
 \]
 
-
-
+where $g^i$ and $h^i$ are first and second order approximations of the loss function.
 \[
-    Err_{true}(\theta)  = \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
-    = \int (y - h(x \cdot \theta) )^2 p(x,y)dxdy
+    g^i =  \frac{\partial l(y^i, \hat{y}_{t-1}^i)}{\partial \hat{y}_{t-1}^i}
+    h^i =  \frac{\partial^2 l(y^i, \hat{y}_{t-1}^i)}{\partial (\hat{y}_{t-1}^i)^2 }
 \]
-%\sum_{i=0}^{\infty} a_i x^i 
 
+Then $ Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1}) $. This results in that at the $t$-th step, tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$
 
 where a second order Taylor expansion was used 
 
