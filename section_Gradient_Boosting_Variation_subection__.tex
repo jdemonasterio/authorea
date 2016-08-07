@@ -42,8 +42,9 @@ Consider $t$ the step indexer of the algorithm, where $t \in {0,..,K}$. In step 
 where each trees is added in such a way that we are minimizing
 
 \begin{equation} \label{eq:gb-objSteps}
-\Obj_t(\Theta) = \sum_i^n l(y_t^i,\hat{y_t}^i)) +   \sum_k^t R(f_k) \\
-= \sum_i^n l(y_t^i,\hat{y_t}^i)) +   \sum_k^t R(f_k)
+Obj_t(\Theta) = \sum_i^n l(y_t^i,\hat{y_t}^i)) +   \sum_k^t R(f_k) \\
+= \sum_i^n l(y_t^i,\hat{y}_{t-1}^i +  f_t(x^i) ) +   \sum_k^t R(f_k)
+= \sum_i^n (y_t^i -(\hat{y}_{t-1}^i +  f_t(x^i)) )^2 + (\hat{y}_{t-1}^i +  f_t(x^i))^2 +   \sum_k^t R(f_k) + c
 
 
 \hat{y}_0^i = 0 \\
