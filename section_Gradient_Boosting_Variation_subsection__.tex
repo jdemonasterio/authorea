@@ -16,12 +16,12 @@ Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
-When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees are the model's parameters and
+When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then for this algorithm trees will be model's parameters and
 \[ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall t \in {0...K}\]
 
-A tree is represented in the form $f_t(x) = \theta_{q(x)}$  with ${}$
+A model of a tree $f$ with $T$ amount of leaves and parameterized by leaves scores $\theta$ is defined as $f(x) = \theta_{q(x)}$  with $q : mathbb{R}^n \mapsto {1...T}$ a function assigning leaves to each observation. 
 
-The objective function would account for these relationships in the trees and thus we would have that
+The objective function in gradient boosting would account for the relationships among trees and parameters, yielding a formula as such:
  
 \[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}^i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
 %    
@@ -72,6 +72,13 @@ Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{
 
 In a greedy optimization approach, the tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$ at the $t$-th step. The assumptions with this approach are that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g^i(\hat{y}_{t}^i), h^i(\hat{y}_{t}^i) $ and that these values are effectively computable.
 
+There is no correct or usual specification for the regularization term $R(f)$. As is the case with other algorithms, the regularization function is chosen through cross validation, among a list of possible forms. If we consider an $L_2$ norm approach, the model's complexity will be controlled by 
+$R(f) =  \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2$ where $\gamma$ and $\lambda$ are hyperparameters of the model. 
+
+it is common to choose is best fitted
+is yet to be 
+
+is  yet to be defined
 $h^i$ on the existence 
 
 where a second order Taylor expansion was used 
