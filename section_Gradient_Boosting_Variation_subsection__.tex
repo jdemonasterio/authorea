@@ -54,10 +54,9 @@ Obj_t(\Theta) = \sum_i^n l(y^i,\hat{y_t}^i)) +   \sum_k^t R(f_k) \\
 where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second order Taylor approximation yields
 
 \[
-    Obj_t(\Theta) = \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
+    Obj_t(\Theta) \approx \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
     = \sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) +  c'(t)
 \]
-
 where $g^i$ and $h^i$ are first and second order approximations of the loss function.
 \[
     g^i =  \frac{\partial l(y^i, \hat{y}_{t-1}^i)}{\partial \hat{y}_{t-1}^i} \\
@@ -66,15 +65,28 @@ where $g^i$ and $h^i$ are first and second order approximations of the loss func
 
 Then
 
-\[
-Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
-\]
+\begin{equation} \label{eq:gb-objFun1}
+    Obj_t(\Theta) \approx \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) + constant 
+\end{equation} 
 
 In a greedy optimization approach, the tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$ at the $t$-th step. The assumptions with this approach are that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g^i(\hat{y}_{t}^i), h^i(\hat{y}_{t}^i) $ and that these values are effectively computable.
 
-There is no correct or usual specification for the regularization term $R(f)$. As is the case with other algorithms, the regularization function is chosen through cross validation, among a list of possible forms. If we consider an $L_2$ norm approach, the model's complexity will be controlled by 
-$R(f) =  \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2$ where $\gamma$ and $\lambda$ are hyperparameters of the model. 
+There is no a priori \textit{correct} or usual specification for the regularization term $R(f)$. As is the case with other algorithms, the regularization function is chosen through cross validation, among a list of possible forms. If we consider an $L_2$ norm approach, the model's complexity will be controlled by 
 
+\begin{equation} \label{eq:gb-objFun2}
+R(f) =  \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 
+\end{equation}
+
+Here $T$, $\gamma$ and $\lambda$ are hyperparameters of the model. From \ref{eq:gb-objFun1} and \ref{eq:gb-objFun2} the general minimization function takes teh form
+
+\begin{equation} \label{eq:gb-objFun}
+
+    Obj_t(\Theta) \approx  \sum_i^n {g^i \theta_{q(x^i)} + \frac{1}{2} h^i \theta_{q(x^i)}^2 } + \gamma T 
+            + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
+          =   \sum_{j=1}^T\left(  \sum_{i \in T_j} (g^i )\theta_{j} + \frac{1}{2} \sum_{i \in T_j} (h^i + \lambda ) \theta_{j}^2 } \right) + \gamma T \\
+
+\end{equation}
+where $T_j = {i | q(x_i)= j}$
 it is common to choose is best fitted
 is yet to be 
 
