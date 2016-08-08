@@ -82,9 +82,8 @@ Here $T$, $\gamma$ and $\lambda$ are hyperparameters of the model. From \ref{eq:
 \begin{equation} \label{eq:gb-objFun}
 
     Obj_t(\Theta) \approx  \sum_i^n {g^i \theta_{q(x^i)} + \frac{1}{2} h^i \theta_{q(x^i)}^2 } + \gamma T 
-            + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
-          =   \sum_{j=1}^T\left(  \sum_{i \in T_j} (g^i )\theta_{j} + \frac{1}{2} \sum_{i \in T_j} (h^i + \lambda ) \theta_{j}^2 } \right) + \gamma T \\
-
+        + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
+          =   \sum_{j=1}^T\left(  \sum_{i \in T_j} (g^i )\theta_{j} + \frac{1}{2} \sum_{i \in T_j} (h^i + \lambda ) \theta_{j}^2  \right) + \gamma T \\
 \end{equation}
 where $T_j = {i | q(x_i)= j}$
 it is common to choose is best fitted
