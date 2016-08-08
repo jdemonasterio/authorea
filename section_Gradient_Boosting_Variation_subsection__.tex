@@ -88,8 +88,25 @@ Here $T$, $\gamma$ and $\lambda$ are hyperparameters of the model. From \ref{eq:
          
 \end{equation}
 where $G_j = \sum_{i \in T_j} g^i $ ,  $H_j = \frac{1}{2} \sum_{i \in T_j} h^i + \lambda$ and $T_j = \{i | q(x_i)= j \}$ is the set of all samples assigned to the leaf $j$. 
-it is common to choose is best fitted
-is yet to be 
+
+If we are trying to minimize the objective function at each $t$ step. Then we must minimize the quadratic expression $ G_j \theta_{j} + H_j \theta_{j}^2 \ \forall j \in {1,..,T}$. This immediately results in choosing
+
+\[
+\theta*_{j} = -\frac{G_j}{H_j + \lambda}
+\]
+
+as our best fit parameter and 
+
+\[
+ Obj*_t(\Theta)  =   -\frac{1}{2} \sum_{j=1}^T\left(  \frac{G_j}{H_j + \lambda}  \right) + \gamma T \\
+  
+\]
+
+as our minimum objective value. In this context, we call this value the \textbf{gain]. Since it is the improvement brought on to the ensemble by tree $f_t$. It is a measure or score of how performing a $q(x)$ tree scoring is.   
+%while assuming all other terms constant.
+
+%it is common to choose is best fitted
+%is yet to be 
 
 is  yet to be defined
 $h^i$ on the existence 
