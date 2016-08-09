@@ -19,7 +19,11 @@ Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
 When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees are the model's parameters and
 \[ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall t \in {0...K}\]
 
-A tree is represented in the form $f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)$  with $\theta_j \in \mathbb{R} \forall j \in {1,...,J}$ and $   \coprod_{j \in {0...J}} R_j   $ and 
+A tree is represented in the form 
+\[
+$f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)$
+\]
+with $\theta_j \in \mathbb{R} \forall j \in {1,...,J}$ and $ \coprod_{j=1}^J R_j$ a partition of features space. Here $q : X \mapsto {1,...,J}$ is the function that maps samples to regions. 
 
 The objective function would account for these relationships in the trees and thus we would have that
  
