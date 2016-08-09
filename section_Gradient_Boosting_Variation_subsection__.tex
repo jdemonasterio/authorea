@@ -16,12 +16,12 @@ Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
-When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then for this algorithm trees will be model's parameters and
+When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees are the model's parameters and
 \[ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall t \in {0...K}\]
 
-A model of a tree $f$ with $T$ amount of leaves and parameterized by leaves scores $\theta$ is defined as $f(x) = \theta_{q(x)}$  with $q : mathbb{R}^n \mapsto {1...T}$ a function assigning leaves to each observation. 
+A tree is represented in the form $f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)$  with $\theta_j \in \mathbb{R} \forall j \in {1,...,J}$ and $   \coprod_{j \in {0...J}} R_j   $ and 
 
-The objective function in gradient boosting would account for the relationships among trees and parameters, yielding a formula as such:
+The objective function would account for these relationships in the trees and thus we would have that
  
 \[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}^i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
 %    
@@ -54,9 +54,10 @@ Obj_t(\Theta) = \sum_i^n l(y^i,\hat{y_t}^i)) +   \sum_k^t R(f_k) \\
 where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second order Taylor approximation yields
 
 \[
-    Obj_t(\Theta) \approx \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
+    Obj_t(\Theta) = \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
     = \sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) +  c'(t)
 \]
+
 where $g^i$ and $h^i$ are first and second order approximations of the loss function.
 \[
     g^i =  \frac{\partial l(y^i, \hat{y}_{t-1}^i)}{\partial \hat{y}_{t-1}^i} \\
@@ -65,44 +66,22 @@ where $g^i$ and $h^i$ are first and second order approximations of the loss func
 
 Then
 
-\begin{equation} \label{eq:gb-objFun1}
-    Obj_t(\Theta) \approx \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) + constant 
-\end{equation} 
+\[
+Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+\]
 
 In a greedy optimization approach, the tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$ at the $t$-th step. The assumptions with this approach are that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g^i(\hat{y}_{t}^i), h^i(\hat{y}_{t}^i) $ and that these values are effectively computable.
 
-There is no a priori \textit{correct} or usual specification for the regularization term $R(f)$. As is the case with other algorithms, the regularization function is chosen through cross validation, among a list of possible forms. If we consider an $L_2$ norm approach, the model's complexity will be controlled by 
+$h^i$ on the existence 
 
-\begin{equation} \label{eq:gb-objFun2}
-R(f) =  \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 
-\end{equation}
+where a second order Taylor expansion was used 
 
-Here $T$, $\gamma$ and $\lambda$ are hyperparameters of the model. From \ref{eq:gb-objFun1} and \ref{eq:gb-objFun2} the general minimization function takes teh form
+aggregating 
+%$Obj
 
-\begin{equation} \label{eq:gb-objFun}
 
-    Obj_t(\Theta) \approx  \sum_i^n {g^i \theta_{q(x^i)} + \frac{1}{2} h^i \theta_{q(x^i)}^2 } + \gamma T 
-        + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
-          =   \sum_{j=1}^T\left(  (\sum_{i \in T_j} g^i )\theta_{j} + \frac{1}{2} (\sum_{i \in T_j} h^i + \lambda ) \theta_{j}^2  \right) + \gamma T \\
-         =   \sum_{j=1}^T\left(  G_j \theta_{j} + H_j \theta_{j}^2  \right) + \gamma T \\
-         
-\end{equation}
-where $G_j = \sum_{i \in T_j} g^i $ ,  $H_j = \frac{1}{2} \sum_{i \in T_j} h^i + \lambda$ and $T_j = \{i | q(x_i)= j \}$ is the set of all samples assigned to the leaf $j$. 
 
-If we are trying to minimize the objective function at each $t$ step. Then we must minimize the quadratic expression $ G_j \theta_{j} + H_j \theta_{j}^2 \ \forall j \in {1,..,T}$. This immediately results in choosing
 
-\[
-\theta^*_{j} = -\frac{G_j}{H_j + \lambda}
-\]
-
-as our best fit parameter and 
-
-\[
- Obj^*_t(\Theta)  =   -\frac{1}{2} \sum_{j=1}^T\left(  \frac{G_j}{H_j + \lambda}  \right) + \gamma T \\
-  
-\]
-
-as our minimum objective value. In this context, we call this value the \textbf{gain}. Since it is the improvement brought on to the ensemble by tree $f_t$. It is a measure or score of how performing a $q(x)$ tree scoring is.   
 
 \subection{sklearn}
 
