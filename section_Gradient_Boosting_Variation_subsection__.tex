@@ -19,11 +19,11 @@ Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
 When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees are the model's parameters and
 \[ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall t \in {0...K}\]
 
-A tree is represented in the form 
+with $K$ a hyper-parameter. A single tree is represented in the form 
 \[
 f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
 \]
-with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J R_j$ is a partition of feature space. Here $q : X \mapsto \{1,...,J\}$ is the function that maps samples to regions. 
+with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J R_j$ is a partition of feature space. Here $q : X \mapsto \{1,...,J\}$ is the function that maps samples to regions. In summary, $\{\theta_j, R_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter.
 
 The objective function would account for these relationships in the trees and thus we would have that
  
