@@ -21,9 +21,9 @@ When building a model of ensemble trees, a higher model will be learning on othe
 
 with $K$ a hyper-parameter. A single tree is represented in the form 
 \[
-f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  \Pi_j)
+f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
 \]
-with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J \Pi_j$ is a partition of feature space. Here $q : X \mapsto \{1,...,J\}$ is the function that maps samples to regions. In summary, $\{\theta_j, \Pi_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter. Note that the combinatorial problem of finding the optimal partition of $\Pi_j$s is absolutely non-trivial \footnote{Think of this problem as intuitively similar to the subset sum problem which is $NP$ complete.}. However, given a partition, the $\hat{\theta_j}$ for each partition is generally noted as $\hat{\theta_j}  = \overline{y_j}$ which is the average of the sample's targets falling into region $\Pi_j$ 
+with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J \Pi_j$ is a partition of feature space. Here $q : X \mapsto \{1,...,J\}$ is the function that maps samples to regions. In summary, $\{\theta_j, \Pi_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter.
 
 The objective function would account for these relationships in the trees and thus we would have that
  
