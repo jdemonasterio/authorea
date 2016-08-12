@@ -15,12 +15,13 @@ Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
 \end{equation}
 
 When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees are the model's parameters and
-\[ y = \sum_k f_k(x) , \ f_k \in Tr \ \forall t \in {0...K}\]
+\[ y = \sum_k f_t(x) , \ f_t \in Tr \ \forall t \in {0...K}\]
 
 with $K$ a hyper-parameter. A single tree is represented in the form 
 \[
 f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
 \]
+
 with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J R_j$ is a partition of feature space. Here $q : X \mapsto \{1,...,J\}$ is the function that maps samples to regions. In summary, $\{\theta_j, R_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter.
 
 The objective function would account for these relationships in the trees and thus we would have that
@@ -28,7 +29,7 @@ The objective function would account for these relationships in the trees and th
 \[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}^i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
 %    
 
-At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\theta_t$ is the parameter associated for each tree model $f_t$ then $\Theta =  \bigcup_{t \in {0...K}} \theta_k  \cup \theta_0$ where the parameter $\theta_0$ is not associated to any tree and reserved to characterize the tree assembly. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice so optimization heuristics are used instead. 
+At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\Theta_t$ is the parameter associated for each tree model $f_t$ then $\Theta =  \bigcup_{t \in {0...K}} \Theta_T  \cup \Theta_0$ where the parameter $\Theta_0$ is not associated to any tree and reserved to characterize the tree assembly. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice so optimization heuristics are used instead. 
 
 \subsubsection{Additive Training}
 
