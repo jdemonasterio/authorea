@@ -40,7 +40,7 @@ Bagging: to grow each tree a random selection (without replacement) on the train
 
 Random split selection: choose a random split among the $K$ best splits. $\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
-Let ${h_k(\textbf{{x}})}_{i=1}^K$  \footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h_k(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.  Define the margin function as
+Let $\{h_k(\textbf{x})\}_{i=1}^K$  \footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h_k(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.  Define the margin function as
 
 \begin{equation} \label{eq:rf-marginFun}
 
