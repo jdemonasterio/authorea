@@ -5,15 +5,20 @@ Notar que todo lo que esta en italica es tipo highlighter de textos de otros aut
 
 
 
-\section{Hastie Tibshiranie Friedman}
+\section{Classifier : Random Forests}
 
 
-
-
+%\section{Hastie Tibshiranie Friedman}
 
 \section{Leo Breiman}
 
-In this work w
+\begin{equation} \label{eq:rf-marginFun}
+
+ mg(\textbf{x},\textbf{y}) = \frac{1}{K}  * \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})  
+ - max_{j\neq \textbf{y}}(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) ) 
+
+\end{equation}
+
 
 \section{scikit-docs}
 
