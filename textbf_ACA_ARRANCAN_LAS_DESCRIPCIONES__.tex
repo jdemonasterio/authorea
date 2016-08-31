@@ -52,8 +52,30 @@ The function measures, in average, how much do the trees vote for the correct cl
 $$ P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{x}) - max_{j \neq \textbf{y}} (\textbf{x}, \textbf{y}) < 0) $$
 
 \subsubsection{Proof}
+The proof follows from seeing that given a training set, a parameter $\Theta$ and a class $j$ then 
+$$\forall \textbf{x} \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) $$
+ almost surely.
 
-$$ \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) $$
+By looking at the nature of each tree, $\{\textbf{x} / h_k(\textbf{x}, \Theta) = j \}$ denotes a union of hyper-rectangles partitioning feature space. And given the finite size of the training set, there can only be a finite set of these unions. Let $S_1, ..., S_K$ be an indexation of these unions and define $\phi(\Theta) = k $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_k$. 
+
+We denote by $N_k$ the number of times that $\phi(\Theta_n) =k $, where $n \in {1...N}$ and $N$ is the total of trials.
+
+It is immediate that 
+
+$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \ = \  \frac{1}{N} \sum_{k=1}^K N_k I(\textbf{x} \in S_k)  $$
+
+and that there is a convergence almost everywhere of $$ \frac{N_k}{N} = \sum_{n=1}^N  I(\phi(\Theta_n) = k)  \xrightarrow[N \to \infty]   P_{\Theta}(\phi(\Theta)= k)$$. 
+
+If we let $C = $ $\bigcup\limits_{k=1}^{K} C_{k}$ where each $C_k$ are zero-measured sets representing the points where the sequence is not converging. We will finally have that  outside of $C$, 
+
+$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \xrightarrow[N \to \infty]{} \sum_k^K    P_{\Theta}(\phi(\Theta)= k) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)  $$ 
+
+
+
+
+
+
+
 
 
 
