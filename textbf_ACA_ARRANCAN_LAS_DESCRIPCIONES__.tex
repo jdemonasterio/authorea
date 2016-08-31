@@ -49,10 +49,9 @@ $ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x}, \textbf{y}) < 0) $
 
 The function measures, in average, how much do the trees vote for the correct class in comparison to all other classes and it can be shown that when $K$ is large then the prediction error converges almost surely to 
 
-
+$$ P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{x}) - max_{j \neq \textbf{y}} (\textbf{x}, \textbf{y}) < 0) $$
 
 \subsubsection{Proof}
-
 
 $$ \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) $$
 
