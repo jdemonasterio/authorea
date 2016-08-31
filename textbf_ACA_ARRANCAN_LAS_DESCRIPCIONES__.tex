@@ -6,47 +6,58 @@ Notar que todo lo que esta en italica es tipo highlighter de textos de otros aut
 
 \section{Classifier : Random Forests}
 
-\section{Hastie Tibshiranie Friedman}
-
-
-
-
 
 \section{Leo Breiman}
 
-In this work w
-
-\section{scikit-docs}
-
-\textit{The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability / robustness over a single estimator.
-Two families of ensemble methods are usually distinguished:
-• In averaging methods, the driving principle is to build several estimators independently and then to average their predictions. On average, the combined estimator is usually better than any of the single base estimator because its variance is reduced.
-Here: Forests of randomized trees, ...
-• By contrast, in boosting methods, base estimators are built sequentially and one tries to reduce the bias of the combined estimator. The motivation is to combine several weak models to produce a powerful ensemble.
-
-As they provide a way to reduce overfitting, bagging methods work best with strong and complex models (e.g., fully developed decision trees), in contrast with boosting methods which usually work best with weak models (e.g., shallow decision trees).
-
-Bagging methods come in many flavours but mostly differ from each other by the way they draw random subsets of the training set. As a general rule, randomness is applied either to the ‘rows’ or ‘columns’ of the dataset i.e. samples or features:    
-• When random subsets of the dataset are drawn as random subsets of the samples, then this algorithm is known as Pasting [L. Breiman, “Pasting small votes for classification in large databases and on-line”, Machine Learning, 36(1), 85-103, 1999.].
-• When samples are drawn with replacement, then the method is known as Bagging [L. Breiman, “Bagging predictors”, Machine Learning, 24(2), 123-140, 1996.].
-• When random subsets of the dataset are drawn as random subsets of the features, then the method is known as Random Subspaces [H1998].
-• Finally, when base estimators are built on subsets of both samples and features, then the method is known as
-Random Patches [LG2012].
-L. Breiman, “Bagging predictors”, Machine Learning, 24(2), 123-140, 1996.
-
-Random forests use a perturb-and-combine technique [Breiman, “Arcing Classifiers”, Annals of Statistics 1998.] specifically designed for trees. This means a diverse set of classifiers is created by introducing randomness in the classifier construction. The prediction of the ensemble is given as the averaged prediction of the individual classifiers.
-
-each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features. Instead, the split that is picked is the best split among a random subset of the features. As a result of this randomness, the bias of the forest usually slightly increases (with respect to the bias of a single non-random tree) but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model. [Breiman, “Random Forests”, Machine Learning, 45(1), 5-32, 2001.]
-
-The main parameters to adjust when using these methods is n_estimators and max_features. The former is the number of trees in the forest. The larger the better, but also the longer it will take to compute. In addition, note that results will stop getting significantly better beyond a critical number of trees. The latter is the size of the random subsets of features to consider when splitting a node. The lower the greater the reduction of variance, but also the greater the increase in bias. Empirical good default values are max_features=n_features for regression problems, and max_features=sqrt(n_features) for classification tasks (where n_features is the number of features in the data). Good results are often achieved when setting max_depth=None in combination with min_samples_split=1 (i.e., when fully developing the trees). Bear in mind though that these values are usually not optimal, and might result in models that consume a lot of ram. The best parameter values should always be cross-validated. In addition, note that in random forests, bootstrap samples are used by default (bootstrap=True) while the default strategy for extra-trees is to use the whole dataset (bootstrap=False). When using bootstrap
-sampling the generalization error can be estimated on the left out or out-of-bag samples. This can be enabled by setting oob_score=True.
-}
-
-
 
 \textit{
+Random forests are a combination of tree predictors
+such that each tree depends on the values of a random
+vector sampled independently and with the same
+distribution for all trees in the forest.}
 
-}
+\textit{The generalization error for forests converges a.s. to a limit
+as the number of trees in the forest becomes large}
+
+\textit{The generalization error of a forest of tree classifiers depends on the strength of the individual trees in the
+forest and the correlation between them. Using a random selection of features to split each node yields
+error rates that are more with respect to noise.}
+
+\textit{Internal estimates monitor error, strength, and correlation and these are used to show
+the response to increasing the number of features used in the splitting. Internal estimates are also used to
+measure variable importance.
+d}
+
+
+
+Random subspace: each tree is grown using a random selection of features.
+
+Given $K$ number of trees, let $\Theta_k$ encode the parameters for the $k$-th tree and $h(\textbf{x},\Theta_k)$ the corresponding classifier. Let $N$ be the number of samples in the training set. The creation of a random forests involves an iterative procedure where at each $k$ step $\Theta_k$ is drawn from the same distribution but independently of the previous parameters $\Theta_1, \ ..., \ \Theta_{k-1}$ created at previous steps. 
+
+Bagging: to grow each tree a random selection (without replacement) on the training set is used. 
+
+Random split selection: choose a random split among the $K$ best splits. $\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
+
+Let $\{h_k(\textbf{x})\}_{i=1}^K$  \footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.  Define the margin function as
+
+$$mg(\textbf{x},\textbf{y}) =  \frac{1}{K}   \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})  
+- max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right) $$ \label{eq:rf-marginFun}
+
+%\end{equation}
+$ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x}, \textbf{y}) < 0) $
+
+
+The function measures, in average, how much do the trees vote for the correct class in comparison to all other classes and it can be shown that when $K$ is large then the prediction error converges almost surely to 
+
+
+
+\subsubsection{Proof}
+
+
+$$ \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) $$
+
+
+
 
 
 
