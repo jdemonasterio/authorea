@@ -1,0 +1,26 @@
+\section{scikit-docs}
+
+\textit{The goal of ensemble methods is to combine the predictions of several base estimators built with a given learning algorithm in order to improve generalizability / robustness over a single estimator.
+Two families of ensemble methods are usually distinguished:
+• In averaging methods, the driving principle is to build several estimators independently and then to average their predictions. On average, the combined estimator is usually better than any of the single base estimator because its variance is reduced.
+Here: Forests of randomized trees, ...
+• By contrast, in boosting methods, base estimators are built sequentially and one tries to reduce the bias of the combined estimator. The motivation is to combine several weak models to produce a powerful ensemble.}
+
+\textit{As they provide a way to reduce overfitting, bagging methods work best with strong and complex models (e.g., fully developed decision trees), in contrast with boosting methods which usually work best with weak models (e.g., shallow decision trees).}
+
+\textit{Bagging methods come in many flavours but mostly differ from each other by the way they draw random subsets of the training set. As a general rule, randomness is applied either to the ‘rows’ or ‘columns’ of the dataset i.e. samples or features:    
+• When random subsets of the dataset are drawn as random subsets of the samples, then this algorithm is known as Pasting [L. Breiman, “Pasting small votes for classification in large databases and on-line”, Machine Learning, 36(1), 85-103, 1999.].
+• When samples are drawn with replacement, then the method is known as Bagging [L. Breiman, “Bagging predictors”, Machine Learning, 24(2), 123-140, 1996.].
+• When random subsets of the dataset are drawn as random subsets of the features, then the method is known as Random Subspaces [H1998].
+• Finally, when base estimators are built on subsets of both samples and features, then the method is known as
+Random Patches [LG2012].
+L. Breiman, “Bagging predictors”, Machine Learning, 24(2), 123-140, 1996.}
+
+
+\textit{Random forests use a perturb-and-combine technique [Breiman, “Arcing Classifiers”, Annals of Statistics 1998.] specifically designed for trees. This means a diverse set of classifiers is created by introducing randomness in the classifier construction. The prediction of the ensemble is given as the averaged prediction of the individual classifiers.}
+
+\textit{each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features. Instead, the split that is picked is the best split among a random subset of the features. As a result of this randomness, the bias of the forest usually slightly increases (with respect to the bias of a single non-random tree) but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model. [Breiman, “Random Forests”, Machine Learning, 45(1), 5-32, 2001.]}
+
+\textit{The main parameters to adjust when using these methods is n_estimators and max_features. The former is the number of trees in the forest. The larger the better, but also the longer it will take to compute. In addition, note that results will stop getting significantly better beyond a critical number of trees. The latter is the size of the random subsets of features to consider when splitting a node. The lower the greater the reduction of variance, but also the greater the increase in bias. Empirical good default values are max_features=n_features for regression problems, and max_features=sqrt(n_features) for classification tasks (where n_features is the number of features in the data). Good results are often achieved when setting max_depth=None in combination with min_samples_split=1 (i.e., when fully developing the trees). Bear in mind though that these values are usually not optimal, and might result in models that consume a lot of ram. The best parameter values should always be cross-validated. In addition, note that in random forests, bootstrap samples are used by default (bootstrap=True) while the default strategy for extra-trees is to use the whole dataset (bootstrap=False). When using bootstrap
+sampling the generalization error can be estimated on the left out or out-of-bag samples. This can be enabled by setting oob_score=True.
+}
