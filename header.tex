@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{amssymb}
 \usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
 
 
 \newcommand{\calG}{\mathcal{G}}
@@ -18,3 +19,11 @@
 \newcommand{\Expect}{{\rm I\kern-.3em E}}
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\Cov}{\mathrm{Cov}} 
+
+%comandos de teoremas, corolarios, lemmas, pruebas y definiciones
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
