@@ -79,16 +79,22 @@ real number $r$ such that $b=ra$.
 
 For the case of a random forest classifier, the margin function will be defined as
 
-$$mr(\textbf{x},\textbf{y}) =  P_Theta(h(\textbf{x}) = \textbf{y})  
-- max_{j\neq \textbf{y}}\left(P_{Theta}(h_k(\textbf{x}) = j) \right) $$ \label{eq:rf-marginFunRf}
+$$mr(\textbf{x},\textbf{y}) =  P_{Theta}(h(\textbf{x}) = \textbf{y})  
+- P_{Theta}(h_k(\textbf{x}) = \hat{j}(\textbf{x},\textbf{y})) $$ \label{eq:rf-marginFunRf}
 
-and the strength will be defined as 
+where $\hat{j}(\textbf{x},\textbf{y}) = arg max_{j\neq \textbf{y}} P_{Theta}(h(\textbf{x}) = \textbf{y})$. 
+
+
+Let the strength will be defined as 
 
 $$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$. \label{eq:rf-strength}
 
 Assuming that $s \geq 0$ we have that the generalization error $PE \leq var(mr)/sˆ2$ by Chebyshev's inequality. 
 
-Define $\hat{j}(\textbf{x},\textbf{y}) \b{x}$ 
+Define 
+
+
+
 \b{x}
 
 
