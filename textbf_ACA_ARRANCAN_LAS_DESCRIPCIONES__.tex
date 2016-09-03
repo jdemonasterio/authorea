@@ -79,10 +79,16 @@ real number $r$ such that $b=ra$.
 
 For the case of a random forest classifier, the margin function will be defined as
 
-$$mr(\textbf{x},\textbf{y}) =  P_{Theta}(h(\textbf{x}) = \textbf{y})  
-- P_{Theta}(h_k(\textbf{x}) = \hat{j}(\textbf{x},\textbf{y})) $$ \label{eq:rf-marginFunRf}
+\begin{equation} \label{eq:expectedError}
+mr(\textbf{x},\textbf{y}) =  P_{Theta}(h(\textbf{x}) = \textbf{y})  
+- P_{Theta}(h_k(\textbf{x}) = \hat{j}(\textbf{x},\textbf{y})) 
 
-where $\hat{j}(\textbf{x},\textbf{y}) = arg max_{j\neq \textbf{y}} P_{Theta}(h(\textbf{x}) = \textbf{y})$. 
+\\ 
+= \Expect_{\Theta}\left[  I(h(\textbf{x},\Theta )=y) - I(h(\textbf{x},\Theta )=\hat{j}  \right]
+
+\end{equation} \label{eq:rf-marginFunRf}
+
+where $\hat{j}(\textbf{x},\textbf{y}) = arg max_{j\neq \textbf{y}} P_{Theta}(h(\textbf{x}) = \textbf{y}) $. 
 
 
 Let the strength will be defined as 
