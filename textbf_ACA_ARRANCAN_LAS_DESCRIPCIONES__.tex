@@ -80,9 +80,9 @@ real number $r$ such that $b=ra$.
 For the case of a random forest classifier, the margin function will be defined as
 
 \begin{equation}\label{eq:rf-marginFunRf}
-mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y})  
+mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j}) 
 \\ 
-= \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j})  \right]
+= \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} )  \right]
 
 \end{equation} 
 
