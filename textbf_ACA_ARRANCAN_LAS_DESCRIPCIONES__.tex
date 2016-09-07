@@ -86,11 +86,18 @@ mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}
 
 \end{equation} 
 
-where $\hat{j}(\textbf{x},\textbf{y}) = arg max_{j\neq \textbf{y}} P_{Theta}(h(\textbf{x}) = \textbf{y}) $.
+where 
+\begin{equation}%\end{equation}
+\hat{j}(\textbf{x},\textbf{y}) = arg max_{j\neq \textbf{y}} P_{Theta}(h(\textbf{x}) = \textbf{y}).
+\end{equation}
 
 Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the classifier can correctly classify or not the sample's label, given $\Theta$.
 
-It is straight to see that $mr(\textbf{x},\textbf{y})ˆ2 = \Expect_{\Theta, \Theta'}\left[ rmg(\Theta,\textbf{x},\textbf{y} ) rmg(\Theta',\textbf{x},\textbf{y} )   \right] $. 
+With this definitions, it is straight to see that 
+
+\begin{equation}%\end{equation}
+mr(\textbf{x},\textbf{y})ˆ2 = \Expect_{\Theta, \Theta'}\left[ rmg(\Theta,\textbf{x},\textbf{y} ) rmg(\Theta',\textbf{x},\textbf{y} )   \right]. 
+\end{equation}
 
 Let the strength will be defined as 
 
