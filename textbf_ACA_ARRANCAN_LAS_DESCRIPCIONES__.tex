@@ -106,7 +106,21 @@ With these definitions, it is straight to see that
 %\begin{equation}%\end{equation}
 $$mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} )  \right] $$.
 
-%\end{equation}
+This in turn implies that
+
+\begin{equation}
+\begin{split}
+var(mr) & =  \Expect_{\Theta, \Theta'} 
+			\left[ 
+				cov_{\textbf{x},\textbf{y}}
+				(rmg(\Theta,\textbf{x},\textbf{y} )rmg(\Theta',\textbf{x},\textbf{y} )) 
+			\right] \\
+& =  \Expect_{\Theta, \Theta'}
+			\left[ 
+				\rho(\Theta, \Theta')\sigma(\Theta)\sigma(\Theta')
+			\right] 
+\end{split}
+\end{equation}
 
 Let the strength will be defined as 
 
