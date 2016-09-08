@@ -1,0 +1,93 @@
+\section{Gradient Boosting Variation}
+
+\subsection{Boosting Trees    }
+
+The objective function differences minimization objectives. 
+
+Predictive power: how well the algorithm fits the data used for training and, hopefully, the \textit{true} underlying distribution
+
++ Regularization, favors parsimonious models. This is because all models approximate natural/processes to some degree, so if a simpler model can be used with the same predictive power, then this model should be used.  
+
+\begin{equation} \label{eq:objFunction}
+Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
+\\
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
+
+When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees are the model's parameters and
+\[ y = \sum_k f_t(x) , \ f_t \in Tr \ \forall t \in {0...K}\]
+
+with $K$ a hyper-parameter. A single tree is represented in the form 
+\[
+f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
+\]
+
+with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J R_j$ is a partition of feature space. Here $q : X \mapsto \{1,...,J\}$ is the function that maps samples to regions. In summary, $\{\theta_j, R_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter. Note that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is a combinatorial feat.
+
+In this setting, the objective function would account for these relationships in the trees and thus we would have that
+ 
+\[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}^i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
+%    
+
+At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\Theta_t$ is the parameter associated for each tree model $f_t$ then $\Theta =  \bigcup_{t \in {0...K}} \Theta_t  \cup \Theta_0$ where the parameter $\Theta_0$ is not associated to any tree and reserved to characterize the tree assembly. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice so optimization heuristics are used instead. 
+
+\subsubsection{Additive Training}
+
+A first take on this optimization problem goes along the way of greedy algorithms. One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
+
+Consider $t$ the step indexer of the algorithm, where $t \in {0,..,K}$. In step $t$, let $Obj_t(\Theta)$ be the objective function and $\hat{y}_t^i$ be the predictive target respectively. Then the $i$-eth target's value at each step would iterate in the following way:
+
+\begin{equation} \label{eq:gb-targetSteps}
+\hat{y}_0^i = 0 \\
+ \ \ \ ... \\ 
+ \hat{y}_t^i = \sum_{k=1}^{t} f_k(x^i) = \hat{y}_{t-1}^i +  f_t(x^i)
+
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
+where each trees is added in such a way that we are minimizing
+
+%\begin{equation} \label{eq:gb-objSteps1}
+\[
+Obj_t(\Theta) = \sum_i^n l(y^i,\hat{y_t}^i)) +   \sum_k^t R(f_k) \\
+= \sum_i^n l(y^i,\hat{y}_{t-1}^i +  f_t(x^i) ) +   c(t) + R(f_t) \\
+%= \sum_i^n {2(y^i -(\hat{y}_{t-1}^i +  f_t(x^i)) )} + (\hat{y}_{t-1}^i +  f_t(x^i))^2 +  f_t + c'(t)
+\]
+%\end{equation}
+
+where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second order Taylor approximation yields
+
+\[
+    Obj_t(\Theta) = \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
+    = \sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) +  c'(t)
+\]
+
+where $g^i$ and $h^i$ are first and second order approximations of the loss function.
+\[
+    g^i =  \frac{\partial l(y^i, \hat{y}_{t-1}^i)}{\partial \hat{y}_{t-1}^i} \\
+    h^i =  \frac{\partial^2 l(y^i, \hat{y}_{t-1}^i)}{\partial (\hat{y}_{t-1}^i)^2 }
+\]
+
+Then
+
+\[
+Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+\]
+
+In a greedy optimization approach, the tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$ at the $t$-th step. The assumptions with this approach are that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g^i(\hat{y}_{t}^i), h^i(\hat{y}_{t}^i) $ and that these values are effectively computable.
+
+$h^i$ on the existence 
+
+where a second order Taylor expansion was used 
+
+aggregating 
+%$Obj
+
+
+
+
+
+\subection{sklearn}
+
+
+\subection{Hastie Tibshiranie Friedman}
+

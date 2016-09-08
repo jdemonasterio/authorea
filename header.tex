@@ -1,11 +1,34 @@
 \usepackage{subfigure}
 \usepackage{nicefrac}
-
+%paquetes para importar
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amssymb}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+%\usepackage{amsthm}
 
+%lazy boldface..
+%\let\b\textbf
+\def\b{\textbf}
+
+%Math set letters
 \newcommand{\calG}{\mathcal{G}}
 \newcommand{\calN}{\mathcal{N}}
 \newcommand{\calE}{\mathcal{E}}
 \newcommand{\calL}{\mathcal{L}}
+\newcommand{\calT}{\mathcal{T}}
 
+%comandos de operadores de esperanza, varianza etc.
+\newcommand{\Expect}{{\rm I\kern-.3em E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}} 
+
+%comandos de teoremas, corolarios, lemmas, pruebas y definiciones
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]

@@ -1,0 +1,138 @@
+
+\section{Introduction}
+
+\textbf{TODO LO QUE ESTA EN ITALICA ES TIPO HIGHLIGHTER}
+
+\section{ Brief introduction to machine learning and supervised classification problems}
+
+Machine learning is a subfield of computer science with broad \textit{theoeretical} intersections with statistics and mathematical optimization. At present time it has a wide range of application. A non-exhausitve list of applicaitons include self-driving cars, spam detection systems, face-voice recognition , AI opponents in games, disease prediction in patients, stock pricing, etc. Examples of these machine learning programs are now widespread to the point where their use has direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
+
+The most widely used definition of machine learning is attributed to Tom Mitchell: 	\textbf{Mitchell, T. (1997). Machine Learning, McGraw Hill. ISBN 0-07-042807-7, p.2.} 
+"A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E" . To our purpose it is clear though that this definition \footnote{Other authors might reference mahchine learning as \textit{statistical learning}. See CITA A HASTIE TIBSHIRANIE} is not formally well-defined. However it serves to convey the idea of algorithms that automatically \textit{learns} better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this,\textit{learning} is less associated with a cognitive definition in this context and more to a performance based approach.
+
+
+
+It is divided into two main categories: Supervised and Unsupervised. The difference is that in the fist case algorithms are set to produce outputs, noted by $Y$, from input data, noted by $X$ i.e. the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$. The second type of problems is where the output data is missing altogether from data. In this scenario the most common objectives are clustering samples, density estimation and data compression. Linear regression and K-means clustering are examples of algorithms in each of these categories respectively.
+
+\subsubsection{Notation}
+
+For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. An example lets consider Fisher's widely known Iris dataset where samples can belong to any of following Iris flower species: \textit{Iris setosa}, \textit{Iris virginica} and \textit{Iris versicolor}. 
+%\url{http://stackoverflow.com/}
+\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
+Four measurements were made on all of the observations to account for the length and width of the flower's petals and sepals.
+
+
+An short example of this  dataset can be seen below:
+
+\begin{table}[ht]
+\caption{Head of Iris Dataset}
+\label{tab:results}
+\centering
+\begin{tabular}{ l l l l l }
+\toprule
+Sepal length & Sepal width & Petal length & Petal width & Species \\
+\midrule
+5.1  & 3.5 &  1.4 & 0.2 & \textit{setosa} \\
+5.7  & 2.8 &  4.1 & 1.3 & \textit{versicolor} \\
+6.3  & 3.3 &  6.0 & 2.5 & \textit{virginica} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+
+we will focus on the supervised aspect of machine learning. This area is then sub-categorized according to the type of information encoded in the data. When outputs $Y$ are encoding samples into classes then it is said that it is a supervised classification problem. On the other hand, when the output takes continuous (or $\mathbb{R}$ dense) range of values the problem is said to be of supervised regression.
+
+For supervised classification algorithms, a brief notation outline is described below, following a standard logistic regression classifier example:
+
+
+The objective is
+
+
+
+
+
+It is important to start noting at this point certain subtleties in the naming convention used for machine learning. Most terms have equivalent notations in other areas of knowledge, even in closely related ones like statistics. A typical machine learning problem starts with an object of study, for example flowers, and data collected from these objects. In the flower scenario 
+
+Other subtleties worth noting is the 
+
+\textit{any reasonable machine learning method can be formulated as a formal probabilistic model, so in this sense machine learning is very much the same as statistics, but it differs in that it generally doesn't care about parameter estimates (just prediction) and it focuses on computational efficiency and large datasets.}
+
+(CITAR BREIMAN TWO cultures IN STATISTICal modelling)
+
+typically shown as 
+
+
+
+
+%Their merits have already been put to the test both academically and industrially
+
+The 
+Algorithms that can automatically perform or learn a specific task and which need not be directed to do so. 
+
+
+
+In virtually all cases, 
+
+Supervised machine learning refers to the 
+
+
+\subsection{}
+
+
+\section{Bias, Variance, Generalization and Model Complexity}
+
+\subsection{Hastie Tibshiranie Friedman}
+
+\textbf{Gral}
+\textit{The generalization performance of a learning method relates to its prediction capability on independent test data. Assessment of this performance is extremely important in practice, since it guides the choice of learning method or model, and gives us a measure of the quality of the ultimately chosen model.}
+
+\textbf{Cross Validation}:  
+\textit{simplest and most widely used method... This method directly estimates the expected extra-sample error
+$Error = E[L(Y,\hat{f}(X))] $ i.e. the average the average generalization error when the method $\hat{f(X)}$ is applied to an independent test sample from the joint distribution of $X$ and $Y$ . As mentioned earlier, we might hope that cross-validation estimates the conditional error, with the training set. $\mathrm{T}$ held fixed. But cross-validation typically estimates well only the expected prediction error.}
+
+\textit{Ideally, if we had enough data, we would set aside a validation set and use it to assess the performance of our prediction model. Since data are often scarce, this is usually not possible. To finesse the problem, K-fold cross-validation uses part of the available data to fit the model, and a different part to test it. We split the data into K roughly equal-sized parts; }
+
+\textit{Let $k : \{1,..,N\} \mapsto \{1, .., K\}$ be an indexing function are more details be an indexing
+function that indicates the partition to which observation i is allocated by the randomization. Denote by}
+
+
+\subsection{Bengio, GrandValet - No Unbiased Estimator of the Variance of K-Fold Cross-Validation}
+\textbf{Cross Validation}: 
+\textit{The standard measure of accuracy for trained models is the prediction error (PE), i.e. the expected loss on future examples. Learning algorithms themselves are often compared on their average performance, which estimates expected value of prediction error (EPE) over training sets.
+The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
+Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
+We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
+}
+
+
+
+
+\textbf{HyperParameters}:
+Como van apareciendo en algunos algoritmos y are different from the "parameters" or coefficients of the learners. They appear as a consequence of numerical, computational and sometimes statistical fine-tuning of algorithms (give an example?). 
+La relacion entre cross-validation y la busqueda de hiper parametros. 
+
+\textit{}
+
+\textit{}
+
+
+\textbf{The likelihood principle}: given a generative model for data $d$, given parameters $\theta$, the likelihood is defined as $P (d | \theta)$, and having observed a particular outcome $d_1$ , all inferences and predictions should depend only on the function $P(d_1 | \theta)$ i.e. they depend only on the data at hand, on what actually happened. 
+
+\textbf{Shannon information content of an outcome}: let x be an event/outcome then $h(x)$ is defined to be 
+$= log _2(\frac{1}{ P(x)})$
+Note that it is measured in bits and that less probable events carry more “information”.
+This number is a measure of the information content of a bit. 
+
+\textbf{Entropy}: defined as $H(X) =  E[log _2(\frac{1}{ P(x)})]$  where $X$ is a random variable and by convention $0*log(\frac{1}{0}) = 0$. 
+It is clear from the definition that $H(x)\geq 0$ and is equal to 0 only if x is s.t. $P(x)=1$. 
+
+Entropy is maximized when $P(x)~Uniform$ and as such for any given $X$ it goes that $H(X) \leq log(|A(x)|)$
+
+Entropy is additive for two independent random variables i.e. $H(X,Y) = H(X) + H(Y)$
+
+\textbf{Decomposability of entropy}:  if ${p1,p2,..,pn}$
+
+
