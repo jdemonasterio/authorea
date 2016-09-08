@@ -72,12 +72,19 @@ $$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \xrightarrow[N \to \infty]{} 
 
 
 
-\begin{lemma}
-Given two line segments whose lengths are $a$ and $b$ respectively there is a 
-real number $r$ such that $b=ra$.
-\end{lemma}
 
-For the case of a random forest classifier, the margin function will be defined as
+\subsection{Predictive error bounds}
+
+Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate on the generalization error of the ensemble classifier, these individual scores and the inter-relationship between them must be taken into account. For this purpose, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
+
+
+
+%\begin{lemma}
+%Given two line segments whose lengths are $a$ and $b$ respectively there is a 
+%real number $r$ such that $b=ra$.
+%\end{lemma}
+
+Let the margin function for a random forest be defined as
 
 \begin{equation}\label{eq:rf-marginFunRf}
 mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j}) 
