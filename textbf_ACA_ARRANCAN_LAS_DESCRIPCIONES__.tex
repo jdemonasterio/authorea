@@ -73,30 +73,31 @@ $$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \xrightarrow[N \to \infty]{} 
 
 
 
+
 \subsection{Predictive error bounds}
 
 Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate on the generalization error of the ensemble classifier, these individual scores and the inter-relationship between them must be taken into account. For this purpose, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
-
-
 
 %\begin{lemma}
 %Given two line segments whose lengths are $a$ and $b$ respectively there is a 
 %real number $r$ such that $b=ra$.
 %\end{lemma}
 
-Let the margin function for a random forest be defined as
+\begin{theorem}
+There is an upper bound for the generalization error.
+\end{theorem}
+
+Define $\hat{j}(\textbf{x},\textbf{y})$ as $arg max_{j\neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$ and let the margin function for a random forest be defined as
 
 \begin{equation}\label{eq:rf-marginFunRf}
 mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j}) 
 \\ 
 = \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} )  \right]
-
 \end{equation} 
 
-where 
+
 %\begin{equation}%\end{equation}
-$$\hat{j}(\textbf{x},\textbf{y}) = arg max_{j\neq \textbf{y}} P_{Theta}(h(\textbf{x}) = \textbf{y})$$.
- 
+
 %\end{equation}
 
 Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the classifier can correctly classify or not the sample's label, given $\Theta$.
@@ -122,16 +123,52 @@ var(mr) & =  \Expect_{\Theta, \Theta'}
 \end{split}
 \end{equation}
 
-Let the strength will be defined as 
+where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$. In both cases, $\Theta$ and $\Theta'$ are given to be fixed. 
 
-$$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$. \label{eq:rf-strength}
+Equation \ref{eq:rf-marginFunVar} in turn implies that 
 
-Assuming that $s \geq 0$ we have that the generalization error $PE \leq var(mr)/sˆ2$ by Chebyshev's inequality. 
+\begin{equation}\label{eq:rf-varianceBound}
+\begin{split}
+var(mr) & =  \overline{\rho} (\Expect_{\Theta}\left[ \sigma(\Theta)\right] )^2 \\
+		& \leq  \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right] 
+\end{split}
+\end{equation}
 
-Define 
+where we have conveniently defined $\overline{\rho}$ as 
+
+\begin{equation}\label{eq:rf-meanCorrelation}
+ \frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
+ {\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
+\end{equation}
+
+Note this is the mean value of the correlation.
+
+Let the strength of the set of weak classifiers in the forest be defined as 
+
+$$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$.\label{eq:rf-strength}
+
+Assuming that $s \geq 0$ we have that the prediction error is bounded by 
+\begin{equation}\label{eq:rf-predictiveErrorBound1}
+	PE^* \leq var(mr)/s^2
+\end{equation}
+by Chebyshev's inequality. On the other hand it can also be noted that
 
 
+\begin{equation}\label{eq:rf-expectedVarBound}
+\begin{split}
+\Expect_{\Theta} \left[ var(\Theta) \right]  & \leq \Expect_{\Theta} \left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})   \right]  \right]^2 -s^2  \\
+								& \leq 1-s^2
+\end{split}
+\end{equation}
 
-\b{x}
+\begin{proof}
+We can use  \ref{eq:rf-varianceBound}, \ref{eq:rf-predictiveErrorBound1} and \ref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
+\begin{equation}\label{eq:rf-PEBound}
+PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
+\end{equation}
+\end{proof}
+
+This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author \cite{breiman-randomforests} of the algorithm remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier. 
+
 
 
