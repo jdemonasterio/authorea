@@ -13,7 +13,7 @@ Random Forests are a special type of classifier in which a set of weaker learner
 
 Decision Trees will not be described in detail in this work, but a brief overview can be given as follows. 
 
-The algorithm builds a tree in the graph-theory sense where each node has a rule based on set belonging. Each rule defines a linear (or similar) partition of the training set where rules are built from the sample's features. At each node we would have a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of the same feature's space.
+The algorithm builds a tree in the graph-theory sense where each node has a rule based on set belonging. Each rule defines a linear (or similar) partition of the training set where rules are built from the sample's features. At each node we would have a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of said feature's space.
 
 For numerical features, $U$ will be of the form $(-\infty,c]$ where $c \in \mathbb{R}$ is any given number predefined by each rule. For categorical features, $U$ will be a subset of possible values of that feature.
 
