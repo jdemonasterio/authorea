@@ -35,13 +35,13 @@ To illustrate this method, an instance is show in figure \ref{rf-treeFigure}. Th
 \smallskip
 %[.{\textit{M}} ] [.{\textit{F}} ]
 
-Given a sample from training set $\mathrm{T}$, a decision tree would predict its target class by traveling the sample until a leaf node is reached. In this method hyper-parameters of the model include the length of the tree and the metric used to decide on the \textit{best} split. Parameters are limited to the features selected at each node along with the splitting rule threshold. Note that the construction of optimal binary decision trees is NP-Complete \ref{decisionTreesNP}, thus it is understandable that it is computationally prohibitive to fit all of these parameters at once. However, once a learner is fit, predicting targets for new samples is very simple: a tree defines a partition of feature space in hyper-rectangles and the sample's hyper-rectangle would define its target value.
+Given a sample from training set $\mathrm{T}$, a decision tree would predict its target class by traveling the sample until a leaf node is reached. In this method hyper-parameters of the model include the length of the tree and the metric used to decide on the \textit{best} split. Parameters are limited to the features selected at each node along with the splitting rule threshold. Note that the construction of optimal binary decision trees is NP-Complete \cite{decisionTreesNP}, thus it is understandable that it is computationally prohibitive to fit all of these parameters at once. However, once a learner is fit, predicting targets for new samples is very simple: a tree defines a partition of feature space in hyper-rectangles and the sample's hyper-rectangle would define its target value.
 
 
 For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
 
 \subsection{Extension to Random Forests}
-\textbf{L Breiman Paper}
+\textbf{L Breiman Paper}\cite{breiman-randomforests}
 
 
 \textit{
