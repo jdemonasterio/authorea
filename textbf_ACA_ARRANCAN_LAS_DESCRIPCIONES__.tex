@@ -7,8 +7,41 @@ Notar que todo lo que esta en italica es tipo highlighter de textos de otros aut
 \section{Classifier : Random Forests}
 
 
-\section{Leo Breiman}\cite{breiman-randomforests}
-For a more detailed explanation of a decision tree, please refer to \cite{breiman-cart84}
+Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together.
+
+\subsection{Decision Tree Learners}
+
+Decision Trees will not be described in detail in this work, but a brief overview can be given as follows. 
+
+The algorithm builds a tree in the graph-theory sense where each node has a rule based on set belonging. Each rule defines a linear (or similar) partition of the training set where rules are built from the sample's features. At each node we would have a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of the same feature's space.
+
+For numerical features, $U$ will be of the form $(-\infty,c]$ where $c \in \mathbb{R}$ is any given number predefined by each rule. For categorical features, $U$ will be a subset of possible values of that feature.
+
+A tree is generally grown in an iterative way from the top down \footnote{In this context the \textit{top} of a tree refers to the root of it.}. All samples in the training set would enter the tree at the root node and then travel down according to their fulfillment of each node's rule. 
+
+The most common variations of this learner build rules at each nodes in a greedy fashion, where a metric is locally optimized in each node to decide on the best splitting decision. The metrics used to build each rule score, for the resulting sets, are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the resulting sets, if all samples were to be tagged with one predicted target-label. The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Liebler divergence} of the resulting sets with respect to the original set. This partitioning continues iteratively until a predefined optimization or iteration threshold is met. 
+
+To illustrate this method, an instance is show in figure \ref{rf-treeFigure}. This classification tree example is built for the two class problem of gender prediction using data from CDRs:
+%[.{\textit{Woman}}]
+\smallskip
+\begin{figure}[h]\label{rf-treeFigure}
+	\Tree[.{ $Calling\_Volume \leq 23$ } [.{$Province \in \{ San Luis, Chubut \} $} [.{$Time\_Weekend \geq 16$} [.{\textit{M}} ] [.{\textit{F}} ]  ]
+	[.{$Calls\_Weekdays \leq 48$} 
+	[.{ $Time\_Weekday \geq 17$} [.{\textit{M}} ] [.{\textit{F}} ]] [.{\textit{F}} ] ]  ]
+	[.{$Calls\_Mondays \geq 2$} [.{$Province \in \{ Chubut, Cordoba \} $}  [.{\textit{M}} ] [.{\textit{F}} ] ]
+	[.{\textit{M}}  ]]]
+		
+\end{figure}
+\smallskip
+%[.{\textit{M}} ] [.{\textit{F}} ]
+
+Given a sample from training set $\mathrm{T}$, a decision tree would predict its target class by traveling the sample until a leaf node is reached. In this method hyper-parameters of the model include the length of the tree and the metric used to decide on the \textit{best} split. Parameters are limited to the features selected at each node along with the splitting rule threshold. Note that the construction of optimal binary decision trees is NP-Complete \ref{decisionTreesNP}, thus it is understandable that it is computationally prohibitive to fit all of these parameters at once. However, once a learner is fit, predicting targets for new samples is very simple: a tree defines a partition of feature space in hyper-rectangles and the sample's hyper-rectangle would define its target value.
+
+
+For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
+
+\subsection{Extension to Random Forests}
+\textbf{L Breiman Paper}
 
 
 \textit{
