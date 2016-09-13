@@ -2,12 +2,9 @@
 
 By combining the predictions of a set of base learners the overall generalization error of the aggregated learner will be improved. The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
 
-By combining base learners in a randomized, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increass its generalization rate. Variance has to be carefully looked upon in these kind of models.
+By combining base learners in a randomized, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increass its generalization rate. Variance has to be carefully looked upon in these kind of models. The type of model to be applied will depend on the problem setup where, in general, bagging methods work well with complex and strong base learners where there is a high risk of overfitting and bagging, on the contrary, is used with weaker learners.
 
-
-
-
-\textit{As they provide a way to reduce overfitting, bagging methods work best with strong and complex models (e.g., fully developed decision trees), in contrast with boosting methods which usually work best with weak models (e.g., shallow decision trees).}
+There exist v In Random Forests 
 
 \textit{Bagging methods come in many flavours but mostly differ from each other by the way they draw random subsets of the training set. As a general rule, randomness is applied either to the ‘rows’ or ‘columns’ of the dataset i.e. samples or features:    
 • When random subsets of the dataset are drawn as random subsets of the samples, then this algorithm is known as Pasting [L. Breiman, “Pasting small votes for classification in large databases and on-line”, Machine Learning, 36(1), 85-103, 1999.].
