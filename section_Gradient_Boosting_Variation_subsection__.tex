@@ -48,9 +48,11 @@ where each trees is added in such a way that we are minimizing
 
 %\begin{equation} \label{eq:gb-objSteps1}
 \[
-Obj_t(\Theta) = \sum_i^n l(y^i,\hat{y_t}^i)) +   \sum_k^t R(f_k) \\
-= \sum_i^n l(y^i,\hat{y}_{t-1}^i +  f_t(x^i) ) +   c(t) + R(f_t) \\
-%= \sum_i^n {2(y^i -(\hat{y}_{t-1}^i +  f_t(x^i)) )} + (\hat{y}_{t-1}^i +  f_t(x^i))^2 +  f_t + c'(t)
+\begin{split}
+Obj_t(\Theta) \approx &  \sum_i^n {g^i \theta_{q(x^i)} + \frac{1}{2} h^i \theta_{q(x^i)}^2 } + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
+=  & \sum_{j=1}^T\left(  \sum_{i \in T_j} (g^i )\theta_{j} + \frac{1}{2} \sum_{i \in T_j} (h^i + \lambda ) \theta_{j}^2  \right) + \gamma T
+\end{split}
+
 \]
 %\end{equation}
 

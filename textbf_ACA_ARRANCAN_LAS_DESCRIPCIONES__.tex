@@ -3,13 +3,51 @@
 Notar que todo lo que esta en italica es tipo highlighter de textos de otros autores :)
 %NOTAR QUE TO LO QUE ESTA EN ITALICA ES TIPO HIGHLIGHTER DE OTROS TEXTOS DE OTROS AUTORES}
 
-
 \section{Classifier : Random Forests}
 
+Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together.
 
-\section{Leo Breiman}
+\subsection{Decision Tree Learners}
+
+Decision Trees will not be described in detail in this work, but a brief overview can be given as follows. 
+
+The algorithm builds a tree in the graph-theory sense where each node has a rule based on set belonging. Each rule defines a linear (or similar) partition of the training set where rules are built from the sample's features. At each node we would have a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of said feature's space.
+
+For numerical features, $U$ will be of the form $(-\infty,c]$ where $c \in \mathbb{R}$ is any given number predefined by each rule. For categorical features, $U$ will be a subset of possible values of that feature.
+
+A tree is generally grown in an iterative way from the top down \footnote{In this context the \textit{top} of a tree refers to the root of it.}. All samples in the training set would enter the tree at the root node and then travel down according to their fulfillment of each node's rule. 
+
+The most common variations of this learner build rules at each nodes in a greedy fashion, where a metric is locally optimized in each node to decide on the best splitting decision. The metrics used to build each rule score, for the resulting sets, are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the resulting sets, if all samples were to be tagged with one predicted target-label. The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Liebler divergence} of the resulting sets with respect to the original set. This partitioning continues iteratively until a predefined optimization or iteration threshold is met. 
+
+To illustrate this method, an instance is show in figure \ref{rf-treeFigure}. This classification tree example is built for the two class problem of gender prediction using data from CDRs:
+%[.{\textit{Woman}}]
+\smallskip
+\begin{figure}[h]\label{rf-treeFigure}
+	\Tree[.{ $Calling\_Volume \leq 23$ } [.{$Province \in \{ San Luis, Chubut \} $} [.{$Time\_Weekend \geq 16$} [.{\textit{M}} ] [.{\textit{F}} ]  ]
+	[.{$Calls\_Weekdays \leq 48$} 
+	[.{ $Time\_Weekday \geq 17$} [.{\textit{M}} ] [.{\textit{F}} ]] [.{\textit{F}} ] ]  ]
+	[.{$Calls\_Mondays \geq 2$} [.{$Province \in \{ Chubut, Cordoba \} $}  [.{\textit{M}} ] [.{\textit{F}} ] ]
+	[.{\textit{M}}  ]]]
+		
+\end{figure}
+
+\smallskip
+
+%[.{\textit{M}} ] [.{\textit{F}} ]
+
+Given a sample from training set $\mathrm{T}$, a decision tree would predict its target class by traveling the sample until a leaf node is reached. In this method hyper-parameters of the model include the length of the tree and the metric used to decide on the \textit{best} split. Parameters are limited to the features selected at each node along with the splitting rule threshold. Note that the construction of optimal binary decision trees is NP-Complete \cite{decisionTreesNP}, thus it is computationally prohibitive to fit all of these parameters at once. However, once a learner is fit, predicting targets for new samples is straightforward. A tree defines a partition of feature space in disjoint sets $A_1,...,A_J$ such that the sample's predicted output $\hat{y}$ is $c_j$ if the sample belongs to $A_j$. Here $c_j$ is one of the possible values taken by the target variable $y$ in the training set. And by the way trees were built, each $A_j$ is a hyper-rectangles in feature space.
+
+For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
+
+\subsection{Extension to Random Forests}
+\textbf{L Breiman Paper}\cite{breiman-randomforests}
 
 
+Random Forests where a natural ensemble extension of Decision Trees first described by \cite{HoFirstRandomForest}. 
+
+Random Forests look like a natural 
+
+For the case of Random Forests, first derived in 
 \textit{
 Random forests are a combination of tree predictors
 such that each tree depends on the values of a random
@@ -73,30 +111,31 @@ $$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \xrightarrow[N \to \infty]{} 
 
 
 
+
 \subsection{Predictive error bounds}
 
 Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate on the generalization error of the ensemble classifier, these individual scores and the inter-relationship between them must be taken into account. For this purpose, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
-
-
 
 %\begin{lemma}
 %Given two line segments whose lengths are $a$ and $b$ respectively there is a 
 %real number $r$ such that $b=ra$.
 %\end{lemma}
 
-Let the margin function for a random forest be defined as
+\begin{theorem}
+There is an upper bound for the generalization error.
+\end{theorem}
+
+Define $\hat{j}(\textbf{x},\textbf{y})$ as $arg max_{j\neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$ and let the margin function for a random forest be defined as
 
 \begin{equation}\label{eq:rf-marginFunRf}
 mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j}) 
 \\ 
 = \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} )  \right]
-
 \end{equation} 
 
-where 
+
 %\begin{equation}%\end{equation}
-$$\hat{j}(\textbf{x},\textbf{y}) = arg max_{j\neq \textbf{y}} P_{Theta}(h(\textbf{x}) = \textbf{y})$$.
- 
+
 %\end{equation}
 
 Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the classifier can correctly classify or not the sample's label, given $\Theta$.
@@ -106,18 +145,83 @@ With these definitions, it is straight to see that
 %\begin{equation}%\end{equation}
 $$mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} )  \right] $$.
 
-%\end{equation}
+This in turn implies that
 
-Let the strength will be defined as 
+\begin{equation}\label{eq:rf-marginFunVar}
+\begin{split}
+var(mr) & =  \Expect_{\Theta, \Theta'} 
+			\left[ 
+				cov_{\textbf{x},\textbf{y}}
+				(rmg(\Theta,\textbf{x},\textbf{y} )rmg(\Theta',\textbf{x},\textbf{y} )) 
+			\right] \\
+& =  \Expect_{\Theta, \Theta'}
+			\left[ 
+				\rho(\Theta, \Theta')\sigma(\Theta)\sigma(\Theta')
+			\right] 
+\end{split}
+\end{equation}
 
-$$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$. \label{eq:rf-strength}
+where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$. In both cases, $\Theta$ and $\Theta'$ are given to be fixed. 
 
-Assuming that $s \geq 0$ we have that the generalization error $PE \leq var(mr)/sˆ2$ by Chebyshev's inequality. 
+Equation \ref{eq:rf-marginFunVar} in turn implies that 
 
-Define 
+\begin{equation}\label{eq:rf-varianceBound}
+\begin{split}
+var(mr) & =  \overline{\rho} (\Expect_{\Theta}\left[ \sigma(\Theta)\right] )^2 \\
+		& \leq  \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right] 
+\end{split}
+\end{equation}
+
+where we have conveniently defined $\overline{\rho}$ as 
+
+\begin{equation}\label{eq:rf-meanCorrelation}
+ \frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
+ {\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
+\end{equation}
+
+Note this is the mean value of the correlation.
+
+Let the strength of the set of weak classifiers in the forest be defined as 
+
+$$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$.\label{eq:rf-strength}
+
+Assuming that $s \geq 0$ we have that the prediction error is bounded by 
+\begin{equation}\label{eq:rf-predictiveErrorBound1}
+	PE^* \leq var(mr)/s^2
+\end{equation}
+by Chebyshev's inequality. On the other hand it can also be noted that
 
 
+\begin{equation}\label{eq:rf-expectedVarBound}
+\begin{split}
+\Expect_{\Theta} \left[ var(\Theta) \right]  & \leq \Expect_{\Theta} \left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})   \right]  \right]^2 -s^2  \\
+								& \leq 1-s^2
+\end{split}
+\end{equation}
 
-\b{x}
+\begin{proof}
+We can use  \ref{eq:rf-varianceBound}, \ref{eq:rf-predictiveErrorBound1} and \ref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
+\begin{equation}\label{eq:rf-PEBound}
+PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
+\end{equation}
+\end{proof}
+
+This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author \cite{breiman-randomforests} of the algorithm remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier. 
+\subsection{Binary Class}
+In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \ref{eq:rf-PEBound}. In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$. 
+
+The bounds prediction error bounds derived in \ref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
+$$ \Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} $$
+
+Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
+
+$$ \overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right] $$
+
+
+\textbf{VARIABLE IMPORTANCE}
+
+\textit{Internal estimates monitor error, strength, and correlation and these are used to show
+	the response to increasing the number of features used in the splitting. Internal estimates are also used to measure variable importanced}
+
 
 
