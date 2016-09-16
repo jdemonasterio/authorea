@@ -35,3 +35,41 @@ Best hyperparameteres are alwasy cross-validated on the training set
 
 \textit{Internal estimates monitor error, strength, and correlation and these are used to show
 	the response to increasing the number of features used in the splitting. Internal estimates are also used to measure variable importance}
+Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together.
+	
+\section{scikit-docs}
+
+Differnet works have explored on low-bias and high-variance scenarios. Strongly related to models with low training error and high test errors.  \cite{breiman-arcingclassifiers} gives a more accurate description of this problem on real data. In some cases \textit{..small perturbations in their  training  sets  or  in  construction  may  result  in  large  changes  in  the  constructed  predictor}
+	
+	
+	
+	By combining the predictions of a set of base learners the overall generalization error of the aggregated learner will be improved. The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
+	
+	By combining base learners in a randomized, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increase its generalization rate. Variance has to be carefully looked upon in these kind of models. A common trait of the two methods is that the prediction for new samples is given over the average of individual classifiers or the most frequent class in the ensemble. 
+	
+	There exist a wide range of Random Forests variants in the literature \cite{breiman-randomforests} where the difference lies on how randomization is applied to the base learners. In most cases this means that during runtime, samples will be selected on the features and on the \textit{rows} of the dataset. We will not survey all of the different variations but some of the methods ideas work as follows:
+	
+	\begin{itemize}
+		\item Bootstrapping on rows at each node.
+		\item Sampling on rows at each node.
+		\item Sampling features to build each individual tree.
+		\item Sampling features and rows when building on base learners.
+	\end{itemize}
+	
+	
+	\textit{Random forests use a perturb-and-combine technique [Breiman, “Arcing Classifiers”, Annals of Statistics 1998.] specifically designed for trees. This means a diverse set of classifiers is created by introducing randomness in the classifier construction. The prediction of the ensemble is given as the averaged prediction of the individual classifiers.}
+	
+	\textit{each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features. Instead, the split that is picked is the best split among a random subset of the features. As a result of this randomness, the bias of the forest usually slightly increases (with respect to the bias of a single non-random tree) but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model. [Breiman, “Random Forests”, Machine Learning, 45(1), 5-32, 2001.] }
+	
+	
+	Hyper-parameters for tree models are in general based on 
+	\textit{Number of estimators in forest. max depth. Number of features sampled. Sample size at leaf split. Bootstrapping for each tree. }
+	
+	There is a tradeoff in bias-variance when varying the different hyperparameters.
+	
+	Best hyperparameteres are alwasy cross-validated on the training set
+	
+	\textbf{VARIABLE IMPORTANCE}
+	
+	\textit{Internal estimates monitor error, strength, and correlation and these are used to show
+		the response to increasing the number of features used in the splitting. Internal estimates are also used to measure variable importance}
