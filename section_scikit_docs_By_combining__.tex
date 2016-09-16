@@ -1,5 +1,8 @@
 \section{scikit-docs}
 
+Differnet works have explored on low-bias and high-variance scenarios. Strongly related to models with low training error and high test errors.  \cite{breiman-arcingclassifiers] gives a more accurate description of this problem on real data. In some cases \begin{quote} ..small perturbations in
+their  training  sets  or  in  construction  may  result  in  large  changes  in  the  constructed  predictor\end{quote}.
+
 By combining the predictions of a set of base learners the overall generalization error of the aggregated learner will be improved. The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
 
 By combining base learners in a randomized, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increase its generalization rate. Variance has to be carefully looked upon in these kind of models. A common trait of the two methods is that the prediction for new samples is given over the average of individual classifiers or the most frequent class in the ensemble. 
