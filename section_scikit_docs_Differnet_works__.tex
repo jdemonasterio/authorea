@@ -23,11 +23,18 @@ There exist a wide range of Random Forests variants in the literature \cite{brei
 
 \textit{each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features. Instead, the split that is picked is the best split among a random subset of the features. As a result of this randomness, the bias of the forest usually slightly increases (with respect to the bias of a single non-random tree) but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model. [Breiman, “Random Forests”, Machine Learning, 45(1), 5-32, 2001.] }
 
-\textit{The main parameters to adjust when using these methods is n_estimators and max_features. The former is the number of trees in the forest. The larger the better, but also the longer it will take to compute. In addition, note that results will stop getting significantly better beyond a critical number of trees. The latter is the size of the random subsets of features to consider when splitting a node. The lower the greater the reduction of variance, but also the greater the increase in bias.} 
-\textit{Empirical good default values are max_features=n_features for regression problems, and max_features=sqrt(n_features) for classification tasks (where n_features is the number of features in the data). Good results are often achieved when setting max_depth=None in combination with min_samples_split=1 (i.e., when fully developing the trees). Bear in mind though that these values are usually not optimal, and might result in models that consume a lot of ram.} 
-\textit{The best parameter values should always be cross-validated. In addition, note that in random forests, bootstrap samples are used by default (bootstrap=True) while the default strategy for extra-trees is to use the whole dataset (bootstrap=False). When using bootstrap
-sampling the generalization error can be estimated on the left out or out-of-bag samples. This can be enabled by setting oob_score=True.}
+%\textit{The main parameters to adjust when using these methods is n_estimators and max_features. The former is the number of trees in the forest. The larger the better, but also the longer it will take to compute. In addition, note that results will stop getting significantly better beyond a critical number of trees. The latter is the size of the random subsets of features to consider when splitting a node. The lower the greater the reduction of variance, but also the greater the increase in bias.} 
 
+Hyper-parameters for tree models are in general based on 
+\textit{max depth. Number of features sampled. Sample size at leaf split. Bootstrapping for each tree. }
+
+
+Best hyperparameteres are alwasy cross-validated on the training set
+ 	
+\textbf{VARIABLE IMPORTANCE}
+
+\textit{Internal estimates monitor error, strength, and correlation and these are used to show
+	the response to increasing the number of features used in the splitting. Internal estimates are also used to measure variable importance}
 
 
 \textit{aaasdf}
