@@ -2,15 +2,15 @@
 
 By combining the predictions of a set of base learners the overall generalization error of the aggregated learner will be improved. The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
 
-By combining base learners in a randomized, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increass its generalization rate. Variance has to be carefully looked upon in these kind of models.
+By combining base learners in a randomized, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increase its generalization rate. Variance has to be carefully looked upon in these kind of models. A common trait of the two methods is that the prediction for new samples is given over the average of individual classifiers or the most frequent class in the ensemble. 
 
-There exist a wide range of Random Forests variants in the literature \cite{breiman-randomforests} where the difference lies on how randomization is applied to the base learners. In most cases this means that during runtime, samples will be selected on the features and on the \textit{rows} of the dataset. We will not survey all of the different variations but some of the methods are as follows:
+There exist a wide range of Random Forests variants in the literature \cite{breiman-randomforests} where the difference lies on how randomization is applied to the base learners. In most cases this means that during runtime, samples will be selected on the features and on the \textit{rows} of the dataset. We will not survey all of the different variations but some of the methods ideas work as follows:
 
 \begin{itemize}
     \item Bootstrapping on rows at each node.
     \item Sampling on rows at each node.
     \item Sampling features to build each individual tree.
-    \item Sampling features and rows when building a base learner.
+    \item Sampling features and rows when building on base learners.
 \end{itemize}
 
 
