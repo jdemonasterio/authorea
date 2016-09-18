@@ -8,23 +8,40 @@ $\calG \calN \calE \calL$
 
 \subsection{Hastie Tibshiranie Friedman}
 
-\textbf{Gralization}
+\textbf{Generalization}
 
 Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data among models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error} where this error can be divided into an "error" due to \textit{bias} and an "error" due to \textit{variance}.
 
-Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's prediction on the features and denote $L( Y,\hat{f(X)} )$ the loss function.
+Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function.
 
 \begin{definition}{Generalization Error}
-	The generalization error is also known as the test error or prediction error. This is the model's expected error over an independent test set $\mathrm{Ts}$:
+	The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$:
 	$$ Err_{\mathrm{T}} = \Expect \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
-	
-	Note that in this definition the expectation is taken conditional on the training set and the samples used to measure the error are drawn from an independent test set. here the model is fit \textbf{only} from the training set.
 \end{definition}
- 
+
+Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.
+
+In a second
+
+\begin{definition}{Expected Prediction Error}
+	Related to the generalization error, the expected prediction error is the expectation of the genrealization error.
+	The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$:
+	$$ Err = \Expect \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
+\end{definition}
+
+Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
+
+In a supervised learning context, the estimation of these errors will be of most importance for the assessment of the models.  Given  that we will be working only with information from the training set, then estimation of the second error will be, in most cases, not possible.
+
+
+\begin{definition}{Training Error}
+	is the average loss over the training set
+	$$ \overline{err} = \frac{1}{N} \sum_i=1^N L(y_i, \hat{f})(x_i)$$
+\end{definition}
 
 
 
-For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input variable and \textbf{y}  $\in \mathbb{R}$ will denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$ while $f$ will represent a function. 
+For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input variable and \textbf{y}  $\in \mathbb{R}$ will denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
 
 We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a cuadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
 
