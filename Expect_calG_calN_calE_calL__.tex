@@ -1,4 +1,4 @@
-
+ 
 $\Expect$
 
 $\calG \calN \calE \calL$
@@ -14,12 +14,11 @@ Given a problem setting, it is said that an algorithm's predictive power relies 
 
 Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's prediction on the features and denote $L( Y,\hat{f(X)} )$ the loss function.
 
-\begin{defintion}{Generalization Error}
-The generalizatione error, test error or prediction error is the model's expected error over an independent test set $\mathrm{Ts}$:
-
-$$ Err_{\mathrm{T}} = \Expect \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
-
-Note that in this definition the expectation is taken conditional on the training set and the samples used to measure the error are drawn from an independent test set. here the model is fit \textbf{only} from the training set.
+\begin{definition}{Generalization Error}
+	The generalization error is also known as the test error or prediction error. This is the model's expected error over an independent test set $\mathrm{Ts}$:
+	$$ Err_{\mathrm{T}} = \Expect \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
+	
+	Note that in this definition the expectation is taken conditional on the training set and the samples used to measure the error are drawn from an independent test set. here the model is fit \textbf{only} from the training set.
 \end{definition}
  
 
