@@ -12,7 +12,9 @@ $\calG \calN \calE \calL$
 
 Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data among models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error} where this error can be divided into an "error" due to \textit{bias} and an "error" due to \textit{variance}.
 
-Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function.
+Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
+
+In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function.
 
 \begin{definition}{Generalization Error}
 	The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$:
@@ -36,7 +38,7 @@ In a supervised learning context, the estimation of these errors will be of most
 
 \begin{definition}{Training Error}
 	is the average loss over the training set
-	$$ \overline{err} = \frac{1}{N} \sum_i=1^N L(y_i, \hat{f})(x_i)$$
+	$$ \overline{err} = \frac{1}{N} \sum_i=1^N L(y_i, \hat{f}(x_i) )$$
 \end{definition}
 
 
