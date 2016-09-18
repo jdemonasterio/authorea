@@ -9,9 +9,22 @@ $\calG \calN \calE \calL$
 \subsection{Hastie Tibshiranie Friedman}
 
 \textbf{Gralization}
-Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data amongst models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error} where this error can be divided into an "error" due to \textit{bias} and an "error" due to \textit{variance}.
 
-Conceputally the first type of error grows 
+Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data among models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error} where this error can be divided into an "error" due to \textit{bias} and an "error" due to \textit{variance}.
+
+Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's prediction on the features and denote $L( Y,\hat{f(X)} )$ the loss function.
+
+\begin{defintion}{Generalization Error}
+The generalizatione error, test error or prediction error is the model's expected error over an independent test set $\mathrm{Ts}$:
+
+$$ Err_{\mathrm{T}} = \Expect \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
+
+Note that in this definition the expectation is taken conditional on the training set and the samples used to measure the error are drawn from an independent test set. here the model is fit \textbf{only} from the training set.
+\end{definition}
+
+
+
+ 
 
 
 
@@ -20,7 +33,6 @@ For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input va
 We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a cuadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
 
 For the the squared loss case and when conditioning on $\textbf{x}$ it results that
-
 
 \begin{equation} \label{eq:expectedError}
 EPE\left(f \right) = \int [y - f(x)]^2 P(x,y)dxdy
