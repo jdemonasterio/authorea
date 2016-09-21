@@ -38,6 +38,11 @@ In a supervised learning context, the estimation of these errors will be of most
 
 By conditioning on the training set we may rewrite the above formula as 
 
+\begin{equation}\label{classificationEPE}
+	 EPE = \Expect_x\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right]
+\end{equation}
+
+
 \begin{definition}{Training Error}
 	is the average loss over the training set
 	$$ \overline{err} = \frac{1}{N} \sum_i=1^N L(y_i, \hat{f}(x_i) )$$
