@@ -11,8 +11,8 @@
 \usepackage{longtable}
 \usepackage{booktabs}
 % \usepackage{row}
-\usepackage{amsfonts,amsmath,amssymb, amsthm} %paquetes de matematica
-% \usepackage{natbib}
+\usepackage{amsfonts,amsmath,amssymb} %paquetes de matematica
+ \usepackage{amsthm}
 \usepackage{url}
 % \usepackage{hyperref}d
 % \hypersetup{colorlinks=false,pdfborder={0 0 0}}
@@ -48,9 +48,9 @@
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
-
+\newtheorem{definition}{Definition}[subsection]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
+
 \begin{document}
 
 % \mainmatter  % start of an individual contribution
@@ -90,211 +90,52 @@ Texstudio is better at helping to write fast tex documents using spell-checkers,
 
 Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together.
 	
-\subsection{Decision Tree Learners}
+\section{scikit-docs}
+
+Differnet works have explored on low-bias and high-variance scenarios. Strongly related to models with low training error and high test errors.  \cite{breiman-arcingclassifiers} gives a more accurate description of this problem on real data. In some cases \textit{..small perturbations in their  training  sets  or  in  construction  may  result  in  large  changes  in  the  constructed  predictor}
+	
+	
+	
+	By combining the predictions of a set of base learners the overall generalization error of the aggregated learner will be improved. The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
+	
+	By combining base learners in a randomized, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increase its generalization rate. Variance has to be carefully looked upon in these kind of models. A common trait of the two methods is that the prediction for new samples is given over the average of individual classifiers or the most frequent class in the ensemble. 
+	
+	There exist a wide range of Random Forests variants in the literature \cite{breiman-randomforests} where the difference lies on how randomization is applied to the base learners. In most cases this means that during runtime, samples will be selected on the features and on the \textit{rows} of the dataset. We will not survey all of the different variations but some of the methods ideas work as follows:
+	
+	\begin{itemize}
+		\item Bootstrapping on rows at each node.
+		\item Sampling on rows at each node.
+		\item Sampling features to build each individual tree.
+		\item Sampling features and rows when building on base learners.
+	\end{itemize}
+	
+	
+	\textit{Random forests use a perturb-and-combine technique [Breiman, “Arcing Classifiers”, Annals of Statistics 1998.] specifically designed for trees. This means a diverse set of classifiers is created by introducing randomness in the classifier construction. The prediction of the ensemble is given as the averaged prediction of the individual classifiers.}
+	
+	\textit{each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features. Instead, the split that is picked is the best split among a random subset of the features. As a result of this randomness, the bias of the forest usually slightly increases (with respect to the bias of a single non-random tree) but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model. [Breiman, “Random Forests”, Machine Learning, 45(1), 5-32, 2001.] }
+	
+	
+	Hyper-parameters for tree models are in general based on 
+	\textit{Number of estimators in forest. max depth. Number of features sampled. Sample size at leaf split. Bootstrapping for each tree. }
+	
+	There is a tradeoff in bias-variance when varying the different hyperparameters.
+	
+	Best hyperparameteres are alwasy cross-validated on the training set
+	
+	\textbf{VARIABLE IMPORTANCE}
+	
+	\textit{Internal estimates monitor error, strength, and correlation and these are used to show
+		the response to increasing the number of features used in the splitting. Internal estimates are also used to measure variable importance}
+
+
+\begin{definition}{Generalization Error}
+	The generalization error is also known as the test error or prediction error. This is the model's expected error over an independent test set $\mathrm{Ts}$:
+	
+	$$ Err_{\mathrm{T}} = \Expect \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
+	
+	Note that in this definition the expectation is taken conditional on the training set and the samples used to measure the error are drawn from an independent test set. here the model is fit \textbf{only} from the training set.
+\end{definition}
 
-Decision Trees will not be described in detail in this work, but a brief overview can be given as follows. 
-
-The algorithm builds a tree in the graph-theory sense where each node has a rule based on set belonging. Each rule defines a linear (or similar) partition of the training set where rules are built from the sample's features. At each node we would have a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of the same feature's space.
-
-For numerical features, $U$ will be of the form $(-\infty,c]$ where $c \in \mathbb{R}$ is any given number predefined by each rule. For categorical features, $U$ will be a subset of possible values of that feature.
-
-A tree is generally grown in an iterative way from the top down \footnote{In this context the \textit{top} of a tree refers to the root of it.}. All samples in the training set would enter the tree at the root node and then travel down according to their fulfillment of each node's rule. 
-
-The most common variations of this learner build rules at each nodes in a greedy fashion, where a metric is locally optimized in each node to decide on the best splitting decision. The metrics used to build each rule score, for the resulting sets, are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the resulting sets, if all samples were to be tagged with one predicted target-label. The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Liebler divergence} of the resulting sets with respect to the original set. This partitioning continues iteratively until a predefined optimization or iteration threshold is met. 
-
-To illustrate this method, an instance is show in figure \ref{rf-treeFigure}. This classification tree example is built for the two class problem of gender prediction using data from CDRs:
-%[.{\textit{Woman}}]
-\smallskip
-\begin{figure}[h]\label{rf-treeFigure}
-	\Tree[.{ $Calling\_Volume \leq 23$ } [.{$Province \in \{ San Luis, Chubut \} $} [.{$Time\_Weekend \geq 16$} [.{\textit{M}} ] [.{\textit{F}} ]  ]
-	[.{$Calls\_Weekdays \leq 48$} 
-	[.{ $Time\_Weekday \geq 17$} [.{\textit{M}} ] [.{\textit{F}} ]] [.{\textit{F}} ] ]  ]
-	[.{$Calls\_Mondays \geq 2$} [.{$Province \in \{ Chubut, Cordoba \} $}  [.{\textit{M}} ] [.{\textit{F}} ] ]
-	[.{\textit{M}}  ]]]
-		
-\end{figure}
-\smallskip
-%[.{\textit{M}} ] [.{\textit{F}} ]
-
-Given a sample from training set $\mathrm{T}$, a decision tree would predict its target class by traveling the sample until a leaf node is reached. In this method hyper-parameters of the model include the length of the tree and the metric used to decide on the \textit{best} split. Parameters are limited to the features selected at each node along with the splitting rule threshold. Note that the construction of optimal binary decision trees is NP-Complete \cite{decisionTreesNP}, thus it is computationally prohibitive to fit all of these parameters at once. However, once a learner is fit, predicting targets for new samples is straightforward. A tree defines a partition of feature space in disjoint sets $A_1,...,A_J$ such that the sample's predicted output $\hat{y}$ is $c_j$ if the sample belongs to $A_j$. Here $c_j$ is one of the possible values taken by the target variable $y$ in the training set. And by the way trees were built, each $A_j$ is a hyper-rectangles in feature space.
-
-For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
-
-\subsection{Extension to Random Forests}
-\textbf{L Breiman Paper}
-It is not difficult to see the that Decision Trees are prone to over-fitting the training set. With the correct amount of features derived from the data we can build a tree that perfectly classifies all samples in the training set. Thus it is generally a difficult task to generalize trees when data is scarce or when the training set is not representative of the true underlying distribution. 
-
-Random Forests are a natural extension of Decision Trees to counter this problem. First described by \cite{HoFirstRandomForest} the idea is to use a combination of different decision trees as one single learner. The output prediction class given by the learner is based on the majority vote of all the trees.
-
-Because each single tree is built independently on the values of the others, random forests have a lower variance than single decision trees and, with enough trees, can still achieve low bias rates. As we will later see, the prediction error of the forest depends on the inter-tree correlations and on the accuracy of each tree.
-%Some care has still to be taken care of 
-
-There is an extensive literature on this method, its different variants and their benefits. For this section we will use heavily the work presented in \cite{breiman-randomforests}. All variant rely on different randomization processes to construct the forest and this gives rise to the method's name. Examples include:
-\begin{itemize}
-	\item At each node, randomly subset the amount of features that can be used to build the splitting rule. 
-	\item At each node, select a random rule from a number of \textit{best} rules for that node.
-	\item When building each tree, randomly hide a set of features to be used for any of its nodes.
-	\item Each tree is built using a bootstrapped sample from the original training set.
-\end{itemize}
-% randomly choosing a subset selection of features to 
-
-In general terms, if we let $N$ be the number of samples in the training set, $K$ be a number of trees, $\Theta_k$ be the parameters for the $k$-th tree and $h(\textbf{x},\Theta_k)$ the corresponding tree classifier.  The creation of a random forests involves an iterative procedure where at each $k$ step $\Theta_k$ is drawn from the same distribution but independently of the previous parameters $\Theta_1, \ ..., \ \Theta_{k-1}$ created at previous steps. 
-
-To expand on the statistical advantages of Random Forests we must first introduce some notation:
-
-Let $\{h_k(\textbf{x})\}_{i=1}^K$  \footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.  Define the margin function as
-
-$$mg(\textbf{x},\textbf{y}) =  \frac{1}{K}   \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})  
-- max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right) $$ \label{eq:rf-marginFun}
-
-The function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. 
-
-
-Let the predictive error of the forest be defined as:
-%\end{equation}
-$$ PE* = P_{\textbf{x}, \textbf{y} }(mg(\textbf{x}, \textbf{y}) < 0) $$
-
-
-
-\begin{lemma}
-When $K$ is large then the prediction error converges almost surely to 
-
-$$ P_{\textbf{x}, \textbf{y} } \left( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{x}) - max_{j \neq \textbf{y}} P_{\Theta} (h(\textbf{x}, \Theta) = j) < 0 \right ) $$
-\end{lemma}
-
-\begin{proof}
-The proof follows from seeing that given a training set, a parameter $\Theta$ and a class $j$ then 
-$$\forall \textbf{x} \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) $$
- almost surely.
-
-By looking at the nature of each tree, $\{\textbf{x} / h_k(\textbf{x}, \Theta) = j \}$ denotes a union of hyper-rectangles partitioning feature space. And given the finite size of the training set, there can only be a finite set of these unions. Let $S_1, ..., S_K$ be an indexation of these unions and define $\phi(\Theta) = k $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_k$. 
-
-We denote by $N_k$ the number of times that $\phi(\Theta_n) =k $, where $n \in {1...N}$ and $N$ is the total of trials.
-
-It is immediate that 
-
-$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \ = \  \frac{1}{N} \sum_{k=1}^K N_k I(\textbf{x} \in S_k)  $$
-
-and that there is a convergence almost everywhere of $$ \frac{N_k}{N} = \sum_{n=1}^N  I(\phi(\Theta_n) = k)  \xrightarrow[N \to \infty] {}  P_{\Theta}(\phi(\Theta)= k)$$. 
-
-If we let $C = $ $\bigcup\limits_{k=1}^{K} C_{k}$ where each $C_k$ are zero-measured sets representing the points where the sequence is not converging. We will finally have that  outside of $C$, 
-
-$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \xrightarrow[N \to \infty]{} \sum_k^K    P_{\Theta}(\phi(\Theta)= k) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)  $$ 
-\end{proof}
-
-\subsection{Predictive error bounds}
-
-Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate on the generalization error of the ensemble classifier, these individual scores and the inter-relationship between them must be taken into account. For this purpose, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
-
-%\begin{lemma}
-%Given two line segments whose lengths are $a$ and $b$ respectively there is a 
-%real number $r$ such that $b=ra$.
-%\end{lemma}
-
-\begin{theorem}
-There is an upper bound for the generalization error.
-\end{theorem}
-Define $\hat{j}(\textbf{x},\textbf{y})$ as $arg max_{j\neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$ and let the margin function for a random forest be defined as
-
-\begin{equation}\label{eq:rf-marginFunRf}
-\begin{split}
-mr(\textbf{x},\textbf{y}) = & P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j}) 
-\\ 
-= & \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} )  \right]
-\end{split}
-\end{equation} 
-
-
-%\begin{equation}%\end{equation}
-
-%\end{equation}
-
-Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the classifier can correctly classify or not the sample's label, given $\Theta$.
-
-With these definitions, it is straight to see that 
-
-%\begin{equation}%\end{equation}
-$$mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} )  \right] $$.
-
-This in turn implies that
-
-\begin{equation}\label{eq:rf-marginFunVar}
-\begin{split}
-var(mr) & =  \Expect_{\Theta, \Theta'} 
-			\left[ 
-				cov_{\textbf{x},\textbf{y}}
-				(rmg(\Theta,\textbf{x},\textbf{y} )rmg(\Theta',\textbf{x},\textbf{y} )) 
-			\right] \\
-& =  \Expect_{\Theta, \Theta'}
-			\left[ 
-				\rho(\Theta, \Theta')\sigma(\Theta)\sigma(\Theta')
-			\right] 
-\end{split}
-\end{equation}
-
-where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$. In both cases, $\Theta$ and $\Theta'$ are given to be fixed. 
-
-Equation \ref{eq:rf-marginFunVar} in turn implies that 
-
-\begin{equation}\label{eq:rf-varianceBound}
-\begin{split}
-var(mr) & =  \overline{\rho} (\Expect_{\Theta}\left[ \sigma(\Theta)\right] )^2 \\
-		& \leq  \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right] 
-\end{split}
-\end{equation}
-
-where we have conveniently defined $\overline{\rho}$ as 
-
-\begin{equation}\label{eq:rf-meanCorrelation}
- \frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
- {\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
-\end{equation}
-
-Note this is the mean value of the correlation.
-
-Let the strength of the set of weak classifiers in the forest be defined as 
-
-$$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$.\label{eq:rf-strength}
-
-Assuming that $s > 0$ we have that the prediction error is bounded by 
-\begin{equation}\label{eq:rf-predictiveErrorBound1}
-	PE^* \leq var(mr)/s^2
-\end{equation}
-by Chebyshev's inequality. On the other hand it can also be noted that
-
-
-\begin{equation}\label{eq:rf-expectedVarBound}
-\begin{split}
-\Expect_{\Theta} \left[ var(\Theta) \right]  & \leq \Expect_{\Theta} \left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})   \right]  \right]^2 -s^2  \\
-								& \leq 1-s^2
-\end{split}
-\end{equation}
-
-\begin{proof}
-We can use  \ref{eq:rf-varianceBound}, \ref{eq:rf-predictiveErrorBound1} and \ref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
-\begin{equation}\label{eq:rf-PEBound}
-PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
-\end{equation}
-\end{proof}
-
-This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author \cite{breiman-randomforests} of the algorithm remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier.	 
-
-
-\subsection{Binary Class}
-In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \ref{eq:rf-PEBound}. In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$. 
-
-The bounds prediction error bounds derived in \ref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
-$$ \Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} $$
-
-Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
-
-$$ \overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right] $$
-
-
-\textbf{VARIABLE IMPORTANCE}
-
-\textit{Internal estimates monitor error, strength, and correlation and these are used to show
-	the response to increasing the number of features used in the splitting. Internal estimates are also used to measure variable importanced}
 
 \subsection{Summary of Results}
 
