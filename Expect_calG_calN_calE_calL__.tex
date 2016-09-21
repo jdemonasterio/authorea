@@ -14,7 +14,8 @@ Given a problem setting, it is said that an algorithm's predictive power relies 
 
 Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
 
-In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function.
+In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function. Also, for a general multi-class supervised problem, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
+
 
 \cite{james-biasVarianceGeneral}
 
@@ -28,15 +29,14 @@ Note that in this definition the expectation is taken conditional on the trainin
 In a second
 
 \begin{definition}{Expected Prediction Error}
-	Related to the generalization error, the expected prediction error is the expectation of the genrealization error.
-	The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$:
-	$$ Err = \Expect \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
+	Related to the generalization error, the expected prediction error is the expectation of the genrealization error:
+	$$ EPE = \Expect \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
 \end{definition}
-
-Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
+The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$. Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
 
 In a supervised learning context, the estimation of these errors will be of most importance for the assessment of the models.  Given  that we will be working only with information from the training set, then estimation of the second error will be, in most cases, not possible.
 
+By conditioning on the training set we may rewrite the above formula as 
 
 \begin{definition}{Training Error}
 	is the average loss over the training set
