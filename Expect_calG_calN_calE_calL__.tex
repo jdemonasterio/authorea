@@ -16,6 +16,8 @@ Conceputally the first type of error arises to the accuracy of the model in labe
 
 In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function.
 
+\cite{james-biasVarianceGeneral}
+
 \begin{definition}{Generalization Error}
 	The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$:
 	$$ Err_{\mathrm{T}} = \Expect \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
