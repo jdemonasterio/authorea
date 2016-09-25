@@ -14,19 +14,26 @@ Given a problem setting, it is said that an algorithm's predictive power relies 
 
 Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
 
-In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function. Also, for a general multi-class supervised problem, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
-
-Historically the errors due to bias and variance where associated directly to the squared loss function \footnote{This is when $L(z,w) = \left\Vert z-w \right\Vert^2_2$}
-
+In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function. 
 
 \cite{james-biasVarianceGeneral}
 
 \begin{definition}{Generalization Error}
 	The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$:
-	$$ Err_{\mathrm{T}} = \Expect \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
-\end{definition}
+	$$ Err_{\mathrm{T}} =  EPE(f)= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f(X)) |  \mathrm{T}\right]$$
+\end{definition}\footnote{Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.}
 
-Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.
+\hat{f}
+Historically the errors due to bias and variance where associated directly to the squared loss function. This function is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$ and it was favored over other functions because of its analytical advantages.  
+
+
+
+
+In multi-class supervised problem setting, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
+
+
+
+
 
 In a second
 
