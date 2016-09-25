@@ -10,11 +10,13 @@ $\calG \calN \calE \calL$
 
 \textbf{Generalization}
 
-Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data among models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error} where this error can be divided into an "error" due to \textit{bias} and an "error" due to \textit{variance}.
+Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data among models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error}. It is common in the literature \cite{james-biasVarianceGeneral} to separate the sources for this error in two concepts: bias and variance.
 
 Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
 
-In this part, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function. Also, for a general multi-class supervised problem, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
+In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function. Also, for a general multi-class supervised problem, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
+
+Historically the errors due to bias and variance where associated directly to the squared loss function \footnote{This is when $L(z,w) = \left\Vert z-w \right\Vert^2_2$}
 
 
 \cite{james-biasVarianceGeneral}
