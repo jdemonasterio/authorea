@@ -30,25 +30,23 @@ Historically the errors due to bias and variance where associated directly to th
 	 EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - f(X)  \right\Vert_2^2 \right]
 \end{equation}
 
-It is not difficult to see that the model that minimizes this error is $f(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \eps$. In this context $\eps$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
+It is not difficult to see that the model that minimizes this error is $f(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epsilon$. In this context $\epsilon is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
 
 \begin{equation}\label{squredBiasDecomposition}
 	 EPE( \hat{f} ) = \Expec \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expec \left \hat{f}(X)^2  \right] - \Expec \left \hat{f}(X)  \right]^2  + \sigma^2
 \end{equation}
 
-
-
+In this expression the first term is called the squre of the bias of the model or estimator. It measures how well off is our estimator is compared to the true relational function. On the other hand, the variance of the estimator will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. This mean's this is part of the model's random nature and one for which the estimator cannot lower.
 
 In multi-class supervised problem setting, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
 
 
 
 
-
-In a second
+In a second AADFASDAFSDF
 
 \begin{definition}{Expected Prediction Error}
-	Related to the generalization error, the expected prediction error is the expectation of the genrealization error:
+	Related to the generalization error, the expected prediction error is the expectation of the generalization error:
 	$$ EPE = \Expect \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
 \end{definition}
 The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$. Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
