@@ -26,11 +26,15 @@ In the generalization error, the loss function plays an important part in determ
 \hat{f}
 Historically the errors due to bias and variance where associated directly to the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. This function was favored over other functions because of its analytical advantages.  The generalization for this case is
 
-\begin{equation}\label{classificationEPE}
+\begin{equation}\label{squaredEPE}
 	 EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - f(X)  \right\Vert_2^2 \right]
 \end{equation}
 
-It is not difficult to see that the model that minimizes this error is $f(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epx$. In this context $\eps$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. 
+It is not difficult to see that the model that minimizes this error is $f(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \eps$. In this context $\eps$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
+
+\begin{equation}\label{squredBiasDecomposition}
+	 EPE( \hat{f} ) = \Expec \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expec \left \hat{f}(X)^2  \right] - \Expec \left \hat{f}(X)  \right]^2  + \sigma^2
+\end{equation}
 
 
 
