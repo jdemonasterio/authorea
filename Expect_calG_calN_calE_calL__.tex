@@ -19,12 +19,18 @@ In the generalization error, the loss function plays an important part in determ
 \cite{james-biasVarianceGeneral}
 
 \begin{definition}{Generalization Error}
-	The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$:
+	The generalization error is also known as the prediction error. Given that any model is always built on the data, this value is the model's expected error over an independent training set $\mathrm{Ts}$:
 	$$ Err_{\mathrm{T}} =  EPE(f)= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f(X)) |  \mathrm{T}\right]$$
 \end{definition}\footnote{Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.}
 
 \hat{f}
-Historically the errors due to bias and variance where associated directly to the squared loss function. This function is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$ and it was favored over other functions because of its analytical advantages.  
+Historically the errors due to bias and variance where associated directly to the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. This function was favored over other functions because of its analytical advantages.  The generalization for this case is
+
+\begin{equation}\label{classificationEPE}
+	 EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - f(X)  \right\Vert_2^2 \right]
+\end{equation}
+
+It is not difficult to see that the model that minimizes this error is $f(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epx$. In this context $\eps$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. 
 
 
 
