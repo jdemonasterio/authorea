@@ -35,6 +35,7 @@ In this context $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0
 
 \begin{equation}\label{squaredBiasDecomposition}
 EPE( \hat{f} ) = \Expect \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expect \left[ \hat{f}(X)^2  \right] - \Expect \left[ \hat{f}(X)  \right]^2  + \sigma^2
+= Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
 \end{equation}
 
 In this expression the first term is called the square of the bias of the model or estimator. It measures how well off is our estimator is compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible by any learner. This mean's this is part of the random nature of the problem and one for which the estimator cannot lower.
