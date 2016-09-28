@@ -10,9 +10,9 @@ $\calG \calN \calE \calL$
 
 \textbf{Generalization}
 
-Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data among models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error}. It is common in the literature \cite{james-biasVarianceGeneral} to separate the sources for this error in two concepts: bias and variance.
+Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data among models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error}. It is common in the literature \cite{james-biasVarianceGeneral} to separate the sources for this error in two concepts: bias and variance. Controlling these errors is central to any supervised machine learning problem.
 
-Conceputally the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
+Conceptually the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
 
 In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function. 
 
@@ -31,16 +31,50 @@ EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - f(X)  \right\Vert_2^2 \righ
 \end{equation}
 
 It is not difficult to see that the model that minimizes this error is $f(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epsilon$. 
-In this context $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
+In this simple data model, $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
 
 \begin{equation}\label{squaredBiasDecomposition}
 EPE( \hat{f} ) = \Expect \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expect \left[ \hat{f}(X)^2  \right] - \Expect \left[ \hat{f}(X)  \right]^2  + \sigma^2
 = Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
 \end{equation}
 
-In this expression the first term is called the square of the bias of the model or estimator. It measures how well off is our estimator is compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. This means this is part of the random nature of the problem and one for which the estimator cannot lower.
+Equation \ref{squaredBiasDecomposition} is referred to as the bias-variance decomposition for the squared loss. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. This means this is part of the random nature of the problem and one for which the estimator cannot lower.
+
+Models are then evaluated according to their performance in these two errors. Combinations of high or low values for these two give information on what parts of a problem setting should be improved.
+
+rise Typical combinations
+The four possible combinations of high 
 
 
+For more general loss functions other than the squared error, a generalized notion of bias and variance is found in \cite{james-biasVarianceGeneral}. The author defines what properties should be displayed by the bias and variance of any estimator. 
+\begin{definition}{Systematic Value}
+	Given a training set $\mathrm{T}$, a loss function $L(\cdot)$ and an estimator $\hat{f}$ built from the data, the systematic value or systematic component of a learner is 
+	$$ S\hat(f)  =  arg \ min_u \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) \right]$$
+\end{definition}
+
+The systematic value for the target variable $SY$ is defined in the same way, where the expectation is over the target's distribution. 
+
+In the general setting, the criteria the bias should comply is to measure the systematic difference in which a random variable differs from a particular target value and also the measure of how much this systematic difference contributes to the error. On the other hand the variance of an estimator should measure the spread of the estimator around its systematic component and also the effect this variance has on the prediction. The author then defines variance and bias to be:
+
+\begin{equation}
+\begin{split}
+& Bias(\hat{f})^2 = L(S\hat{f},SY)) \\
+& Var(\hat{f}) = \Expect_{\hat{f}} \left[  L(\hat{f}  , S\hat{f}) \right]
+\end{split}
+\end{equation}
+
+
+
+Note that with this definitions the variance is an operator defined only for the estimator and which is null only when the predictor is a constant value for any training set. As such, it is unchanged by new data. The bias on the other hand is an operator built form the systemic values of $Y$ and $\hat{f}$ and is null only if both of this values are equal.
+
+One is that it represents the systematic difference between a random
+variable and a particular value, e.g. the tar get, and the other is the degree
+to which that systematic difference contributes to error
+
+The variance of a model is then 
+
+For the variance, the author argues that it should measure the 
+It then 
 
 In multi-class supervised problem setting, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
 
