@@ -10,7 +10,7 @@ $\calG \calN \calE \calL$
 
 \textbf{Generalization}
 
-Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability to correctly label data among models is central to supervised learning.  The best learner will be said to have the lowest \textit{predictive error}. It is common in the literature \cite{james-biasVarianceGeneral} to separate the sources for this error in two concepts: bias and variance. Controlling these errors is central to any supervised machine learning problem.
+Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability among models is done to select the best supervised estimator.  The best learner will be said to have the lowest \textit{predictive error}. It is common in the literature \cite{james-biasVarianceGeneral} to separate the sources for this error in two concepts: bias and variance. Controlling these errors is central to any supervised machine learning problem.
 
 Conceptually the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
 
@@ -20,17 +20,17 @@ In the generalization error, the loss function plays an important part in determ
 
 \begin{definition}{Generalization Error}
 	The generalization error is also known as the prediction error. Given that any model is always built on the data, this value is the model's expected error over an independent training set $\mathrm{Ts}$:
-	$$ Err_{\mathrm{T}} =  EPE(f)= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f(X)) |  \mathrm{T}\right]$$
+	$$ Err_{\mathrm{T}} =  EPE(\hat{f})= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
 \end{definition}\footnote{Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.}
 
 \hat{f}
-Historically the errors due to bias and variance where associated directly to the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. This function was favored over other functions because of its analytical advantages.  The generalization for this case is
+Historically the errors due to bias and variance where associated directly with the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. This function was favored over other functions because of its analytical advantages.  The generalization for this case is
 
 \begin{equation}\label{squaredEPE}
-EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - f(X)  \right\Vert_2^2 \right]
+EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - \hat{f}(X)  \right\Vert_2^2 \right]
 \end{equation}
 
-It is not difficult to see that the model that minimizes this error is $f(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epsilon$. 
+It is not difficult to see that the model that minimizes this error is $\hat{f}(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epsilon$. 
 In this simple data model, $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
 
 \begin{equation}\label{squaredBiasDecomposition}
@@ -39,12 +39,6 @@ EPE( \hat{f} ) = \Expect \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expect \left[
 \end{equation}
 
 Equation \ref{squaredBiasDecomposition} is referred to as the bias-variance decomposition for the squared loss. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. This means this is part of the random nature of the problem and one for which the estimator cannot lower.
-
-Models are then evaluated according to their performance in these two errors. Combinations of high or low values for these two give information on what parts of a problem setting should be improved.
-
-rise Typical combinations
-The four possible combinations of high 
-
 
 For more general loss functions other than the squared error, a generalized notion of bias and variance is found in \cite{james-biasVarianceGeneral}. The author defines what properties should be displayed by the bias and variance of any estimator. 
 \begin{definition}{Systematic Value}
@@ -63,8 +57,6 @@ In the general setting, the criteria the bias should comply is to measure the sy
 \end{split}
 \end{equation}
 
-
-
 Note that with this definitions the variance is an operator defined only for the estimator and which is null only when the predictor is a constant value for any training set. As such, it is unchanged by new data. The bias on the other hand is an operator built form the systemic values of $Y$ and $\hat{f}$ and is null only if both of this values are equal.
 
 One is that it represents the systematic difference between a random
@@ -79,14 +71,13 @@ It then
 In multi-class supervised problem setting, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
 
 
-
-
-In a second AADFASDAFSDF
+In practice there are only a limited amount of samples characterizing the true underlying distribution. We must 
 
 \begin{definition}{Expected Prediction Error}
 	Related to the generalization error, the expected prediction error is the expectation of the generalization error:
 	$$ EPE = \Expect \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
 \end{definition}
+
 The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$. Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
 
 In a supervised learning context, the estimation of these errors will be of most importance for the assessment of the models.  Given  that we will be working only with information from the training set, then estimation of the second error will be, in most cases, not possible.
@@ -104,30 +95,33 @@ By conditioning on the training set we may rewrite the above formula as
 \end{definition}
 
 
-
 For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input variable and \textbf{y}  $\in \mathbb{R}$ will denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
 
 We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a cuadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
 
-For the the squared loss case and when conditioning on $\textbf{x}$ it results that
 
-\begin{equation} \label{eq:expectedError}
-EPE\left(f \right) = \int [y - f(x)]^2 P(x,y)dxdy
+Models are evaluated according to their performance in these two errors in training and testing datasets. Combinations of high or low values for these two across training and test data evaluate models and highlight aspects of the model to be improved. 
 
-\\
-= \Expect_{\textbf{x}} \left[ \Expect_{\textbf{y}|\textbf{x}} \left[  \left( \textbf{y} - f(\textbf{x})  \right)^2 \right]  \right]
-
-%\sum_{i=0}^{\infty} a_i x^i
-\end{equation}
-
-%\textit{The generalization performance of a learning method relates to its prediction capability on independent test data. Assessment of this performance is extremely important in practice, since it guides the choice of learning method or model, and gives us a measure of the quality of the ultimately chosen model.}
-
-\textbf{Overfitting}: 
+For example, a very common scenario is having a model that has high overall variance and low bias. 
 It is said that a learner overfits a training set \mathcal{T} if it fits parameter $\hat{\theta}$ while there $\exists \theta^*$ such that
 \begin{equation} \label{eq:overfitting}
 Error_{train}(\hat{\theta}) < Error_{train}(\theta^*) \  and \ Error_{test}(\theta^*) < Error_{test}(\hat{\theta})   
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
+
+Once the model was fit on the training set, it overfits when predictions on training samples are very accurate whilst predictions on new samples spread out. The model has learned very well from the training data but fails to be accurate on new samples.
+
+A trivial algorithm that would 
+
+An opposite scneario scenario occurs when
+
+
+rise Typical combinations
+The four possible combinations of high 
+
+
+\textbf{Overfitting}: 
+ 
 
 \textbf{Cross Validation}:  
 \textit{simplest and most widely used method... This method directly estimates the expected extra-sample error
