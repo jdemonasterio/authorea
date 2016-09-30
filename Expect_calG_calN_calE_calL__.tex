@@ -43,7 +43,7 @@ Equation \ref{squaredBiasDecomposition} is referred to as the bias-variance deco
 For more general loss functions other than the squared error, a generalized notion of bias and variance is found in \cite{james-biasVarianceGeneral}. The author defines what properties should be displayed by the bias and variance of any estimator. 
 \begin{definition}{Systematic Value}
 	Given a training set $\mathrm{T}$, a loss function $L(\cdot)$ and an estimator $\hat{f}$ built from the data, the systematic value or systematic component of a learner is 
-	$$ S\hat(f)  =  arg \ min_u \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) \right]$$
+	$$ S\hat(f)  =  arg \ min_u \Expect_{\textbf{X}} \left[ L(u,\hat{f}(X)) \right]$$
 \end{definition}
 
 The systematic value for the target variable $SY$ is defined in the same way, where the expectation is over the target's distribution. 
@@ -97,10 +97,10 @@ By conditioning on the training set we may rewrite the above formula as
 
 For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input variable and \textbf{y}  $\in \mathbb{R}$ will denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
 
-We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a cuadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
+We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a quadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
 
 
-Models are evaluated according to their performance in these two errors in training and testing datasets. Combinations of high or low values for these two across training and test data evaluate models and highlight aspects of the model to be improved. 
+Models are evaluated according to their performance in these two errors in training and testing datasets. Combinations of high or low values for these, across training and test data, are used as model evaluation and highlight aspects to be improved. 
 
 For example, a very common scenario is having a model that has high overall variance and low bias. 
 It is said that a learner overfits a training set \mathcal{T} if it fits parameter $\hat{\theta}$ while there $\exists \theta^*$ such that
