@@ -1,0 +1,45 @@
+In \ref{figure-biasVariance} Hastie et al. fit a regression model on data to illustrate on the interaction between bias and variance. The model increases complexity when using a greater number of features, more variables need to be fit during the optimization procedure. Thus the model increases in complexity (measured in degrees of freedom). 
+
+At first the bias of the model is high both for the training and testing sets. The interpretation is that the model has high bias. Then the prediction error decreases as complexity increases. This behavior is expected because the model learns to better fit the data. At first, the expected prediction error, estimated by averaging over the test set' prediction error's, also decreases when the model's complexity is increased. However when the model starts to overfit the data, the expected prediction error starts to rise. A common heuristic to select the best model is to stop increasing the model's complexity once the $EPE$ stops decreasing.
+
+
+prediction 
+show different curves of prediction error for different models built and tested on samples of the training and testing set respectively in blue and red colors. As the model increases co
+
+An opposite scneario scenario occurs when
+
+rise Typical combinations
+The four possible combinations of high 
+
+
+\textbf{Overfitting}: 
+ 
+
+\textbf{Cross Validation}:  
+\textit{simplest and most widely used method... This method directly estimates the expected extra-sample error
+$Error = \Expect[L(Y,\hat{f}(X))] $ i.e. the average the average generalization error when the method $\hat{f(X)}$ is applied to an independent test sample from the joint distribution of $X$ and $Y$ . As mentioned earlier, we might hope that cross-validation estimates the conditional error, with the training set. $\mathrm{T}$ held fixed. But cross-validation typically estimates well only the expected prediction error.}
+
+\textit{Ideally, if we had enough data, we would set aside a validation set and use it to assess the performance of our prediction model. Since data are often scarce, this is usually not possible. To finesse the problem, K-fold cross-validation uses part of the available data to fit the model, and a different part to test it. We split the data into K roughly equal-sized parts; }
+
+\textit{Let $k : \{1,..,N\} \mapsto \{1, .., K\}$ be an indexing function are more details be an indexing
+function that indicates the partition to which observation i is allocated by the randomization. Denote by}
+
+
+\subsection{Bengio, GrandValet - No Unbiased Estimator of the Variance of K-Fold Cross-Validation}
+\textbf{Cross Validation}: 
+\textit{The standard measure of accuracy for trained models is the prediction error (PE), i.e. the expected loss on future examples. Learning algorithms themselves are often compared on their average performance, which estimates expected value of prediction error (EPE) over training sets.
+The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
+Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
+We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
+}
+
+
+\textbf{HyperParameters}:
+Como van apareciendo en algunos algoritmos y are different from the "parameters" or coefficients of the learners. They appear as a consequence of numerical, computational and sometimes statistical fine-tuning of algorithms (give an example?). 
+La relacion entre cross-validation y la busqueda de hiper parametros. 
+
+\textit{}
+
+\textit{}
+
+
