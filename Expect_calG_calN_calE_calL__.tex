@@ -31,7 +31,7 @@ EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - \hat{f}(X)  \right\Vert_2^2
 \end{equation}
 
 It is not difficult to see that the model that minimizes this error is $\hat{f}(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epsilon$. 
-In this simple data model, $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
+In this simple scenario, $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
 
 \begin{equation}\label{squaredBiasDecomposition}
 EPE( \hat{f} ) = \Expect \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expect \left[ \hat{f}(X)^2  \right] - \Expect \left[ \hat{f}(X)  \right]^2  + \sigma^2
