@@ -21,16 +21,17 @@ In the generalization error, the loss function plays an important part in determ
 \begin{definition}{Generalization Error}
 	The generalization error is also known as the prediction error. Given that any model is always built on the data, this value is the model's expected error over an independent training set $\mathrm{Ts}$:
 	$$ Err_{\mathrm{T}} =  EPE(\hat{f})= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
-\end{definition}\footnote{Note that in this definition the expectation is taken conditional on the training set which is from where the model is fit.}
+\end{definition}\footnote{Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.}
 
+\hat{f}
 Historically the errors due to bias and variance where associated directly with the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. This function was favored over other functions because of its analytical advantages.  The generalization for this case is
 
 \begin{equation}\label{squaredEPE}
 EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - \hat{f}(X)  \right\Vert_2^2 \right]
 \end{equation}
 
-It is not difficult to see that the model that minimizes this error is $\hat{f}(x) = \Expect \left[ Y | X=x \right] $. Suppose now that for a given problem setting, there exists a true functional relation $Y = f(X) + \epsilon$. 
-We will assume that $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
+It is not difficult to see that the model that minimizes this error is $\hat{f}(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epsilon$. 
+In this simple data model, $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
 
 \begin{equation}\label{squaredBiasDecomposition}
 EPE( \hat{f} ) = \Expect \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expect \left[ \hat{f}(X)^2  \right] - \Expect \left[ \hat{f}(X)  \right]^2  + \sigma^2
@@ -47,8 +48,7 @@ For more general loss functions other than the squared error, a generalized noti
 
 The systematic value for the target variable $SY$ is defined in the same way, where the expectation is over the target's distribution. 
 
-In the general setting, the criteria the bias should meet is to be a measure of the systematic difference in which a random variable differs from a particular target value and also the measure of how much this systematic difference contributes to the error. On the other hand the variance of an estimator should measure the spread of the estimator around its systematic component and also the effect this variance has on the prediction. In \cite{james-biasVarianceGeneral} variance and bias are defined in the following way:
-
+In the general setting, the criteria the bias should comply is to measure the systematic difference in which a random variable differs from a particular target value and also the measure of how much this systematic difference contributes to the error. On the other hand the variance of an estimator should measure the spread of the estimator around its systematic component and also the effect this variance has on the prediction. The author then defines variance and bias to be:
 
 \begin{equation}
 \begin{split}
@@ -58,10 +58,18 @@ In the general setting, the criteria the bias should meet is to be a measure of 
 \end{equation}
 
 Note that with this definitions the variance is an operator defined only for the estimator and which is null only when the predictor is a constant value for any training set. As such, it is unchanged by new data. The bias on the other hand is an operator built form the systemic values of $Y$ and $\hat{f}$ and is null only if both of this values are equal.
-For the specific case of the squared loss, these definitions coincide with the errors we defined before.
 
+One is that it represents the systematic difference between a random
+variable and a particular value, e.g. the tar get, and the other is the degree
+to which that systematic difference contributes to error
 
-For a  multi-class supervised problem setting, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
+The variance of a model is then 
+
+For the variance, the author argues that it should measure the 
+It then 
+
+In multi-class supervised problem setting, $Y$ will be taking any of the values in the class set \calG and we will denote $K = |\calG|$ as the number of classes.
+
 
 In practice there are only a limited amount of samples characterizing the true underlying distribution. We must 
 
@@ -72,7 +80,7 @@ In practice there are only a limited amount of samples characterizing the true u
 
 The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$. Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
 
-In a supervised learning context, the estimation of these errors is important for the assessment of the models.  Given that we will be working only with information from the training set, then estimation of the second error won' be't possible in most cases.
+In a supervised learning context, the estimation of these errors will be of most importance for the assessment of the models.  Given  that we will be working only with information from the training set, then estimation of the second error will be, in most cases, not possible.
 
 By conditioning on the training set we may rewrite the above formula as 
 
@@ -101,9 +109,9 @@ Error_{train}(\hat{\theta}) < Error_{train}(\theta^*) \  and \ Error_{test}(\the
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
-Once we fit on the training set, the learner overfits because predictions on training samples are very accurate whilst predictions on new samples spread out. The model has learned very well from the training data but fails to be accurate on new samples.
+Once the model was fit on the training set, it overfits when predictions on training samples are very accurate whilst predictions on new samples spread out. The model has learned very well from the training data but fails to be accurate on new samples.
 
-A trivial algorithm example of overfitting would  that would 
+A trivial algorithm that would 
 
 An opposite scneario scenario occurs when
 
