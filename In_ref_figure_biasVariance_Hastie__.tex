@@ -1,4 +1,4 @@
-In \ref{figure-biasVariance} Hastie et al. fit a regression model on data to illustrate on the interaction between bias and variance. The model increases complexity when using a greater number of features, more variables need to be fit during the optimization procedure. Thus the model increases in complexity (measured in degrees of freedom). 
+vaIn \ref{figure-biasVariance} Hastie et al. fit a regression model on data to illustrate on the interaction between bias and variance. The model increases complexity when using a greater number of features, more variables need to be fit during the optimization procedure. Thus the model increases in complexity (measured in degrees of freedom). 
 
 At first the bias of the model is high both for the training and testing sets. The interpretation is that the model has high bias. Then the prediction error decreases as complexity increases. This behavior is expected because the model learns to better fit the data. At first, the expected prediction error, estimated by averaging over the test set' prediction error's, also decreases when the model's complexity is increased. However when the model starts to overfit the data, the expected prediction error starts to rise. A common heuristic to select the best model is to stop increasing the model's complexity once the $EPE$ stops decreasing.
 
@@ -27,8 +27,19 @@ Related to estimating the true expected prediction error of the underlying distr
 
 VC dimension true error rate minimization. 
 Shattering
+\begin{definition}{Shattering}
 
-Let $\mathcal {A}= \{A_1,A_{2},\dots \}$ be a set family and $T$  another set, then $\mathcal {A}$ shatters $T$ if for every subset $t \subseteq T$ there exists a set $A' \subseteq \mathcal {A} $ such that $ T \cap A' = t$. The VC dimension of $\mathcal {A}$ is the biggest cardinality of a set shattered by $\mathcal {A}$. Note that by definition this means \textit{any} possible set shattered by $\mathcal {A}$
+Let $\mathcal {A}= \{A_1,A_{2},\dots \}$ be a set family and $T$  another set, then $\mathcal {A}$ shatters $T$ if for every subset $t \subseteq T$ there exists a set $A' \subseteq \mathcal {A} $ such that $ T \cap A' = t$. The VC dimension of $\mathcal {A}$ is the biggest cardinality of a set shattered by $\mathcal {A}$. Note that by definition this means \textit{any} possible set shattered by $\mathcal {A}$. Finally
+ \end{Shattering}
 
+
+\begin{definition}{Vapnik–Chervonenkis Dimension}
+ 	In a supervised learning setting, let  $\mathrm{T} = (\textbf{X},\textbf{Y})$ be the training set and $Y = \{0,1 \}$. A classifier is said to 
+ 	The Vapnik–Chervonenkis Dimension is the largest 
+ 	
+ 	as error is also known as the prediction error. Given that any model is always built on the data, this value is the model's expected error over an independent training set $\mathrm{Ts}$:
+ 	$$ Err_{\mathrm{T}} =  EPE(\hat{f})= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
+ \end{definition}
+ 
 
 
