@@ -4,7 +4,7 @@ subsubsection_A_working_example_For__.tex
 As_we_know_the_learner__.tex
 Expect_calG_calN_calE_calL__.tex
 figures/figure-biasVariance/figure-biasVariance.png
-In_ref_figure_biasVariance_Hastie__.tex
+vaIn_ref_figure_biasVariance_Hastie__.tex
 textbf_Cross_Validation_textit_simplest__.tex
 textbf_ACA_ARRANCAN_LAS_DESCRIPCIONES__.tex
 ASDFSFD__.tex
