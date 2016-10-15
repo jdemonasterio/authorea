@@ -16,8 +16,6 @@ The four possible combinations of high
  
 
 
-
-
 \subsection{Brief comment on the convergence of the Training Error and the Vapnik–Chervonenkis Dimension}
 \textbf{Vapnik–Chervonenkis Dimension}
 \cite{vapnik-nature2013}
@@ -26,22 +24,30 @@ The four possible combinations of high
 Related to estimating the true expected prediction error of the underlying distribution with finite samples.
 
 VC dimension true error rate minimization. 
-Shattering
+
+
 \begin{definition}{Shattering}
 
-Let $\mathcal {A}= \{A_1,A_{2},\dots \}$ be a set family and $T$  another set, then $\mathcal {A}$ shatters $T$ if for every subset $t \subseteq T$ there exists a set $A' \subseteq \mathcal {A} $ such that $ T \cap A' = t$. The VC dimension of $\mathcal {A}$ is the biggest cardinality of a set shattered by $\mathcal {A}$. Note that by definition this means \textit{any} possible set shattered by $\mathcal {A}$.
- \end{definition}
+Let $\mathcal {A}= \{A_1,A_{2},\dots \}$ be a set family and $T$ a finite set. Let $t \subseteq T$, it is said that $\mathcal {A}$ picks out $t$ if there exists $A' \subseteq \mathcal {A} $ such that $ T \cap A' = t$. $T$ is said to be shattered by $\mathcal {A}$ if it picks out all of its subsets.
 
-In a supervised learning setting, we would have $\mathrm{T} = (\textbf{X},\textbf{Y})$ as the training set and $Y = \{0,1 \}$. Now let $\mathcal {F}$ be a class of classifiers where $f: X \rightarrow Y \, \forall f \in \mathcal {F}$. $t$ is said to be picked out by $\mathcal {F}$ if there exists a classifier $f \in \mathcal {F}$ such that $T = f^{-1}(\{1\})$. The classifiers in $\mathcal {F}$ define a unique mapping to the class of sets where each classifier is positive. 
+The VC dimension of $\mathcal {A}$ is the biggest cardinality of a set shattered by $\mathcal {A}$. Note that by definition this means \textit{any} possible set shattered by $\mathcal {A}$.
+\end{definition}
+ 
+The n-th shattering coefficient $\Delta_n$ of a class $\mathcal {A}$ is defined to be the maximum number of subsets of $n$ elements picked out by the class. 
 
-a direct relation to the class of sets where each function 
-
-A set $T$ is said to be shattered by $\mathcal {F}$ if all of its subsets are picked out by the class of functions.
+In a supervised learning setting, we would have $\mathrm{T} = (\textbf{X},\textbf{Y})$ as the training set and $Y = \{0,1 \}$. Now let $\mathcal {F}$ be a class of classifiers where $f: X \rightarrow Y \, \forall f \in \mathcal {F}$. $t$ is said to be picked out by $\mathcal {F}$ if there exists a classifier $f \in \mathcal {F}$ such that $T = f^{-1}(\{1\})$. The classifiers in $\mathcal {F}$ define a unique mapping to the class of sets where each classifier is positive. It is said that $\mathcal {F}$ shatters a set $A$ if all of its subsets are picked out by the class of functions.
 
 \begin{definition}{Vapnik–Chervonenkis (VC) Dimension}
  	
- 	The Vapnik–Chervonenkis Dimension (VC) of a class of binary functions is the cardinality of the largest set which is shattered by $\mathcal {F}$.
-\end{definition}\footnote{The VC dimension is briefly introduced here for support on the methods  \cite{cherkassky-learning2007} }
- 
-Given that all functions can be 
- 
+The Vapnik–Chervonenkis Dimension (VC) of a class of binary functions is the cardinality of the largest set which is shattered by $\mathcal {F}$.
+\end{definition}\footnote{The VC dimension is briefly introduced here for the purpose of giving a theoretical approach to error estimation in machine learning methods. For a complete explanation on this topic refer to \cite{vapnik-nature2013}}
+
+The VC dimension gives a certain criteria for measuring the complexity of a class of binary functions by measuring its expressiveness. Note that the VC dimension need not be finite. Refer to \cite{cherkassky-learning2007} Pg. 113 for examples of different VC classes, finite and infinite.
+
+It can be proven that if a class of binary classifiers is of finite VC dimension, then the n-th shattering coefficient is bounded by a polynomial of order equal to the dimension 
+i.e. $\Delta_n(\mathcal {F}) \leq O(n^(VC))$ \footnote{$O(\cdot)$ corresponds to Big-O notation.} where $VC$ stands for the VC dimension of the class.
+
+These concepts show that for
+
+It can be proven that for classes which have a finite VC dimension, then
+
