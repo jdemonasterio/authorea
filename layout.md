@@ -1,7 +1,7 @@
 section_Meta_Section_Writing_plan__.tex
 section_Brief_introduction_to_machine__1.tex
 subsubsection_A_working_example_For__.tex
-As_we_know_the_learner__.tex
+o_As_we_know_the__.tex
 Expect_calG_calN_calE_calL__.tex
 figures/figure-biasVariance/figure-biasVariance.png
 vaIn_ref_figure_biasVariance_Hastie__.tex
