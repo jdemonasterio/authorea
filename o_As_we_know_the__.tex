@@ -8,16 +8,18 @@ RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
 =  \sum_{i=1}^n [y^i - h( \theta \cdot x^i)]^2
 \end{equation}
 
-The equation reflects our goal to correctly classify aling training samples with their targets. But in truth we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones. The previous equation is a bad attempt to generalize the classification model from our data to any given sample of the \textit{true} distribution for \mathrm{T}. 
+The equation reflects our goal to correctly classify aling training samples with their targets. But in truth we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones. The previous equation is a bad attempt to generalize the classification model constructed from the data. It is built to fit the actual sample but we wouldn't expect it to perform well with any other given sample of the \textit{true} distribution for \mathrm{T}. 
 
+\begin{definition}{Prediction Error}
 Given a choice of parameter \theta, the \textbf{prediction error} for the resulting classifier $f_\theta$ is
 
 \[
     Err_{true}(\theta)  = \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
     = \int (y - h(x \cdot \theta) )^2 p(x,y)dxdy
 \]
+\end{definition}
 
-Integration here is over the joint distribution of inputs and outputs. In practical cases, we have incomplete information on $p(x,y)$ and a finite sample.
+Note that integration here is done over the joint distribution of inputs and outputs. In practical cases, we have incomplete information on $p(x,y)$ and a finite sample.
 In practical cases though, we will have only a finite sample. We must assume then that calculating this integral is not feasible for any $\theta$ and must rely on estimation procedures.
 
 For example, we could try and sample $M$ iid points from $p(x,y)$ to approximate the integral by a Monte Carlo scheme such as 
@@ -28,11 +30,11 @@ For example, we could try and sample $M$ iid points from $p(x,y)$ to approximate
 
 However this would be unfeasible as well, since the sampling process should be done for each specific $\theta$. Notice however the close resemblance of this equation \ref{eq:mcarlo-approx} to the form in \ref{eq:rss}. 
 
-In most applications classification problems don't use the residual sum of squares to estimate the model\'s parameters. Instead, they rely on other \textit{loss} functions that we will introduce later.
+In most applications of classification problems, the residual sum of squares is not the penalization function used to estimate the model\'s parameters. Instead, they rely on other \textit{loss} functions that we will introduce later.
 
-Let $f: X \rightarrow Y$ a function mapping feature space to the target space and assume that $y  =  f(x)  +  \epsilon $ is a good relationship for our data, where $\epsilon \sim \calN(0,1) $ then the equation in \ref{eq:rss} can be read as the parameter error given the training set.
+For now, let $f: X \rightarrow Y$ a function mapping feature space to the target space and assume that $y  =  f(x)  +  \epsilon $ is a good relationship for our data, where $\epsilon \sim \calN(0,1) $ then the equation in \ref{eq:rss} can be read as the parameter error given the training set.
 
-Our interest is know on minimizing the error
+Our interest is now in minimizing the error
 \[
 Err_{train}(\theta) \approx \frac{1}{n} \Expect_{ \mathrm{T}}[(y - h(x \cdot \theta) )^2]
 \]
