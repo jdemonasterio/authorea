@@ -40,18 +40,23 @@ In a supervised learning setting, we would have $\mathrm{T} = (\textbf{X},\textb
 
 \begin{definition}{Vapnik–Chervonenkis (VC) Dimension}
  	
-The Vapnik–Chervonenkis Dimension (VC) of a class of binary functions is the cardinality of the largest set which is shattered by $\mathcal {F}$.
+The Vapnik–Chervonenkis Dimension (VC) of a class of binary functions is the cardinality of the largest set which is shattered by $\mathcal {F}$. 
 \end{definition}\footnote{The VC dimension is briefly introduced here for the purpose of giving a theoretical approach to error estimation in machine learning methods. For a complete explanation on this topic refer to \cite{vapnik-nature2013}}
 
-The VC dimension gives a certain criteria for measuring the complexity of a class of binary functions by measuring its expressiveness. This is because it gives the maximum number of samples for which all of their binary labeling possibilities can be selected by this class of functions.
+Lower bounds on the VC dimension require the existence of at least one set $T$ shattered by the class, where $|T|$ must be of size $n$.
+
+Intuitively, the VC dimension gives a certain criteria for measuring the complexity of a class of binary functions by measuring its expressiveness. This is because it gives the maximum number of samples for which all of their binary labeling possibilities can be selected by this class of functions. 
 Note that the VC dimension need not be finite. Refer to \cite{cherkassky-learning2007} Pg. 113 for examples of different VC classes, finite and infinite.
 
-Having a class of functions that has a finite VC dimension conceptually means it is not that \textit{rich}. Meaning that this class won't be as flexible to adapt to different forms of underlying distributions. This tradeoff in simplicity vs. generalization is very important in risk estimation. It will provide us with enough necessary and sufficient conditions in the consistency and rate of convergence of the estimated risk. This is because we are giving convergence estimations for a \texit{class} of functions rather than for a single learner. Concrete bounds can be given for a wide array of methods, as long as the VC dimension is finite.
+Having a class of functions that has a finite VC dimension conceptually means it is not that \textit{rich}. More complex class of functions can better shatter a set of points.
+In a supervised learning context, this means that this class won't be as flexible to adapt to different forms of underlying distributions. This trade-off in class-simplicity vs. model generalization is very important in risk estimation. It will provide us with enough necessary and sufficient conditions in the consistency and rate of convergence of the estimated risk. This is because we are giving convergence estimations for a \texit{class} of functions rather than for a single learner. Concrete bounds can be given for a wide array of methods, as long as the VC dimension is finite.
 
 It can be proven that if a class of binary classifiers is of finite VC dimension, then the n-th shattering coefficient is bounded by a polynomial of order equal to the dimension 
 i.e. $\Delta_n(\mathcal {F}) \leq O(n^{VC})$ \footnote{$O(\cdot)$ corresponds to Big-O notation.} where $VC$ stands for the VC dimension of the class.
 
 These concepts show that for
 
-It can be proven that for classes which have a finite VC dimension, then
+Thus it can be proven, for theses classes of functions, that
+
+
 
