@@ -1,4 +1,4 @@
- 
+
 $\Expect$
 
 $\calG \calN \calE \calL$
@@ -11,22 +11,26 @@ $\calG \calN \calE \calL$
  \textbf{Generalization}
  
  Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability among models is done to select the best supervised estimator.  The best learner will be said to have the lowest \textit{predictive error}. It is common in the literature \cite{james-biasVarianceGeneral} to separate the sources for this error in two concepts: bias and variance. Controlling these errors is central to any supervised machine learning problem.
- 
-To measure these errors a certain notion of \textit{distance} must be defined To give values 
- 
-Conceptually the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
- 
- In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}_{\theta}(X)$ be the model's predictive function for the input samples and denote $L( Y,\hat{f(X)_{\theta}} )$ the loss function acting on the data. Here, $\theta$ is a now a fixed value which is tied to the estimated model.  We will ignore this value and by an abuse of notation, now refer to the estimator as $\hat{f}(X)$. 
 
-Loss functions are considered to be semimetrics one the target space i.e. a function that is symmetric, non-negative and equal to zero only if both arguments are equal.
+Conceptually the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
+
+To measure these errors a certain notion of \textit{distance} is defined to evaluate how \textit{correct} our model's predictions are from the target values. Loss functions are considered to be any semimetric on the target space i.e. a function that is symmetric, non-negative and equal to zero only if both arguments are equal. This function is used to measure how far apart are $\hat{f}(X))$ and $Y$.
  
+ In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}_{\theta}(X)$ be the model's predictive function for the input samples and denote $L( Y,\hat{f(X)_{\theta}} )$ the loss function acting on the data. In this context $\theta$ i now a fixed value which is tied to the estimated model.  We will ignore this value and in an abuse of notation now refer to the estimator as $\hat{f}(X)$.
  
  \begin{definition}{Generalization Error}
- 	The generalization error is also known as the prediction error. Given that any model is always built on the data, this value is the model's expected error over an independent training set $\mathrm{Ts}$:
- 	$$ Err_{\mathrm{T}} =  EPE(\hat{f})= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
+ The generalization error is also known as the test error. Given that any model is always built on the data, this value is the model's expected error over an independent test set $\mathrm{Ts}$:
+ 	$$ Err_{\mathrm{Ts}} = \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) |  \mathrm{Ts}\right]$$
  \end{definition}\footnote{Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.}
  
- Historically the errors due to bias and variance where associated directly with the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. This function was favored over other functions because of its analytical advantages.  The generalization for this case is
+ A more general type of error is the prediction error which is similar to the definition above but taken conditional on the true distribution of data.
+\begin{definition}{Expected Prediction Error}
+ $$EPE(\hat{f})= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X))\right]$$
+\end{definition} 
+
+These two errors might be significantly different in applications, if our learner $\hat{f}(X)$ is not selected appropriately. This is no surprise being that we have to work with a finite sample of the true distribution. We must take appropriate care to correctly calculate the generalization error, minimizing the bias and variance.
+
+Historically the errors due to bias and variance where associated directly with the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. This function was favored over other functions because of its analytical advantages.  The generalization for this case is
  
  \begin{equation}\label{squaredEPE}
  EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - \hat{f}(X)  \right\Vert_2^2 \right]
@@ -40,9 +44,9 @@ Loss functions are considered to be semimetrics one the target space i.e. a func
  = Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
  \end{equation}
  
- Equation \ref{squaredBiasDecomposition} is referred to as the bias-variance decomposition for the squared loss. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. This means this is part of the random nature of the problem and one for which the estimator cannot lower.
+ Equation \ref{squaredBiasDecomposition} is referred to as the bias-variance decomposition for the squared loss. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible by any model. This means this is part of the random nature of the problem and one for which the estimator cannot lower.
  
- For more general loss functions other than the squared error, a generalized notion of bias and variance is found in \cite{james-biasVarianceGeneral}. The author defines what properties should be displayed by the bias and variance of any estimator. 
+ For loss functions other than the squared error, a generalized notion of bias and variance is found in \cite{james-biasVarianceGeneral}. The author defines what properties should be displayed by the bias and variance of any estimator. 
  \begin{definition}{Systematic Value}
  	Given a training set $\mathrm{T}$, a loss function $L(\cdot)$ and an estimator $\hat{f}$ built from the data, the systematic value or systematic component of a learner is 
  	$$ S\hat(f)  =  arg \ min_u \Expect_{\textbf{X}} \left[ L(u,\hat{f}(X)) \right]$$
