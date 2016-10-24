@@ -132,3 +132,9 @@ A more precise bound can be given for the function $Err^n_{train}(\theta^*)$, wh
 \begin{equation}\label{vapnik-classificationBoundPrecise}
 Err^n_{train}(\theta^*) - EPE(\theta_0) \leq  \sqrt{\frac{-ln(\eta)}{2n} } + \frac{\epsilon}{2}\left( \sqrt{1 + \frac{4}{\epsilon} } \right)
 \end{equation}
+
+As expected, in both of the cases \ref{vapnik-classificationBound} and  \ref{vapnik-classificationBoundPrecise}, the precision increases only with the number of samples. The decrease in the precision is also related to the confidence level $\eta$ and the size of the VC dimension $h$. The latter because as a class of functions becomes more \textit{flexible}, it becomes more capable of shattering bigger samples. 
+
+In practical cases, we know that the VC dimension is directly related to the number of features $d$ of a training set. This means that with a fixed $n$, it makes sense to lower the number of features used without rising the training error. This will yield better approximations on the prediction error whilst a simpler, more efficient model.
+
+Drawbacks on the SLT theory are mainly pointed towards calculating the VC dimension. VC dimensions have already been calculated in the literature for known algorithms but others remain difficult to do so analytically. In \cite{vapnik-classificationBoundPrecise}, the authors explain concepts and pseudo-algorithms to effectively estimate the VC dimension. The purpose of this work however, is to give an overview of the VC theory and its importance in model selection and estimation for machine learning. Thus, the details of this procedure will not be exposed. For details the reader can look into Section 4.6 in the aforementioned work.
