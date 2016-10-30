@@ -1,20 +1,43 @@
-\textbf{Cross Validation}:  
-\textit{simplest and most widely used method... This method directly estimates the expected extra-sample error
-$Error = \Expect[L(Y,\hat{f}(X))] $ i.e. the average the average generalization error when the method $\hat{f(X)}$ is applied to an independent test sample from the joint distribution of $X$ and $Y$ . As mentioned earlier, we might hope that cross-validation estimates the conditional error, with the training set. $\mathrm{T}$ held fixed. But cross-validation typically estimates well only the expected prediction error.}
+\subsection{Cross Validation}:  
+
+Cross Validation (CV) is one of the most widespread techniques to evaluate the generalization performance of a set of learners. Given a number of possibilities for the hyper/tuning parameters for a specific model, we would like to decide which selection of fits the best estimator, when measured by the generalization error. In supervised learning settings, data is generally scarce while prediction error estimates are based on asymptotic or analytical results which are not computable. CV intends to prevent over-fitting by iteratively holding out a random part of the dataset and by measuring the predictive accuracy of the learner fit on data \textit{in-sample} against new values from the \textit{hold-out} part of the dataset. The accuracy measure here is weighted by the loss function, which must be selected beforehand. 
+
+A partition of the samples in a Cross Validation procedure is called a \textit{fold}. CV then partitions data into $K$ random folds, where the number $K$ has to be previously decided.\footnote{ We assume here that a random sample of the initial dataset was already left out in order to test the model's accuracy at the end. We refer to this set as the \textit{testing set}.} Let $\gamma : \{1,..,N\} \mapsto \{1, .., K\}$ be a function mapping samples to folds. Without loss of generality,  let $\alpha$ be an index of the model's hyperparameters, where each distinct combination of tuning parameters is identified by this parameter. We know that the domain of $\alpha$ will vary with the type of model used. 
+
+The CV algorithm now iteratively runs over all of the folds, and takes one fold $\gamma^{-1}(\{k\})$ to be the validation set, where $k \in [1,...,K]$ is the indexer of the iteration. $\hat{f}^{-k}$ will denote the fitted estimator on the training set with the $k$-fold hold out and it will be tested against the hold out estimates. This means that for every sample in this $k$-fold, we measure the loss $L(y_i, \hat{f}^{-\gamma(i)}(x_i))$ of the model's prediction against the true target value.
+
+Note that cross validation intends to estimate the expected \textit{out-of-sample} error $\Expect \left[  L(Y, \hat{f}^(X)) \right]$, when the model is tested against \textbf{independent} samples from the true distribution. For this reason, it is fundamental to ensure independence of the training set and the test set. Any transformations that must be done on the input data that jointly uses the input and output samples in the process must be done and \textit{learned} only on the training set. It is very important that we don't introduce information from our test set in the estimator. The model should never \textit{see} the test data until we use it to evaluate our learner. 
+
+
+estimate the prediction error with
+
+
+
+ If we have decided 
+
+%where $K$ is the number of folds and $N$ the number of samples in our dataset. 
+
+
+\begin{definition}{K-Fold CV Prediction Error Estimator}
+
+\end{definition}
+
+\subsubsection{Choice of $K$} 
+
+Higher K = bigger training set (smaller folds) and thus smaller validation sets. leads to a better bias of the model 
 
 \textit{Ideally, if we had enough data, we would set aside a validation set and use it to assess the performance of our prediction model. Since data are often scarce, this is usually not possible. To finesse the problem, K-fold cross-validation uses part of the available data to fit the model, and a different part to test it. We split the data into K roughly equal-sized parts; }
 
-\textit{Let $k : \{1,..,N\} \mapsto \{1, .., K\}$ be an indexing function are more details be an indexing
-function that indicates the partition to which observation i is allocated by the randomization. Denote by}
 
+Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in most cases though, CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
 
 
 \subsection{Bengio, GrandValet - No Unbiased Estimator of the Variance of K-Fold Cross-Validation}
 \textbf{Cross Validation}: 
 \textit{The standard measure of accuracy for trained models is the prediction error (PE), i.e. the expected loss on future examples. Learning algorithms themselves are often compared on their average performance, which estimates expected value of prediction error (EPE) over training sets.
-The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
-Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
-We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
+	The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
+	Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
+	We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
 }
 
 
@@ -24,6 +47,13 @@ La relacion entre cross-validation y la busqueda de hiper parametros.
 
 \textit{}
 
-\textit{}
+\textit{} 
 
+
+
+Also, with probability at least $1 - \eta$ and $\forall \theta \in \Theta$
+
+\begin{equation}\label{vapnik-classificationBound}
+EPE(\theta) \leq  Err^n_{train}(\theta) + \frac{\epsilon}{2} \left(1 + \sqrt{1 + \frac{4 Err^n_{train}(\theta)  }{\epsilon}}  \right)    
+\end{equation}
 
