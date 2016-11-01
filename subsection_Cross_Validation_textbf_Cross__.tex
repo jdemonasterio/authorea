@@ -29,25 +29,7 @@ Cross Validation (CV) is one of the most widespread techniques to evaluate the g
  
  Lower K = smaller traning set thus lower variance and higher bias. It also overestimates the EPE since having less data implies having worse bounds from asymptotic results. 
  
- \textbf{leave-one-out CV}
- 
- 
- \subsection{Bengio, GrandValet - No Unbiased Estimator of the Variance of K-Fold Cross-Validation}
- \textbf{Cross Validation}: 
- \textit{The standard measure of accuracy for trained models is the prediction error (PE), i.e. the expected loss on future examples. Learning algorithms themselves are often compared on their average performance, which estimates expected value of prediction error (EPE) over training sets.
- 	The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
- 	Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
- 	We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
- }
- 
- 
- \textbf{HyperParameters}:
- Como van apareciendo en algunos algoritmos y are different from the "parameters" or coefficients of the learners. They appear as a consequence of numerical, computational and sometimes statistical fine-tuning of algorithms (give an example?). 
- La relacion entre cross-validation y la busqueda de hiper parametros. 
- 
- \textit{}
- 
- \textit{} 
+\textbf{leave-one-out CV}
  
  Let $\mathcal{A} = [\alpha_0, \alpha_1,..., \alpha_l   ]$ be a list of hyperparameter settings and  $\mathcal{K} =[1,..,K]$ a list of folds.  A full K-Fold Cross Validation procedure takes the following form.
  
@@ -74,7 +56,19 @@ Note that during the algorithm, each sample's prediction was tested on model's w
 
 From this procedure it makes sense to choose a final  model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \textbf{VAPNIK DIMENSION SECTION}, importance is also given to the \textit{complexity} of the approximating functions. Models with a lower number of hyper parameters or number of features are also favored. These will probably estimate the prediction error more accurately. In practice though, a class of approximating functions might have a complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or commonsense are used to estimate model complexity, without making use of theoretical arguments.
 
-
 Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in most cases though, CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
+
+ \subsubsection{Drawbacks of Cross Validation}
+ 
+ Bengio, GrandValet - No Unbiased Estimator of the Variance of K-Fold Cross-Validation
+ \textbf{Cross Validation}: 
+ \textit{The standard measure of accuracy for trained models is the prediction error (PE), i.e. the expected loss on future examples. Learning algorithms themselves are often compared on their average performance, which estimates expected value of prediction error (EPE) over training sets.
+ 	The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
+ 	Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
+ 	We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
+ }
+
+\subsubsection{Scoring measures in supervised Classification}
+
 
 
