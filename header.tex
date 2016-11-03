@@ -14,6 +14,19 @@
 %\let\b\textbf
 \def\b{\textbf}
 
+% for confusion matrix building
+\usepackage{array}
+\usepackage{multirow}
+
+\newcommand\MyBox[2]{
+	\fbox{\lower0.75cm
+		\vbox to 1.7cm{\vfil
+			\hbox to 1.7cm{\hfil\parbox{1.4cm}{#1\\#2}\hfil}
+			\vfil}%
+	}%
+}
+
+
 %Math set letters
 \newcommand{\calG}{\mathcal{G}}
 \newcommand{\calN}{\mathcal{N}}
