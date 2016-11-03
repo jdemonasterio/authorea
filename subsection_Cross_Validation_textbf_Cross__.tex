@@ -69,4 +69,20 @@ Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in most cases t
  	We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
  }
 
-\subsubsection{Scoring measures in supervised Classification}
+\subsubsection{CV Scores in Classification Learning}
+
+In the classification setting, it is common to name the loss functions as \textit{scores}.
+
+Accuracy, Recall, Specificity, Precision, f1_weighted, roc_AUC
+
+\noindent
+\renewcommand\arraystretch{1.5}
+\setlength\tabcolsep{0pt}
+\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
+	\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft actual\\ value}} & 
+	& \multicolumn{2}{c}{\bfseries Prediction outcome} & \\
+	& & \bfseries p & \bfseries n & \bfseries total \\
+	& p$'$ & \MyBox{True}{Positive} & \MyBox{False}{Negative} & P$'$ \\[2.4em]
+	& n$'$ & \MyBox{False}{Positive} & \MyBox{True}{Negative} & N$'$ \\
+	& total & P & N &
+\end{tabular}
