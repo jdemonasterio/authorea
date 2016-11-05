@@ -171,13 +171,12 @@ Texstudio is better at helping to write fast tex documents using spell-checkers,
  \caption{K-Fold Cross Validation Estimation Procedure}
 \end{algorithm}
 
-Note that during the algorithm, each sample's prediction was tested on model's which were fitted without using that sample. 
+Note that during the algorithm, each sample's prediction was tested on the model which was fitted without using that sample. 
 
-From this procedure it makes sense to choose a final  model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \textbf{VAPNIK DIMENSION SECTION}, importance is also given to the \textit{complexity} of the approximating functions. Models with a lower number of hyper parameters or number of features are also favored. These will probably estimate the prediction error more accurately. In practice though, a class of approximating functions might have a complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or commonsense are used to estimate model complexity, without making use of theoretical arguments.
+From this procedure it makes sense to choose a final  model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all of possible hyperparameters. However, following ideas detailed in \textbf{VAPNIK DIMENSION SECTION}, importance is also given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. These will probably estimate the prediction error more accurately. In practice though, a class of approximating functions might have a complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense are used to estimate model complexity, without making use of theoretical arguments.
 
 
-Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in most cases though, CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
-
+Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in general CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
 
 
 
@@ -185,22 +184,51 @@ Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in most cases t
 
 \subsubsection{CV Scores in Classification Learning}
 
-In the classification setting, it is common to name the loss functions as \textit{scores}.
+In a simple binary classification case, the model $\hat{f}$ is fit  from the data with a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible outcomes for these two variables.  
 
-Accuracy, Recall, Specificity, Precision, f1_weighted, roc_AUC
+To assess the performance of the classification algorithm and chose the \textit{best} model we must decide on how the CV procedure wil value two different models. The idea is to quantify the mismatch between the target  and the predicted value. Here loss functions are also known as \textit{scores}, \textit{measures} or \textit{utility functions} and are built by looking at how many times an algorithm  misclassifies instances and where is the misclassification happening. To visualize this, a \textit{confusion} table with the following format is drafted:
 
 \noindent
 \renewcommand\arraystretch{1.5}
 \setlength\tabcolsep{0pt}
 \begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
-	\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft actual\\ value}} & 
-	& \multicolumn{2}{c}{\bfseries Prediction outcome} & \\
-	& & \bfseries p & \bfseries n & \bfseries total \\
-	& p$'$ & \MyBox{True}{Positive} & \MyBox{False}{Negative} & P$'$ \\[2.4em]
-	& n$'$ & \MyBox{False}{Positive} & \MyBox{True}{Negative} & N$'$ \\
-	& total & P & N &
+	\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft Target\\ value $y$}} & 
+	& \multicolumn{2}{c}{\bfseries Predictive value $\hat{y}$} & \\
+	& & \bfseries \^{P} \ $(0)$ & \bfseries  \^{N} \ $(1)$   \\
+	& P \ $(0)$ & \MyBox{True}{Positive (TP)} & \MyBox{False}{Negative (FN)} &  \\[2.4em]
+	& N \ $(1)$ & \MyBox{False}{Positive (FP)} & \MyBox{True}{Negative (TN)} & \\
+	%& total & P \ $(0)$ &  &
 \end{tabular}
 
+In the confusion table, cell values count the amount of instances that fall into each of the four possible outcomes and scores are constructed from these values. The focus will be in measuring $FP$ and $FN$ volumes.
+
+% to measure the algorithm's performance.
+% Notice that the only correct cells are the $TP$ and $TN$ categories, each correctly classifying positive and negative samples
+Some of the most used metrics include the following:
+
+\begin{itemize}
+	\item \textbf{True Positive Rate  (Recall):} $\frac{TP}{P} = \frac{TP}{TP + FN}$ \\ This rate measures the percentage of real positive values captured by the algorithm. A high recall of the algorithm indicates that a high number of the real positive labels were classified as positive.
+
+		
+	\item \textbf{Positive Predictive Value  (Precision):} $\frac{TP}{\hat{P}} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{overconfidence} of the algorithm in its predictions, a high precision indicates the value of the predictions.
+	
+	\item \textbf{True Negative Rate  (Specificity):}  $\frac{TN}{N} = \frac{TN}{TN + FP}$ \\ This rate measures the percentage of real negative values captured by the algorithm.
+	
+	\item \textbf{False Positive Rate  (Fall-Out):} $FPR = 1 - SPC$ \\ This rate measures the percentage of false negative values misclassified by the algorithm.
+	
+	\item \textbf{Accuracy:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{overconfidence} of the algorithm in its predictions.
+
+%	\item $F1_\beta$ \textbf{Score:} $(1 + \betaˆ2) \frac{TP + TN}{P + N} $ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $\[0,1 \]$ domain and are ordered in the sense that perfect classifiers have a $F1$ score of 1.
+%	
+		\item \textbf{F1  Score:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP} = 2 \frac{1}{  \frac{1}{recall} + \frac{1}{precision}  }$ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $[0,1 ]$ domain and are ordered in the sense that perfect classifiers have an $F1$ score of 1.
+		 
+\end{itemize}
+
+Even more metrics can be derived from the confusion table where each can capture different aspects of the algorithms classification performance. 
+
+One last important metric used widely in classification is the  \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to methods which output for each sample  the probability of belonging to the positive class. Then a threshold must be decided to classify samples into the target classes. If we consider different values for this threshold, we will see that the recall and the fall-out of the algorithm vary. Classification algorithms show an inverse relationships between these two as the tradeoff is varied. The ROC curve is the relationship between these two for different thresholds. The result is a curve defined in $[0,1]x[0,1]$ (ROC) space
+
+To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. This metric follows the same properties as the ones mentioned before, where good classifiers have values nearer to $1$.
 
 
 \end{document}
