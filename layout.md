@@ -6,7 +6,7 @@ Expect_calG_calN_calE_calL__.tex
 figures/figure-biasVariance/figure-biasVariance.png
 vaIn_ref_figure_biasVariance_Hastie__.tex
 textbf_Overfitting_subsection_Brief_comment__.tex
-subsection_Cross_Validation_textbf_Cross__.tex
+subsection_Cross_Validation_Cross_Validation__.tex
 figures/figure-lowROCAUC/figure-lowROCAUC.png
 textbf_ACA_ARRANCAN_LAS_DESCRIPCIONES__.tex
 ASDFSFD__.tex
