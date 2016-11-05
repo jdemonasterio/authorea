@@ -70,19 +70,29 @@ Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in most cases t
  }
 
 \subsubsection{CV Scores in Classification Learning}
+Accuracy, Recall, Specificity, Precision,  weighted f1, roc AUC
 
-In the classification setting, it is common to name the loss functions as \textit{scores}.
+Consider a simple binary classification case. The model $\hat{f}$ is fitted from the data in a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible outcomes for these two variables.  
 
-Accuracy, Recall, Specificity, Precision, f1_weighted, roc_AUC
+In the classification setting, it is common to name the loss functions as \textit{scores} or \textit{measures}. These are used to measure the performance of a classification algorithm and all are built by looking at how many times it misclassifies instances and how is the misclassification done. To visualize this, a \textit{confusion} table is drafted. This has the following format:
 
 \noindent
 \renewcommand\arraystretch{1.5}
 \setlength\tabcolsep{0pt}
 \begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
-	\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft actual\\ value}} & 
-	& \multicolumn{2}{c}{\bfseries Prediction outcome} & \\
-	& & \bfseries p & \bfseries n & \bfseries total \\
-	& p$'$ & \MyBox{True}{Positive} & \MyBox{False}{Negative} & P$'$ \\[2.4em]
-	& n$'$ & \MyBox{False}{Positive} & \MyBox{True}{Negative} & N$'$ \\
-	& total & P & N &
+	\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft Target\\ value $y$}} & 
+	& \multicolumn{2}{c}{\bfseries Predictive value $\hat{y}$} & \\
+	& & \bfseries P \ $(0)$ & \bfseries  N \ $(1)$   \\
+	& P \ $(0)$ & \MyBox{True}{Positive (TP)} & \MyBox{False}{Negative (FN)} &  \\[2.4em]
+	& N \ $(1)$ & \MyBox{False}{Positive (FP)} & \MyBox{True}{Negative (TN)} & \\
+	%& total & P \ $(0)$ &  &
 \end{tabular}
+
+In the confusion table, cell values count the amount of instances that fall into each category. Then scores are constructed from this values to measure the algorithm's performance.
+% Notice that the only correct cells are the $TP$ and $TN$ categories, each correctly classifying positive and negative samples
+Some of the most common examples of these metrics include the following:
+
+\begin{itemize}
+	\item True Positive Rate $TPR$: $\frac{TP}{P} = \frac{TP}{TP + FN}$ which are the rate of samples correctly classified positive samples over all of the possible positive ones. 
+	\item 
+\end{itemize}
