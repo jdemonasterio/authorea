@@ -1,0 +1,11 @@
+\subsubsection{ROC Curve}
+
+Even more metrics can be derived from the confusion table. Different interactions of the metrics can capture different aspects of an algorithm's classification performance. 
+
+One last important metric used widely in classification is the  \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to algorithms which output for each sample  the probability of belonging to the positive class.  These method then use a threshold value to to classify samples into the respective target classes. If we consider different values for this threshold, we will see that the recall and the fall-out of the algorithm will vary along different values. 
+
+Classification algorithms show an inverse relationships between these two as the tradeoff is varied. The ROC curve is defined as the relationship between these two values for different thresholds. The result is a curve defined in $[0,1]x[0,1]$ (ROC) space.
+
+To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score is calculated as the \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where good classifiers have values nearer to $1$. 
+
+The following figure shows an example ROC curve for an instance problem. Notice the algorithm's poor prediction performance where the ROCAUC is barely over the 'Luck' line. This line represents the performance of a \textit{random} classifier which arbitrarily labels samples as being to either of the possible classes. We should expect to have good learners have better ROCAUC socres than the \texit{random classifier}. 
