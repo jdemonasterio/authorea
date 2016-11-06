@@ -10,6 +10,7 @@ subsection_Cross_Validation_Cross_Validation__.tex
 subsubsection_ROC_Curve_Even_more__.tex
 figures/figure-lowROCAUC/figure-lowROCAUC_original.png
 As_a_counter_example_another__.tex
+figures/figure-highROCAUC/figure-highROCAUC.png
 textbf_ACA_ARRANCAN_LAS_DESCRIPCIONES__.tex
 ASDFSFD__.tex
 Random_Forests_are_a_special__.tex
