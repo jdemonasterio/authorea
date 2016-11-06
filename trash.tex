@@ -224,12 +224,17 @@ Some of the most used metrics include the following:
 		 
 \end{itemize}
 
-Even more metrics can be derived from the confusion table where each can capture different aspects of the algorithms classification performance. 
+\subsubsection{ROC Curve}
 
-One last important metric used widely in classification is the  \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to methods which output for each sample  the probability of belonging to the positive class. Then a threshold must be decided to classify samples into the target classes. If we consider different values for this threshold, we will see that the recall and the fall-out of the algorithm vary. Classification algorithms show an inverse relationships between these two as the tradeoff is varied. The ROC curve is the relationship between these two for different thresholds. The result is a curve defined in $[0,1]x[0,1]$ (ROC) space
+Even more metrics can be derived from the confusion table. Different interactions of the metrics can capture different aspects of an algorithm's classification performance. 
 
-To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. This metric follows the same properties as the ones mentioned before, where good classifiers have values nearer to $1$.
+One last important metric used widely in classification is the  \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to algorithms which output for each sample  the probability of belonging to the positive class.  These method then use a threshold value to to classify samples into the respective target classes. If we consider different values for this threshold, we will see that the recall and the fall-out of the algorithm will vary along different values. 
 
+Classification algorithms show an inverse relationships between these two as the tradeoff is varied. The ROC curve is defined as the relationship between these two values for different thresholds. The result is a curve defined in $[0,1]x[0,1]$ (ROC) space.
+
+To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score is calculated as the \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where good classifiers have values nearer to $1$. 
+
+As an example
 
 \end{document}
 
