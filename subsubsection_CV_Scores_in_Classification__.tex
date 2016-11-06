@@ -1,0 +1,41 @@
+\subsubsection{CV Scores in Classification Learning}
+
+In a simple binary classification case, the model $\hat{f}$ is fit  from the data with a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible outcomes for these two variables.  
+
+To assess the performance of the classification algorithm and chose the \textit{best} model we must decide on how the CV procedure wil value two different models. The idea is to quantify the mismatch between the target  and the predicted value. Here loss functions are also known as \textit{scores}, \textit{measures} or \textit{utility functions} and are built by looking at how many times an algorithm  misclassifies instances and where is the misclassification happening. To visualize this, a \textit{confusion} table with the following format is drafted:
+
+\noindent
+\renewcommand\arraystretch{1.5}
+\setlength\tabcolsep{0pt}
+\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
+	\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft Target\\ value $y$}} & 
+	& \multicolumn{2}{c}{\bfseries Predictive value $\hat{y}$} & \\
+	& & \bfseries \^{P} \ $(0)$ & \bfseries  \^{N} \ $(1)$   \\
+	& P \ $(0)$ & \MyBox{True}{Positive (TP)} & \MyBox{False}{Negative (FN)} &  \\[2.4em]
+	& N \ $(1)$ & \MyBox{False}{Positive (FP)} & \MyBox{True}{Negative (TN)} & \\
+	%& total & P \ $(0)$ &  &
+\end{tabular}
+
+In the confusion table, cell values count the amount of instances that fall into each of the four possible outcomes and scores are constructed from these values. The focus will be in measuring $FP$ and $FN$ volumes.
+
+% to measure the algorithm's performance.
+% Notice that the only correct cells are the $TP$ and $TN$ categories, each correctly classifying positive and negative samples
+Some of the most used metrics include the following:
+
+\begin{itemize}
+	\item \textbf{True Positive Rate  (Recall):} $\frac{TP}{P} = \frac{TP}{TP + FN}$ \\ This rate measures the percentage of real positive values captured by the algorithm. A high recall of the algorithm indicates that a high number of the real positive labels were classified as positive.
+
+		
+	\item \textbf{Positive Predictive Value  (Precision):} $\frac{TP}{\hat{P}} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{overconfidence} of the algorithm in its predictions, a high precision indicates the value of the predictions.
+	
+	\item \textbf{True Negative Rate  (Specificity):}  $\frac{TN}{N} = \frac{TN}{TN + FP}$ \\ This rate measures the percentage of real negative values captured by the algorithm.
+	
+	\item \textbf{False Positive Rate  (Fall-Out):} $FPR = 1 - SPC$ \\ This rate measures the percentage of false negative values misclassified by the algorithm.
+	
+	\item \textbf{Accuracy:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{overconfidence} of the algorithm in its predictions.
+
+%	\item $F1_\beta$ \textbf{Score:} $(1 + \betaˆ2) \frac{TP + TN}{P + N} $ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $\[0,1 \]$ domain and are ordered in the sense that perfect classifiers have a $F1$ score of 1.
+%	
+		\item \textbf{F1  Score:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP} = 2 \frac{1}{  \frac{1}{recall} + \frac{1}{precision}  }$ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $[0,1 ]$ domain and are ordered in the sense that perfect classifiers have an $F1$ score of 1.
+		 
+\end{itemize}
