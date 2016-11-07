@@ -20,7 +20,7 @@
 % \newif\iflatexml\latexmlfalse
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
-
+\usepackage{algorithm2e}
 \usepackage{qtree}
 \usepackage{amssymb}
 \usepackage{hyperref}
@@ -30,7 +30,20 @@
 % \usepackage{subfigure}
 \usepackage{nicefrac}
 
+% for confusion matrix building
+\usepackage{array}
+\usepackage{multirow}
 
+\newcommand\MyBox[2]{
+	\fbox{\lower0.75cm
+		\vbox to 1.7cm{\vfil
+			\hbox to 1.7cm{\hfil\parbox{1.4cm}{#1\\#2}\hfil}
+			\vfil}%
+	}%
+}
+
+
+% mathcal certain letters
 \newcommand{\calG}{\mathcal{G}}
 \newcommand{\calN}{\mathcal{N}}
 \newcommand{\calE}{\mathcal{E}}
@@ -86,60 +99,142 @@ Texstudio is better at helping to write fast tex documents using spell-checkers,
 \end{abstract}
 
 
-\section{Random Forests}
+ 
+ \subsection{Cross Validation}:  
+ 
+ Cross Validation (CV) is one of the most widespread techniques to evaluate the generalization performance of a set of learners. Given a number of possibilities for the hyper/tuning parameters for a specific model, we would like to decide which selection of fits the best estimator, when measured by the generalization error. In supervised learning settings, data is generally scarce while prediction error estimates are based on asymptotic or analytical results which are not computable. CV intends to prevent over-fitting by iteratively holding out a random part of the dataset and by measuring the predictive accuracy of the learner fit on data \textit{in-sample} against new values from the \textit{hold-out} part of the dataset. The accuracy measure here is weighted by the loss function, which must be selected beforehand. 
+ 
+ A partition of the samples in a Cross Validation procedure is called a \textit{fold}. CV then partitions data into $K$ random folds, where the number $K$ has to be previously decided.\footnote{ We assume here that a random sample of the initial dataset was already left out in order to test the model's accuracy at the end. We refer to this set as the \textit{testing set}.} Let $\gamma : \{1,..,N\} \mapsto \{1, .., K\}$ be a function mapping samples to folds. Without loss of generality,  let $\alpha$ be an index of the model's hyperparameters, where each distinct combination of tuning parameters is identified by this parameter. We know that the domain of $\alpha$ will vary with the type of model used. 
+ 
+ The CV algorithm now iteratively runs over all of the folds, and takes one fold $\gamma^{-1}(\{k\})$ to be the validation set, where $k \in [1,...,K]$ is the indexer of the iteration. $\hat{f}^{-k}$ will denote the fitted estimator on the training set with the $k$-fold hold out and it will be tested against the hold out estimates. This means that for every sample in this $k$-fold, we measure the loss $L(y_i, \hat{f}^{-\gamma(i)}(x_i))$ of the model's prediction against the true target value.
+ 
+ Note that cross validation intends to estimate the expected \textit{out-of-sample} error $\Expect \left[  L(Y, \hat{f}(X)) \right]$, when the model is tested against \textbf{independent} samples from the true distribution. For this reason, it is fundamental to ensure independence of the training set and the test set. Any transformations that must be done on the input data that jointly uses the input and output samples in the process must be done and \textit{learned} only on the training set. It is very important that we don't introduce information from our test set in the estimator. The model should never \textit{see} the test data until we use it to evaluate our learner. 
+ 
+ 
+ estimate the prediction error with
+ 
+ 
+ 
+ If we have decided 
+ 
+ %where $K$ is the number of folds and $N$ the number of samples in our dataset. 
+ 
+ 
+ \begin{definition}{K-Fold CV Prediction Error Estimator}
+ 	
+ \end{definition}
+ 
+ \subsubsection{Choice of $K$} 
+ 
+ Higher K = bigger training set (smaller folds) and thus smaller validation sets. leads to a better bias of the model . With a few exceptions, having a higher number K will mean a higher computational burden since $K$ estimators are fitted. 
+ 
+ Lower K = smaller traning set thus lower variance and higher bias. It also overestimates the EPE since having less data implies having worse bounds from asymptotic results. 
+ 
+ \textbf{leave-one-out CV}
+ 
+ 
+ \subsection{Bengio, GrandValet - No Unbiased Estimator of the Variance of K-Fold Cross-Validation}
+ \textbf{Cross Validation}: 
+ \textit{The standard measure of accuracy for trained models is the prediction error (PE), i.e. the expected loss on future examples. Learning algorithms themselves are often compared on their average performance, which estimates expected value of prediction error (EPE) over training sets.
+ 	The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
+ 	Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
+ 	We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
+ }
+ 
+ 
+ \textbf{HyperParameters}:
+ Como van apareciendo en algunos algoritmos y are different from the "parameters" or coefficients of the learners. They appear as a consequence of numerical, computational and sometimes statistical fine-tuning of algorithms (give an example?). 
+ La relacion entre cross-validation y la busqueda de hiper parametros. 
+ 
+ \textit{}
+ 
+ \textit{} 
+ 
+ Let $\mathcal{A} = [\alpha_0, \alpha_1,..., \alpha_l   ]$ be a list of hyperparameter settings and  $\mathcal{K} =[1,..,K]$ a list of folds.  A full K-Fold Cross Validation procedure takes the following form.
+ 
+ \begin{algorithm}%[h]
+ 	\SetAlgoLined
+ 	\KwResult{Write here the result }
+ 	Initialize $\mathcal{A}$ and $\gamma(\cdot)$\;
+ 	\For{ $\alpha \in  \mathcal{A}$}{
+ 		\eIf{data transformation}{
+ 			Perform data transformation on the whole training set \;
+ 		}{
+ 		continue\;
+ 	}
+ 	\For{ $k \in  \mathcal{K}$}{
+ 		fit $\hat{f}^{-k}(\cdot, \alpha)$\;
+ 	}
+ 	
+ 	compute $CV(\alpha) = \frac{1}{N} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
+ }
+ \caption{K-Fold Cross Validation Estimation Procedure}
+\end{algorithm}
 
-Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together.
-	
-\section{scikit-docs}
+Note that during the algorithm, each sample's prediction was tested on the model which was fitted without using that sample. 
 
-Differnet works have explored on low-bias and high-variance scenarios. Strongly related to models with low training error and high test errors.  \cite{breiman-arcingclassifiers} gives a more accurate description of this problem on real data. In some cases \textit{..small perturbations in their  training  sets  or  in  construction  may  result  in  large  changes  in  the  constructed  predictor}
-	
-	
-	
-	By combining the predictions of a set of base learners the overall generalization error of the aggregated learner will be improved. The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
-	
-	By combining base learners in a randomized, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increase its generalization rate. Variance has to be carefully looked upon in these kind of models. A common trait of the two methods is that the prediction for new samples is given over the average of individual classifiers or the most frequent class in the ensemble. 
-	
-	There exist a wide range of Random Forests variants in the literature \cite{breiman-randomforests} where the difference lies on how randomization is applied to the base learners. In most cases this means that during runtime, samples will be selected on the features and on the \textit{rows} of the dataset. We will not survey all of the different variations but some of the methods ideas work as follows:
-	
-	\begin{itemize}
-		\item Bootstrapping on rows at each node.
-		\item Sampling on rows at each node.
-		\item Sampling features to build each individual tree.
-		\item Sampling features and rows when building on base learners.
-	\end{itemize}
-	
-	
-	\textit{Random forests use a perturb-and-combine technique [Breiman, “Arcing Classifiers”, Annals of Statistics 1998.] specifically designed for trees. This means a diverse set of classifiers is created by introducing randomness in the classifier construction. The prediction of the ensemble is given as the averaged prediction of the individual classifiers.}
-	
-	\textit{each tree in the ensemble is built from a sample drawn with replacement (i.e., a bootstrap sample) from the training set. In addition, when splitting a node during the construction of the tree, the split that is chosen is no longer the best split among all features. Instead, the split that is picked is the best split among a random subset of the features. As a result of this randomness, the bias of the forest usually slightly increases (with respect to the bias of a single non-random tree) but, due to averaging, its variance also decreases, usually more than compensating for the increase in bias, hence yielding an overall better model. [Breiman, “Random Forests”, Machine Learning, 45(1), 5-32, 2001.] }
-	
-	
-	Hyper-parameters for tree models are in general based on 
-	\textit{Number of estimators in forest. max depth. Number of features sampled. Sample size at leaf split. Bootstrapping for each tree. }
-	
-	There is a tradeoff in bias-variance when varying the different hyperparameters.
-	
-	Best hyperparameteres are alwasy cross-validated on the training set
-	
-	\textbf{VARIABLE IMPORTANCE}
-	
-	\textit{Internal estimates monitor error, strength, and correlation and these are used to show
-		the response to increasing the number of features used in the splitting. Internal estimates are also used to measure variable importance}
+From this procedure it makes sense to choose a final  model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all of possible hyperparameters. However, following ideas detailed in \textbf{VAPNIK DIMENSION SECTION}, importance is also given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. These will probably estimate the prediction error more accurately. In practice though, a class of approximating functions might have a complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense are used to estimate model complexity, without making use of theoretical arguments.
 
 
-\begin{definition}{Generalization Error}
-	The generalization error is also known as the test error or prediction error. This is the model's expected error over an independent test set $\mathrm{Ts}$:
+Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in general CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
+
+
+
+
+
+\subsubsection{CV Scores in Classification Learning}
+
+In a simple binary classification case, the model $\hat{f}$ is fit  from the data with a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible outcomes for these two variables.  
+
+To assess the performance of the classification algorithm and chose the \textit{best} model we must decide on how the CV procedure wil value two different models. The idea is to quantify the mismatch between the target  and the predicted value. Here loss functions are also known as \textit{scores}, \textit{measures} or \textit{utility functions} and are built by looking at how many times an algorithm  misclassifies instances and where is the misclassification happening. To visualize this, a \textit{confusion} table with the following format is drafted:
+
+\noindent
+\renewcommand\arraystretch{1.5}
+\setlength\tabcolsep{0pt}
+\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
+	\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft Target\\ value $y$}} & 
+	& \multicolumn{2}{c}{\bfseries Predictive value $\hat{y}$} & \\
+	& & \bfseries \^{P} \ $(0)$ & \bfseries  \^{N} \ $(1)$   \\
+	& P \ $(0)$ & \MyBox{True}{Positive (TP)} & \MyBox{False}{Negative (FN)} &  \\[2.4em]
+	& N \ $(1)$ & \MyBox{False}{Positive (FP)} & \MyBox{True}{Negative (TN)} & \\
+	%& total & P \ $(0)$ &  &
+\end{tabular}
+
+In the confusion table, cell values count the amount of instances that fall into each of the four possible outcomes and scores are constructed from these values. The focus will be in measuring $FP$ and $FN$ volumes.
+
+% to measure the algorithm's performance.
+% Notice that the only correct cells are the $TP$ and $TN$ categories, each correctly classifying positive and negative samples
+Some of the most used metrics include the following:
+
+\begin{itemize}
+	\item \textbf{True Positive Rate  (Recall):} $\frac{TP}{P} = \frac{TP}{TP + FN}$ \\ This rate measures the percentage of real positive values captured by the algorithm. A high recall of the algorithm indicates that a high number of the real positive labels were classified as positive.
+
+		
+	\item \textbf{Positive Predictive Value  (Precision):} $\frac{TP}{\hat{P}} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{overconfidence} of the algorithm in its predictions, a high precision indicates the value of the predictions.
 	
-	$$ Err_{\mathrm{T}} = \Expect \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
+	\item \textbf{True Negative Rate  (Specificity):}  $\frac{TN}{N} = \frac{TN}{TN + FP}$ \\ This rate measures the percentage of real negative values captured by the algorithm.
 	
-	Note that in this definition the expectation is taken conditional on the training set and the samples used to measure the error are drawn from an independent test set. here the model is fit \textbf{only} from the training set.
-\end{definition}
+	\item \textbf{False Positive Rate  (Fall-Out):} $FPR = 1 - SPC$ \\ This rate measures the percentage of false negative values misclassified by the algorithm.
+	
+	\item \textbf{Accuracy:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{overconfidence} of the algorithm in its predictions.
 
+%	\item $F1_\beta$ \textbf{Score:} $(1 + \betaˆ2) \frac{TP + TN}{P + N} $ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $\[0,1 \]$ domain and are ordered in the sense that perfect classifiers have a $F1$ score of 1.
+%	
+		\item \textbf{F1  Score:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP} = 2 \frac{1}{  \frac{1}{recall} + \frac{1}{precision}  }$ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $[0,1 ]$ domain and are ordered in the sense that perfect classifiers have an $F1$ score of 1.
+		 
+\end{itemize}
 
-\subsection{Summary of Results}
+\subsubsection{ROC Curve}
 
-mas sarasaaaaa
+Even more metrics can be derived from the confusion table. Different interactions of the metrics can capture different aspects of an algorithm's classification performance. 
+
+One last important metric used widely in classification is the  \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to algorithms which output for each sample  the probability of belonging to the positive class.  These method then use a threshold value to to classify samples into the respective target classes. If we consider different values for this threshold, we will see that the recall and the fall-out of the algorithm will vary along different values. 
+
+Classification algorithms show an inverse relationships between these two as the tradeoff is varied. The ROC curve is defined as the relationship between these two values for different thresholds. The result is a curve defined in $[0,1]x[0,1]$ (ROC) space.
+
+To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score is calculated as the \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where good classifiers have values nearer to $1$. 
+
+As an example
 
 \end{document}
 
