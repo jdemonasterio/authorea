@@ -1,0 +1,23 @@
+\section{Logistic Regression Cost Function}
+
+\begin{equation} \label{logit}
+ \min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (X_i \cdot \theta + c )} +1) 
+\end{equation}
+
+The equation reflects our goal to correctly classify aling training samples with their targets. 
+
+\begin{definition}{Logistic Regression}
+Given a choice of parameter \theta,
+\[
+    Err_{true}(\theta)  = \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
+    = \int (y - h(x \cdot \theta) )^2 p(x,y)dxdy
+\]
+\end{definition}
+
+\textit{In this model, the probabilities describing the possible outcomes of a single trial are modeled using a logistic function.}
+
+\textit{}
+
+\textit{}
+\textit{}
+\textit{}
