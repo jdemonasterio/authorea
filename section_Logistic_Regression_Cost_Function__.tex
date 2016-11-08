@@ -4,7 +4,12 @@
  \min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (X_i \cdot \theta + c )} +1) 
 \end{equation}
 
-The equation reflects our goal to correctly classify aling training samples with their targets. 
+Note that here there are two specific tuning parameters which must be predefined in the optimization procedure. Notably $\gamma$ which measure the weight on the regularization term and$j$ which determines the type of norm to measure the argument of the minimization.
+
+The model outputs the predicted probabilities of the target variables belonging to the target class.
+
+\textit{The conditional distribution of $y|x$ follows a Bernoulli distribution.}
+
 
 \begin{definition}{Logistic Regression}
 Given a choice of parameter \theta,
