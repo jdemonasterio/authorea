@@ -24,7 +24,13 @@ Given a choice of parameter \theta,
 \textit{The logistic regression model arises from the desire to model the posterior probabilities of the $K$ classes via linear functions in $x$, while at the same time ensuring that they sum to one and remain in [0,1]. The model has the form }
 
 
-$$ log(Pr(C_i|x)) = \beta_{i0}  + \beta_i^\intercal x  $$
+$$ log( \frac{P(C_i|x)}{P(C_j|x)}) = \beta_{i0}  + \beta_i^\intercal x  $$ for $i,j \in \{0,1\}, i\neq j$
+
+With these same indices 
+
+$$ P(C_i|x) = \frac{ exp(\beta_{i0}  + \beta_i^\intercal x)}{1 + exp(\beta_{j0}  + \beta_j^\intercal x)}   $$ for $i,j \in \{0,1\}, i\neq j$
+
+The model is specified in terms of the log-odds for each class 
 
 
 \textit{}
