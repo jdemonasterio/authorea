@@ -32,10 +32,12 @@ $$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j
 
 The model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
 
-Maximum likelihood methods are comonly used to fit the model, with multinomial distributions modelling the features. 
+Maximum likelihood is the most common method used to fit the model, with multinomial distributions modelling the features. 
 
-The estimation of $\theta$ for $N$ samples gives
 
+If we take into account that $P(y=1|x,\theta) = 1 - P(y=0|x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives
+
+l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i|x_i,\theta)) + (1-y_i)log(1 - P(y_i|x_i,\theta)) \big)
 
 
 
