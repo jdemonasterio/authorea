@@ -1,7 +1,7 @@
 section_Meta_Section_Writing_plan__.tex
 section_Brief_introduction_to_machine__1.tex
 subsubsection_A_working_example_For__.tex
-o_As_we_know_the__.tex
+As_we_know_the_learner__.tex
 section_Logistic_Regression_Cost_Function__.tex
 Expect_calG_calN_calE_calL__.tex
 figures/figure-biasVariance/figure-biasVariance.png
