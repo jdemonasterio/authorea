@@ -1,11 +1,11 @@
-o
-As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_jx_j\right)$ and the first idea leads to find the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter by optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. For example the choice of $0.5$ as a threshold in \ref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning the criteria used to choose the best parameters is called a \textit{metric}.
+
+As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$ and the first idea leads to find the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter by optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. For example the choice of $0.5$ as a threshold in \ref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning the criteria used to choose the best parameters is called a \textit{metric}.
 
 A naive approach to find the parameters in our problem would be to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the following sum (RSS)  
 
 \begin{equation} \label{eq:rss}
-RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y^i - \hat{y}^i]^2  \\
-=  \sum_{i=1}^n [y^i - h( \theta \cdot x^i)]^2
+RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y_i - \hat{y}_i]^2  \\
+=  \sum_{i=1}^n [y_i - h( \theta \cdot x_i)]^2
 \end{equation}
 
 The equation reflects our goal to correctly classify aling training samples with their targets. But in truth we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones. The previous equation is a bad attempt to generalize the classification model constructed from the data. It is built to fit the actual sample but we wouldn't expect it to perform well with any other given sample of the \textit{true} distribution for \mathrm{T}. 
