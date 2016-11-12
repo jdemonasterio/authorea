@@ -12,7 +12,7 @@
 \usepackage{booktabs}
 % \usepackage{row}
 \usepackage{amsfonts,amsmath,amssymb} %paquetes de matematica
- \usepackage{amsthm}
+\usepackage{amsthm}
 \usepackage{url}
 % \usepackage{hyperref}d
 % \hypersetup{colorlinks=false,pdfborder={0 0 0}}
@@ -35,11 +35,11 @@
 \usepackage{multirow}
 
 \newcommand\MyBox[2]{
-	\fbox{\lower0.75cm
-		\vbox to 1.7cm{\vfil
-			\hbox to 1.7cm{\hfil\parbox{1.4cm}{#1\\#2}\hfil}
-			\vfil}%
-	}%
+\fbox{\lower0.75cm
+	\vbox to 1.7cm{\vfil
+		\hbox to 1.7cm{\hfil\parbox{1.4cm}{#1\\#2}\hfil}
+		\vfil}%
+}%
 }
 
 
@@ -51,9 +51,11 @@
 
 % \renewcommand{\labelitemi}{$\bullet$}
 \setlength{\tabcolsep}{6pt}
- 
+
 %comandos de operadores de esperanza, varianza etc.
-\newcommand{\Expect}{{\rm I\kern-.3em E}}
+%\newcommand{\Expect}{{\rm I\kern-.3em E}}
+\newcommand{\Expect}{{\mathbb{E}}}
+
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\Cov}{\mathrm{Cov}} 
 
@@ -75,8 +77,8 @@
 
 
 \author{
-Juan de Monasterio
-\and Carlos Sarraute
+	Juan de Monasterio
+	\and Carlos Sarraute
 }
 
 %
@@ -92,149 +94,140 @@ Juan de Monasterio
 
 \maketitle
 \begin{abstract}
-
-Texstudio is better at helping to write fast tex documents using spell-checkers, pre-loaded commands and \textit{stuff}. All of the following text is just copy/paste trash being tested before being added to a real doc.
-
-
-\end{abstract}
-
-
- 
- \subsection{Cross Validation}:  
- 
- Cross Validation (CV) is one of the most widespread techniques to evaluate the generalization performance of a set of learners. Given a number of possibilities for the hyper/tuning parameters for a specific model, we would like to decide which selection of fits the best estimator, when measured by the generalization error. In supervised learning settings, data is generally scarce while prediction error estimates are based on asymptotic or analytical results which are not computable. CV intends to prevent over-fitting by iteratively holding out a random part of the dataset and by measuring the predictive accuracy of the learner fit on data \textit{in-sample} against new values from the \textit{hold-out} part of the dataset. The accuracy measure here is weighted by the loss function, which must be selected beforehand. 
- 
- A partition of the samples in a Cross Validation procedure is called a \textit{fold}. CV then partitions data into $K$ random folds, where the number $K$ has to be previously decided.\footnote{ We assume here that a random sample of the initial dataset was already left out in order to test the model's accuracy at the end. We refer to this set as the \textit{testing set}.} Let $\gamma : \{1,..,N\} \mapsto \{1, .., K\}$ be a function mapping samples to folds. Without loss of generality,  let $\alpha$ be an index of the model's hyperparameters, where each distinct combination of tuning parameters is identified by this parameter. We know that the domain of $\alpha$ will vary with the type of model used. 
- 
- The CV algorithm now iteratively runs over all of the folds, and takes one fold $\gamma^{-1}(\{k\})$ to be the validation set, where $k \in [1,...,K]$ is the indexer of the iteration. $\hat{f}^{-k}$ will denote the fitted estimator on the training set with the $k$-fold hold out and it will be tested against the hold out estimates. This means that for every sample in this $k$-fold, we measure the loss $L(y_i, \hat{f}^{-\gamma(i)}(x_i))$ of the model's prediction against the true target value.
- 
- Note that cross validation intends to estimate the expected \textit{out-of-sample} error $\Expect \left[  L(Y, \hat{f}(X)) \right]$, when the model is tested against \textbf{independent} samples from the true distribution. For this reason, it is fundamental to ensure independence of the training set and the test set. Any transformations that must be done on the input data that jointly uses the input and output samples in the process must be done and \textit{learned} only on the training set. It is very important that we don't introduce information from our test set in the estimator. The model should never \textit{see} the test data until we use it to evaluate our learner. 
- 
- 
- estimate the prediction error with
- 
- 
- 
- If we have decided 
- 
- %where $K$ is the number of folds and $N$ the number of samples in our dataset. 
- 
- 
- \begin{definition}{K-Fold CV Prediction Error Estimator}
- 	
- \end{definition}
- 
- \subsubsection{Choice of $K$} 
- 
- Higher K = bigger training set (smaller folds) and thus smaller validation sets. leads to a better bias of the model . With a few exceptions, having a higher number K will mean a higher computational burden since $K$ estimators are fitted. 
- 
- Lower K = smaller traning set thus lower variance and higher bias. It also overestimates the EPE since having less data implies having worse bounds from asymptotic results. 
- 
- \textbf{leave-one-out CV}
- 
- 
- \subsection{Bengio, GrandValet - No Unbiased Estimator of the Variance of K-Fold Cross-Validation}
- \textbf{Cross Validation}: 
- \textit{The standard measure of accuracy for trained models is the prediction error (PE), i.e. the expected loss on future examples. Learning algorithms themselves are often compared on their average performance, which estimates expected value of prediction error (EPE) over training sets.
- 	The hold-out technique does not account for the variance with respect to the training set, and may thus be considered inappropriate for the purpose of algorithm comparison [4]. Moreover, it makes an inefficient use of data which forbids its application to small sample sizes. In this situation, one resorts to computer intensive resampling methods such as cross-validation or bootstrap to estimate PE or EPE. We focus here on K-fold cross-validation. While it is known that cross-validation provides an unbiased estimate of EPE, it is also known that its variance may be very large.
- 	Some distribution-free bounds on the deviations of cross-validation are available, but they are specific to locally defined classifiers, such as nearest neighbors.
- 	We focus on the standard K-fold cross-validation procedure, with no overlap between test sets: each example is used once and only once as a test example.
- }
- 
- 
- \textbf{HyperParameters}:
- Como van apareciendo en algunos algoritmos y are different from the "parameters" or coefficients of the learners. They appear as a consequence of numerical, computational and sometimes statistical fine-tuning of algorithms (give an example?). 
- La relacion entre cross-validation y la busqueda de hiper parametros. 
- 
- \textit{}
- 
- \textit{} 
- 
- Let $\mathcal{A} = [\alpha_0, \alpha_1,..., \alpha_l   ]$ be a list of hyperparameter settings and  $\mathcal{K} =[1,..,K]$ a list of folds.  A full K-Fold Cross Validation procedure takes the following form.
- 
- \begin{algorithm}%[h]
- 	\SetAlgoLined
- 	\KwResult{Write here the result }
- 	Initialize $\mathcal{A}$ and $\gamma(\cdot)$\;
- 	\For{ $\alpha \in  \mathcal{A}$}{
- 		\eIf{data transformation}{
- 			Perform data transformation on the whole training set \;
- 		}{
- 		continue\;
- 	}
- 	\For{ $k \in  \mathcal{K}$}{
- 		fit $\hat{f}^{-k}(\cdot, \alpha)$\;
- 	}
- 	
- 	compute $CV(\alpha) = \frac{1}{N} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
- }
- \caption{K-Fold Cross Validation Estimation Procedure}
-\end{algorithm}
-
-Note that during the algorithm, each sample's prediction was tested on the model which was fitted without using that sample. 
-
-From this procedure it makes sense to choose a final  model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all of possible hyperparameters. However, following ideas detailed in \textbf{VAPNIK DIMENSION SECTION}, importance is also given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. These will probably estimate the prediction error more accurately. In practice though, a class of approximating functions might have a complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense are used to estimate model complexity, without making use of theoretical arguments.
-
-
-Consensus \footnote{\cite{hastie-elemstatslearn} P. 260} is that in general CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
-
-
-
-
-
-\subsubsection{CV Scores in Classification Learning}
-
-In a simple binary classification case, the model $\hat{f}$ is fit  from the data with a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible outcomes for these two variables.  
-
-To assess the performance of the classification algorithm and chose the \textit{best} model we must decide on how the CV procedure wil value two different models. The idea is to quantify the mismatch between the target  and the predicted value. Here loss functions are also known as \textit{scores}, \textit{measures} or \textit{utility functions} and are built by looking at how many times an algorithm  misclassifies instances and where is the misclassification happening. To visualize this, a \textit{confusion} table with the following format is drafted:
-
-\noindent
-\renewcommand\arraystretch{1.5}
-\setlength\tabcolsep{0pt}
-\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
-	\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft Target\\ value $y$}} & 
-	& \multicolumn{2}{c}{\bfseries Predictive value $\hat{y}$} & \\
-	& & \bfseries \^{P} \ $(0)$ & \bfseries  \^{N} \ $(1)$   \\
-	& P \ $(0)$ & \MyBox{True}{Positive (TP)} & \MyBox{False}{Negative (FN)} &  \\[2.4em]
-	& N \ $(1)$ & \MyBox{False}{Positive (FP)} & \MyBox{True}{Negative (TN)} & \\
-	%& total & P \ $(0)$ &  &
-\end{tabular}
-
-In the confusion table, cell values count the amount of instances that fall into each of the four possible outcomes and scores are constructed from these values. The focus will be in measuring $FP$ and $FN$ volumes.
-
-% to measure the algorithm's performance.
-% Notice that the only correct cells are the $TP$ and $TN$ categories, each correctly classifying positive and negative samples
-Some of the most used metrics include the following:
-
-\begin{itemize}
-	\item \textbf{True Positive Rate  (Recall):} $\frac{TP}{P} = \frac{TP}{TP + FN}$ \\ This rate measures the percentage of real positive values captured by the algorithm. A high recall of the algorithm indicates that a high number of the real positive labels were classified as positive.
-
-		
-	\item \textbf{Positive Predictive Value  (Precision):} $\frac{TP}{\hat{P}} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{overconfidence} of the algorithm in its predictions, a high precision indicates the value of the predictions.
 	
-	\item \textbf{True Negative Rate  (Specificity):}  $\frac{TN}{N} = \frac{TN}{TN + FP}$ \\ This rate measures the percentage of real negative values captured by the algorithm.
+	Texstudio is better at helping to write fast tex documents using spell-checkers, pre-loaded commands and \textit{stuff}. All of the following text is just copy/paste trash being tested before being added to a real doc.
 	
-	\item \textbf{False Positive Rate  (Fall-Out):} $FPR = 1 - SPC$ \\ This rate measures the percentage of false negative values misclassified by the algorithm.
+%%%% HOW TO USE SPLITS IN EQUATIONS (same level for equal signs)
+%\begin{split}
+%	var(mr) & =  \Expect_{\Theta, \Theta'} 
+%	\left[ 
+%	cov_{\textbf{x},\textbf{y}}
+%	(rmg(\Theta,\textbf{x},\textbf{y} )rmg(\Theta',\textbf{x},\textbf{y} )) 
+%	\right]
+%\end{split}
+
+%%%% Equations with no \$ chars
+%\[
+%l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i|x_i,\theta)) + (1-y_i)log(1 - P(y_i|x_i,\theta)) \big)
+%\]
+
+%%%% Equations with no \$ chars
+%\begin{equation}
+%l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i|x_i,\theta)) + (1-y_i)log(1 - P(y_i|x_i,\theta)) \big)
+%\end{equation}
+
 	
-	\item \textbf{Accuracy:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{overconfidence} of the algorithm in its predictions.
+	
+\end{abstract} 
 
-%	\item $F1_\beta$ \textbf{Score:} $(1 + \betaˆ2) \frac{TP + TN}{P + N} $ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $\[0,1 \]$ domain and are ordered in the sense that perfect classifiers have a $F1$ score of 1.
-%	
-		\item \textbf{F1  Score:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP} = 2 \frac{1}{  \frac{1}{recall} + \frac{1}{precision}  }$ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $[0,1 ]$ domain and are ordered in the sense that perfect classifiers have an $F1$ score of 1.
-		 
-\end{itemize}
+\section{Classification}
 
-\subsubsection{ROC Curve}
+Posterior probabilities can be directly obtained from values of the data through 
+$$p(C_k \mid x) = \frac{p(x \mid C_k)p(C_k)}{p(x)} $$
 
-Even more metrics can be derived from the confusion table. Different interactions of the metrics can capture different aspects of an algorithm's classification performance. 
+Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely attached to samples of that given region. It makes good sense to try and \textit{minmize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of correct classification is measured by 
 
-One last important metric used widely in classification is the  \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to algorithms which output for each sample  the probability of belonging to the positive class.  These method then use a threshold value to to classify samples into the respective target classes. If we consider different values for this threshold, we will see that the recall and the fall-out of the algorithm will vary along different values. 
+\begin{equation}
+\begin{split}
+=  & \sum_{k=1}^{K} p(x_i \in R_k, C_k )  \\
+=  & \sum_{k=1}^{K} \int_{R_k}p(x_i,C_k) dx \\
+=  & \sum_{k=1}^{K} \int_{R_k}p(C_k \mid x_i) p(x_i) dx + 
+\end{split}
+\end{equation}
 
-Classification algorithms show an inverse relationships between these two as the tradeoff is varied. The ROC curve is defined as the relationship between these two values for different thresholds. The result is a curve defined in $[0,1]x[0,1]$ (ROC) space.
+Observe that the measure is completely characterized by the posterior probabilities. Even when $p(x)$ might not be known or accurately estimated, the algorithm can only decide to improve the posterior probabilities. This is because the factor $p(x)$ is common to both integrals so it makes sense to maximize the posteriors. The goal of the algorithm is to chose the best possible regions $R_k$ for the problem.
 
-To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score is calculated as the \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where good classifiers have values nearer to $1$. 
 
-As an example
+\section{Logistic Regression for Classification}
+
+Classification algorithms assign samples to classes. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the input data:
+$$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
+
+In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data.
+
+
+
+Logistic regression models the target as a Bernoulli random variable when conditioned on the input variables. Formally,
+
+\begin{equation}
+\begin{split}
+Y_i \mid X_i \  \sim & \operatorname{Bernoulli}(p_i) \\
+\mathbb{E}[Y_i \mid X_i ] = & p_i  
+\end{split}
+\end{equation}
+	
+
+The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is formally given by 
+$$\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}$$\label{logit-probabilityDensity}
+where this depends on the class dependence of $y$.
+
+
+
+\begin{equation} \label{logit}
+\min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (x_i \cdot \theta + c )} +1) 
+\end{equation}
+
+Note that here there are two specific tuning parameters which must be predefined in the optimization procedure. Notably $\gamma$ which measure the weight on the regularization term and$j$ which determines the type of norm to measure the argument of the minimization.
+
+The model outputs the predicted probabilities of the target variables belonging to the target class.
+
+In this way, we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
+$$Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i$$. \label{logit-indicatorFunction}
+
+Here $\epsilon$ is the error which is distributed with the standard logistic distribution and parameter $p_i$. 
+
+If we take the conditional probability on \ref{logit-indicatorFunction}, given the features we will have that
+$$logit(p_i)= ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = 	\theta_0 + \theta \cdot X_i$$
+
+From this equation it trivially follows that
+
+$$p_i = \sigma(\theta \cdot X_i) = \frac{exp(\theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
+
+where we have used an abuse of notation to absorb $\theta_0$ into $\theta$. Finally, if use this and plug it into the initial conditional probability of $Y_i$ in \ref{logit-probabilityDensity} we will have
+
+$$  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
+
+
+
+\begin{definition}{Logistic Regression}
+	Given a choice of parameter $\theta$, 	
+\end{definition}
+
+Logistic regression models the posterior probabilities of the classes with a transformation on a linear function of inputs. It also conditions that the posterior probabilities must sum to one.
+
+Here the probabilities describing the possible values for the target variable is modeled using a logistic function.
+
+To satisfy this the log-odss ratios of all the classes with respect to a fixed class must all be linear in the inputs. This means that
+
+$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{0,1\}, i\neq j$ \label{logit-logOddss}
+
+With these same indices 
+
+$$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   $$ 
+
+Then the model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
+
+Maximum likelihood is the most common method used to fit the model, with multinomial distributions modeling the features. 
+
+
+If we take into account that $P(y=1|x,\theta) = 1 - P(y=0|x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives
+
+\[
+l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i|x_i,\theta)) + (1-y_i)log(1 - P(y_i|x_i,\theta)) \big)
+\]
+
+
+\textit{}
+\textit{}
+\textit{}
+\textit{}
+
+\textit{} 
+
+
+
+
+
 
 \end{document}
 
