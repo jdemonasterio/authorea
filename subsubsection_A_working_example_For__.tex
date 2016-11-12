@@ -22,7 +22,7 @@ EA23AD  & 12 &  43 & 5 & 154 &  \textit{Buenos Aires} \\
 \end{tabular}
 \end{table}
 
-In this form a row is representing the available data acquired from each acquired and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Here $\mathrm{T}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \ x \ p}$  and $Y$ is, in general, a real valued vector of length $n$. The $jth$ column of $X$ or equivalently the $jth$ feature of the data is denoted by $X_j$. Similarly, the $ith$ row or sample of $X$ is denoted by $X^i$ or $x$ when the superscript is understood from context. A similar notation is used with the outputs, where $Y^i$ of $y$ will be used to denote the target of a specific sample depending on context. 
+In this form a row is representing the available data acquired from each acquired and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Here $\mathrm{T}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \ x \ p}$  and $Y$ is, in general, a real valued vector of length $n$. The $jth$ column of $X$ or equivalently the $jth$ feature of the data is denoted by $X^j$. Similarly, the $ith$ row or sample of $X$ is denoted by $X_i$ or $x$ when the superscript is understood from context. A similar notation is used with the outputs, where $Y_i$ of $y$ will be used to denote the target of a specific sample depending on context. 
 
 In this particular case, even though the last column of the dataset in \ref{tab:sample_CDR} is not a measurement \textit{per se}, it gives information on each user's province of residence. From here, there are various questions one could try to answer. Examples of problems that a machine learning algorithm could tackle from this data could be: 
 
@@ -43,15 +43,15 @@ To illustrate further the supervised classification scenario, a brief notation o
 
 Let's suppose that the problem is to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem.
  
-The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta_jx_j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X_0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. 
+The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta_jx_j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. 
 
-If we let $ t^i = \theta \cdot x^i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
+If we let $ t_i = \theta \cdot x_i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
 \[
     %\begin{equation}
-    t^i
+    t_i
       \begin{cases}
-        &>0 \ \mbox{if} \ y^i=1 \\
-        &<0 \ \mbox{if} \ y^i=0.
+        &>0 \ \mbox{if} \ y_i=1 \\
+        &<0 \ \mbox{if} \ y_i=0.
       \end{cases}
     %\end{equation}
     \]
@@ -70,8 +70,8 @@ Then if we were to use the heavyside step function $h(z)$  where
     %\end{equation}
     \]
 
-A logical goal for the model would be to maximize $P(\textbf{y^i} = y^i | \textbf{x^i} = x) \ \forall i$
-Under the assumption that $\nexists\  i \  s.t. \ t^i = 0$, the algorithm would then correctly classify all samples to their targets. This situation is hardly the case, so a different approach is taken. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
+A logical goal for the model would be to maximize $P(\textbf{y_i} = y_i | \textbf{x_i} = x) \ \forall i$
+Under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. This situation is hardly the case, so a different approach is taken. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
 
 \begin{equation} \label{eq:logit}
 h(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}  \\
