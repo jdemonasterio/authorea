@@ -21,7 +21,21 @@ $$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
 
 In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data.
 
+\begin{definition}{Logistic Regression}
+	Given a choice of parameter $\theta$, 	
+\end{definition}
 
+Logistic regression models the posterior probabilities of the classes with a transformation on a linear function of inputs. It also conditions that the posterior probabilities must sum to one. Here the probabilities describing the possible values for the target variable is modeled using a logistic function.
+
+To satisfy this the log-odss ratios of all the classes with respect to a fixed class must all be linear in the inputs. This means that
+
+$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{0,1\}, i\neq j$ \label{logit-logOddss}
+
+With these same indices 
+
+$$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   $$ 
+
+Then the model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
 
 Logistic regression models the target as a Bernoulli random variable when conditioned on the input variables. Formally,
 
@@ -37,15 +51,7 @@ The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ i
 $$\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}$$\label{logit-probabilityDensity}
 where this depends on the class dependence of $y$.
 
-
-
-\begin{equation} \label{logit}
-\min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (x_i \cdot \theta + c )} +1) 
-\end{equation}
-
-Note that here there are two specific tuning parameters which must be predefined in the optimization procedure. Notably $\gamma$ which measure the weight on the regularization term and$j$ which determines the type of norm to measure the argument of the minimization.
-
-The model outputs the predicted probabilities of the target variables belonging to the target class.
+Here the logit function is used to map log odds into conditional probabilties and the model outputs the predicted probabilities of the target variables belonging to the target class.
 
 In this way, we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
 $$Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i$$. \label{logit-indicatorFunction}
@@ -64,24 +70,11 @@ where we have used an abuse of notation to absorb $\theta_0$ into $\theta$. Fina
 $$  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
 
 
+\begin{equation} \label{logit-optimization}
+\min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (x_i \cdot \theta + c )} +1) 
+\end{equation}
 
-\begin{definition}{Logistic Regression}
-	Given a choice of parameter $\theta$, 	
-\end{definition}
-
-Logistic regression models the posterior probabilities of the classes with a transformation on a linear function of inputs. It also conditions that the posterior probabilities must sum to one.
-
-Here the probabilities describing the possible values for the target variable is modeled using a logistic function.
-
-To satisfy this the log-odss ratios of all the classes with respect to a fixed class must all be linear in the inputs. This means that
-
-$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{0,1\}, i\neq j$ \label{logit-logOddss}
-
-With these same indices 
-
-$$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   $$ 
-
-Then the model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
+Note that here there are two specific tuning parameters which must be predefined in the optimization procedure. Notably $\gamma$ which measure the weight on the regularization term and$j$ which determines the type of norm to measure the argument of the minimization.
 
 Maximum likelihood is the most common method used to fit the model, with multinomial distributions modeling the features. 
 
