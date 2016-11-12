@@ -46,8 +46,20 @@ A classification algorithm will then assign samples to classes. Let $\{C_1,..,C_
 $$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
 
 In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data.   
+
+Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely attached to samples of that given region. It makes good sense to try and \textit{minmize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of correct classification is measured by 
+
+\begin{equation}
+\begin{split}
+=  & \sum_{k=1}^{K} p(x_i \in R_k, C_k )  \\
+=  & \sum_{k=1}^{K} \int_{R_k}p(x_i,C_k) dx \\
+=  & \sum_{k=1}^{K} \int_{R_k}p(C_k \mid x_i) p(x_i) dx + 
+\end{split}
+\end{equation}
+
+Observe that the measure is completely characterized by the posterior probabilities. Even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the posterior probabilities. Here the factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. The goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
  
-The objective is to build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. 
+In a simple classification solution, we could build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. 
 
 If we let $ t_i = \theta \cdot x_i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
 \[
@@ -74,16 +86,21 @@ Then if we were to use the heavyside step function $h(z)$  where
     %\end{equation}
     \]
 
-A logical goal for the model would be to maximize $P(\textbf{y_i} = y_i | \textbf{x_i} = x) \ \forall i$
-Under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. This situation is hardly the case, so a different approach is taken. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
+If the goal of the model ois be to maximize $P(\textbf{y_i} = y_i | \textbf{x_i} = x) \ \forall i$
+under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. However this situation is hardly the case, so we take a different approach. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
 
-\begin{equation} \label{eq:logit}
-h(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}  \\
+\begin{equation} \label{eq:logisticFunction}
+\sigma(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}  \\
 and \  H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)  
 \end{equation}
 
+The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. 
 
-The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is $(0,1)$. This property leads to reading outputs as probabilities of targets belonging to a certain class. 
+Also, the logistic function is bijective, with the inverse given by the \textit{logit} function 
+
+\begin{equation} \label{eq:logitFunction}
+\sigma^{-1}(a)  = log( \frac{a}{1 -a})    
+\end{equation}
 
 For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyperplane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modelling the posterior probability $P(\textbf{y} = y | \textbf{x} = x)$. Here the model is said to be \textit{linear} because it is linear in $X$, implying that the decision boundary is linear too. 
 
