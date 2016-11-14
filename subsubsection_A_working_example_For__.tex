@@ -37,18 +37,16 @@ The first two problems are examples of supervised learning where the $Y$ variabl
 Note that there are no assumptions made here about the data which we take as is given. %to us in this way. 
 This is common in machine learning applications and because of this, algorithms tend to be designed to account for this situation. The type of problems and questions that could be done then depend entirely on the training set. 
 
-The last example problem in the list before, belongs to the unsupervised learning category where there is no need to have a label on the data. Here the question is on the structure of a specific column, namely the unobservable probability distribution underlying the calling time. In this setting there is no output expected for new samples.
+The last example problem in the list before, belongs to the unsupervised learning category where there is no need to have a label on the data. Here the question is on the structure of a specific column, namely the estimation of the true probability distribution of the calling time. In this setting there is no output expected for new samples.
 
 To illustrate further the supervised classification scenario, a brief notation outline is described below following a standard logistic regression classifier example:
 
-Let's suppose that the problem is to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem.
-
-A classification algorithm will then assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the phone data:
+Let's suppose that the problem is to determine the province of origin of a user. A classification algorithm should assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the phone data:
 $$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
 
 In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data. 
 
-Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely attached to samples of that given region. It makes good sense to try and \textit{minmize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of correct classification is measured by 
+Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely associated to a region. It makes sense to try and \textit{minmize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of a correct classification is measured by 
 
 \begin{equation}
 \begin{split}
@@ -60,7 +58,8 @@ Our classifiers will partition input space into decision regions $R_k$ for which
 
 Observe that the measure is completely characterized by the posterior probabilities. Even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the posterior probabilities. Here the factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. The goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
  
-As a simple classification solution, we could build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter.
+A more reduced problem would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem. 
+As a simple solution, we could build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter.
 
 If we let $ t_i = \theta \cdot x_i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
 \[
@@ -95,7 +94,7 @@ under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would 
 and \  H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)  
 \end{equation}
 
-The logistic function has the advantages of being smooth, invertible, well defined for all real numbers and its image is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. 
+The logistic function has the advantages of being smooth, well defined for all real numbers and its image is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. 
 
 Also, the logistic function is bijective, with the inverse given by the \textit{logit} function 
 
@@ -103,7 +102,7 @@ Also, the logistic function is bijective, with the inverse given by the \textit{
 \sigma^{-1}(a)  = log( \frac{a}{1 -a})    
 \end{equation}
 
-For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyperplane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyperplane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modelling the posterior probability $P(\textbf{y} = y | \textbf{x} = x)$. Here the model is said to be \textit{linear} because it is linear in $X$, implying that the decision boundary is linear too. 
+For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modeling the posterior probability $P(Y_i = y | X_i = x)$. Here the model is said to be \textit{linear} because it is linear in $X$, implying that the decision boundary is linear too. 
 
 
 
