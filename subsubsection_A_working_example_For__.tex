@@ -56,9 +56,9 @@ Our classifiers will partition input space into decision regions $R_k$ for which
 \end{split}
 \end{equation}
 
-Observe that the measure is completely characterized by the posterior probabilities. Even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the posterior probabilities. Here the factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. The goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
+Observe that the measure is completely characterized by the posterior probabilities. We observe that the factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. So even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the probability of correctly classifying samples.  The goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
  
-A more reduced problem would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem. 
+A more reduced problem instance would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a binary learning problem. %us to a two class learning problem. 
 As a simple solution, we could build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter.
 
 If we let $ t_i = \theta \cdot x_i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
@@ -87,7 +87,7 @@ Then if we were to use the heavyside step function $h(z)$  where
     \]
 
 If the goal of the model is to maximize $P(Y_i = y_i | X_i = x) \ \forall i$
-under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. However this situation is hardly the case, so we take a different approach. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
+under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. However this situation is hardly the case, so we use a more common approach. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
 
 \begin{equation} \label{eq:logisticFunction}
 \sigma(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}  \\
@@ -103,8 +103,6 @@ Also, the logistic function is bijective, with the inverse given by the \textit{
 \end{equation}
 
 For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modeling the posterior probability $P(Y_i = y | X_i = x)$. Here the model is said to be \textit{linear} because it is linear in $X$, implying that the decision boundary is linear too. 
-
-
 
 then it corresponds to having a higher confidence in the classification.
 
