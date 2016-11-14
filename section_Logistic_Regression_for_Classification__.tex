@@ -11,15 +11,15 @@ Logistic regression models the posterior probabilities of the classes with a tra
 
 To satisfy this the log-odss ratios of all the classes with respect to a fixed class must all be linear in the inputs. This means that
 
-$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{0,1\}, i\neq j$ \label{logit-logOddss}
+$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{1,2,...,K\}, i\neq j$ \label{logit-logOddss}
 
-With these same indices 
+With these same indices we have that
 
 $$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   $$ 
 
 Then the model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
 
-Logistic regression models the target as a Bernoulli random variable when conditioned on the input variables. Formally,
+This model sets the target as a Bernoulli random variable when conditioned on the input variables. Formally,
 
 \begin{equation}
 \begin{split}
@@ -29,7 +29,7 @@ Y_i \mid X_i \  \sim & \operatorname{Bernoulli}(p_i) \\
 \end{equation}
 	
 
-The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is formally given by 
+The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by 
 $$\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}$$\label{logit-probabilityDensity}
 where this depends on the class dependence of $y$.
 
@@ -38,12 +38,12 @@ Here the logit function is used to map log odds into conditional probabilties an
 In this way, we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
 $$Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i$$. \label{logit-indicatorFunction}
 
-Here $\epsilon$ is the error which is distributed with the standard logistic distribution and parameter $p_i$. 
+where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and parameter $p_i$. 
 
 If we take the conditional probability on \ref{logit-indicatorFunction}, given the features we will have that
 $$logit(p_i)= ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = 	\theta_0 + \theta \cdot X_i$$
 
-From this equation it trivially follows that
+From this equation we have once again that
 
 $$p_i = \sigma(\theta \cdot X_i) = \frac{exp(\theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
 
@@ -56,17 +56,27 @@ $$  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta 
 \min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (x_i \cdot \theta + c )} +1) 
 \end{equation}
 
-Note that here there are two specific tuning parameters which must be predefined in the optimization procedure. Notably $\gamma$ which measure the weight on the regularization term and$j$ which determines the type of norm to measure the argument of the minimization.
-
-Maximum likelihood is the most common method used to fit the model, with multinomial distributions modeling the features. 
-
-
-If we take into account that $P(y=1|x,\theta) = 1 - P(y=0|x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives
+Maximum likelihood is the most common method used to fit the model. %with multinomial distributions modeling the features. 
+If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives
 
 \[
-l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i|x_i,\theta)) + (1-y_i)log(1 - P(y_i|x_i,\theta)) \big)
+l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta)) \big)
 \]
 
+\textbf{ORDEEEER}
+
+\[
+P(Y =y \mid W)  = \product_{i=1}^N P(C_1 \mid x_i)^y_i(1 - P(C_1 \mid x_i) )^(1-y_i)
+\]
+
+
+\subsection{Regularization}
+
+
+
+\subsection{Hyper-parameters}
+
+Note that in this model there are two specific tuning parameters which must be predefined in the optimization procedure. Notably $\gamma$ which measure the weight on the regularization term and $j$ which determines the type of norm to measure the argument of the minimization.
 
 \textit{}
 \textit{}
