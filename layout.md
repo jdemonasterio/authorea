@@ -3,7 +3,6 @@ section_Brief_introduction_to_machine__1.tex
 subsubsection_A_working_example_For__.tex
 section_Logistic_Regression_for_Classification__.tex
 As_we_know_the_learner__.tex
-Posterior_probabilities_can_be_directly__.tex
 Expect_calG_calN_calE_calL__.tex
 figures/figure-biasVariance/figure-biasVariance.png
 vaIn_ref_figure_biasVariance_Hastie__.tex
