@@ -57,19 +57,28 @@ $$  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta 
 \end{equation}
 
 Maximum likelihood is the most common method used to fit the model. %with multinomial distributions modeling the features. 
-If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives
+Given a parameter $\theta$, the probability of having a target vector $y$ is 
+\[
+P(Y =y \mid \theta )  = \prod_{i=1}^N P(y_1 \in C_1 \mid x_i, \theta)^y_i(1 - P(y_1 \in C_1 \mid x_i, \theta) )^(1-y_i)
+\]
+
+If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives the following loss function.
 
 \[
-l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta)) \big)
+l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta) ) \big)
+\]
+
+with a negative gradient of the following form: %can thus be analytically expressed
+
+\[
+- \nabla  l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))*x_i  
 \]
 
 \textbf{ORDEEEER}
 
-\[
-P(Y =y \mid W)  = \product_{i=1}^N P(C_1 \mid x_i)^y_i(1 - P(C_1 \mid x_i) )^(1-y_i)
-\]
 
 
+The loss function 
 \subsection{Regularization}
 
 
