@@ -42,10 +42,11 @@ The last example problem in the list before, belongs to the unsupervised learnin
 To illustrate further the supervised classification scenario, a brief notation outline is described below following a standard logistic regression classifier example:
 
 Let's suppose that the problem is to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a learning problem with only two classes. %us to a two class learning problem.
-A classification algorithm will then assign samples to classes. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the input data:
+
+A classification algorithm will then assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the phone data:
 $$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
 
-In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data.   
+In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data. 
 
 Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely attached to samples of that given region. It makes good sense to try and \textit{minmize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of correct classification is measured by 
 
@@ -59,7 +60,7 @@ Our classifiers will partition input space into decision regions $R_k$ for which
 
 Observe that the measure is completely characterized by the posterior probabilities. Even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the posterior probabilities. Here the factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. The goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
  
-In a simple classification solution, we could build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. 
+As a simple classification solution, we could build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter.
 
 If we let $ t_i = \theta \cdot x_i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
 \[
@@ -86,7 +87,7 @@ Then if we were to use the heavyside step function $h(z)$  where
     %\end{equation}
     \]
 
-If the goal of the model ois be to maximize $P(\textbf{y_i} = y_i | \textbf{x_i} = x) \ \forall i$
+If the goal of the model is to maximize $P(Y_i = y_i | X_i = x) \ \forall i$
 under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. However this situation is hardly the case, so we take a different approach. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
 
 \begin{equation} \label{eq:logisticFunction}
