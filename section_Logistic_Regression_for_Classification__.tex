@@ -1,5 +1,9 @@
 \section{Logistic Regression for Classification}
 
+This model is named as a \textit{regression} model but is actually used for \textit{classification} and this convention has been used in this way for historical reasons.
+
+
+
 Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the input data:
 $$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
 
@@ -27,7 +31,7 @@ Y_i \mid X_i \  \sim & \operatorname{Bernoulli}(p_i) \\
 \mathbb{E}[Y_i \mid X_i ] = & p_i  
 \end{split}
 \end{equation}
-	
+
 
 The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by 
 $$\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}$$\label{logit-probabilityDensity}
@@ -78,18 +82,25 @@ whilst the second order derivatives take the following form:
 \]
 
 \subsection{Regularization}
-
 \begin{equation} \label{logit-optimization}
 \min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (x_i \cdot \theta + c )} +1) 
 \end{equation}
+
+
 
 \subsection{Hyper-parameters}
 
 Note that in this model there are two specific tuning parameters which must be predefined in the optimization procedure. Notably $\gamma$ which measure the weight on the regularization term and $j$ which determines the type of norm to measure the argument of the minimization.
 
+
+
+
 \textit{}
+
 \textit{}
+
 \textit{}
+
 \textit{}
 
 \textit{} 
