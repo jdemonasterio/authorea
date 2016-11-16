@@ -94,12 +94,16 @@ under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would 
 and \  H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)  
 \end{equation}
 
-The logistic function has the advantages of being smooth, well defined for all real numbers and its image is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. 
+The logistic function has the advantages of being smooth, well defined for all real numbers and its image is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. The derivative of this function can be put in terms of the function itself, where
 
-Also, the logistic function is bijective, with the inverse given by the \textit{logit} function 
+\begin{equation} \label{eq:derivativeLogisticFunction}
+\frac{\partial \sigma(a)}{\partial a}  = \sigma(a)( 1 - \sigma(a) )    
+\end{equation}
+
+The logistic function is also bijective, with the inverse given by the \textit{logit} function 
 
 \begin{equation} \label{eq:logitFunction}
-\sigma^{-1}(a)  = log( \frac{a}{1 -a})    
+\sigma^{-1}(z)  = log( \frac{z}{1 - z})    
 \end{equation}
 
 For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modeling the posterior probability $P(Y_i = y | X_i = x)$. Here the model is said to be \textit{linear} because it is linear in $X$, implying that the decision boundary is linear too. 
