@@ -81,7 +81,18 @@ whilst the second order derivatives take the following form:
 \frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
 \]
 
-\subsection{Regularization}
+\subsection{Model Regularization}
+
+\begin{definition}{Model Regularization}
+Regularization of models is the process in which restrictions and conditions are imposed  to the model's function $f$ through a functional $\lambda R(f)$. The regularization term is then used in the loss functionß.
+\end{definition}
+
+for problems which are ill-posed either because the model is biased or overfit.
+
+
+
+  \subsection{Logistic Regression Regularization}
+
 \begin{equation} \label{logit-optimization}
 \min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (x_i \cdot \theta + c )} +1) 
 \end{equation}
@@ -104,3 +115,9 @@ Note that in this model there are two specific tuning parameters which must be p
 \textit{}
 
 \textit{} 
+
+
+
+
+
+
