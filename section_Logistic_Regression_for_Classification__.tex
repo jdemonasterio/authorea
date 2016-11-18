@@ -84,11 +84,29 @@ whilst the second order derivatives take the following form:
 \subsection{Model Regularization}
 
 \begin{definition}{Model Regularization}
-Regularization of models is the process in which restrictions and conditions are imposed  to the model's function $f$ through a functional $\lambda R(f)$. The regularization term is then used in the loss functionß.
+Regularization of models is the process in which restrictions and conditions are imposed  to the model's function $f$ through a functional $\lambda R(f)$. The regularization term is used in the optimization procedure through the loss function.
 \end{definition}
 
-for problems which are ill-posed either because the model is biased or overfit.
+Regularization is commonly used in problems which are ill-posed either because the model is biased or overfit. In general, restrictions are put to reduce the number of predictors used in the model. This \textit{shrinkage} of parameters can be forced by penalizing large values for $\theta$ either by the number of non-null components of this parameter or by measuring its distance to zero. By doing so, we hope that only the most relevant features are selected in the model. As we have seen in SECTIION VAPNIK DIMENSIONs, a shorter model has the benefit of being more accurate in the estimation fo the prediction error. In other cases, the advantage of a reduced model is that the variance of the model is reduced, only with a slight increase in bias. 
 
+
+There are a number of different functionals $R$ used to impose conditions on the used model. The most common ones include penalizing directly the $\theta$ parameter  by measuring its difference to zero. The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the optimization. As an example, we could have loss function with a regularization term like the following:
+
+\begin{equation} \label{logit-optimization}
+\begin{split}
+\min_{\theta} &  \sum_i=1^N L(f(X_i,\theta),Y_i)   +  \lambda\| \theta\|_{2}^2 \\
+\min_{\theta} &  \sum_i=1^N L(f(X_i,\theta),Y_i)   +  \lambda \sum_{j=1}^{P}  \theta_j^2 
+\end{split}
+\end{equation}
+
+where $P$ is the number of features used in the model.
+
+
+
+the It also helps to build more  
+
+is that generalization errors, , more parsimonious model is not only helps us to and 
+on the number of  are put to the mode By 
 
 
   \subsection{Logistic Regression Regularization}
@@ -115,9 +133,4 @@ Note that in this model there are two specific tuning parameters which must be p
 \textit{}
 
 \textit{} 
-
-
-
-
-
 
