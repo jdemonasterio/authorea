@@ -1,3 +1,4 @@
+
 \section{Logistic Regression for Classification}
 
 This model is named as a \textit{regression} model but is actually used for \textit{classification} and this convention has been used in this way for historical reasons.
@@ -81,45 +82,129 @@ whilst the second order derivatives take the following form:
 \frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
 \]
 
-\subsection{Model Regularization}
+\section{Logistic Regression for Classification}
+
+This model is named as a \textit{regression} model but is actually used for \textit{classification} and this convention has been used in this way for historical reasons.
+
+Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the input data:
+$$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
+
+\begin{definition}{Logistic Regression}
+	Given a choice of parameter $\theta$, 	
+\end{definition}
+
+Logistic regression models the posterior probabilities of the classes with a transformation on a linear function of inputs. It also conditions that the posterior probabilities must sum to one. Here the probabilities describing the possible values for the target variable is modeled using a logistic function.
+
+To satisfy this the log-odds ratios of all the classes with respect to a fixed class must all be linear in the inputs. This means that
+
+$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{1,2,...,K\}, i\neq j$ \label{logit-logOddss}
+
+With these same indices we have that
+
+$$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   $$ 
+
+Then the model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
+
+This model sets the target as a Bernoulli random variable when conditioned on the input variables. Formally,
+
+\begin{equation}
+\begin{split}
+Y_i \mid X_i \  \sim & \operatorname{Bernoulli}(p_i) \\
+\mathbb{E}[Y_i \mid X_i ] = & p_i  
+\end{split}
+\end{equation}
+
+The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by 
+$$\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}$$\label{logit-probabilityDensity}
+where this depends on the class dependence of $y$.
+
+Here the logit function is used to map log odds into conditional probabilties and the model outputs the predicted probabilities of the target variables belonging to the target class.
+
+In this way, we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
+$$Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i$$. \label{logit-indicatorFunction}
+
+where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and parameter $p_i$. 
+
+If we take the conditional probability on \ref{logit-indicatorFunction}, given the features we will have that
+$$logit(p_i)= ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = 	\theta_0 + \theta \cdot X_i$$
+
+From this equation we have once again that
+
+
+$$p_i = \sigma(\theta \cdot X_i) = \frac{exp(\theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
+
+where we have used an abuse of notation to absorb $\theta_0$ into $\theta$. Finally, if use this and plug it into the initial conditional probability of $Y_i$ in \ref{logit-probabilityDensity} we will have
+
+$$  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
+
+
+Maximum likelihood is the most common method used to fit the model. %with multinomial distributions modeling the features. 
+Given a parameter $\theta$, the probability of having a target vector $y$ is 
+\[
+P(Y =y \mid \theta )  = \prod_{i=1}^N P(y_1 \in C_1 \mid x_i, \theta)^y_i(1 - P(y_1 \in C_1 \mid x_i, \theta) )^{(1-y_i)}
+\]
+
+If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives the following loss function
+
+\[
+l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta) ) \big)
+\]
+
+Note the advantage that the loss function is concave in the parameters. Another advantage of this model is that closed forms can be given for the gradient and the Hessian of the loss function. The negative gradient can be given in the following way: %can thus be analytically expressed
+
+\[
+- \nabla  l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))\cdot x_i = \textbf{X}^{\intercal}(\textbf{y}-\textbf{p})
+\]
+
+whilst the second order derivatives take the following form:
+
+\[
+\frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
+\]
+
+\subsection{Model Regularization and Hyper-parameters}
+
 
 \begin{definition}{Model Regularization}
-Regularization of models is the process in which restrictions and conditions are imposed  to the model's function $f$ through a functional $\lambda R(f)$. The regularization term is used in the optimization procedure through the loss function.
+	Regularization of models is the process in which restrictions and conditions are imposed  to the model's function $f$ through a functional $ R(f)$. The regularization term is used in the optimization procedure through the loss function.
 \end{definition}
 
 Regularization is commonly used in problems which are ill-posed either because the model is biased or overfit. In general, restrictions are put to reduce the number of predictors used in the model. This \textit{shrinkage} of parameters can be forced by penalizing large values for $\theta$ either by the number of non-null components of this parameter or by measuring its distance to zero. By doing so, we hope that only the most relevant features are selected in the model. As we have seen in SECTIION VAPNIK DIMENSIONs, a shorter model has the benefit of being more accurate in the estimation fo the prediction error. In other cases, the advantage of a reduced model is that the variance of the model is reduced, only with a slight increase in bias. 
 
 
-There are a number of different functionals $R$ used to impose conditions on the used model. The most common ones include penalizing directly the $\theta$ parameter  by measuring its difference to zero. The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the optimization. As an example, we could have loss function with a regularization term like the following:
+There are a number of different functionals $R(\cdot)$ used to impose conditions on the model. The most common ones include introducing a penalty to the size of $\theta$ by measuring a given norm  $\| \theta \|$.  Most implementations of the algorithms use $l1$ and $l2$ norms.
 
-\begin{equation} \label{logit-optimization}
+ Each has its own advantages and the details exceed the nature of this work. As a summary, benefits are related to robustness of the solution, convexity of the minimization function, unique minimum and model parsimony. The former case is known as \textit{ Lasso} regularization and the latter is known as \textit{ridge} or \textit{Tikhonov} regularization.
+
+Even though some regularization methods have closed-form solutions, in practice most of them are found by iterative optimization routines such as gradient descent.	
+
+The following example shows a loss function with an $l2$ regularization term on $\theta$:
+
+\begin{equation} \label{modelRegularization}
 \begin{split}
 \min_{\theta} &  \sum_i=1^N L(f(X_i,\theta),Y_i)   +  \lambda\| \theta\|_{2}^2 \\
 \min_{\theta} &  \sum_i=1^N L(f(X_i,\theta),Y_i)   +  \lambda \sum_{j=1}^{P}  \theta_j^2 
 \end{split}
 \end{equation}
 
-where $P$ is the number of features used in the model.
+The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the minimization function and $P$  is the number of features used in the model. Note that in an abuse of notation, the functional takes the form  $R(f) = \lambda  \lambda\| \theta\|_{2}^2$ where the model is identified by its $\theta$ parameter.  
+
+and the $l2$ norm choice
+
+Note that in the model built from equation \ref{modelRegularization} there are two specific tuning parameters which must be predefined before starting the optimization procedure. Notably  $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are said to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical model. However, they are values that directly affect the estimated fit $f_{\hat{\theta}}$. These values also need to be instantiated before finding $\theta$.
+
+
+For the rest of this work we will be only considering regularization with 
 
 
 
-the It also helps to build more  
-
-is that generalization errors, , more parsimonious model is not only helps us to and 
-on the number of  are put to the mode By 
 
 
-  \subsection{Logistic Regression Regularization}
+\subsection{Regularization in Logistic Regression }
 
 \begin{equation} \label{logit-optimization}
 \min_{\theta} \gamma\| \theta\|_{j}  + \sum_i=1^N log(e^{-y_i (x_i \cdot \theta + c )} +1) 
 \end{equation}
-
-
-
-\subsection{Hyper-parameters}
-
-Note that in this model there are two specific tuning parameters which must be predefined in the optimization procedure. Notably $\gamma$ which measure the weight on the regularization term and $j$ which determines the type of norm to measure the argument of the minimization.
 
 
 
@@ -133,4 +218,7 @@ Note that in this model there are two specific tuning parameters which must be p
 \textit{}
 
 \textit{} 
+
+
+
 
