@@ -123,7 +123,7 @@ The value $\lambda$ acts here as the weight that our optimization procedure will
 
 In this work we will be only considering model regularization with lasso, ridge, or elastic-net.
 
-Note that in the model built from equation \ref{logitRegularization} there are two specific tuning parameters which must be predefined before starting the optimization procedure. Notably  $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are said to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical model. 
+Note that in the model built from equation \ref{logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure. Notably  $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are said to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical model. Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.   
 
 The hyper-parameters are the values set to configure the different possible variants in the loss function and in the model's training phase.  They are values that directly affect the estimated fit $f_{\hat{\theta}}$ but are not the $\theta$ parameter themselves.  They need to be instantiated before training the learner and as such, they can't be learned from the dataset.
 
@@ -140,5 +140,3 @@ Note that in a Bayesian context the definition of hyper-parameter is different. 
 \textit{}
 
 \textit{} 
-
-
