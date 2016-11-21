@@ -1,8 +1,9 @@
-Thesis chapters : TODO PLAN
+# TODO PLAN
 
 ## Recorrer predictions pero con SVD para reducir covarianza de variables.
 
 ## Machine Learning
+
 * notacion consistente
 
 * terminar logit regression mas explicado
@@ -15,6 +16,11 @@ Thesis chapters : TODO PLAN
 
 
 * terminar random forest (variable importance)
+	* tuning parameters (tree depth, node split size, gini and entropy criteiron, etc)
 
+ 
+*  terminar Results
 
+* ampliar data description and visualizations
 
+* ampliar introduction
