@@ -1,3 +1,4 @@
+
 %
 % AGRANDA 2016 Camera ready version!
 %
@@ -122,148 +123,172 @@
 	
 \end{abstract} 
 
-\section{Logistic Regression for Classification}
-
-This model is named as a \textit{regression} model but is actually used for \textit{classification} and this convention has been used in this way for historical reasons.
-
+\subsection{Extension to Random Forests}
+\textbf{L Breiman Paper}\cite{breiman-randomforests}
 
 
-Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the input data:
-$$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
+Random Forests where a natural ensemble extension of Decision Trees as base learners. First described by \cite{HoFirstRandomForest} they combine a number of trees with a technique called bootstrap aggregation or \textit{bagging}. 
 
-\begin{definition}{Logistic Regression}
-	Given a choice of parameter $\theta$, 	
-\end{definition}
-
-Logistic regression models the posterior probabilities of the classes with a transformation on a linear function of inputs. It also conditions that the posterior probabilities must sum to one. Here the probabilities describing the possible values for the target variable is modeled using a logistic function.
-
-To satisfy this the log-odss ratios of all the classes with respect to a fixed class must all be linear in the inputs. This means that
-
-$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{1,2,...,K\}, i\neq j$ \label{logit-logOddss}
-
-With these same indices we have that
-
-$$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   $$ 
-
-Then the model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
-
-This model sets the target as a Bernoulli random variable when conditioned on the input variables. Formally,
-
-\begin{equation}
-\begin{split}
-Y_i \mid X_i \  \sim & \operatorname{Bernoulli}(p_i) \\
-\mathbb{E}[Y_i \mid X_i ] = & p_i  
-\end{split}
-\end{equation}
+This algorithm is run by \textit{randomizing } the way we build each base learner. For example, we could select i.i.d samples from the training set to build each specific tree, or we could sample a subset of features at each decision node. Also, when splitting the data at a tree node, we could choose a random split among the $K$ best splits at that stage.
+ 
+When using a base learner which has low-bias and high-variance, bagging the estimators will produce a new learner which has a reduced overall variance and slightly worse bias than each single tree. Note that if we have a selection of $K$ i.i.d. random variables with common variance $\sigma^2$, then the average of this selection will have variance $\frac{\sigma^2}{K}$. This is the idea behind ensembling all of the trees.
 
 
-The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by 
-$$\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}$$\label{logit-probabilityDensity}
-where this depends on the class dependence of $y$.
+The generalization error for the forests will converge almost surely as we increase the number of base estimators used to train the model. This error will depend uniquely on the predictive error of each base learner and collectively from the correlation among them.
 
-Here the logit function is used to map log odds into conditional probabilties and the model outputs the predicted probabilities of the target variables belonging to the target class.
+In classification problems the forest will output a solution by making the base learners vote on the  target class. For regression problems, the average of the outputs will be taken as the output of the algorithm. The procedure for sampling new predictions is fast once the forest has been constructed, but they are computationally heavy structures.
 
-In this way, we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
-$$Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i$$. \label{logit-indicatorFunction}
+Given $K$ number of trees, let $\Theta_k$ encode the parameters for the $k$-th tree and $h(\textbf{x},\Theta_k)$ the corresponding classifier. Let $N$ be the number of samples in the training set. The creation of a random forests involves an iterative procedure where at each $k$ step $\Theta_k$ is drawn from the same distribution but independently of the previous parameters $\Theta_1, \ ..., \ \Theta_{k-1}$ created at previous steps. $\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
-where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and parameter $p_i$. 
+Let $\{h_k(\textbf{x})\}_{i=1}^K$  \footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.  Define the margin function as
 
-If we take the conditional probability on \ref{logit-indicatorFunction}, given the features we will have that
-$$logit(p_i)= ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = 	\theta_0 + \theta \cdot X_i$$
+$$mg(\textbf{x},\textbf{y}) =  \frac{1}{K}   \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})  
+- max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right) $$ \label{eq:rf-marginFun}
 
-From this equation we have once again that
+%\end{equation}
+$ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x}, \textbf{y}) < 0) $
 
 
-$$p_i = \sigma(\theta \cdot X_i) = \frac{exp(\theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
+The function measures, in average, how much do the trees vote for the correct class in comparison to all other classes and it can be shown that when $K$ is large then the prediction error converges almost surely to 
 
-where we have used an abuse of notation to absorb $\theta_0$ into $\theta$. Finally, if use this and plug it into the initial conditional probability of $Y_i$ in \ref{logit-probabilityDensity} we will have
+$$ P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{x}) - max_{j \neq \textbf{y}} (\textbf{x}, \textbf{y}) < 0) $$
 
-$$  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
+\subsubsection{Proof}
+The proof follows from seeing that given a training set, a parameter $\Theta$ and a class $j$ then 
+$$\forall \textbf{x} \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) $$
+almost surely.
 
+By looking at the nature of each tree, $\{\textbf{x} / h_k(\textbf{x}, \Theta) = j \}$ denotes a union of hyper-rectangles partitioning feature space. And given the finite size of the training set, there can only be a finite set of these unions. Let $S_1, ..., S_K$ be an indexation of these unions and define $\phi(\Theta) = k $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_k$. 
 
-Maximum likelihood is the most common method used to fit the model. %with multinomial distributions modeling the features. 
-Given a parameter $\theta$, the probability of having a target vector $y$ is 
-\[
-P(Y =y \mid \theta )  = \prod_{i=1}^N P(y_1 \in C_1 \mid x_i, \theta)^y_i(1 - P(y_1 \in C_1 \mid x_i, \theta) )^{(1-y_i)}
-\]
+We denote by $N_k$ the number of times that $\phi(\Theta_n) =k $, where $n \in {1...N}$ and $N$ is the total of trials.
 
-If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives the following loss function
+It is immediate that 
 
-\[
-l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta) ) \big)
-\]
+$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \ = \  \frac{1}{N} \sum_{k=1}^K N_k I(\textbf{x} \in S_k)  $$
 
-Note the advantage that the loss function is concave in the parameters. Another advantage of this model is that closed forms can be given for the gradient and the Hessian of the loss function. The negative gradient can be given in the following way: %can thus be analytically expressed
+and that there is a convergence almost everywhere of $$ \frac{N_k}{N} = \sum_{n=1}^N  I(\phi(\Theta_n) = k)  \xrightarrow[N \to \infty]{}   P_{\Theta}(\phi(\Theta)= k)$$. 
 
-\[
-- \nabla  l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))\cdot x_i = \textbf{X}^{\intercal}(\textbf{y}-\textbf{p})
-\]
+If we let $C = $ $\bigcup\limits_{k=1}^{K} C_{k}$ where each $C_k$ are zero-measured sets representing the points where the sequence is not converging. We will finally have that  outside of $C$, 
 
-whilst the second order derivatives take the following form:
-
-\[
-\frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
-\]
+$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \xrightarrow[N \to \infty]{} \sum_k^K    P_{\Theta}(\phi(\Theta)= k) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)  $$ 
 
 
 
-\subsection{Model Regularization and Hyper-parameters}
 
 
-\begin{definition}{Model Regularization}
-	Regularization of models is the process in which restrictions and conditions are imposed  to the model's function $f$ through a functional $ R(f)$. The regularization term is used in the optimization procedure through the loss function.
-\end{definition}
+\subsection{Predictive error bounds}
 
-Regularization is commonly used in problems which are ill-posed either because the model is biased or overfit. In general, restrictions are put to reduce the number of predictors used in the model. This \textit{shrinkage} of parameters can be forced by penalizing large values for $\theta$ either by the number of non-null components of this parameter or by measuring its distance to zero. By doing so, we hope that only the most relevant features are selected in the model. As we have seen in SECTIION VAPNIK DIMENSIONs, a shorter model has the benefit of being more accurate in the estimation fo the prediction error. In other cases, the advantage of a reduced model is that the variance of the model is reduced, only with a slight increase in bias. 
+Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate on the generalization error of the ensemble classifier, these individual scores and the inter-relationship between them must be taken into account. For this purpose, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
+
+%\begin{lemma}
+%Given two line segments whose lengths are $a$ and $b$ respectively there is a 
+%real number $r$ such that $b=ra$.
+%\end{lemma}
+
+\begin{theorem}
+	There is an upper bound for the generalization error.
+\end{theorem}
+
+Define $\hat{j}(\textbf{x},\textbf{y})$ as $arg max_{j\neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$ and let the margin function for a random forest be defined as
+
+\begin{equation}\label{eq:rf-marginFunRf}
+mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j}) 
+\\ 
+= \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} )  \right]
+\end{equation} 
 
 
-There are a number of different functionals $R(\cdot)$ used to impose conditions on the model. The most common ones include introducing a penalty to the size of $\theta$ by measuring a given norm  $\| \theta \|$.  Most implementations of the algorithms use $l1$ and $l2$ norms.
+%\begin{equation}%\end{equation}
 
- Each has its own advantages and the details exceed the nature of this work. As a summary, benefits are related to robustness of the solution, convexity of the minimization function, unique minimum and model parsimony. The former case is known as \textit{ Lasso} regularization and the latter is known as \textit{ridge} or \textit{Tikhonov} regularization. Other variants include the \textit{elastic-net} penalty which is a weighted average of the previous two norms, or the $l0$ norm, which is the number of non null components of $\theta$. 
-
-
- and taking a weighted average of two different penalizations. T
-
-Even though some regularization methods have closed-form solutions, in practice most of them are found by iterative optimization routines such as gradient descent.	
-
-The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
-
-\begin{equation} \label{logitRegularization}
-\begin{split}
-	\min_{\theta} &  \sum_{i=1}^N \(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \)  +  \lambda\| \theta\|_{2}^2 \\
-	\min_{\theta} &  \sum_{i=1}^N \(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \) +  \lambda \sum_{j=1}^{P}  \theta_j^2 
-\end{split}
-\end{equation}
-
-%\min_{\theta} &  \sum_{i=1}^N L(f(X_i,\theta),Y_i)   +  \lambda\| \theta\|_{2}^2 \\
-%\min_{\theta} &  \sum_{i=1}^N L(f(X_i,\theta),Y_i)   +  \lambda \sum_{j=1}^{P}  \theta_j^2 
-
-%\begin{equation} \label{logit-optimization}
-%
 %\end{equation}
 
+Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the classifier can correctly classify or not the sample's label, given $\Theta$.
 
-The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the minimization function and $P$  is the number of features used in the model. Note that in an abuse of notation, the functional takes the form  $R(f) = \lambda\| \theta\|_{2}^2$ where the model is identified by its $\theta$ parameter.  
+With these definitions, it is straight to see that 
 
-In this work we will be only considering model regularization with lasso, ridge, or elastic-net.
+%\begin{equation}%\end{equation}
+$$mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} )  \right] $$.
 
-Note that in the model built from equation \ref{logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure. Notably  $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are said to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical model. Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.   
+This in turn implies that
 
-The hyper-parameters are the values set to configure the different possible variants in the loss function and in the model's training phase.  They are values that directly affect the estimated fit $f_{\hat{\theta}}$ but are not the $\theta$ parameter themselves.  They need to be instantiated before training the learner and as such, they can't be learned from the dataset.
+\begin{equation}\label{eq:rf-marginFunVar}
+\begin{split}
+var(mr) & =  \Expect_{\Theta, \Theta'} 
+\left[ 
+cov_{\textbf{x},\textbf{y}}
+(rmg(\Theta,\textbf{x},\textbf{y} )rmg(\Theta',\textbf{x},\textbf{y} )) 
+\right] \\
+& =  \Expect_{\Theta, \Theta'}
+\left[ 
+\rho(\Theta, \Theta')\sigma(\Theta)\sigma(\Theta')
+\right] 
+\end{split}
+\end{equation}
 
-Note that in a Bayesian context the definition of hyper-parameter is different. These appear in the  prior distributions of the model's parameters and should not be confused. In this case, the parameter's of $\theta$'s distribution are called the hyper-parameters. 
+where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$. In both cases, $\Theta$ and $\Theta'$ are given to be fixed. 
+
+Equation \ref{eq:rf-marginFunVar} in turn implies that 
+
+\begin{equation}\label{eq:rf-varianceBound}
+\begin{split}
+var(mr) & =  \overline{\rho} (\Expect_{\Theta}\left[ \sigma(\Theta)\right] )^2 \\
+& \leq  \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right] 
+\end{split}
+\end{equation}
+
+where we have conveniently defined $\overline{\rho}$ as 
+
+\begin{equation}\label{eq:rf-meanCorrelation}
+\frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
+{\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
+\end{equation}
+
+Note this is the mean value of the correlation.
+
+Let the strength of the set of weak classifiers in the forest be defined as 
+
+$$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$.\label{eq:rf-strength}
+
+Assuming that $s \geq 0$ we have that the prediction error is bounded by 
+\begin{equation}\label{eq:rf-predictiveErrorBound1}
+PE^* \leq var(mr)/s^2
+\end{equation}
+by Chebyshev's inequality. On the other hand it can also be noted that
+
+
+\begin{equation}\label{eq:rf-expectedVarBound}
+\begin{split}
+\Expect_{\Theta} \left[ var(\Theta) \right]  & \leq \Expect_{\Theta} \left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})   \right]  \right]^2 -s^2  \\
+& \leq 1-s^2
+\end{split}
+\end{equation}
+
+\begin{proof}
+	We can use  \ref{eq:rf-varianceBound}, \ref{eq:rf-predictiveErrorBound1} and \ref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
+	\begin{equation}\label{eq:rf-PEBound}
+	PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
+	\end{equation}
+\end{proof}
+
+This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author \cite{breiman-randomforests} of the algorithm remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier. 
+\subsection{Binary Class}
+In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \ref{eq:rf-PEBound}. In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$. 
+
+The bounds prediction error bounds derived in \ref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
+$$ \Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} $$
+
+Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
+
+$$ \overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right] $$
+
+
+\subsubsection{Benefits and Drawbacks of Random Forests}
 
 
 
-\textit{}
 
-\textit{}
+Another useful tool derived from forests is that of measuring variable importance. To do this, we must first select a candidate feature to be analyzed. Then given a node in a tree where data has to be split, we compare the results of the improvement in the split performance, as measured by some pre-selected criteria, with and without the candidate. These results are recorded and averaged across all trees and all of the split scenarios. 
 
-\textit{}
-
-\textit{}
-
-\textit{} 
 
 
 
