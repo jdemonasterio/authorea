@@ -1,0 +1,167 @@
+\subsection{Extension to Random Forests}
+\textbf{L Breiman Paper}\cite{breiman-randomforests}
+
+
+Random Forests where a natural ensemble extension of Decision Trees as base learners. First described by \cite{HoFirstRandomForest} they combine a number of trees with a technique called bootstrap aggregation or \textit{bagging}. 
+
+This algorithm is run by \textit{randomizing } the way we build each base learner. For example, we could select i.i.d samples from the training set to build each specific tree, or we could sample a subset of features at each decision node. Also, when splitting the data at a tree node, we could choose a random split among the $K$ best splits at that stage.
+ 
+When using a base learner which has low-bias and high-variance, bagging the estimators will produce a new learner which has a reduced overall variance and slightly worse bias than each single tree. Note that if we have a selection of $K$ i.i.d. random variables with common variance $\sigma^2$, then the average of this selection will have variance $\frac{\sigma^2}{K}$. This is the idea behind ensembling all of the trees.
+
+
+The generalization error for the forests will converge almost surely as we increase the number of base estimators used to train the model. This error will depend uniquely on the predictive error of each base learner and collectively from the correlation among them.
+
+In classification problems the forest will output a solution by making the base learners vote on the  target class. For regression problems, the average of the outputs will be taken as the output of the algorithm. The procedure for sampling new predictions is fast once the forest has been constructed, but they are computationally heavy structures.
+
+Given $K$ number of trees, let $\Theta_k$ encode the parameters for the $k$-th tree and $h(\textbf{x},\Theta_k)$ the corresponding classifier. Let $N$ be the number of samples in the training set. The creation of a random forests involves an iterative procedure where at each $k$ step $\Theta_k$ is drawn from the same distribution but independently of the previous parameters $\Theta_1, \ ..., \ \Theta_{k-1}$ created at previous steps. $\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
+
+Let $\{h_k(\textbf{x})\}_{i=1}^K$  \footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.  Define the margin function as
+
+$$mg(\textbf{x},\textbf{y}) =  \frac{1}{K}   \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})  
+- max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right) $$ \label{eq:rf-marginFun}
+
+%\end{equation}
+$ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x}, \textbf{y}) < 0) $
+
+
+The function measures, in average, how much do the trees vote for the correct class in comparison to all other classes and it can be shown that when $K$ is large then the prediction error converges almost surely to 
+
+$$ P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{x}) - max_{j \neq \textbf{y}} (\textbf{x}, \textbf{y}) < 0) $$
+
+\subsubsection{Proof}
+The proof follows from seeing that given a training set, a parameter $\Theta$ and a class $j$ then 
+$$\forall \textbf{x} \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) $$
+almost surely.
+
+By looking at the nature of each tree, $\{\textbf{x} / h_k(\textbf{x}, \Theta) = j \}$ denotes a union of hyper-rectangles partitioning feature space. And given the finite size of the training set, there can only be a finite set of these unions. Let $S_1, ..., S_K$ be an indexation of these unions and define $\phi(\Theta) = k $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_k$. 
+
+We denote by $N_k$ the number of times that $\phi(\Theta_n) =k $, where $n \in {1...N}$ and $N$ is the total of trials.
+
+It is immediate that 
+
+$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \ = \  \frac{1}{N} \sum_{k=1}^K N_k I(\textbf{x} \in S_k)  $$
+
+and that there is a convergence almost everywhere of $$ \frac{N_k}{N} = \sum_{n=1}^N  I(\phi(\Theta_n) = k)  \xrightarrow[N \to \infty]{}   P_{\Theta}(\phi(\Theta)= k)$$. 
+
+If we let $C = $ $\bigcup\limits_{k=1}^{K} C_{k}$ where each $C_k$ are zero-measured sets representing the points where the sequence is not converging. We will finally have that  outside of $C$, 
+
+$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \xrightarrow[N \to \infty]{} \sum_k^K    P_{\Theta}(\phi(\Theta)= k) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)  $$ 
+
+
+
+
+
+\subsection{Predictive error bounds}
+
+Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate on the generalization error of the ensemble classifier, these individual scores and the inter-relationship between them must be taken into account. For this purpose, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
+
+%\begin{lemma}
+%Given two line segments whose lengths are $a$ and $b$ respectively there is a 
+%real number $r$ such that $b=ra$.
+%\end{lemma}
+
+\begin{theorem}
+	There is an upper bound for the generalization error.
+\end{theorem}
+
+Define $\hat{j}(\textbf{x},\textbf{y})$ as $arg max_{j\neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$ and let the margin function for a random forest be defined as
+
+\begin{equation}\label{eq:rf-marginFunRf}
+mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j}) 
+\\ 
+= \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} )  \right]
+\end{equation} 
+
+
+%\begin{equation}%\end{equation}
+
+%\end{equation}
+
+Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the classifier can correctly classify or not the sample's label, given $\Theta$.
+
+With these definitions, it is straight to see that 
+
+%\begin{equation}%\end{equation}
+$$mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} )  \right] $$.
+
+This in turn implies that
+
+\begin{equation}\label{eq:rf-marginFunVar}
+\begin{split}
+var(mr) & =  \Expect_{\Theta, \Theta'} 
+\left[ 
+cov_{\textbf{x},\textbf{y}}
+(rmg(\Theta,\textbf{x},\textbf{y} )rmg(\Theta',\textbf{x},\textbf{y} )) 
+\right] \\
+& =  \Expect_{\Theta, \Theta'}
+\left[ 
+\rho(\Theta, \Theta')\sigma(\Theta)\sigma(\Theta')
+\right] 
+\end{split}
+\end{equation}
+
+where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$. In both cases, $\Theta$ and $\Theta'$ are given to be fixed. 
+
+Equation \ref{eq:rf-marginFunVar} in turn implies that 
+
+\begin{equation}\label{eq:rf-varianceBound}
+\begin{split}
+var(mr) & =  \overline{\rho} (\Expect_{\Theta}\left[ \sigma(\Theta)\right] )^2 \\
+& \leq  \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right] 
+\end{split}
+\end{equation}
+
+where we have conveniently defined $\overline{\rho}$ as 
+
+\begin{equation}\label{eq:rf-meanCorrelation}
+\frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
+{\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
+\end{equation}
+
+Note this is the mean value of the correlation.
+
+Let the strength of the set of weak classifiers in the forest be defined as 
+
+$$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$.\label{eq:rf-strength}
+
+Assuming that $s \geq 0$ we have that the prediction error is bounded by 
+\begin{equation}\label{eq:rf-predictiveErrorBound1}
+PE^* \leq var(mr)/s^2
+\end{equation}
+by Chebyshev's inequality. On the other hand it can also be noted that
+
+
+\begin{equation}\label{eq:rf-expectedVarBound}
+\begin{split}
+\Expect_{\Theta} \left[ var(\Theta) \right]  & \leq \Expect_{\Theta} \left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})   \right]  \right]^2 -s^2  \\
+& \leq 1-s^2
+\end{split}
+\end{equation}
+
+\begin{proof}
+	We can use  \ref{eq:rf-varianceBound}, \ref{eq:rf-predictiveErrorBound1} and \ref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
+	\begin{equation}\label{eq:rf-PEBound}
+	PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
+	\end{equation}
+\end{proof}
+
+This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author \cite{breiman-randomforests} of the algorithm remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier. 
+\subsection{Binary Class}
+In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \ref{eq:rf-PEBound}. In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$. 
+
+The bounds prediction error bounds derived in \ref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
+$$ \Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} $$
+
+Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
+
+$$ \overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right] $$
+
+
+\subsubsection{Benefits and Drawbacks of Random Forests}
+
+
+
+
+Another useful tool derived from forests is that of measuring variable importance. To do this, we must first select a candidate feature to be analyzed. Then given a node in a tree where data has to be split, we compare the results of the improvement in the split performance, as measured by some pre-selected criteria, with and without the candidate. These results are recorded and averaged across all trees and all of the split scenarios. 
+
+
