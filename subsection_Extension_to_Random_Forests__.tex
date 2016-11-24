@@ -1,172 +1,119 @@
-\subsection{Extension to Random Forests}
-\textbf{L Breiman Paper}\cite{breiman-randomforests}
+\section{Gradient Boosting Variation}
 
+\subsection{Boosting Trees    }
 
-Random Forests where a natural ensemble extension of Decision Trees as base learners. First described by \cite{HoFirstRandomForest} they combine a number of trees with a technique called bootstrap aggregation or \textit{bagging}. 
+In boosting methods, base estimators are built sequentially such as in Random Forests, but each new iteration tries to reduce the overall bias of the combined estimator.
 
-This algorithm is run by \textit{randomizing } the way we build each base learner. For example, we could select i.i.d samples from the training set to build each specific tree, or we could sample a subset of features at each decision node. Also, when splitting the data at a tree node, we could choose a random split among the $K$ best splits at that stage.
- 
-When using a base learner which has low-bias and high-variance, bagging the estimators will produce a new learner which has a reduced overall variance and slightly worse bias than each single tree. Note that if we have a selection of $K$ i.i.d. random variables with common variance $\sigma^2$, then the average of this selection will have variance $\frac{\sigma^2}{K}$. This is the idea behind ensembling all of the trees.
+The objective function differences minimization objectives. 
 
+Predictive power: how well the algorithm fits the data used for training and, hopefully, the \textit{true} underlying distribution
 
-The generalization error for the forests will converge almost surely as we increase the number of base estimators used to train the model. This error will depend uniquely on the predictive error of each base learner and collectively from the correlation among them.
++ Regularization, favors parsimonious models. This is because all models approximate natural/processes to some degree, so if a simpler model can be used with the same predictive power, then this model should be used.  
 
-In classification problems the forest will output a solution by making the base learners vote on the  target class. For regression problems, the average of the outputs will be taken as the output of the algorithm. The procedure for sampling new predictions is fast once the forest has been constructed, but they are computationally heavy structures.
+\begin{equation} \label{eq:objFunction}
+Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
+\\
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
 
-Given $K$ number of trees, let $\Theta_k$ encode the parameters for the $k$-th tree and $h(\textbf{x},\Theta_k)$ the corresponding classifier. Let $N$ be the number of samples in the training set. The creation of a random forests involves an iterative procedure where at each $k$ step $\Theta_k$ is drawn from the same distribution but independently of the previous parameters $\Theta_1, \ ..., \ \Theta_{k-1}$ created at previous steps. $\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
+When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees wil be the parameters for this model and
+\[
+ y =  \sum_k \gamma_t h_t(x) , \  h_t \in Tr \ \forall t \in {0...K}
+\]
 
-Let $\{h_k(\textbf{x})\}_{i=1}^K$  \footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.  Define the margin function as
+where $\gamma_t$ indexes the weight for each tree $h_t$ and $K$ is a hyper-parameter that represent the number of trees.
 
-$$mg(\textbf{x},\textbf{y}) =  \frac{1}{K}   \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})  
-- max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right) $$ \label{eq:rf-marginFun}
+For the moment  we  include the tree's weight $\gamma_t$ as part of the weak learners in a single function $f_t(\cdot)$. Therefore the model results in,
 
-%\end{equation}
-$ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x}, \textbf{y}) < 0) $
+\[
+y =  \sum_k f_t(x) ,  \ f_t \in Tr  \ \forall t \in {0...K}
+\]
 
+where a single tree is represented in the form 
 
-The function measures, in average, how much do the trees vote for the correct class in comparison to all other classes and it can be shown that when $K$ is large then the prediction error converges almost surely to 
+\[
+f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
+\]
 
-$$ P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{x}) - max_{j \neq \textbf{y}} (\textbf{x}, \textbf{y}) < 0) $$
+with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J R_j$ is a partition of feature space. The function $q : X \mapsto \{1,...,J\}$ denotes the mapping form samples to regions. In summary, $\{\theta_j, R_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter. Note that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is a combinatorial feat.
 
-\subsubsection{Proof}
-The proof follows from seeing that given a training set, a parameter $\Theta$ and a class $j$ then 
-$$\forall \textbf{x} \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) $$
-almost surely.
+In this setting, the objective function would account for these relationships in the trees and thus we would have that
 
-By looking at the nature of each tree, $\{\textbf{x} / h_k(\textbf{x}, \Theta) = j \}$ denotes a union of hyper-rectangles partitioning feature space. And given the finite size of the training set, there can only be a finite set of these unions. Let $S_1, ..., S_K$ be an indexation of these unions and define $\phi(\Theta) = k $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_k$. 
+\[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}^i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
+%    
 
-We denote by $N_k$ the number of times that $\phi(\Theta_n) =k $, where $n \in {1...N}$ and $N$ is the total of trials.
+At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\Theta_t$ is the parameter asciated for each tree model $f_t$ then $\Theta =  \bigcup_{t \in {0...K}} \Theta_t  \cup \Theta_0$ where the parameter $\Theta_0$ is not associated to any tree and reserved to characterize the tree assembly. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice so optimization heuristics are used instead. 
 
-It is immediate that 
+\subsubsection{Additive Training}
 
-$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \ = \  \frac{1}{N} \sum_{k=1}^K N_k I(\textbf{x} \in S_k)  $$
+A first take on this optimization problem goes along the way of greedy algorithms. One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
 
-and that there is a convergence almost everywhere of $$ \frac{N_k}{N} = \sum_{n=1}^N  I(\phi(\Theta_n) = k)  \xrightarrow[N \to \infty]{}   P_{\Theta}(\phi(\Theta)= k)$$. 
+Consider $t$ the step indexer of the algorithm, where $t \in {0,..,K}$. In step $t$, let $Obj_t(\Theta)$ be the objective function and $\hat{y}_t^i$ be the predictive target respectively. Then the $i$-eth target's value at each step would iterate in the following way:
 
-If we let $C = $ $\bigcup\limits_{k=1}^{K} C_{k}$ where each $C_k$ are zero-measured sets representing the points where the sequence is not converging. We will finally have that  outside of $C$, 
+\begin{equation} \label{eq:gb-targetSteps}
+\hat{y}_0^i = 0 \\
+\ \ \ ... \\ 
+\hat{y}_t^i = \sum_{k=1}^{t} f_k(x^i) = \hat{y}_{t-1}^i +  f_t(x^i)
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
+where each trees is added in such a way that we are minimizing
 
-$$ \frac{1}{N} \sum_{n=1}^N I(h_n(\textbf{x}) = j) \xrightarrow[N \to \infty]{} \sum_k^K    P_{\Theta}(\phi(\Theta)= k) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)  $$ 
-
-
-
-
-
-\subsection{Predictive error bounds}
-
-Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate on the generalization error of the ensemble classifier, these individual scores and the inter-relationship between them must be taken into account. For this purpose, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
-
-%\begin{lemma}
-%Given two line segments whose lengths are $a$ and $b$ respectively there is a 
-%real number $r$ such that $b=ra$.
-%\end{lemma}
-
-\begin{theorem}
-	There is an upper bound for the generalization error.
-\end{theorem}
-
-Define $\hat{j}(\textbf{x},\textbf{y})$ as $arg max_{j\neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$ and let the margin function for a random forest be defined as
-
-\begin{equation}\label{eq:rf-marginFunRf}
-mr(\textbf{x},\textbf{y}) =  P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j}) 
-\\ 
-= \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} )  \right]
-\end{equation} 
-
-
-%\begin{equation}%\end{equation}
-
+%\begin{equation} \label{eq:gb-objSteps1}
+\[
+\begin{split}
+Obj_t(\Theta) \approx &  \sum_i^n {g^i \theta_{q(x^i)} + \frac{1}{2} h^i \theta_{q(x^i)}^2 } + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
+=  & \sum_{j=1}^T\left(  \sum_{i \in T_j} (g^i )\theta_{j} + \frac{1}{2} \sum_{i \in T_j} (h^i + \lambda ) \theta_{j}^2  \right) + \gamma T
+\end{split}
+\]
 %\end{equation}
 
-Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the classifier can correctly classify or not the sample's label, given $\Theta$.
+where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second order Taylor approximation yields
 
-With these definitions, it is straight to see that 
-
-%\begin{equation}%\end{equation}
-$$mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} )  \right] $$.
-
-This in turn implies that
-
-\begin{equation}\label{eq:rf-marginFunVar}
+\[
 \begin{split}
-var(mr) & =  \Expect_{\Theta, \Theta'} 
-\left[ 
-cov_{\textbf{x},\textbf{y}}
-(rmg(\Theta,\textbf{x},\textbf{y} )rmg(\Theta',\textbf{x},\textbf{y} )) 
-\right] \\
-& =  \Expect_{\Theta, \Theta'}
-\left[ 
-\rho(\Theta, \Theta')\sigma(\Theta)\sigma(\Theta')
-\right] 
+Obj_t(\Theta) =  & \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
+= &\sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) +  c'(t)
 \end{split}
-\end{equation}
+\]
 
-where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$. In both cases, $\Theta$ and $\Theta'$ are given to be fixed. 
+where $g^i$ and $h^i$ are first and second order approximations of the loss function.
+\[
+g^i =  \frac{\partial l(y^i, \hat{y}_{t-1}^i)}{\partial \hat{y}_{t-1}^i} \\
+h^i =  \frac{\partial^2 l(y^i, \hat{y}_{t-1}^i)}{\partial (\hat{y}_{t-1}^i)^2 }
+\]
 
-Equation \ref{eq:rf-marginFunVar} in turn implies that 
+Then
 
-\begin{equation}\label{eq:rf-varianceBound}
-\begin{split}
-var(mr) & =  \overline{\rho} (\Expect_{\Theta}\left[ \sigma(\Theta)\right] )^2 \\
-& \leq  \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right] 
-\end{split}
-\end{equation}
+\[
+Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+\]
 
-where we have conveniently defined $\overline{\rho}$ as 
+In a greedy optimization approach, the tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$ at the $t$-th step. The assumptions with this approach are that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g^i(\hat{y}_{t}^i), h^i(\hat{y}_{t}^i) $ and that these values are effectively computable.
 
-\begin{equation}\label{eq:rf-meanCorrelation}
-\frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
-{\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
-\end{equation}
+$h^i$ on the existence 
 
-Note this is the mean value of the correlation.
+where a second order Taylor expansion was used 
 
-Let the strength of the set of weak classifiers in the forest be defined as 
-
-$$s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] $$.\label{eq:rf-strength}
-
-Assuming that $s \geq 0$ we have that the prediction error is bounded by 
-\begin{equation}\label{eq:rf-predictiveErrorBound1}
-PE^* \leq var(mr)/s^2
-\end{equation}
-by Chebyshev's inequality. On the other hand it can also be noted that
+aggregating 
+%$Obj
 
 
-\begin{equation}\label{eq:rf-expectedVarBound}
-\begin{split}
-\Expect_{\Theta} \left[ var(\Theta) \right]  & \leq \Expect_{\Theta} \left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})   \right]  \right]^2 -s^2  \\
-& \leq 1-s^2
-\end{split}
-\end{equation}
-
-\begin{proof}
-	We can use  \ref{eq:rf-varianceBound}, \ref{eq:rf-predictiveErrorBound1} and \ref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
-	\begin{equation}\label{eq:rf-PEBound}
-	PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
-	\end{equation}
-\end{proof}
-
-This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author \cite{breiman-randomforests} of the algorithm remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier. 
-\subsection{Binary Class}
-In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \ref{eq:rf-PEBound}. In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$. 
-
-The bounds prediction error bounds derived in \ref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
-$$ \Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} $$
-
-Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
-
-$$ \overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right] $$
 
 
-One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at each split at random will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hypergeometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
+\subsection{sklearn}
 
-The depth of growth for each tree is another important tuning parameter. We must chose it correctly by assessing the model's performance across different values for $m$.  A deep tree will tend to overfit the data by partitioning input space to fit the training data. This effect will counter the overall reduction in variance of the forest and thus increase the generalization error of our algorithm.
 
-%Therefore controlling the maximum allowed growth for the base learners will be important to improve the performance of the model.
 
-By averaging those expected activity rates over several randomized trees one can reduce the variance of such an estimate and use it for feature selection.
+\subsection{Hastie Tibshiranie Friedman}
 
-Random Forests allows to build a relative rank of features. The idea is that its importance is related to how this features improves splits at a decision node, relative to the target variable prediction.  At each split we can measure the gain of using a certain variable for the split versus not using it. 
 
-Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the the improvement in the split performance, as measured by some pre-selected criteria, with and without $X_j$. We also measure the number of samples that will be split at that node. We can thus quantify the overall expected fraction of samples split by $X_j$ in the forest. Note that by this, features that are used nearer to the root of the tree are considered to be more relevant to the prediction.
+\textit{}
 
-The scoring estimates that each randomized tree produces for $X_j$ are averaged and used as the final results. These are computed and averaged across all decision nodes. The features with the highest scores can be thought as the most informative variables of the model.  
+\textit{}
+
+\textit{}
+
+\textit{}
+
+\textit{} 
+
