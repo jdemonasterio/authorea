@@ -122,137 +122,113 @@
 	
 \end{abstract} 
 
-\section{Logistic Regression for Classification}
+\section{Gradient Boosting Variation}
 
-This model is named as a \textit{regression} model but is actually used for \textit{classification} and this convention has been used in this way for historical reasons.
+\subsection{Boosting Trees    }
 
+In boosting methods, base estimators are built sequentially such as in Random Forests, but each new iteration tries to reduce the overall bias of the combined estimator.
 
+The objective function differences minimization objectives. 
 
-Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the input data:
-$$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
+Predictive power: how well the algorithm fits the data used for training and, hopefully, the \textit{true} underlying distribution
 
-\begin{definition}{Logistic Regression}
-	Given a choice of parameter $\theta$, 	
-\end{definition}
++ Regularization, favors parsimonious models. This is because all models approximate natural/processes to some degree, so if a simpler model can be used with the same predictive power, then this model should be used.  
 
-Logistic regression models the posterior probabilities of the classes with a transformation on a linear function of inputs. It also conditions that the posterior probabilities must sum to one. Here the probabilities describing the possible values for the target variable is modeled using a logistic function.
-
-To satisfy this the log-odss ratios of all the classes with respect to a fixed class must all be linear in the inputs. This means that
-
-$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{1,2,...,K\}, i\neq j$ \label{logit-logOddss}
-
-With these same indices we have that
-
-$$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   $$ 
-
-Then the model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
-
-This model sets the target as a Bernoulli random variable when conditioned on the input variables. Formally,
-
-\begin{equation}
-\begin{split}
-Y_i \mid X_i \  \sim & \operatorname{Bernoulli}(p_i) \\
-\mathbb{E}[Y_i \mid X_i ] = & p_i  
-\end{split}
+\begin{equation} \label{eq:objFunction}
+Obj(\Theta) \ = \ L(\Theta) + R(\Theta)
+\\
+%\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
 
-
-The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by 
-$$\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}$$\label{logit-probabilityDensity}
-where this depends on the class dependence of $y$.
-
-Here the logit function is used to map log odds into conditional probabilties and the model outputs the predicted probabilities of the target variables belonging to the target class.
-
-In this way, we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
-$$Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i$$. \label{logit-indicatorFunction}
-
-where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and parameter $p_i$. 
-
-If we take the conditional probability on \ref{logit-indicatorFunction}, given the features we will have that
-$$logit(p_i)= ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = 	\theta_0 + \theta \cdot X_i$$
-
-From this equation we have once again that
-
-
-$$p_i = \sigma(\theta \cdot X_i) = \frac{exp(\theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
-
-where we have used an abuse of notation to absorb $\theta_0$ into $\theta$. Finally, if use this and plug it into the initial conditional probability of $Y_i$ in \ref{logit-probabilityDensity} we will have
-
-$$  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
-
-
-Maximum likelihood is the most common method used to fit the model. %with multinomial distributions modeling the features. 
-Given a parameter $\theta$, the probability of having a target vector $y$ is 
+When building a model of ensemble trees, a higher model will be learning on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees wil be the parameters for this model and
 \[
-P(Y =y \mid \theta )  = \prod_{i=1}^N P(y_1 \in C_1 \mid x_i, \theta)^y_i(1 - P(y_1 \in C_1 \mid x_i, \theta) )^{(1-y_i)}
+ y =  \sum_k \gamma_t h_t(x) , \  h_t \in Tr \ \forall t \in {0...K}
 \]
 
-If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives the following loss function
+where $\gamma_t$ indexes the weight for each tree $h_t$ and $K$ is a hyper-parameter that represent the number of trees.
+
+For the moment  we  include the tree's weight $\gamma_t$ as part of the weak learners in a single function $f_t(\cdot)$. Therefore the model results in,
 
 \[
-l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta) ) \big)
+y =  \sum_k f_t(x) ,  \ f_t \in Tr  \ \forall t \in {0...K}
 \]
 
-Note the advantage that the loss function is concave in the parameters. Another advantage of this model is that closed forms can be given for the gradient and the Hessian of the loss function. The negative gradient can be given in the following way: %can thus be analytically expressed
+where a single tree is represented in the form 
 
 \[
-- \nabla  l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))\cdot x_i = \textbf{X}^{\intercal}(\textbf{y}-\textbf{p})
+f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
 \]
 
-whilst the second order derivatives take the following form:
+with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J R_j$ is a partition of feature space. The function $q : X \mapsto \{1,...,J\}$ denotes the mapping form samples to regions. In summary, $\{\theta_j, R_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter. Note that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is a combinatorial feat.
 
-\[
-\frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
-\]
+In this setting, the objective function would account for these relationships in the trees and thus we would have that
 
+\[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}^i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
+%    
 
+At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\Theta_t$ is the parameter asciated for each tree model $f_t$ then $\Theta =  \bigcup_{t \in {0...K}} \Theta_t  \cup \Theta_0$ where the parameter $\Theta_0$ is not associated to any tree and reserved to characterize the tree assembly. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice so optimization heuristics are used instead. 
 
-\subsection{Model Regularization and Hyper-parameters}
+\subsubsection{Additive Training}
 
+A first take on this optimization problem goes along the way of greedy algorithms. One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
 
-\begin{definition}{Model Regularization}
-	Regularization of models is the process in which restrictions and conditions are imposed  to the model's function $f$ through a functional $ R(f)$. The regularization term is used in the optimization procedure through the loss function.
-\end{definition}
+Consider $t$ the step indexer of the algorithm, where $t \in {0,..,K}$. In step $t$, let $Obj_t(\Theta)$ be the objective function and $\hat{y}_t^i$ be the predictive target respectively. Then the $i$-eth target's value at each step would iterate in the following way:
 
-Regularization is commonly used in problems which are ill-posed either because the model is biased or overfit. In general, restrictions are put to reduce the number of predictors used in the model. This \textit{shrinkage} of parameters can be forced by penalizing large values for $\theta$ either by the number of non-null components of this parameter or by measuring its distance to zero. By doing so, we hope that only the most relevant features are selected in the model. As we have seen in SECTIION VAPNIK DIMENSIONs, a shorter model has the benefit of being more accurate in the estimation fo the prediction error. In other cases, the advantage of a reduced model is that the variance of the model is reduced, only with a slight increase in bias. 
-
-
-There are a number of different functionals $R(\cdot)$ used to impose conditions on the model. The most common ones include introducing a penalty to the size of $\theta$ by measuring a given norm  $\| \theta \|$.  Most implementations of the algorithms use $l1$ and $l2$ norms.
-
- Each has its own advantages and the details exceed the nature of this work. As a summary, benefits are related to robustness of the solution, convexity of the minimization function, unique minimum and model parsimony. The former case is known as \textit{ Lasso} regularization and the latter is known as \textit{ridge} or \textit{Tikhonov} regularization. Other variants include the \textit{elastic-net} penalty which is a weighted average of the previous two norms, or the $l0$ norm, which is the number of non null components of $\theta$. 
-
-
- and taking a weighted average of two different penalizations. T
-
-Even though some regularization methods have closed-form solutions, in practice most of them are found by iterative optimization routines such as gradient descent.	
-
-The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
-
-\begin{equation} \label{logitRegularization}
-\begin{split}
-	\min_{\theta} &  \sum_{i=1}^N \(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \)  +  \lambda\| \theta\|_{2}^2 \\
-	\min_{\theta} &  \sum_{i=1}^N \(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \) +  \lambda \sum_{j=1}^{P}  \theta_j^2 
-\end{split}
+\begin{equation} \label{eq:gb-targetSteps}
+\hat{y}_0^i = 0 \\
+\ \ \ ... \\ 
+\hat{y}_t^i = \sum_{k=1}^{t} f_k(x^i) = \hat{y}_{t-1}^i +  f_t(x^i)
+%\sum_{i=0}^{\infty} a_i x^i
 \end{equation}
+where each trees is added in such a way that we are minimizing
 
-%\min_{\theta} &  \sum_{i=1}^N L(f(X_i,\theta),Y_i)   +  \lambda\| \theta\|_{2}^2 \\
-%\min_{\theta} &  \sum_{i=1}^N L(f(X_i,\theta),Y_i)   +  \lambda \sum_{j=1}^{P}  \theta_j^2 
-
-%\begin{equation} \label{logit-optimization}
-%
+%\begin{equation} \label{eq:gb-objSteps1}
+\[
+\begin{split}
+Obj_t(\Theta) \approx &  \sum_i^n {g^i \theta_{q(x^i)} + \frac{1}{2} h^i \theta_{q(x^i)}^2 } + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
+=  & \sum_{j=1}^T\left(  \sum_{i \in T_j} (g^i )\theta_{j} + \frac{1}{2} \sum_{i \in T_j} (h^i + \lambda ) \theta_{j}^2  \right) + \gamma T
+\end{split}
+\]
 %\end{equation}
 
+where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second order Taylor approximation yields
 
-The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the minimization function and $P$  is the number of features used in the model. Note that in an abuse of notation, the functional takes the form  $R(f) = \lambda\| \theta\|_{2}^2$ where the model is identified by its $\theta$ parameter.  
+\[
+\begin{split}
+Obj_t(\Theta) =  & \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
+= &\sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) +  c'(t)
+\end{split}
+\]
 
-In this work we will be only considering model regularization with lasso, ridge, or elastic-net.
+where $g^i$ and $h^i$ are first and second order approximations of the loss function.
+\[
+g^i =  \frac{\partial l(y^i, \hat{y}_{t-1}^i)}{\partial \hat{y}_{t-1}^i} \\
+h^i =  \frac{\partial^2 l(y^i, \hat{y}_{t-1}^i)}{\partial (\hat{y}_{t-1}^i)^2 }
+\]
 
-Note that in the model built from equation \ref{logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure. Notably  $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are said to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical model. Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.   
+Then
 
-The hyper-parameters are the values set to configure the different possible variants in the loss function and in the model's training phase.  They are values that directly affect the estimated fit $f_{\hat{\theta}}$ but are not the $\theta$ parameter themselves.  They need to be instantiated before training the learner and as such, they can't be learned from the dataset.
+\[
+Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+\]
 
-Note that in a Bayesian context the definition of hyper-parameter is different. These appear in the  prior distributions of the model's parameters and should not be confused. In this case, the parameter's of $\theta$'s distribution are called the hyper-parameters. 
+In a greedy optimization approach, the tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$ at the $t$-th step. The assumptions with this approach are that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g^i(\hat{y}_{t}^i), h^i(\hat{y}_{t}^i) $ and that these values are effectively computable.
 
+$h^i$ on the existence 
+
+where a second order Taylor expansion was used 
+
+aggregating 
+%$Obj
+
+
+
+
+\subsection{sklearn}
+
+
+
+\subsection{Hastie Tibshiranie Friedman}
 
 
 \textit{}
