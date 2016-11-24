@@ -163,4 +163,10 @@ The depth of growth for each tree is another important tuning parameter. We must
 
 %Therefore controlling the maximum allowed growth for the base learners will be important to improve the performance of the model.
 
-A special modification in the way Random Forests are built, allows to derive a measure of variable importance. The idea for this, is that at each split we can measure the gain of using a certain variable for the split versus not using it. Given a candidate feature $X_j$ to be analyzed and fore every node in a tree where a split is to be done, we compare the the improvement in the split performance, as measured by some pre-selected criteria, with and without $X_j$. These results are recorded and averaged across all trees and all of the split scenarios to have a score for the feature. The features with the highest scores can be thought as the most informative variables of the model.  
+By averaging those expected activity rates over several randomized trees one can reduce the variance of such an estimate and use it for feature selection.
+
+Random Forests allows to build a relative rank of features. The idea is that its importance is related to how this features improves splits at a decision node, relative to the target variable prediction.  At each split we can measure the gain of using a certain variable for the split versus not using it. 
+
+Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the the improvement in the split performance, as measured by some pre-selected criteria, with and without $X_j$. We also measure the number of samples that will be split at that node. We can thus quantify the overall expected fraction of samples split by $X_j$ in the forest. Note that by this, features that are used nearer to the root of the tree are considered to be more relevant to the prediction.
+
+The scoring estimates that each randomized tree produces for $X_j$ are averaged and used as the final results. These are computed and averaged across all decision nodes. The features with the highest scores can be thought as the most informative variables of the model.  
