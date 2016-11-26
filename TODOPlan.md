@@ -7,15 +7,15 @@
 										sframes, graphlab, spark mllib, 
 										theano, tensor flow, xgboost)
 
-# Results
+# Results Chapter
 	ampliar de los papers ya agregar mas graficos comparativos
 
-# Problem / Data Description
+# Problem / Data Description Chapter
  * ampliar data description and visualizations
 
-# Introduction 
+# Introduction Chapter
 	*ampliar introduction de los papers
 
-## Maybe:
+## Maybe TODOs:
 	* Rerun algorithms but using SVD para reducir covarianza de variables.
 	* Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors.
