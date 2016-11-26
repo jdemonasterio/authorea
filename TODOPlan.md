@@ -1,6 +1,10 @@
 # TODO PLAN
 
 ## Machine Learning Chapter
+	
+	* CART: tuning parameters (depth, maximum samples per node, number of features to split, bootstrap aggregation),
+				 Gini/entropy split measures, 
+
 	* gradient boosting: agregar un poco mas de como el gain es un scoring. Hastie - (Section 10.13).
 
 	* section Technical Observations (python, jupyter, sklearn, pandas, 
