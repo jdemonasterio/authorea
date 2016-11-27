@@ -17,7 +17,6 @@ Notar_que_todo_lo_que__.tex
 section_Tree_extension_to_Random__.tex
 subsubsection_Random_Forest_Formulation_Given__.tex
 ASDFSFD__.tex
-section_scikit_docs_textit_As__.tex
 section_Gradient_Boosting_Variation_subsection__.tex
 asdf__.tex
 Pi_Pi_Pi__.tex
