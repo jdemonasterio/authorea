@@ -1,6 +1,8 @@
 \section{Tree extension to Random Forests}
 \textbf{L Breiman Paper}\cite{breiman-randomforests}
     
+    Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together.
+    
     Random Forests are a natural ensemble extension of Decision Trees as base learners. First described by \cite{HoFirstRandomForest} they combine a number of trees with a technique called bootstrap aggregation or \textit{bagging}. Different works have explored on low-bias and high-variance scenarios where models have low training error and high test errors. In \cite{breiman-arcingclassifiers}, a more accurate description of this problem is detailed with  real data. We cite here that, in some cases, \textit{..small perturbations in their  training  sets  or  in  construction  may  result  in  large  changes  in  the  constructed  predictor}.
 	
 	By combining the predictions of a set of base learners the overall generalization error of the aggregated learner will be improved. The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
