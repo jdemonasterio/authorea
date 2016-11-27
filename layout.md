@@ -16,7 +16,7 @@ figures/figure-highROCAUC/figure-highROCAUC.png
 Notar_que_todo_lo_que__.tex
 subsection_Extension_to_Random_Forests__.tex
 ASDFSFD__.tex
-Random_Forests_are_a_special__.tex
+section_scikit_docs_textit_As__.tex
 section_Gradient_Boosting_Variation_subsection__.tex
 asdf__.tex
 Pi_Pi_Pi__.tex
