@@ -1,27 +1,41 @@
 \section{Tree extension to Random Forests}
 \textbf{L Breiman Paper}\cite{breiman-randomforests}
-    
-    Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together.
-    
-    Random Forests are a natural ensemble extension of Decision Trees as base learners. First described by \cite{HoFirstRandomForest} they combine a number of trees with a technique called bootstrap aggregation or \textit{bagging}. Different works have explored on low-bias and high-variance scenarios where models have low training error and high test errors. In \cite{breiman-arcingclassifiers}, a more accurate description of this problem is detailed with  real data. We cite here that, in some cases, \textit{..small perturbations in their  training  sets  or  in  construction  may  result  in  large  changes  in  the  constructed  predictor}.
-	
-	By combining the predictions of a set of base learners the overall generalization error of the aggregated learner will be improved. The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
-	
-	By combining base learners in a randomized way, the robustness of the overall estimator is improved with a minor loss in the model's bias. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increase its generalization rate. Variance has to be carefully looked upon in these kind of models. A common trait of the two methods is that the prediction for new samples is given over the average of individual classifiers or the most frequent class in the ensemble. 
-	
-	There exist a wide range of Random Forests variants in the literature \cite{breiman-randomforests} where the difference lies on how randomization is applied to the base learners. The idea is that the algorithm is run by \textit{randomizing } the way we build each base learner. For example, we could select i.i.d samples from the training set to build each specific tree, or we could sample a subset of features at each decision node.
 
-	In most cases this means that during runtime, samples will be selected on the features and on the observations of the dataset. We will not survey all of the different variations but some of the methods ideas work as follows:
-	
-	\begin{itemize}
-		\item Building a tree with a bootstrap sample.
-		\item Sampling at each node.
-		\item Sampling features to build each individual tree.
-		\item Randomly selecting a subset of features ate each split.
-	\end{itemize}
+Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together. This works as a natural ensemble extension from trees.
+
+ First described by \cite{HoFirstRandomForest} they combine a number of trees with a technique called bootstrap aggregation or \textit{bagging}. Different works have explored on low-bias and high-variance scenarios where base models have low training error and high test errors. In \cite{breiman-arcingclassifiers}, a more accurate description of this problem is detailed with  real data. We cite here that, in some cases, \textit{..small perturbations in their  training  sets  or  in  construction  may  result  in  large  changes  in  the  constructed  predictor}.
+
+By combining the predictions of a set of base learners the overall generalization error and robustness of the aggregated learner improve as a consequence of this. This combination is done in a randomized way.
+
+The two most common ways of building ensemble classifiers are by averaging or by boosting the base learners. Random Forests are an example of the former, where base estimators are built as uncorrelated or independent as possible and then the predictions are averaged out for an overall prediction. In the second case predictors are built in a sequential by adding new estimators are added to the overall set in such a way that the misclassification rate is lowered at each step.
+
+Randomly combining base learners will improve the overall model's variance at the expense of a minor reduction of the model's bias, when comparing to a single base learner. The opposite can be said about boosting methods, where the estimator's bias is greatly reduced whilst the model increase its generalization rate. Variance has to be carefully looked upon in these kind of models. A common trait of the two methods is that the prediction for new samples is given over the average of individual classifiers or the most frequent class in the ensemble.   This will result in a variance decrease which usually compensates more than the overall increase in bias. The final output is a better overall model. 
+
+There exist a wide range of Random Forests variants in the literature \cite{breiman-randomforests} where the difference lies on how randomization is applied to the base learners. The idea is that the algorithm is run by \textit{randomizing } the way we build each base learner. For example, we could select i.i.d samples from the training set to build each specific tree, or we could sample a subset of features at each decision node.
+
+In most cases this means that during runtime, sampling will be effected on the datasets's features and on the observations. For example, tuning parameters will define whether each tree in the forest is built on a bootstrap sample. Or if the split taken at a tree node is from a random subset among the best splitting features.
+
+We will not survey all of the different variations but some of the ideas that are applied work as follows:
+
+\begin{itemize}
+	\item Building a tree with a bootstrap sample.
+	\item Sampling among the best split features at each node.
+	\item Sampling features to build each individual tree.
+\end{itemize}
 
 When using a base learner which has low-bias and high-variance, bagging the estimators will produce a new learner which has a reduced overall variance and slightly worse bias than each single tree. Note that if we have a selection of $K$ i.i.d. random variables with common variance $\sigma^2$, then the average of this selection will have variance $\frac{\sigma^2}{K}$. This is the idea behind ensembling all of the trees.
 
 The generalization error for the forests will converge almost surely as we increase the number of base estimators used to train the model. This error will depend uniquely on the predictive error of each base learner and collectively from the correlation among them.
 
 For supervised classification problems the forest will output a solution by making the base learners vote on the  target class. The procedure for sampling new predictions is fast once the forest has been constructed, but they are computationally heavy structures.
+
+In practice, Random Forests' tuning parameteres are the same that those we have in tree learners. The only difference is in the in the total number of tree learners used to build the ensemble. Naturally, we will find there is a tradeoff in bias-variance with different  combinations of hyperparameters. 
+
+
+\textit{}
+
+\textit{}
+
+\textit{}
+
+\textit{}
