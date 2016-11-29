@@ -1,13 +1,8 @@
-\textbf{ACA ARRANCAN LAS DESCRIPCIONES TECNICAS Y TEORICAS DE CADA CLASIFICADOR}
 
 Notar que todo lo que esta en italica es tipo highlighter de textos de otros autores :)
 %NOTAR QUE TO LO QUE ESTA EN ITALICA ES TIPO HIGHLIGHTER DE OTROS TEXTOS DE OTROS AUTORES}
 
-\section{Classifier : Random Forests}
-
-Random Forests are a special type of classifier in which a set of weaker learners are used together to build a stronger classifier. The idea is to have \textit{Decision Trees} as week learners and to ensemble a group of trees together.
-
-\subsection{Decision Tree Learners}
+\section{Classifier : Decision Tree Learners}
 
 Decision Trees will not be described in detail in this work, but a brief overview can be given as follows. 
 
@@ -36,5 +31,17 @@ To illustrate this method, an instance is show in figure \ref{rf-treeFigure}. Th
 %[.{\textit{M}} ] [.{\textit{F}} ]
 
 Given a sample from training set $\mathrm{T}$, a decision tree would predict its target class by traveling the sample until a leaf node is reached. In this method hyper-parameters of the model include the length of the tree and the metric used to decide on the \textit{best} split. Parameters are limited to the features selected at each node along with the splitting rule threshold. Note that the construction of optimal binary decision trees is NP-Complete \cite{decisionTreesNP}, thus it is computationally prohibitive to fit all of these parameters at once. However, once a learner is fit, predicting targets for new samples is straightforward. A tree defines a partition of feature space in disjoint sets $A_1,...,A_J$ such that the sample's predicted output $\hat{y}$ is $c_j$ if the sample belongs to $A_j$. Here $c_j$ is one of the possible values taken by the target variable $y$ in the training set. And by the way trees were built, each $A_j$ is a hyper-rectangles in feature space.
+
+
+Hyper-parameters, also known as tuning parameters, for tree models are those parameters need to be set before running the algorithm. From the previous descriptions we can list those directly:
+
+\begin{itemize}
+	\item Max depth of the tree, or the number of allowed level of splits.
+	\item The criteria or measure used to select the best split feature at each node.
+	\item The leaf size or the total number of minimum samples allowed per leaf. Note that this is a limit imposed on  branch depth. 
+	\item Number of features selected to decide on the best split feature at each node.
+\end{itemize}
+
+
 
 For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
