@@ -186,6 +186,15 @@ From the previous algorithm descriptions we can list those directly:
 \end{itemize}
 
 
+Intuitively, it is natural to find that trees of longer depth will more easily overfit the data since more complex interactions among variables will be captured by refining the partition on input space. We consider this hyperparameter to be a measure of the model's complexity and describe the most common methods to control this dimension.
+
+The idea is to grow a very large tree $T_0$ that will grow until it reaches a depth limit threshold that is very unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity and only slightly lose accuracy. 
+
+Let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$.  Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,...,|T|  \}$. 
+
+We can define the following:
+
+
 
 
 
