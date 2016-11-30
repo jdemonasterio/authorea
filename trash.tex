@@ -1,4 +1,5 @@
 
+
 %
 % AGRANDA 2016 Camera ready version!
 %
@@ -144,13 +145,18 @@ where $c_k$ is the value that our model estimates forfor samples in the $A_k$ re
 The algorithm then needs to determine for the group of input samples that flows into a decision node, what is the best way to split them according, in order to optimize a loss metric. In this context, the criteria used to decide on node splits are called \textit{node impurity measures}. Most variations for this machine learning model build rules at each nodes in a greedy fashion, where node impurity measures are locally optimized at each node to decide what is the best splitting decision. This is done so because not doing so will result in an algorithm whose computational complexity is infeasible since the construction of optimal binary decision trees is NP-Complete \cite{decisionTreesNP}. The parameters for the tree will then be fit sequentially.
 
 At any splitting node, we have to find the \textit{best} feature $X^p$ and split $t$ threshold for which to partition the data in
- $A_{left} = \{x \in \mathcal{T} \  / \ x^p \leq t \} $ and $A_{right} = \{x \in \mathcal{T}\  / \ x^p> t \} $.  To do so we optimize our misclassification loss at the split
+ $A_L = \{x \in \mathcal{T} \  / \ x^p \leq t \} $ and $A_R = \{x \in \mathcal{T}\  / \ x^p> t \} $. Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$ respectively. Then to find the best feature for the split we minimize:
+
+%\frac{1}{N_{left}}
+%\frac{1}{N_{right}}
 
 \[
-min_{p,t} \big[ min_{c_{left} }  \sum_{x \in A_{left}(p,t) } L(y,c_{left})          +   min_{c_{right}}  \sum_{x \in A_{right}(p,t) }  L(y,c_{right}) \big] 
+%\begin{split}
+min_{p,t} \big[ min_{c_L }   \frac{1}{N_l}\sum_{x \in A_L(p,t) } L(y,c_L)        \ +   min_{c_R}   \frac{1}{N_r}\sum_{x \in A_R(p,t) }  L(y,c_R) \big]
+%\end{split}
 \]\label{equation-decisionTreeGreedyOptimization}
 
-where $y$ is the target associated to our sample $x$. Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently. 
+where $y$ is the target associated to our sample $x$ and $L(\cdot)$ is the loss function we have used to measure the quality of our split. Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently. 
 
 A tree is then grown in an iterative way from the top down \footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each split. All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, in accordance to their fulfillment or not of each node's split rule. The tree's leafs are the subsets that comprise the partition and once a learner is fit, predicting targets for new samples is straightforward: the prediction of their target class will be the output of traveling the sample down to the leaf node.  
 
@@ -192,9 +198,31 @@ The idea is to grow a very large tree $T_0$ that will grow until it reaches a de
 
 Let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$.  Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,...,|T|  \}$. 
 
-We can define the following:
+Given a selected loss function, and $K$ possible target classes, we can define the following:
+\begin{equation}
+\begin{split}
+N_j & =  \{x \in R_j \}\\
+\hat{p}_{jk} & = \frac{1}{N_j} \sum_{x \in R_j}  I(y=k)\\
+c_j & =  argmax_{k} \  \hat{p}_{jk} \\
+\end{split}
+\end{equation}\label{decisionTreePruneParameters}
+
+We will denote the node impurity measure for the classification tree by $Q_j(T)$ which, in the most used cases can take one of the following three forms:
+
+\begin{itemize}
+	\item Misclassification error: $ \displaystyle \frac{1}{N_j} \sum_{x \in R_j}  I(y\neq c_j)  = 1 - c_j $
+	\item Gini index: $ \displaystyle \sum_{k\neq k'} \hat{p}_{jk} \hat{p}_{jk'}   = \sum_{k=1}^{K} \hat{p}_{jk} (1 - \hat{p}_{jk})  $
+	\item Cross-entropy: $ \displaystyle \sum_{k=1}^{K} -log(\hat{p}_{jk})\hat{p}_{jk} $
+\end{itemize}
 
 
+In the binary (two class) case, if we consider $p$ to be the probability of success, these measures can be expressed as
+
+\begin{itemize}
+	\item Misclassification binary error: $1 - max(p, 1-p)$
+	\item Gini binary index: $ 2p(1-p) $
+	\item Binary cross-entropy: $ -log(p)p - log(1- p)(1-p) $
+\end{itemize}
 
 
 
