@@ -14,7 +14,7 @@ The learner can be characterized by
 h(X) = \sum_{j=1}^J c_k I(X \in A_k)
 \]\label{equation-decisionTreeModel}
 
-where $c_k$ is the value that our model estimates forfor samples in the $A_k$ region. Both of these will have to be estimated by the model by minimizing its loss funciton.
+where $c_k$ is the value that our model estimates for samples in the $A_k$ region. Both of these will have to be estimated by the model by minimizing its loss function.
 
 The algorithm then needs to determine for the group of input samples that flows into a decision node, what is the best way to split them according, in order to optimize a loss metric. In this context, the criteria used to decide on node splits are called \textit{node impurity measures}. Most variations for this machine learning model build rules at each nodes in a greedy fashion, where node impurity measures are locally optimized at each node to decide what is the best splitting decision. This is done so because not doing so will result in an algorithm whose computational complexity is infeasible since the construction of optimal binary decision trees is NP-Complete \cite{decisionTreesNP}. The parameters for the tree will then be fit sequentially.
 
