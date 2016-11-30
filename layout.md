@@ -13,10 +13,10 @@ subsubsection_ROC_Curve_Even_more__.tex
 figures/figure-lowROCAUC/figure-lowROCAUC_original.png
 As_a_counter_example_another__.tex
 figures/figure-highROCAUC/figure-highROCAUC.png
-textbf_ACA_ARRANCAN_LAS_DESCRIPCIONES__.tex
-subsection_Extension_to_Random_Forests__.tex
+Notar_que_todo_lo_que__.tex
+section_Tree_extension_to_Random__.tex
+subsubsection_Random_Forest_Formulation_Given__.tex
 ASDFSFD__.tex
-Random_Forests_are_a_special__.tex
 section_Gradient_Boosting_Variation_subsection__.tex
 asdf__.tex
 Pi_Pi_Pi__.tex
