@@ -192,9 +192,9 @@ From the previous algorithm descriptions we can list those directly:
 \end{itemize}
 
 
-Intuitively, it is natural to find that trees of longer depth will more easily overfit the data since more complex interactions among variables will be captured by refining the partition on input space. We consider this hyperparameter to be a measure of the model's complexity and describe the most common methods to control this dimension.
+Intuitively, it is natural to find that trees of longer depth will overfit more the data since more complex interactions among variables will be captured by refining the partition on input space. A trivial case would be to allow a tree to grow fully and assign to each sample in the training set its own region. This would yield a model with absolutely no bias but which will have a very high prediction error since new samples won't be labeled accordingly. On the other hand having a tree which is too shallow will result in most cases in a simple model with high bias. We must consider then that the depth of a tree is a measure of the model's complexity and as such we control it as hyperparameter of our model. 
 
-The idea is to grow a very large tree $T_0$ that will grow until it reaches a depth limit threshold that is very unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity and only slightly lose accuracy. 
+The most common methods to control the tree's depth grow a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity and only slightly lose accuracy. 
 
 Let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$.  Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,...,|T|  \}$. 
 
@@ -215,8 +215,9 @@ We will denote the node impurity measure for the classification tree by $Q_j(T)$
 	\item Cross-entropy: $ \displaystyle \sum_{k=1}^{K} -log(\hat{p}_{jk})\hat{p}_{jk} $
 \end{itemize}
 
+Sometimes the Gini index is used along with a 
 
-In the binary (two class) case, if we consider $p$ to be the probability of success, these measures can be expressed as
+In the binary (two class) case, if we consider $p$ to be the probability of success, $Q_j(T)$ can be expressed as
 
 \begin{itemize}
 	\item Misclassification binary error: $1 - max(p, 1-p)$
@@ -224,6 +225,11 @@ In the binary (two class) case, if we consider $p$ to be the probability of succ
 	\item Binary cross-entropy: $ -log(p)p - log(1- p)(1-p) $
 \end{itemize}
 
+Finally, we define the \textit{cost complexity criterion} to be 
+
+\begin{equation}
+C_\alpha(T)  = \sum_{j=1}^{|T|} N_j Q_j(T)  + \alpha|T| 
+\end{equation}\label{decisionTreeCostComplexity}
 
 
 For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
