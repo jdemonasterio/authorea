@@ -3,7 +3,7 @@ Notar que todo lo que esta en italica es tipo highlighter de textos de otros aut
 
 \section{Classifier : Decision Tree Learners}
 
-Decision Trees will not be described in detail in this work. Here we present only but a brief overview of this supervised learner used in regression and classification problems.
+rview of this supervised learner used in regression and classification problems.
 
 The models builds a tree in the graph-theory sense where each node has a rule based on set belonging. Each rule defines a linear (or similar) partition of input space and the rules that determine the partitions are built from the sample's features. At each node we would have a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of said feature's space.
 
@@ -68,6 +68,8 @@ From the previous algorithm descriptions we can list those directly:
 
 Intuitively, it is natural to find that trees of longer depth will overfit more the data since more complex interactions among variables will be captured by refining the partition on input space. A trivial case would be to allow a tree to grow fully and assign to each sample in the training set its own region. This would yield a model with absolutely no bias but which will have a very high prediction error since new samples won't be labeled accordingly. On the other hand having a tree which is too shallow will result in most cases in a simple model with high bias. We must consider then that the depth of a tree is a measure of the model's complexity and as such we control it as hyperparameter of our model. 
 
+Another drawback of the model is the high variance instability. We can use two very similar datasets and have two very different resulting trees grown from these. This is due to the hierarchical nature of the splits, where errors made in the first splits will be carried onward towards the leafs sinces samples follow a single branch.
+
 The most common methods to control the tree's depth grow a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity and only slightly lose accuracy. 
 
 Let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$.  Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,...,|T|  \}$. 
@@ -110,7 +112,6 @@ Here  $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that weighs between
 Let  $B(T)  = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added. \cite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees. The sequence is built by iteratively pruning the node $j$ that, when removed from the tree, creates the smalles increase in $B(T)$. In this way, we'll have a sequence of trees $T_0,T_1,...,T_l$ and a sequence of nodes $j_0, j_1,...,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),...,B(T_l)$ at each step. The algorith will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all of the $C_\alpha(T)$ for all of the trees in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
 
-
 For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
 
 
@@ -120,4 +121,3 @@ For a more complete explanation of a decision tree for classification or regress
 
 \textit{}
 
-\textit{}
