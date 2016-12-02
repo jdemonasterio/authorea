@@ -15,8 +15,8 @@
 	ampliar de los papers ya agregar mas graficos comparativos
 
 # Problem / Data Description Chapter
- * ampliar data description and visualizations
-
+ 	* ampliar data description and visualizations
+ 	* on how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf 
 # Introduction Chapter
 	*ampliar introduction de los papers
 
