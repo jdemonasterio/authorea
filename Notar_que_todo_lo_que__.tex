@@ -91,7 +91,8 @@ We will denote the node impurity measure for the classification tree by $Q_j(T)$
 	\item Cross-entropy: $ \displaystyle \sum_{k=1}^{K} -log(\hat{p}_{jk})\hat{p}_{jk} $
 \end{itemize}
 
-Sometimes the Gini index is used along with a 
+The Gini index is also commonly used with a specific loss matrix that assigns different weights to different cases of misclassification. In practical appliclations having a sample from class $k$ incorrectly assigned to class $k'$ might be less importante than the reverse case where a sample from class $k'$ was incorrectly assigned to $k$. To reflect this difference, one can add a weight term to the gini index by considering the loss matrix $L \in \mathcal{R_{\geq 0}}^{k\ x\ k}}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. This matrix in the terms of the gini index will be weighed \hat{p}_{jk} \hat{p}_{jk'}
+This is b
 
 In the binary (two class) case, if we consider $p$ to be the probability of success, $Q_j(T)$ can be expressed as
 
