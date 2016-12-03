@@ -1,0 +1,54 @@
+\section{Classifier : Naive Bayes}
+
+The Naive Bayes model encompasses a group of simple models and computationally efficient models which assume a strong independence relationship among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some purposes. It is presented here mostly for benchmarking purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, models.
+
+Strong and often wrong hypothesis
+
+Simple
+
+computationally efficient> Benchmarking purposes
+
+Scalable
+
+
+
+
+The learner can be characterized by 
+\[
+h(X) = \sum_{j=1}^J c_k I(X \in A_k)
+\]\label{equation-decisionTreeModel}
+
+where $c_k$ is the value that our model estimates forfor samples in the $A_k$ region. Both of these will have to be estimated by the model by minimizing its loss funciton.
+
+%\frac{1}{N_{left}}
+%\frac{1}{N_{right}}
+
+Given a selected loss function, and $K$ possible target classes, we can define the following:
+\begin{equation}
+\begin{split}
+N_j & =  \{x \in R_j \}\\
+\hat{p}_{jk} & = \frac{1}{N_j} \sum_{x \in R_j}  I(y=k)\\
+c_j & =  argmax_{k} \  \hat{p}_{jk} \\
+\end{split}
+\end{equation}\label{decisionTreePruneParameters}
+
+
+\begin{itemize}
+	\item Misclassification binary error: $1 - max(p, 1-p)$
+	\item Gini binary index: $ 2p(1-p) $
+	\item Binary cross-entropy: $ -log(p)p - log(1- p)(1-p) $
+\end{itemize}\label{decisionTreeCostFunctions}
+
+ subtree $T_{alpha} \subset T_0$ that minimizes
+
+Let  $B(T)  = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost
+
+ \cite{breiman-cart84}.
+
+
+\textit{}
+
+\textit{}
+
+\textit{}
+

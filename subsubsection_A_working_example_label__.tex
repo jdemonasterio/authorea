@@ -1,4 +1,4 @@
-\subsubsection{A working example}
+\subsubsection{A working example}\label{section-example}
 
 For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. 
 
@@ -42,21 +42,21 @@ The last example problem in the list before, belongs to the unsupervised learnin
 To illustrate further the supervised classification scenario, a brief notation outline is described below following a standard logistic regression classifier example:
 
 Let's suppose that the problem is to determine the province of origin of a user. A classification algorithm should assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the phone data:
-$$P(C_k| X) = \frac{P(x|C_k)P(C_k)}{P(x)} $$
+$$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
 
-In this interpretation, $P(C_k)$ is known as the prior probability of belonging to that certain class and $P(C_k|x)$ as the posterior probability, given the data. 
+In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data. 
 
 Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely associated to a region. It makes sense to try and \textit{minmize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of a correct classification is measured by 
 
 \begin{equation}
 \begin{split}
-=  & \sum_{k=1}^{K} P(x_i \in R_k, C_k )  \\
-=  & \sum_{k=1}^{K} \int_{R_k}P(x_i,C_k) dx \\
-=  & \sum_{k=1}^{K} \int_{R_k}P(C_k \mid x_i) P(x_i) dx + 
+=  & \sum_{k=1}^{K} p(x_i \in R_k, C_k )  \\
+=  & \sum_{k=1}^{K} \int_{R_k}p(x_i,C_k) dx \\
+=  & \sum_{k=1}^{K} \int_{R_k}p(C_k \mid x_i) p(x_i) dx + 
 \end{split}
 \end{equation}
 
-Observe that the measure is completely characterized by the posterior probabilities. We observe that the factor $P(x)$ is common to both integrals so we only need to maximize the posteriors. So even when $P(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the probability of correctly classifying samples.  The goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
+Observe that the measure is completely characterized by the posterior probabilities. We observe that the factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. So even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the probability of correctly classifying samples.  The goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
  
 A more reduced problem instance would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a binary learning problem. %us to a two class learning problem. 
 As a simple solution, we could build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter.
