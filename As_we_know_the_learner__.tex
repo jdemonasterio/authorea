@@ -16,14 +16,14 @@ Given a choice of parameter \theta, the \textbf{prediction error} for the result
 
 \[
     Err_{true}(\theta)  = \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
-    = \int (y - h(x \cdot \theta) )^2 p(x,y)dxdy
+    = \int (y - h(x \cdot \theta) )^2 P(x,y)dxdy
 \]
 \end{definition}
 
-Note that integration here is done over the joint distribution of inputs and outputs. In practical cases, we have incomplete information on $p(x,y)$ given the finite data sample.
+Note that integration here is done over the joint distribution of inputs and outputs. In practical cases, we have incomplete information on $P(x,y)$ given the finite data sample.
 We must assume then that calculating this integral is not feasible for any $\theta$ and must rely on estimation procedures.
 
-For example, we could try and sample $M$ iid points from $p(x,y)$ to approximate the integral by a Monte Carlo scheme such as 
+For example, we could try and sample $M$ iid points from $P(x,y)$ to approximate the integral by a Monte Carlo scheme such as 
 
 \begin{equation} \label{eq:mcarlo-approx}
     Err_{true}(\theta)  \approx \frac{1}{M} \sum_i^M ( y - h(x \cdot \theta) )^2
