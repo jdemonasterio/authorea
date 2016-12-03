@@ -218,7 +218,7 @@ We will denote the node impurity measure for the classification tree by $Q_j(T)$
 \end{itemize}
 
 
-For the Gini index, it is also common to use a reweighted version of the series using a loss matrix that assigns different weights to different cases of misclassification. In practical applications having a sample from class $k$ incorrectly assigned to class $k'$ might be less important than the reverse case for example. To reflect this difference, one can add a weight term to the gini index by considering the loss matrix $L \in \mathbb R_{\ge 0}^{K \times K}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally $L$ is a null diagonal matrix.  The Gini index terms then takes the reweighted form  $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
+For the Gini index, it is also common to use a reweighted version of the series using a loss matrix that assigns different weights to different cases of misclassification. In practical applications having a sample from class $k$ incorrectly assigned to class $k'$ might be less important than the reverse case for example. To reflect this difference, one can add a weight term to the gini index by considering the loss matrix $L \in \mathbb R_{\ge 0}^{K \times K}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally $L$ is a null diagonal matrix.  The Gini index terms then take the reweighted form  $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
 
 In the binary (two class) case, if we consider $p$ to be the probability of success, then $Q_j(T)$ can be simply expressed as
 
