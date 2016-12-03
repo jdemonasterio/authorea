@@ -1,54 +1,43 @@
 \section{Classifier : Naive Bayes}
 
-The Naive Bayes model encompasses a group of simple models and computationally efficient models which assume a strong independence relationship among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some purposes. It is presented here mostly for benchmarking purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, models.
+The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which assume a strong independence relationship among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some problems. Alos, it does not suffer in problems of high-dimensionality, where $p >> n$.  
 
-Strong and often wrong hypothesis
+It is presented here mostly for benchmarking purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, models. With a linear complexity in the number of features and samples, the algorithm can be extended to \textit{bigger} problem implementations. Maximum-likelihood estimation of the parameters has a closed form solution which is better over other iterative methods such as gradient descent techniques.
 
-Simple
+Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of the problem. We take $p(C_k \mid x)$  to be the  class posterior probability of this class given the sample. 
 
-computationally efficient> Benchmarking purposes
-
-Scalable
-
-
-
-
-The learner can be characterized by 
+In section \ref{section-example}
+we have used 
 \[
-h(X) = \sum_{j=1}^J c_k I(X \in A_k)
-\]\label{equation-decisionTreeModel}
+p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
+\]\label{equation-posteriorProbabilties}
 
-where $c_k$ is the value that our model estimates forfor samples in the $A_k$ region. Both of these will have to be estimated by the model by minimizing its loss funciton.
+and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class. We can then approximate the posterior as
 
-%\frac{1}{N_{left}}
-%\frac{1}{N_{right}}
+\[
+P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
+\]\label{equation-posteriorProbabilityDecomposition1}
 
-Given a selected loss function, and $K$ possible target classes, we can define the following:
-\begin{equation}
-\begin{split}
-N_j & =  \{x \in R_j \}\\
-\hat{p}_{jk} & = \frac{1}{N_j} \sum_{x \in R_j}  I(y=k)\\
-c_j & =  argmax_{k} \  \hat{p}_{jk} \\
-\end{split}
-\end{equation}\label{decisionTreePruneParameters}
+We now assume independence between features, given the target class, to let the conditional probabilities factors become the probability of each feature. %This assumption is what gives the model its 
 
+This yields a posterior probability which depends only on the prior probability and on the likelihood of that feature.
 
-\begin{itemize}
-	\item Misclassification binary error: $1 - max(p, 1-p)$
-	\item Gini binary index: $ 2p(1-p) $
-	\item Binary cross-entropy: $ -log(p)p - log(1- p)(1-p) $
-\end{itemize}\label{decisionTreeCostFunctions}
+\[
+P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j | C_k)
+\]\label{equation-posteriorProbabilityDecomposition2}
 
- subtree $T_{alpha} \subset T_0$ that minimizes
+As we have said before, the parameters of the model can only reweigh the likelihood factors, so if we look to maximize the posterior probability, our final estimate of the posterior will take the following form.
 
-Let  $B(T)  = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost
+\[
+P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}    P(x_j | C_k)
+\]\label{equation-posteriorProbabilityDecomposition3}
 
- \cite{breiman-cart84}.
+where $Z = p(x)$ is the scaling factor in the equation and is already fixed by the dataset.
 
+In practice the model will stem into different algorithms where each variant will have a different assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. We can treat both of decisions as our model's hyper-paramters.
 
-\textit{}
+For the former assumption, it is common to chose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems.
 
-\textit{}
+For the latter assumption, the most usual options include chosing equiprobable class priors or by using average estimates from the dataset.
 
-\textit{}
-
+Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability  $P(C_k' \mid x)$. 
