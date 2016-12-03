@@ -1,11 +1,11 @@
-\section{Logistic Regression for Classification}
+\section{Logistic Regression for Classification}\label{section-logisticRegression}
 
 This model is named as a \textit{regression} model but is actually used for \textit{classification} and this convention has been used in this way for historical reasons.
 
 
 
 Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the input data:
-$$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
+$$P(C_k| X) = \frac{P(x|C_k)P(C_k)}{P(x)} $$
 
 \begin{definition}{Logistic Regression}
 	Given a choice of parameter $\theta$, 	
@@ -98,7 +98,7 @@ There are a number of different functionals $R(\cdot)$ used to impose conditions
  Each has its own advantages and the details exceed the nature of this work. As a summary, benefits are related to robustness of the solution, convexity of the minimization function, unique minimum and model parsimony. The former case is known as \textit{ Lasso} regularization and the latter is known as \textit{ridge} or \textit{Tikhonov} regularization. Other variants include the \textit{elastic-net} penalty which is a weighted average of the previous two norms, or the $l0$ norm, which is the number of non null components of $\theta$. 
 
 
- and taking a weighted average of two different penalizations. 
+ and taking a weighted average of two different penalizations. T
 
 Even though some regularization methods have closed-form solutions, in practice most of them are found by iterative optimization routines such as gradient descent.	
 
