@@ -120,59 +120,153 @@
 
 %\begin{definition}{Vapnik–Chervonenkis (VC) Dimension}
 %\end{definition}
-	
-	
 \end{abstract} 
 
-\section{Classifier : Naive Bayes}
+\section{Boosting Models}\label{section-boosting}
+\subsection{AdaBoost}
+\cite{schapire-adaBoost}
 
-The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which assume a strong independence relationship among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some problems. Alos, it does not suffer in problems of high-dimensionality, where $p >> n$.  
+Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak lerners to output the combined model's prediction. Th full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator. This provides greater predictive power when the base model's accuracy is weak. However, care must be taken to control the increase in variance.
 
-It is presented here mostly for benchmarking purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, models. With a linear complexity in the number of features and samples, the algorithm can be extended to \textit{bigger} problem implementations. Maximum-likelihood estimation of the parameters has a closed form solution which is better over other iterative methods such as gradient descent techniques.
+In the AdaBoost variation of model ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner. Weights are used to order the importance of samples, where a sample with higher misclassification rate will receive a stronger weight. This 
 
-Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of the problem. We take $p(C_k \mid x)$  to be the  class posterior probability of this class given the sample. 
+The chained construction of weak learners has its implications in computational complexity. The base learners cannot be constructed independently and as such, the parallelization of this algorithm is seldomly possible. At the same time, the sequential optimization of learners improving on the one before marks a \textit{greedy} minimization approach of a general loss funciton.
+These properties underline a substantial diference to Random Forests where base learners are built as uncorrelated as possible and where optimization can be performed globally, which allows for a significant parallelization of the algorithm. 
 
-In section \ref{section-example}
-we have used 
+
+Let 
+$$\overline{err} = \frac{1}{N} \sum_{i=1}^{N} I(y_i \neq \hat{y_i})$$ 
+denote the training set's misclassification error. As usual, $N$ is the amount of samples in our dataset, $y$ is our target variable and $\hat{y}$ is our model's target prediction, given the samples. We also take $$\Expect_{X \ Y} [ I(Y \neq \hat{Y}(X)) ]$$ 
+ to be the expected error rate of the model on the true,  unkown distribution of the data.
+
+Let $m$ index the iteration number in the AdaBoost algorithm. Set $w^{(m)}_i$ to be sample weights which we will initialize equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. Let $h(x,\theta)$  denote our model's weak learner with domain in the input feature variables and in the parameters defining the learner. Naturally these will depend on the problem structure and on the learner. Then AdaBoost's model takes the following form:
+
+\begin{equation} \label{equation-adaBoostModel}
+\hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
+\end{equation}
+
+where $M$ a model's hyperparameter indicating the amount of weak learners and thus the amount of iterations. The model's iterations will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the previous model. At step $m$ we will search for $(\gamma_{m+1}, \theta_{m+1})$ that minimize
+
+\begin{equation} \label{equation-adaBoostIteration}
+ \sum_{i=1}^{N} \gamma_m h(x,\theta_m)
+\end{equation}
+
+\subsection{Gradient Tree Boosting}
+
+In the boosting method model a high model is learnt on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees wil be the parameters for this model and at step $m$ the output will be
 \[
-p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
-\]\label{equation-posteriorProbabilties}
+ \hat{y}^{((m)}=  \sum_t^m \gamma_t h_t(x) , \  h_t \in Tr \ \forall t \in {0...K}
+\]
 
-and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class. We can then approximate the posterior as
+where $\gamma_t$ indexes the weight for each tree $h_t$ and $K$ is a hyper-parameter that represent the number of trees. Each new base learner is added to the model 
 
-\[
-P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
-\]\label{equation-posteriorProbabilityDecomposition1}
 
-We now assume independence between features, given the target class, to let the conditional probabilities factors become the probability of each feature. %This assumption is what gives the model its 
-
-This yields a posterior probability which depends only on the prior probability and on the likelihood of that feature.
 
 \[
-P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j | C_k)
-\]\label{equation-posteriorProbabilityDecomposition2}
+ \hat{y}^{(m)} =   \hat{y}^{(m-1)}  + \gamma_m h_m(x) 
+\]
 
-As we have said before, the parameters of the model can only reweigh the likelihood factors, so if we look to maximize the posterior probability, our final estimate of the posterior will take the following form.
+and the new base model is selected upon minimizing the misclassification rate of the full model at the previous step $m-1$, where a loss function previously selected is used to quantify this rate:
 
 \[
-P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}    P(x_j | C_k)
-\]\label{equation-posteriorProbabilityDecomposition3}
+h_m(\cdot) = \underset{h}{\mathrm{argmin}}   \sum_{i=1}^{n} L ( y_i,  \hat{y_i}^{(m-1)} -  h(x_i)  ) 
+\]
 
-where $Z = p(x)$ is the scaling factor in the equation and is already fixed by the dataset.
 
-In practice the model will stem into different algorithms where each variant will have a different assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. We can treat both of decisions as our model's hyper-paramters.
+ 
+For the moment  we  include the tree's weight $\gamma_t$ as part of the weak learners in a single function $f_t(\cdot)$. Therefore the model results in,
 
-For the former assumption, it is common to chose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems.
+\[
+y =  \sum_k f_t(x) ,  \ f_t \in Tr  \ \forall t \in {0...K}
+\]
 
-For the latter assumption, the most usual options include chosing equiprobable class priors or by using average estimates from the dataset.
+where at each single iteration
+and a single tree is represented in the form 
 
-Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability  $P(C_k' \mid x)$. 
+\[
+f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
+\]
+
+with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J R_j$ is a partition of feature space. The function $q : X \mapsto \{1,...,J\}$ denotes the mapping form samples to regions. In summary, $\{\theta_j, R_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter. Note that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is a combinatorial feat.
+
+In this setting, the objective function would account for these relationships in the trees and thus we would have that
+
+\[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}^i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
+%    
+
+At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\Theta_t$ is the parameter asciated for each tree model $f_t$ then $\Theta =  \bigcup_{t \in {0...K}} \Theta_t  \cup \Theta_0$ where the parameter $\Theta_0$ is not associated to any tree and reserved to characterize the tree assembly. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice so optimization heuristics are used instead. 
+
+\subsubsection{Additive Training}
+
+A first take on this optimization problem goes along the way of greedy algorithms. One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
+
+Consider $t$ the step indexer of the algorithm, where $t \in {0,..,K}$. In step $t$, let $Obj_t(\Theta)$ be the objective function and $\hat{y}_t^i$ be the predictive target respectively. Then the $i$-eth target's value at each step would iterate in the following way:
+
+\begin{equation} \label{eq:gb-targetSteps}
+\hat{y}_0^i = 0 \\
+\ \ \ ... \\ 
+\hat{y}_t^i = \sum_{k=1}^{t} f_k(x^i) = \hat{y}_{t-1}^i +  f_t(x^i)
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
+where each trees is added in such a way that we are minimizing
+
+%\begin{equation} \label{eq:gb-objSteps1}
+\[
+\begin{split}
+Obj_t(\Theta) \approx &  \sum_i^n {g^i \theta_{q(x^i)} + \frac{1}{2} h^i \theta_{q(x^i)}^2 } + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
+=  & \sum_{j=1}^T\left(  \sum_{i \in T_j} (g^i )\theta_{j} + \frac{1}{2} \sum_{i \in T_j} (h^i + \lambda ) \theta_{j}^2  \right) + \gamma T
+\end{split}
+\]
+%\end{equation}
+
+where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second order Taylor approximation yields
+
+\[
+\begin{split}
+Obj_t(\Theta) =  & \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
+= &\sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) +  c'(t)
+\end{split}
+\]
+
+where $g^i$ and $h^i$ are first and second order approximations of the loss function.
+\[
+g^i =  \frac{\partial l(y^i, \hat{y}_{t-1}^i)}{\partial \hat{y}_{t-1}^i} \\
+h^i =  \frac{\partial^2 l(y^i, \hat{y}_{t-1}^i)}{\partial (\hat{y}_{t-1}^i)^2 }
+\]
+
+Then
+
+\[
+Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+\]
+
+In a greedy optimization approach, the tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$ at the $t$-th step. The assumptions with this approach are that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g^i(\hat{y}_{t}^i), h^i(\hat{y}_{t}^i) $ and that these values are effectively computable.
+
+$h^i$ on the existence 
+
+where a second order Taylor expansion was used 
+
+aggregating 
+%$Obj
+
+
+\subsection{Boosting Trees}
+
+
+
+\subsection{Hastie Tibshiranie Friedman}
+
 
 \textit{}
 
 \textit{}
 
 \textit{}
+
+\textit{}
+
+\textit{} 
+
 
 
 \end{document}
