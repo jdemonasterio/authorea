@@ -145,11 +145,30 @@ Let $m$ index the iteration number in the AdaBoost algorithm. Set $w^{(m)}_i$ to
 \hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
 \end{equation}
 
-where $M$ a model's hyperparameter indicating the amount of weak learners and thus the amount of iterations. The model's iterations will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the previous model. At step $m$ we will search for $(\gamma_{m+1}, \theta_{m+1})$ that minimize
+where $M$ a model's hyperparameter indicating the amount of weak learners and thus the amount of iterations. The model's iterations will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the previous model. At step $m$ we will search for $(\gamma_{m+1}, \theta_{m+1})$ where
 
 \begin{equation} \label{equation-adaBoostIteration}
- \sum_{i=1}^{N} \gamma_m h(x,\theta_m)
+\begin{split}
+(\gamma_{m+1}, \theta_{m+1}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & L\big( y_i,   \hat{y}^{m}(x_i) + \gamma h(x,\theta) \big) \\
+= \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N}  & L\big( y_i,    \sum_{j=1}^{m} \gamma_j h(x_i,\theta_j) + \gamma h(x,\theta) \big) 
+ \end{split}
 \end{equation}
+
+The greedy nature of the algorithm becomes explicit in the procedure, where we have fixed all of the previous optimized values for $\gamma$ and $\theta$. 
+
+AdaBoost was first derived in \cite{schapire-adaBoost} and it followed a more specific  minimized function. This general version allows to use a multiplicity of base learners which need not to be from the same algorithmic family. in the first implementation, the loss function
+
+Though very similar as in \ref{equation-adaBoostIteration}
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Gradient Tree Boosting}
 
