@@ -84,7 +84,7 @@ which has a minimum at
 This shows that \ref{equation-adaBoostExponentialIteration2} has a minimum for both variables and that the next step in the AdaBoost procedure has an update of closed form where
 
 \begin{equation}
- w_i^{(m+1)} =   w_i^{(m+1)} e^(\beta_m) e^(-y_i h_m(x_i)) \\
+ w_i^{(m+1)} =   w_i^{(m+1)} e^{(\beta_m)} e^{(-y_i h_m(x_i))} \\
  \end{equation} 
  
 Note here that the $\beta$ factor is multiplying all weights equivalently and that $-y_i h_m(x_i) = 2I \big( y_i = h_m(x_i)   \big) -1$. And this is the relevant of the algorithm, where more at each step, importance is given to misclassified samples over correctly classified ones. 
