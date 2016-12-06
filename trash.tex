@@ -151,8 +151,8 @@ where $M$ a model's hyperparameter indicating the amount of weak learners and th
 
 \begin{equation} \label{equation-adaBoostIteration}
 \begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & L\big( y_i,   \hat{y}^{m}(x_i) + \gamma h(x,\theta) \big) \\
-= \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N}  & L\big( y_i,    \sum_{j=1}^{m} \gamma_j h(x_i,\theta_j) + \gamma h(x,\theta) \big) 
+(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & L\big( y_i,   \hat{y}^{m}(x_i) + \gamma h(x_i,\theta) \big) \\
+= \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N}  & L\big( y_i,    \sum_{j=1}^{m} \gamma_j h(x_i,\theta_j) + \gamma h(x_i,\theta) \big) 
  \end{split}
 \end{equation}
 
@@ -164,8 +164,8 @@ This will yield a similar equation as in \ref{equation-adaBoostIteration}, but o
 
 \begin{equation} \label{equation-adaBoostExponentialIteration}
 \begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  (\hat{y}^{m}(x_i) + \gamma h(x,\theta) )\big) \\
-= \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  \hat{y}^{m}(x_i)\big) exp\big(- \gamma h(x,\theta)y_i \big) 
+(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  (\hat{y}^{m}(x_i) + \gamma h(x_i,\theta) )\big) \\
+= \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  \hat{y}^{m}(x_i)\big) exp\big(- \gamma h(x_i,\theta)y_i \big) 
 \end{split}
 \end{equation}
 
@@ -173,8 +173,8 @@ Given that we are only minimizing over $\gamma$ and $\theta$, we can group $e^{-
 
 \begin{equation} \label{equation-adaBoostExponentialIteration2}
 \begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} &  w_i^{(m)} exp \big(- \gamma h(x,\theta)y_i \big) \\
- \underset{\gamma, \theta}{\mathrm{argmin}} \  exp(\gamma) \sum_{i=1}^{N} & w_i^{(m)} exp \big( - h(x,\theta)y_i \big) \\
+(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} &  w_i^{(m)} exp \big(- \gamma h(x_i,\theta)y_i \big) \\
+ \underset{\gamma, \theta}{\mathrm{argmin}} \  exp(\gamma) \sum_{i=1}^{N} & w_i^{(m)} exp \big( - h(x_i,\theta)y_i \big) \\
 \end{split}
 \end{equation}
 
@@ -341,9 +341,6 @@ aggregating
 
 \textit{}
 
-\textit{}
-
-\textit{} 
 
 
 
