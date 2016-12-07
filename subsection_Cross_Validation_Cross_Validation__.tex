@@ -37,7 +37,7 @@ The objective of Cross Validation is to systematically explore the different con
 
 Note that during the algorithm, each sample's prediction was tested on the model which was fitted without using that sample. 
 
-From the \textbf{CV} procedure it makes sense to choose a final  model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all of possible hyperparameters. However, following ideas detailed in \textbf{VAPNIK DIMENSION SECTION}, importance is also given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. These will probably estimate the prediction error more accurately. In practice though, a class of approximating functions might have a complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense are used to estimate model complexity, without making use of theoretical arguments.
+From the \textbf{CV} procedure it makes sense to choose a final  model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all of possible hyperparameters. However, following ideas detailed in \ref{section-VcDimension}, importance is also given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. These will probably estimate the prediction error more accurately. In practice though, a class of approximating functions might have a complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense are used to estimate model complexity, without making use of theoretical arguments.
  
 \subsubsection{Choice of $K$ parameter} 
 
