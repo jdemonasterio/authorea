@@ -1,11 +1,10 @@
-
 \section{Boosting Models}\label{section-boosting}
 \subsection{AdaBoost}
 \cite{schapire-adaBoost}
 
 Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak lerners to output the combined model's prediction. Th full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator. This provides greater predictive power when the base model's accuracy is weak. However, care must be taken to control the increase in variance.
 
-In the AdaBoost variation of model ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner. Weights are used to order the importance of samples, where a sample with higher misclassification rate will receive a stronger weight. 
+In the AdaBoost variation of model ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner. Weights are used to order the importance of samples, where a sample with higher misclassification rate will receive a stronger weight. The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
 
 Tuning parameters in this algorithm are the same that as those in the base learners. However, the number of steps that the algorithm will take is a new hyperparameter. 
 
@@ -28,8 +27,8 @@ where $M$ a model's hyperparameter indicating the amount of weak learners and th
 
 \begin{equation} \label{equation-adaBoostIteration}
 \begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & L\big( y_i,   \hat{y}^{m}(x_i) + \gamma h(x,\theta) \big) \\
-= \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N}  & L\big( y_i,    \sum_{j=1}^{m} \gamma_j h(x_i,\theta_j) + \gamma h(x,\theta) \big) 
+(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & L\big( y_i,   \hat{y}^{m}(x_i) + \gamma h(x_i,\theta) \big) \\
+= \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N}  & L\big( y_i,    \sum_{j=1}^{m} \gamma_j h(x_i,\theta_j) + \gamma h(x_i,\theta) \big) 
  \end{split}
 \end{equation}
 
@@ -41,8 +40,8 @@ This will yield a similar equation as in \ref{equation-adaBoostIteration}, but o
 
 \begin{equation} \label{equation-adaBoostExponentialIteration}
 \begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  (\hat{y}^{m}(x_i) + \gamma h(x,\theta) )\big) \\
-= \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  \hat{y}^{m}(x_i)\big) exp\big(- \gamma h(x,\theta)y_i \big) 
+(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  (\hat{y}^{m}(x_i) + \gamma h(x_i,\theta) )\big) \\
+= \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  \hat{y}^{m}(x_i)\big) exp\big(- \gamma h(x_i,\theta)y_i \big) 
 \end{split}
 \end{equation}
 
@@ -50,8 +49,8 @@ Given that we are only minimizing over $\gamma$ and $\theta$, we can group $e^{-
 
 \begin{equation} \label{equation-adaBoostExponentialIteration2}
 \begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} &  w_i^{(m)} exp \big(- \gamma h(x,\theta)y_i \big) \\
- \underset{\gamma, \theta}{\mathrm{argmin}} \  exp(\gamma) \sum_{i=1}^{N} & w_i^{(m)} exp \big( - h(x,\theta)y_i \big) \\
+(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} &  w_i^{(m)} exp \big(- \gamma h(x_i,\theta)y_i \big) \\
+ \underset{\gamma, \theta}{\mathrm{argmin}} \  exp(\gamma) \sum_{i=1}^{N} & w_i^{(m)} exp \big( - h(x_i,\theta)y_i \big) \\
 \end{split}
 \end{equation}
 
@@ -82,20 +81,22 @@ which has a minimum at
 \beta_{m} = \frac{1}{2} log\big( \frac{1 - \overline{err} }{ \overline{err} }  \big)
 \end{equation}
 
-This shows that \ref{equation-adaBoostExponentialIteration2} has a minimum for both variables and that the next step in the AdaBoost procedure has an update of closed form where
+As seen, the minmizing value for $\beta$ is directly related to the training error of the algorithm in the whole dataset. This weight will be reflected upon all samples in general and then we would expect this rate to decrease in every iteration.  Taking advantage of this closed form, the value is plugged into the next step of the AdaBoost procedure to update sample weights as
 
 \begin{equation}
- w_i^{(m+1)} =   w_i^{(m+1)} e^(\beta_m) e^(-y_i h_m(x_i)) \\
+ w_i^{(m+1)} =   w_i^{(m+1)} e^{\beta_m} e^{(-y_i h_m(x_i))} \\
  \end{equation} 
  
-Note here that the $\beta$ factor is multiplying all weights equivalently and that $-y_i h_m(x_i) = 2I \big( y_i = h_m(x_i)   \big) -1$. And this is the relevant of the algorithm, where more at each step, importance is given to misclassified samples over correctly classified ones. 
+Note that $-y_i h_m(x_i) = 2I \big( y_i = h_m(x_i)   \big) -1$ which is a relevant aspect of the algorithm, where at each step, more importance is given to misclassified samples over correctly classified ones. 
 
 The final form of the model is
-$$  \hat{y}(x) = sgn\big(  \sum_{m=1}^{M} \gamma_m h_m(x) \big)$$ which takes on the most frequent output target given by all of the learners.
+$$  \hat{y}(x) = sgn\big(  \sum_{m=1}^{M} \gamma_m h_m(x) \big)$$ which takes on the most frequent output target given by all of the learners. This particular property is what gives rise
 
 At first the choice of the exponential loss function can seem arbitrary, but for the context of statistical learning this measure presents an importan property where its minimizing function is the log-odds ratio of the two output classes:
-$$f^*(x) = \underset{f}{\mathrm{argmin}} \Expect_{Y | f(x)}\big( exp(-Yf(x))  \big) = \frac{1}{2} =
+$$f^*(x) = \underset{f}{\mathrm{argmin}} \  \Expect_{Y | f(x)}\big[ exp(-Yf(x))  \big] = \frac{1}{2}
 log\big( \frac{ P(Y=1 \mid x) }{ P(Y=-1 \mid x) }  \big) $$
+
+
 
  A drawback of this function though, is that it is not robus to outliers or to noisy data. During runtime weights are constantly shifting towards misclassified samples and if samples are mislabeled, this will make the algorithm consantly focus on classifying incorrectly the data. 
 
@@ -109,7 +110,8 @@ log\big( \frac{ P(Y=1 \mid x) }{ P(Y=-1 \mid x) }  \big) $$
 
 \subsection{Gradient Tree Boosting}
 
-In the boosting method model a high model is learnt on other \textit{weaker} decision trees. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees wil be the parameters for this model and at step $m$ the output will be
+As explained before, the boosting method builds a high model learnt from other \textit{weaker} learners. For the case of \textit{gradient tree bosting}, decision trees are used as base learners. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees wil be the parameters for this model and at step $m$ the output will be
+
 \[
  \hat{y}^{((m)}=  \sum_t^m \gamma_t h_t(x) , \  h_t \in Tr \ \forall t \in {0...K}
 \]
@@ -118,13 +120,13 @@ where $\gamma_t$ indexes the weight for each tree $h_t$ and $K$ is a hyper-param
 
 
 \[
- \hat{y}^{(m)} =   \hat{y}^{(m-1)}  + \gamma_m h_m(x) 
+ \hat{y}^{(m+1)} =   \hat{y}^{(m)}  + \gamma_m h_m(x) 
 \]
 
-and the new base model is selected upon minimizing the misclassification rate of the full model at the previous step $m-1$, where a loss function previously selected is used to quantify this rate:
+and the new base model is selected upon minimizing the misclassification rate of the full model at the previous step $m$, where a loss function previously selected is minimized to select the next best base learner:
 
 \[
-h_m(\cdot) = \underset{h}{\mathrm{argmin}}   \sum_{i=1}^{n} L ( y_i,  \hat{y_i}^{(m-1)} -  h(x_i)  ) 
+h_m(\cdot) = \underset{h,\gamma}{\mathrm{argmin}}   \sum_{i=1}^{n} L ( y_i,  \hat{y_i}^{(m-1)} -  \gamma h(x_i)  ) 
 \]
 
 
@@ -133,93 +135,98 @@ h_m(\cdot) = \underset{h}{\mathrm{argmin}}   \sum_{i=1}^{n} L ( y_i,  \hat{y_i}^
 
 
  
-For the moment  we  include the tree's weight $\gamma_t$ as part of the weak learners in a single function $f_t(\cdot)$. Therefore the model results in,
+For the moment  we  include the tree's weight $\gamma$ as part of the weak learners in a single function $f_t(\cdot)$. Therefore the model results in,
 
 \[
 y =  \sum_k f_t(x) ,  \ f_t \in Tr  \ \forall t \in {0...K}
 \]
 
-where at each single iteration
-and a single tree is represented in the form 
+We can represent a single tree with the form 
 
 \[
 f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
 \]
 
-with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \coprod_{j=1}^J R_j$ is a partition of feature space. The function $q : X \mapsto \{1,...,J\}$ denotes the mapping form samples to regions. In summary, $\{\theta_j, R_j\}_{j=1}^J$ are the model's parameters and $J$ is a hyper-parameter. Note that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is a combinatorial feat.
+with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \cup_{j=1}^J R_j$ a partition of feature space. The function $q : X \mapsto \{1,...,J\}$ denotes the mapping from samples to regions. In summary, $\{\theta_j, R_j\}_{j=1}^J$ are the weak model's parameters and $J$ is a hyper-parameter. Note that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is a combinatorial feat.
 
-In this setting, the objective function would account for these relationships in the trees and thus we would have that
+For the high model, the objective function would account for the relationships among the trees and we would have that
 
-\[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}^i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
+\[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
 %    
 
-At a higher level we would have that $\Theta$ is a parameter encoding lower trees' parameter information. If $\Theta_t$ is the parameter asciated for each tree model $f_t$ then $\Theta =  \bigcup_{t \in {0...K}} \Theta_t  \cup \Theta_0$ where the parameter $\Theta_0$ is not associated to any tree and reserved to characterize the tree assembly. An optimization routine will have to collectively fit all of the parameters in $\Theta$ to learn this model. This is prohibitively costly in practice so optimization heuristics are used instead. 
+At this level we would have that $\Theta$ is a parameter encoding all of the base trees' model information. Where $\theta_t$ is the parameter associated toeach tree model $f_t$ and $\Theta =  \bigcup_{t \in {0...K}} \theta_t  \cup \theta_0$.  Here the parameter $\Theta_0$ is not associated to any tree but reserved to characterize the tree assembly. If an optimization routine were to collectively fit all of the parameters in $\Theta$ to learn this model, we would have an very computational complex model. 
+In practice this would result in an prohibitive cost so we rely on optimization heuristics  instead. 
 
 \subsubsection{Additive Training}
 
-A first take on this optimization problem goes along the way of greedy algorithms. One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
+As usual, the first take on this optimization problem goes using a greedy optimization routine. One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
 
-Consider $t$ the step indexer of the algorithm, where $t \in {0,..,K}$. In step $t$, let $Obj_t(\Theta)$ be the objective function and $\hat{y}_t^i$ be the predictive target respectively. Then the $i$-eth target's value at each step would iterate in the following way:
+Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Theta)$ be the objective function and $\hat{y}^t$ be the target variable respectively. Then the $i$-eth target's value at each step would iterate in the following way:
 
 \begin{equation} \label{eq:gb-targetSteps}
-\hat{y}_0^i = 0 \\
-\ \ \ ... \\ 
-\hat{y}_t^i = \sum_{k=1}^{t} f_k(x^i) = \hat{y}_{t-1}^i +  f_t(x^i)
-%\sum_{i=0}^{\infty} a_i x^i
+\begin{split}
+\hat{y}_i^0 = & 0 \\
+ ... \\ 
+\hat{y}_i^t = &\sum_{k=1}^{t} f_k(x_i) = \hat{y}^{t-1}_i +  f_t(x_i)
+\end{split}
 \end{equation}
-where each trees is added in such a way that we are minimizing
+%\sum_{i=0}^{\infty} a_i x_i
+where each tree is added in such a way that we are minimizing
 
-%\begin{equation} \label{eq:gb-objSteps1}
+\begin{equation}
+Obj^t(\Theta) =  \sum_i^n L(y_i, \hat{y}^{t-1}_i +  f_t(x_i) ) + c(t) + R(f_t) 
+\end{equation}
+
+
+Note that we have included here a regularization term (see section \ref{subsection-hyperParametersRegularization}) $R$ which most commonly takes the form of a  Tikhonov regularization. On the other hand the term is another complexity tuning parameter controling the length of the overall procedure $c(t)$ which is variable only in $t$. 
+
+If we assume we have enough conditions to approximate the objective function with  second order Taylor approximation around $f_t(x_i)$,we would have
+
+\begin{equation}\label{equation-gradientBoostingTaylor}
+Obj^t(\Theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  R(f_t) +  c(t)
+\end{equation}
+
+Here $g_i$ and $h_i$ are first and second order approximations of the loss function with,
+
 \[
-\begin{split}
-Obj_t(\Theta) \approx &  \sum_i^n {g^i \theta_{q(x^i)} + \frac{1}{2} h^i \theta_{q(x^i)}^2 } + \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T\theta_j^2 \\
-=  & \sum_{j=1}^T\left(  \sum_{i \in T_j} (g^i )\theta_{j} + \frac{1}{2} \sum_{i \in T_j} (h^i + \lambda ) \theta_{j}^2  \right) + \gamma T
-\end{split}
-\]
-%\end{equation}
-
-where $c(t)$ and $c'(t)$ are constants for fixed $t$. Approximating by a second order Taylor approximation yields
-
-\[
-\begin{split}
-Obj_t(\Theta) =  & \sum_i^n l(y^i, \hat{y}_{t-1}^i +  f_t(x^i) ) + c(t) + R(f_t) \\
-= &\sum_i^n {l(y^i, \hat{y}_{t-1}^i) + g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  R(f_t) +  c'(t)
-\end{split}
+g_i =  \frac{\partial L(y_i, \hat{y}^{t-1}_i)}{\partial \hat{y}^{t-1}_i} \\
+h_i =  \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial (\hat{y}^{t-1}_i)^2 }
 \]
 
-where $g^i$ and $h^i$ are first and second order approximations of the loss function.
-\[
-g^i =  \frac{\partial l(y^i, \hat{y}_{t-1}^i)}{\partial \hat{y}_{t-1}^i} \\
-h^i =  \frac{\partial^2 l(y^i, \hat{y}_{t-1}^i)}{\partial (\hat{y}_{t-1}^i)^2 }
-\]
+Still, the equation \ref{equation-gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$ and by replacing the output targets of each sample for that tree evaluation.
+
+\begin{equation} \label{eq:gb-objSteps1}
+Obj^t(\Theta) \approx  \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
+\end{equation}
+
+As an example, we have already replaced the regularization terms $c(t)$ and $R(f_t)$ with an $l$2 penalty on the parameter size and on the iteration number. 
+
+\begin{equation} \label{eq:gb-objSteps1}
+Obj^t(\Theta) \approx   \sum_{j=1}^{t-1} \left(  \sum_{i \in ({t-1})_j} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in ({t-1})_j} (h_i + \lambda ) \theta_{j}^2  \right) + \gamma ({t-1})
+\end{equation}
 
 Then
 
 \[
-Obj_t(\Theta) = \sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+Obj^t(\Theta) \approx \sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
 \]
 
-In a greedy optimization approach, the tree $f_t$ will minimize $\sum_i^n {  g^i f_t(x^i) + \frac{1}{2} h^i f_t(x^i)^2 } + R(f_t)$ at the $t$-th step. The assumptions with this approach are that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g^i(\hat{y}_{t}^i), h^i(\hat{y}_{t}^i) $ and that these values are effectively computable.
+This equation form results in a direct method for a greedy optimization approach.  We will have to search for the tree $f_t$ that minimizes \\
+$\sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step. 
 
-$h^i$ on the existence 
+As we have stated before the approach assumes that that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g_i(\hat{y}^{t}_i), h_i(\hat{y}^{t}_i) $ and that these values are effectively computable. Smooth loss functions play an important role here in providing a feasible method. 
 
-where a second order Taylor expansion was used 
+As a last remark on boosting algorithms, there are two additional heuristics used to improve the generalization performance of boosting algorithms. The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive . The authors in \cite{hastie-elemstatslearn} and \cite{bishop - patternRecognition} mention them because of their overall contribution to prediction improvement.
 
-aggregating 
-%$Obj
+The first idea to reduce the overall variance of the algorithm is to subsample the data. This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner. The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method. In practice, the rate of sampling will be controlled by a tuning parameter in the model.
 
-
-\subsection{Hastie Tibshiranie Friedman}
+The other heuristic is considerd to be, at least experimentally, more important. This involves successively applying a \textit{shrinkage} factor $v \in  (0,1)$ to the new model.  At step $m$, instead of letting the overall model become $ \hat{y_i}^{(m)} = \hat{y_i}^{(m-1)} +  \gamma_m h_m(x_i) $, we multiply the shrinkage factor $v$ to these values before adding them to the overall model at step $m-1$. This shrinkage factor is also known in the literature as the \textit{learning rate} of the algorithm.  Note that $v$  is reducing the movement of the algorithm in the direction of optimization provided by $\gamma_m$ and $h_m$. In practice this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. However, and specially combined with subsampling, the use of this factor has been empirically shown overall improvements in generalization accuracy.
 
 
+
+
+\textit{}
 
 \textit{}
 
 \textit{}
-
-\textit{} 
-
-
-
-\end{document}
-
