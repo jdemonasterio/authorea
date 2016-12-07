@@ -1,10 +1,6 @@
 # TODO PLAN
 
 ## Machine Learning Chapter
-	
-	* Naive Bayes Algo
-
-	* gradient boosting: agregar un poco mas de como el gain es un scoring. Hastie - (Section 10.13).
 
 	* section Technical Observations (python, jupyter, sklearn, pandas, 
 										sframes, graphlab, spark mllib, 
