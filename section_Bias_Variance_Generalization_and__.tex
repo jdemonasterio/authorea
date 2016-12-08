@@ -4,7 +4,11 @@
  
  Conceptually the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
  
- In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on the data. Loss functions are considered to be semimetrics one the target space i.e. a function that is symmetric, non-negative and equal to zero only if both arguments are equal.
+ In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on the data. 
+ 
+ These functions are defined as a measure of how strong classifiers are with respect to their predictions. They are based on comparing target predictions $\hat{y}$ versus real target values $y$ for each sample or for a group of them. They have their origins in \textit{Type I \& type II} errors common in statistics but have different meanings in this context. 
+ 
+Loss functions are considered to be semimetrics one the target space i.e. a function that is symmetric, non-negative and equal to zero only if both arguments are equal.
  
  
  \begin{definition}{Generalization Error}
