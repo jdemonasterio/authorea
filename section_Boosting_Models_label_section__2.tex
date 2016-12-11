@@ -23,7 +23,8 @@ Let $m$ index the iteration number in the AdaBoost algorithm. Set $w^{(m)}_i$ to
 \hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
 \end{equation}
 
-where $M$ a model's hyperparameter indicating the amount of weak learners and thus the amount of iterations. The model's iterations will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the previous model. At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
+where $M$ a model's hyperparameter indicating the amount of weak learners and thus the amount of iterations. Here, each $\theta_m$ will encode the base learner's parameters and $\gamma_m$ will denote the weight of that weak learner in the overall model.
+The model's iterations will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the previous model. At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
 
 \begin{equation} \label{equation-adaBoostIteration}
 \begin{split}
@@ -48,10 +49,7 @@ This will yield a similar equation as in \ref{equation-adaBoostIteration}, but o
 Given that we are only minimizing over $\gamma$ and $\theta$, we can group $e^{-y_i  \hat{y}^{m}(x_i)}$ into a single value $w_i^{(m)}$ which we will call the weight of each sample, which depends strongly on past steps of the algorithm. We can also take the $\gamma$ factor out of the sum, since it is fixed for all samples. The equation now becomes
 
 \begin{equation} \label{equation-adaBoostExponentialIteration2}
-\begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} &  w_i^{(m)} exp \big(- \gamma h(x_i,\theta)y_i \big) \\
- \underset{\gamma, \theta}{\mathrm{argmin}} \  exp(\gamma) \sum_{i=1}^{N} & w_i^{(m)} exp \big( - h(x_i,\theta)y_i \big) \\
-\end{split}
+(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N}  w_i^{(m)} exp \big(- \gamma h(x_i,\theta)y_i \big) 
 \end{equation}
 
 We can then minimize for $\theta$ first, independently of the value of $\gamma$. The series in \ref{equation-adaBoostExponentialIteration2} can be decomposed 
