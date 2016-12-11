@@ -6,14 +6,15 @@
 										sframes, graphlab, spark mllib, 
 										theano, tensor flow, xgboost)
 
-# Results Chapter
-	ampliar de los papers ya agregar mas graficos comparativos
+## Introduction Chapter
+	*ampliar introduction de los papers
 
-# Problem / Data Description Chapter
+## Problem / Data Description Chapter
  	* ampliar data description and visualizations
  	* on how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf 
-# Introduction Chapter
-	*ampliar introduction de los papers
+
+## Results Chapter
+	Ampliar de los papers ya agregar mas graficos comparativos
 
 ## Maybe TODOs:
 	* Rerun algorithms but using SVD para reducir covarianza de variables.
