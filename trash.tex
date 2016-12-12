@@ -121,27 +121,25 @@
 \end{abstract} 
 
 \section{Brief Technical Notes on Machine Learning Applications}\label{section-technicalObservations}
-Note from own experience  in data management with Python and wide 
+Note from own experience  in data processing and machine learning with Python.
 
-Data storage: easiest data format is in `csv` (comma separated values) which is a universal, very general format 
+Built from experience, might be helpful for others trying to deal with the same problems. Not intended to be a reference manual or a 
 
-It is also very ineffiicent. 
+Data storage: easiest data format is in `csv` (comma separated values) which is a universal, very general and straight-forward format for data storage. Very few previous knowledge is needed to read this format. The downside is that it's also very inefficient. Even when compressed, it can be orders of magnitude bigger and slower to read than other formats.
 
-Specific programs and database engines exist to 
-
-(mysql, postgres, mongodb, etc.) would be more 
+Specific data storage types and database engines exist to cope with this problem. Storing and reding data will be quicker but significant overhead can be added to the project itself since building and mantaining is a more complex, though not very difficult, task. The same applies for the person trying to read the data. Most databases allow querying of the data in an SQL-type query which is a specific language synthaxed to express relational algebra operations. Examples of this type might include MySQL\footnote{ Oracle Coproration, \url{http://dev.mysql.com/doc/refman/5.7/en/}} , PostgresSQL \footnote{ PostgreSQL Global Development Group, \url{https://www.postgresql.org/}} or MongoDB \footnote{ MongoDB Inc., \url{https://www.mongodb.com/}}.
 
 2TB of csv.gz data split in 24 month daily call records
 
 Recommended websites:
 
-stackoverflow.com
+\url{stackoverflow.com}
 
-https://www.kaggle.com/
+\url{https://www.kaggle.com/} 
 
-http://austinrochford.com/posts.html
+\url{http://austinrochford.com/posts.html}
 
-http://stats.stackexchange.com/
+\url{http://stats.stackexchange.com/}
 
 Python as a general programming language. Mostly for scripting, data preprocessing and data visualization. 
 
@@ -150,13 +148,21 @@ Working with Python provides a direct integration to a very wide array of softwa
 In our experience, this language is the most complete and it has a very high-level interperetation of its synthax. This becomes a gradual learning curve for anyone directly
 
 jupyter notebooks
-
-Online courses:
-https://www.coursera.org/specializations/data-science-python
-https://www.edx.org/course/introduction-python-data-science-microsoft-dat208x-3
+Flexible and powerful for research, collaboration and 
+\url{https://github.com/jdemonasterio/authorea/blob/master/Notebooks/small_tests.ipynb}
 
 A good starting point for a working python workframe would be to use anaconda 
-http://opentechschool.github.io/python-data-intro/core/notebook.html
+\url{https://docs.continuum.io/}
+And for an on-point working tutorial (any working environment)
+\url{http://opentechschool.github.io/python-data-intro/core/notebook.html}
+
+
+
+Online courses:
+\url{https://www.coursera.org/specializations/data-science-python}
+\url{https://www.edx.org/course/introduction-python-data-science-microsoft-dat208x-3} 
+
+
 
 
 Recommended modules:
