@@ -120,10 +120,33 @@
 %\end{definition}
 \end{abstract} 
 
-\section{Brief Technical Notes on Machine Learning Applications}\label{section-technicalObservations}
-Note from own experience  in data processing and machine learning with Python.
+\section{Bonus Track: Brief Technical Notes on Machine Learning Applications}\label{section-technicalObservations}
 
-Built from experience, might be helpful for others trying to deal with the same problems. Not intended to be a reference manual or a 
+These notes do not intend to be a complete reference manual of technical computer resources available for data analysis and machine learning algorithms. Rather it intends to be a starting point for other people, notably university science students, that would like to get started in some \textit{fast} way with a working environment and do not have an advanced technical computer skill. It is certainly built from our experience and we think it might be found helpful for other people that intend to start on a similar path
+
+Part of the solution will be to get a minimum understanding of how computer systems work and how to initialize the tools we'll be using. This becomes obvious when we realize that our tools are computers and data. A Machine Learning application will then become a \textit{program} which is a set of instructions given to a computer, in order to complete a certain task.
+
+Having a minimum notion of how computers work will effectively let us start in a solution a solution. Not only because it will be our tool for this
+but also because we can achieve faster results in the execution. In our case, taking advantage of multiprocessing gave us time advantages of orders of magnitude. 
+
+Certainly there are lots of specific terms that one will start to pick up when using computers. Examples include IPs, servers, ssh connections, clusters, operating systems, terminal multiplexers, package dependencies, repositories, file version control, etc. Not all of them are necessary to start off and this is more notable in small problems, but when the data grows in volume and frequency, it become harder to cope with the necessary
+
+These notes also intend to point to some good (from our experience ) online resources to get started with analyzing, processing and wrangling data. Most of the time used in a solution of this sort will be spent in cleaning, transforming or managing a set of data. And we have found that there are a number of websites, books and online communities that can be a very good starting point for this aspect.
+
+
+
+
+Linux, Ubuntu, git, github, man pages
+
+
+The terminal
+
+
+
+LIBRO WES MACKINNEY \cite{McKinney-pandas}
+
+sklearn docs for machine learning \cite{scikit-learn}
+
 
 Data storage: easiest data format is in `csv` (comma separated values) which is a universal, very general and straight-forward format for data storage. Very few previous knowledge is needed to read this format. The downside is that it's also very inefficient. Even when compressed, it can be orders of magnitude bigger and slower to read than other formats.
 
