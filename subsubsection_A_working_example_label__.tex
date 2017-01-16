@@ -1,34 +1,38 @@
 \subsubsection{A working example}\label{section-example}
 
-For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to predict correctly the class instance of new data objects based on having seen information of other data objects. 
+For the purpose of this work we will be talking of the training set, noted by $\mathrm{T}$ as the set of data examples. The objective is to build a probabilistic model which has the capacity to correctly predict the class instance of new data objects based on having seen information of other data objects.
 
 For concreteness, let's consider a reduced dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}. 
 %\url{http://stackoverflow.com/}
 %\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
-Five measurements were made on all of the observations to account for the user's number of calls and total duration of calls  during a week of measurements. A short example of this dataset can be seen below:
+Five measurements were taken on all of the observations to account for the user's number of calls and total minute duration of calls during a week of measurements. A short overview of this dataset is printed below:
 
 \begin{table}[ht]
-\caption{Head of the CDR dataset}
-\label{tab:sample_CDR}
-\centering
-\begin{tabular}{ l l l l l l }
-\toprule
-User & CallsWeekend & TimeWeekend & CallsWeekDays & TimeWeekday & Province \\
-\midrule
-BA343E  & 15 &  89 & 8 & 24 &  \textit{Santa Fe}\\
-73F169  & 10 &  121 & 2 & 98  &  \textit{Cordoba} \\
-EA23AD  & 12 &  43 & 5 & 154 &  \textit{Buenos Aires} \\
-\bottomrule
-\end{tabular}
+	\caption{Head of the CDR dataset}
+	\label{tab:sample_CDR}
+	\centering
+	\begin{tabular}{ l l l l l l }
+		\toprule
+		User & CallsWeekend & TimeWeekend & CallsWeekDays & TimeWeekday & Province \\
+		\midrule
+		BA343E  & 15 &  89 & 8 & 24 &  \textit{Santa Fe}\\
+		73F169  & 10 &  121 & 2 & 98  &  \textit{Cordoba} \\
+		EA23AD  & 12 &  43 & 5 & 154 &  \textit{Buenos Aires} \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
-In this form a row is representing the available data acquired from each acquired and columns represent types of measurements or information. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. Here $\mathrm{T}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \ x \ p}$  and $Y$ is, in general, a real valued vector of length $n$. The $jth$ column of $X$ or equivalently the $jth$ feature of the data is denoted by $X^j$. Similarly, the $ith$ row or sample of $X$ is denoted by $X_i$ or $x$ when the superscript is understood from context. A similar notation is used with the outputs, where $Y_i$ of $y$ will be used to denote the target of a specific sample depending on context. 
+In this form a row is representing the available data acquired from each user and the columns represent types of measurements or information on that user. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples. 
 
-In this particular case, even though the last column of the dataset in \ref{tab:sample_CDR} is not a measurement \textit{per se}, it gives information on each user's province of residence. From here, there are various questions one could try to answer. Examples of problems that a machine learning algorithm could tackle from this data could be: 
+Here $\mathrm{T}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$  and $Y \in \mathbb{R}^n $. The $jth$ column of $X$ or equivalently the $jth$ feature of the data is denoted by $X^j$. Similarly, the $ith$ row or sample of $X$ is denoted by $X_i$ or $x$ when it is clear from context or when we are referring to a generic sample. A similar notation is used with the outputs, where $Y_i$ of $y$ will be used to denote the target of a specific sample depending on context. 
+
+In this particular case, even though the last column of the dataset in \ref{tab:sample_CDR} is not a measurement \textit{per se}, it gives information on each user's province of residence. With this we can map users to \textit{classes} which are elements of the set of provinces.
+
+Hereon, there are various questions one could try to answer. Examples of problems that a machine learning algorithm could tackle from this dataset could be: 
 
 \begin{itemize}
-	\item Predict a user's province when given information on only the first four measurements.
-	\item Predict a user's number of calls made on weekends when given information on the last four measurements.
+	\item Predict a user's province when given information on only the first four features.
+	\item Predict a user's number of calls made on weekends when given information on the last four features.
 	\item Give an estimate of the probability density function for a user's calling time during weekdays.
 \end{itemize}
 
@@ -41,63 +45,71 @@ The last example problem in the list before, belongs to the unsupervised learnin
 
 To illustrate further the supervised classification scenario, a brief notation outline is described below following a standard logistic regression classifier example:
 
-Let's suppose that the problem is to determine the province of origin of a user. A classification algorithm should assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the phone data:
+Let's suppose that we want to build a predictive model to determine the origin province of a user. A classification algorithm should assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the phone data:
 $$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
 
 In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data. 
 
 Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely associated to a region. It makes sense to try and \textit{minmize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of a correct classification is measured by 
 
-\begin{equation}
+\begin{equation}\label{eq:goodclassification-equation}
 \begin{split}
 =  & \sum_{k=1}^{K} p(x_i \in R_k, C_k )  \\
 =  & \sum_{k=1}^{K} \int_{R_k}p(x_i,C_k) dx \\
-=  & \sum_{k=1}^{K} \int_{R_k}p(C_k \mid x_i) p(x_i) dx + 
+=  & \sum_{k=1}^{K} \int_{R_k}p(C_k \mid x_i) p(x_i) dx 
 \end{split}
 \end{equation}
 
-Observe that the measure is completely characterized by the posterior probabilities. We observe that the factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. So even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the probability of correctly classifying samples.  The goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
- 
-A more reduced problem instance would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a binary learning problem. %us to a two class learning problem. 
-As a simple solution, we could build a learner $f$ from a linear combination of the input features that will predict the target output. Ideally we would have that for every sample $y = f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter.
+Observe that the measure is completely characterized by the posterior probabilities. The factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. And even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions to improve the probability of correctly classifying samples. Thus the goal of the algorithm will then be to chose the best possible regions $R_k$ for the problem.
 
-If we let $ t_i = \theta \cdot x_i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
+A more reduced problem instance would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a binary classification problem since there are two possible output classes. %us to a two class learning problem. 
+
+As a simple solution, we could build a learner $f$ from a  linear combination of the input features combined with a transformation in order to predict the target variable. In the ideal case we would have that for every sample $y \approx f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. Here the model is said to be \textit{linear} because it is linear in $X$.
+
+If we let our decision boundary be $ t_i = \theta \cdot x_i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $ 
 \[
-    %\begin{equation}
-    t_i
-      \begin{cases}
-        &>0 \ \mbox{if} \ y_i=1 \\
-        &<0 \ \mbox{if} \ y_i=0.
-      \end{cases}
-    %\end{equation}
-    \]
+%\begin{equation}
+t_i
+\begin{cases}
+&>0 \ \mbox{if} \ y_i=1 \\
+&<0 \ \mbox{if} \ y_i=0.
+\end{cases}
+%\end{equation}
+\]
 %       \forall 1 \leq i \leq n = y^i $
 
-Then if we were to use the heavyside step function $h(z)$  where
+As an example, we could take the heavyside step function as our transformation $h(z)$  where
 
 \[
-    %\begin{equation}
-    h(z) =
-      \begin{cases}
-        &0 \ \mbox{if} \ z<0 \\
-        &\frac{1}{2} \ \mbox{if} \  z=0 \\
-        &1 \ \mbox{if} \  z>0.
-      \end{cases}
-    %\end{equation}
-    \]
+%\begin{equation}
+h(z) =
+\begin{cases}
+&0 \ \mbox{if} \ z<0 \\
+&\frac{1}{2} \ \mbox{if} \  z=0 \\
+&1 \ \mbox{if} \  z>0.
+\end{cases}
+%\end{equation}
+\]
 
 If the goal of the model is to maximize $P(Y_i = y_i | X_i = x) \ \forall i$
-under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. However this situation is hardly the case, so we use a more common approach. A more tractable function for this task is the logistic function which is an approximation of the heavyside step function. Here  
+under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. However this situation is hardly the case, so the common approach would be to rely on optimization procedures to minimize the amount of misclassification cases. This would be analogous to maximizing the probability of a correct classification in  \ref{eq:goodclassification-equation}.
+
+For analytical convenience, a more tractable function for this task is the logistic which is an approximation of the heavyside step function. Here  
 
 \begin{equation} \label{eq:logisticFunction}
-\sigma(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}  \\
-and \  H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)  
+\sigma(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}} 
 \end{equation}
 
-The logistic function has the advantages of being smooth, well defined for all real numbers and its image is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. The derivative of this function can be put in terms of the function itself, where
+where  we use the relation
+
+\begin{equation}
+ \  H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)  
+\end{equation}
+
+The logistic function has the advantageof being smooth, well defined for all real numbers and the image of the funciton is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. The derivative of this function can be put in terms of the function itself, where
 
 \begin{equation} \label{eq:derivativeLogisticFunction}
- \sigma '(a) = \sigma(a)( 1 - \sigma(a) )    
+\sigma '(a) = \sigma(a)( 1 - \sigma(a) )    
 \end{equation}
 
 The logistic function is also bijective, with the inverse given by the \textit{logit} function 
@@ -106,9 +118,7 @@ The logistic function is also bijective, with the inverse given by the \textit{l
 \sigma^{-1}(z)  = log( \frac{z}{1 - z})    
 \end{equation}
 
-For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modeling the posterior probability $P(Y_i = y | X_i = x)$. Here the model is said to be \textit{linear} because it is linear in $X$, implying that the decision boundary is linear too. 
-
-then it corresponds to having a higher confidence in the classification.
+For the scenario characterized in \ref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot  \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modeling the posterior probability $P(Y_i = y | X_i = x)$ and would correspond to having a higher confidence in the classification.
 
 %This means that 
 
