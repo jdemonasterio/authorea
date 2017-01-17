@@ -130,32 +130,28 @@ $$P(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)} $$
 
 As a simple case, in the two-class problem we have that 
 
+
 \begin{equation}
 \begin{split}
 P(C_1| x) & = \frac{P(x|C_1) }{P(x|C_1)p(C_1) + P(x|C_2)p(C_2)} \\
 & = \frac{1 }
-				{1 + \frac{ P(x|C_2)p(C_2)}
-														{P(x|C_1)p(C_1) 
-								}
-				}\\
-& = \frac{1 }
-				{1 + \frac{ P(x|C_2)p(C_2)}
-					{P(x|C_1)p(C_1) 
-					}
-				}\\
+				{1 + \exp(- \log( \frac{ P(x|C_1)p(C_1)}
+												{P(x|C_2)p(C_2) 
+																}))  
+				}
 \end{split}
 \end{equation}
 
-Let $j$ be a fixed class and denote Note that 
+Here we see the close resemblance to the logistic function which is acting on the \textit{log-odds ratio} $ \log( \frac{ P(x|C_1)p(C_1)}{P(x|C_2)p(C_2) })$. This equivalent form of the posterior distribution of one class with regards to the log-odds one property defining the model. 
+
+
 %\begin{definition}{Logistic Regression}
 %x	Given a choice of parameter $\theta$, 	
 %\end{definition}
 
-In logistic regression the posterior probabilities of each class are modeled with a transformation on a linear combination of inputs. It also conditions the posterior probabilities must sum to one. The probabilities describing the target values are modeled using the logistic function.
+The second defining poperty of logistic regression is that the log-odds are modeled with a transformation on a linear combination of inputs. It also conditions the posterior probabilities must sum to one. Let $j$ be a fixed class and denote
 
-To satisfy the above, the log-odss ratios of all the classes with respect to a fixed class must be linear in the inputs. This means that
-
-$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$\label{logit-logOddss} for $i,j \in \{1,2,...,K\}, i\neq j$ and with $j$ fixed.
+$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$\label{logit-logOddss} for $i,j \in \{1,2,...,K\}, i\neq j$
 
 With these same indices we have that
 
