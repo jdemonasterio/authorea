@@ -1,29 +1,46 @@
+\section{TODO: Review logistic regression MODEL}
+
+
 \section{Logistic Regression for Classification}\label{section-logisticRegression}
 
-This model is named as a \textit{regression} model but is actually used for \textit{classification} and this convention has been used in this way for historical reasons.
+This model is named as a \textit{regression} model but is actually used for \textit{classification} and this convention has been made this way for historical reasons.
 
 
+Let $\{C_1,..,C_k\}$ denote the set of possible target classes. Recall that in a classification problem we are  interested in maximizing a sample's probability of belonging to a certain class, given the input data:
+$$P(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)} $$
 
-Let $\{C_1,..,C_k\}$ denote the set of possible target classes. We are  interested in maximizing the probability of belonging to a certain class, given the input data:
-$$P(C_k| X) = \frac{P(x|C_k)P(C_k)}{P(x)} $$
+As a simple case, in the two-class problem we have that 
 
-\begin{definition}{Logistic Regression}
-	Given a choice of parameter $\theta$, 	
-\end{definition}
 
-Logistic regression models the posterior probabilities of the classes with a transformation on a linear function of inputs. It also conditions that the posterior probabilities must sum to one. Here the probabilities describing the possible values for the target variable is modeled using a logistic function.
+\begin{equation}
+\begin{split}
+P(C_1| x) & = \frac{P(x|C_1) }{P(x|C_1)p(C_1) + P(x|C_2)p(C_2)} \\
+& = \frac{1 }
+				{1 + \exp(- \log( \frac{ P(x|C_1)p(C_1)}
+												{P(x|C_2)p(C_2) 
+																}))  
+				}
+\end{split}
+\end{equation}
 
-To satisfy this the log-odss ratios of all the classes with respect to a fixed class must all be linear in the inputs. This means that
+Here we see the close resemblance to the logistic function which is acting on the \textit{log-odds ratio} $ \log( \frac{ P(x|C_1)p(C_1)}{P(x|C_2)p(C_2) })$. This equivalent form of the posterior distribution of one class with regards to the log-odds one property defining the model. 
 
-$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$ for $i,j \in \{1,2,...,K\}, i\neq j$ \label{logit-logOddss}
+
+%\begin{definition}{Logistic Regression}
+%x	Given a choice of parameter $\theta$, 	
+%\end{definition}
+
+The second defining poperty of logistic regression is that the log-odds are modeled with a transformation on a linear combination of inputs. It also conditions the posterior probabilities must sum to one. Let $j$ be a fixed class and denote
+
+$$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$\label{logit-logOddss} for $i,j \in \{1,2,...,K\}, i\neq j$
 
 With these same indices we have that
 
 $$ P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   $$ 
 
-Then the model is specified in terms of the log-odds for each class and is parameterized by $\theta$.
+In this way the model is specified in terms of the log-odds for each class with respect to the base class $j$ and the model will be parameterized by $\theta$.
 
-This model sets the target as a Bernoulli random variable when conditioned on the input variables. Formally,
+The model then sets the target as a Bernoulli random variable when conditioned on the input variables. Formally we have that,
 
 \begin{equation}
 \begin{split}
@@ -39,7 +56,7 @@ where this depends on the class dependence of $y$.
 
 Here the logit function is used to map log odds into conditional probabilties and the model outputs the predicted probabilities of the target variables belonging to the target class.
 
-In this way, we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
+This is why we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
 $$Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i$$. \label{logit-indicatorFunction}
 
 where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and parameter $p_i$. 
@@ -95,20 +112,20 @@ Regularization is commonly used in problems which are ill-posed either because t
 
 There are a number of different functionals $R(\cdot)$ used to impose conditions on the model. The most common ones include introducing a penalty to the size of $\theta$ by measuring a given norm  $\| \theta \|$.  Most implementations of the algorithms use $l1$ and $l2$ norms.
 
- Each has its own advantages and the details exceed the nature of this work. As a summary, benefits are related to robustness of the solution, convexity of the minimization function, unique minimum and model parsimony. The former case is known as \textit{ Lasso} regularization and the latter is known as \textit{ridge} or \textit{Tikhonov} regularization. Other variants include the \textit{elastic-net} penalty which is a weighted average of the previous two norms, or the $l0$ norm, which is the number of non null components of $\theta$. 
+Each has its own advantages and the details exceed the nature of this work. As a summary, benefits are related to robustness of the solution, convexity of the minimization function, unique minimum and model parsimony. The former case is known as \textit{ Lasso} regularization and the latter is known as \textit{ridge} or \textit{Tikhonov} regularization. Other variants include the \textit{elastic-net} penalty which is a weighted average of the previous two norms, or the $l0$ norm, which is the number of non null components of $\theta$. 
 
 
- and taking a weighted average of two different penalizations. T
+and taking a weighted average of two different penalizations. T
 
 Even though some regularization methods have closed-form solutions, in practice most of them are found by iterative optimization routines such as gradient descent.	
 
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
 
 \begin{equation} \label{logitRegularization}
-\begin{split}
-	\min_{\theta} &  \sum_{i=1}^N \(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \)  +  \lambda\| \theta\|_{2}^2 \\
-	\min_{\theta} &  \sum_{i=1}^N \(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \) +  \lambda \sum_{j=1}^{P}  \theta_j^2 
-\end{split}
+	\begin{split} 
+	\min_{\theta} &  \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \big)  +  \lambda \| \theta\|_{2}^2 \\
+	\min_{\theta} &  \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \big) +  \lambda \sum_{j=1}^P  \theta_j^2  
+	\end{split}
 \end{equation}
 
 %\min_{\theta} &  \sum_{i=1}^N L(f(X_i,\theta),Y_i)   +  \lambda\| \theta\|_{2}^2 \\
@@ -130,13 +147,4 @@ The hyper-parameters are the values set to configure the different possible vari
 Note that in a Bayesian context the definition of hyper-parameter is different. These appear in the  prior distributions of the model's parameters and should not be confused. In this case, the parameter's of $\theta$'s distribution are called the hyper-parameters. 
 
 
-
 \textit{}
-
-\textit{}
-
-\textit{}
-
-\textit{}
-
-\textit{} 
