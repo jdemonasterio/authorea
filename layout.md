@@ -3,7 +3,7 @@ section_Brief_ovierview_to_machine__.tex
 subsubsection_A_working_example_label__.tex
 section_TODO_Review_logistic_regression__.tex
 As_we_know_the_learner__.tex
-section_Bias_Variance_Generalization_and__.tex
+AGRANDA_2016_Camera_ready_version__.tex
 figures/figure-biasVariance/figure-biasVariance.png
 vaIn_ref_figure_biasVariance_Hastie__.tex
 subsection_Brief_comment_on_the__.tex
