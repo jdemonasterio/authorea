@@ -57,8 +57,8 @@ where we have used an abuse of notation to absorb $\theta_0$ into $\theta$. Fina
 $$  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}$$
 
 
-Maximum likelihood is the most common method used to fit the model. %with multinomial distributions modeling the features. 
-Given a parameter $\theta$, the probability of having a target vector $y$ is 
+As usual, ,aximum likelihood is a common method used to fit models. In this case, given a parameter $\theta$, the probability of having a target vector $y$ yields
+%with multinomial distributions modeling the features.
 \[
 P(Y =y \mid \theta )  = \prod_{i=1}^N P(y_1 \in C_1 \mid x_i, \theta)^y_i(1 - P(y_1 \in C_1 \mid x_i, \theta) )^{(1-y_i)}
 \]
