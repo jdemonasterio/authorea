@@ -1,14 +1,15 @@
 \section{Bias, Variance, Generalization and Model Complexity}\label{section-biasVariance}
 
- Given a problem setting, it is said that an algorithm's predictive power relies on its ability to correctly label samples on independent test data. Measuring and comparing this ability among models is done to select the best supervised estimator.  The best learner will be said to have the lowest \textit{predictive error}. It is common in the literature \cite{james-biasVarianceGeneral} to separate the sources for this error in two concepts: bias and variance. Controlling these errors is central to any supervised machine learning problem.
- 
- Conceptually the first type of error arises to the accuracy of the model in labeling predictions correctly. Either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value. It is lower when models learn on the underlying structures of the data. However, as models learn more from the data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. This second type of error is commonly to as increase in variance.
- 
- In the generalization error, the loss function plays an important part in determining how \textit{good} the model's prediction and quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on the data. 
- 
-By comparing target predictions versus their real values for each sample, loss functions are defined as a measure of how strong classifiers are with respect to their predictions. They behave as semimetrics on the target space i.e. functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
+In supervised learning settings, the goal is to build a learner with low predictive error. The algorithm's generalization power will then lie on its ability to correctly label samples on independent test data which is has not trained on. Measuring and comparing this ability among models is done to select the best supervised estimator. The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$.
+%The best learner will be said to have the lowest \textit{predictive error}. 
 
-In the context of supervised classification they are also called \textit{metrics} and they origin from \textit{Type I \& type II} errors common in statistics but have different meanings in this context.  There are a number of different variations of metrics where different problem settings might require different more suitable metrics to be used.
+In the literature such as \cite{james-biasVarianceGeneral} authors point to two sources responsible for this error, namely the bias and the variance of the learner. And the improvement of one generally leads to a hinder of the other. These errors are central to the prediction error because they point to different weak points in the algorithms. This will result in different ways to tackle each error and controlling both is central to any supervised learning problem.
+ 
+Conceptually the first type of error relates to the model's accuracy in labeling predictions correctly. This could be either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value in a regression setting. It is lower when models correctly learns the underlying structures of the data. However, as models learn more from the available data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. In this situation we have another type of error which is known as an increase in variance.
+ 
+ In the generalization error, the loss function  determines how \textit{good} the model's prediction are by quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on the data. 
+ 
+By comparing for each sample the target predictions versus their real values, loss functions give a measure of how strong classifiers are with respect to their predictions. These can be characterized as semimetrics on the target space i.e. functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
  
  \begin{definition}{Generalization Error}
  	The generalization error is also known as the prediction error. Given that any model is always built on the data, this value is the model's expected error over an independent training set $\mathrm{Ts}$:
@@ -51,27 +52,26 @@ In the context of supervised classification they are also called \textit{metrics
  Note that with this definitions the variance is an operator defined only for the estimator and which is null only when the predictor is a constant value for any training set. As such, it is unchanged by new data. The bias on the other hand is an operator built form the systemic values of $Y$ and $\hat{f}$ and is null only if both of this values are equal.
  
  One is that it represents the systematic difference between a random
- variable and a particular value, e.g. the tar get, and the other is the degree
- to which that systematic difference contributes to error
+ variable and a particular value, e.g. the target, and the other is the degree to which a random variable systematically aligns over a particular value.
+ %to which that difference in value contributes to error.
+ %The variance of a model is then 
  
- The variance of a model is then 
+% For the variance, the author argues that it should measure the 
+ %It then 
  
- For the variance, the author argues that it should measure the 
- It then 
+ In supervised classification loss functions are also called \textit{metrics} and they origin from \textit{Type I \& Type II} errors common in statistics but have different meanings in this context.  There are a number of different variations of metrics where different problem settings might require different more suitable metrics to be used. Here $Y$ will be taking any of the values in the class set $\calG$ and we will denote $K = |\calG|$ as the number of classes.
  
- In multi-class supervised problem setting, $Y$ will be taking any of the values in the class set $\calG$ and we will denote $K = |\calG|$ as the number of classes.
- 
- 
- In practice there are only a limited amount of samples characterizing the true underlying distribution. We must 
+% In multi-class supervised problem setting, 
  
  \begin{definition}{Expected Prediction Error}
  	Related to the generalization error, the expected prediction error is the expectation of the generalization error:
  	$$ EPE = \Expect \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
  \end{definition}
  
- The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$. Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
+Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
  
- In a supervised learning context, the estimation of these errors will be of most importance for the assessment of the models.  Given  that we will be working only with information from the training set, then estimation of the second error will be, in most cases, not possible.
+ In a supervised learning context, the estimation of these errors will be of most importance for the assessment of the models. Given that we will be working only with information from the training set, we only have access to a limited amount of samples. 
+ Then estimation of the second error will be, in most cases, not possible. Therefore we must estimate the true prediction error: 
  
  By conditioning on the training set we may rewrite the above formula as 
  
