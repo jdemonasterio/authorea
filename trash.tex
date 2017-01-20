@@ -121,60 +121,130 @@
 \end{abstract} 
 
 
-As we know, the learner will be fit to best approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$. A first approach led to find the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we have built a problem with $p$ degrees of freedom, we re left to find the parameter. To do this we must give an optimizing criteria to minimize. This choice will certainly depend on the way we want to decide that one parameter is better than another. 
+\section{Bias, Variance, Generalization and Model Complexity}\label{section-biasVariance}
 
-For example the choice of $0.5$ as a threshold in \ref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning, the functions that define a quantitative measure of a parameter's performance are called \textit{loss functions}.
-%the criteria used to choose the best parameters
+In supervised learning settings, the goal is to build a learner with low predictive error. The algorithm's generalization power will then lie on its ability to correctly label samples on independent test data which is has not trained on. Measuring and comparing this ability among models is done to select the best supervised estimator. The generalization error is also known as the prediction error. This is the model's expected error over an independent training set $\mathrm{Ts}$.
+%The best learner will be said to have the lowest \textit{predictive error}. 
 
-A naive approach to find the parameters in our problem would be to minimize the residual sum of squares. Typical of other scenarios such as linear regression, one would like to minimize the following sum:  
+In the literature such as \cite{james-biasVarianceGeneral} authors point to two sources responsible for this error, namely the bias and the variance of the learner. And the improvement of one generally leads to a hinder of the other. These errors are central to the prediction error because they point to different weak points in the algorithms. This will result in different ways to tackle each error and controlling both is central to any supervised learning problem.
 
+Conceptually the first type of error relates to the model's accuracy in labeling predictions correctly. This could be either by assigning the sample to its correct class in classification settings or by predicting correctly the sample's target value in a regression setting. It is lower when models correctly learns the underlying structures of the data. However, as models learn more from the available data i.e. the training set, they lose the ability to extend this predictive accuracy to new samples because they \textit{overfit} on the samples available. In this situation we have another type of error which is known as an increase in variance.
 
-\begin{equation} \label{eq:rss}
-RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y_i - \hat{y}_i]^2  \\
-=  \sum_{i=1}^n [y_i - h( \theta \cdot x_i)]^2
-\end{equation}
+In the generalization error, the loss function  determines how \textit{good} the model's prediction are by quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on the data. 
 
-The equation reflects our goal to correctly match a training sample with their targets. Naturally those parameters that give bigger differences between the predictions and the target values will give a higher value to $RSS$.
-
-Our main interest will be in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones. And simply minimizing the previous equation could be a bad attempt to generalize the classification model constructed from the data. The idea is that the learner is to fit the actual dataset but we wouldn't have a measure of how it would've performed with new, unseen samples of the \textit{true} distribution for $\mathrm{T}$. 
-
-The prediction error is a measure that tries to characterize the generalization aspect of a learner, before actually gathering new data.
+By comparing for each sample the target predictions versus their real values, loss functions give a measure of how strong classifiers are with respect to their predictions. These can be characterized as semimetrics on the target space i.e. functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
 
 \begin{definition}{Prediction Error}
-	Given a choice of parameter $\theta$, the \textbf{prediction error} for the resulting classifier $f_\theta$ is
-	
-	\[
-	Err_{true}(\theta)  = \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
-	= \int (y - h(x \cdot \theta) )^2 P(x,y)dxdy
-	\]
+	$$ PE(\hat{f})= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X))v\right]$$
 \end{definition}
 
-Note that integral is done over the joint distribution of inputs and outputs. In practical cases, we will only have incomplete information on $P(x,y)$ given the finite data sample.
+This is the average error between our model and the target, as quantified by the loss function. To
 
-We must assume then that calculating this integral is not feasible for any $\theta$ and must look upon ways of estimating this error.
 
-For example, given a parameter $\theta$ we could use our sample of $n$ iid points from $P(x,y)$ to approximate the integral by a Monte Carlo scheme such as 
+\begin{definition}{Generalization Error}
+	The generalization error is also known as the training prediction error. Given that any model is always built on the data, this value is the model's error over an independent training set $\mathrm{Ts}$:
+	$$ Err_{\mathrm{T}} =  \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) |  \mathrm{T}\right]$$
+\end{definition}\footnote{Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.}
 
-\begin{equation} \label{eq:mcarlo-approx}
-Err_{true}(\theta)  \approx \frac{1}{n} \sum_i^n ( y - h(x \cdot \theta) )^2
+Historically the errors due to bias and variance where associated directly with the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. This function was favored over other functions because of its analytical advantages.  The generalization for this case is
+
+\begin{equation}\label{squaredPE}
+PE = \Expect_X \Expect_{Y|X} \left[ \left\Vert  Y - \hat{f}(X)  \right\Vert_2^2 \right]
 \end{equation}
 
-This equation closely resembles \ref{eq:rss} but the difference lies in that the sampling process should be repeated for each specific $\theta$. Again, we have only a limited amount of samples to do this.
+It is not difficult to see that the model that minimizes this error is $\hat{f}(x) = \Expect \left[ Y | X=x \right] $. Suppose now that there exists a true functional relation $Y = f(X) + \epsilon$. 
+In this simple scenario, $\epsilon$ is the noise, with a fixed variance $\sigma^2$ and $0$ mean. Our model $\hat{f}$ will be an estimate of this true relation, constructed from the data. And for this loss function, its error $\Expect \left[ \left\Vert Y  - \hat{f}(X) \right\Vert_2^2 \right]$ can be decomposed in the following way:
 
-As a first limitation, our models will be learning to optimize on a reduced dataset from the \textit{true} distribution. The dataset we will call the \textit{training} set and the error $Err_{train}$ will be the learner's prediction error on this specific set.
+\begin{equation}\label{squaredBiasDecomposition}
+PE( \hat{f} ) = \Expect_X \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expect_X \left[ \hat{f}(X)^2  \right] - \Expect_X \left[ \hat{f}(X)  \right]^2  + \sigma^2
+= Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
+\end{equation}
+
+Equation \ref{squaredBiasDecomposition} is referred to as the bias-variance decomposition for the squared loss. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. Note that we have already taken the expectation over the target and that is why we are left with the target's noise. This part of the error we can not minimize or control with our learner. It is due to the random nature of the problem.
+
+For more general loss functions other than the squared error, a generalized notion of bias and variance is found in \cite{james-biasVarianceGeneral}. The author defines what properties should be displayed by the bias and variance of any estimator. 
+\begin{definition}{Systematic Value}
+	Given a training set $\mathrm{T}$, a loss function $L(\cdot)$ and an estimator a random variable $Z$, the systematic value or systematic component of this variable is 
+	$$ SZ  =  arg \ min_u \Expect_{Z} \left[ L(u,Z) \right]$$
+\end{definition}
+
+This definition gives the systematic value as the nearest constant value to the random variable, with the measure as given by the loss function.
+
+%The systematic value for the input and target variable then the same way as with the squared loss function, where the expectation is over the target's distribution. 
+
+In a general setting, the bias should be the measure of the systematic difference in which a random variable differs from a particular target value and it also should be the measure of how much this systematic difference contributes to the error. 
+
+On the other hand the variance of an estimator should measure the spread of the estimator around its systematic component and it should also be the effect this variance has on the prediction. In this sense, the author then defines variance and bias to be:
+
+\begin{equation}
+\begin{split}
+& Bias(\hat{f})^2 = L(S\hat{f},SY)) \\
+& Var(\hat{f}) = \Expect_{\hat{f}} \left[  L(\hat{f}  , S\hat{f}) \right]
+\end{split}
+\end{equation}
+
+Note that with this definitions the variance is an operator defined only for the estimator and which is null only when the predictor is a constant value for any training set. As such, it is unchanged by new data. The bias on the other hand is an operator built form the systemic values of $Y$ and $\hat{f}$ and is null only if both of this values are equal.
+
+%One is that it represents the systematic difference between a random
+%variable and a particular value, e.g. the target, and the other is the degree to which a random variable systematically aligns over a particular value.
+%to which that difference in value contributes to error.
+%The variance of a model is then 
+
+% For the variance, the author argues that it should measure the 
+%It then 
+
+In supervised classification, loss functions are also called \textit{metrics} and they origin from \textit{Type I \& Type II} errors common in statistics but have different meanings in this context.  There are a number of different variations of metrics where different problem settings might require different more suitable metrics to be used. Here $Y$ will be taking any of the values in the class set $\calG$ and we will denote $K = |\calG|$ as the number of classes.
+
+% In multi-class supervised problem setting, 
+
+\begin{definition}{Expected Prediction Error}
+	Related to the generalization error, the expected prediction error is the expectation of the generalization error:
+	$$ EPE = \Expect \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
+\end{definition}
+
+Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
+
+In a supervised learning context, the estimation of these errors will be of most importance for the assessment of the models. Given that we will be working only with information from the training set, we only have access to a limited amount of samples. 
+Then estimation of the second error will be, in most cases, not possible. Therefore we must estimate the true prediction error: 
+
+By conditioning on the training set we may rewrite the above formula as 
+
+\begin{equation}\label{classificationEPE}
+EPE = \Expect_x\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right]
+\end{equation}
 
 
-%In classification problems, the residual sum of squares is not the loss function used to estimate the model\'s parameters. Instead, they rely on other \textit{loss} functions that we will introduce later.
-
-Our clss of learners will be any function of the form $f: X \rightarrow Y$ mapping feature space to the target space. For now, assume that $y  =  f(x)  +  \epsilon $ is a good relationship for our data, where $\epsilon \sim \calN(0,1) $ then the equation in \ref{eq:rss} can be read as the parameter error given the training set.
-
-With learner's of this form, our interest is now in minimizing the training error as an approximation of the true prediction error. This is:
-\[
-Err_{train}(\theta) \approx \Expect_{ \mathrm{T}}[(y - h(x \cdot \theta) )^2]
-\]
+\begin{definition}{Training Error}
+	is the average loss over the training set
+	$$ \overline{err} = \frac{1}{N} \sum_i=1^N L(y_i, \hat{f}(x_i) )$$
+\end{definition}
 
 
-%, and can be decomposed into two types of errors
+For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input variable and \textbf{y}  $\in \mathbb{R}$ will denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
+
+We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a quadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
+
+
+Models are evaluated according to their performance in these two errors in training and testing datasets. Combinations of high or low values for these, across training and test data, are used as model evaluation and highlight aspects to be improved. 
+
+For example, a very common scenario is having a model that has high overall variance and low bias. 
+It is said that a learner overfits a training set $\mathcal{T}$ if it fits parameter $\hat{\theta}$ while there $\exists \theta^*$ such that
+\begin{equation} \label{eq:overfitting}
+Error_{train}(\hat{\theta}) < Error_{train}(\theta^*) \  and \ Error_{test}(\theta^*) < Error_{test}(\hat{\theta})   
+%\sum_{i=0}^{\infty} a_i x^i
+\end{equation}
+
+Once the model was fit on the training set, it overfits when predictions on training samples are very accurate whilst predictions on new samples spread out and raise the value of the error. The model has learned very well from the training data but fails to be accurate on new samples.
+
+A trivial algorithm that would 
+
+An opposite scneario scenario occurs when
+
+
+rise Typical combinations
+The four possible combinations of high 
+
+
 
 \end{document}
 
