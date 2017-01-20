@@ -92,7 +92,7 @@ whilst the second order derivatives take the following form:
 
 Regularization is commonly used in problems which are ill-posed either because the model is biased or overfit. In general, restrictions are put to reduce the number of predictors used in the model. This \textit{shrinkage} of parameters can be forced by penalizing large values for $\theta$ either by the number of non-null components of this parameter or by measuring its distance to zero. By doing so, we hope that only the most relevant features are selected in the model. As we will see in \ref{section-VcDimension}, a shorter model has the benefit of being more accurate in the estimation for the prediction error. In other cases, the advantage of a reduced model is that the variance of the model is reduced, only with a slight increase in bias. A slightly more \textit{heuristic} argument for model parsimony is that as such,all models will approximate natural up to a certain level if two models have the same predictive power, the simpler model should be used.
 
-The most basic example of model regularization comes from the bayesian lineal regression. When 
+%The most basic example of model regularization comes from the bayesian lineal regression. If we were to take weights to be   
 
 There are a number of different functionals $R(\cdot)$ used to impose conditions on the model. The most common ones include introducing a penalty to the size of $\theta$ by measuring a given norm  $\| \theta \|$.  
 
