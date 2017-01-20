@@ -5,6 +5,10 @@
 	* section Technical Observations (python, jupyter, sklearn, pandas, 
 										sframes, graphlab, spark mllib, 
 										theano, tensor flow, xgboost)
+	* terminar logit regression mas explicado
+
+	* terminar bias-variance decomposition explicando bien el training error como aproximacion del EPE.
+ 
 
 ## Introduction Chapter
 	*ampliar introduction de los papers
