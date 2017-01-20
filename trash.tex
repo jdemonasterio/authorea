@@ -160,7 +160,7 @@ PE( \hat{f} ) = \Expect_X \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expect_X \le
 = Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
 \end{equation}
 
-Equation \ref{squaredBiasDecomposition} is referred to as the bias-variance decomposition for the squared loss. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. Note that we have already taken the expectation over the target and that is why we are left with the target's noise. This part of the error we can not minimize or control with our learner. It is due to the random nature of the problem.
+Equation \ref{squaredBiasDecomposition} is referred to as the \textit{bias-variance decomposition for the squared loss}. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how will this random variable vary along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. Note that we have already taken the expectation over the target and that is why we are left with the target's noise. This part of the error we can not minimize or control with our learner. It is due to the random nature of the problem.
 
 For more general loss functions other than the squared error, a generalized notion of bias and variance is found in \cite{james-biasVarianceGeneral}. The author defines what properties should be displayed by the bias and variance of any estimator. 
 \begin{definition}{Systematic Value}
@@ -174,7 +174,7 @@ This definition gives the systematic value as the nearest constant value to the 
 
 In a general setting, the bias should be the measure of the systematic difference in which a random variable differs from a particular target value and it also should be the measure of how much this systematic difference contributes to the error. 
 
-On the other hand the variance of an estimator should measure the spread of the estimator around its systematic component and it should also be the effect this variance has on the prediction. In this sense, the author then defines variance and bias to be:
+On the other hand the variance of an estimator should measure the spread of the estimator around its systematic component and it should also be the effect this variance has on the prediction. In this sense, the author then defines the variance and bias of the learner to be:
 
 \begin{equation}
 \begin{split}
@@ -185,6 +185,26 @@ On the other hand the variance of an estimator should measure the spread of the 
 
 Note that with this definitions the variance is an operator defined only for the estimator and which is null only when the predictor is a constant value for any training set. As such, it is unchanged by new data. The bias on the other hand is an operator built form the systemic values of $Y$ and $\hat{f}$ and is null only if both of this values are equal.
 
+
+The generalized bias-variance decomposition now takes the following form:
+
+\begin{equation}
+\begin{split}
+\Expect_{X,Y} \left[ L(\hat{f}(X),Y )\right] = &  \Expect_{Y} \left[ L(SY,Y )\right] + \\
+			  &  \Expect_{Y} \left[ L(S\hat{f}(X),Y ) - L(SY,Y )\right] + \\
+			  &  \Expect_{Y,X} \left[ L(\hat{f}(X),Y ) - L(S\hat{f}(X),Y )\right]
+\end{split}
+\end{equation}
+ 
+Note here that the first term is equivalent to the variability of the target variable with respect to its systematic value, the second term is the expected bias between the systematic values of $Y$ and $\hat{f}(X)$ and the third term is the expected variablity between $Y$ and $\hat{f}(X)$. 
+% $\Expect_{Y} \left[ L(SY,Y )\right]$
+ 
+%\begin{equation}\label{squaredBiasDecomposition}
+%PE( \hat{f} ) = \Expect_X \left[   f(X)  - \hat{f}(X) \right]^2 +  \Expect_X \left[ \hat{f}(X)^2  %\right] - \Expect_X \left[ \hat{f}(X)  \right]^2  + \sigma^2
+%= Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
+%\end{equation}
+ 
+ 
 %One is that it represents the systematic difference between a random
 %variable and a particular value, e.g. the target, and the other is the degree to which a random variable systematically aligns over a particular value.
 %to which that difference in value contributes to error.
@@ -193,24 +213,29 @@ Note that with this definitions the variance is an operator defined only for the
 % For the variance, the author argues that it should measure the 
 %It then 
 
-In supervised classification, loss functions are also called \textit{metrics} and they origin from \textit{Type I \& Type II} errors common in statistics but have different meanings in this context.  There are a number of different variations of metrics where different problem settings might require different more suitable metrics to be used. Here $Y$ will be taking any of the values in the class set $\calG$ and we will denote $K = |\calG|$ as the number of classes.
-
+In the case of supervised classifiers, loss functions are also called \textit{metrics} and they origin from \textit{Type I \& Type II} errors common in statistics but have different meanings in this context.  There are a number of different variations of metrics where different problem settings might require different more suitable metrics to be used. Here $Y$ will be taking any of the values in the class set $\calG$ and we will denote $K = |\calG|$ as the number of classes. Since we are trying to correctly label samples, the most common loss function used in this context is $L(Y, \hat{f}(X)) = I(Y \neq \hat{f}(X))$. 
 % In multi-class supervised problem setting, 
+
+Then we would have that $SY = \arg max_{1\leq i \leq K} P(Y=i)$ and $S\hat{f}(X) = \arg max_{1\leq i \leq K} P(\hat{f}(X)=i)$. It is also straightforward to see that $Var(Y) = 1 - P(Y=SY)$ and $Var(\hat{f}(X)) = 1 -  P(X = S\hat{f}(X)) $. 
+
+With the above we have that the decomposition of the prediction error for this case becomes
+$$Var(Y) + P(Y=SY)  - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)$$ which again relies heavily on the variability of the target and on how well the classifier approximates the labels.
+
+%S\hat{f}(X)
+
+%Let 
+
+
 
 \begin{definition}{Expected Prediction Error}
 	Related to the generalization error, the expected prediction error is the expectation of the generalization error:
-	$$ EPE = \Expect \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
+	$$ EPE = \Expect_{X,Y} \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]$$
 \end{definition}
 
-Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. 
-
-In a supervised learning context, the estimation of these errors will be of most importance for the assessment of the models. Given that we will be working only with information from the training set, we only have access to a limited amount of samples. 
-Then estimation of the second error will be, in most cases, not possible. Therefore we must estimate the true prediction error: 
-
-By conditioning on the training set we may rewrite the above formula as 
+Here the expectation is taken over all the random elements of this process including the samples and the model fit from these. By conditioning on the training set we may rewrite the above formula as 
 
 \begin{equation}\label{classificationEPE}
-EPE = \Expect_x\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right]
+EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right]
 \end{equation}
 
 
@@ -222,10 +247,10 @@ EPE = \Expect_x\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right]
 
 For the next part, \textbf{x} $\in \mathbb{R}^{p}$ will denote a random input variable and \textbf{y}  $\in \mathbb{R}$ will denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
 
-We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a quadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
+%We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a quadratic or absolute value functions are chosen, where the first is more favored for its smoothness. 
 
 
-Models are evaluated according to their performance in these two errors in training and testing datasets. Combinations of high or low values for these, across training and test data, are used as model evaluation and highlight aspects to be improved. 
+We will then look to evaluate models according to their performance in these two errors in training and testing datasets. Combinations of high or low values for these, across training and test data, are used as model evaluation and highlight aspects to be improved. 
 
 For example, a very common scenario is having a model that has high overall variance and low bias. 
 It is said that a learner overfits a training set $\mathcal{T}$ if it fits parameter $\hat{\theta}$ while there $\exists \theta^*$ such that
