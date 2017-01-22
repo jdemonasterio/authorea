@@ -7,7 +7,7 @@ AGRANDA_2016_Camera_ready_version__.tex
 figures/figure-biasVariance/figure-biasVariance.png
 In_ref_figure_biasVariance_the__.tex
 subsection_Using_the_Vapnik_Chervonenkis__.tex
-subsection_Cross_Validation_Cross_Validation__.tex
+subsection_Cross_Validation_There_are__.tex
 subsubsection_CV_Scores_in_Classification__.tex
 subsubsection_ROC_Curve_Even_more__.tex
 figures/figure-lowROCAUC/figure-lowROCAUC_original.png
