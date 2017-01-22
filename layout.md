@@ -5,7 +5,7 @@ section_TODO_Review_logistic_regression__.tex
 As_we_know_the_learner__.tex
 AGRANDA_2016_Camera_ready_version__.tex
 figures/figure-biasVariance/figure-biasVariance.png
-vaIn_ref_figure_biasVariance_Hastie__.tex
+In_ref_figure_biasVariance_the__.tex
 subsection_Brief_comment_on_the__.tex
 subsection_Cross_Validation_Cross_Validation__.tex
 subsubsection_CV_Scores_in_Classification__.tex
