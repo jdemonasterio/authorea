@@ -1,11 +1,10 @@
 \subsubsection{CV Scores in Classification Learning}
 
-In binary classification, the contingency table evaluates the 
-would then count the amount of samples that fall into one of the four groups derived from the comparison between the model's expectation and the observed data. 
+In binary classification, the contingency table summarizes all of the learner's training performance. This shows the count the amount of samples that fall into one of the four groups derived from the comparison between the model's output and the observed data for the labels.
 
-In a simple binary classification case, the model $\hat{f}$ is fit  from the data with a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible outcomes for these two variables.  We can express the models' target outcomes $\hat{y}$ into the positive ($\hat{P}$) or negative ($\hat{N}$) categories and the same with actual target data into the positive ($P$) or negative ($N$) categories. 
+ Let $\hat{f}$ be our fit model, from the data with a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible outcomes for these two variables with two values for each.  We can express the models' target outcomes $\hat{y}$ into the positive ($\hat{P}$) or negative ($\hat{N}$) categories and the same with actual target data into the positive ($P$) or negative ($N$) categories. 
 
-To assess the performance of the classification algorithm and chose the \textit{best} model we must decide on how the CV procedure wil value two different models. The idea is to quantify the mismatch between the target  and the predicted value. Here loss functions are also known as \textit{scores}, \textit{measures} or \textit{utility functions} and are built by looking at how many times an algorithm  misclassifies instances and where is the misclassification happening. To visualize this, a \textit{confusion} table with the following format is drafted:
+To assess the performance of the classification algorithm and chose the \textit{best} model we must decide on how the CV procedure will value two different models. The idea is to quantify the mismatch between the target  and the predicted value. Here loss functions are also known as \textit{scores}, \textit{measures} or \textit{utility functions} and are built by looking at how many times an algorithm  misclassifies instances and where is the misclassification happening. To visualize this, a \textit{confusion} table with the following format is drafted:
 
 \noindent
 \renewcommand\arraystretch{1.5}
