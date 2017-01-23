@@ -104,7 +104,7 @@ For more examples, refer to \cite{cherkassky-learning2007} Pg. 113 for examples 
 SLT then proves that if a class of binary classifiers is of finite VC dimension, accurate bounds can be given to estimate train and predictive errors. For a sample of size $n$, take $Err^n_{train}(\theta^*)$ to be the minimum training error and $EPE(\theta_0)$ the minimum true predictive error. 
 
 They show that for classes which have a finite VC dimension $h$, the n-th shattering coefficient is bounded by a polynomial of order equal to the dimension 
-i.e. $\Delta_n(\mathcal {F}) \leq O(n^(h))$ \footnote{$O(\cdot)$ corresponds to Big-O notation.} where $VC$ stands for the VC dimension of the class.
+i.e. $\Delta_n(\mathcal {F}) \leq O(n^{h})$ \footnote{$O(\cdot)$ corresponds to Big-O notation.} where $VC$ stands for the VC dimension of the class.
 
 Also, with probability at least $1 - \eta$ and $\forall \theta \in \Theta$
 
@@ -112,7 +112,7 @@ Also, with probability at least $1 - \eta$ and $\forall \theta \in \Theta$
 EPE(\theta) \leq  Err^n_{train}(\theta) + \frac{\epsilon}{2} \left(1 + \sqrt{1 + \frac{4 Err^n_{train}(\theta)  }{\epsilon}}  \right)    
 \end{equation}
 
-where we have that $h$ is the VC dimension of the class and, when the class is infinite: 
+where we have that $h$ is the VC dimension of the class and, when the approximating class $F$ is infinite of size $N$: 
 \begin{equation}\label{vapnik-epsilonBound}
 \epsilon = a_1 \frac{h \left( ln(\frac{a_2 n}{h} ) -  ln(\frac{\eta}{4} ) \right)}{n}
 \end{equation}
@@ -123,12 +123,12 @@ or
 \epsilon = 2 \frac{ ln(d) - ln(\eta)}{n}
 \end{equation}
 
-when the class is finite and consists of $d$ elements.
+when $F$ is finite and consists of $d$ elements.
 
-The values of constants $a_1$ and $a_2$ are related to the nature of the density function $p(t)$ of the data. However, its values are proven to be bounded, where $a_1 \in (0,4 ]$ and $a2 \in (0,2 ]$. 
+In the previous equations, the values of constants $a_1$ and $a_2$ are related to the nature of the density function $p(t)$ of the data. However, its values are proven to be uniformly bounded for all distributions, with $a_1 \in (0,4 ]$ and $a2 \in (0,2 ]$. 
 
 
-A more precise bound can be given for the function $Err^n_{train}(\theta^*)$, where with probability $1 - 2\eta$ 
+As a last result, the authors show that a more precise bound can be given for the function that minimizes the empirical risk $Err^n_{train}(\theta^*)$. It is shown that with probability $1 - 2\eta$ 
 
 \begin{equation}\label{vapnik-classificationBoundPrecise}
 Err^n_{train}(\theta^*) - EPE(\theta_0) \leq  \sqrt{\frac{-ln(\eta)}{2n} } + \frac{\epsilon}{2}\left( \sqrt{1 + \frac{4}{\epsilon} } \right)
