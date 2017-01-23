@@ -7,8 +7,8 @@
 										theano, tensor flow, xgboost)
 	* terminar logit regression mas explicado
 
-	* terminar bias-variance decomposition explicando bien el training error como aproximacion del EPE.
- 
+	* terminar parte despues de ROC CURVE como cierre de classification metrics que c/problema puede tener distintas metricas.
+	 
 
 ## Introduction Chapter
 	*ampliar introduction de los papers
@@ -16,6 +16,7 @@
 ## Problem / Data Description Chapter
  	* ampliar data description and visualizations
  	* on how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf 
+ 	* buena descripcion de los heatmaps
 
 ## Results Chapter
 	Ampliar de los papers ya agregar mas graficos comparativos
