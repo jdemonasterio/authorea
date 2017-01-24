@@ -94,8 +94,9 @@
 
 \maketitle
 \begin{abstract}
+	Your text should have one idea per paragraph and use transitions between sentendes. The following linnk provides a whole set of transition words to use.
+	\url{http://grammar.ccc.commnet.edu/Grammar/transitions.htm}
 	
-	Texstudio is better at helping to write fast tex documents using spell-checkers, pre-loaded commands and \textit{stuff}. All of the following text is just copy/paste trash being tested before being added to a real doc.
 	
 %%%% HOW TO USE SPLITS IN EQUATIONS (same level for equal signs)
 %\begin{split}
@@ -123,143 +124,48 @@
 
 
 
-\subsection{ Using the Vapnik–Chervonenkis (VC) Dimension for prediction error estimation} \label{section-VcDimension}
+\section{Classifier : Naive Bayes}
 
-%\cite{vapnik-nature2013}
-%\cite{cherkassky-learning2007}
+The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are based on a strong statistical independence among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$.  
 
-The Vapnik–Chervonenkis (VC) Dimension is a number based on a theoretical framework now called \textit{Statistical Learning Theory} (SLT). This theory is used to estimate the true expected prediction error from finite samples. Surprisingly, very few assumptions are needed and results are distribution independent. Exact bounds are given for some common use cases with constructive analytical methods. For other cases authors propose sampling or experimental methods to estimate the VC dimension. For this part, most of the results and reasoning follows \cite{cherkassky-learning2007}. For a more broad development of this work, \cite{vapnik-nature2013} is recommended too. Here we present a brief comment on the consistency of the training error to the prediction error and give example bounds for classification learners.
+It is presented here mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthemore, the algorithm has linear  complexity in the number of features and samples $O(d+n)$, so it can be easlity extended to \textit{bigger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as gradient descent techniques.
 
-In a supervised learning context, we use the empirical training ($\overline{err}$) or test errors ($\overline{err}_{test}$) to estimate the $EPE$. Let $\mathrm{T} = (\textbf{X},\textbf{Y})$ be a training set of $n$ samples   and $Y = \{0,1 \}$. Now let $\mathcal {F}$ be a class of classifiers where $f: X \rightarrow Y \, \forall f \in \mathcal {F}$.
+Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. We take $p(C_k \mid x)$  to be the  class posterior probability of this class given the sample. 
 
-As it was seen before in \ref{section-biasVariance}, a common problem in supervised learning when a particular learner is fit and then used to predict new values is overfitting. In practice this is common when $n$ is \textit{small} or when the number of features is \textit{large}. 
+In section \ref{section-example}
+we have used 
+\[
+p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
+\]\label{equation-posteriorProbabilties}
 
-In Vapnik and Chervonenkis's work, they focus on estimation of the prediction error through the convergence and consistency of the training error. They derive the VC dimension as an important value in determining convergence speeds for different algorithms. The SLT theory provides a theoretical framework to effectively characterize these dimensions in a constructive way. By this, analytical bounds are given for a number of algorithms which allows us to estimate the distance between the empirical error and the generalization error.
+and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class. 
 
-Let $F = \{f(x,\theta) \mid x \in X, \theta \in \Theta\}$ denote a class of functions with domain over the input dataset $X$ and which are indexed by a parameter $theta$. This parameter will represent the index over the functions in $F$ and it will vary over all possible models attainable by our algorithm.
-As an example, in logistic regression, $theta$ can be indexer by the values of each feature's weights $x^p$. The class $F$ will then represent the set of all possible functions from which to select the final model.
-%In applications, a learner is fit from a class of functions. 
+Here we can approximate the posterior as
 
-Incorporating the loss functions directly in the model, SLT looks at functions of the form $Q(t,\theta) \ = \ L(f_\theta(x,y))$. Seen as a two variable function where $t=(x,y)$ represents the input and output data, and $theta$ the class index. 
+\[
+P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
+\]\label{equation-posteriorProbabilityDecomposition1}
 
-SLT theory then focuses on functions which are indexed from a class of learners and which seek to minimize a certain functional characterized by the form of the loss function. Thenthe $EPE(\theta)$ for any model takes the functional form 
+We now impose a strong independence assumption among features, given the target class, to let the conditional probabilities factors become the probability of each feature. %This assumption is what gives the model its 
 
-\begin{equation}\label{vapnik-risk}
-\begin{split}
-EPE(\theta) = & \ \Expect_{\textbf{t}} \left[  Q(t,\theta) \right]\\
-= & \int Q(t,\theta) p(t) dt  \\
-= & \int L(f_\theta(x),y) p(x,y) dx dy 
-\end{split}
-\end{equation}\footnote{For simplicity, we will assume the functions $Q$ in the class to be bounded.}
+This yields a posterior probability which depends only on the prior probability and on the individual likelihood of each feature.
 
-where we let $p(t)$ be the \textbf{true} underlying probabilty function of the data. 
+\[
+P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j | C_k)
+\]\label{equation-posteriorProbabilityDecomposition2}
 
-However, as it was said before, we only have access to restricted data and we would like to estimate the risk functional for that class with the available training/test error. In this framework, this is what is called the empirical risk:
+As we have said before, the parameters of the model can only reweigh the likelihood factors, so if we look to maximize the posterior probability, our final estimate of the posterior will take the following form.
 
-\begin{equation}\label{vapnik-empiricalRisk}
-Err_{train}(\theta) =  \sum_{i=1}^n Q(t_i,\theta) 
-\end{equation}
+\[
+P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}    P(x_j | C_k)
+\]\label{equation-posteriorProbabilityDecomposition3}
 
-Here, the learner is estimated directly from the risk functional. The loss function is put together with the approximating function and takes a strong part in the minimization procedure. On the other hand the unknown true underlying distribution $p(t)$ will not be estimated to minimize the functional and all of the effort will be put in directly using the training error as \textit{good} substitute for the prediction error.
+where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
 
-
-We know that  training error depends on the model learned from the data and in turn, this depends on the sample. Due to this non-deterministic aspect of the problem, we will have different output  models for varying samples, and even sometimes for the same sample. However, as we increase the sample size, we would still want to have the training error converge and to be consistent with the prediction error of the models.
-
-
-%and $\theta^{*}_n$
+In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparamters and the best one can be selected with our CV procedure. 
+%Indeed, 
 
 
-\begin{definition}{Consistency of the Training error}
-	
-	Let $\{\mathcal {T}_1, \mathcal {T}_2, ..., \mathcal {T}_n, ...  \}$ be a set of training samples such that $\forall n \ |T_n|=n$. Given a training sample of size $n$ and a class of learners $\Theta$, let $\theta^{*}_n$ be the argument minimizing the training error and let $\theta_0$ be the minimizing argument for the prediction error over the class of functions i.e. over all of the models of the class.
-	
-	Then, the training error is said to be consistent if 
-	
-	$$\lim_{n\to\infty} Err_{train}(\theta^{*}_n) \  = \lim_{n\to\infty} EPE(\theta^{*}_n) \ =  EPE(\theta_0)$$
-	
-\end{definition}
-
-The property of asymptotic convergence in the training and prediction errors is expected in any learning algorithm. In SLT, the consistency requires that the training and prediction errors'  sequences not only converge to the same values but that the sequence of minimal training errors also converge, to the minimizing value of the prediction error. At the same time, the sequence of prediction errors must converge to this same point. 
-
-In reality, it is natural to think that the approximation of the prediction error with the training error introduces a strong overestimation. The training error will also be biased by the sample used whilst the prediction error is given for the whole class and does not depend on the sample. Thus, in SLT theory, the minimization of the training error when using bounded loss functions is consistent if and only if:
-
-%\begin{definition}{Uniform Consistency of the Training Error}
-
-%\end{definition}
-$$\forall \epsilon > 0 \ , \ \lim_{n\to\infty} P\left[ \sup_{\theta \in \Theta} \mid Err^{n}_{train}(\theta)  - EPE(\theta) \mid \right]  = 0 $$  % %     $$ 
-
-% $$
-
-Here the training error $Err^{n}_{train}(\theta)$ is the value of this error when using a sample of size $n$. In this sense, the training error is said to be consistent if it converges uniformly in probability over the whole class of functions\footnote{Remember that approximating functions in the SLT setting are indexed by the $\theta$ parameter.}. This implies that it will characterizing the set of functions $Q(t,\theta)$ used to approximate the data will be important in finding an appropriate model. SLT theory then introduces 
-
-The next results will be focused on a binary supervised machine learning setting. However the extension to other forms of supervised learning can be found in \cite{cherkassky-learning2007}. 
-
-\begin{definition}{Shattering}
-	
-	Let $\mathcal {A}= \{A_1,A_{2},\dots \}$ be a set family and $T$ a finite set. Let $t \subseteq T$, it is said that $\mathcal {A}$ picks out $t$ if there exists $A' \subseteq \mathcal {A} $ such that $ T \cap A' = t$. $T$ is said to be shattered by $\mathcal {A}$ if it picks out all of its subsets.
-	
-	The VC dimension of $\mathcal {A}$ is the biggest cardinality of a set shattered by $\mathcal {A}$. Note that by definition this means \textit{any} possible set shattered by $\mathcal {A}$.
-	
-\end{definition}
-
-The n-th shattering coefficient $\Delta_n$ of a class $\mathcal {A}$ is defined to be the maximum number of subsets of $n$ elements picked out by the class. 
-
-If we consider a function from our set of classifiers, given a training set of size $n$
-$\mathcal {T} = \{ t_1,t_2,...,t_n  \}$, we know that each classifier acts as an indicator function on the inputs $\{ x_1,x_2,...,x_n  \}$. The \textit{diversity} of this set of classifiers intuitively represents all of the different ways in which the input sample is partitioned by the classifiers. 
-
-We would say that $t$ is picked out by $\Theta$ if there exists a classifier $f_{\theta} \in \Theta$ such that $T = f_{\theta}^{-1}(\{1\})$. The classifiers in $\Theta$ define a unique mapping to the class of sets where each classifier is positive. It is said that $\mathcal {F}$ shatters a set $A$ if all of its subsets are picked out by the class of functions.
-
-We will now reproduce the main necessary and sufficient conditions to have uniform consistency in predictive error approximation by the class of loss functions. Also,
-Vapnik et al. provide bounds for the exponential convergence of this error. These bounds are constructive and can be effectively calculated in a number of commonly used models such as linear regressors and support vector machines. Moreover, these bounds depend \textbf{only} of the structure of the approximators rather than the true distribution of the data. 
-
-
-\begin{definition}{Vapnik–Chervonenkis (VC) Dimension}
-	
-	The Vapnik–Chervonenkis Dimension (VC) of a class of binary functions is the cardinality of the largest set which is shattered by $\mathcal {F}$.
-\end{definition}\footnote{The VC dimension is briefly introduced here for the purpose of giving a theoretical approach to error estimation in machine learning methods. For a complete explanation on this topic refer to \cite{vapnik-nature2013}}
-
-The VC dimension gives a certain criteria for measuring the complexity of a class of binary functions by evaluating its expressiveness. Note that the VC dimension need not be finite.
-
-As a simple example, one could use a linear regression of $d$ features $$g_{\theta} = \sum_{i=1}^d x_i \theta_i + \theta_0$$ as a classifier if we consider the indicator function of the positive half-plane induced by the regresssion: $$f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)$$
-
- This class of approximating functions can shatter up to $d+1$ samples, but no bigger sample. Thus the VC dimension is exactly $d+1$. 
-
-For more examples, refer to \cite{cherkassky-learning2007} Pg. 113 for examples of different VC classes, finite and infinite.
-
-SLT then proves that if a class of binary classifiers is of finite VC dimension, accurate bounds can be given to estimate train and predictive errors. For a sample of size $n$, take $Err^n_{train}(\theta^*)$ to be the minimum training error and $EPE(\theta_0)$ the minimum true predictive error. 
-
-They show that for classes which have a finite VC dimension $h$, the n-th shattering coefficient is bounded by a polynomial of order equal to the dimension 
-i.e. $\Delta_n(\mathcal {F}) \leq O(n^{h})$ \footnote{$O(\cdot)$ corresponds to Big-O notation.} where $VC$ stands for the VC dimension of the class.
-
-Also, with probability at least $1 - \eta$ and $\forall \theta \in \Theta$
-
-\begin{equation}\label{vapnik-classificationBound}
-EPE(\theta) \leq  Err^n_{train}(\theta) + \frac{\epsilon}{2} \left(1 + \sqrt{1 + \frac{4 Err^n_{train}(\theta)  }{\epsilon}}  \right)    
-\end{equation}
-
-where we have that $h$ is the VC dimension of the class and, when the approximating class $F$ is infinite of size $N$: 
-\begin{equation}\label{vapnik-epsilonBound}
-\epsilon = a_1 \frac{h \left( ln(\frac{a_2 n}{h} ) -  ln(\frac{\eta}{4} ) \right)}{n}
-\end{equation}
-
-or 
-
-\begin{equation}\label{vapnik-epsilonBound}
-\epsilon = 2 \frac{ ln(d) - ln(\eta)}{n}
-\end{equation}
-
-when $F$ is finite and consists of $d$ elements.
-
-In the previous equations, the values of constants $a_1$ and $a_2$ are related to the nature of the density function $p(t)$ of the data. However, its values are proven to be uniformly bounded for all distributions, with $a_1 \in (0,4 ]$ and $a2 \in (0,2 ]$. 
-
-
-As a last result, the authors show that a more precise bound can be given for the function that minimizes the empirical risk $Err^n_{train}(\theta^*)$. It is shown that with probability $1 - 2\eta$ 
-
-\begin{equation}\label{vapnik-classificationBoundPrecise}
-Err^n_{train}(\theta^*) - EPE(\theta_0) \leq  \sqrt{\frac{-ln(\eta)}{2n} } + \frac{\epsilon}{2}\left( \sqrt{1 + \frac{4}{\epsilon} } \right)
-\end{equation}
-
-Using these results, the authors show that effective approximations of the prediction error can be given for most algorithms of finite VC dimensions. They also give a clear characterization of how model complexity is related to the prediction error estimation. In practical applications though, use of estimates might be limited to the determination of the VC value, specially with algorithms which are more complex such as neural networks. For this, we show in the section below a more direct heuristic used to estimate the $PE$.
-
+Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability  $P(C_k' \mid x)$. 
 \end{document}
 
