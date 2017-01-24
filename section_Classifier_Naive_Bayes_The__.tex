@@ -1,10 +1,10 @@
 \section{Classifier : Naive Bayes}
 
-The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which assume a strong independence relationship among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some problems. Alos, it does not suffer in problems of high-dimensionality, where $p >> n$.  
+The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are based on a strong statistical independence among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$.  
 
-It is presented here mostly for benchmarking purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, models. With a linear complexity in the number of features and samples, the algorithm can be extended to \textit{bigger} problem implementations. Maximum-likelihood estimation of the parameters has a closed form solution which is better over other iterative methods such as gradient descent techniques.
+It is presented here mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthemore, the algorithm has linear  complexity in the number of features and samples $O(d+n)$, so it can be easlity extended to \textit{bigger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as gradient descent techniques.
 
-Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of the problem. We take $p(C_k \mid x)$  to be the  class posterior probability of this class given the sample. 
+Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. We take $p(C_k \mid x)$  to be the  class posterior probability of this class given the sample. 
 
 In section \ref{section-example}
 we have used 
@@ -12,15 +12,17 @@ we have used
 p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
 \]\label{equation-posteriorProbabilties}
 
-and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class. We can then approximate the posterior as
+and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class. 
+
+Here we can approximate the posterior as
 
 \[
 P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
 \]\label{equation-posteriorProbabilityDecomposition1}
 
-We now assume independence between features, given the target class, to let the conditional probabilities factors become the probability of each feature. %This assumption is what gives the model its 
+We now impose a strong independence assumption among features, given the target class, to let the conditional probabilities factors become the probability of each feature. %This assumption is what gives the model its 
 
-This yields a posterior probability which depends only on the prior probability and on the likelihood of that feature.
+This yields a posterior probability which depends only on the prior probability and on the individual likelihood of each feature.
 
 \[
 P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j | C_k)
@@ -32,12 +34,10 @@ As we have said before, the parameters of the model can only reweigh the likelih
 P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}    P(x_j | C_k)
 \]\label{equation-posteriorProbabilityDecomposition3}
 
-where $Z = p(x)$ is the scaling factor in the equation and is already fixed by the dataset.
+where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
 
-In practice the model will stem into different algorithms where each variant will have a different assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. We can treat both of decisions as our model's hyper-paramters.
+In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparamters and the best one can be selected with our CV procedure. 
+%Indeed, 
 
-For the former assumption, it is common to chose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems.
-
-For the latter assumption, the most usual options include chosing equiprobable class priors or by using average estimates from the dataset.
 
 Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability  $P(C_k' \mid x)$. 
