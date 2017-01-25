@@ -209,7 +209,7 @@ The most common methods to control the tree's depth grow a very large tree $T_0$
 
 To expand on this idea, let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$.  Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,...,|T|  \}$. 
 
-Given a loss function, and $K$ possible target classes, we can define the following:
+Given a loss function, and a problem with $K$ possible target classes, we can define the following values:
 \begin{equation}
 \begin{split}
 N_j & =  \mid\{x \in R_j \}\mid\\
@@ -218,7 +218,7 @@ c_j & =  argmax_{k} \  \hat{p}_{jk} \\
 \end{split}
 \end{equation}\label{decisionTreePruneParameters}
 
-We will denote the node impurity measure for the classification tree by $Q_j(T)$ which, in the most used cases can take one of the following three forms:
+As we have mentioned before, at each split we use the node impurity measure to quantify this action. Here, we will denote $Q_j(T)$ to be the impurity measure for region $j$. In addition, we list the three most used impurity measures of classification trees:
 
 \begin{itemize}
 	\item Misclassification error: $ \displaystyle \frac{1}{N_j} \sum_{x \in R_j}  I(y\neq c_j)  = 1 - c_j $
@@ -227,9 +227,11 @@ We will denote the node impurity measure for the classification tree by $Q_j(T)$
 \end{itemize}
 
 
-For the Gini index, it is also common to use a reweighted version of the series using a loss matrix that assigns different weights to different cases of misclassification. In practical applications having a sample from class $k$ incorrectly assigned to class $k'$ might be less important than the reverse case for example. To reflect this difference, one can add a weight term to the gini index by considering the loss matrix $L \in \mathbb R_{\ge 0}^{K \times K}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally $L$ is a null diagonal matrix.  The Gini index terms then take the reweighted form  $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
+As an extension to the Gini index, it is also common to use a reweighted version of the sum. A loss matrix is multiplied to the factors in each summand. The matrix is reassigning weights to different cases of misclassification. Indeed, these weights become practical when we have that a sample from class $k$ incorrectly assigned to class $k'$ might be less important than other misclassifications. 
 
-In the binary (two class) case, if we consider $p$ to be the probability of success, then $Q_j(T)$ can be simply expressed as
+Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally we have that $L$ is a null diagonal matrix. Then the Gini index's summands will take the reweighted form  $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
+
+For the binary (two class) case $Q_j(T)$ can be expressed in simpler terms. If we consider $p$ to be the probability of success, then we have 
 
 \begin{itemize}
 	\item Misclassification binary error: $1 - max(p, 1-p)$
@@ -237,22 +239,23 @@ In the binary (two class) case, if we consider $p$ to be the probability of succ
 	\item Binary cross-entropy: $ -log(p)p - log(1- p)(1-p) $
 \end{itemize}\label{decisionTreeCostFunctions}
 
-Finally, we can define the \textit{cost complexity criterion} to be 
+In summary, we will have an impurity measure for each region $R_j$ and the altorithm will then aggregate all of them into a single measure called the \textit{cost complexity criterion}. The idea is that this loss function, as a function of a tree, will control the whole optimization procedure through the tree's parameters. The criterion will be managed to control the final model's bias and variance. We define it in the following way
 
 \begin{equation}
 C_\alpha(T)  = \sum_{j=1}^{|T|} N_j Q_j(T)  + \alpha|T| 
 \end{equation}\label{decisionTreeCostComplexity}
 
-Here  $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that weighs between the tree complexity given by its depth and the accuracy of the model as given by the measure we proposed in \ref{decisionTreeCostFunctions}. The idea is that given an $\alpha$ we find the subtree $T_{alpha} \subset T_0$ that minimizes \ref{decisionTreeCostComplexity} using the \textit{weakest link pruning} algorithm which goes as follows:
 
-Let  $B(T)  = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added. \cite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees. The sequence is built by iteratively pruning the node $j$ that, when removed from the tree, creates the smalles increase in $B(T)$. In this way, we'll have a sequence of trees $T_0,T_1,...,T_l$ and a sequence of nodes $j_0, j_1,...,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),...,B(T_l)$ at each step. The algorith will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all of the $C_\alpha(T)$ for all of the trees in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
+Here  $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that values the trade-off between the tree complexity, as given by its depth, and the accuracy of the model as given by the measure we proposed in \ref{decisionTreeCostFunctions}. The idea is that given an $\alpha$ we find the subtree $T_{alpha} \subset T_0$ that minimizes \ref{decisionTreeCostComplexity}. 
+
+There are various methods we could use to find the optimal subtree. As an example, here we give an example of the \textit{weakest link pruning} algorithm which goes as follows:
+%must \textit{prune} the initially grown tree 
+
+Let  $B(T)  = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added. \cite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees built for this. This sequence is constructed by iteratively pruning the node $j$ that, when removed from the tree, creates the smallest increase in $B(T)$. 
+
+In this way, we'll have a sequence of trees $T_0,T_1,...,T_l$ and a sequence of nodes $j_0, j_1,...,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),...,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all of the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
 For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
-
-
-\textit{}
-
-\textit{}
 
 \textit{}
 
