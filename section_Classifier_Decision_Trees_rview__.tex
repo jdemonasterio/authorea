@@ -1,21 +1,32 @@
 \section{Classifier : Decision Trees}
-rview of this supervised learner used in regression and classification problems.
 
-The models builds a tree in the graph-theory sense where each node has a rule based on set belonging. Each rule defines a linear (or similar) partition of input space and the rules that determine the partitions are built from the sample's features. At each node we would have a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of said feature's space.
+%rview of this supervised learner used in regression and classification problems.
 
-For numerical features, $U$ will be of the form $(-\infty,c]$ where $c \in \mathbb{R}$ is any given number predefined by each rule. For categorical features, $U$ will be a subset of possible the values of that feature. A tree defines a partition of feature space in disjoint regions $A_1,...,A_K$ such that the sample's predicted output $\hat{y}$ is $c_k$ if the sample belongs to $A_k$. Here $c_k$ is one of the possible values taken by the target variable $y$ in the training set. And by the way trees were built, each $A_k$ is a hyper-rectangles in feature space.
+% The models builds a
+Decision trees are such as in the graph theoretical sense where each node acts as a rule to which any input sample can comply or not. The rules are built as linear (or similar) partitions of input space and they are built on the value of a given feature 
+%properties of the values for each feature. 
 
-The learner can be characterized by 
+At any6 given node the model takes a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of said feature's space.
+
+For numerical features, the input space $X$ willi be partitioned into  $L$ and $R$ where $L$ of the form $(-\infty,c]$.  The value $c \in \mathbb{R}$ is any given number predefined by the rule itself.   In the same way, for categorical features $L$ will be a subset of the possible values of that feature. 
+
+Altogether, a tree defines a partition of feature space in disjoint regions $A_1,...,A_K$ such that the tree's predicted output $\hat{y}$ for a sample $x$ is $c_k$ if the sample belongs to $A_k$. Here $c_k$ is one of the possible values taken by the target variable $y$ in the training set. And by the way trees were built, each $A_k$ is a hyper-rectangles in feature space.
+
+In brief, the learner can be characterized by 
 \[
 h(X) = \sum_{k=1}^K c_k I(X \in A_k)
 \]\label{equation-decisionTreeModel}
 
-where $c_k$ is the value that our model estimates forfor samples in the $A_k$ region. Both of these will have to be estimated by the model by minimizing its loss funciton.
+where $c_k$ is the value that our model estimates for samples in the $A_k$ region. Both of these will have to be learnt by the model in the optimization procedure. %by minimizing its loss funciton.
 
-The algorithm then needs to determine for the group of input samples that flows into a decision node, what is the best way to split them according, in order to optimize a loss metric. In this context, the criteria used to decide on node splits are called \textit{node impurity measures}. Most variations for this machine learning model build rules at each nodes in a greedy fashion, where node impurity measures are locally optimized at each node to decide what is the best splitting decision. This is done so because not doing so will result in an algorithm whose computational complexity is infeasible since the construction of optimal binary decision trees is NP-Complete \cite{decisionTreesNP}. The parameters for the tree will then be fit sequentially.
+By the points given above, the algorithm needs to determine what is the best way to split a set of samples that flow through a decision node. The \textit{goodness of split} will be measured by the loss metric of the algorithm. Here, the criteria used to decide on node splits are called \textit{node impurity measures}.
+%them according, in order to optimize a loss metric. 
 
-At any splitting node, we have to find the \textit{best} feature $X^p$ and split $t$ threshold for which to partition the data in
- $A_L = \{x \in \mathcal{T} \  / \ x^p \leq t \} $ and $A_R = \{x \in \mathcal{T}\  / \ x^p> t \} $. Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$ respectively. Then to find the best feature for the split we minimize:
+%at each node 
+Most variations for this machine learning model build rules in a greedy fashion, where node impurity measures are locally optimized at each node to decide on which is the best splitting value. The reason for doing this is because not doing so will result in an algorithm whose computational complexity is infeasible. Given that the construction of optimal binary decision trees is NP-Complete \cite{decisionTreesNP}, the optimal rules for the tree are then fit sequentially.
+
+In conclusion, at any splitting node we have to find the \textit{best} feature $X^p$ and value split $t$ for which to partition the data in
+$A_L = \{x \in \mathcal{T} \  / \ x^p \leq t \} $ and $A_R = \{x \in \mathcal{T}\  / \ x^p> t \} $. Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$ respectively. Then, to quantify the \textit{best} feature for this split the algorithm minimizes:
 
 %\frac{1}{N_{left}}
 %\frac{1}{N_{right}}
@@ -28,7 +39,9 @@ min_{p,t} \big[ min_{c_L }   \frac{1}{N_l}\sum_{x \in A_L(p,t) } L(y,c_L)       
 
 where $y$ is the target associated to our sample $x$ and $L(\cdot)$ is the loss function we have used to measure the quality of our split. Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently. 
 
-A tree is then grown in an iterative way from the top down \footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each split. All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, in accordance to their fulfillment or not of each node's split rule. The tree's leafs are the subsets that comprise the partition and once a learner is fit, predicting targets for new samples is straightforward: the prediction of their target class will be the output of traveling the sample down to the leaf node.  
+A tree is then grown in an iterative way from the top down \footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each rule split. All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, in accordance to their fulfillment or not of each node's rule. A branch of the tree would stop growing once all samples at a node belong to the same target class.
+
+Finally, we would have that the tree's leafs are the partition subsets over the input data and once a learner is fit, predicting targets for new samples is straightforward: the prediction of their target class will be the value given after traveling the sample down to its corresponding leaf node.  
 
 To illustrate this method, an instance is show in figure \ref{rf-treeFigure}. This classification tree example is built for the two class problem of gender prediction using data from CDRs:
 %[.{\textit{Woman}}]
@@ -46,13 +59,11 @@ To illustrate this method, an instance is show in figure \ref{rf-treeFigure}. Th
 
 %[.{\textit{M}} ] [.{\textit{F}} ]
 
+The most used metrics to build each rule are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the two resulting sets. Where it values the accuracy of the model if all samples were to be tagged with the most common target-label in that split. The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Liebler divergence} of the resulting sets with respect to the original set previous to the split. 
 
-The metrics used to build each rule score, for the resulting sets, are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the resulting sets, if all samples were to be tagged with one predicted target-label.  The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Liebler divergence} of the resulting sets with respect to the original set previous to the split. This partitioning of the samples will continue iteratively until a predefined tuning parameter limit will stopthe optimization or iteration.
+In decision trees, the process of iteratively partitioning the samples in splits continues until a predefined tuning parameter limit will stop the optimization or when there is only a single target class for all samples at the node. 
 
-
-Hyper-parameters (tuning parameters) of tree models are set set before running the algorithm, also known as tuning parameters. In this algorithm examples of hyper-parameters of the model include the length of the tree,  the splitting rule threshold and the node impurity measures are also parameters of the model. 
-
-From the previous algorithm descriptions we can list those directly:
+The hyper-parameters for this model include the length of the tree,  the splitting rule threshold and the node impurity measures. From the descriptions previously given, we can list these directly:
 
 \begin{itemize}
 	\item Max depth of the tree, or the number of allowed level of splits.
@@ -62,24 +73,26 @@ From the previous algorithm descriptions we can list those directly:
 \end{itemize}
 
 
-Intuitively, it is natural to find that trees of longer depth will overfit more the data since more complex interactions among variables will be captured by refining the partition on input space. A trivial case would be to allow a tree to grow fully and assign to each sample in the training set its own region. This would yield a model with absolutely no bias but which will have a very high prediction error since new samples won't be labeled accordingly. On the other hand having a tree which is too shallow will result in most cases in a simple model with high bias. We must consider then that the depth of a tree is a measure of the model's complexity and as such we control it as hyperparameter of our model. 
+Intuitively, it is natural to find that trees of longer depth will overfit the data since more complex interactions among variables will be captured by refining the partition on input space. A trivial case would be to allow a tree to grow fully in depth and later assign to each sample in the training set its own region. This would yield a model with absolutely no bias but which will have a very high prediction error since new samples won't be labeled accordingly. 
 
-Another drawback of the model is the high variance instability. We can use two very similar datasets and have two very different resulting trees grown from these. This is due to the hierarchical nature of the splits, where errors made in the first splits will be carried onward towards the leafs sinces samples follow a single branch.
+On the other hand having a tree which is too shallow will result in most cases in a biased algorithm.  This is because it results in an overly simple model incapable of correctly assigning labels.  We must then consider that the depth of a tree is a measure of the model's complexity and as such one of the most important hyperparameters of our model. 
 
-The most common methods to control the tree's depth grow a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity and only slightly lose accuracy. 
+Another drawback of the model is the high variance instability. Authors point out that two very similar datasets can grow two very different resulting trees. This is due to the hierarchical nature of the splits, where errors randomly made in the first splits will be carried onward towards the leafs sinces samples continue down on a single branch.
 
-Let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$.  Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,...,|T|  \}$. 
+The most common methods to control the tree's depth grow a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity with only  a slight loss of accuracy. 
 
-Given a selected loss function, and $K$ possible target classes, we can define the following:
+To expand on this idea, let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$.  Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,...,|T|  \}$. 
+
+Given a loss function, and a problem with $K$ possible target classes, we can define the following values:
 \begin{equation}
 \begin{split}
-N_j & =  \{x \in R_j \}\\
+N_j & =  \mid\{x \in R_j \}\mid\\
 \hat{p}_{jk} & = \frac{1}{N_j} \sum_{x \in R_j}  I(y=k)\\
 c_j & =  argmax_{k} \  \hat{p}_{jk} \\
 \end{split}
 \end{equation}\label{decisionTreePruneParameters}
 
-We will denote the node impurity measure for the classification tree by $Q_j(T)$ which, in the most used cases can take one of the following three forms:
+As we have mentioned before, at each split we use the node impurity measure to quantify this action. Here, we will denote $Q_j(T)$ to be the impurity measure for region $j$. In addition, we list the three most used impurity measures of classification trees:
 
 \begin{itemize}
 	\item Misclassification error: $ \displaystyle \frac{1}{N_j} \sum_{x \in R_j}  I(y\neq c_j)  = 1 - c_j $
@@ -88,9 +101,11 @@ We will denote the node impurity measure for the classification tree by $Q_j(T)$
 \end{itemize}
 
 
-For the Gini index, it is also common to use a reweighted version of the series using a loss matrix that assigns different weights to different cases of misclassification. In practical applications having a sample from class $k$ incorrectly assigned to class $k'$ might be less important than the reverse case for example. To reflect this difference, one can add a weight term to the gini index by considering the loss matrix $L \in \mathbb R_{\ge 0}^{K \times K}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally $L$ is a null diagonal matrix.  The Gini index terms then take the reweighted form  $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
+As an extension to the Gini index, it is also common to use a reweighted version of the sum. A loss matrix is multiplied to the factors in each summand. The matrix is reassigning weights to different cases of misclassification. Indeed, these weights become practical when we have that a sample from class $k$ incorrectly assigned to class $k'$ might be less important than other misclassifications. 
 
-In the binary (two class) case, if we consider $p$ to be the probability of success, then $Q_j(T)$ can be simply expressed as
+Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally we have that $L$ is a null diagonal matrix. Then the Gini index's summands will take the reweighted form  $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
+
+For the binary (two class) case $Q_j(T)$ can be expressed in simpler terms. If we consider $p$ to be the probability of success, then we have 
 
 \begin{itemize}
 	\item Misclassification binary error: $1 - max(p, 1-p)$
@@ -98,22 +113,22 @@ In the binary (two class) case, if we consider $p$ to be the probability of succ
 	\item Binary cross-entropy: $ -log(p)p - log(1- p)(1-p) $
 \end{itemize}\label{decisionTreeCostFunctions}
 
-Finally, we can define the \textit{cost complexity criterion} to be 
+In summary, we will have an impurity measure for each region $R_j$ and the altorithm will then aggregate all of them into a single measure called the \textit{cost complexity criterion}. The idea is that this loss function, as a function of a tree, will control the whole optimization procedure through the tree's parameters. The criterion will be managed to control the final model's bias and variance. We define it in the following way
 
 \begin{equation}
 C_\alpha(T)  = \sum_{j=1}^{|T|} N_j Q_j(T)  + \alpha|T| 
 \end{equation}\label{decisionTreeCostComplexity}
 
-Here  $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that weighs between the tree complexity given by its depth and the accuracy of the model as given by the measure we proposed in \ref{decisionTreeCostFunctions}. The idea is that given an $\alpha$ we find the subtree $T_{alpha} \subset T_0$ that minimizes \ref{decisionTreeCostComplexity} using the \textit{weakest link pruning} algorithm which goes as follows:
 
-Let  $B(T)  = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added. \cite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees. The sequence is built by iteratively pruning the node $j$ that, when removed from the tree, creates the smalles increase in $B(T)$. In this way, we'll have a sequence of trees $T_0,T_1,...,T_l$ and a sequence of nodes $j_0, j_1,...,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),...,B(T_l)$ at each step. The algorith will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all of the $C_\alpha(T)$ for all of the trees in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
+Here  $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that values the trade-off between the tree complexity, as given by its depth, and the accuracy of the model as given by the measure we proposed in \ref{decisionTreeCostFunctions}. The idea is that given an $\alpha$ we find the subtree $T_{alpha} \subset T_0$ that minimizes \ref{decisionTreeCostComplexity}. 
+
+There are various methods we could use to find the optimal subtree. As an example, here we give an example of the \textit{weakest link pruning} algorithm which goes as follows:
+%must \textit{prune} the initially grown tree 
+
+Let  $B(T)  = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added. \cite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees built for this. This sequence is constructed by iteratively pruning the node $j$ that, when removed from the tree, creates the smallest increase in $B(T)$. 
+
+In this way, we'll have a sequence of trees $T_0,T_1,...,T_l$ and a sequence of nodes $j_0, j_1,...,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),...,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all of the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
 For a more complete explanation of a decision tree for classification or regression problems, please refer to \cite{breiman-cart84}.
 
-
 \textit{}
-
-\textit{}
-
-\textit{}
-
