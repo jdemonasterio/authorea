@@ -15,7 +15,7 @@ As_a_counter_example_another__.tex
 figures/figure-highROCAUC/figure-highROCAUC.png
 section_Classifier_Naive_Bayes_The__.tex
 section_Classifier_Decision_Trees_rview__.tex
-section_Decision_Tree_extension_to__.tex
+subsubsection_Random_Forests_Formulation_Let__.tex
 subsubsection_Random_Forest_Formulation_Given__.tex
 ASDFSFD__.tex
 section_Boosting_Models_label_section__2.tex
