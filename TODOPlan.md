@@ -8,6 +8,9 @@
 	* terminar logit regression mas explicado
 
 	* terminar parte despues de ROC CURVE como cierre de classification metrics que c/problema puede tener distintas metricas.
+
+	* revisar 2nd proof de Random Forests Formulation
+
 	 
 
 ## Introduction Chapter
