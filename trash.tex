@@ -220,37 +220,35 @@ As seen by the equation above, the minimizing value for $\gamma$ is directly rel
 w_i^{(m+1)} =   w_i^{(m+1)} e^{\gamma_m(-y_i h_m(x_i))} \\
 \end{equation} 
 
-Note that $-y_i h_m(x_i) = 2I \big( y_i = h_m(x_i)   \big) -1$ which is a relevant aspect of the algorithm. Since at each step, more importance is given to misclassified samples over correctly classified ones. 
+In this way we have that the weights are updated for those samples which have a higher misclassification rate. This is a relevant aspect of the algorithm. At each step, more importance is given to misclassified samples over correctly classified ones. 
+
+%$-y_i h_m(x_i) = 2I \big( y_i = h_m(x_i)   \big) -1$ which means that $\gamma_m(-y_i h_m(x_i))$
+
 
 The final form of the model is
-$$  \hat{y}(x) = sgn\big(  \sum_{m=1}^{M} \gamma_m h_m(x) \big)$$ which takes on the most frequent output target given by all of the learners. This particular property is what gives rise
+$$  \hat{y}(x) = sgn\big(  \sum_{m=1}^{M} \gamma_m h_m(x) \big)$$ which outputs the most frequent prediction given by all of the weak learners. This is because all of the correct predictions will be greater than zero and negative values for the incorrect predictions. \footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}
+%This particular property is what gives rise
 
-At first the choice of the exponential loss function can seem arbitrary, but for the context of statistical learning this measure presents an importan property where its minimizing function is the log-odds ratio of the two output classes:
-$$f^*(x) = \underset{f}{\mathrm{argmin}} \  \Expect_{Y | f(x)}\big[ exp(-Yf(x))  \big] = \frac{1}{2}
-log\big( \frac{ P(Y=1 \mid x) }{ P(Y=-1 \mid x) }  \big) $$
-
-
-
-A drawback of this function though, is that it is not robus to outliers or to noisy data. During runtime weights are constantly shifting towards misclassified samples and if samples are mislabeled, this will make the algorithm consantly focus on classifying incorrectly the data. 
+At first the choice of the exponential loss function can seem arbitrary, but for the context of statistical learning this measure presents an important property where its minimizing function is the log-odds ratio of the two output classes:
+$$f^*(X) = \underset{f}{\mathrm{argmin}} \  \Expect_{Y | f(X)}\big[ exp(-Yf(X))  \big] = \frac{1}{2}
+log\big( \frac{ P(Y=1 \mid X) }{ P(Y=-1 \mid X) }  \big) $$
 
 
+The use of the exponential loss function $exp(-Yf(X))$ is also desirable in this context since significantly more weight is put on misclassifications rather than on correct classifications. This is because the function is not symmetric in $Yf(X)$ and that having a correct classification will mean a factor of only $e^{-1}$, whilst on the other hand a misclassification will mean a factor of $e$.
 
-
-
-
+A drawback of this loss though, is that it is not robust to outliers or to noisy data. During runtime weights are constantly shifting towards misclassified samples. Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data. 
 
 
 
 \subsection{Gradient Tree Boosting}
 
-As explained before, the boosting method builds a high model learnt from other \textit{weaker} learners. For the case of \textit{gradient tree bosting}, decision trees are used as base learners. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees wil be the parameters for this model and at step $m$ the output will be
+As explained before, the boosting method builds a high model learned from other \textit{weaker} learners. For the case of \textit{gradient tree boosting}, decision trees are used as base learners. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
 
 \[
 \hat{y}^{((m)}=  \sum_t^m \gamma_t h_t(x) , \  h_t \in Tr \ \forall t \in {0...K}
 \]
 
 where $\gamma_t$ indexes the weight for each tree $h_t$ and $K$ is a hyper-parameter that represent the number of trees. Each new base learner is added to the model 
-
 
 \[
 \hat{y}^{(m+1)} =   \hat{y}^{(m)}  + \gamma_m h_m(x) 
@@ -263,18 +261,13 @@ h_m(\cdot) = \underset{h,\gamma}{\mathrm{argmin}}   \sum_{i=1}^{n} L ( y_i,  \ha
 \]
 
 
-
-
-
-
-
-For the moment  we  include the tree's weight $\gamma$ as part of the weak learners in a single function $f_t(\cdot)$. Therefore the model results in,
+For the moment, we include the tree's weight $\gamma$ as part of the weak learners in a single function $f_t(\cdot)$. Therefore the model results in,
 
 \[
 y =  \sum_k f_t(x) ,  \ f_t \in Tr  \ \forall t \in {0...K}
 \]
 
-We can represent a single tree with the form 
+where we represent a single tree with the form 
 
 \[
 f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in  R_j)
@@ -287,8 +280,9 @@ For the high model, the objective function would account for the relationships a
 \[ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i))  +  \sum_t R(f_t) \] \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
 %    
 
-At this level we would have that $\Theta$ is a parameter encoding all of the base trees' model information. Where $\theta_t$ is the parameter associated toeach tree model $f_t$ and $\Theta =  \bigcup_{t \in {0...K}} \theta_t  \cup \theta_0$.  Here the parameter $\Theta_0$ is not associated to any tree but reserved to characterize the tree assembly. If an optimization routine were to collectively fit all of the parameters in $\Theta$ to learn this model, we would have an very computational complex model. 
-In practice this would result in an prohibitive cost so we rely on optimization heuristics  instead. 
+At this level $\Theta$ is a parameter encoding all of the base trees' model information. For each base tree $f_t$, $\theta_t$ is the parameter associated to it. This means that $\Theta =  \bigcup_{t \in {0...K}} \theta_t  \cup \theta_0$.  The parameter $\Theta_0$ is not associated to any tree but reserved to characterize the tree ensemble. 
+
+If an optimization routine were to collectively fit all of the parameters in $\Theta$ to learn this model, we would have a very computational complex model. In practice this would result in an prohibitive cost. Instead, we rely on optimization heuristics. 
 
 \subsubsection{Additive Training}
 
@@ -311,9 +305,9 @@ Obj^t(\Theta) =  \sum_i^n L(y_i, \hat{y}^{t-1}_i +  f_t(x_i) ) + c(t) + R(f_t)
 \end{equation}
 
 
-Note that we have included here a regularization term (see section \ref{subsection-hyperParametersRegularization}) $R$ which most commonly takes the form of a  Tikhonov regularization. On the other hand the term is another complexity tuning parameter controling the length of the overall procedure $c(t)$ which is variable only in $t$. 
+Note that we have included here a regularization term (see section \ref{subsection-hyperParametersRegularization}) $R$. For most cases,  this term will takethe form of a Tikhonov regularization. This will add another complexity tuning parameter to controlthe length of the overall procedure $c(t)$ which is variable only in $t$. 
 
-If we assume we have enough conditions to approximate the objective function with  second order Taylor approximation around $f_t(x_i)$,we would have
+If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
 
 \begin{equation}\label{equation-gradientBoostingTaylor}
 Obj^t(\Theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  R(f_t) +  c(t)
@@ -322,11 +316,11 @@ Obj^t(\Theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i) + \frac{1
 Here $g_i$ and $h_i$ are first and second order approximations of the loss function with,
 
 \[
-g_i =  \frac{\partial L(y_i, \hat{y}^{t-1}_i)}{\partial \hat{y}^{t-1}_i} \\
+g_i =  \frac{\partial L(y_i, \hat{y}^{t-1}_i)}{\partial \hat{y}^{t-1}_i}, \  \\
 h_i =  \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial (\hat{y}^{t-1}_i)^2 }
 \]
 
-Still, the equation \ref{equation-gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$ and by replacing the output targets of each sample for that tree evaluation.
+Still, the equation \ref{equation-gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$ and also by replacing each sample's predictions for that tree's evaluation.
 
 \begin{equation} \label{eq:gb-objSteps1}
 Obj^t(\Theta) \approx  \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
@@ -347,13 +341,15 @@ Obj^t(\Theta) \approx \sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + 
 This equation form results in a direct method for a greedy optimization approach.  We will have to search for the tree $f_t$ that minimizes \\
 $\sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step. 
 
-As we have stated before the approach assumes that that $ \forall i \in {1...n}, \forall t \in {1..K}, \exists g_i(\hat{y}^{t}_i), h_i(\hat{y}^{t}_i) $ and that these values are effectively computable. Smooth loss functions play an important role here in providing a feasible method. 
+As we have stated before the approach assumes that we have met enough smoothness conditions on the loss function with respect to the prediction variable 
+%$ \forall i \in {1...n}, \forall t \in {1..K}, \exists g_i(\hat{y}^{t}_i), h_i(\hat{y}^{t}_i) $ 
+and that these values are effectively computable. Here smooth loss functions play an important role here in providing a feasible method. 
 
-As a last remark on boosting algorithms, there are two additional heuristics used to improve the generalization performance of boosting algorithms. The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive . The authors in \cite{hastie-elemstatslearn} and \cite{bishop - patternRecognition} mention them because of their overall contribution to prediction improvement.
+As a last remark on boosting algorithms, there are two additional heuristics used to improve the generalization performance of boosting algorithms. The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive . The authors in \cite{hastie-elemstatslearn} and \cite{bishop - patternRecognition} mention them because of their overall contribution to the generalization error.
 
 The first idea to reduce the overall variance of the algorithm is to subsample the data. This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner. The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method. In practice, the rate of sampling will be controlled by a tuning parameter in the model.
 
-The other heuristic is considerd to be, at least experimentally, more important. This involves successively applying a \textit{shrinkage} factor $v \in  (0,1)$ to the new model.  At step $m$, instead of letting the overall model become $ \hat{y_i}^{(m)} = \hat{y_i}^{(m-1)} +  \gamma_m h_m(x_i) $, we multiply the shrinkage factor $v$ to these values before adding them to the overall model at step $m-1$. This shrinkage factor is also known in the literature as the \textit{learning rate} of the algorithm.  Note that $v$  is reducing the movement of the algorithm in the direction of optimization provided by $\gamma_m$ and $h_m$. In practice this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. However, and specially combined with subsampling, the use of this factor has been empirically shown overall improvements in generalization accuracy.
+The other heuristic is considered to be, at least experimentally, more important. This involves successively applying a \textit{shrinkage} factor $v \in  (0,1)$ to the new model.  At step $m$, instead of letting the overall model become $ \hat{y_i}^{(m)} = \hat{y_i}^{(m-1)} +  \gamma_m h_m(x_i) $, we multiply the shrinkage factor $v$ to these values before adding them to the overall model at step $m-1$. This shrinkage factor is also known in the literature as the \textit{learning rate} of the algorithm.  Note that $v$  is reducing the movement of the algorithm in the direction of optimization provided by $\gamma_m$ and $h_m$. In practice this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. However, and specially combined with subsampling, the use of this factor has been empirically shown overall improvements in generalization accuracy.
 
 
 \end{document}
