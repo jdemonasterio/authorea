@@ -1,121 +1,3 @@
-\section{Boosting Models}\label{section-boosting}
-\subsection{AdaBoost}
-\cite{schapire-adaBoost}
-
-Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak lerners to output the combined model's prediction. The full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator. This provides greater predictive power when the base model's accuracy is weak. However, care must be taken to control the increase in variance.
-
-In the AdaBoost variation of ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner. Weights are used to rank the samples by importance, where a sample with higher misclassification rate will receive a stronger weight. The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
-
-Tuning parameters in this algorithm are the same as those in the base learners. In addition, the number of steps that the algorithm will \textit{boost} is a new hyperparameter. 
-
-The chained construction of weak learners has its implications in computational complexity. Base learners are not constructed independently and as such, the parallelization of this algorithm is rarely possible. At the same time, the sequential optimization of learners improving on the one before marks a \textit{greedy} minimization approach of the general loss function.
-
-These properties underline a substantial difference to Random Forests where base learners are built as uncorrelated as possible and where optimization can be performed globally, which allowed a significant parallelization of the algorithm. 
-
-\subsection{AdaBoost Formulation}
-
-Let 
-\begin{equation} \label{equation-adaBoostTrainingError}
-	\overline{err} = \frac{1}{N} \sum_{i=1}^{N} I(y_i \neq \hat{y_i})
-\end{equation}
-%$$$$ 
-denote the training set's misclassification error. As usual, $N$ is the amount of samples in our dataset, $y$ is our target variable and $\hat{y}$ is our model's prediction for the target, given the samples. We also take 
-$$\Expect_{X \ Y} [ I(Y \neq \hat{Y}(X)) ]$$ 
-
-to be the expected error rate of the model on the true,  unknown distribution of the data.
-
-Let $m$ index the iteration number in the AdaBoost algorithm. Set $w^{(m)}_i$ to be the $i$-th sample's weight. We will initialize this variable to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. Let $h(x,\theta)$  denote our model's weak learner. With this notation, we assume the function to have domain in the input feature space and in the parameters defining the learner. Naturally these will depend on the problem structure and on the base learner. Then AdaBoost's model takes the following form:
-
-\begin{equation} \label{equation-adaBoostModel}
-\hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
-\end{equation}
-
-where $M$ is the model's hyperparameter indicating the amount of weak learners and thus the amount of iterations. Here, each $\theta_m$ will encode the base learner's parameters and $\gamma_m$ will denote the weight of that weak learner in the overall model.
-
-The algorithm's iteration will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the last model. At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
-
-\begin{equation} \label{equation-adaBoostIteration}
-\begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & L\big( y_i,   \hat{y}^{m}(x_i) + \gamma h(x_i,\theta) \big) \\
-= \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N}  & L\big( y_i,    \sum_{j=1}^{m} \gamma_j h(x_i,\theta_j) + \gamma h(x_i,\theta) \big) 
-\end{split}
-\end{equation}
-
-The greedy nature of the algorithm becomes explicit in the procedure above, where we have fixed all of the previous optimized values for $\gamma_j$ and $\theta_j$. 
-
-AdaBoost was first derived in \cite{schapire-adaBoost} and it was introduced with a specific  minimizing function. The general version here presented allows the use of a broad range of base learners which need not to be from the same algorithmic family. In the first version introduced, the loss function used was the exponential loss which is $L(y,z) = e^{-yz}$ and the target variable took the values $1$ or $-1$.
-
-This particular case yields a similar equation as in \ref{equation-adaBoostIteration}, but where
-
-\begin{equation} \label{equation-adaBoostExponentialIteration}
-\begin{split}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  (\hat{y}^{m}(x_i) + \gamma h(x_i,\theta) )\big) \\
-= \underset{\gamma, \theta}{\mathrm{argmin}}  \sum_{i=1}^{N} & exp\big( -y_i  \hat{y}^{m}(x_i)\big) exp\big(- \gamma h(x_i,\theta)y_i \big) 
-\end{split}
-\end{equation}
-
-
-Given that we are only minimizing $\gamma$ and $\theta$, we can group $e^{-y_i  \hat{y}^{m}(x_i)}$ into a single value $w_i^{(m)}$ which we will set to the weight of each sample. This weight strongly depends on the past steps of the algorithm.  The equation now becomes
-
-%We can also take the $\gamma$ factor out of the sum, since it is fixed for all samples.
-
-\begin{equation} \label{equation-adaBoostExponentialIteration2}
-(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \    \sum_{i=1}^{N}  w_i^{(m)} exp \big(-\gamma h(x_i,\theta)y_i \big) 
-\end{equation}
-
-We can then minimize for $\theta$ first, independently of the value of $\gamma$. The series in \ref{equation-adaBoostExponentialIteration2} can be decomposed 
-
-\begin{equation} \label{equation-adaBoostThetaDecomposition}
-\begin{split}
-e^{-\gamma} \sum_{i \mid y_i = h(x_i,\theta)} w_i^{(m)}  + e^{\gamma} \sum_{i \mid y_i \neq h(x_i,\theta)} w_i^{(m)} & = \\
-( e^{\gamma} - e^{-\gamma}) \sum_{i = 1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)   \big)  + e^{-\gamma} \sum_{i = 1}^{N}   w_i^{(m)} &
-\end{split}
-\end{equation}
-
-
-and then the minimizing solution for $h(\cdot, \theta_{m+1})$ will be the one satisfying
-
-\begin{equation} \label{equation-adaBoostThetaMinimization}
-\theta_{m} = \underset{ \theta}{\mathrm{argmin}}  \sum_{i=1}^{N}  w_i^{(m)} I \big( y_i \neq h(x_i,\theta)   \big) 
-\end{equation}
-
-Let $u = \sum_{i=1}^{N}  w_i^{(m)}$ and $v = \sum_{i=1}^{N}  w_i^{(m)} I \big( y_i \neq h(x_i,\theta)   \big) $, which are both constant in $\gamma$. Consider \ref{equation-adaBoostTrainingError} and note that $\frac{u}{v} = \frac{1}{\overline{err}}$. If we now solve for $\gamma$ in \ref{equation-adaBoostThetaDecomposition}, we can take
-
-\begin{equation} \label{equation-adaBoostBetaMinimization}
-f(\gamma) = ( e^{\gamma} - e^{-\gamma}) u +  e^{-\gamma}v
-\end{equation}
-
-which has a minimum at 
-\begin{equation}
-\gamma_{m} = \frac{1}{2} log\big( \frac{1 - \overline{err} }{ \overline{err} }  \big)
-\end{equation}
-
-As seen by the equation above, the minimizing value for $\gamma$ is directly related to the training error of the algorithm for the \textit{whole} dataset. This weight will be reflected upon all samples in general and then we would expect this rate to decrease at every iteration.  Taking advantage of this closed form, the value is plugged into the next step of the AdaBoost procedure to update sample weights as
-
-\begin{equation}
-w_i^{(m+1)} =   w_i^{(m+1)} e^{\gamma_m(-y_i h_m(x_i))} \\
-\end{equation} 
-
-In this way we have that the weights are updated for those samples which have a higher misclassification rate. This is a relevant aspect of the algorithm. At each step, more importance is given to misclassified samples over correctly classified ones. 
-
-%$-y_i h_m(x_i) = 2I \big( y_i = h_m(x_i)   \big) -1$ which means that $\gamma_m(-y_i h_m(x_i))$
-
-
-The final form of the model is
-$$  \hat{y}(x) = sgn\big(  \sum_{m=1}^{M} \gamma_m h_m(x) \big)$$ which outputs the most frequent prediction given by all of the weak learners. This is because all of the correct predictions will be greater than zero and negative values for the incorrect predictions. \footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}
-%This particular property is what gives rise
-
-At first the choice of the exponential loss function can seem arbitrary, but for the context of statistical learning this measure presents an important property where its minimizing function is the log-odds ratio of the two output classes:
-$$f^*(X) = \underset{f}{\mathrm{argmin}} \  \Expect_{Y | f(X)}\big[ exp(-Yf(X))  \big] = \frac{1}{2}
-log\big( \frac{ P(Y=1 \mid X) }{ P(Y=-1 \mid X) }  \big) $$
-
-
-The use of the exponential loss function $exp(-Yf(X))$ is also desirable in this context since significantly more weight is put on misclassifications rather than on correct classifications. This is because the function is not symmetric in $Yf(X)$ and that having a correct classification will mean a factor of only $e^{-1}$, whilst on the other hand a misclassification will mean a factor of $e$.
-
-A drawback of this loss though, is that it is not robust to outliers or to noisy data. During runtime weights are constantly shifting towards misclassified samples. Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data. 
-
-
-
 \subsection{Gradient Tree Boosting}
 
 As explained before, the boosting method builds a high model learned from other \textit{weaker} learners. For the case of \textit{gradient tree boosting}, decision trees are used as base learners. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
@@ -177,16 +59,16 @@ Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Th
 where each tree is added in such a way that we are minimizing
 
 \begin{equation}
-Obj^t(\Theta) =  \sum_i^n L(y_i, \hat{y}^{t-1}_i +  f_t(x_i) ) + c(t) + R(f_t) 
+Obj^t(\theta) =  \sum_i^n L(y_i, \hat{y}^{t-1}_i +  f_t(x_i) ) + c(t) + R(f) 
 \end{equation}
 
 
-Note that we have included here a regularization term (see section \ref{subsection-hyperParametersRegularization}) $R$. For most cases,  this term will takethe form of a Tikhonov regularization. This will add another complexity tuning parameter to controlthe length of the overall procedure $c(t)$ which is variable only in $t$. 
+Note that we have included here a regularization term (see section \ref{subsection-hyperParametersRegularization}) $R$ on all of the weak learners. For most cases,  this term will take the form of a Tikhonov regularization. This will add another complexity tuning parameter to control the length of the overall procedure $c(t)$ which is variable only in $t$. 
 
 If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
 
 \begin{equation}\label{equation-gradientBoostingTaylor}
-Obj^t(\Theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  R(f_t) +  c(t)
+Obj^t(\theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i,\theta_t) + \frac{1}{2} h_i f_t(x_i,\theta_t)^2 } +  R(f(\Theta)) +  c(t)
 \end{equation}
 
 Here $g_i$ and $h_i$ are first and second order approximations of the loss function with,
@@ -196,30 +78,38 @@ g_i =  \frac{\partial L(y_i, \hat{y}^{t-1}_i)}{\partial \hat{y}^{t-1}_i}, \  \\
 h_i =  \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial (\hat{y}^{t-1}_i)^2 }
 \]
 
-Still, the equation \ref{equation-gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$ and also by replacing each sample's predictions for that tree's evaluation.
+Still, the equation \ref{equation-gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. This also means replacing the actual tree's predictions for each sample as $\theta_{q(x_i)}$, where $q(\cdot): X \rightarrow leaf$ is the function that maps samples to the tree's leafs. Then,
+
+%for that tree's evaluation.
 
 \begin{equation} \label{eq:gb-objSteps1}
-Obj^t(\Theta) \approx  \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
+Obj^t(\theta) \approx  \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
 \end{equation}
 
-As an example, we have already replaced the regularization terms $c(t)$ and $R(f_t)$ with an $l$2 penalty on the parameter size and on the iteration number. 
+As an example, we have already replaced the regularization terms $c(t)$ and $R(f)$ with penalties on the size of the ensemble and with an $l$2 penalty on the weight of each individual leaf. 
+
+If we rearrange the equation above we get
 
 \begin{equation} \label{eq:gb-objSteps1}
-Obj^t(\Theta) \approx   \sum_{j=1}^{t-1} \left(  \sum_{i \in ({t-1})_j} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in ({t-1})_j} (h_i + \lambda ) \theta_{j}^2  \right) + \gamma ({t-1})
+\begin{split}
+Obj^t(\theta) \approx  & \sum_{j=1}^{t-1} \left(  \sum_{i \in \{q(x_i)=j\}} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \theta_{j}^2  \right) + \gamma ({t-1}) \\
+\approx  & \sum_{j=1}^{t-1} \left(  \theta_{j}\sum_{i \in \{q(x_i)=j\}} (g_i ) + \frac{\theta_{j}^2}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda )  \right) + \gamma ({t-1}) 
+\end{split}
 \end{equation}
 
-Then
-
-\[
-Obj^t(\Theta) \approx \sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
-\]
-
-This equation form results in a direct method for a greedy optimization approach.  We will have to search for the tree $f_t$ that minimizes \\
-$\sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step. 
+which, as a function of $\Theta$ is a quadratic equation if we assume $\gamma$ fixed. This results in a convenient and closed-from analytical formulation to select the best direction of descent for $\theta$. Here a direct optimization approach, such as gradient descent, can be used to find the tree $f_t(\theta)$ minimizing the previous expression.
 
 As we have stated before the approach assumes that we have met enough smoothness conditions on the loss function with respect to the prediction variable 
 %$ \forall i \in {1...n}, \forall t \in {1..K}, \exists g_i(\hat{y}^{t}_i), h_i(\hat{y}^{t}_i) $ 
-and that these values are effectively computable. Here smooth loss functions play an important role here in providing a feasible method. 
+and that these values are effectively computable. This is why smooth loss functions play an important role here in providing a feasible method. 
+
+%\[
+%Obj^t(\Theta) \approx \sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+%\]
+
+%This equation form results in a direct method for a greedy optimization approach.  We will have to search for the tree $f_t$ that minimizes \\
+%$\sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step. 
+
 
 As a last remark on boosting algorithms, there are two additional heuristics used to improve the generalization performance of boosting algorithms. The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive . The authors in \cite{hastie-elemstatslearn} and \cite{bishop - patternRecognition} mention them because of their overall contribution to the generalization error.
 
