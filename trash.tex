@@ -301,16 +301,16 @@ Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Th
 where each tree is added in such a way that we are minimizing
 
 \begin{equation}
-Obj^t(\Theta) =  \sum_i^n L(y_i, \hat{y}^{t-1}_i +  f_t(x_i) ) + c(t) + R(f_t) 
+Obj^t(\theta) =  \sum_i^n L(y_i, \hat{y}^{t-1}_i +  f_t(x_i) ) + c(t) + R(f) 
 \end{equation}
 
 
-Note that we have included here a regularization term (see section \ref{subsection-hyperParametersRegularization}) $R$. For most cases,  this term will takethe form of a Tikhonov regularization. This will add another complexity tuning parameter to controlthe length of the overall procedure $c(t)$ which is variable only in $t$. 
+Note that we have included here a regularization term (see section \ref{subsection-hyperParametersRegularization}) $R$ on all of the weak learners. For most cases,  this term will take the form of a Tikhonov regularization. This will add another complexity tuning parameter to control the length of the overall procedure $c(t)$ which is variable only in $t$. 
 
 If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
 
 \begin{equation}\label{equation-gradientBoostingTaylor}
-Obj^t(\Theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  R(f_t) +  c(t)
+Obj^t(\theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i,\theta_t) + \frac{1}{2} h_i f_t(x_i,\theta_t)^2 } +  R(f(\Theta)) +  c(t)
 \end{equation}
 
 Here $g_i$ and $h_i$ are first and second order approximations of the loss function with,
@@ -320,30 +320,38 @@ g_i =  \frac{\partial L(y_i, \hat{y}^{t-1}_i)}{\partial \hat{y}^{t-1}_i}, \  \\
 h_i =  \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial (\hat{y}^{t-1}_i)^2 }
 \]
 
-Still, the equation \ref{equation-gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$ and also by replacing each sample's predictions for that tree's evaluation.
+Still, the equation \ref{equation-gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. This also means replacing the actual tree's predictions for each sample as $\theta_{q(x_i)}$, where $q(\cdot): X \rightarrow leaf$ is the function that maps samples to the tree's leafs. Then,
+
+%for that tree's evaluation.
 
 \begin{equation} \label{eq:gb-objSteps1}
-Obj^t(\Theta) \approx  \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
+Obj^t(\theta) \approx  \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
 \end{equation}
 
-As an example, we have already replaced the regularization terms $c(t)$ and $R(f_t)$ with an $l$2 penalty on the parameter size and on the iteration number. 
+As an example, we have already replaced the regularization terms $c(t)$ and $R(f)$ with penalties on the size of the ensemble and with an $l$2 penalty on the weight of each individual leaf. 
+
+If we rearrange the equation above we get
 
 \begin{equation} \label{eq:gb-objSteps1}
-Obj^t(\Theta) \approx   \sum_{j=1}^{t-1} \left(  \sum_{i \in ({t-1})_j} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in ({t-1})_j} (h_i + \lambda ) \theta_{j}^2  \right) + \gamma ({t-1})
+\begin{split}
+Obj^t(\theta) \approx  & \sum_{j=1}^{t-1} \left(  \sum_{i \in \{q(x_i)=j\}} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \theta_{j}^2  \right) + \gamma ({t-1}) \\
+\approx  & \sum_{j=1}^{t-1} \left(  \theta_{j}\sum_{i \in \{q(x_i)=j\}} (g_i ) + \frac{\theta_{j}^2}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda )  \right) + \gamma ({t-1}) 
+\end{split}
 \end{equation}
 
-Then
-
-\[
-Obj^t(\Theta) \approx \sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
-\]
-
-This equation form results in a direct method for a greedy optimization approach.  We will have to search for the tree $f_t$ that minimizes \\
-$\sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step. 
+which, as a function of $\Theta$ is a quadratic equation if we assume $\gamma$ fixed. This results in a convenient and closed-from analytical formulation to select the best direction of descent for $\theta$. Here a direct optimization approach, such as gradient descent, can be used to find the tree $f_t(\theta)$ minimizing the previous expression.
 
 As we have stated before the approach assumes that we have met enough smoothness conditions on the loss function with respect to the prediction variable 
 %$ \forall i \in {1...n}, \forall t \in {1..K}, \exists g_i(\hat{y}^{t}_i), h_i(\hat{y}^{t}_i) $ 
-and that these values are effectively computable. Here smooth loss functions play an important role here in providing a feasible method. 
+and that these values are effectively computable. This is why smooth loss functions play an important role here in providing a feasible method. 
+
+%\[
+%Obj^t(\Theta) \approx \sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+%\]
+
+%This equation form results in a direct method for a greedy optimization approach.  We will have to search for the tree $f_t$ that minimizes \\
+%$\sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step. 
+
 
 As a last remark on boosting algorithms, there are two additional heuristics used to improve the generalization performance of boosting algorithms. The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive . The authors in \cite{hastie-elemstatslearn} and \cite{bishop - patternRecognition} mention them because of their overall contribution to the generalization error.
 
