@@ -17,7 +17,6 @@ section_Classifier_Naive_Bayes_The__.tex
 section_Classifier_Decision_Trees_rview__.tex
 subsubsection_Random_Forests_Formulation_Let__.tex
 subsubsection_Random_Forest_Formulation_Given__.tex
-ASDFSFD__.tex
 section_Boosting_Models_label_section__.tex
 asdf__.tex
 Pi_Pi_Pi__.tex
