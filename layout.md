@@ -1,7 +1,7 @@
 section_Meta_Section_Writing_plan__.tex
 section_Brief_ovierview_to_machine__.tex
 subsubsection_A_working_example_label__.tex
-section_TODO_Review_logistic_regression__.tex
+section_Logistic_Regression_for_Classification__1.tex
 As_we_know_the_learner__.tex
 AGRANDA_2016_Camera_ready_version__.tex
 figures/figure-biasVariance/figure-biasVariance.png
