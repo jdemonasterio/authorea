@@ -1,0 +1,33 @@
+%===============================================================================
+%          File: main.tex
+%        Author: Pedro Ferrari
+%       Created: 08 Feb 2017
+% Last Modified: 08 Feb 2017
+%   Description: Main File for Thesis
+%===============================================================================
+\documentclass[a4paper,11pt,leqno]{book}
+
+\input{preamble.tex}
+
+% \includeonly{}
+
+\begin{document}
+
+\frontmatter
+  \halftitlepg
+  \titlepg
+  \copyrightpg
+  \ifdef{\dedication}{\dedication}{}
+  \tableofcontents
+  \include{preface}
+
+\mainmatter
+  % \include{ch1_introduction}
+  \include{ch3_machine_learning}
+
+\backmatter
+  \printbibheading[heading=bibbook]
+  \bibbysection[heading=subbib]
+  % \printindex
+
+\end{document}
