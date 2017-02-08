@@ -10,10 +10,10 @@ RSS(\theta_0,..,\theta_p)  = \sum_{i=1}^n [y_i - \hat{y}_i]^2  \\
 =  \sum_{i=1}^n [y_i - h( \theta \cdot x_i)]^2
 \end{equation}
 
-The equation reflects our goal to correctly match a training sample with their targets. But in truth we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones. The previous equation is a bad attempt to generalize the classification model constructed from the data. It is built to fit the actual dataset but we wouldn't expect it to perform well with any other given sample of the \textit{true} distribution for \mathrm{T}. 
+The equation reflects our goal to correctly match a training sample with their targets. But in truth we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones. The previous equation is a bad attempt to generalize the classification model constructed from the data. It is built to fit the actual dataset but we wouldn't expect it to perform well with any other given sample of the \textit{true} distribution for $\mathrm{T}$. 
 
 \begin{definition}{Prediction Error}
-Given a choice of parameter \theta, the \textbf{prediction error} for the resulting classifier $f_\theta$ is
+Given a choice of parameter $\theta$, the \textbf{prediction error} for the resulting classifier $f_\theta$ is
 
 \[
     Err_{true}(\theta)  = \Expect_{ \mathrm{T}}[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
