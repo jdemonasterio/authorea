@@ -14,7 +14,7 @@
 %--------------------------------------+
 % Language, hyphenation, encoding, etc |
 %--------------------------------------+
-\usepackage[spanish,english]{babel}
+\usepackage[spanish,english]{biblatex}
 \usepackage{lmodern}             % Use Latin Modern fonts
 \usepackage[T1]{fontenc}         % Better output when a diacritic/accent is used
 \usepackage[utf8]{inputenc}      % Allows to input accented characters
@@ -148,7 +148,7 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 
 % \usepackage{lipsum}    % Dummy text generator
 
-% \usepackage{algorithm2e}
+\usepackage{algorithm2e} % to write pseudo-code algorithms
 \usepackage{qtree} % To draw trees
 
 
@@ -159,8 +159,21 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 \preto{\appendix}{\cleardoublepage}
 
 \usepackage[style=american]{csquotes}  % Language sensitive quotation facilities
-\usepackage[style=authoryear-comp,backref=true,refsection=chapter,
-backend=biber]{biblatex}
+%\usepackage[style=authoryear-comp,backref=true,refsection=chapter,
+%backend=biber]{biblatex}
+
+% this might insert blank pages here and there but now compilation works correctly with biber
+\usepackage[
+	backend=biber,
+	sortlocale=us_EN,
+	natbib=true,
+	style=authoryear-comp,backref=true,refsection=chapter,
+	url=false, 
+	doi=true,
+	eprint=false
+	]{biblatex}
+
+
 \addbibresource{biblio.bib}
 
 % Bibliography format
