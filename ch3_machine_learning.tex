@@ -688,24 +688,24 @@ Cross validation intends to estimate the expected \textit{out-of-sample} error $
 
  Let $\mathcal{A} = [\alpha_0, \alpha_1,..., \alpha_l   ]$ be a list of hyperparameter settings and  $\mathcal{K} =[1,..,K]$ a list of folds.  A full K-Fold Cross Validation procedure takes the following form.
 
- % \begin{algorithm}%[h]
- % \SetAlgoLined
- % \KwResult{Write here the result }
- % Initialize $\mathcal{A}$ and $\gamma(\cdot)$\;
- % \For{ $\alpha \in  \mathcal{A}$}{
- % \eIf{data transformation}{
- % Perform data transformation on the whole training set \;
- % }{
- % continue\;
- % }
- % \For{ $k \in  \mathcal{K}$}{
- % fit $\hat{f}^{-k}(\cdot, \alpha)$\;
- % }
+  \begin{algorithm}%[h]
+  \SetAlgoLined
+  \KwResult{Write here the result }
+  Initialize $\mathcal{A}$ and $\gamma(\cdot)$\;
+  \For{ $\alpha \in  \mathcal{A}$}{
+  \eIf{data transformation}{
+  Perform data transformation on the whole training set \;
+  }{
+  continue\;
+  }
+  \For{ $k \in  \mathcal{K}$}{
+  fit $\hat{f}^{-k}(\cdot, \alpha)$\;
+  }
 
- % compute $CV(\alpha) = \frac{1}{N} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
- % }
- % \caption{K-Fold Cross Validation Estimation Procedure}
-% \end{algorithm}
+  compute $CV(\alpha) = \frac{1}{N} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
+  }
+  \caption{K-Fold Cross Validation Estimation Procedure}
+ \end{algorithm}
 
 Note that during the loop, each sample's prediction was tested on the model which was fitted without using that sample.
 
