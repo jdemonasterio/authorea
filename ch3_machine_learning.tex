@@ -13,9 +13,9 @@
 Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \ref{bishop-patternRecognition} and  \ref{hastie-elemstatslearn}. Some fundamental concepts and material were also used from \label{scikit-learn}. While other texts were also used, it is not necessary that we point them out here as they have been correctly cited. Where not specified, the reader can assume that the proof is based from said texts.
 
 
-\section{ Brief ovierview to machine learning and supervised classification problems}\label{section-introduction}
+\section{ Brief overview to machine learning and supervised classification problems}\label{section-introduction}
 
-Machine learning is a subfield of computer science with broad \textit{theoeretical} intersections with statistics and mathematical optimization. At present time it has a wide range of applications. A non-comprehensive list of its use includes self-driving cars, spam detection systems, face and/or voice recognition, temperature prediction in weather, AI opponents in games, disease prediction in patients, text and audio language translation, stock pricing, movie recommendation systems, etc. Examples of these machine learning programs are now widespread to the point where their use today has direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
+Machine learning is a subfield of computer science with broad \textit{theoretical} intersections with statistics and mathematical optimization. At present time it has a wide range of applications. A non-comprehensive list of its use includes self-driving cars, spam detection systems, face and/or voice recognition, temperature prediction in weather, AI opponents in games, disease prediction in patients, text and audio language translation, stock pricing, movie recommendation systems, etc. Examples of these machine learning programs are now widespread to the point where their use today has direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
 
 The most widely used definition of machine learning is attributed to Tom Mitchell:
 "A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E" \textcite{Mitchell-MLearning}. To our purpose it is clear though that this definition \footnote{Other authors might reference machine learning as \textit{statistical learning}. See \textcite{hastie-elemstatslearn} as an example.} is not formally well-defined. However it serves to convey the idea of algorithms that automatically \textit{learn} to do a a specific task better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this,\textit{learning} is less associated with a cognitive definition in this context and more to a performance based approach.
@@ -94,7 +94,7 @@ $$p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} $$
 
 In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data.
 
-Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely associated to a region. It makes sense to try and \textit{minmize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of a correct classification is measured by
+Our classifiers will partition input space into decision regions $R_k$ for which a class $C_k$ is uniquely associated to a region. It makes sense to try and \textit{minimize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of a correct classification is measured by
 
 \begin{equation}\label{eq:goodclassification-equation}
 \begin{split}
@@ -150,7 +150,7 @@ where  we use the relation
  \  H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)
 \end{equation}
 
-The logistic function has the advantageof being smooth, well defined for all real numbers and the image of the funciton is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. The derivative of this function can be put in terms of the function itself, where
+The logistic function has the advantage of being smooth, well defined for all real numbers and the image of the function is $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. The derivative of this function can be put in terms of the function itself, where
 
 \begin{equation} \label{eq:derivativeLogisticFunction}
 \sigma '(a) = \sigma(a)( 1 - \sigma(a) )
@@ -198,7 +198,7 @@ Here we see the close resemblance to the logistic function which is acting on th
 %xGiven a choice of parameter $\theta$,
 %\end{definition}
 
-The second defining poperty of logistic regression is that the log-odds are modeled with a transformation on a linear combination of inputs. It also conditions the posterior probabilities must sum to one. Let $j$ be a fixed class and denote
+The second defining property of logistic regression is that the log-odds are modeled with a transformation on a linear combination of inputs. It also conditions the posterior probabilities must sum to one. Let $j$ be a fixed class and denote
 
 $$ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  $$\label{logit-logOddss} for $i,j \in \{1,2,...,K\}, i\neq j$
 
@@ -222,7 +222,7 @@ The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ i
 $$\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}$$\label{logit-probabilityDensity}
 where this depends on the class dependence of $y$.
 
-Here the logit function is used to map log odds into conditional probabilties and the model outputs the predicted probabilities of the target variables belonging to the target class.
+Here the logit function is used to map log odds into conditional probabilities and the model outputs the predicted probabilities of the target variables belonging to the target class.
 
 This is why we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
 $$Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i$$. \label{logit-indicatorFunction}
@@ -321,7 +321,7 @@ Note that in a Bayesian context the definition of hyper-parameter is different. 
 As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$. The first idea led to find the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we have now a problem of $p$ degrees of freedom, what is left is to find the parameter by optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is better than another. For example the choice of $0.5$ as a threshold in \ref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning, functions that define a quantitative measure of a parameter's performance  are called a \textit{loss functions}.
 %the criteria used to choose the best parameters
 
-A naive approach to find the parameters in our problem would be to minimize the residual sum of squares. In the context of linear regression with gaussian residuals, minimizing the residual sum of squares is equivalent to maximizing the likelihood probability of the target, given the input data. This results in minimizing the following sum (RSS):
+A naive approach to find the parameters in our problem would be to minimize the residual sum of squares. In the context of linear regression with Gaussian residuals, minimizing the residual sum of squares is equivalent to maximizing the likelihood probability of the target, given the input data. This results in minimizing the following sum (RSS):
 %Typical of other scenarios such as linear regression, one would like
 
 \begin{equation} \label{eq:rss}
@@ -346,7 +346,7 @@ Given a choice of parameter $\theta$, the \textbf{prediction error} for the resu
 Note that integration here is done over the joint distribution of inputs and outputs. In practical cases, we have incomplete information on $P(x,y)$ given the finite data sample.
 We must assume then that calculating this integral is not feasible for any $\theta$ and must rely on estimation procedures.
 
-For example, we could try and sample $M$ iid points from $P(x,y)$ to approximate the integral by a Monte Carlo scheme such as
+For example, we could try and sample $M$ i.i.d. points from $P(x,y)$ to approximate the integral by a Monte Carlo scheme such as
 
 \begin{equation} \label{eq:mcarlo-approx}
     Err_{true}(\theta)  \approx \frac{1}{M} \sum_i^M ( y - h(x \cdot \theta) )^2
@@ -379,7 +379,7 @@ Conceptually the first type of error relates to the model's accuracy in labeling
 
 In the generalization error, the loss function  determines how \textit{good} the model's prediction are by quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on the data.
 
-By comparing for each sample the target predictions versus their real values, loss functions give a measure of how strong classifiers are with respect to their predictions. These can be characterized as semimetrics on the target space i.e. functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
+By comparing for each sample the target predictions versus their real values, loss functions give a measure of how strong classifiers are with respect to their predictions. These can be characterized as semi metrics on the target space i.e. functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
 
 \begin{definition}{Prediction Error}
 $$ PE(\hat{f})= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X))\right]$$
@@ -387,7 +387,7 @@ $$ PE(\hat{f})= \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X))\right]$$
 
 This is the expected error between our model and the target labels, as quantified by the loss function.
 
-Given that any model is always built on a dataset, we need to estimte the prediction error using the model's error over the data.  This value is the generalization error.
+Given that any model is always built on a dataset, we need to estimate the prediction error using the model's error over the data.  This value is the generalization error.
 
 \begin{definition}{Generalization Error}
  $\mathrm{Ts}$:
@@ -454,7 +454,7 @@ The generalized bias-variance decomposition now takes the following form, where 
 \end{split}
 \end{equation}
 
-Note here that the first term is equivalent to the variability of the target variable with respect to its systematic value, the second term is the systematic effect. That is, the expected bias between the systematic values of $Y$ and $\hat{f}(X)$. The last term is the variance effect which is the expected variablity between $Y$ and $\hat{f}(X)$.
+Note here that the first term is equivalent to the variability of the target variable with respect to its systematic value, the second term is the systematic effect. That is, the expected bias between the systematic values of $Y$ and $\hat{f}(X)$. The last term is the variance effect which is the expected variability between $Y$ and $\hat{f}(X)$.
 % $\Expect_{Y} \left[ L(SY,Y )\right]$
 
 %\begin{equation}\label{squaredBiasDecomposition}
@@ -498,7 +498,7 @@ $$ \overline{err} = \frac{1}{N} \sum_{i=1}^N L(y_i, \hat{f}(x_i) )$$
 
 Let \textbf{x} $\in \mathbb{R}^{p}$ denote a random input variable and \textbf{y}  $\in \mathbb{R}$ denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
 
-%We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semimetric} chosen to penalize errors in prediction. In general a quadratic or absolute value functions are chosen, where the first is more favored for its smoothness.
+%We define $EPE\left(f \right) = \Expect\left[L\left(\textbf{y} - f(\textbf{x}) \right) \right] $ where $L(y,f\left(x\right))$ is called the loss-function which is a \textbf{semi metric} chosen to penalize errors in prediction. In general a quadratic or absolute value functions are chosen, where the first is more favored for its smoothness.
 
 We will then look to evaluate models according to their performance in these two errors in training and testing datasets. Combinations of high or low values for these, across training and test data, are used as model evaluation and highlight aspects to be improved.
 
@@ -514,7 +514,7 @@ Once the model was fit on the training set, it overfits when predictions on trai
 Given that we can have a high or low variance and bias, there are only four possible performance for any model. Our objective will then be to work out the data and the model to reach a state of low bias and variance. Different states of bias and variance require strategies to make a model better.
 
 %A trivial algorithm that would
-%An opposite scneario scenario occurs when
+%An opposite scenario scenario occurs when
 %rise Typical combinations
 %The four possible combinations of high
 
@@ -547,7 +547,7 @@ As an example, in logistic regression, $theta$ can be indexer by the values of e
 
 As it was seen before in \ref{section-biasVariance}, a common problem in supervised learning when a particular learner is fit and then used to predict new values is overfitting. In practice this is common when $n$ is \textit{small} or when the number of features is \textit{large}.
 
-In Vapnik and Chervonenkis's work, the focus is in the estimation of the prediction error through the convergence and consistency of the training error. They derive the VC dimension as an important value in determining convergence speeds for different machine learning algorithms. In this way, the SLT theory provides a theoretical framework to effectively characterize these dimensions in a constructive way. By the derived analytical bounds for a number of algorithms, we are enabled to estimate the distance between the empirical error and the generalization error.
+In Vapnik and Chervonenkis' work, the focus is in the estimation of the prediction error through the convergence and consistency of the training error. They derive the VC dimension as an important value in determining convergence speeds for different machine learning algorithms. In this way, the SLT theory provides a theoretical framework to effectively characterize these dimensions in a constructive way. By the derived analytical bounds for a number of algorithms, we are enabled to estimate the distance between the empirical error and the generalization error.
 
 Incorporating the loss functions directly in the model, SLT looks at functions of the form $Q(t,\theta) \ = \ L(f_\theta(x,y))$. Seen as a two variable function where $t=(x,y)$ represents the input and output data, and $theta$ the class index.
 
@@ -561,7 +561,7 @@ EPE(\theta) = & \ \Expect_{\textbf{t}} \left[  Q(t,\theta) \right]\\
 \end{split}
 \end{equation}\footnote{For simplicity, we will assume the functions $Q$ in the class to be bounded.}
 
-where we let $p(t)$ be the \textbf{true} underlying probabilty function of the data.
+where we let $p(t)$ be the \textbf{true} underlying probability function of the data.
 
 However, as it was said before, we only have access to restricted data and we would like to estimate the risk functional for that class with the available training/test error. In this framework, this is what is called the empirical risk:
 
@@ -618,7 +618,7 @@ $\mathcal {T} = \{ t_1,t_2,...,t_n  \}$, we know that each classifier acts as an
 We would say that $t$ is picked out by $\Theta$ if there exists a classifier $f_{\theta} \in \Theta$ such that $T = f_{\theta}^{-1}(\{1\})$. The classifiers in $\Theta$ define a unique mapping to the class of sets where each classifier is positive. It is said that $\mathcal {F}$ shatters a set $A$ if all of its subsets are picked out by the class of functions.
 
 We will now reproduce the main necessary and sufficient conditions to have uniform consistency in predictive error approximation by our defined class of loss functions. Also,
-Vapnik et al. provide bounds for the exponential convergence of this error. These bounds are constructive and can be effectively calculated in a number of commonly used models such as linear regressors and support vector machines. In addition, these bounds depend \textbf{only} of the structure of the approximators rather than the true distribution of the data.
+Vapnik et AL provide bounds for the exponential convergence of this error. These bounds are constructive and can be effectively calculated in a number of commonly used models such as linear regressors and support vector machines. In addition, these bounds depend \textbf{only} of the structure of the approximators rather than the true distribution of the data.
 
 
 \begin{definition}{Vapnik--Chervonenkis (VC) Dimension}
@@ -628,7 +628,7 @@ The Vapnik--Chervonenkis Dimension (VC) of a class of binary functions is the ca
 
 The VC dimension gives a certain criteria for measuring the complexity of a class of binary functions by evaluating its expressiveness. The value, however, need not be finite.
 
-As a simple example, one could use a linear regression of $d$ features $$g_{\theta} = \sum_{i=1}^d x_i \theta_i + \theta_0$$ as a classifier if we consider the indicator function of the positive half-plane induced by the regresssion: $$f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)$$
+As a simple example, one could use a linear regression of $d$ features $$g_{\theta} = \sum_{i=1}^d x_i \theta_i + \theta_0$$ as a classifier if we consider the indicator function of the positive half-plane induced by the regression: $$f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)$$
 
 This class of approximating functions can shatter up to $d+1$ samples, but no bigger sample. Thus the VC dimension is exactly $d+1$.
 
@@ -676,7 +676,7 @@ In practical applications though, use of estimates might be limited to the deter
 
 The objective of Cross Validation is to systematically explore the different configurations of tuning parameters and decide which learner is better for the task at hand. By comparing the estimated generalization error of each model, where models vary accordingly with the values of the tuning parameters, a value is given and then used to select the \textit{best} model in the class.
 
-This technique is one of the most widespread to evaluate the generalization performance of a set of learners. Given a number of possible configurations or values for the tuning (hyper) parameters of an algorithm, we would like to decide which selection of these fit the best estimator, as measured by the generalization error. In most cases data is generally scarce. At the same time prediction error estimates are based on asymptotic or analytical results which hardly computable in pratice. Thus CV intends to prevent over-fitting by iteratively holding out a random part of the dataset and by measuring the predictive accuracy of the learner fit on data \textit{in-sample} against new values from the \textit{hold-out} part of the dataset. The accuracy measure here is weighted by the loss function, which must be selected beforehand.
+This technique is one of the most widespread to evaluate the generalization performance of a set of learners. Given a number of possible configurations or values for the tuning (hyper) parameters of an algorithm, we would like to decide which selection of these fit the best estimator, as measured by the generalization error. In most cases data is generally scarce. At the same time prediction error estimates are based on asymptotic or analytical results which hardly computable in practice Thus CV intends to prevent over-fitting by iteratively holding out a random part of the dataset and by measuring the predictive accuracy of the learner fit on data \textit{in-sample} against new values from the \textit{hold-out} part of the dataset. The accuracy measure here is weighted by the loss function, which must be selected beforehand.
 
 In this procedure, a partition of the samples is called a \textit{fold}. CV then partitions data into $K$ random folds, where the number $K$ has to be previously decided.\footnote{ We assume here that a random sample of the initial dataset was already left out in order to test the model's accuracy at the end. We refer to this set as the \textit{testing set}.} Let $\gamma : \{1,..,N\} \mapsto \{1, .., K\}$ be a function mapping samples to folds. Without loss of generality,  let $\alpha$ be an index of the model's hyper-parameters, where each distinct combination of the tuning parameters is identified by this index. Note that the domain of $\alpha$ will vary with the type of approximating function o algorithm used to learn.
 
@@ -807,7 +807,7 @@ As a counter example, another algorithm was ran on the same problem as \ref{figu
 
 The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are based on a strong statistical independence among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$.
 
-It is presented here mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthemore, the algorithm has linear  complexity in the number of features and samples $O(d+n)$, so it can be easlity extended to \textit{bigger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as gradient descent techniques.
+It is presented here mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthermore, the algorithm has linear  complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{bigger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as gradient descent techniques.
 
 Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. We take $p(C_k \mid x)$  to be the  class posterior probability of this class given the sample.
 
@@ -849,15 +849,15 @@ Finally, the output class for a given sample will be given by taking the class $
 
 \section{Classifier : Decision Trees}
 
-%rview of this supervised learner used in regression and classification problems.
+%view of this supervised learner used in regression and classification problems.
 
 % The models builds a
 Decision trees are such as in the graph theoretical sense where each node acts as a rule to which any input sample can comply or not. The rules are built as linear (or similar) partitions of input space and they are built on the value of a given feature
 %properties of the values for each feature.
 
-At any6 given node the model takes a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of said feature's space.
+At any given node the model takes a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of said feature's space.
 
-For numerical features, the input space $X$ willi be partitioned into  $L$ and $R$ where $L$ of the form $(-\infty,c]$.  The value $c \in \mathbb{R}$ is any given number predefined by the rule itself.   In the same way, for categorical features $L$ will be a subset of the possible values of that feature.
+For numerical features, the input space $X$ will be partitioned into  $L$ and $R$ where $L$ of the form $(-\infty,c]$.  The value $c \in \mathbb{R}$ is any given number predefined by the rule itself.   In the same way, for categorical features $L$ will be a subset of the possible values of that feature.
 
 Altogether, a tree defines a partition of feature space in disjoint regions $A_1,...,A_K$ such that the tree's predicted output $\hat{y}$ for a sample $x$ is $c_k$ if the sample belongs to $A_k$. Here $c_k$ is one of the possible values taken by the target variable $y$ in the training set. And by the way trees were built, each $A_k$ is a hyper-rectangles in feature space.
 
@@ -866,7 +866,7 @@ In brief, the learner can be characterized by
 h(X) = \sum_{k=1}^K c_k I(X \in A_k)
 \]\label{equation-decisionTreeModel}
 
-where $c_k$ is the value that our model estimates for samples in the $A_k$ region. Both of these will have to be learnt by the model in the optimization procedure. %by minimizing its loss funciton.
+where $c_k$ is the value that our model estimates for samples in the $A_k$ region. Both of these will have to be learned by the model in the optimization procedure. %by minimizing its loss function
 
 By the points given above, the algorithm needs to determine what is the best way to split a set of samples that flow through a decision node. The \textit{goodness of split} will be measured by the loss metric of the algorithm. Here, the criteria used to decide on node splits are called \textit{node impurity measures}.
 %them according, in order to optimize a loss metric.
@@ -926,7 +926,7 @@ Intuitively, it is natural to find that trees of longer depth will overfit the d
 
 On the other hand having a tree which is too shallow will result in most cases in a biased algorithm.  This is because it results in an overly simple model incapable of correctly assigning labels.  We must then consider that the depth of a tree is a measure of the model's complexity and as such one of the most important hyperparameters of our model.
 
-Another drawback of the model is the high variance instability. Authors point out that two very similar datasets can grow two very different resulting trees. This is due to the hierarchical nature of the splits, where errors randomly made in the first splits will be carried onward towards the leafs sinces samples continue down on a single branch.
+Another drawback of the model is the high variance instability. Authors point out that two very similar datasets can grow two very different resulting trees. This is due to the hierarchical nature of the splits, where errors randomly made in the first splits will be carried onward towards the leafs since samples continue down on a single branch.
 
 The most common methods to control the tree's depth grow a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity with only  a slight loss of accuracy.
 
@@ -950,9 +950,9 @@ As we have mentioned before, at each split we use the node impurity measure to q
 \end{itemize}
 
 
-As an extension to the Gini index, it is also common to use a reweighted version of the sum. A loss matrix is multiplied to the factors in each summand. The matrix is reassigning weights to different cases of misclassification. Indeed, these weights become practical when we have that a sample from class $k$ incorrectly assigned to class $k'$ might be less important than other misclassifications.
+As an extension to the Gini index, it is also common to use a reweighed version of the sum. A loss matrix is multiplied to the factors in each summand. The matrix is reassigning weights to different cases of misclassification. Indeed, these weights become practical when we have that a sample from class $k$ incorrectly assigned to class $k'$ might be less important than other misclassifications.
 
-Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally we have that $L$ is a null diagonal matrix. Then the Gini index's summands will take the reweighted form  $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
+Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $(L)_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally we have that $L$ is a null diagonal matrix. Then the Gini index's summands will take the reweighed form  $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
 
 For the binary (two class) case $Q_j(T)$ can be expressed in simpler terms. If we consider $p$ to be the probability of success, then we have
 
@@ -962,7 +962,7 @@ For the binary (two class) case $Q_j(T)$ can be expressed in simpler terms. If w
 \item Binary cross-entropy: $ -log(p)p - log(1- p)(1-p) $
 \end{itemize}\label{decisionTreeCostFunctions}
 
-In summary, we will have an impurity measure for each region $R_j$ and the altorithm will then aggregate all of them into a single measure called the \textit{cost complexity criterion}. The idea is that this loss function, as a function of a tree, will control the whole optimization procedure through the tree's parameters. The criterion will be managed to control the final model's bias and variance. We define it in the following way
+In summary, we will have an impurity measure for each region $R_j$ and the algorithm will then aggregate all of them into a single measure called the \textit{cost complexity criterion}. The idea is that this loss function, as a function of a tree, will control the whole optimization procedure through the tree's parameters. The criterion will be managed to control the final model's bias and variance. We define it in the following way
 
 \begin{equation}
 C_\alpha(T)  = \sum_{j=1}^{|T|} N_j Q_j(T)  + \alpha|T|
@@ -1036,7 +1036,7 @@ $$ \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} 
 
 \subsubsection{Predictive error bounds}
 
-Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate of the generalization error on the ensemble classifier, these individual scores and the irelationship between them must measured. In this sense, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
+Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate of the generalization error on the ensemble classifier, these individual scores and the relationship between them must measured. In this sense, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
 
 %\begin{lemma}
 %Given two line segments whose lengths are $a$ and $b$ respectively there is a
@@ -1143,7 +1143,7 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(
 $$ \overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right] $$
 
 \subsubsection{Other Notes on Random Forests}
-One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of a number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hypergeometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
+One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of a number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hyper geometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
 
 The depth of growth for each tree is another important tuning parameter. We must chose it correctly by assessing the model's performance across different values for $m$.  A deep tree will tend to overfit the data by partitioning input space to fit the training data. This effect will counter the overall reduction in variance of the forest and thus increase the generalization error of our algorithm.
 
@@ -1301,7 +1301,7 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(
 $$ \overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right] $$
 
 \subsubsection{Other Notes on Random Forests}
-One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at each split at random will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hypergeometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
+One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at each split at random will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hyper geometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
 
 The depth of growth for each tree is another important tuning parameter. We must chose it correctly by assessing the model's performance across different values for $m$.  A deep tree will tend to overfit the data by partitioning input space to fit the training data. This effect will counter the overall reduction in variance of the forest and thus increase the generalization error of our algorithm.
 
@@ -1312,12 +1312,12 @@ A special modification in the way Random Forests are built, allows to derive a m
 
 
 \section{Boosting Models}\label{section-boosting}
-\subsection{AdaBoost}
+\subsection{Ada Boost}
 \textcite{schapire-adaBoost}
 
-Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak lerners to output the combined model's prediction. The full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator. This provides greater predictive power when the base model's accuracy is weak. However, care must be taken to control the increase in variance.
+Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak learners to output the combined model's prediction. The full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator. This provides greater predictive power when the base model's accuracy is weak. However, care must be taken to control the increase in variance.
 
-In the AdaBoost variation of ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner. Weights are used to rank the samples by importance, where a sample with higher misclassification rate will receive a stronger weight. The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
+In the Ada Boost variation of ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner. Weights are used to rank the samples by importance, where a sample with higher misclassification rate will receive a stronger weight. The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
 
 Tuning parameters in this algorithm are the same as those in the base learners. In addition, the number of steps that the algorithm will \textit{boost} is a new hyperparameter.
 
@@ -1325,7 +1325,7 @@ The chained construction of weak learners has its implications in computational 
 
 These properties underline a substantial difference to Random Forests where base learners are built as uncorrelated as possible and where optimization can be performed globally, which allowed a significant parallelization of the algorithm.
 
-\subsection{AdaBoost Formulation}
+\subsection{Ada Boost Formulation}
 
 Let
 \begin{equation} \label{equation-adaBoostTrainingError}
@@ -1337,7 +1337,7 @@ $$\Expect_{X \ Y} [ I(Y \neq \hat{Y}(X)) ]$$
 
 to be the expected error rate of the model on the true,  unknown distribution of the data.
 
-Let $m$ index the iteration number in the AdaBoost algorithm. Set $w^{(m)}_i$ to be the $i$-th sample's weight. We will initialize this variable to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. Let $h(x,\theta)$  denote our model's weak learner. With this notation, we assume the function to have domain in the input feature space and in the parameters defining the learner. Naturally these will depend on the problem structure and on the base learner. Then AdaBoost's model takes the following form:
+Let $m$ index the iteration number in the Ada Boost algorithm. Set $w^{(m)}_i$ to be the $i$-th sample's weight. We will initialize this variable to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. Let $h(x,\theta)$  denote our model's weak learner. With this notation, we assume the function to have domain in the input feature space and in the parameters defining the learner. Naturally these will depend on the problem structure and on the base learner. Then Ada Boost's model takes the following form:
 
 \begin{equation} \label{equation-adaBoostModel}
 \hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
@@ -1356,7 +1356,7 @@ The algorithm's iteration will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0
 
 The greedy nature of the algorithm becomes explicit in the procedure above, where we have fixed all of the previous optimized values for $\gamma_j$ and $\theta_j$.
 
-AdaBoost was first derived in \textcite{schapire-adaBoost} and it was introduced with a specific  minimizing function. The general version here presented allows the use of a broad range of base learners which need not to be from the same algorithmic family. In the first version introduced, the loss function used was the exponential loss which is $L(y,z) = e^{-yz}$ and the target variable took the values $1$ or $-1$.
+Ada Boost was first derived in \textcite{schapire-adaBoost} and it was introduced with a specific  minimizing function. The general version here presented allows the use of a broad range of base learners which need not to be from the same algorithmic family. In the first version introduced, the loss function used was the exponential loss which is $L(y,z) = e^{-yz}$ and the target variable took the values $1$ or $-1$.
 
 This particular case yields a similar equation as in \ref{equation-adaBoostIteration}, but where
 
@@ -1403,7 +1403,7 @@ which has a minimum at
 \gamma_{m} = \frac{1}{2} log\big( \frac{1 - \overline{err} }{ \overline{err} }  \big)
 \end{equation}
 
-As seen by the equation above, the minimizing value for $\gamma$ is directly related to the training error of the algorithm for the \textit{whole} dataset. This weight will be reflected upon all samples in general and then we would expect this rate to decrease at every iteration.  Taking advantage of this closed form, the value is plugged into the next step of the AdaBoost procedure to update sample weights as
+As seen by the equation above, the minimizing value for $\gamma$ is directly related to the training error of the algorithm for the \textit{whole} dataset. This weight will be reflected upon all samples in general and then we would expect this rate to decrease at every iteration.  Taking advantage of this closed form, the value is plugged into the next step of the Ada Boost procedure to update sample weights as
 
 \begin{equation}
 w_i^{(m+1)} =   w_i^{(m+1)} e^{\gamma_m(-y_i h_m(x_i))} \\
@@ -1528,7 +1528,7 @@ Obj^t(\theta) \approx  & \sum_{j=1}^{t-1} \left(  \sum_{i \in \{q(x_i)=j\}} (g_i
 \end{split}
 \end{equation}
 
-which, as a function of $\theta$ is a quadratic equation if we assume $\gamma$ to be fixed. This results in a convenient and closed-from analytical formulation to select the the value at step $t$. In this sense, a direct greey optimization approach, such as gradient descent, can be used to find the tree $f_t(\theta)$ minimizing the previous expression.
+which, as a function of $\theta$ is a quadratic equation if we assume $\gamma$ to be fixed. This results in a convenient and closed-from analytical formulation to select the the value at step $t$. In this sense, a direct greedy optimization approach, such as gradient descent, can be used to find the tree $f_t(\theta)$ minimizing the previous expression.
 
 As we have stated before the approach assumes that we have met enough smoothness conditions on the loss function with respect to the prediction variable
 %$ \forall i \in {1...n}, \forall t \in {1..K}, \exists g_i(\hat{y}^{t}_i), h_i(\hat{y}^{t}_i) $
@@ -1546,7 +1546,7 @@ As a last remark on boosting algorithms, there are two additional heuristics use
 
 The first idea to reduce the overall variance of the algorithm is to subsample the data. This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner. The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method. In practice, the rate of sampling will be controlled by a tuning parameter in the model.
 
-The other heuristic is considered to be more important, at least experimentally by \textcite{hastie-elemstatslearn}. This is done by successively applying a \textit{shrinkage} factor $v \in  (0,1)$ to the new model.  At step $t$, instead of letting the overall model become $ \hat{y_i}^{(t)} = \hat{y_i}^{(t-1)} +  \theta_t h_t(x_i) $, we multiply the shrinkage factor $v$ to these values before adding them to the overall model at step $t-1$. This shrinkage factor is also known in the literature as the \textit{learning rate} of the algorithm.  Note that $v$  is reducing the movement of the algorithm in the direction of optimization provided by $\theta_t$ and $h_t$. In practice this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. However, when this factor is combined with subsampling, it has been empirically shown to improve the overall generalization accuracy.
+The other heuristic is considered to be more important, at least experimentally by \textcite{hastie-elemstatslearn}. This is done by successively applying a \textit{shrinkage} factor $v \in  (0,1)$ to the new model.  At step $t$, instead of letting the overall model become $ \hat{y_i}^{(t)} = \hat{y_i}^{(t-1)} +  \theta_t h_t(x_i) $, we multiply the shrinkage factor $v$ to these values before adding them to the overall model at step $t-1$. This shrinkage factor is also known in the literature as the \textit{learning rate} of the algorithm.  Note that $v$  is reducing the movement of the algorithm in the direction of optimization provided by $\theta_t$ and $h_t$. In practice this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. However, when this factor is combined with sub sampling, it has been empirically shown to improve the overall generalization accuracy.
 
 
 
@@ -1559,10 +1559,10 @@ $\Pi \Pi \Pi$
 \textbf{TODO A desarrollar}
 Python, sklearn, pandas, graphlab, etc
 
-Data process raw data by reading in chunks from huge files (compressed filesizes amount to 1TB), applying filters like modulus 10.
+Data process raw data by reading in chunks from huge files (compressed file sizes amount to 1TB), applying filters like modulus 10.
 
 On the nature of computational issues such as memory size, disk size, parallelization, multi-core, linear algebra routines.
 
-In general, algorithms will load all data in RAM and execute optimization routines. If KFolds is used, some impelnemntations will run learning routines simultaneously in each fold group and keep the "best" scores at the end.
+In general, algorithms will load all data in RAM and execute optimization routines. If K Folds is used, some implementations will run learning routines simultaneously in each fold group and keep the "best" scores at the end.
 
 Joblib, sklearn and Graphlab are all Python modules
