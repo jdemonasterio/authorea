@@ -18,7 +18,16 @@
 % You can conditionalize code for latexml or normal latex using this.
 % \newif\iflatexml\latexmlfalse
 \usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
+\usepackage[
+backend=biber,
+sortlocale=us_EN,
+natbib=true,
+url=false, 
+doi=true,
+eprint=false
+]{biblatex}
+
+%\usepackage[english]{babel}
 \usepackage{algorithm2e}
 \usepackage{qtree}
 \usepackage{amssymb}
