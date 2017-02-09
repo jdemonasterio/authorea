@@ -14,7 +14,7 @@
 %--------------------------------------+
 % Language, hyphenation, encoding, etc |
 %--------------------------------------+
-\usepackage[spanish,english]{biblatex}
+% \usepackage[english]{biblatex}
 \usepackage{lmodern}             % Use Latin Modern fonts
 \usepackage[T1]{fontenc}         % Better output when a diacritic/accent is used
 \usepackage[utf8]{inputenc}      % Allows to input accented characters
@@ -40,7 +40,7 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 \newpagestyle{special}[\scshape]{%
   \headrule
   \sethead
-  [\thepage][][\chaptertitle]
+  [\thepage][][\chaptFerrariertitle]
   {\ifthesection{\sectiontitle}{\chaptertitle}}{}{\thepage}
 }
 % The following pagestyle is needed because titlesec isn't compatible with
@@ -291,8 +291,8 @@ pdfkeywords={machine learning}
       \vspace{0.3\textheight}
       \rule{\textwidth}{1.5pt}\par
       \vspace{\baselineskip}
-      {\bfseries\Huge{Machine Learning}\par
-      \bigskip\Large{--- Foo ---}}\\
+      {\bfseries\Huge{Exploring Latin-American Chagas with Big Data}\par
+      \bigskip\Large{A Machine Learning approach }}\\
       \vspace{\baselineskip}
       \rule{\textwidth}{1.5pt}\par
       \vfill
@@ -326,7 +326,7 @@ pdfkeywords={machine learning}
   \begingroup
     \vspace*{0.3\textheight}
     \begin{center}
-      \emph{\large{For all my brothers.}}
+      \emph{\large{To all.}}
       \end{center}
     \endgroup
   \thispagestyle{empty}\cleardoublepage
