@@ -17,8 +17,7 @@ Most of the discussions in this chapter are based on information extracted from 
 
 Machine learning is a subfield of computer science with broad \textit{theoretical} intersections with statistics and mathematical optimization. At present time it has a wide range of applications. A non-comprehensive list of its use includes self-driving cars, spam detection systems, face and/or voice recognition, temperature prediction in weather, AI opponents in games, disease prediction in patients, text and audio language translation, stock pricing, movie recommendation systems, etc. Examples of these machine learning programs are now widespread to the point where their use today has a direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
 
-The most widely used definition of machine learning is attributed to Tom Mitchell:
-"A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E" \textcite{Mitchell-MLearning}. To our purpose, it is clear though that this definition \footnote{Other authors might reference machine learning as \textit{statistical learning}. See \textcite{hastie-elemstatslearn} as an example.} is not formally well-defined. However it serves to convey the idea of algorithms that automatically \textit{learn} to do a a specific task better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this,\textit{learning} is less associated with a cognitive definition in this context and more of a performance based approach.
+"A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E" \textcite{Mitchell-MLearning}. To our purpose it is clear though that this definition \footnote{Other authors might reference machine learning as \textit{statistical learning}. See \textcite{hastie-elemstatslearn} as an example.} is not formally well-defined. Yet it serves to convey the idea of algorithms that automatically \textit{learn} to do a a specific task better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this, the concept of \textit{learning} within this context is less associated with the cognitive definition and is related to an optimization based approach.
 
 Machine Learning is divided into two main categories: Supervised and Unsupervised Learning. Let $Y \in \mathbb{R}^n$ be the outputs of the model and $X \in \mathbb{R}^{n \times  p}$ be the inputs: supervised learning algorithms produce outputs from input data i.e. for each instance $n$, the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$. In this context, the algorithm is generally referred to as a \textit{learner}.
 
@@ -26,7 +25,7 @@ The second class of problems is where the output $Y$ is missing altogether from 
 
 In supervised learning tasks can be sub-categorized by the nature of the problem. When the type of the output variable $Y$ takes a (generally \textit{small} )discrete set of values, then it is said that it is a supervised \textit{classification} problem. On the other hand, when the output takes continuous (or dense in an open set of $\mathbb{R}$) range of \textit{quantitative} values, the problem is said to be of supervised \textit{regression}. Note that regression problems can be encoded into classification problems by grouping the output values into categories by taking ranges of output values.
 
-Suppose our objective is to predict $y$ given a new sample $x$. In supervised regression problems, $y$ will comprise a continuous variable. for classification problems on the other hand, $y$ will represent a label for a certain class. For the case of $K$ classes, $y$ most commonly takes values in the ranges $0$ through $K-1$  or $1$ through $K$. In both cases, the joint probability distribution $p(X, Y)$, called the \textit{true} distribution, gives all of the information we need on these two variables. However the values of this probability is most often unknown. The idea is to then user estimations and inference on the most likely values for new samples and take decisions with the information at hand. These decisions will be based on the most probabilistic characterization of the data we have. In this work we will focus on the classification aspect of machine learning.
+Suppose our aim is to predict $y$ given a new sample $x$. In supervised regression problems, $y$ will comprise a continuous variable. On the other hand for classification problems $y$ will represent a label for a certain class. For the case of $K$ classes, $y$ most commonly takes values in the ranges $0$ through $K-1$  or $1$ through $K$. In both cases, the joint probability distribution $p(X, Y)$, called the \textit{true} distribution, gives all the information we need on these two variables. But the values of this probability is most often unknown. The idea is to then user estimations and inference on the most likely values for new samples and take decisions with the information at hand. These decisions will be based on the most probabilistic characterization of the data we have. In this work we will focus on the classification aspect of machine learning.
 
 In these type of problems the theoretical and the computational aspects are both of interest. The algorithms used need to consider the technical requirements of the software and hardware at hand, as well as the time or resource constraints imposed by the problem setting. As such, they are expected to be executed in a reasonable amount of time, imposed by the task specification, and limited by the computing power available. \footnote{Here the word \textit{reasonable} is used in a broad sense. It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.} There can be  problems which require that the algorithm output predictions in \textit{real-time}, to the resolution of milliseconds. Picture a system where a credit-card transaction needs to be approved or labeled as a fraud. Here the system needs to respond in short time if the transaction is fraudulent.
 
@@ -89,6 +88,7 @@ The last example problem in the list before, belongs to the unsupervised learnin
 
 To illustrate further the supervised classification scenario, a brief notation outline is described below. In this example, we follow a standard logistic regression classifier:
 
+
 Let's suppose that we want to build a predictive model to determine the origin province of a user. A classification algorithm should assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. Our aim is to maximize the probability of belonging to a certain class, given the phone data:
 \begin{equation}
 p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} 
@@ -113,6 +113,7 @@ In our example, a reduced problem instance would be to determine if a user belon
 As a simple solution to predict the target variable, we could build a learner $f$ from a transformed linear combination of the input features. In the ideal case we would have that for every sample $y \approx f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} \footnote{In formula \ref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all of its components equal to 1.  } where $\theta$ is unknown and generally referred to as the coefficient or parameter. Here the model is said to be \textit{linear} because it is linear in the input space $X$.
 
 If we let our decision boundary be $ t_i = \theta \cdot x_i  \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $
+
 \begin{equation}
 t_i
 \begin{cases}
@@ -125,7 +126,6 @@ t_i
 As an example, we could take the heavyside step function as our transformation $h(z)$  where
 
 \begin{equation}
-
 h(z) =
 \begin{cases}
 &0 \ \mbox{if} \ z<0 \\
@@ -174,6 +174,7 @@ This model is named as a \textit{regression} model but is actually used for \tex
 
 
 Let $\{C_1,..,C_k\}$ denote the set of possible target classes. Recall that in a classification problem we are  interested in maximizing a sample's probability of belonging to a certain class, given the input data:
+
 \begin{equation}
 P(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)} 
 \end{equation}
@@ -202,15 +203,13 @@ Here we see the close resemblance to the logistic function which is acting on th
 The second defining property of logistic regression is that the log-odds are modeled with a transformation on a linear combination of inputs. It also conditions the posterior probabilities must sum to one. Let $j$ be a fixed class and denote
 
 \begin{equation}
- log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x 
- \end{equation}
- \label{logit-logOddss} for $i,j \in \{1,2,...,K\}, i\neq j$
+ log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0}  + \theta_i^\intercal x  
+ \end{equation}  \label{logit-logOddss} for $i,j \in \{1,2,...,K\}, i\neq j$
 
 With these same indices we have that
 
-\begin{equation}
- P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)}   
- \end{equation}
+\begin{equation} P(C_i|x) = \frac{ exp(\theta_{i0}  + \theta_i^\intercal x)}{1 + exp(\theta_{j0}  + \theta_j^\intercal x)} 
+\end{equation}
 
 In this way the model is specified in terms of the log-odds for each class with respect to the base class $j$ and the model will be parameterized by $\theta$.
 
@@ -227,8 +226,8 @@ Y_i \mid X_i \  \sim & \operatorname{Bernoulli}(p_i) \\
 The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by
 \begin{equation}
 \Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}
-\end{equation}
-\label{logit-probabilityDensity}
+\end{equation}\label{logit-probabilityDensity}
+
 where this depends on the class dependence of $y$.
 
 Here the logit function is utilized to map log odds into conditional probabilities and the model outputs the predicted probabilities of the target variables belonging to the target class.
@@ -247,7 +246,6 @@ logit(p_i)= ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = \theta_
 
 From this equation we have once again that
 
-
 \begin{equation}
 p_i = \sigma(\theta \cdot X_i) = \frac{exp(\theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}
 \end{equation}
@@ -256,7 +254,7 @@ where we have used an abuse of notation to absorb $\theta_0$ into $\theta$. Fina
 
 \begin{equation}
  \Pr(Y_i=y \mid X_i = x_i) =  p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(y . \theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}
-\end{equation}
+ \end{equation}
 
 
 Maximum likelihood is the most common method employed to fit the model. %with multinomial distributions modeling the features.
@@ -379,10 +377,7 @@ Our interest is now in minimizing the error
 Err_{train}(\theta) \approx \frac{1}{n} \Expect_{ \mathrm{T}}[(y - h(x \cdot \theta) )^2]
 \end{equation}
 
-
 %, and can be decomposed into two types of errors
-
-
 
 \section{Bias, Variance, Generalization and Model Complexity}\label{section-biasVariance}
 
@@ -417,7 +412,8 @@ Given that any model is always built on a dataset, we need to estimate the predi
 %\end{definition}\footnote{Note that in this definition the expectation is taken conditional on the training set and also from which the model is fit.}
 
 The generalization error is also referred to as the training prediction error. The prediction error is a value very much related to the generalization error as it's its expectation:
-	\begin{equation}
+
+\begin{equation}
  PE = \Expect_{X,Y} \left[ L(Y,\hat{f}(X))\right] =  \Expect \left[ Err_{\mathrm{T}}  \right]
  \end{equation}.
 
@@ -501,10 +497,14 @@ For the case of supervised classifiers, loss functions are also called \textit{m
 Here the systematic values are  $SY = \arg max_{1\leq i \leq K} P(Y=i)$ and $S\hat{f}(X) = \arg max_{1\leq i \leq K} P(\hat{f}(X)=i)$. It is also straightforward to see that $Var(Y) = 1 - P(Y=SY)$ and $Var(\hat{f}(X)) = 1 -  P(X = S\hat{f}(X)) $.
 
 With the above we have that the decomposition of the prediction error among variance, systematic and variance effect becomes
-	\begin{equation}
-	Var(Y) + P(Y=SY)  - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)	
+\begin{equation}
+Var(Y) + P(Y=SY)  - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)	
 \end{equation}
 	 which again relies heavily on the variability of the target and on how well the classifier approximates the labels.
+\begin{equation}
+Var(Y) + P(Y=SY)  - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)
+\end{equation} 
+which again relies heavily on the variability of the target and on how well the classifier approximates the labels.
 
 %S\hat{f}(X)
 
@@ -610,9 +610,9 @@ Let $\{\mathcal {T}_1, \mathcal {T}_2, ..., \mathcal {T}_n, ...  \}$ be a set of
 
 Then, the training error is said to be consistent if
 
-	\begin{equation}
-	\lim_{n\to\infty} Err_{train}(\theta^{*}_n) \  = \lim_{n\to\infty} EPE(\theta^{*}_n) \ =  EPE(\theta_0)
-	\end{equation}
+\begin{equation}
+\lim_{n\to\infty} Err_{train}(\theta^{*}_n) \  = \lim_{n\to\infty} EPE(\theta^{*}_n) \ =  EPE(\theta_0)
+\end{equation}
 
 \end{definition}
 
@@ -626,7 +626,6 @@ In reality, it is natural to think that the approximation of the prediction erro
 \begin{equation}
 \forall \epsilon > 0 \ , \ \lim_{n\to\infty} P\left[ \sup_{\theta \in \Theta} \mid Err^{n}_{train}(\theta)  - EPE(\theta) \mid \right]  = 0 
 \end{equation}
-
 
 Here the training error $Err^{n}_{train}(\theta)$ is the value of this error when using a sample of size $n$. In this sense, the training error is said to be consistent if it converges uniformly in probability over the whole class of functions\footnote{Remember that approximating functions in the SLT setting are indexed by the $\theta$ parameter.}. This implies that it characterizing the set of functions $Q(t,\theta)$ used to approximate the data will be important in finding an appropriate model. %SLT theory then introduces
 
@@ -662,10 +661,12 @@ As a simple example, one could use a linear regression of $d$ features
 \begin{equation}
 g_{\theta} = \sum_{i=1}^d x_i \theta_i + \theta_0
 \end{equation}
+
  as a classifier if we consider the indicator function of the positive half-plane induced by the regression: 
- \begin{equation}
- f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)
- \end{equation}
+ 
+\begin{equation}
+f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)
+\end{equation}
 
 This class of approximating functions can shatter up to $d+1$ samples, but no bigger sample. Thus the VC dimension is exactly $d+1$.
 
@@ -852,7 +853,8 @@ In section \ref{section-example}
 we have used
 \begin{equation}
 p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
-\end{equation}\label{equation-posteriorProbabilties}
+\end{equation}
+\label{equation-posteriorProbabilties}
 
 and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class.
 
@@ -860,7 +862,8 @@ Here we can approximate the posterior as
 
 \begin{equation}
 P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}    P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
-\end{equation}\label{equation-posteriorProbabilityDecomposition1}
+\end{equation}
+\label{equation-posteriorProbabilityDecomposition1}
 
 We now impose a strong independence assumption among features, given the target class, to let the conditional probabilities factors become the probability of each feature. %This assumption is what gives the model its
 
@@ -1034,9 +1037,11 @@ mg(\textbf{x},\textbf{y}) =  \frac{1}{K}   \sum_{k=1}^K I(h_k(\textbf{x}) = \tex
 - max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right) 
 \end{equation} \label{eq:rf-marginFun}
 
-%\end{equation}
+The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to  
+
 
 The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to  
+
 \begin{equation}
 P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
 \end{equation}
@@ -1044,6 +1049,7 @@ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
  It can be shown that, for $K$ sufficiently large, the generalization error under the misclassification loss converges to
 
 \begin{equation}
+
  P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{y}) - max_{j \neq \textbf{y}} P_{\Theta} (h(\textbf{x}, \Theta) = j) < 0) 
  \end{equation}
 
@@ -1055,6 +1061,7 @@ The proof follows from seeing that given a training set, a tree $\Theta$ and a c
 \forall \textbf{x}   \ P_\Theta(h(\theta,\textbf{x}) = j) \ = \
 \lim_{L\to\infty} \frac{1}{L} \sum_{l=1}^K I(h_l(\textbf{x}) = j) \  
 \end{equation}
+
 almost surely.
 
 This is because if we look at the nature of the tree, we see that the set $\{\textbf{x} / h_l(\textbf{x}, \Theta) = j \}$ is built as a union of hyper-rectangles partitioning feature space. And given the finite size of the training set, there can be only a finite set of these unions of hyper-rectangles for all of the input data. Let $S_1, ..., S_M$ be an indexation of these unions and define $\phi(\Theta) = m $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_m$.
@@ -1067,12 +1074,10 @@ It is immediate that
 \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x},\Theta) = j) \ = \  \frac{1}{L} \sum_{m=1}^M L_m I(\textbf{x} \in S_m)
 \end{equation}
 
-
 and that following the law of large numbers, there is a convergence almost everywhere of
 \begin{equation} \label{rf-PEconvergence2}
 \frac{L_m}{L} = \frac{1}{L} \sum_{l=1}^L  I(\phi(\Theta_l) = m)  \xrightarrow[L \to \infty]{}   P_{\Theta}(\phi(\Theta)= m).
 \end{equation}
-
 
 If we let $C = $ $\bigcup\limits_{m=1}^{M} C_{m}$ where each $C_m$ are zero-measured sets representing the points where the sequence is not converging.  If we combine \ref{rf-PEconvergence1} and \ref{rf-PEconvergence2}, we will finally have that  outside of $C$,
 
@@ -1104,6 +1109,7 @@ There exists an upper bound for the generalization error.
 %\\
 %= \Expect_{\Theta} \left[  I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} )  \right]
 %\end{equation}
+
 %
 %
 %%\begin{equation}%\end{equation}
@@ -1182,15 +1188,17 @@ There exists an upper bound for the generalization error.
 %\end{equation}
 %\end{proof}
 
-This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author of the algorithm \textcite{breiman-randomforests} remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier.
+
+This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author of the algorithm \cite{breiman-randomforests} remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier.
 \subsubsection{Binary Class}
 In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \ref{eq:rf-PEBound}. In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$.
 
 
 The bounds prediction error bounds derived in \ref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
 \begin{equation}
- \Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} 
- \end{equation}
+\Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} 
+\end{equation}
+
 
 Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
 
@@ -1224,7 +1232,11 @@ mg(\textbf{x},\textbf{y}) =  \frac{1}{K}   \sum_{k=1}^K I(h_k(\textbf{x}) = \tex
 \end{equation} \label{eq:rf-marginFun}
 
 %\end{equation}
-$ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x}, \textbf{y}) < 0) $
+
+and let the generalization error be
+\begin{equation}
+ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x}, \textbf{y}) < 0)
+ \end{equation}
 
 
 The function measures, in average, how much do the trees vote for the correct class in comparison to all other classes and it can be shown that when $K$ is large then the prediction error converges almost surely to
@@ -1233,10 +1245,12 @@ The function measures, in average, how much do the trees vote for the correct cl
  P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{x}) - max_{j \neq \textbf{y}} (\textbf{x}, \textbf{y}) < 0) 
  \end{equation}
 
+
 \subsubsection{Proof}
 The proof follows from seeing that given a training set, a parameter $\Theta$ and a class $j$ then
 \begin{equation}
-\forall \textbf{x} \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j) 
+
+\forall \textbf{x} \lim_{K\to\infty} \frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \ =   \ P_\Theta(h(\theta,\textbf{x}) = j)
 \end{equation}
 almost surely.
 
@@ -1296,7 +1310,8 @@ With these definitions, it is straight to see that
 %\begin{equation}%\end{equation}
 \begin{equation}
 mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} )  \right] 
-\end{equation}.
+\end{equation}
+
 
 This in turn implies that
 
@@ -1341,6 +1356,7 @@ s =  \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right]
 \end{equation}
 .\label{eq:rf-strength}
 
+
 Assuming that $s \geq 0$ we have that the prediction error is bounded by
 \begin{equation}\label{eq:rf-predictiveErrorBound1}
 PE^* \leq var(mr)/s^2
@@ -1369,13 +1385,13 @@ In the context of a binary class problem, where the target variable can only tak
 
 The bounds prediction error bounds derived in \ref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
 \begin{equation}
- \Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} 
- \end{equation}
+\Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2}
+\end{equation}
 
 Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \  $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
 
 \begin{equation}
- \overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right] 
+\overline{\rho} =  \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)   \right]
 \end{equation}
 
 \subsubsection{Other Notes on Random Forests}
@@ -1496,15 +1512,15 @@ In this way we have that the weights are updated for those samples which have a 
 
 The final form of the model is
 \begin{equation}
- \hat{y}(x) = sgn\big(  \sum_{m=1}^{M} \gamma_m h_m(x) \big)
- \end{equation}
-  which outputs the most frequent prediction given by all of the weak learners. This is because all of the correct predictions will be greater than zero and negative values for the incorrect predictions. \footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}
+  \hat{y}(x) = sgn\big(  \sum_{m=1}^{M} \gamma_m h_m(x) \big)
+\end{equation}
+   which outputs the most frequent prediction given by all of the weak learners. This is because all of the correct predictions will be greater than zero and negative values for the incorrect predictions. \footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}
 %This particular property is what gives rise
 
 At first the choice of the exponential loss function can seem arbitrary, but for the context of statistical learning this measure presents an important property where its minimizing function is the log-odds ratio of the two output classes:
 \begin{equation}
 f^*(X) = \underset{f}{\mathrm{argmin}} \  \Expect_{Y | f(X)}\big[ exp(-Yf(X))  \big] = \frac{1}{2}
-log\big( \frac{ P(Y=1 \mid X) }{ P(Y=-1 \mid X) }  \big) 
+log\big( \frac{ P(Y=1 \mid X) }{ P(Y=-1 \mid X) }  \big)
 \end{equation}
 
 
@@ -1520,15 +1536,13 @@ As explained before, the boosting method builds a high model learned from other 
 
 \begin{equation}
 \hat{y}^{((m)}=  \sum_t^m \gamma_t h_t(x) , \  h_t \in Tr \ \forall t \in {0...K}
-\begin{equation}
 \end{equation}
-
 
 where $\gamma_t$ indexes the weight for each tree $h_t$ and $K$ is a hyper-parameter that represent the number of trees. Each new base learner is added to the model
 
 \begin{equation}
 \hat{y}^{(m+1)} =   \hat{y}^{(m)}  + \gamma_m h_m(x)
-\begin{equation}
+\end{equation}
 
 and the new base model is selected upon minimizing the misclassification rate of the full model at the previous step $m$, where a loss function previously selected is minimized to select the next best base learner:
 
@@ -1556,7 +1570,6 @@ For the high model, the objective function would account for the relationships a
 \begin{equation} 
 Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i))  +  \sum_t R(f_t) 
 \end{equation} \label{eq:boositing-objfunction} \footnote{In the formula \ref{eq:boositing-objfunction} }
-%
 
 At this level $\Theta$ is a parameter encoding all of the base trees' model information. For each base tree $f_t$, $\theta_t$ is the parameter associated to it. This means that $\Theta =  \bigcup_{t \in {0...K}} \theta_t  \cup \theta_0$.  The parameter $\Theta_0$ is not associated to any tree but reserved to characterize the tree ensemble.
 
@@ -1624,6 +1637,7 @@ As we have stated before the approach assumes that we have met enough smoothness
 and that these values are effectively computable. This is why smooth loss functions play an important role here in providing a feasible method.
 
 %\begin{equation}
+
 %Obj^t(\Theta) \approx \sum_i^n {  g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } +  Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
 %\end{equation}
 

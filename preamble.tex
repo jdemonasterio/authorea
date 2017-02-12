@@ -127,6 +127,22 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 % \usepackage{longtable}        % Allows to break tables through pages
 % \floatsetup[longtable]{margins=centering,LTcapwidth=table}
 
+
+%----------------------------+
+% Packages for spell checkers|
+%----------------------------+
+
+% These allow one to compile the pdf without any figures, equations
+% etc. which will let us copy paste the output for spell checking.
+
+\usepackage{comment}
+\excludecomment{figure}
+\let\endfigure\relax
+\excludecomment{equation}
+\let\endequation\relax
+
+
+
 %---------------------------------------------------------+
 % Miscellaneous packages: lists, setspace, todonotes, etc |
 %---------------------------------------------------------+
@@ -165,7 +181,6 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 \usepackage[style=authoryear-comp,backref=true,refsection=chapter,
 backend=biber]{biblatex}
 
-
 % \usepackage[
 % 	backend=biber,
 % 	sortlocale=us_EN,
@@ -175,7 +190,6 @@ backend=biber]{biblatex}
 % 	doi=true,
 % 	eprint=false
 % 	]{biblatex}
-
 
 \addbibresource{biblio.bib}
 
@@ -200,7 +214,7 @@ pdfkeywords={machine learning}
 }
 \usepackage[numbered,open,openlevel=1]{bookmark}
 
-\usepackage{amsthm}        % We load theorem environments here to avoid warnings
+\usepackage{amsthm,amsmath}        % We load theorem environments here to avoid warnings
 
 \usepackage[noabbrev,capitalise]{cleveref}
 
