@@ -1,3 +1,5 @@
+% !BIB TS-program = biber
+% !BIB program = biber
 %===============================================================================
 %          File: preamble.tex
 %        Author: Pedro Ferrari
@@ -14,7 +16,7 @@
 %--------------------------------------+
 % Language, hyphenation, encoding, etc |
 %--------------------------------------+
-% \usepackage[english]{biblatex}
+\usepackage[spanish,english]{babel}
 \usepackage{lmodern}             % Use Latin Modern fonts
 \usepackage[T1]{fontenc}         % Better output when a diacritic/accent is used
 \usepackage[utf8]{inputenc}      % Allows to input accented characters
@@ -40,7 +42,7 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 \newpagestyle{special}[\scshape]{%
   \headrule
   \sethead
-  [\thepage][][\chaptFerrariertitle]
+  [\thepage][][\chaptertitle]
   {\ifthesection{\sectiontitle}{\chaptertitle}}{}{\thepage}
 }
 % The following pagestyle is needed because titlesec isn't compatible with
@@ -158,20 +160,21 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 % Solve bad interaction between titlesec and \appendix
 \preto{\appendix}{\cleardoublepage}
 
-\usepackage[style=american]{csquotes}  % Language sensitive quotation facilities
-%\usepackage[style=authoryear-comp,backref=true,refsection=chapter,
-%backend=biber]{biblatex}
-
 % this might insert blank pages here and there but now compilation works correctly with biber
-\usepackage[
-	backend=biber,
-	sortlocale=us_EN,
-	natbib=true,
-	style=authoryear-comp,backref=true,refsection=chapter,
-	url=false, 
-	doi=true,
-	eprint=false
-	]{biblatex}
+\usepackage[style=american]{csquotes}  % Language sensitive quotation facilities
+\usepackage[style=authoryear-comp,backref=true,refsection=chapter,
+backend=biber]{biblatex}
+
+
+% \usepackage[
+% 	backend=biber,
+% 	sortlocale=us_EN,
+% 	natbib=true,
+% 	style=authoryear-comp,backref=true,refsection=chapter,
+% 	url=false, 
+% 	doi=true,
+% 	eprint=false
+% 	]{biblatex}
 
 
 \addbibresource{biblio.bib}
@@ -200,6 +203,20 @@ pdfkeywords={machine learning}
 \usepackage{amsthm}        % We load theorem environments here to avoid warnings
 
 \usepackage[noabbrev,capitalise]{cleveref}
+
+%-----------------------------------------------------------+
+% Comment out the math equations, figurest,etc                |
+% This will help us spell checking the doc with online tools |
+%-----------------------------------------------------------+
+\usepackage{comment}
+\excludecomment{figure}
+\let\endfigure\relax
+\excludecomment{equation}
+\let\endequation\relax
+%\excludecomment{lstlisting}
+%\let\endlstlisting\relax
+
+
 
 %------------------------------------+
 % Definition of theorem environments |
@@ -259,6 +276,7 @@ pdfkeywords={machine learning}
 %-----------------------------------------------+
 % Cross-references settings (cleveref settings) |
 %-----------------------------------------------+
+
 \crefname{exercise}{Exercise}{Exercises}
 \crefname{stepsi}{Step}{Steps}
 
@@ -272,6 +290,7 @@ pdfkeywords={machine learning}
 %----------------------------------------------+
 % Half-title, titlepage and copyright settings |
 %----------------------------------------------+
+
 \newcommand*{\halftitlepg}{%
   \begingroup
     \begin{center}
