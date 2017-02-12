@@ -1,5 +1,9 @@
 # TODO PLAN
 
+## In general:
+	comment out all equations/figures/etc and run the paper through an online spell checker.
+
+
 ## Machine Learning Chapter
 
 	* section Technical Observations (python, jupyter, sklearn, pandas, 
@@ -23,6 +27,9 @@
 
 ## Results Chapter
 	Ampliar de los papers ya agregar mas graficos comparativos
+
+
+
 
 ## Maybe TODOs:
 	* Rerun algorithms but using SVD para reducir covarianza de variables.
