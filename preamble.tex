@@ -128,21 +128,6 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 % \floatsetup[longtable]{margins=centering,LTcapwidth=table}
 
 
-%----------------------------+
-% Packages for spell checkers|
-%----------------------------+
-
-% These allow one to compile the pdf without any figures, equations
-% etc. which will let us copy paste the output for spell checking.
-
-\usepackage{comment}
-\excludecomment{figure}
-\let\endfigure\relax
-\excludecomment{equation}
-\let\endequation\relax
-
-
-
 %---------------------------------------------------------+
 % Miscellaneous packages: lists, setspace, todonotes, etc |
 %---------------------------------------------------------+
@@ -222,6 +207,10 @@ pdfkeywords={machine learning}
 % Comment out the math equations, figurest,etc                |
 % This will help us spell checking the doc with online tools |
 %-----------------------------------------------------------+
+
+% These allow one to compile the pdf without any figures, equations
+% etc. which will let us copy paste the output for spell checking.
+
 %\usepackage{comment}
 %\excludecomment{figure}
 %\let\endfigure\relax
