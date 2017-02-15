@@ -16,7 +16,7 @@
 %--------------------------------------+
 % Language, hyphenation, encoding, etc |
 %--------------------------------------+
-\usepackage[spanish,english]{babel}
+\usepackage[english]{babel}
 \usepackage{lmodern}             % Use Latin Modern fonts
 \usepackage[T1]{fontenc}         % Better output when a diacritic/accent is used
 \usepackage[utf8]{inputenc}      % Allows to input accented characters
@@ -93,6 +93,7 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 \usepackage{mathrsfs}              % Math script like font
 \usepackage{breqn}                 % Automatic line breaking of math expressions
 \renewcommand*{\intlimits}{\displaylimits}  % Fix breqn clash with intlimits
+
 
 %---------------------+
 % Floats and captions |
@@ -384,6 +385,8 @@ pdfkeywords={machine learning}
 \renewcommand{\L}{\ensuremath{\operatorname{\mathcal{L}}}}  % Lagrangian
 \DeclareMathOperator{\calN}{\mathcal{N}}
 \DeclareMathOperator{\calG}{\mathcal{G}}
+\DeclareMathOperator{\calL}{\mathcal{L}}
+\DeclareMathOperator{\calE}{\mathcal{E}}
 
 \newcommand\MyBox[2]{
 	\fbox{\lower0.75cm
