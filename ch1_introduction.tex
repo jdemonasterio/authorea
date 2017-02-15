@@ -85,14 +85,13 @@ Even though governmental programs have been ongoing for years now~\cite{plan_nac
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.75\linewidth]
-{figures/Ambientes_Gran_Chaco-Mexico1/Ambientes_Gran_Chaco-Mexico1}
+{figures/Ambientes_Gran_Chaco-Mexico1/Ambientes_Gran_Chaco-Mexico1.png}
 \caption{Endemic region $E_Z$ for Mexico.}
 \label{fig:endemic_zone_mexico}
 \end{figure}
 
 In 2004, the joint work of \textit{Instituto Nacional de Cardiología ``Ignacio Chávez"} and  \textit{Instituto de Biología de la UNAM} resulted in a Chagas disease database for Mexico~\cite{cruz2006chagmex}. Reviewing positive serology in blood banks and human reported cases per state, an epidemic risk map description was produced to geographically situate the disease. Based on this data, we defined the Mexican epidemic area, selecting the states having the top 25\% prevalence rates nationwide. The resulting risk region is shown in Figure~\ref{fig:endemic_zone_mexico}. It covers most of the South region of the country and includes the states of Jalisco, Oaxaca, Veracruz, Guerrero, Morelos, Puebla, Hidalgo and Tabasco.
 This region is considered as the endemic zone $E_Z$ for the Mexican case in the analysis described in Sections~\ref{methods}, \ref{results} and \ref{long_term}.
-
 
 
 
@@ -166,10 +165,10 @@ The Mexican data source is an anonymized dataset from a national mobile phone op
 % Information logged for each call included the duration and timestamp of the call, the users participating in the call and the antenna id that transmitted the call to the TelCo client. 
 
 
-%% \subsection{Data Limitations}
-%\paragraph{Data Limitations.}
-%Although a lot of information is available in the CDR datasets, there may be limitations in their representativeness of the whole population. In each case, data is sourced from a single mobile phone operator, and no information is given on the distribution of its users, thus calls might in principle not represent correctly social interactions and movements between two given jurisdictions. Also, not all user movements will be captured by the log records. However, these limitations are offset by the huge datasets' sizes, from which we can safely assume that the amount of users observed in each set is sufficient to correlate real mobility or social links between different areas.
-%
+% \subsection{Data Limitations}
+\paragraph{Data Limitations.}
+Although a lot of information is available in the CDR datasets, there may be limitations in their representativeness of the whole population. In each case, data is sourced from a single mobile phone operator, and no information is given on the distribution of its users, thus calls might in principle not represent correctly social interactions and movements between two given jurisdictions. Also, not all user movements will be captured by the log records. However, these limitations are offset by the huge datasets' sizes, from which we can safely assume that the amount of users observed in each set is sufficient to correlate real mobility or social links between different areas.
+
 
 % Si podemos reflotemos el grafico de clustering de provincias segun comunicaciones, y repitamos para estados en Mexico.
 
@@ -215,14 +214,14 @@ whereas in the case of Mexico, we used the region described in Section~\ref{ende
 \subsection{Heatmap Generation}
     With the collected data, we generated heatmaps to visualize the mentioned antenna indicators, overlapping these heatmaps with political maps of the region taken for study.
     
-%	A circle is generated for each cell, where:
+	A circle is generated for each cell, where:
 %	%Generamos un c\'irculo por cada celda donde:
-%	\begin{itemize}
-%		\item the \textbf{area} depends on the population living in the antenna $N_a$.
-%		%el \textbf{\'area} depende de la cantidad de usuarios (habitantes),
-%		\item the \textbf{color}, is related to the fraction ${V_a}/{N_a}$ of vulnerable users living there.
+	\begin{itemize}
+		\item the \textbf{area} depends on the population living in the antenna $N_a$.
+		%el \textbf{\'area} depende de la cantidad de usuarios (habitantes),
+		\item the \textbf{color}, is related to the fraction ${V_a}/{N_a}$ of vulnerable users living there.
 %		%el \textbf{color} corresponde al porcentaje de usuarios vulnerables que viven en esa antena.
-%	\end{itemize}
+	\end{itemize}
 
 	A circle is generated for each antenna, where
 		the \textbf{area} depends on the population living in the antenna $N_a$;
@@ -274,9 +273,6 @@ Figure~\ref{fig:cba_sfe} shows a close-up for the Cordoba and Santa Fe provinces
 where we can see a gradient from the regions closer to the endemic zone $E_Z$ to the ones further away.
 
 
-
-
-
 \begin{figure}[p]
 \centering
   \includegraphics[width=0.95\linewidth]
@@ -284,7 +280,6 @@ where we can see a gradient from the regions closer to the endemic zone $E_Z$ to
 \caption{Risk map for Cordoba and Santa Fe provinces, filtered according to $\beta = 0.15$.}
 \label{fig:cba_sfe}
 \end{figure}
-
 
 
 
@@ -309,13 +304,13 @@ High risk antennas were separately listed and manually located in political maps
 \label{fig:amba_map}
 \end{figure}
 
-%\begin{figure}[h!]
-%\begin{center}
-%\includegraphics[width=0.35\columnwidth]{figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta20/201112_hi_res_amba_usuarios_proporcion_circulos_beta20}
-%\caption{Replace this text with your caption%
-%}
-%\end{center}
-%\end{figure}
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.35\columnwidth]{figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta20/201112_hi_res_amba_usuarios_proporcion_circulos_beta20}
+\caption{Replace this text with your caption%
+}
+\end{center}
+\end{figure}
 
 This analysis allowed us to specifically detect outlying communities in the focused regions. Some of these can be seen directly from the heatmap in Figure~\ref{fig:amba_map}, where the towns of Avellaneda, San Isidro and Parque Patricios have been pinpointed.
 
@@ -346,13 +341,14 @@ For space reasons, we don't provide here more specific visualizations and analys
 
 (b) South region of Mexico, $\beta = 0.50$
 \end{minipage}
-%\begin{minipage}{.32\linewidth}
-%\centering
-%\includegraphics[width=0.90\columnwidth]
-%{figures/estado_mexico_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_/estado_mexico_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_}
-%
-%(c) State of Mexico, $\beta = 0.50$
-%\end{minipage}
+
+\begin{minipage}{.32\linewidth}
+\centering
+\includegraphics[width=0.90\columnwidth]
+{figures/estado_mexico_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_/estado_mexico_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_}
+
+(c) State of Mexico, $\beta = 0.50$
+\end{minipage}
 \caption{Risk maps for Mexico}
 \label{fig:mapas_mexico}
 \end{figure}
@@ -386,7 +382,6 @@ where $H_u$ is the user's home antenna:
     %\end{equation}
     \]
 With this target variable, we tackle the prediction as a supervised classification problem.
-
 
 
 \subsection{Training Set}
@@ -489,40 +484,41 @@ We look at the social graph $\calG_C$ built from the CDRs, and the communication
 
 Since the samples in our dataset are users, we have to aggregate all these variables, by grouping interactions at the user level. The combination of different variables amounts to a total of 130 features per user.
  
-%To illustrate the point, we show a small example of how two calling features could look like. Groupings and filters are applied only on the user's calls:
-%
-%\begin{table}[ht]
-%	\caption{Graph Data Features Example}
-%	\label{tab:data_example}
-%	\centering
-%	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
-%		%{l r r r r r r }
-%		\toprule
-%		Feature name & Call/Time & Time Period & Direction & Endemicity & Month\\
-%		\midrule
-%		Calls WeekEnd InVul08     & Count of calls & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
-%		\midrule
-%		Time WeekNight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing  & No endemic filtering  & December \\
-%		
-%		\bottomrule
-%	\end{tabular}
-%\end{table}
-%
+To illustrate the point, we show a small example of how two calling features could look like. Groupings and filters are applied only on the user's calls:
 
-% TimeWeekNight_OUT_12
+\begin{table}[ht]
+	\caption{Graph Data Features Example}
+	\label{tab:data_example}
+	\centering
+	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
+		%{l r r r r r r }
+		\toprule
+		Feature name & Call/Time & Time Period & Direction & Endemicity & Month\\
+		\midrule
+		Calls WeekEnd InVul08     & Count of calls & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
+		\midrule
+		Time WeekNight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing  & No endemic filtering  & December \\
+		
+		\bottomrule
+	\end{tabular}
+\end{table}
 
-% CallsWeekEnd_IN_12
 
-%Finally we aggregate all these variables at the user level, summing over all columns and grouping by user. 
-% (either $j$ or $i$) by summing across all of the different ??components?? (group by user, sum over all columns) .
+ TimeWeekNight_OUT_12
 
-% We also label each edge $\left< n_i, n_j \right> \in \calE_C$ if one or both users is endemic.
+ CallsWeekEnd_IN_12
+
+Finally we aggregate all these variables at the user level, summing over all columns and grouping by user. 
+ (either $j$ or $i$) by summing across all of the different ??components?? (group by user, sum over all columns) .
+
+ We also label each edge $\left< n_i, n_j \right> \in \calE_C$ if one or both users is endemic.
 We also count each user's amount of neighbors in the communication graph and the total count of endemic neighbors, labeling each user $i$ as \textit{vulnerable} whenever he has any edge with another user $j$ who lives in the endemic region $E_Z$. 
 
 %% el vulnerable NO es el edge, sino que es el usuario . 
 %La idea es, parate en el nodo i, hace algun filtro - o ninguno - de weeknight, in/out, weekend, mes, etc. y ahora decime
 %% if $\exists j$ such that edge $ij$ existe en el grafo de llamados (con el filtro que hayamos usado en ese momento puesto).
 %%
+
 %Additionally, for each user, we extract the total 
 
 
@@ -537,7 +533,7 @@ whereas 580,425 users had a change in their home antenna.
 In terms of endemic condition, we observed that 1,551,560 users maintained their endemic condition
 between $T_0$ and $T_1$, whereas 41,281 had a change.
 
-%We consider two version, the most used antenna (without filtering), and the most used antenna during the \textit{week night}.
+%We consider two versions, the most used antenna (without filtering), and the most used antenna during the \textit{week night}.
 
 
 %Dato de color:
@@ -549,26 +545,26 @@ between $T_0$ and $T_1$, whereas 41,281 had a change.
 %
 %Refinando la epidemicidad:
 
-%% Confusion matrix
-%Table~\ref{tab:changes} 
-%shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users that were in group $i$ during period $T_0$ (the past) and moved to group $j$ during the training period $T_1$. 
-%% For example, lower left means was endemic, is now not endemic. % viceversa upper right. 
-%
-%\begin{table}[ht]
-%\caption{Matrix of endemicity change}
-%\label{tab:changes}
-%\centering
-%\begin{tabular}{l r r }
-%\toprule
-%				& Not endemic in $T_1$ & Endemic in $T_1$ \\
-%\midrule
-%Not endemic in $T_0$ & 1140360 & 18330  \\
-%Endemic in $T_0$     & 22951   & 411200 \\
-%\bottomrule
-%\end{tabular}
-%\end{table}
-%
-%In relative numbers, this shows that only 2.59\% of users had a change in their endemic condition over time. A similar count shows that 66.0\% of users have not changed their home antenna from $T_0$ to $T_1$.
+% Confusion matrix
+Table~\ref{tab:changes} 
+shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users that were in group $i$ during period $T_0$ (the past) and moved to group $j$ during the training period $T_1$. 
+% For example, lower left means was endemic, is now not endemic. % viceversa upper right. 
+
+\begin{table}[ht]
+\caption{Matrix of endemicity change}
+\label{tab:changes}
+\centering
+\begin{tabular}{l r r }
+\toprule
+				& Not endemic in $T_1$ & Endemic in $T_1$ \\
+\midrule
+Not endemic in $T_0$ & 1140360 & 18330  \\
+Endemic in $T_0$     & 22951   & 411200 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In relative numbers, this shows that only 2.59\% of users had a change in their endemic condition over time. A similar count shows that 66.0\% of users have not changed their home antenna from $T_0$ to $T_1$.
 
 
 % \subsection{Supervised Algorithms}
@@ -587,9 +583,9 @@ The data was split into 70\% for training and 30\% for testing.
 %\cite{sklearn}
 %\cite{graphlab}
 
-%Random forests, Gradient Boosting, Logistic Regression and Support Vector Machines are standard for this kind of jobs. For the purpose of fast benchmarking, Multinomial Naive Bayes is also tested since it is a very fast non-parametric method. 
+Random forests, Gradient Boosting, Logistic Regression and Support Vector Machines are standard for this kind of jobs. For the purpose of fast benchmarking, Multinomial Naive Bayes is also tested since it is a very fast non-parametric method. 
 
-%Where possible, feature importance methods will be used to quantify the contribution of the feature or the interaction of features to the mobility of the users.
+Where possible, feature importance methods will be used to quantify the contribution of the feature or the interaction of features to the mobility of the users.
 
 
 % Algorithms: SVM, Random Forest and Logistic Regression, Multinomial Naive Bayes
@@ -605,21 +601,21 @@ The data was split into 70\% for training and 30\% for testing.
 The best and worst scores achieved were 0.940 and 0.918 respectively. 
  % which gave a score of 0.9409381515 noting that the worst estimator had a score of 0.918.
 
-%A full classification report on the out of sample data is shown below, where values are detailed for each target class:
-%\begin{table}[ht]
-%	% \caption{Matrix of changes.}
-%	\label{tab:classification_report}
-%	\centering
-%	\begin{tabular}{ l r r r r }
-%		\toprule
-%		{ } & precision score & recall  & f1-score & support \\
-%		\midrule
-%		0 		  & 0.96 & 0.96  & 0.96 & 323278  \\
-%		1		  & 0.89 &  0.90 &  0.90 & 411200 \\
-%		avg/total & 0.94 &  0.94 &  0.94 & 445464 \\
-%		\bottomrule
-%	\end{tabular}
-%\end{table}
+A full classification report on the out of sample data is shown below, where values are detailed for each target class:
+\begin{table}[ht]
+	% \caption{Matrix of changes.}
+	\label{tab:classification_report}
+	\centering
+	\begin{tabular}{ l r r r r }
+		\toprule
+		{ } & precision score & recall  & f1-score & support \\
+		\midrule
+		0 		  & 0.96 & 0.96  & 0.96 & 323278  \\
+		1		  & 0.89 &  0.90 &  0.90 & 411200 \\
+		avg/total & 0.94 &  0.94 &  0.94 & 445464 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
 %  precision    recall  f1-score   support 
 %  0       0.96      0.96      0.96    323278
@@ -660,22 +656,22 @@ Recall    & 0.958316   \\
 \end{center}
 
 
-%\begin{table}[ht]
-%\caption{Resulting scores.}
-%\label{tab:results}
-%\centering
-%\begin{tabular}{ l l }
-%\toprule
-%Score & Value \\
-%\midrule
-%F1 score  & 0.964537   \\
-%Accuracy  & 0.980670   \\
-%AUC       & 0.991593   \\
-%Precision & 0.970838   \\
-%Recall    & 0.958316   \\
-%\bottomrule
-%\end{tabular}
-%\end{table}
+\begin{table}[ht]
+\caption{Resulting scores.}
+\label{tab:results}
+\centering
+\begin{tabular}{ l l }
+\toprule
+Score & Value \\
+\midrule
+F1 score  & 0.964537   \\
+Accuracy  & 0.980670   \\
+AUC       & 0.991593   \\
+Precision & 0.970838   \\
+Recall    & 0.958316   \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 High values across all scoring measures are achieved. % with the best estimator, with the lowest metric starting at a value of 0.958. 
 These results can be explained by the fact that 
@@ -685,28 +681,30 @@ In this case, correlation between the target variable $Y$ and the models' featur
 % The table below shows the top 7 target-correlated features. 
 a user being endemic in $T_1$ is very correlated to being endemic in $T_0$, and the same holds with a user's interaction with vulnerable neighbors during $T_1$.
 
-%% \hfill
-%\begin{table}
-%% \parbox{0.45\linewidth}{
-%\caption{Correlations.}
-%\label{tab:results}
-%\centering
-%\begin{tabular}{l l }
-%\toprule
-%Feature & Correlation \\
-%\midrule
-%Endemic in $T_1$               & 0.943801 \\
-%Vuln. contact outgoing 08/2015    & 0.730294 \\ %%outgoing significa outgoing calls
-%Vuln. contact incoming 08/2015     & 0.732498 \\
-%Vuln. contact outgoing 09/2015    & 0.714448 \\
-%Vuln. contact incoming 09/2015     & 0.715566 \\ 
-%Vuln. contact outgoing 10/2015    & 0.694106 \\
-%Vuln. contact incoming 10/2015     & 0.694265 \\
-%%VULNERABLE\_OUT\_11    & 0.688250 \\
-%%VULNERABLE\_IN\_11     & 0.688407 \\
-%\bottomrule
-%\end{tabular}
-%\end{table}
+% \hfill
+\begin{table}
+% \parbox{0.45\linewidth}{
+\caption{Correlations.}
+\label{tab:results}
+\centering
+\begin{tabular}{l l }
+\toprule
+Feature & Correlation \\
+\midrule
+Endemic in $T_1$               & 0.943801 \\
+Vuln. contact outgoing 08/2015    & 0.730294 \\ %%outgoing significa outgoing calls
+Vuln. contact incoming 08/2015     & 0.732498 \\
+Vuln. contact outgoing 09/2015    & 0.714448 \\
+Vuln. contact incoming 09/2015     & 0.715566 \\ 
+Vuln. contact outgoing 10/2015    & 0.694106 \\
+Vuln. contact incoming 10/2015     & 0.694265 \\
+%VULNERABLE\_OUT\_11    & 0.688250 \\
+%VULNERABLE\_IN\_11     & 0.688407 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
 %
 %Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron). Los scores bajan mucho:
 %
@@ -753,6 +751,6 @@ The mobility and social information extracted from CDRs analysis has been shown 
     %\item Add more regions to the analysis.
 
     \item [Search for epidemiological data at a finer grain.] For instance, specific historical infection cases. Splitting the endemic region according to the infection rate in different areas, or considering particular infections.
-    %\item Feature exploration to search for correlations with being infected.
+    \item Feature exploration to search for correlations with being infected.
     %\item (FALTA RESCRIBIR) Apply best fit model to Argentinian dataset. Provide that info to a Chagas risk model. Assuming that a high influx of individuals from epidemic regions is correlated with a higher risk in that area the algorithm could highlight these points. % revisar
 \end{description}
