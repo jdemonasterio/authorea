@@ -15,8 +15,7 @@
 	* terminar parte despues de ROC CURVE como cierre de classification metrics que c/problema puede tener distintas metricas.
 
 	* revisar 2nd proof de Random Forests Formulation
-
-	 
+ 
 
 ## Introduction Chapter
 	*ampliar introduction de los papers
@@ -29,16 +28,7 @@
 ## Results Chapter
 	Ampliar de los papers ya agregar mas graficos comparativos
 
-
-
-
-
-## Maybe TODOs:
-	* Rerun algorithms but using SVD para reducir covarianza de variables.
-	
-
-
-## Revision
+## Revision 17/02
 	* iterar con la gente del DM las correcciones. (Patu, Mathieu)
 	* completar la experimentacion con la parte de prediccion.
 	* Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors. Or with highly correlated features.
@@ -46,4 +36,8 @@
 		metodos y configuracion de parametros. e.g. regularizar el problema vs. sin regularizar el problema y comparar.
 	* Mostrar ejemplos concretos de _porque_ es importante lo que se cuenta teoricamente.
 	* Desbalance entre la profunidad teorica y la superficialidad de la apliacion del problema.
-	*  
+
+
+## Maybe TODOs:
+	* Rerun algorithms but using SVD para reducir covarianza de variables.
+	
