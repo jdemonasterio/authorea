@@ -1,12 +1,13 @@
 %===============================================================================
-%          File: ch1_introduction.tex
+%          File: ch0_introduction.tex
 %        Author: Juan de Monasterio
-%       Created: 08 Feb 2017
+%       Created: 15 Feb 2017
 %   Description: Chapter 1: Introduction
 %===============================================================================
 
 \chapter{Introduction}
 \label{cha:intro}
+
 
 Chagas disease is a tropical parasitic epidemic of global reach, spread mostly across 21 Latin American countries. The World Health Organization (WHO) estimates more than six million infected people worldwide~\cite{who2016}.  Caused by the \textit{Trypanosoma cruzi} parasite, its transmission occurs mostly in the American endemic regions via the \textit{Triatoma infestans} insect family (also called ``kissing bug", and known by many local names such as ``vinchuca" in Argentina, Bolivia, Chile and Paraguay, and ``chinche" in Central America). In recent years and due to globalization and migrations, the disease has become an %health 
 issue in other continents~\cite{schmunis2010chagas}, 
@@ -26,7 +27,7 @@ The spatial dissemination of a congenitally transmitted disease sidesteps the av
 
 Mobile phone records contain information about the movements of large subsets of the population of a country, and make them very useful to understand the spreading dynamics of infectious diseases. They have been used to understand the diffusion of malaria in Kenya~\cite{wesolowski2012quantifying} and in Ivory Coast~\cite{enns2013human}, including the refining of infection models~\cite{chunara2013large}. The cited works on Ivory Coast were performed using the D4D (Data for Development) challenge datasets released in 2013. Tizzoni et al.~\cite{tizzoni2014use} compare different mobility models using theoretical approaches, available census data and models based on CDRs interactions to infer movements. They found that the models based on CDRs and mobility census data are highly correlated, illustrating their use as mobility proxies.
 
-Mobile phone data has also been used to predict the geographic spread and timing of Dengue epidemics~\cite{wesolowski2015impact}. This analysis was performed for the country of Pakistan, which is representative of many countries on the verge of countrywide endemic dengue transmission. Other works directly study CDRs to characterize human mobility and other sociodemographic information. A complete survey of mobile traffic analysis articles may be found in~\cite{naboulsi2015mobile}, which also reviews additional studies based on the Ivory Coast dataset mentioned above.
+Mobile phone data has also been used to predict the geographic spread and timing of Dengue epidemics~\cite{wesolowski2015impact}. This analysis was performed for the country of Pakistan, which is representative of many countries on the verge of countrywide endemic dengue transmission. Other works directly study CDRs to characterize human mobility and other sociodemographic information. A complete survey of mobile traffic analysis articles may be found in~\cite{naboulsi2015mobile}, which also reviews additional studies based on the Ivory Coast dataset mentioned above. %Antenna usage is explored in \cite{sarraute2015socialevents} to automatically detect large social events, using the social graph to infer the probability of attending events.
 
 
 In this work, we discuss the use of mobile phone records --also known as Call Detail Records (CDRs)-- for the analysis of mobility patterns and the detection of possible risk zones of Chagas disease in two Latin American countries. Key health expertise on the subject was provided by the \textit{Mundo Sano} Foundation.
@@ -36,12 +37,13 @@ This is the first work that leverages mobile phone data to better understand the
 
 
 
-%\subsection{Chagas Disease in Argentina and Mexico}
+\subsection{Chagas Disease in Argentina and Mexico}
 
 \subsection{Key Facts and Endemic Zone in Argentina}\label{endemic_zone_argentina}
 
-For more than 50 years, vector control campaigns have been underway in Argentina as the main epidemic counter-measure. The \textit{Gran Chaco}, situated in the northern part of the country is home to the disease-carrying triatomines. This region is hyperendemic for the disease~\cite{OPS2014mapa}. A map of this ecoregion is shown in Figure~\ref{fig:granchaco}.
-
+For more than 50 years, vector control campaigns have been underway in Argentina as the main epidemic counter-measure. The \textit{Gran Chaco}, situated in the northern part of the country,
+% is home to most of the infected triatomines
+is hyperendemic for the disease~\cite{OPS2014mapa}. A map of this ecoregion is shown in Figure~\ref{fig:granchaco}.
 The ecoregion's low socio-demographic conditions further support the parasite's lifecycle, where domestic interactions between humans, triatomines and animals foster the appearance of new infection cases, particularly among rural and poor areas.
 % The ecoregion as of today is hyperendemic for the disease.
 This region is considered as the endemic zone $E_Z$ in the analysis described in Section~\ref{methods} and Section~\ref{results}.
@@ -71,13 +73,14 @@ Even though governmental programs have been ongoing for years now~\cite{plan_nac
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.75\linewidth]
-{figures/Ambientes_Gran_Chaco-Mexico1/Ambientes_Gran_Chaco-Mexico1.png}
+{figures/Ambientes_Gran_Chaco-Mexico1/Ambientes_Gran_Chaco-Mexico1}
 \caption{Endemic region $E_Z$ for Mexico.}
 \label{fig:endemic_zone_mexico}
 \end{figure}
 
 In 2004, the joint work of \textit{Instituto Nacional de Cardiología ``Ignacio Chávez"} and  \textit{Instituto de Biología de la UNAM} resulted in a Chagas disease database for Mexico~\cite{cruz2006chagmex}. Reviewing positive serology in blood banks and human reported cases per state, an epidemic risk map description was produced to geographically situate the disease. Based on this data, we defined the Mexican epidemic area, selecting the states having the top 25\% prevalence rates nationwide. The resulting risk region is shown in Figure~\ref{fig:endemic_zone_mexico}. It covers most of the South region of the country and includes the states of Jalisco, Oaxaca, Veracruz, Guerrero, Morelos, Puebla, Hidalgo and Tabasco.
 This region is considered as the endemic zone $E_Z$ for the Mexican case in the analysis described in Sections~\ref{methods}, \ref{results} and \ref{long_term}.
+
 
 
 
@@ -118,9 +121,4 @@ that infected children under 5 year of age are frequently distributed in urban
 rather than in rural areas, indicating that the disease is becoming urbanized in
 Mexico~\cite{guzman2001epidemiology}.
 Therefore, as in the Argentinian case, the study of long-term mobility is crucial to understand the spread of the Chagas disease in Mexico.
-
-
-
-
-
 

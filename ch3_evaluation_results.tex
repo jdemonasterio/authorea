@@ -1,0 +1,157 @@
+%===============================================================================
+%          File: ch4_evaluation_results.tex
+%        Author: Juan de Monasterio
+%       Created: 15 Feb 2017
+%   Description: Chapter 4:  Evaluation and Results
+%===============================================================================
+
+\chapter{Evaluation and Results}
+\label{cha:evaluation-results}
+
+% \subsection{Supervised Algorithms}
+\subsection{Supervised Classification}
+
+
+In this first iteration, we used the most common techniques found in the literature for this task:
+Support Vector Machines, Random Forest, Logistic Regression, and Multinomial Naive Bayes.
+
+All algorithms were run on a 16-core Linux machine with 72GB of RAM.  Processing and learning scripts were run on Python. %\footnote{Python Software Foundation. Python Language Reference, version 3.5. Available at http://www.python.org}. 
+Along the project, a variety of external packages were used for different purposes. For the classification routines, we used Scikit-learn~\cite{sklearn} and Graphlab~\cite{graphlab}.
+The data was split into 70\% for training and 30\% for testing.
+
+
+%\cite{Python}
+%\cite{sklearn}
+%\cite{graphlab}
+
+%Random forests, Gradient Boosting, Logistic Regression and Support Vector Machines are standard for this kind of jobs. For the purpose of fast benchmarking, Multinomial Naive Bayes is also tested since it is a very fast non-parametric method. 
+
+%Where possible, feature importance methods will be used to quantify the contribution of the feature or the interaction of features to the mobility of the users.
+
+
+% Algorithms: SVM, Random Forest and Logistic Regression, Multinomial Naive Bayes
+
+
+\subsubsection{Multinomial Bayes.}
+ 
+ The Multinomial Bayes classifier has a linear time complexity, and thus serves as a fast benchmark that we used to establish a baseline classification performance. However, one shortcoming of this method is that it only allows for non-negative numerical features. This results in a reduced training and testing set.
+  
+ The classifier has two hyperparameters: $\alpha$, an additive smoothing parameter for which we defined values of $[0,{10^{-2}},{10^{-1}},1]$; and the \textit{fit prior} parameter which determines whether or not class prior probabilities are learned from the training set. 
+ 
+ This setup gave 8 possible models and 24 fits on the 3-fold cross validated model training set where, on average, learning took 5s for one million samples. The F1-weighted metric was chosen to evaluate the best performing estimator.
+The best and worst scores achieved were 0.940 and 0.918 respectively. 
+ % which gave a score of 0.9409381515 noting that the worst estimator had a score of 0.918.
+
+%A full classification report on the out of sample data is shown below, where values are detailed for each target class:
+%\begin{table}[ht]
+%	% \caption{Matrix of changes.}
+%	\label{tab:classification_report}
+%	\centering
+%	\begin{tabular}{ l r r r r }
+%		\toprule
+%		{ } & precision score & recall  & f1-score & support \\
+%		\midrule
+%		0 		  & 0.96 & 0.96  & 0.96 & 323278  \\
+%		1		  & 0.89 &  0.90 &  0.90 & 411200 \\
+%		avg/total & 0.94 &  0.94 &  0.94 & 445464 \\
+%		\bottomrule
+%	\end{tabular}
+%\end{table}
+
+%  precision    recall  f1-score   support 
+%  0       0.96      0.96      0.96    323278
+%  1       0.89      0.90      0.90    122186
+ % avg / total       0.94      0.94      0.94    445464  
+
+\subsubsection{SVM and Logistic Regression.}
+
+Support Vector Machines (SVM) and Logistic Regression are two algorithms for classification which are standard in the Machine Learning literature and performed better than Multinomial Bayes in this case. 
+At the same time, they are more complex and have higher time complexity, taking more computational resources to optimize.
+
+Only the standard hyperparameters for these two models were tuned: $L2$-penalty regularization for Logistic Regression and kernel bandwidth for the Gaussian Kernel SVM.
+Both learning routines were executed in parallel and in each iteration 5\% of the training set was sampled for cross validation. The best classifier was selected based on accuracy scores from this set.
+
+% L-BFGS is the optimization routine.  limited memory Broyden–Fletcher–Goldfarb–Shanno 
+%(reference the limited memory Broyden–Fletcher–Goldfarb–Shanno (BFGS) algorithm \url{https://en.wikipedia.org/wiki/Limited-memory_BFGS} )
+%% es un algoritmo de optimizacion numerica para computar minimos de funciones
+
+
+% With a running time of 80s, 10 steps are generally needed to achieve a 0.977 validation accuracy score on 
+The best model was a Logistic Regression Classifier with an $L2$-penalty value of 0.01. 
+% Table~\ref{tab:results} 
+The following table
+shows the scores obtained by the selected model on the out-of-sample set.
+
+\begin{center}
+\begin{tabular}{ l l }
+\toprule
+Score & Value \\
+\midrule
+F1 score  & 0.964537   \\
+Accuracy  & 0.980670   \\
+AUC       & 0.991593   \\
+Precision & 0.970838   \\
+Recall    & 0.958316   \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+%\begin{table}[ht]
+%\caption{Resulting scores.}
+%\label{tab:results}
+%\centering
+%\begin{tabular}{ l l }
+%\toprule
+%Score & Value \\
+%\midrule
+%F1 score  & 0.964537   \\
+%Accuracy  & 0.980670   \\
+%AUC       & 0.991593   \\
+%Precision & 0.970838   \\
+%Recall    & 0.958316   \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+
+High values across all scoring measures are achieved. % with the best estimator, with the lowest metric starting at a value of 0.958. 
+These results can be explained by the fact that 
+%Scores results become less surprising when looking closer at the dataset. 
+communication and mobility patterns are in essence highly correlated across time periods. 
+In this case, correlation between the target variable $Y$ and the models' features are expected:
+% The table below shows the top 7 target-correlated features. 
+a user being endemic in $T_1$ is very correlated to being endemic in $T_0$, and the same holds with a user's interaction with vulnerable neighbors during $T_1$.
+
+%% \hfill
+%\begin{table}
+%% \parbox{0.45\linewidth}{
+%\caption{Correlations.}
+%\label{tab:results}
+%\centering
+%\begin{tabular}{l l }
+%\toprule
+%Feature & Correlation \\
+%\midrule
+%Endemic in $T_1$               & 0.943801 \\
+%Vuln. contact outgoing 08/2015    & 0.730294 \\ %%outgoing significa outgoing calls
+%Vuln. contact incoming 08/2015     & 0.732498 \\
+%Vuln. contact outgoing 09/2015    & 0.714448 \\
+%Vuln. contact incoming 09/2015     & 0.715566 \\ 
+%Vuln. contact outgoing 10/2015    & 0.694106 \\
+%Vuln. contact incoming 10/2015     & 0.694265 \\
+%%VULNERABLE\_OUT\_11    & 0.688250 \\
+%%VULNERABLE\_IN\_11     & 0.688407 \\
+%\bottomrule
+%\end{tabular}
+%\end{table}
+%
+%Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron). Los scores bajan mucho:
+%
+%+--------------+-----------------+-------+
+%| target\_label | predicted\_label | count |
+%+--------------+-----------------+-------+
+%|      1       |        1        |  1944 |
+%|      1       |        0        |  3525 |
+%+--------------+-----------------+-------+
+%'f1\_score': 0.5244840145690004, ''accuracy': 0.3554580,, 'precision': 1.0, 'recall': 0.35545803, 
+
