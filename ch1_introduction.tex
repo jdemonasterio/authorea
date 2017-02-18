@@ -5,8 +5,7 @@
 %   Description: Chapter 1: Introduction
 %===============================================================================
 
-\chapter{Introduction}
-\label{cha:intro}
+\chapter{Introduction} \label{cha:intro}
 
 Chagas disease is a tropical parasitic epidemic of global reach, spread mostly across 21 Latin American countries. The World Health Organization (WHO) estimates more than six million infected people worldwide~\cite{who2016}.  Caused by the \textit{Trypanosoma cruzi} parasite, its transmission occurs mostly in the American endemic regions via the \textit{Triatoma infestans} insect family (also called ``kissing bug", and known by many local names such as ``vinchuca" in Argentina, Bolivia, Chile and Paraguay, and ``chinche" in Central America). In recent years and due to globalization and migrations, the disease has become an %health 
 issue in other continents~\cite{schmunis2010chagas}, 
@@ -28,17 +27,26 @@ Mobile phone records contain information about the movements of large subsets of
 
 Mobile phone data has also been used to predict the geographic spread and timing of Dengue epidemics~\cite{wesolowski2015impact}. This analysis was performed for the country of Pakistan, which is representative of many countries on the verge of countrywide endemic dengue transmission. Other works directly study CDRs to characterize human mobility and other sociodemographic information. A complete survey of mobile traffic analysis articles may be found in~\cite{naboulsi2015mobile}, which also reviews additional studies based on the Ivory Coast dataset mentioned above.
 
+In this work, we discuss the use of mobile phone records --also known as Call Detail Records (CDRs)-- for the analysis of mobility patterns and the detection of possible risk zones of Chagas disease in two Latin American countries. Key health expertise on the subject was provided by the \textit{Mundo Sano} Foundation. We will analyze and use  \textit{Machine Learning} tools for this. 
 
-In this work, we discuss the use of mobile phone records --also known as Call Detail Records (CDRs)-- for the analysis of mobility patterns and the detection of possible risk zones of Chagas disease in two Latin American countries. Key health expertise on the subject was provided by the \textit{Mundo Sano} Foundation.
- We generate predictions of population movements between different regions, providing a proxy for the epidemic spread. Our objective is to show that geolocalized call records are rich in social and individual information, which can be used to determine whether an individual has lived in an epidemic area. We present two case studies, in Argentina and in Mexico, using data provided by mobile phone companies from each country. %A discussion of how mobile data was processed is included. 
+This work will be structured as follows: for the reminaing of this chapter we will give some key aspects of Chagas disease in Argentina and Mexico and introduce shortly the subfield of \textit{Machine Learning}. Chapter 2 will introduce the data used for this problem and show how we constructed national disease risk maps. Chapter 3 will talk about Machine Learning theory, describing methods and algorithms which will be applied to this problem. Chapter 4 will show the results of the models introduced in the chapter before and outline the consequences of this to our problem. Chapter 5 is the final conclusion of this work.
+
+
+\section{Brief overview of machine learning}
+
+Machine learning is a subfield of computer science with broad \textit{theoretical} intersections with statistics and mathematical optimization. At present time it has a wide range of applications. A non-comprehensive list of its use includes self-driving cars, spam detection systems, face and/or voice recognition, temperature prediction in weather, AI opponents in games, disease prediction in patients, text and audio language translation, stock pricing, movie recommendation systems, etc. Examples of these machine learning programs are now widespread to the point where their use today has a direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
+
+"A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E" \textcite{Mitchell-MLearning}. To our purpose it is clear though that this definition \footnote{Other authors might reference machine learning as \textit{statistical learning}. See \textcite{hastie-elemstatslearn} as an example.} is not formally well-defined. Yet it serves to convey the idea of algorithms that automatically \textit{learns} to do a specific task better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this, the concept of \textit{learning} within this context is less associated with the cognitive definition and is related to an optimization based approach.
+
+ In this work we generate predictions of population movements between different regions, providing a proxy for the epidemic spread. Our objective is to show that geolocalized call records are rich in social and individual information, which can be used to determine whether an individual has lived in an epidemic area. We present two case studies, in Argentina and in Mexico, using data provided by mobile phone companies from each country. %A discussion of how mobile data was processed is included. 
 This is the first work that leverages mobile phone data to better understand the diffusion of the Chagas disease.
 
 
 
 
-%\subsection{Chagas Disease in Argentina and Mexico}
+\section{Facts on Chagas Disease}
 
-\subsection{Key Facts and Endemic Zone in Argentina}\label{endemic_zone_argentina}
+\subsection{Chagas in  Argentina}\label{endemic_zone_argentina}
 
 For more than 50 years, vector control campaigns have been underway in Argentina as the main epidemic counter-measure. The \textit{Gran Chaco}, situated in the northern part of the country is home to the disease-carrying triatomines. This region is hyperendemic for the disease~\cite{OPS2014mapa}. A map of this ecoregion is shown in Figure~\ref{fig:granchaco}.
 
@@ -65,7 +73,7 @@ In Argentina, less than 1\% of infected people are diagnosed and treated
 Even though governmental programs have been ongoing for years now~\cite{plan_nacional_chagas}, data on the issue is scarce or hardly accessible. This presents a real obstacle to ongoing research and coordination efforts to tackle the disease in the region.
 
 
-\subsection{Key Facts and Endemic Zone in Mexico} \label{endemic_zone_mexico}
+\subsection{Chagas in  Mexico} \label{endemic_zone_mexico}
 
 
 \begin{figure}[h!]
