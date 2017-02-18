@@ -12,12 +12,7 @@
 \section{Preamble}\label{section-preamble}
 Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \ref{bishop-patternRecognition} and  \ref{hastie-elemstatslearn}. Some fundamental concepts and material were also used from \label{scikit-learn}. While other texts were also used, it is not necessary that we point them out here as they have been correctly cited. Where not specified, the reader can assume that the proof is based from said texts.
 
-
-\section{ Brief overview of machine learning and supervised classification problems}\label{section-introduction}
-
-Machine learning is a subfield of computer science with broad \textit{theoretical} intersections with statistics and mathematical optimization. At present time it has a wide range of applications. A non-comprehensive list of its use includes self-driving cars, spam detection systems, face and/or voice recognition, temperature prediction in weather, AI opponents in games, disease prediction in patients, text and audio language translation, stock pricing, movie recommendation systems, etc. Examples of these machine learning programs are now widespread to the point where their use today has a direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
-
-"A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E" \textcite{Mitchell-MLearning}. To our purpose it is clear though that this definition \footnote{Other authors might reference machine learning as \textit{statistical learning}. See \textcite{hastie-elemstatslearn} as an example.} is not formally well-defined. Yet it serves to convey the idea of algorithms that automatically \textit{learn} to do a specific task better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this, the concept of \textit{learning} within this context is less associated with the cognitive definition and is related to an optimization based approach.
+\section{  Supervised classification problems}\label{section-supervised-learning}
 
 Machine Learning is divided into two main categories: Supervised and Unsupervised Learning. Let $Y \in \mathbb{R}^n$ be the outputs of the model and $X \in \mathbb{R}^{n \times  p}$ be the inputs: supervised learning algorithms produce outputs from input data i.e. for each instance $n$, the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$. In this context, the algorithm is generally referred to as a \textit{learner}.
 
@@ -770,9 +765,9 @@ Consensus \footnote{\textcite{hastie-elemstatslearn} P. 260} is that in general 
 
 In binary classification, the contingency table summarizes all of the learner's training performances. This shows the count of the amount of samples that fall into one of the four groups derived from the comparison between the model's output and the observed data for the labels.
 
- Let $\hat{f}$ be our fit model, from the data with a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible outcomes for these two variables with two values for each.  We can express the models' target outcomes $\hat{y}$ into the positive ($\hat{P}$) or negative ($\hat{N}$) categories and the same with actual target data into the positive ($P$) or negative ($N$) categories.
+ Let $\hat{f}$ be our fit model, from the data with a CV procedure. Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible interactions of these two variables for two values each.  We can express the models' target outcomes $\hat{y}$ into the positive ($\hat{P}$) or negative ($\hat{N}$) categories and the same with actual target data into the positive ($P$) or negative ($N$) categories.
 
-To assess the performance of the classification algorithm and chose the \textit{best} model we must decide on how the CV procedure will value two different models. The idea is to quantify the mismatch between the target  and the predicted value. Here loss functions are also known as \textit{scores}, \textit{measures} or \textit{utility functions} and are built by looking at how many times an algorithm  misclassifies instances and where is the misclassification happening. To visualize this, a \textit{confusion} table with the following format is drafted:
+To assess the performance of the classification algorithm and chose the \textit{best} model we must decide on how the CV procedure will value two different models. The idea is to quantify the mismatch between the target  and the predicted value. Here loss functions are also known as \textit{scores}, \textit{measures} or \textit{utility functions} and are built by looking at how many times an algorithm  misclassifies instances and where is the misclassification happening. To visualize this the \textit{confusion} table presents these results in the following draft:
 
 \noindent
 \renewcommand\arraystretch{1.5}
@@ -786,7 +781,9 @@ To assess the performance of the classification algorithm and chose the \textit{
 %& total & P \ $(0)$ &  &
 \end{tabular}
 
-In the confusion table, cell values count the amount of instances that fall into each of the four possible outcomes and scores are constructed from these values. The focus will be in measuring $FP$ and $FN$ volumes.
+In the confusion table, cell values count the amount of instances that fall into each of the four possible outcomes. From this metrics scores are constructed to provide values on the algorithm's performance. Different interactions of these counts can measure different aspect's of an algorithm's classification performance.
+
+%Their focus is in measuring $FP$ and $FN$ volumes.
 
 % to measure the algorithm's performance.
 % Notice that the only correct cells are the $TP$ and $TN$ categories, each correctly classifying positive and negative samples
@@ -796,9 +793,10 @@ Some of the most used metrics include the following:
 \item \textbf{True Positive Rate  (Recall):} $\frac{TP}{P} = \frac{TP}{TP + FN}$ \\ This rate measures the percentage of real positive values captured by the algorithm. A high recall of the algorithm indicates that a high number of the real positive labels were classified as positive.
 
 
-\item \textbf{Positive Predictive Value  (Precision):} $\frac{TP}{\hat{P}} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{confidence} of the algorithm in its positive predictions, where a high precision indicates the value of the predictions.
+\item \textbf{Positive Predictive Value  (Precision):} $\frac{TP}{\hat{P}} = \frac{TP}{TP + FP}$ \\ This rate measures the \textit{confidence} of the algorithm in its positive predictions, where a high precision indicates value in its predictions.
 
-\item \textbf{True Negative Rate  (Specificity):}  $\frac{TN}{N} = \frac{TN}{TN + FP}$ \\ This rate measures the percentage of real negative values captured by the algorithm.
+\item \textbf{True Negative Rate  (Specificity):}  $ SPC = \frac{TN}{N} = \frac{TN}{TN + FP}$ \\ This rate measures the percentage of real negative values captured by the algorithm.
+
 
 \item \textbf{False Positive Rate  (Fall-Out):} $FPR = 1 - SPC$ \\ This rate measures the percentage of false negative values misclassified by the algorithm.
 
@@ -806,18 +804,32 @@ Some of the most used metrics include the following:
 
 %\item $F1_\beta$ \textbf{Score:} $(1 + \beta^2) \frac{TP + TN}{P + N} $ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $\[0,1 \]$ domain and are ordered in the sense that perfect classifiers have a $F1$ score of 1.
 %
-\item \textbf{F1  Score:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP} = 2 \frac{1}{  \frac{1}{recall} + \frac{1}{precision}  }$ \\ This is the harmonic mean of the recall and the precision. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $[0,1 ]$ domain and are ordered in the sense that perfect classifiers have an $F1$ score of 1.
+\item \textbf{F1  Score:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP} = 2 \frac{1}{  \frac{1}{recall} + \frac{1}{precision}  }$ \\ This is the harmonic mean of the recall and the precision METRICS. It's advantage is that it can capture both of the scores in equal weight. Its values range in the $[0,1 ]$ domain and are ordered in the sense that perfect classifiers have an $F1$ score of 1.
 
 \end{itemize}
 
 
 \subsubsection{ROC Curve}
 
-Even more metrics can be derived from the confusion table. Different interactions of the metrics can capture different aspects of an algorithm's classification performance.
+One last important metric used widely in classification is the  \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to algorithms which output for each sample  the probability of belonging to the positive class.  
 
-One last important metric used widely in classification is the  \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to algorithms which output for each sample  the probability of belonging to the positive class.  These methods then use a threshold value to classify samples into the respective target classes. If we consider different values for this threshold, we will see that the recall and the fall-out of the algorithm will vary among different values.
+With these algorithms we would have that the output target will be defined as
 
-As expected, there is an inverse relationship between these two as the threshold is varied. The ROC curve is defined as the relationship between these two values for different thresholds. The result is a curve defined in $[0,1]\times[0,1]$, referred to as the \textit{ROC space}.
+\begin{equation}
+\hat{y} =
+\begin{cases}
+&1 \ \mbox{if} \  f(x) > \pi \\
+&0 \ \mbox{else}.
+\end{cases}
+\end{equation}
+
+where $\pi$ is a threshold value which will separate positive from negative samples. If we consider different values for $\pi$, we will see that the recall $R$ and the fall-out $FPR$ of the algorithm will vary accordingly. We can then define the ROC curve to be 
+
+\begin{equation}
+\sigma(\pi) = (R_\pi, FPR_\pi)
+\end{equation}
+
+As expected, there is an inverse relationship between these two as the threshold is varied. The result is a curve defined in $[0,1]\times[0,1]$, referred to as the \textit{ROC space}.
 
 To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score  calculated is thus known as \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$.
 
@@ -1467,19 +1479,16 @@ The other heuristic is considered to be more important, at least experimentally 
 
 
 
-asdf
-
-$\Pi \Pi \Pi$
-
-
-\section{Machine Learning in Practice: Technical Observations}\label{section-technicalObservations}
-\textbf{TODO A desarrollar}
-Python, sklearn, pandas, graphlab, etc
-
-Data process raw data by reading in chunks from huge files (compressed file sizes amount to 1TB), applying filters like modulus 10.
-
-On the nature of computational issues such as memory size, disk size, parallelization, multi-core, linear algebra routines.
-
-In general, algorithms will load all data in RAM and execute optimization routines. If K Folds is used, some implementations will run learning routines simultaneously in each fold group and keep the "best" scores at the end.
-
-Joblib, sklearn and Graphlab are all Python modules
+%\texttt{\section{Machine Learning in Practice: Technical Observations}\label{section-technicalObservations}
+%\textbf{TODO A desarrollar}
+%Python, sklearn, pandas, graphlab, etc
+%
+%Data process raw data by reading in chunks from huge files (compressed file sizes amount to 1TB), applying filters like modulus 10.
+%
+%On the nature of computational issues such as memory size, disk size, parallelization, multi-core, linear algebra routines.
+%
+%In general, algorithms will load all data in RAM and execute optimization routines. If K Folds is used, some implementations will run learning routines simultaneously in each fold group and keep the "best" scores at the end.
+%
+%Joblib, sklearn and Graphlab are all Python modules
+%}
+%
