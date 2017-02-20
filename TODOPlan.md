@@ -1,18 +1,10 @@
 # TODO PLAN
 
 ## In general:
-	enganchar el hilo de la parte teorica y de los resultados de las corridas de los modelos.
 
-## Machine Learning Chapter	
-	* terminar logit regression mas explicado.
-
-	* terminar parte despues de ROC CURVE como cierre de classification metrics que c/problema puede tener distintas metricas.
-
-	* revisar 2nd proof de Random Forests Formulation
-	
+## Machine Learning Chapter		
 
 ## Introduction Chapter
-	* ampliar introduction de los papers y como se pega con los heatmaps.
 
 ## Results Chapter
 	Ampliar de los papers ya agregar mas graficos comparativos
@@ -26,9 +18,16 @@
 	* Desbalance entre la profunidad teorica y la superficialidad de la apliacion del problema.
 	* iterar con la gente del DM las correcciones. (Patu, Mathieu).
 
+	### Dar instancias de:
+		* logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
+		* un ejemplo de naive bayes.
+		* corridas de gradient boosting sobre los mejores features de random forest.
+		* eliminar ciertas features correlacionadas con el target variable.
+		* achicar/filtrar el dataset para hacer el problema mas complejo.
+		* Do SVD.
+
 # Maybe TODOs:
-	* Rerun algorithms but using SVD para reducir covarianza de variables.
-	
+
 	## Problem / Data Description Chapter
 	 	- ampliar data description and visualizations
 	 	- buena descripcion de los heatmaps
