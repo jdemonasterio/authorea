@@ -15,6 +15,15 @@ The default Tex distribution in OSX is MacTex http://tug.org/mactex/mactex-downl
 	* Tex will find it.
 	* If necessary: move doc files following the correct dir structures
 
+## Working environment
+The following packages are needed to run `main.tex` which build the Thesis .pdf . Even if you have them all, please consider upgrading (known bugs with older versions, mostly on missing arguments.).
+
+* biber
+* biblatex
+* comments
+* graphicx
+* algorithm2e
+* qtree
 
 ## Common Thesis Bugs
 
@@ -25,7 +34,6 @@ don't $\textbf{y}$ --> use $\boldsymbol{y}$
 
 * You can't use the usual bold inside a math environment i.e.
 don't $\textbf{y}$ --> use $\boldsymbol{y}$
-
 
 * packages txfonts and amsmth collide in one command `\iid`. First load amsmth, then load out txfonts. 
 https://groups.google.com/forum/#!topic/comp.text.tex/xldaN6CqLC4 . You cold
