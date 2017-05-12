@@ -2,9 +2,15 @@
 
 ## In general:
 
+## Data Description Chapter:
+	* counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty, 
+					argentina has 21m of users)
+	* counts of antennas (4415 mexico, 4477 argentina)
+	* antennas distributions compared to national level.
+	*
+
 ## Machine Learning Chapter		
 	* fix logistic regression part:
-## Introduction Chapter
 	* separate evaluation, problem, results and validation from intro.
 	* L99, diferenciar P como probabilidad de p como densidad 
 	* L262 poner referencia a la derivada de la logistica
