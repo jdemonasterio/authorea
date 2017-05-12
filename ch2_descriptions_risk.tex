@@ -10,11 +10,14 @@
 
 \section{Mobile Phone Data Sources}
 
-Our data source is anonymized traffic information from two mobile operators, in Argentina and in Mexico.
+Our data source is anonymized traffic information from two mobile operators, in Argentina and in Mexico. Both companies service phone calls at the national level and to a number of customers than amounts to the order of millions. Both of these provide two differentd CDR datasets.
+
 For our purposes, each record is represented as a tuple $\left < i, j, t, d, l \right >$,
 where user $i$ is the caller, user $j$ is the callee, $t$ is the date and time of the call,
 $d$ is the direction of the call (incoming or outgoing, with respect to the mobile operator client), and $l$ is the location of the tower that routed the communication.
+
 The dataset does not include personal information from the users, such as name or phone number. The users privacy is assured by differentiating users by their hashed ID, with encryption keys managed exclusively by the telephone company.
+
 Data was preprocessed excluding users whose monthly cellphone use either did not surpass a minimal number of calls $\mu$ or exceeded a maximal number $M$. This ensures we leave out outlying users such as call-centers or dead phones. In both datasets, we used $\mu = 5$ and $M = 400$.
 
 We then aggregate the call records for a five 
