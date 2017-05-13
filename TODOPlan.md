@@ -3,51 +3,50 @@
 ## In general:
 
 ## Data Description Chapter:
-	* counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty, 
-					argentina has 21m of users)
-	* counts of antennas (4415 mexico, 4477 argentina)
-	* antennas distributions compared to national level.
-	*
+    * counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty, 
+                    argentina has 21m of users)
+    * antennas distributions compared to national level.
+    *
 
-## Machine Learning Chapter		
-	* fix logistic regression part:
-	* separate evaluation, problem, results and validation from intro.
-	* L99, diferenciar P como probabilidad de p como densidad 
-	* L262 poner referencia a la derivada de la logistica
-	* L274 avisar que esto hessiano y no solamente una derivada escalar
-	* L271, avisar que mierda es la X grande en relacion a las x_i
-	* L223, pondria la notacion en llave
+## Machine Learning Chapter     
+    * fix logistic regression part:
+    * separate evaluation, problem, results and validation from intro.
+
+    * L262 poner referencia a la derivada de la logistica
+    * L274 avisar que esto hessiano y no solamente una derivada escalar
+    * L271, avisar que mierda es la X grande en relacion a las x_i
+    * L223, pondria la notacion en llave
 
 
 ## Results Chapter
-	Ampliar de los papers ya agregar mas graficos comparativos
+    Ampliar de los papers ya agregar mas graficos comparativos
 
 ## Revision 17/02
-	* completar la experimentacion con la parte de prediccion.
-	* Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors. Or with highly correlated features.
-	* Focalizarse solamente en los que actualmente no viven en la zona endemica y comparar resultados entre distintos 
-		metodos y configuracion de parametros. e.g. regularizar el problema vs. sin regularizar el problema y comparar.
-	* Mostrar ejemplos concretos de _porque_ es importante lo que se cuenta teoricamente.
-	* Desbalance entre la profunidad teorica y la superficialidad de la apliacion del problema.
-	* iterar con la gente del DM las correcciones. (Patu, Mathieu).
+    * completar la experimentacion con la parte de prediccion.
+    * Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors. Or with highly correlated features.
+    * Focalizarse solamente en los que actualmente no viven en la zona endemica y comparar resultados entre distintos 
+        metodos y configuracion de parametros. e.g. regularizar el problema vs. sin regularizar el problema y comparar.
+    * Mostrar ejemplos concretos de _porque_ es importante lo que se cuenta teoricamente.
+    * Desbalance entre la profunidad teorica y la superficialidad de la aplicacion del problema.
+    * iterar con la gente del DM las correcciones. (Patu, Mathieu).
 
-	### Dar instancias de:
-		* logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
-		* un ejemplo de naive bayes.
-		* corridas de gradient boosting sobre los mejores features de random forest.
-		* eliminar ciertas features correlacionadas con el target variable.
-		* achicar/filtrar el dataset para hacer el problema mas complejo.
-		* Do SVD.
+    ### Dar instancias de:
+        * logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
+        * un ejemplo de naive bayes.
+        * corridas de gradient boosting sobre los mejores features de random forest.
+        * eliminar ciertas features correlacionadas con el target variable.
+        * achicar/filtrar el dataset para hacer el problema mas complejo.
+        * Do SVD.
 
 # Maybe TODOs:
 
-	## Problem / Data Description Chapter
-	 	- ampliar data description and visualizations
-	 	- buena descripcion de los heatmaps
-	 	- on how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf 
+    ## Problem / Data Description Chapter
+        - ampliar data description and visualizations
+        - buena descripcion de los heatmaps
+        - on how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf 
 
-	## Machine Learning Chapter
-		- section Technical Observations (python, jupyter, sklearn, pandas, 
-										sframes, graphlab, spark mllib, 
-										theano, tensor flow, xgboost)
+    ## Machine Learning Chapter
+        - section Technical Observations (python, jupyter, sklearn, pandas, 
+                                        sframes, graphlab, spark mllib, 
+                                        theano, tensor flow, xgboost)
 

@@ -86,22 +86,22 @@ To illustrate further the supervised classification scenario, a brief notation o
 
 Let's suppose that we want to build a predictive model to determine the origin province of a user. A classification algorithm should assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. Our aim is to maximize the probability of belonging to a certain class, given the phone data:
 \begin{equation}
-p(C_k| X) = \frac{p(x|C_k)p(C_k)}{p(x)} 
+P(C_k| X) = \frac{P(x|C_k)P(C_k)}{P(x)} 
 \end{equation}
 
-In this interpretation, $p(C_k)$ is known as the prior probability of belonging to that certain class and $p(C_k|x)$ as the posterior probability, given the data.
+In this interpretation, $P(C_k)$ is known as the prior probability of belonging to that certain class and $P(C_k|x)$ as the posterior probability, given the sample data.
 
-Our classifiers will partition the input space into decision regions $R_k$ for which a class $C_k$ is uniquely associated to a region. It makes sense to try and \textit{minimize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability of a correct classification is measured by
+Our classifiers will partition the input space into decision regions $R_k$ for which a class $C_k$ is uniquely associated to a region. It makes sense to try and \textit{minimize} the chances of assigning samples to incorrect regions. For example, take a problem with $K$ classes. Given a sample $x_i$, the probability $P$ of a correct classification,with probability density function $p$, is measured by
 
 \begin{equation}\label{eq:goodclassification-equation}
 \begin{split}
-=  & \sum_{k=1}^{K} p(x_i \in R_k, C_k )  \\
+=  & \sum_{k=1}^{K} P(x_i \in R_k, C_k )  \\
 =  & \sum_{k=1}^{K} \int_{R_k}p(x_i,C_k) dx \\
 =  & \sum_{k=1}^{K} \int_{R_k}p(C_k \mid x_i) p(x_i) dx
 \end{split}
 \end{equation}
 
-Observe that the measure is completely characterized by the posterior probabilities. The factor $p(x)$ is common to both integrals so we only need to maximize the posteriors. And even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions. This will have a direct effect on the probability of correctly classifying samples. Thus the goal of our algorithm will be to choose the best possible regions $R_k$ for the problem.
+Observe that the measure is completely characterized by the posterior probabilities. The factor $p(x)$ is common to all integrals so we only need to maximize the posteriors. And even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions $R_k$. This will have a direct effect on the probability of correctly classifying samples. Thus the goal of our algorithm will be to choose the best possible regions for the problem.
 
 In our example, a reduced problem instance would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a binary classification problem since there are two possible output classes. %us to a two class learning problem.
 
@@ -130,9 +130,9 @@ h(z) =
 \end{equation}
 
 If the goal of the model is to maximize $P(Y_i = y_i | X_i = x) \ \forall i$
-under the assumption that $\nexists\  i \  s.t. \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. Yet this situation is hardly the case. The common approach is then to rely on optimization procedures to minimize the amount of misclassification cases. This would be analogous to maximizing the probability of a correct classification in  \ref{eq:goodclassification-equation}.
+under the assumption that $\nexists\  i \  / \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. Yet this situation is hardly the case. The common approach is then to rely on optimization procedures to minimize the amount of misclassification given by our algorithm. This would be analogous to maximizing the probability of a correct classification in  \ref{eq:goodclassification-equation}.
 
-Fwor analytical convenience, a more tractable function for this task is the logistic which is an approximation of the heavyside step function. Here
+For analytical convenience, a more tractable function for this task is the logistic which is an approximation of the heavyside step function. Here
 
 \begin{equation} \label{eq:logisticFunction}
 \sigma(z)  = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}
@@ -144,13 +144,15 @@ where  we use the relation
  \  H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)
 \end{equation}
 
-The logistic function has the advantage of being smooth, well defined for all real numbers and with its image in $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class. The derivative of this function can be put in terms of the function itself, where
+The logistic function has the advantage of being smooth, well defined for all real numbers and with its image in $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class.
+
+ Its derivative can be put in terms of the logistic function itself, where
 
 \begin{equation} \label{eq:derivativeLogisticFunction}
 \sigma '(a) = \sigma(a)( 1 - \sigma(a) )
 \end{equation}
 
-The logistic function is also bijective, with the inverse given by the \textit{logit} function
+It is also bijective, with the inverse given by the \textit{logit} function
 
 \begin{equation} \label{eq:logitFunction}
 \sigma^{-1}(z)  = log( \frac{z}{1 - z})
@@ -259,7 +261,7 @@ Given a parameter $\theta$, the probability of having a target vector $y$ is
 P(Y =y \mid \theta )  = \prod_{i=1}^N P(y_1 \in C_1 \mid x_i, \theta)^y_i(1 - P(y_1 \in C_1 \mid x_i, \theta) )^{(1-y_i)}
 \end{equation}
 
-If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ , then the estimation of $\theta$ for $N$ samples gives the following loss function
+If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ and the logistic function's derivative form (\ref{eq:logitFunction}), then the estimation of $\theta$ for $N$ samples gives the following loss function
 
 \begin{equation}
 l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta) ) \big)
@@ -856,9 +858,9 @@ As a counter example, another algorithm was run on the same problem as \ref{figu
 
 \section{Classifier : Naive Bayes}
 
-The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are build on a strong statistical independence among the features. Even though this assumption is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$.
+The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features. Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$ i.e. there are more attributes than samples in the data.
 
-It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthermore, the algorithm has linear  complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{bigger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as gradient descent techniques.
+It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthermore, the algorithm has linear  complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{larger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as techniques using gradient descent or other similar iterative optimizators.
 
 Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. We take $p(C_k \mid x)$  to be the  class posterior probability of this class given the sample.
 
