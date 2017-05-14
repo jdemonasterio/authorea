@@ -222,21 +222,21 @@ Y_i \mid X_i \  \sim & \operatorname{Bernoulli}(p_i) \\
 
 The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by
 \begin{equation}
-\Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)}
+\Pr(Y_i=y \mid X_i = x_i) = p_i \ I(y=0) + (1-p_i) \ I(y=1) = p_i^{y} (1-p_i)^{(1-y)}
 \end{equation}\label{logit-probabilityDensity}
 
 where this depends on the class dependence of $y$.
 
 Here the logit function is utilized to map log odds into conditional probabilities and the model outputs the predicted probabilities of the target variables belonging to the target class.
 
-This is why we are specifying a model where the target is a linear function of the inputs, corrected by an error term:
+This is why we are specifying a model where the target is a linear function of the inputs, corrected by an error term. Our model will then be characterized by:
 \begin{equation}
-Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon) \ \forall i
+Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon > \frac{1}{2}) \ \forall i
 \end{equation}. \label{logit-indicatorFunction}
 
-where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and parameter $p_i$.
+where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and \dfrac{num}{den}parameter $p_i$.
 
-If we take the conditional probability on \ref{logit-indicatorFunction}, given the features we will have that
+If we take the conditional probability in \eqref{logit-indicatorFunction}, given the features we will have that
 \begin{equation}
 logit(p_i)= ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = \theta_0 + \theta \cdot X_i
 \end{equation}

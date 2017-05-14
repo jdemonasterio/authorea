@@ -11,8 +11,6 @@
 ## Machine Learning Chapter     
     * fix logistic regression part:
     * separate evaluation, problem, results and validation from intro.
-
-    * L262 poner referencia a la derivada de la logistica
     * L274 avisar que esto hessiano y no solamente una derivada escalar
     * L271, avisar que mierda es la X grande en relacion a las x_i
     * L223, pondria la notacion en llave
