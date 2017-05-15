@@ -1,8 +1,8 @@
 %===============================================================================
-%          File: ch4_evaluation_results.tex
-%        Author: Juan de Monasterio
-%       Created: 15 Feb 2017
-%   Description: Chapter 4:  Evaluation and Results
+%     File: ch4_evaluation_results.tex
+%    Author: Juan de Monasterio
+%    Created: 15 Feb 2017
+%  Description: Chapter 4: Evaluation and Results
 %===============================================================================
 
 \chapter{Evaluation and Results}
@@ -15,7 +15,7 @@
 In this first iteration, we used the most common techniques found in the literature for this task:
 Support Vector Machines, Random Forest, Logistic Regression, and Multinomial Naive Bayes.
 
-All algorithms were run on a 16-core Linux machine with 72GB of RAM.  Processing and learning scripts were run on Python. %\footnote{Python Software Foundation. Python Language Reference, version 3.5. Available at http://www.python.org}. 
+All algorithms were run on a 16-core Linux machine with 72GB of RAM. Processing and learning scripts were run on Python. %\footnote{Python Software Foundation. Python Language Reference, version 3.5. Available at http://www.python.org}. 
 Along the project, a variety of external packages were used for different purposes. For the classification routines, we used Scikit-learn~\cite{sklearn} and Graphlab~\cite{graphlab}.
 The data was split into 70\% for training and 30\% for testing.
 
@@ -49,19 +49,19 @@ A full classification report on the out of sample data is shown below, where val
 	\centering
 	\begin{tabular}{ l r r r r }
 		\toprule
-		{ } & precision score & recall  & f1-score & support \\
+		{ } & precision score & recall & f1-score & support \\
 		\midrule
-		0 		  & 0.96 & 0.96  & 0.96 & 323278  \\
-		1		  & 0.89 &  0.90 &  0.90 & 411200 \\
-		avg/total & 0.94 &  0.94 &  0.94 & 445464 \\
+		0 		 & 0.96 & 0.96 & 0.96 & 323278 \\
+		1		 & 0.89 & 0.90 & 0.90 & 411200 \\
+		avg/total & 0.94 & 0.94 & 0.94 & 445464 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
-%  precision    recall  f1-score   support 
-%  0       0.96      0.96      0.96    323278
-%  1       0.89      0.90      0.90    122186
-% avg / total       0.94      0.94      0.94    445464  
+% precision  recall f1-score  support 
+% 0    0.96   0.96   0.96  323278
+% 1    0.89   0.90   0.90  122186
+% avg / total    0.94   0.94   0.94  445464 
 
 \subsubsection{SVM and Logistic Regression.}
 
@@ -71,7 +71,7 @@ At the same time, they are more complex and have higher time complexity, taking 
 Only the standard hyperparameters for these two models were tuned: $L2$-penalty regularization for Logistic Regression and kernel bandwidth for the Gaussian Kernel SVM.
 Both learning routines were executed in parallel and in each iteration 5\% of the training set was sampled for cross validation. The best classifier was selected based on accuracy scores from this set.
 
-% L-BFGS is the optimization routine.  limited memory Broyden–Fletcher–Goldfarb–Shanno 
+% L-BFGS is the optimization routine. limited memory Broyden–Fletcher–Goldfarb–Shanno 
 %(reference the limited memory Broyden–Fletcher–Goldfarb–Shanno (BFGS) algorithm \url{https://en.wikipedia.org/wiki/Limited-memory_BFGS} )
 %% es un algoritmo de optimizacion numerica para computar minimos de funciones
 
@@ -87,11 +87,11 @@ shows the scores obtained by the selected model on the out-of-sample set.
 		\toprule
 		Score & Value \\
 		\midrule
-		F1 score  & 0.964537   \\
-		Accuracy  & 0.980670   \\
-		AUC       & 0.991593   \\
-		Precision & 0.970838   \\
-		Recall    & 0.958316   \\
+		F1 score & 0.964537  \\
+		Accuracy & 0.980670  \\
+		AUC    & 0.991593  \\
+		Precision & 0.970838  \\
+		Recall  & 0.958316  \\
 		\bottomrule
 	\end{tabular}
 \end{center}
@@ -105,11 +105,11 @@ shows the scores obtained by the selected model on the out-of-sample set.
 		\toprule
 		Score & Value \\
 		\midrule
-		F1 score  & 0.964537   \\
-		Accuracy  & 0.980670   \\
-		AUC       & 0.991593   \\
-		Precision & 0.970838   \\
-		Recall    & 0.958316   \\
+		F1 score & 0.964537  \\
+		Accuracy & 0.980670  \\
+		AUC    & 0.991593  \\
+		Precision & 0.970838  \\
+		Recall  & 0.958316  \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -132,15 +132,15 @@ a user being endemic in $T_1$ is very correlated to being endemic in $T_0$, and 
 		\toprule
 		Feature & Correlation \\
 		\midrule
-		Endemic in $T_1$               & 0.943801 \\
-		Vuln. contact outgoing 08/2015    & 0.730294 \\ %%outgoing significa outgoing calls
-		Vuln. contact incoming 08/2015     & 0.732498 \\
-		Vuln. contact outgoing 09/2015    & 0.714448 \\
-		Vuln. contact incoming 09/2015     & 0.715566 \\ 
-		Vuln. contact outgoing 10/2015    & 0.694106 \\
-		Vuln. contact incoming 10/2015     & 0.694265 \\
-		%VULNERABLE\_OUT\_11    & 0.688250 \\
-		%VULNERABLE\_IN\_11     & 0.688407 \\
+		Endemic in $T_1$        & 0.943801 \\
+		Vuln. contact outgoing 08/2015  & 0.730294 \\ %%outgoing significa outgoing calls
+		Vuln. contact incoming 08/2015   & 0.732498 \\
+		Vuln. contact outgoing 09/2015  & 0.714448 \\
+		Vuln. contact incoming 09/2015   & 0.715566 \\ 
+		Vuln. contact outgoing 10/2015  & 0.694106 \\
+		Vuln. contact incoming 10/2015   & 0.694265 \\
+		%VULNERABLE\_OUT\_11  & 0.688250 \\
+		%VULNERABLE\_IN\_11   & 0.688407 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -152,8 +152,8 @@ a user being endemic in $T_1$ is very correlated to being endemic in $T_0$, and 
 %+--------------+-----------------+-------+
 %| target\_label | predicted\_label | count |
 %+--------------+-----------------+-------+
-%|      1       |        1        |  1944 |
-%|      1       |        0        |  3525 |
+%|   1    |    1    | 1944 |
+%|   1    |    0    | 3525 |
 %+--------------+-----------------+-------+
 %'f1\_score': 0.5244840145690004, ''accuracy': 0.3554580,, 'precision': 1.0, 'recall': 0.35545803, 
 

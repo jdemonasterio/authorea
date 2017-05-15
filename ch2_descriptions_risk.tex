@@ -1,8 +1,8 @@
 %===============================================================================
-%          File: ch2_introduction.tex
-%        Author: Juan de Monasterio
-%       Created: 15 Feb 2017
-%   Description: Chapter 2: Data descriptions, exploration and risk maps
+%               File: ch2_introduction.tex
+%            Author: Juan de Monasterio
+%          Created: 15 Feb 2017
+%    Description: Chapter 2: Data descriptions, exploration and risk maps
 %===============================================================================
 
 \chapter{Data Description and Risk Maps}
@@ -24,7 +24,7 @@ We then aggregate the call records for a five
 month period into an edge list $(n_i, n_j, w_{i,j})$ where nodes $n_i$ and $n_j$ 
 represent users $i$ and $j$ respectively and $w_{i,j}$ is a boolean value
 indicating whether these two users have communicated at least once within the 
-five month period. This edge list will represent our mobile graph  
+five month period. This edge list will represent our mobile graph   
 $\calG = \left< \calN, \calE \right> $ where $\calN$ denotes the set of nodes (users) 
 and $\calE$ the set of communication links. We note that only a subset $\calN_C$ nodes in $\calN$
 are clients of the mobile operator, the remaining nodes $\calN \setminus \calN_C$ are
@@ -65,7 +65,7 @@ In this section we describe how the Chagas disease risk maps were built for the 
 
 \subsection{Home Detection}
 
-The first step determines the area in which each user lives. Having the granularity of the geolocated data at the antenna level, we can match each user $u \in \calN_C$ with its \textit{home antenna} $H_u$.  To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights. This, according to our categorization of types of days of the week, corresponds to Monday to Thursday nights, from 8pm to 6am of the following day. This was based on the assumption that on any given day, users will be located at home during night time~\cite{sarraute2015socialevents,csaji2012exploring}. 
+The first step determines the area in which each user lives. Having the granularity of the geolocated data at the antenna level, we can match each user $u \in \calN_C$ with its \textit{home antenna} $H_u$.   To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights. This, according to our categorization of types of days of the week, corresponds to Monday to Thursday nights, from 8pm to 6am of the following day. This was based on the assumption that on any given day, users will be located at home during night time~\cite{sarraute2015socialevents,csaji2012exploring}. 
 Note that users for which the inferred home antenna is located in the endemic zone $E_Z$ will be considered the set of \textit{residents of $E_Z$}.
 
 In the case of Argentina, the risk area is the \textit{Gran Chaco} ecoregion, as described in Section~\ref{endemic_zone_argentina};
@@ -280,25 +280,25 @@ the percentage of telco users per state, for the top 10 states.
 		\toprule
 		State				& Number of antennas & Population 	& Telco users \\
 		\midrule
-		Distrito Federal    & 28.2\% 	& 8.5\%		& 20.1\%  \\
-		Mexico              & 21.2\%		&  13.9\% 	& 23.8\%  \\
-		Jalisco             & 10.7\% 	& 6.4\%		& 8.3\%   \\
-		Nuevo Leon          & 9.6\%	& 4.9\%		& 2.9\% \\
-		Guanajuato          & 6.1\%	& 4.8\%		& 5.9\% \\
-		Puebla              & 5.8\%	& 5.3\%		& 4.3\% \\
-		Veracruz            & 5.4\% 	& 6.8\%		& 4.2\% \\
-		Baja California     & 4.3\%	& 2.8\%		& 1.1\% \\
-		Yucatan             & 4.1\%	& 1.7\%		& 2.9\% \\
-		Sinaloa             & 4.1\%	& 2.5\%		& 0.4\% \\
+		Distrito Federal      & 28.2\% 	& 8.5\%		& 20.1\%   \\
+		Mexico                     & 21.2\%		&   13.9\% 	& 23.8\%   \\
+		Jalisco                   & 10.7\% 	& 6.4\%		& 8.3\%    \\
+		Nuevo Leon               & 9.6\%	& 4.9\%		& 2.9\% \\
+		Guanajuato               & 6.1\%	& 4.8\%		& 5.9\% \\
+		Puebla                     & 5.8\%	& 5.3\%		& 4.3\% \\
+		Veracruz                  & 5.4\% 	& 6.8\%		& 4.2\% \\
+		Baja California       & 4.3\%	& 2.8\%		& 1.1\% \\
+		Yucatan                   & 4.1\%	& 1.7\%		& 2.9\% \\
+		Sinaloa                   & 4.1\%	& 2.5\%		& 0.4\% \\
 		\bottomrule
 	\end{tabular}
 \end{table}
 
-The table above describes the similarity between the population distribution of Mexico's population and the Telco's users. This is shown drawn to highlight  possible bias in the model.
+The table above describes the similarity between the population distribution of Mexico's population and the Telco's users. This is shown drawn to highlight   possible bias in the model.
 
 Raw data logs contain between 11 million and 30 million calls per day and the volume of calls increases over the months, where most recent months have higher rates.
 
-In this analysis we considered only postpaid users, i.e., users which have a monthly  plan rate. This filtering was done because prepaid users have a higher churn rate, thus meaning that phone lines are not necessarily associated with one single person during the two years of analysis, making them less suitable for the purpose of this study.
+In this analysis we considered only postpaid users, i.e., users which have a monthly   plan rate. This filtering was done because prepaid users have a higher churn rate, thus meaning that phone lines are not necessarily associated with one single person during the two years of analysis, making them less suitable for the purpose of this study.
 
 % (i.e. cellphone lines might ``jump" suddenly from one region to another).
 
@@ -358,8 +358,8 @@ each month and each pair of users $\left< i,j \right>$, we gather the tuple $\le
 In this sense, two users $u_i, u_j \in \calN_C, u_i \neq uj$ are \textbf{neighbors} in the social graph if $time_{ij} > 0$.
 
 %\begin{description}
-%    \item [Neighbors.] From the social graph built from the CDRs we extracted the total count of neighbors in the communication graph and the total count of epidemic neighbors. 
-%    \item [Calls.] For each month, the total time and count of monthly calls made during is aggregated per user. This information is also segmented according to the hour of the day that the calls were made and whether they were made during the weekends. Special care was taken with calls placed to and from vulnerable users and aggregated accordingly.
+%      \item [Neighbors.] From the social graph built from the CDRs we extracted the total count of neighbors in the communication graph and the total count of epidemic neighbors. 
+%      \item [Calls.] For each month, the total time and count of monthly calls made during is aggregated per user. This information is also segmented according to the hour of the day that the calls were made and whether they were made during the weekends. Special care was taken with calls placed to and from vulnerable users and aggregated accordingly.
 %\end{description}
 
 %if we find that user $j$ is epidemic. This may be translated as the edge is vulnerable if one of both users is epidemic.
@@ -377,9 +377,9 @@ To illustrate the point, we show a small example of how two calling features cou
 		\toprule
 		Feature name & Call/Time & Time Period & Direction & Endemicity & Month\\
 		\midrule
-		Calls WeekEnd InVul08     & Count of calls & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
+		Calls WeekEnd InVul08       & Count of calls & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
 		\midrule
-		Time WeekNight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing  & No endemic filtering  & December \\
+		Time WeekNight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing   & No endemic filtering   & December \\
 		
 		\bottomrule
 	\end{tabular}
@@ -436,8 +436,8 @@ shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users tha
 		\toprule
 		& Not endemic in $T_1$ & Endemic in $T_1$ \\
 		\midrule
-		Not endemic in $T_0$ & 1140360 & 18330  \\
-		Endemic in $T_0$     & 22951   & 411200 \\
+		Not endemic in $T_0$ & 1140360 & 18330   \\
+		Endemic in $T_0$       & 22951    & 411200 \\
 		\bottomrule
 	\end{tabular}
 \end{table}
