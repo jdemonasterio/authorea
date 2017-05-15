@@ -227,7 +227,7 @@ The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ i
 
 where this depends on the class dependence of $y$.
 
-Here the logit function is utilized to map log odds into conditional probabilities and the model outputs the predicted probabilities of the target variables belonging to the target class.
+Here the logit function is utilized to map log odds into conditional probabilities and the model outputs the predicted probabilities of the target variables belonging to a certain class.
 
 This is why we are specifying a model where the target is a linear function of the inputs, corrected by an error term. Our model will then be characterized by:
 \begin{equation}\label{logit-indicatorFunction}
@@ -267,7 +267,7 @@ If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ a
 l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta) ) \big)
 \end{equation}
 
-Note the advantage that the loss function is concave in the parameters. Another strength of this model is that closed forms can be given for the gradient and the Hessian of the loss function. The negative gradient can be given in the following way: %can thus be analytically expressed
+Note the advantage that the loss function is concave in the parameters. Another strength of this model is that closed forms can be given for the gradient and the Hessian of the loss function with regard to the whole dataset $X$ as a sum involving individual samples $x$. The negative gradient can be expressed in the following way: %can thus be analytically expressed
 
 \begin{equation}
 - \nabla l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))\cdot x_i = \textbf{X}^{\intercal}(\textbf{y}-\textbf{p})
