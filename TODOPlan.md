@@ -11,9 +11,6 @@
 ## Machine Learning Chapter     
     * fix logistic regression part:
     * separate evaluation, problem, results and validation from intro.
-    * L271, avisar que mierda es la X grande en relacion a las x_i
-    * L223, pondria la notacion en llave
-
 
 ## Results Chapter
     Ampliar de los papers ya agregar mas graficos comparativos
@@ -31,8 +28,11 @@
         * logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
         * un ejemplo de naive bayes.
         * corridas de gradient boosting sobre los mejores features de random forest.
-        * eliminar ciertas features correlacionadas con el target variable.
-        * achicar/filtrar el dataset para hacer el problema mas complejo.
+        (In working)
+        * eliminar ciertas features correlacionadas con el target variable. 
+        * achicar/filtrar el dataset para hacer el problema mas complejo. 
+        * Need to first better filter out data in certain cases and log that filter/type of target variable.
+        (In working)
         * Do SVD.
 
 # Maybe TODOs:
