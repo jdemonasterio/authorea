@@ -814,7 +814,7 @@ Some of the most used metrics include the following:
 
 \subsubsection{ROC Curve}
 
-One last important metric used widely in classification is the \textbf{Area under ROC curve (ROCAUC)}. This metric applies only to algorithms which output for each sample the probability of belonging to the positive class. 
+One last important metric used widely in classification is the \textbf{Area under ROC curve (ROC AUC)}. This metric applies only to algorithms which output for each sample the probability of belonging to the positive class. 
 
 With these algorithms we would have that the output target will be defined as
 
@@ -834,7 +834,9 @@ where $\pi$ is a threshold value which will separate positive from negative samp
 
 As expected, there is an inverse relationship between these two as the threshold is varied. The result is a curve defined in $[0,1]\times[0,1]$, referred to as the \textit{ROC space}.
 
-To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score calculated is thus known as \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$.
+To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score calculated is thus known as \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$. \footnote{As a side note, the ROC AUC measure is proportional to the statistic of the Mann-Whitney U-test, where the means of the classifier's output positive and negative classes are compared. More information on this can be found in \cref{mason-rocAucRelationship}.}
+
+
 
 The following figure is an example ROC curve for an instance problem. Notice the algorithm's poor prediction performance where the ROCAUC is barely over the 'Luck' line. This line constitutes the performance of a \textit{random} classifier which arbitrarily labels samples as being to each possible class. It is expected to see good learners have better ROCAUC scores than the \textit{random classifier}.
 
