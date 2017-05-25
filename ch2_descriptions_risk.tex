@@ -74,7 +74,7 @@ This \textit{home} characterization is based on the assumption that on any given
 Given the user's $H_u$, he will be considered endemic if his inferred home antenna is located in the endemic zone $E_Z$. These tagged users be considered to be the set of \textit{residents of $E_Z$}.
 
 In the case of Argentina, the risk area is the \textit{Gran Chaco} ecoregion, as described in Section~\ref{endemic_zone_argentina};
-whereas in the case of Mexico, we used the region described in Section~\ref{endemic_zone_mexico}.
+whereas in the case of Mexico, we used the region described in Section~ \cref{endemic_zone_mexico}.
 
 
 \subsection{Detection of Vulnerable Users}
@@ -146,11 +146,11 @@ When displaying the maps, these parameters were helpful to identify special smal
 As a first visualization, maps were drawn using a provincial or national scale.
 Advised by \textit{Mundo Sano} Foundation's experts, we then focused on areas of specific epidemic interest. 
 
-Figure~\ref{fig:mapa_argentina} shows the risk maps for Argentina, generated with
+Figure~ \cref{fig:mapa_argentina} shows the risk maps for Argentina, generated with
 two values for the $\beta$ filtering parameter, and fixing $m_v = 50$ inhabitants per antenna. After filtering with $\beta = 0.15$, we see that large portions of the country harbor potentially vulnerable individuals.
-Namely, Figure~\ref{fig:mapa_argentina}(b) shows antennas where more that 15\% of the population has social ties with the endemic region $E_Z$.
+Namely, Figure~ \cref{fig:mapa_argentina}(b) shows antennas where more that 15\% of the population has social ties with the endemic region $E_Z$.
 
-Figure~\ref{fig:cba_sfe} shows a close-up for the Cordoba and Santa Fe provinces,
+Figure~ \cref{fig:cba_sfe} shows a close-up for the Cordoba and Santa Fe provinces,
 where we can see a gradient from the regions closer to the endemic zone $E_Z$ to the ones further away.
 
 
@@ -169,9 +169,9 @@ where we can see a gradient from the regions closer to the endemic zone $E_Z$ to
 % Histograma de porcentaje de vulnerabilidad por antena?
 % Cambios en los colores de los mapas (aclarar que el codigo de color cambia)
 
-As a result of inspecting the maps in Figure~\ref{fig:mapa_argentina}, we decided to 
+As a result of inspecting the maps in Figure~ \cref{fig:mapa_argentina}, we decided to 
 focus visualizations in areas whose results were unexpected to the epidemiological experts. 
-These areas included the provinces of Tierra del Fuego, Chubut, Santa Cruz and Buenos Aires, with special focus on the metropolitan area of Greater Buenos Aires whose heatmap is shown in Figure~\ref{fig:amba_map}.
+These areas included the provinces of Tierra del Fuego, Chubut, Santa Cruz and Buenos Aires, with special focus on the metropolitan area of Greater Buenos Aires whose heatmap is shown in Figure~ \cref{fig:amba_map}.
 
 In some cases, antennas stood out for having a significantly higher link to the epidemic area than the adjacent ones. Our objective here was to enhance the visualization in areas outside of Gran Chaco looking for possible host communities of migrants from the ecoregion, infered by the social links given by the CDRs. Our assumptions were that if, in average, there was a high percentage of vulnerable users in that non-epidemic antenna, this would mean that there's a high possibility of having more infected users in that community.
 
@@ -194,17 +194,17 @@ As a result of this visualization, high risk antennas were separately listed and
 	\end{center}
 \end{figure}
 
-This data exploration allowed us to specifically detect outlying communities in the focused regions. Some of these can be seen directly from the heatmap in Figure~\ref{fig:amba_map}, where the towns of Avellaneda, San Isidro and Parque Patricios have been pinpointed.
+This data exploration allowed us to specifically detect outlying communities in the focused regions. Some of these can be seen directly from the heatmap in Figure~ \cref{fig:amba_map}, where the towns of Avellaneda, San Isidro and Parque Patricios have been pinpointed.
 
 
-
+\newpage
 
 \subsection{Risk Maps for Mexico}
 
-With the data provided by the CDRs and the endemic region defined in Section~\ref{endemic_zone_mexico}, heatmaps were generated for Mexico using the methods described in Section~\ref{methods}. The first generated visualizations are depicted in Figure~\ref{fig:mapas_mexico},
+With the data provided by the CDRs and the endemic region defined in Section~ \cref{endemic_zone_mexico}, heatmaps were generated for Mexico using the methods described in Section~ \cref{methods}. The first generated visualizations are depicted in Figure~ \cref{fig:mapas_mexico},
 which includes a map of the country of Mexico, and a zoom-in on the South region of the country.
 We used $m_v = 80$ inhabitants per antenna, and a high filtering value $\beta = 0.50$, which 
-means that in all the antennas shown in Figure~\ref{fig:mapas_mexico},
+means that in all the antennas shown in Figure~ \cref{fig:mapas_mexico},
 more that 50\% of inhabitants have a social tie with the endemic region $E_Z$.
 For space reasons, we don't provide here more specific visualizations and analysis of the regions of Mexico.
 
@@ -236,7 +236,105 @@ For space reasons, we don't provide here more specific visualizations and analys
 \end{figure}
 
 
+\newpage
+
+\section{Features in the Data}
+
+The quality of any classification task with this dataset relies on the ability to characterize the users and their communication patterns, in ways that are as differentiating as possible for the task at hand. 
+In general, the features constructed reflect calling and mobility patterns,
+segmented by different time periods during the week, and tagging whether the actions or subjects are `endemic'. 
+The training data runs from August 2015 to December 2015 (period $T_1$) and all CDRs are processed to extract features by user and by link. 
+
+Each week is divided into time periods: 
+\begin{definition} \label{def:week-periods}
+	
+	(i) the period \textit{weekday} is from Monday to Friday, on working hours (from 8hs to 20hs); (ii) \textit{weeknight} is from Monday to Friday, between 20hs and 8hs of the following day;
+	and (iii) \textit{weekend} is Saturday and Sunday.	
+\end{definition}
+
+
+The model consists of the following features, which can be classified in 4 categories:
+% The data is aggregated by user and by link.0
+
+
+\subsection{Used and home antennas.}\label{homeantenna}
+
+For each user $u \in \calN_C$, we register the top ten most used antennas, during each month of the training period,
+together with the number of calls made through each antenna. We tag all users having their home antenna in the epidemic region as \textit{EPIDEMIC}. 
+
+In our dataset user antennas are order with $0$ being the most used antenna and $9$ the least. We fill with null values for those users for which we don't have ten used antennas and discard users that have no calls on weeknights\footnote{This is because we wouldn't be able to detect $H_u$.}.
+%Which 10 antennas does a user use most during each month of the training month interval? 
+%
+%How many calls have been made through each antenna? 
+%
+%Sort antennas with 0 being the most used and 10 the least used. Fill with nulls when less than 10 antennas were used.
+We also register the most used antennas considering only calls made during the \textit{weeknight} period, as defined in \cref{def:week-periods}. % that is from Monday to Friday excluding the working hours (from 8hs to 20hs)\label{WEEKNIGHT}.
+% Log counts as well.
+
+A user's home antenna is defined by the most used antenna. For our algorithms we considered two versions, the most used antenna in all of $T_0$., and the most used antenna during the \textit{week night} for 5 months. 
+With this, users were tagged as `endemic' if their home antenna is in the endemic zone $E_Z$ and `exposed' if any of the ten antennas logged is in the risk area.
+
+
+\subsection{Mobility diameter.}
+
+The user's logged antennas define a convex hull in space and the radius of the hull is taken to be as the mobility diameter. This length is representative of the area of influence of that individual, a feature expected to be correlated with long-term migrations.
+
+We register the mobility diameter of each user, as the diameter of the convex hull defined by his top 10 used antennas. Again, we generate two values, considering (i) all antennas and (ii) only the antennas used during the \textit{weeknight}.
 
 
 
+\subsection{Graph data and communications.}
+
+We look at the social graph $\calG_C$ built from the CDRs, and the communications between nodes in $\calN_C$.
+
+For each edge $\left< n_i, n_j \right> \in \calE_C$, we dive into each of their interactions, segmenting call data with different criteria. For %\textbf{each} 
+each month and each pair of users $\left< i,j \right>$, we gather the tuple $\left< time_{ij}, calls_{ij}, dir, period \right>$ where $time$ is the sum of all calls (in seconds), $calls$ is the number of calls exchanged, $dir$ is a boolean variable indicating whether the calls were incoming or outgoing (from user $i$'s point of view) and $period$ corresponds to a segmentation of the week into the periods \textit{weekday}, \textit{weeknight}, and \textit{weekend}.
+
+
+In this sense, two users $u_i, u_j \in \calN_C, u_i \neq uj$ are \textbf{neighbors} in the social graph if $time_{ij} > 0$.
+
+%\begin{description}
+%     \item [Neighbors.] From the social graph built from the CDRs we extracted the total count of neighbors in the communication graph and the total count of epidemic neighbors. 
+%      \item [Calls.] For each month, the total time and count of monthly calls made during is aggregated per user. This information is also segmented according to the hour of the day that the calls were made and whether they were made during the weekends. Special care was taken with calls placed to and from vulnerable users and aggregated accordingly.
+%\end{description}
+
+%if we find that user $j$ is epidemic. This may be translated as the edge is vulnerable if one of both users is epidemic.
+
+Since the samples in our dataset are users, we have to aggregate all these variables, by grouping interactions at the user level. The combination of different variables amounts to a total of 130 features per user.
+
+To illustrate the point, we show a small example of how two calling features could look like. Groupings and filters are applied only on the user's calls:
+
+\begin{table}[ht]
+	\caption{Graph Data Features Example}
+	\label{tab:data_example}
+	\centering
+	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
+		%{l r r r r r r }
+		\toprule
+		Feature name & Call/Time & Time Period & Direction & Endemicity & Month\\
+		\midrule
+		Calls WeekEnd InVul08       & Count of calls & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
+		\midrule
+		Time WeekNight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing   & No endemic filtering   & December \\
+		
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+%TimeWeekNight_OUT_12
+%CallsWeekEnd_IN_12
+
+Finally we aggregate all these variables at the user level, summing over all columns and grouping by user. 
+In practice, this means grouping either by $j$ or $i$, and summing across all of the different components shown above.
+
+We also label each edge $\left< n_i, n_j \right> \in \calE_C$ if one or both users is endemic and
+ands count each user's amount of neighbors in the communication graph, as well as the endemic neighbors. This labeling defines user $i$ as \textit{vulnerable} whenever he has any edge with another user $j$ who lives in the endemic region $E_Z$. 
+
+%% el vulnerable NO es el edge, sino que es el usuario . 
+%La idea es, parate en el nodo i, hace algun filtro - o ninguno - de weeknight, in/out, weekend, mes, etc. y ahora decime
+%% if $\exists j$ such that edge $ij$ existe en el grafo de llamados (con el filtro que hayamos usado en ese momento puesto).
+%%
+
+%Additionally, for each user, we extract the total 
 
