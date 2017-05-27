@@ -36,9 +36,10 @@ Since geolocation information is available only for users in $\calN_C$, in the a
 % \paragraph{Argentina.} 
 \paragraph{Datasets Information.}
 
-The Argentinian dataset contains CDRs collected over a period of 5 months, from November 2011 to March 2012. The raw data logs contain around 50 million calls per day.
+The Argentinian dataset contains CDRs collected over a period of 5 months, from November 2011 to March 2012. The raw data logs contain, in average, more than 65 million calls per day. The minimum number of logs were registered on the 26th of January whilst the day with most calls was on the 7th of December.  The user base amounts to more than 21 million live lines of \textit{active} clients. The calls were placed through a network of 4477 geolocalized antennas. In total, data amounts to almost 10 billion calls. 
 % \paragraph{Mexico.} 
-The Mexican data source is an anonymized dataset from a national mobile phone operator. Data is available for every call made within a period of 24 months from January 2014 to December 2015. The raw logs contain between 11 and 30 million calls per day for more than 8 million users that accessed the telecommunication company's (\textit{telco}) network to place the call. This means that users from other companies are logged, as long as one of the users registering the call is a client of the operator. In practice, we only considered CDRs between users in $\calN_C$ since geolocalization was only possible for this group.
+
+The Mexican data source is an anonymized dataset from a national mobile phone operator. Data is available for every call made within a period of 24 months from January 2014 to December 2015. The raw logs contain at least 11 and at most 47 million daily calls. These were for the dates of   day for more than 8 million users that accessed the telecommunication company's (\textit{telco}) network to place the call. This means that users from other companies are logged, as long as one of the users registering the call is a client of the operator. In practice, we only considered CDRs between users in $\calN_C$ since geolocalization was only possible for this group.
 
 Information logged for each call included the duration and timestamp of the call, the users participating in the call and the antenna id that transmitted the call to the TelCo client. 
 
