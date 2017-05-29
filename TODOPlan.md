@@ -26,14 +26,12 @@
     * [DONE] show an instance of overfitting the data comparing the learning curve of training vs CV set (tried with different params of sklearn's logReg classifier and still can't find a clear case of overfitting). 
 
 ### Dar instancias de:
-    * eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha 
-        correlacion en las columnas de hipotesis, las de llamados vulnerables desde/hacia 
-        la zona de riesgo) (in working) . 
     * logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
     * achicar/filtrar el dataset para hacer el problema mas complejo. (in working) 
         * X: solo users no_endemicos / Y: migrantes en cualquier direccion. / usuarios del DF
     * Do SVD.
     * [DONE] Naive Bayes example
+    * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
     * [DONE] gradient boosting sobre los mejores features de random forest.
 
 # Maybe TODOs:
