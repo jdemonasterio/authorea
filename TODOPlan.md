@@ -10,6 +10,10 @@
 
 ## Machine Learning Chapter 
     * fix logistic regression part:
+    * add
+    * add example of why it's important to do logReg regularization
+    * add graphic example of a real decision tree (with nodes, etc.) 
+            for a minor problem in our dataset.
     * [DONE] fix eze's recommendations on logReg part (minor fixes in equations).
     * [DONE] separate evaluation, problem, results and validation from intro.
 
