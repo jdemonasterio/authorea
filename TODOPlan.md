@@ -10,7 +10,6 @@
 
 ## Machine Learning Chapter 
     * fix logistic regression part:
-    * add
     * add example of why it's important to do logReg regularization
     * add graphic example of a real decision tree (with nodes, etc.) 
             for a minor problem in our dataset.
@@ -31,9 +30,9 @@
 
 ### Dar instancias de:
     * logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
-    * achicar/filtrar el dataset para hacer el problema mas complejo. (in working) 
+    * achicar/filtrar el dataset para hacer el problema mas complejo (in working).
         * X: solo users no_endemicos / Y: migrantes en cualquier direccion. / usuarios del DF
-    * Do SVD.
+    * [DONE] Do SVD.
     * [DONE] Naive Bayes example
     * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
     * [DONE] gradient boosting sobre los mejores features de random forest.
@@ -47,4 +46,26 @@
         - section Technical Observations (python, jupyter, sklearn, pandas, 
                                         sframes, graphlab, spark mllib, 
                                         theano, tensor flow, xgboost)
+
+## Meeting 12/06
+    * Paginas en blanco, borrar, reordenar.
+    * Falta abstract en ingles & spanish. (no pasar una carilla).
+    * Titulo en ingles & spanish.
+    * Cap 1. : Tiene que ser algo introductorio y que sea un extended abstract. Intro de la tesis. Que se hace.
+        Porque sirve. Intro de chagas, el marco teorico, marco del proyecto, hablar CDRs y diseaseas (epidemiology), Machine Learning. Intro to _rest of thesis_: "En el Cap2 hacemos esto, en el 3 tal otra,
+        en el 4".
+        - Menos copy-pasteo y mas integrado con la tesis actual.
+    * Chagas/epidemiologia en su propio capitulo y con comentarios sobre lo que hicieron otros. (trabajos recientes).
+    * Cap. data description: cuales son los problemas/hipotesis a testear. Definirlos antes de hablar de  Machine Learning.
+    * Parte de Machine Learning grande vs. el resto. Refactor para integrar evaluacion c/ tecnicas en estos siguientes capitulos:
+        - Preambulo como supervised classification problems (ver de mechar)
+        - Logreg, bias variance, regularization.
+        - Tree techniques.
+        - Separar esto en varios capitulos y distribuirlo en 2/3 capitulos. 
+    La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
+    * Conclusiones: results summaries, para ir comparando las distintas tecnicas.
+        - Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
+    * Pedidos de entrega: links de netmob dengue.
+
+
 
