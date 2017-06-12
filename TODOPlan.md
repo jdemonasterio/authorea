@@ -56,6 +56,7 @@
         en el 4".
         - Menos copy-pasteo y mas integrado con la tesis actual.
     * Chagas/epidemiologia en su propio capitulo y con comentarios sobre lo que hicieron otros. (trabajos recientes).
+        - agregar referencia al paper de ASONAM donde presentamos parte de los resultados. (deMonasterio2016)
     * Cap. data description: cuales son los problemas/hipotesis a testear. Definirlos antes de hablar de  Machine Learning.
     * Parte de Machine Learning grande vs. el resto. Refactor para integrar evaluacion c/ tecnicas en estos siguientes capitulos:
         - Preambulo como supervised classification problems (ver de mechar)
