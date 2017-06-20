@@ -1,24 +1,24 @@
-# TODO PLAN
+\# TODO PLAN
 
 ## In general:
 
 ## Data Description Chapter:
-    * add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty, 
+    * add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty,
                     argentina has 21m of users)
     * add antennas distributions compared to national level.
     * [DONE] Better heatmap descriptions.
 
-## Machine Learning Chapter 
+## Machine Learning Chapter
     * fix logistic regression part:
     * add example of why it's important to do logReg regularization
-    * add graphic example of a real decision tree (with nodes, etc.) 
+    * add graphic example of a real decision tree (with nodes, etc.)
             for a minor problem in our dataset.
-    * [Half Done] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags are named EZECORRECTION).
+    * [Half Done] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
     * [DONE] fix eze's recommendations on logReg part (minor fixes in equations).
     * [DONE] separate evaluation, problem, results and validation from intro.
 
 ## Results Chapter
-    Ampliar de los papers ya agregar mas graficos comparativos
+    Agregar cuadro de doble entrada comparando las distintas metricas y algunos graficos mas comparativos.
 
 ## Revision 17/02
     * Show an instance of overfitting the data with a decision Tree (with depth).
@@ -26,7 +26,7 @@
     * Mostrar ejemplos concretos de _porque_ es importante lo que se cuenta teoricamente.
     * iterar con la gente del DM las correcciones. (Patu, Mathieu).
     * [DONE] Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors. Or with highly correlated features.
-    * [DONE] show an instance of overfitting the data comparing the learning curve of training vs CV set (tried with different params of sklearn's      logReg classifier and still can't find a clear case of overfitting). 
+    * [DONE] show an instance of overfitting the data comparing the learning curve of training vs CV set (tried with different params of sklearn's      logReg classifier and still can't find a clear case of overfitting).
 
 ### Dar instancias de:
     * [DONE] logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
@@ -39,7 +39,7 @@
 
 ## Meeting 12/06
     * Paginas en blanco, borrar, reordenar.
-    * Bad \cref s pointing to sections other than equations. (ask pedrof) 
+    * Bad \cref s pointing to sections other than equations. (ask pedrof)
     * [Done] Falta abstract en ingles & spanish. (no pasar una carilla). Se extiende una carilla pero por el titulo del asbtract que ocupa media pagina. Habria que arreglar.
     * [Done] Titulo en ingles & spanish.
     * Cap 1. : Tiene que ser algo introductorio y que sea un extended abstract. Intro de la tesis. Que se hace.
@@ -53,7 +53,7 @@
         - Preambulo como supervised classification problems (ver de mechar) + logreg
         - bias variance, regularization.
         - Tree techniques.
-        - Separar esto en varios capitulos y distribuirlo en 2/3 capitulos. 
+        - Separar esto en varios capitulos y distribuirlo en 2/3 capitulos.
     La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
     * Conclusiones: results summaries, para ir comparando las distintas tecnicas.
         - Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
@@ -61,9 +61,9 @@
 
 # Maybe TODOs:
     ## Problem / Data Description Chapter
-        - on how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf 
+        - on how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf
 
     ## Machine Learning Chapter
-        - section Technical Observations (python, jupyter, sklearn, pandas, 
-                                        sframes, graphlab, spark mllib, 
+        - section Technical Observations (python, jupyter, sklearn, pandas,
+                                        sframes, graphlab, spark mllib,
                                         theano, tensor flow, xgboost)
