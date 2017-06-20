@@ -570,7 +570,7 @@ Obj^t(\theta) = \sum_i^n L(y_i, \hat{y}^{t-1}_i + f_t(x_i) ) + c(t) + R(f)
 \end{equation}
 
 
-Note that we have included here a regularization term (see section \cref{subsection-hyperParametersRegularization}) $R$ on all of the weak learners. For most cases, this term will be in the form of a Tikhonov regularization. This will add another complexity tuning parameter to control the length of the overall procedure $c(t)$ which is variable only in $t$.
+Note that we have included here a regularization term (see section \cref{section-hyperParametersRegularization}) $R$ on all of the weak learners. For most cases, this term will be in the form of a Tikhonov regularization. This will add another complexity tuning parameter to control the length of the overall procedure $c(t)$ which is variable only in $t$.
 
 If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
 
