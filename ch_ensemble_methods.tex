@@ -9,7 +9,7 @@ It is presented mostly for computational benchmark purposes, where in practice t
 
 Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. We take $p(C_k \mid x)$ to be the class posterior probability of this class given the sample.
 
-In section \cref{section-example}
+In \cref{ch:machineLearning}
 we have used
 \begin{equation} 
 p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
@@ -214,7 +214,7 @@ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
 
 almost surely for all sequences of parameters $\Theta_1, ..., \Theta_k,...$
 
-\subsubsection{Proof}
+\subsection{Proof}
 The proof follows from seeing that given a training set, a tree $\Theta$ and a class $j$ then
 \begin{equation}
 \forall \textbf{x}  \ P_\Theta(h(\theta,\textbf{x}) = j) \ = \
@@ -246,7 +246,7 @@ If we let $C = $ $\bigcup\limits_{m=1}^{M} C_{m}$ where each $C_m$ are zero-meas
 
 
 
-\subsubsection{Predictive error bounds}
+\subsection{Predictive error bounds}
 
 Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate of the generalization error on the ensemble classifier, these individual scores and the relationship between them must measured. In this sense, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
 
@@ -350,7 +350,7 @@ There exists an upper bound for the generalization error.
 This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author of the algorithm \textcite{breiman-randomforests} remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier.
 
 
-\subsubsection{Binary Class}
+\subsection{Binary Class}
 In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \cref{eq:rf-PEBound}. In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$.
 
 
@@ -366,7 +366,7 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
  \overline{\rho} = \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)  \right] 
  \end{equation}
 
-\subsubsection{Other Notes on Random Forests}
+\subsection{Other Notes on Random Forests}
 One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of a number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hyper geometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
 
 The depth of growth for each tree is another important tuning parameter. We must chose it correctly by assessing the model's performance across different values for $m$. A deep tree will tend to overfit the data by partitioning input space to fit the training data. This effect will counter the overall reduction in variance of the forest and thus increase the generalization error of our algorithm.
