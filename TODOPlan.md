@@ -18,7 +18,7 @@
     * [DONE] separate evaluation, problem, results and validation from intro.
 
 ## Results Chapter
-    Agregar cuadro de doble entrada comparando las distintas metricas y algunos graficos mas comparativos.
+    Agregar cuadro de doble entrada comparando los resultados con distintas metricas y algunos graficos mas comparativos.
 
 ## Revision 17/02
     * Show an instance of overfitting the data with a decision Tree (with depth).
@@ -37,6 +37,10 @@
     * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
     * [DONE] gradient boosting sobre los mejores features de random forest.
 
+## Meeting 21/06
+    * meter TODOs tags with command to make them appear in red to have it visualized on the pdf.
+    * Cap. machine learning: Arrancar con cuales son los problemas/hipotesis a testear. Definirlos antes de hablar de  Machine Learning y despues de data description.
+
 ## Meeting 12/06
     * Paginas en blanco, borrar, reordenar.
     * Bad \cref s pointing to sections other than equations. (ask pedrof)
@@ -48,12 +52,11 @@
         - Menos copy-pasteo y mas integrado con la tesis actual.
     * Chagas/epidemiologia en su propio capitulo y con comentarios sobre lo que hicieron otros. (trabajos recientes).
         - agregar referencia al paper de ASONAM donde presentamos parte de los resultados. (deMonasterio2016)
-    * Cap. data description: cuales son los problemas/hipotesis a testear. Definirlos antes de hablar de  Machine Learning.
+
     * [Half Done] Parte de Machine Learning grande vs. el resto. Refactor para integrar evaluacion c/ tecnicas en estos siguientes capitulos:
         - Preambulo como supervised classification problems (ver de mechar) + logreg
         - bias variance, regularization.
         - Tree techniques.
-        - Separar esto en varios capitulos y distribuirlo en 2/3 capitulos.
     La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
     * Conclusiones: results summaries, para ir comparando las distintas tecnicas.
         - Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
