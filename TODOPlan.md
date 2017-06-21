@@ -38,8 +38,9 @@
     * [DONE] gradient boosting sobre los mejores features de random forest.
 
 ## Meeting 21/06
-    * meter TODOs tags with command to make them appear in red to have it visualized on the pdf.
+    * [DONE] meter TODOs tags with command to make them appear in red to have it visualized on the pdf.
     * Cap. machine learning: Arrancar con cuales son los problemas/hipotesis a testear. Definirlos antes de hablar de  Machine Learning y despues de data description.
+    * borrar defincion formal de overfit.
 
 ## Meeting 12/06
     * Paginas en blanco, borrar, reordenar.
@@ -57,6 +58,7 @@
         - Preambulo como supervised classification problems (ver de mechar) + logreg
         - bias variance, regularization.
         - Tree techniques.
+
     La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
     * Conclusiones: results summaries, para ir comparando las distintas tecnicas.
         - Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
