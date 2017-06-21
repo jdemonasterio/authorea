@@ -13,9 +13,12 @@ Most of the discussions in this chapter are based on information extracted from 
 
 \section{ Supervised classification problems}\label{section-supervised-learning}
 
+
 Machine Learning is divided into two main categories: Supervised and Unsupervised Learning. Let $Y \in \mathbb{R}^n$ be the outputs of the model and $X \in \mathbb{R}^{n \times p}$ be the inputs: supervised learning algorithms produce outputs from input data i.e. for each instance $n$, the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$. In this context, the algorithm is generally referred to as a \textit{learner}.
 
 The second class of problems is where the output $Y$ is missing altogether from the data. In this scenario the most common objectives are clustering samples, density estimation and data compression. Linear regression and K-means clustering are examples of algorithms in each of these categories respectively.
+
+ \todo{introduce our problem technically in this section, enumerate them}
 
 In supervised learning tasks can be sub-categorized by the nature of the problem. When the type of the output variable $Y$ takes a (generally \textit{small} )discrete set of values, then it is said that it is a supervised \textit{classification} problem. On the other hand, when the output takes continuous (or dense in an open set of $\mathbb{R}$) range of \textit{quantitative} values, the problem is said to be of supervised \textit{regression}. Note that regression problems can be encoded into classification problems by grouping the output values into categories by taking ranges of output values.
 
@@ -132,6 +135,7 @@ h(z) =
 If the goal of the model is to maximize $P(Y_i = y_i | X_i = x) \ \forall i$
 under the assumption that $\nexists\ i \ / \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. Yet this situation is hardly the case. The common approach is then to rely on optimization procedures to minimize the amount of misclassification given by our algorithm. This would be analogous to maximizing the probability of a correct classification in \cref{eq:goodclassification-equation}.
 
+\todo{fix formulas here. Some are badly written/wrong.}
 For analytical convenience, a more tractable function for this task is the logistic which is an approximation of the heavyside step function. Here
 
 \begin{equation} \label{eq:logisticFunction}
@@ -298,6 +302,7 @@ There is a number of different functionals $R(\cdot)$ used to impose conditions 
 
 Each has its advantages and the details exceed the nature of this work. As a summary, benefits are related to the robustness of the solution, convexity of the minimization function, unique minimum and model parsimony. The former case is known as \textit{ Lasso} regularization and the latter is known as \textit{ridge} or \textit{Tikhonov} regularization. Other variants include the \textit{elastic-net} penalty which is a weighted average of the previous two norms, or the $l0$ norm, which is the number of non null components of $\theta$.
 
+\todo{correct this part and add example with/without regularization}
 
 and taking a weighted average of two different penalizations. T
 

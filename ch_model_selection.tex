@@ -112,6 +112,8 @@ Err_{train}(\theta) \approx  \Expect_{ \mathrm{T}}[(y - h(x \cdot \theta) )^2]
 
 %, and can be decomposed into two types of errors
 
+
+
 In the literature such as \textcite{james-biasVarianceGeneral}, authors point to two sources responsible for this error, namely the bias and the variance of the learner. And the improvement of one generally leads to a hinder on the other. These errors are key elements in the prediction error because they point to different weak points in the algorithms. This in turn leads to different ways of tackling each error. To better improve the performance of an algorithm, controlling both is a key issue.
 
 Conceptually the bias error represents the model's accuracy in labeling predictions correctly. It is the model's best attempt to capture the functional relationship among the feature and target variables. This could either mean it is correctly assigning the sample to its correct class in classification settings, or by predicting correctly the sample's target value in a regression setting. 
@@ -149,6 +151,7 @@ On the other hand the variance of an estimator should measure the spread of the 
 
 Note that with these definitions the variance is an operator defined only for the estimator and which is null only when the predictor is a constant value for any training set. As such, it is unchanged by new data. The bias on the other hand is an operator built from the systemic values of $Y$ and $\hat{f}$ and is null only if both of these are equal.
 
+\todo{fix EZECORRECTION tags}
 
 The generalized bias-variance decomposition now takes the following form, where the bias and variance of the squared loss are replaced with more general properties such as the variance effect and the systematic effect:
 
@@ -236,7 +239,6 @@ This means that the variance structure of the training set is such that the numb
 %rise Typical combinations
 %The four possible combinations of high
 
-
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/figure-biasVariance}
@@ -246,6 +248,8 @@ This means that the variance structure of the training set is such that the numb
 \end{figure}
 
 In \cref{figure-biasVariance}, the authors fit a regression model on data to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is becose during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
+
+\todo{do this with own data if possible? (can't overfit with logReg yet. which is the only technique introduced up to this point.)}
 
 At first the bias of the model is high both for the training and testing sets, and as a consequence, we would expect to have a high generalization error. Then the overall error decreases as complexity increases. This behavior is expected because the model learns to better fit the data to give a better model output. We have that the expected prediction error, estimated by averaging over the test set' prediction error's, also decreases when the model's complexity is increased. However, when the model starts to overfit the data, the test error starts to rise whilst the train error keeps decreasing. This situation is important to our prediction error estimation cause it hinders that the model has lost predictive power due to an increase in variance.
 
@@ -459,6 +463,8 @@ Note that during the loop, each sample's prediction was tested on the model whic
 
 From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \cref{section-VcDimension}, importance is also given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. In practice however, a class of approximating functions might have a defined complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
 
+\todo{show with/without CV and different results with logreg for some of the problems}
+
 \subsection{Choice of \texorpdfstring{$K$ parameter}{Lg} }
  
  Experimental results show the differences among CV routines used with varying $K$ number of folds. In synthetic and actual dataset~ \textcite{hastie-elemstatslearn} P. 243, have found that using a \textit{higher} value of $K$, relative to the size of the dataset, means having a bigger training fold since each left-out partition is only $\frac{N}{K}$ in size. The results show models with good bias but high variance, which is in conformity with the small size of the validation set. Note that having a higher value for $K$ will effect to a higher computational burden since $K$ estimators need to be fitted.
@@ -526,6 +532,8 @@ Some of the most used metrics include the following:
 \end{itemize}
 
 
+\todo{show an instance of problem comparing all metrics}
+
 \subsection{ROC Curve}
 
 One last important metric used widely in classification is the \textbf{Area under ROC curve (ROC AUC)}. This metric applies only to algorithms which output for each sample the probability of belonging to the positive class. 
@@ -572,3 +580,4 @@ As a counter example, another algorithm was run on the same problem as \cref{fg:
 \end{center}
 \end{figure}
 
+\todo{add positive ROC concrete example on one of the problems}

@@ -106,6 +106,7 @@ To illustrate this method, an instance is show in figure \cref{fg:rf-treeFigure}
 
 \smallskip
 
+
 %[.{\textit{M}} ] [.{\textit{F}} ]
 
 The most used metrics to build each rule are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the two resulting sets. Where it values the accuracy of the model if all samples were to be tagged with the most common target-label in that split. The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Liebler divergence} of the resulting sets with respect to the original set previous to the split.
@@ -122,7 +123,10 @@ The hyper-parameters for this model include the length of the tree, the splittin
 \end{itemize}
 
 
+
 Intuitively, it is natural to find that trees of longer depth will overfit the data since more complex interactions among variables will be captured by refining the partition on input space. A trivial case would be to allow a tree to grow fully in depth and later assign to each sample in the training set its own region. This would yield a model with absolutely no bias but which will have a very high prediction error since new samples won't be labeled accordingly.
+
+\todo{add example of low bias high variance with one of the problems}
 
 On the other hand having a tree which is too shallow will result in most cases in a biased algorithm. This is because it results in an overly simple model incapable of correctly assigning labels. We must then consider that the depth of a tree is a measure of the model's complexity and as such one of the most important hyperparameters of our model.
 
@@ -175,6 +179,8 @@ There are various methods we could use to find the optimal subtree. As an exampl
 %must \textit{prune} the initially grown tree
 
 Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added. ~\textcite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees built for this. This sequence is constructed by iteratively pruning the node $j$ that, when removed from the tree, creates the smallest increase in $B(T)$.
+
+\todo{show concrete example of tree on a Problem of ours.}
 
 In this way, we'll have a sequence of trees $T_0,T_1,...,T_l$ and a sequence of nodes $j_0, j_1,...,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),...,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
@@ -365,6 +371,9 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
 \begin{equation}
  \overline{\rho} = \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)  \right] 
  \end{equation}
+ 
+ 
+ \todo{do run on a problem and compare to results with solely decision trees}
 
 \subsection{Other Notes on Random Forests}
 One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of a number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hyper geometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
@@ -378,6 +387,7 @@ A special modification in the way forests are built allows this to happen.
 
 The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it. Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the improvement in the split performance, as measured by some pre-selected criteria, with and without $X_j$. These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature. The features with highest scores can be thought to be the most informative variables of the model.
 
+ \todo{show feature importances for 1 problem}
 
 \section{Boosting Models}\label{section-boosting}
 \subsection{Ada Boost}
@@ -503,6 +513,7 @@ The use of the exponential loss function $exp(-Yf(X))$ is also desirable in this
 A drawback of this loss though, is that it is not robust to outliers or to noisy data. During runtime weights are constantly shifting towards misclassified samples. Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data.
 
 
+ \todo{compare adaboost on same problem as in RF, talk about benefits and drawbacks}
 
 \subsection{Gradient Tree Boosting}
 
@@ -626,6 +637,7 @@ The first idea to reduce the overall variance of the algorithm is to subsample t
 The other heuristic is considered to be more important, at least experimentally by ~\textcite{hastie-elemstatslearn}. This is done by successively applying a \textit{shrinkage} factor $v \in (0,1)$ to the new model. At step $t$, instead of letting the overall model become $ \hat{y_i}^{(t)} = \hat{y_i}^{(t-1)} + \theta_t h_t(x_i) $, we multiply the shrinkage factor $v$ to these values before adding them to the overall model at step $t-1$. In the literature this shrinkage factor is also called the \textit{learning rate} of the algorithm. Note that $v$ is reducing the movement of the algorithm in the direction of optimization provided by $\theta_t$ and $h_t$. In practice, this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. However, when this factor is combined with sub sampling, it has been empirically shown to improve the overall generalization accuracy.
 
 
+ \todo{show comparisons between using subsamples and without in 1 of the best problems of Adaboost or RF}
 
 %\texttt{\section{Machine Learning in Practice: Technical Observations}\label{section-technicalObservations}
 %\textbf{TODO A desarrollar}
