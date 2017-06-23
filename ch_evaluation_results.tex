@@ -7,131 +7,15 @@
 
 \chapter{Combined Results}\label{cha:evaluation-results}
 
-
-
-\todo{move problem from this section to machine learning chapter. Use this to only present a combined overview of results.}
-
-\section{Prediction of Long-term Migrations} \label{long_term}
-
-In this section, we describe the work on the prediction of long-term mobility. Our main goal is to attain a model in which migrations can be accurately predicted from the CDR data. Added to this, we would like to know what information from the data has most predictive power to the target variable.
-
-The CDR logs available for Argentina span a period of 5 months, 
-whereas the Mexican dataset includes 24 months, from January 2014 to December 2015, making it more suitable for this study.
-
-To start, we divide the available data into two distinct periods:
-$T_0$, from January 2014 to July 2015, considered as the ``past" in our experiment;
-and $T_1$, from August 2015 to December 2015, considered as the ``present".
-Knowing which users live in the endemic region $E_Z$ and how they communicate
-during period $T_1$,
-we want to infer whether they lived in $E_Z$ in the past (period $T_0$).
-Our target variable $Y$ is thus defined in the following way for every user $u$,
-where $H_u$ is the user's home antenna: 
-\[
-%\begin{equation}
-Y_u =
-\begin{cases}
-&1 \ \mbox{if} \ H_u \in E_Z \mbox{ during } T_0 \\
-&0 \ \mbox{in other cases}.
-\end{cases}
-%\end{equation}
-\]
-With this target variable, we tackle the prediction as a supervised classification problem.
-
-
-\subsection{Training Set}
-
-As explained, the training data belongs to period $T_1$, from August 2015 to December 2015;
-whereas the ground truth that we use to validate the predictions belongs to $T_0$, from January 2014 to August 2015. Raw data logs contain between 11 million and 30 million calls per day and the volume of calls increases over the months, where most recent months have higher rates.
-
-After preprocessing and cleaning the dataset, we obtained 
-a training set with 1.6 million users.
-
-To compare how this sampled population compares to country-wide distribution estimates,
-Table~\cref{tab:distribution_by_state} shows the percentage of antennas, the percentage of the population (according to INEGI census 2014) and
-the percentage of telco users per state, for the top 10 Mexican states.
-% (wikipedia \url{https://en.wikipedia.org/wiki/Ranked_list_of_Mexican_states})
-
-
-\begin{table}[ht]
-	\caption{Distribution of antennas, population and telco users by state.}
-	\label{tab:distribution_by_state}
-	\centering
-	\begin{tabular}{l r r r}
-		\toprule
-		State				& Number of antennas & Population 	& Telco users \\
-		\midrule
-		Distrito Federal      & 28.2\% 	& 8.5\%		& 20.1\%   \\
-		Mexico                     & 21.2\%		&   13.9\% 	& 23.8\%   \\
-		Jalisco                   & 10.7\% 	& 6.4\%		& 8.3\%    \\
-		Nuevo Leon               & 9.6\%	& 4.9\%		& 2.9\% \\
-		Guanajuato               & 6.1\%	& 4.8\%		& 5.9\% \\
-		Puebla                     & 5.8\%	& 5.3\%		& 4.3\% \\
-		Veracruz                  & 5.4\% 	& 6.8\%		& 4.2\% \\
-		Baja California       & 4.3\%	& 2.8\%		& 1.1\% \\
-		Yucatan                   & 4.1\%	& 1.7\%		& 2.9\% \\
-		Sinaloa                   & 4.1\%	& 2.5\%		& 0.4\% \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-The table above describes the similarity between the population distribution of Mexico's population and the Telco's users. This is drawn to highlight possible sources of bias in the model.
-
-In this analysis we considered only postpaid users, i.e., users which have a monthly  plan rate. This filtering was done because prepaid users have a higher churn rate, thus meaning that phone lines are not necessarily associated with one single person during the two years of analysis, making them less suitable for the purpose of this study.
-
-% (i.e. cellphone lines might ``jump" suddenly from one region to another).
-
-% Data was manipulated to build a ??
-
-
-
-\subsubsection{Validation data.} % {Ground Truth.}
-
-We perform an analysis similar to the home antenna detection previously described, 
-but considering the time period $T_0$ (from January 2014 to July 2015),
-in order to determine the home antenna of users during $T_0$.
-
-The number of people who maintain their home antenna between $T_0$ and $T_1$ is 1,012,416;
-whereas 580,425 users had a change in their home antenna.
-In terms of endemic condition, we observed that 1,551,560 users maintained their endemic condition
-between $T_0$ and $T_1$, whereas 41,281 had a change.
-
-
-%Dato de color:
-%Num de personas que mantiene su home antenna en los dos periodos: 1012416 cambio: 580425
-%
-%Num de personas que mantiene su $antenna_id_0$ (most used antenna, sin filtro de nada) en los dos periodos: 1052644 cambio: 540197
-%
-%Num de personas que mantiene su condicion de epidemicidad en los dos periodos: 1551560 cambio: 41281
-%
-%Refinando la epidemicidad:
-
-% Confusion matrix
-Table~\cref{tab:changes} 
-shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users that were in group $i$ during period $T_0$ (the past) and moved to group $j$ during the training period $T_1$. As an example, lower left means was endemic, is now not endemic. 
-
-\begin{table}[ht]
-	\caption{Matrix of endemicity change}
-	\label{tab:changes}
-	\centering
-	\begin{tabular}{l r r }
-		\toprule
-		& Not endemic in $T_1$ & Endemic in $T_1$ \\
-		\midrule
-		Not endemic in $T_0$ & 1140360 & 18330   \\
-		Endemic in $T_0$       & 22951    & 411200 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-In relative numbers, this shows that only 2.59\% of users had a change in their endemic condition over time. A similar count shows that 66.0\% of users have not changed their home antenna from $T_0$ to $T_1$.
+\todo{redo chapter. Use this to only present a combined overview of results. }
 
 
 % \subsection{Supervised Algorithms}
 \subsection{Supervised Classification}
 
+We applied all of the supervised learners explained before in the preceding chapters to our problems. These are the most common techniques found in the literature for what we were trying to solve.
 
-In this first iteration, we used the most common techniques found in the literature for this task:
-Support Vector Machines, Random Forest, Logistic Regression, and Multinomial Naive Bayes.
+Gradient Boosting, Random Forest, Logistic Regression, and Multinomial Naive Bayes. The last method was added solely for benchmarking reasons. This is because it usually sets to be a very fast, non-parametric with few hyper-parameters that need to be preset. 
 
 All algorithms were run on a 16-core Linux machine with 72GB of RAM. Processing and learning scripts were run on Python. %\footnote{Python Software Foundation. Python Language Reference, version 3.5. Available at http://www.python.org}. 
 Along the project, a variety of external packages were used for different purposes. For the classification routines, we used Scikit-learn~\textcite{scikit-learn} and Graphlab~\textcite{graphlab}.
@@ -142,9 +26,8 @@ The data was split into 70\% for training and 30\% for testing.
 %\textcit{sklearn}
 %\textcit{graphlab}
 
-Random forests, Gradient Boosting, Logistic Regression and Support Vector Machines are standard for this kind of jobs. For the purpose of fast benchmarking, Multinomial Naive Bayes is also tested since it is a very fast non-parametric method. 
 
-Where possible, feature importance methods will be used to quantify the contribution of the feature or the interaction of features to the mobility of the users.
+Where possible, feature importance methods were used to quantify the contribution of the feature or the interaction of features to the mobility of the users.
 
 
 % Algorithms: SVM, Random Forest and Logistic Regression, Multinomial Naive Bayes

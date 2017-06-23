@@ -11,6 +11,7 @@
 \section{Preamble}\label{section-preamble}
 Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}. Some fundamental concepts and material were also used from \label{scikit-learn}. While other texts were also used, it is not necessary that we point them out here as they have been correctly cited. Where not specified, the reader can assume that the proof is based from said texts.
 
+
 \section{ Supervised classification problems}\label{section-supervised-learning}
 
 
@@ -18,7 +19,6 @@ Machine Learning is divided into two main categories: Supervised and Unsupervise
 
 The second class of problems is where the output $Y$ is missing altogether from the data. In this scenario the most common objectives are clustering samples, density estimation and data compression. Linear regression and K-means clustering are examples of algorithms in each of these categories respectively.
 
- \todo{introduce our problem technically in this section, enumerate them}
 
 In supervised learning tasks can be sub-categorized by the nature of the problem. When the type of the output variable $Y$ takes a (generally \textit{small} )discrete set of values, then it is said that it is a supervised \textit{classification} problem. On the other hand, when the output takes continuous (or dense in an open set of $\mathbb{R}$) range of \textit{quantitative} values, the problem is said to be of supervised \textit{regression}. Note that regression problems can be encoded into classification problems by grouping the output values into categories by taking ranges of output values.
 
@@ -37,12 +37,41 @@ In its essence, a machine learning method is a probabilistic model built from da
 These subtle differences in the machine learning approach of a problem is also reflected in the terminology used by the field. We know that different disciplines often speak about the same machine learning methods in different terms and this difference is most notable with classic statistics. Where we can, we will be identifying these differences along the text. As a start, the \textit{dependent} $Y$ is called the target or label and the \textit{independent} variables, \textit{covariates} or \textit{input variables} are named \textit{features} in this case.
 %Labels that are representing categorical or discrete variables are also named factors or \textit{qualitative} variables.
 
+\section{Long-term Human Migrations} \label{long_term}
+
+To better characterize migrations, we decided to divide our task into four problems. All of them together give us a better overview of the relationship of CDRs to 
+long term migrations. These are solved using user information of how they communicated during $T_1$ and no information from $T_0$ will be used. The only difference among the problems will be in how the target variable will be defined. \footnote{In reality, certain variations of the data were considered too, were best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}
+
+Here, we set $Y$ to be our target variable which is defined for every user $u$,
+where $H_u$ is the user's home antenna. The list of problems considered are defined in the following way:
+
+Knowing which users live in the endemic region 
+we want to infer whether they lived in $E_Z$ in the past 
+
+
+\todo{correctly define all problems }
+
+
+
+\[
+%\begin{equation}
+Y_u =
+\begin{cases}
+&1 \ \mbox{if} \ H_u \in E_Z \mbox{ during } T_0 \\
+&0 \ \mbox{in other cases}.
+\end{cases}
+%\end{equation}
+\]
+With this target variable, we tackle the prediction as a supervised classification problem.
+
+
+
 
 \subsection{A working example}\label{section-example}
 
-In this work we will be talking of the training set and the test set, noted by $\mathrm{T}$  and $\mathrm{Ts}$ as our two data sources.The objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathrm{Ts}$, based on having seen information of objects from $\mathrm{T}$.
+From now on we will be talking of the training set and the test set, noted by $\mathrm{T}$  and $\mathrm{Ts}$ as our two data sources. The test set will be a part of the whole dataset that will only used at the end of the algorithmic process. This set will not take part in buidling the machine learning model and will be used only to evaluate its performance. This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathrm{Ts}$, based on having seen information of objects from $\mathrm{T}$.
 
-Concretely, let's consider a reduced training dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of the following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}.
+As an example, let's consider a reduced training dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of the following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}.
 %\url{http://stackoverflow.com/}
 %\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
 Five measurements were taken on all of the observations to account for the user's number of calls and total minute duration of calls. All data was extracted from a week of logging measurements. Below we print a short overview of this dataset:
