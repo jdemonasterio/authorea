@@ -9,16 +9,16 @@
 
 \todo{Extend intro of all concepts in paper: what are we doing, what is chagas, migrations, CDRs, parasites, epidemics, machine learning , and a comment on what will be done on further chapters.}
 
-Chagas disease is a tropical parasitic epidemic of global reach, spread mostly across 21 Latin American countries. The World Health Organization (WHO) estimates more than six million infected people worldwide ~\textcite{who2016}. Caused by the \textit{Trypanosoma cruzi} parasite, its transmission occurs mostly in the American endemic regions via the \textit{Triatoma infestans} insect family (also called ``kissing bug", and known by many local names such as ``vinchuca" in Argentina, Bolivia, Chile and Paraguay, and ``chinche" in Central America). In recent years and due to globalization and migrations, the disease has become an %health
-issue in other continents ~\textcite{schmunis2010chagas},
+Chagas disease is a tropical parasitic epidemic of global reach, spread mostly across 21 Latin American countries. The World Health Organization (WHO) estimates more than six million infected people worldwide~\textcite{who2016}. Caused by the \textit{Trypanosoma cruzi} parasite, its transmission occurs mostly in the American endemic regions via the \textit{Triatoma infestans} insect family (also called ``kissing bug", and known by many local names such as ``vinchuca" in Argentina, Bolivia, Chile and Paraguay, and ``chinche" in Central America). In recent years and due to globalization and migrations, the disease has become an %health
+issue in other continents~\textcite{schmunis2010chagas},
 particularly in countries that receive Latin American immigrants such as Spain~\textcite{navarro2012chagas} and the United States~\textcite{hotez2013unfolding},
 making it a global health problem.
 
 
 \todo{move specific chagas info to its own chapter}
-A crucial characteristic of the infection is that it may last 10 to 30 years in an individual without being detected~ \textcite{rassi2012american}, which greatly complicates effective detection and treatment. About 30\% of individuals with chronic Chagas disease will develop life-threatening cardiomyopathies or gastrointestinal disorders, whereas
+A crucial characteristic of the infection is that it may last 10 to 30 years in an individual without being detected~\textcite{rassi2012american}, which greatly complicates effective detection and treatment. About 30\% of individuals with chronic Chagas disease will develop life-threatening cardiomyopathies or gastrointestinal disorders, whereas
 the remaining individuals will never develop symptoms.
-Long-term human mobility (particularly seasonal and permanent rural-urban migration) thus plays a key role in the spread of the epidemic~ \textcite{briceno2009chagas}. Relevant routes of transmission also include blood transfusion, congenital contagion --with an estimated 14,000 newborns infected each year in the Americas~ \textcite{OPS2006chagas}--,
+Long-term human mobility (particularly seasonal and permanent rural-urban migration) thus plays a key role in the spread of the epidemic~\textcite{briceno2009chagas}. Relevant routes of transmission also include blood transfusion, congenital contagion --with an estimated 14,000 newborns infected each year in the Americas~\textcite{OPS2006chagas}--,
 organ transplants,
 accidental ingestion of food contaminated by \textit{Trypanosoma cruzi}, and even, in a minor scale,
 by laboratory accidents.
@@ -27,9 +27,9 @@ by laboratory accidents.
 % \begin{comment}  en el drive estan las ppt del min salud \end{comment}.
 The spatial dissemination of a congenitally transmitted disease sidesteps the available measures to control risk groups, and shows that individuals who have not been exposed to the disease vector should also be included in detection campaigns.
 
-Mobile phone records contain information about the movements of large subsets of the population of a country, and make them very useful to understand the spreading dynamics of infectious diseases. They have been used to understand the diffusion of malaria in Kenya~ \textcite{wesolowski2012quantifying} and in Ivory Coast~ \textcite{enns2013human}, including the refining of infection models~ \textcite{chunara2013large}. The cited works on Ivory Coast were performed using the D4D (Data for Development) challenge datasets released in 2013. Tizzoni et al.~ \textcite{tizzoni2014use} compare different mobility models using theoretical approaches, available census data and models based on CDRs interactions to infer movements. They found that the models based on CDRs and mobility census data are highly correlated, illustrating their use as mobility proxies.
+Mobile phone records contain information about the movements of large subsets of the population of a country, and make them very useful to understand the spreading dynamics of infectious diseases. They have been used to understand the diffusion of malaria in Kenya~\textcite{wesolowski2012quantifying} and in Ivory Coast~\textcite{enns2013human}, including the refining of infection models~\textcite{chunara2013large}. The cited works on Ivory Coast were performed using the D4D (Data for Development) challenge datasets released in 2013. Tizzoni et al.~\textcite{tizzoni2014use} compare different mobility models using theoretical approaches, available census data and models based on CDRs interactions to infer movements. They found that the models based on CDRs and mobility census data are highly correlated, illustrating their use as mobility proxies.
 
-Mobile phone data has also been used to predict the geographic spread and timing of Dengue epidemics~ \textcite{wesolowski2015impact}. This analysis was performed for the country of Pakistan, which is representative of many countries on the verge of countrywide endemic dengue transmission. Other works directly study CDRs to characterize human mobility and other sociodemographic information. A complete survey of mobile traffic analysis articles may be found in~ \textcite{naboulsi2015mobile}, which also reviews additional studies based on the Ivory Coast dataset mentioned above.
+Mobile phone data has also been used to predict the geographic spread and timing of Dengue epidemics~\textcite{wesolowski2015impact}. This analysis was performed for the country of Pakistan, which is representative of many countries on the verge of countrywide endemic dengue transmission. Other works directly study CDRs to characterize human mobility and other sociodemographic information. A complete survey of mobile traffic analysis articles may be found in~\textcite{naboulsi2015mobile}, which also reviews additional studies based on the Ivory Coast dataset mentioned above.
 
 In this work, we discuss the use of mobile phone records --also known as Call Detail Records (CDRs)-- for the analysis of mobility patterns and the detection of possible risk zones of Chagas disease in two Latin American countries. Key health expertise on the subject was provided by the \textit{Mundo Sano} Foundation. We will analyze and use  \textit{Machine Learning} tools for this.
 
@@ -40,7 +40,7 @@ This work will be structured as follows: for the reminaing of this chapter we wi
 
 Machine learning is a subfield of computer science with broad \textit{theoretical} intersections with statistics and mathematical optimization. At present time it has a wide range of applications. A non-comprehensive list of its use includes self-driving cars, spam detection systems, face and/or voice recognition, temperature prediction in weather, AI opponents in games, disease prediction in patients, text and audio language translation, stock pricing, movie recommendation systems, etc. Examples of these machine learning programs are now widespread to the point where their use today has a direct impact on the lives of millions of people. Due to this, machine learning has \textit{practical} intersections with data and software engineering.
 
-"A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E" ~\textcite{Mitchell-MLearning}. To our purpose it is clear though that this definition\footnote{Other authors might reference machine learning as \textit{statistical learning}. See ~\textcite{hastie-elemstatslearn} as an example.} is not formally well-defined. Yet it serves to convey the idea of algorithms that automatically \textit{learns} to do a specific task better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this, the concept of \textit{learning} within this context is less associated with the cognitive definition and is related to an optimization based approach.
+"A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E"~\textcite{Mitchell-MLearning}. To our purpose it is clear though that this definition\footnote{Other authors might reference machine learning as \textit{statistical learning}. See~\textcite{hastie-elemstatslearn} as an example.} is not formally well-defined. Yet it serves to convey the idea of algorithms that automatically \textit{learns} to do a specific task better over time and with more data. Note that the "goodness" of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this, the concept of \textit{learning} within this context is less associated with the cognitive definition and is related to an optimization based approach.
 
  In this work we generate predictions of population movements between different regions, providing a proxy for the epidemic spread. Our objective is to show that geolocalized call records are rich in social and individual information, which can be used to determine whether an individual has lived in an epidemic area. We present two case studies, in Argentina and in Mexico, using data provided by mobile phone companies from each country. %A discussion of how mobile data was processed is included.
 This is the first work that leverages mobile phone data to better understand the diffusion of the Chagas disease.
@@ -52,7 +52,7 @@ This is the first work that leverages mobile phone data to better understand the
 
 \subsection{Chagas in  Argentina}\label{endemic_zone_argentina}
 
-For more than 50 years, vector control campaigns have been underway in Argentina as the main epidemic counter-measure. The \textit{Gran Chaco}, situated in the northern part of the country is home to the disease-carrying triatomines. This region is hyperendemic for the disease~ \textcite{OPS2014mapa}. A map of this ecoregion is shown in Figure~ \cref{fig:granchaco}.
+For more than 50 years, vector control campaigns have been underway in Argentina as the main epidemic counter-measure. The \textit{Gran Chaco}, situated in the northern part of the country is home to the disease-carrying triatomines. This region is hyperendemic for the disease~\textcite{OPS2014mapa}. A map of this ecoregion is shown in Figure~\cref{fig:granchaco}.
 
 The ecoregion's low socio-demographic conditions further support the parasite's lifecycle, where domestic interactions between humans, triatomines and animals foster the appearance of new infection cases, particularly among rural and poor areas.
 % The ecoregion as of today is hyperendemic for the disease.
@@ -74,7 +74,7 @@ Recent national estimates indicate that there exist between 1.5 and 2 million in
 In Argentina, less than 1\% of infected people are diagnosed and treated
 (the same statistic holds at the world level).
 % (and in Argentina, in particular, less than 1\% of infected people are treated yearly).
-Even though governmental programs have been ongoing for years now~ \textcite{plan_nacional_chagas}, data on the issue is scarce or hardly accessible. This presents a real obstacle to ongoing research and coordination efforts to tackle the disease in the region.
+Even though governmental programs have been ongoing for years now~\textcite{plan_nacional_chagas}, data on the issue is scarce or hardly accessible. This presents a real obstacle to ongoing research and coordination efforts to tackle the disease in the region.
 
 
 \subsection{Chagas in  Mexico}\label{endemic_zone_mexico}
@@ -88,8 +88,8 @@ Even though governmental programs have been ongoing for years now~ \textcite{pla
 \label{fig:endemic_zone_mexico}
 \end{figure}
 
-In 2004, the joint work of \textit{Instituto Nacional de Cardiología ``Ignacio Chávez"} and  \textit{Instituto de Biología de la UNAM} resulted in a Chagas disease database for Mexico~ \textcite{cruz2006chagmex}. Reviewing positive serology in blood banks and human reported cases per state, an epidemic risk map description was produced to geographically situate the disease. Based on this data, we defined the Mexican epidemic area, selecting the states having the top 25\% prevalence rates nationwide. The resulting risk region is shown in Figure~\cref{fig:endemic_zone_mexico}. It covers most of the South region of the country and includes the states of Jalisco, Oaxaca, Veracruz, Guerrero, Morelos, Puebla, Hidalgo and Tabasco.
-This region is considered as the endemic zone $E_Z$ for the Mexican case in the analysis described in ~\cref{cha:descr-risk} and \cref{cha:evaluation-results}.
+In 2004, the joint work of \textit{Instituto Nacional de Cardiología ``Ignacio Chávez''} and  \textit{Instituto de Biología de la UNAM} resulted in a Chagas disease database for Mexico~\textcite{cruz2006chagmex}. Reviewing positive serology in blood banks and human reported cases per state, an epidemic risk map description was produced to geographically situate the disease. Based on this data, we defined the Mexican epidemic area, selecting the states having the top 25\% prevalence rates nationwide. The resulting risk region is shown in Figure~\cref{fig:endemic_zone_mexico}. It covers most of the South region of the country and includes the states of Jalisco, Oaxaca, Veracruz, Guerrero, Morelos, Puebla, Hidalgo and Tabasco.
+This region is considered as the endemic zone $E_Z$ for the Mexican case in the analysis described in~\cref{cha:descr-risk} and \cref{cha:evaluation-results}.
 
 
 
@@ -100,35 +100,35 @@ and that the actual prevalence of the disease
 can only be estimated because no official reporting of cases is performed.
 %;
 %and in addition, that there is no consensus on the diagnostic methods for
-%Chagas disease in maternity wards and blood banks~ \textcite{carabarin2013chagas}.
+%Chagas disease in maternity wards and blood banks~\textcite{carabarin2013chagas}.
 
-According to~  \textcite{dumonteil1999update},
+According to~\textcite{dumonteil1999update},
 there are a total of 18 endemic areas in Mexico, located in the southeast, and
 these areas include the states of Oaxaca, Jalisco, Yucatán, Chiapas, Veracruz,
 Puebla, Guerrero, Hidalgo, and Morelos, all of them with rural areas.
 Chiapas, Oaxaca, Puebla, Veracruz and Yucatán are among the most affected states (where the prevalence may exceed 10\%), although cases have been reported in most areas of the country
-~ \textcite{cruz2006chagmex,dumonteil1999update}.
+~\textcite{cruz2006chagmex,dumonteil1999update}.
 Despite the lack of official reports, an estimate of the number of \textit{Trypanosoma cruzi} infections by state in the country
 indicates that the number of potentially
-affected people in Mexico is about 5.5 million~ \textcite{carabarin2013chagas}.
+affected people in Mexico is about 5.5 million~\textcite{carabarin2013chagas}.
 Mexico, together with Bolivia, Colombia, and Central
 America, are among the countries most affected by this
-\textit{neglected tropical disease} (NTD)~ \textcite{hotez2013innovation}.
+\textit{neglected tropical disease} (NTD)~\textcite{hotez2013innovation}.
 The disease doesn't know about borders:
-Chagas and other neglected tropical diseases present in the north of Mexico remain highly endemic in the south of Texas as well~ \textcite{hotez2012texas}.
+Chagas and other neglected tropical diseases present in the north of Mexico remain highly endemic in the south of Texas as well~\textcite{hotez2012texas}.
 
 In recent years there has been a focus on treating the disease with two available
 medications, benznidazole or nifurtimox. A study
 that explores the access to these two drugs in Mexico
 shows that less than 0.5\% of those who are infected with
-the disease received treatment in Mexico in years~ \textcite{manne2013barriers}.
+the disease received treatment in Mexico in years~\textcite{manne2013barriers}.
 
 
 People from endemic areas of Chagas disease tend to migrate to industrialized cities of the country, mainly Mexico City, in search of jobs.
 In accordance with this movement, a report showed
 that infected children under 5 year of age are frequently distributed in urban
 rather than in rural areas, indicating that the disease is becoming urbanized in
-Mexico~ \textcite{guzman2001epidemiology}.
+Mexico~\textcite{guzman2001epidemiology}.
 Therefore, as in the Argentinian case, the study of long-term mobility is crucial to understand the spread of the Chagas disease in Mexico.
 
 
