@@ -172,7 +172,7 @@ backend=biber]{biblatex}
 % 	sortlocale=us_EN,
 % 	natbib=true,
 % 	style=authoryear-comp,backref=true,refsection=chapter,
-% 	url=false, 
+% 	url=false,
 % 	doi=true,
 % 	eprint=false
 % 	]{biblatex}
@@ -387,6 +387,13 @@ pdfkeywords={machine learning}
 \DeclareMathOperator{\calG}{\mathcal{G}}
 \DeclareMathOperator{\calL}{\mathcal{L}}
 \DeclareMathOperator{\calE}{\mathcal{E}}
+% argmin and max operators
+\DeclareMathOperator*{\argmin}{argmin} % no space, limits underneath in displays
+% \DeclareMathOperator{\argmin}{argmin} % no space, limits on side in displays
+\DeclareMathOperator*{\argmax}{argmax} % no space, limits underneath in displays
+% \DeclareMathOperator{\argmax}{argmax} % no space, limits on side in displays
+
+
 
 \newcommand\MyBox[2]{
 	\fbox{\lower0.75cm
