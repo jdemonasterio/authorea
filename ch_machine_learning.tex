@@ -9,27 +9,27 @@
 
 
 \section{Preamble}\label{section-preamble}
-Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}. Some fundamental concepts and material were also used from \label{scikit-learn}. While other texts were also used, it is not necessary that we point them out here as they have been correctly cited. Where not specified, the reader can assume that the proof is based from said texts.
+Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}. Some fundamental concepts and material were also used from\label{scikit-learn}. While other texts were also used, it is not necessary that we point them out here as they have been correctly cited. Where not specified, the reader can assume that the proof is based from said texts.
 
 
 \section{ Supervised classification problems}\label{section-supervised-learning}
 
 
-Machine Learning is divided into two main categories: Supervised and Unsupervised Learning. Let $Y \in \mathbb{R}^n$ be the outputs of the model and $X \in \mathbb{R}^{n \times p}$ be the inputs: supervised learning algorithms produce outputs from input data i.e. for each instance $n$, the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$. In this context, the algorithm is generally referred to as a \textit{learner}.
+Machine Learning is divided into two main categories: Supervised and Unsupervised Learning. Let $Y \in \mathbb{R}^n$ be the outputs of the model and $X \in \mathbb{R}^{n \times p}$ be the inputs: supervised learning algorithms produce outputs from input data i.e.\ for each instance $n$, the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$. In this context, the algorithm is generally referred to as a \textit{learner}.
 
 The second class of problems is where the output $Y$ is missing altogether from the data. In this scenario the most common objectives are clustering samples, density estimation and data compression. Linear regression and K-means clustering are examples of algorithms in each of these categories respectively.
 
 
-In supervised learning tasks can be sub-categorized by the nature of the problem. When the type of the output variable $Y$ takes a (generally \textit{small} )discrete set of values, then it is said that it is a supervised \textit{classification} problem. On the other hand, when the output takes continuous (or dense in an open set of $\mathbb{R}$) range of \textit{quantitative} values, the problem is said to be of supervised \textit{regression}. Note that regression problems can be encoded into classification problems by grouping the output values into categories by taking ranges of output values.
+In supervised learning tasks can be sub-categorized by the nature of the problem. When the type of the output variable $Y$ takes a (generally \textit{small}) discrete set of values, then it is said that it is a supervised \textit{classification} problem. On the other hand, when the output takes continuous (or dense in an open set of $\mathbb{R}$) range of \textit{quantitative} values, the problem is said to be of supervised \textit{regression}. Note that regression problems can be encoded into classification problems by grouping the output values into categories by taking ranges of output values.
 
 Suppose our aim is to predict $y$ given a new sample $x$. In supervised regression problems, $y$ will comprise a continuous variable. On the other hand for classification problems $y$ will represent a label for a certain class. For the case of $K$ classes, $y$ most commonly takes values in the ranges $0$ through $K-1$ or $1$ through $K$. In both cases, the joint probability distribution $p(X, Y)$, called the \textit{true} distribution, gives all the information we need on these two variables. But the values of this probability is most often unknown. The idea is to then user estimations and inference on the most likely values for new samples and take decisions with the information at hand. These decisions will be based on the most probabilistic characterization of the data we have. In this work we will focus on the classification aspect of machine learning.
 
-In these type of problems the theoretical and the computational aspects are both of interest. The algorithms used need to consider the technical requirements of the software and hardware at hand, as well as the time or resource constraints imposed by the problem setting. As such, they are expected to be executed in a reasonable amount of time, imposed by the task specification, and limited by the computing power available. \footnote{Here the word \textit{reasonable} is used in a broad sense. It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.} There can be problems which require that the algorithm output predictions in \textit{real-time}, to the resolution of milliseconds. Picture a system where a credit-card transaction needs to be approved or labeled as a fraud. Here the system needs to respond in short time if the transaction is fraudulent.
+In these type of problems the theoretical and the computational aspects are both of interest. The algorithms used need to consider the technical requirements of the software and hardware at hand, as well as the time or resource constraints imposed by the problem setting. As such, they are expected to be executed in a reasonable amount of time, imposed by the task specification, and limited by the computing power available.\footnote{Here the word \textit{reasonable} is used in a broad sense. It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.} There can be problems which require that the algorithm output predictions in \textit{real-time}, to the resolution of milliseconds. Picture a system where a credit-card transaction needs to be approved or labeled as a fraud. Here the system needs to respond in short time if the transaction is fraudulent.
 
 Other use cases might require the system to process a big volume of data at once, not a single event, but a batch of these and output this answer. The system in use needs to be prepared to run \textit{lean} with a big inflow of data, without overloading the hardware capacity. These examples show that for a given problem, multiple algorithms are available to use but while all of them are theoretically doing the same task, we must also consider the practical advantages of these. Computational efficiency and \textit{scalability} are relevant when working with these problems. Even though we won't delve into these aspects in this work, it has an important consideration in the application of Machine Learning solutions.
 
 
-In its essence, a machine learning method is a probabilistic model built from data so it is very similar to a statistical model. However, it differs specially in that its focus is generally on the models' predictive abilities more than in the model's parameters estimates. ~\textcite{breiman-statisticalmodeling} The algorithms will be built and used for a given phenomena, to try and replicate it as best as possible without really identifying the true nature of the mechanisms behind this phenomena. As such, most applications will try to \textit{imitate} the task's behavior rather than try to identify the real system behind it.
+In its essence, a machine learning method is a probabilistic model built from data so it is very similar to a statistical model. However, it differs specially in that its focus is generally on the models' predictive abilities more than in the model's parameters estimates~\textcite{breiman-statisticalmodeling} The algorithms will be built and used for a given phenomena, to try and replicate it as best as possible without really identifying the true nature of the mechanisms behind this phenomena. As such, most applications will try to \textit{imitate} the task's behavior rather than try to identify the real system behind it.
 %on this matter It also puts a great amount of weight on efficiency and computational scalability.
 
 %At this point it is important to start noting
@@ -37,16 +37,16 @@ In its essence, a machine learning method is a probabilistic model built from da
 These subtle differences in the machine learning approach of a problem is also reflected in the terminology used by the field. We know that different disciplines often speak about the same machine learning methods in different terms and this difference is most notable with classic statistics. Where we can, we will be identifying these differences along the text. As a start, the \textit{dependent} $Y$ is called the target or label and the \textit{independent} variables, \textit{covariates} or \textit{input variables} are named \textit{features} in this case.
 %Labels that are representing categorical or discrete variables are also named factors or \textit{qualitative} variables.
 
-\section{Long-term Human Migrations} \label{long_term}
+\section{Long-term Human Migrations}\label{long_term}
 
-To better characterize migrations, we decided to divide our task into four problems. All of them together give us a better overview of the relationship of CDRs to 
-long term migrations. These are solved using user information of how they communicated during $T_1$ and no information from $T_0$ will be used. The only difference among the problems will be in how the target variable will be defined. \footnote{In reality, certain variations of the data were considered too, were best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}
+To better characterize migrations, we decided to divide our task into four problems. All of them together give us a better overview of the relationship of CDRs to
+long term migrations. These are solved using user information of how they communicated during $T_1$ and no information from $T_0$ will be used. The only difference among the problems will be in how the target variable will be defined.\footnote{In reality, certain variations of the data were considered too, were best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}
 
 Here, we set $Y$ to be our target variable which is defined for every user $u$,
 where $H_u$ is the user's home antenna. The list of problems considered are defined in the following way:
 
-Knowing which users live in the endemic region 
-we want to infer whether they lived in $E_Z$ in the past 
+Knowing which users live in the endemic region
+we want to infer whether they lived in $E_Z$ in the past
 
 
 \todo{correctly define all problems }
@@ -71,7 +71,7 @@ With this target variable, we tackle the prediction as a supervised classificati
 
 From now on we will be talking of the training set and the test set, noted by $\mathrm{T}$  and $\mathrm{Ts}$ as our two data sources. The test set will be a part of the whole dataset that will only used at the end of the algorithmic process. This set will not take part in buidling the machine learning model and will be used only to evaluate its performance. This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathrm{Ts}$, based on having seen information of objects from $\mathrm{T}$.
 
-As an example, let's consider a reduced training dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of the following provinces : \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}.
+As an example, let's consider a reduced training dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of the following provinces: \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}.
 %\url{http://stackoverflow.com/}
 %\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
 Five measurements were taken on all of the observations to account for the user's number of calls and total minute duration of calls. All data was extracted from a week of logging measurements. Below we print a short overview of this dataset:
@@ -118,7 +118,7 @@ To further illustrate this scenario, a brief notation outline is described below
 
 Let's suppose that we want to build a predictive model to determine the origin province of a user. A classification algorithm should assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. Our aim is to maximize the probability of belonging to a certain class, given the phone data:
 \begin{equation}
-P(C_k| X) = \frac{P(x|C_k)P(C_k)}{P(x)} 
+P(C_k| X) = \frac{P(x|C_k)P(C_k)}{P(x)}
 \end{equation}
 
 In this interpretation, $P(C_k)$ is known as the prior probability of belonging to that certain class and $P(C_k|x)$ as the posterior probability, given the sample data.
@@ -137,7 +137,7 @@ Observe that the measure is completely characterized by the posterior probabilit
 
 In our example, a reduced problem instance would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces. This brings us to a binary classification problem since there are two possible output classes. %us to a two class learning problem.
 
-As a simple solution to predict the target variable, we could build a learner $f$ from a transformed linear combination of the input features. In the ideal case we would have that for every sample $y \approx f(x) = h\left(\sum_{j}\theta^jx^j\right)$ \label{formula:1} where $\theta$ is unknown and generally referred to as the coefficient or parameter \footnote{In formula \cref{formula:1} we have omitted the intercept parameter , generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all its components equal to 1. }. Here the model is said to be \textit{linear} because it is linear in the input space $X$.
+As a simple solution to predict the target variable, we could build a learner $f$ from a transformed linear combination of the input features. In the ideal case we would have that for every sample $y \approx f(x) = h\left(\sum_{j}\theta^j x^j\right)$\label{formula:1} where $\theta$ is unknown and generally referred to as the coefficient or parameter\footnote{In formula\cref{formula:1} we have omitted the intercept parameter, generally noted as $\theta_0$. The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all its components equal to 1.}. Here the model is said to be \textit{linear} because it is linear in the input space $X$.
 
 If we let our decision boundary be $ t_i = \theta \cdot x_i \ \forall \ i $,in the ideal case we will have that $\exists \theta s.t. \forall i $
 
@@ -167,31 +167,31 @@ under the assumption that $\nexists\ i \ / \ t_i = 0$, the algorithm would then 
 \todo{fix formulas here. Some are badly written/wrong.}
 For analytical convenience, a more tractable function for this task is the logistic which is an approximation of the heavyside step function. Here
 
-\begin{equation} \label{eq:logisticFunction}
+\begin{equation}\label{eq:logisticFunction}
 \sigma(z) = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}
 \end{equation}
 
 where we use the relation
 
 \begin{equation}
- \ H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)
+ \ H(z) = \lim_{k \to \infty} \left(\frac{1}{2} + \frac{1}{2}\tanh(kz) \right) = \lim_{k \to \infty} \left(\frac{1}{1+e^{-kz}} \right)
 \end{equation}
 
 The logistic function has the advantage of being smooth, well defined for all real numbers and with its image in $(0,1)$. This property lends itself to reading outputs as probabilities of targets belonging to a certain class.
 
  Its derivative can be put in terms of the logistic function itself, where
 
-\begin{equation} \label{eq:derivativeLogisticFunction}
+\begin{equation}\label{eq:derivativeLogisticFunction}
 \sigma '(a) = \sigma(a)( 1 - \sigma(a) )
 \end{equation}
 
 It is also bijective, with the inverse given by the \textit{logit} function
 
-\begin{equation} \label{eq:logitFunction}
-\sigma^{-1}(z) = log( \frac{z}{1 - z})
+\begin{equation}\label{eq:logitFunction}
+\sigma^{-1}(z) = \log( \frac{z}{1 - z})
 \end{equation}
 
-For the scenario characterized in \cref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modeling the posterior probability $P(Y_i = y | X_i = x)$ and would correspond to having a higher confidence in the classification.
+For the scenario characterized in \cref{formula:1} we would have to finally assign each output to a specific class. A common approach for this is to categorize each output whether $\hat{y} > 0.5$\label{formula:logitThreshold}. Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$. Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane. The same goes for low estimated targets. If we were to read this as a probability, we can interpret that the algorithm is modeling the posterior probability $P(Y_i = y | X_i = x)$ and would correspond to having a higher confidence in the classification.
 
 %This means that
 
@@ -206,7 +206,7 @@ This model is named as a \textit{regression} model but is actually used for \tex
 Let $\{C_1,..,C_k\}$ denote the set of possible target classes. Recall that in a classification problem we are interested in maximizing a sample's probability of belonging to a certain class, given the input data:
 
 \begin{equation}
-P(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)} 
+P(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
 \end{equation}
 
 As a simple case, in the two-class problem we have that
@@ -216,14 +216,14 @@ As a simple case, in the two-class problem we have that
 \begin{split}
 P(C_1| x) & = \frac{P(x|C_1) }{P(x|C_1)p(C_1) + P(x|C_2)p(C_2)} \\
 & = \frac{1 }
-{1 + \exp(- \log( \frac{ P(x|C_1)p(C_1)}
+{1 + \exp(- \log(  \frac{ P(x|C_1)p(C_1)}
 {P(x|C_2)p(C_2)
 }))
 }
 \end{split}
 \end{equation}
 
-Here we see the close resemblance to the logistic function which is acting on the \textit{log-odds ratio} $ \log( \frac{ P(x|C_1)p(C_1)}{P(x|C_2)p(C_2) })$. This equivalent form of the posterior distribution of one class with regards to the log-odds one property defining the model.
+Here we see the close resemblance to the logistic function which is acting on the \textit{log-odds ratio} $ \log(  \frac{ P(x|C_1)p(C_1)}{P(x|C_2)p(C_2) })$. This equivalent form of the posterior distribution of one class with regards to the log-odds one property defining the model.
 
 
 %\begin{definition}{Logistic Regression}
@@ -233,12 +233,12 @@ Here we see the close resemblance to the logistic function which is acting on th
 The second defining property of logistic regression is that the log-odds are modeled with a transformation on a linear combination of inputs. It also conditions the posterior probabilities must sum to one. Let $j$ be a fixed class and denote
 
 \begin{equation}\label{logit-logOddss}
- log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0} + \theta_i^\intercal \cdot x 
- \end{equation}  for $i,j \in \{1,2,...,K\}, i\neq j$
+ \log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0} + \theta_i^\intercal \cdot x
+ \end{equation}  for $i,j \in \{1,2,\ldots,K\}, i\neq j$
 
 With these same indices we have that
 
-\begin{equation} P(C_i|x) = \frac{ exp(\theta_{i0} + \theta_i^\intercal x)}{1 + exp(\theta_{j0} + \theta_j^\intercal x)} 
+\begin{equation} P(C_i|x) = \frac{\exp(\theta_{i0} + \theta_i^\intercal x)}{1 + \exp(\theta_{j0} + \theta_j^\intercal x)}
 \end{equation}
 
 In this way the model is specified in terms of the log-odds for each class with respect to the base class $j$ and the model will be parameterized by $\theta$.
@@ -255,7 +255,7 @@ Y_i \mid X_i \ \sim & \operatorname{Bernoulli}(p_i) \\
 
 The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by
 \begin{equation}\label{logit-probabilityDensity}
-\Pr(Y_i=y \mid X_i = x_i) = p_i \ I(y=0) + (1-p_i) \ I(y=1) = p_i^{y} (1-p_i)^{(1-y)}
+\Pr(Y_i=y \mid X_i = x_i) = p_i \ I(y=0) + (1-p_i) \ I(y=1) = p_i^{y} {(1-p_i)}^{(1-y)}
 \end{equation}
 
 where this depends on the class dependence of $y$.
@@ -265,25 +265,25 @@ Here the logit function is utilized to map log odds into conditional probabiliti
 This is why we are specifying a model where the target is a linear function of the inputs, corrected by an error term. Our model will then be characterized by:
 \begin{equation}\label{logit-indicatorFunction}
 Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon > \frac{1}{2}) \ \forall i
-\end{equation}. 
+\end{equation}.
 
 where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and \dfrac{num}{den}parameter $p_i$.
 
 If we take the conditional probability in \cref{logit-indicatorFunction}, given the features we will have that
 \begin{equation}
-logit(p_i)= ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = \theta_0 + \theta \cdot X_i
+logit(p_i)= \ln(\frac{p_i}{1-p_i}) = logit\big( \Expect[Y_i| X_i] \big) = \theta_0 + \theta \cdot X_i
 \end{equation}
 
 By an abuse of notation, we absorb $\theta_0$ into $X_i$. This can be safely done if we consider a dummy attribute $X_i^0$ which is always equal to $1$ for every sample $i$. Then from the equation above we have that
 
 \begin{equation}
-p_i = \sigma(\theta \cdot X_i) = \frac{exp(\theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}
+p_i = \sigma(\theta \cdot X_i) = \frac{\exp(\theta \cdot X_i) }{1 + \exp(\theta \cdot X_i)}
 \end{equation}
 
 Finally, using this $p_i$ representation and plugging it into the initial conditional probability of $Y_i$ in \cref{logit-probabilityDensity} we will have
 
 \begin{equation}
- \Pr(Y_i=y \mid X_i = x_i) = p_i^{y} (1-p_i)^{(1-y)} = \frac{exp(\theta \cdot X_i) }{1 + exp(\theta \cdot X_i)}
+ \Pr(Y_i=y \mid X_i = x_i) = p_i^{y} {(1-p_i)}^{(1-y)} = \frac{\exp(\theta \cdot X_i) }{1 + \exp(\theta \cdot X_i)}
  \end{equation}
 
 
@@ -291,13 +291,13 @@ Maximum likelihood is the most common method employed to fit the model. %with mu
 Given a parameter $\theta$, the probability of having a target vector $y$ is
 
 \begin{equation}
-P(Y =y \mid \theta ) = \prod_{i=1}^N P(y_1 \in C_1 \mid x_i, \theta)^y_i(1 - P(y_1 \in C_1 \mid x_i, \theta) )^{(1-y_i)}
+P(Y =y \mid \theta ) = \prod_{i=1}^N {P(y_1 \in C_1 \mid x_i, \theta)}^y_i {(1 - P(y_1 \in C_1 \mid x_i, \theta) )}^{(1-y_i)}
 \end{equation}
 
 If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ and the logistic function's derivative form \cref{eq:logitFunction}, then the estimation of $\theta$ for $N$ samples gives the following loss function
 
 \begin{equation}
-l(\theta) = \sum_{i=1}^N \big(y_i log(P(y_i \mid x_i,\theta)) + (1-y_i)log(1 - P(y_i \mid x_i,\theta) ) \big)
+l(\theta) = \sum_{i=1}^N \big(y_i \log(P(y_i \mid x_i,\theta)) + (1-y_i)\log(1 - P(y_i \mid x_i,\theta) ) \big)
 \end{equation}
 
 Note the advantage that the loss function is concave in the parameters. Another strength of this model is that closed forms can be given for the gradient and the Hessian of the loss function with regard to the whole dataset $X$ as a sum involving individual samples $x$. The negative gradient can be expressed in the following way: %can thus be analytically expressed
@@ -312,10 +312,10 @@ whilst the Hessian takes the following form:
 \frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
 \end{equation}
 
-From the derivations above, we can now firt $\theta$ using an optimization procedure that would take advantage of having the closed-form representations of the first and second derivatives of the maximum likellihood function. 
+From the derivations above, we can now firt $\theta$ using an optimization procedure that would take advantage of having the closed-form representations of the first and second derivatives of the maximum likellihood function.
 
 
-\section{Model Regularization and Hyper-parameters} \label{section-hyperParametersRegularization}
+\section{Model Regularization and Hyper-parameters}\label{section-hyperParametersRegularization}
 
 
 \begin{definition}{Model Regularization}
@@ -339,22 +339,22 @@ Even though some regularization methods have closed-form solutions, in practice 
 
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
 
-\begin{equation} \label{logitRegularization}
+\begin{equation}\label{logitRegularization}
 \begin{split}
-\min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \big) + \lambda \| \theta\|_{2}^2 \\
-\min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + log(1 + e^{\theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
+\min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + \log(1 + e^{\theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
+\min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + \log(1 + e^{\theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
 \end{split}
 \end{equation}
 
 %\min_{\theta} & \sum_{i=1}^N L(f(X_i,\theta),Y_i)  + \lambda\| \theta\|_{2}^2 \\
 %\min_{\theta} & \sum_{i=1}^N L(f(X_i,\theta),Y_i)  + \lambda \sum_{j=1}^{P} \theta_j^2
 
-%\begin{equation} \label{logit-optimization}
+%\begin{equation}\label{logit-optimization}
 %
 %\end{equation}
 
 
-The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the minimization function and $P$ is the number of features used in the model. Note that in an abuse of notation, the functional takes the form $R(f) = \lambda\| \theta\|_{2}^2$ where the model is identified by its $\theta$ parameter.
+The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the minimization function and $P$ is the number of features used in the model. Note that in an abuse of notation, the functional takes the form $R(f) = \lambda { \| \theta \|_{2}}^2$ where the model is identified by its $\theta$ parameter.
 
 In this work, we will be only considering model regularization with lasso, ridge, or elastic-net.
 
@@ -371,14 +371,14 @@ Note that in a Bayesian context the definition of hyper-parameter is different. 
 As we know, the learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$. The first idea led to finding the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we now have a problem of $p$ degrees of freedom, what is left is to find the parameter by optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is preferable than another. For example the choice of $0.5$ as a threshold in \cref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning, functions that define a quantitative measure of a parameter's performance are called \textit{loss functions}.
 %the criteria used to choose the best parameters
 
-A naive approach to find the parameters in our problem would be to minimize the residual sum of squares. This is also known as the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. Historically this function was favored over other functions because it is more anlytically tractable. 
+A naive approach to find the parameters in our problem would be to minimize the residual sum of squares. This is also known as the squared loss function which is defined as $L(z,w) = \left\Vert z-w \right\Vert^2_2$. Historically this function was favored over other functions because it is more anlytically tractable.
 
 In the context of linear regression with Gaussian residuals, minimizing the residual sum of squares is equal to maximizing the likelihood probability of the target, given the input data. This results in minimizing the following sum (RSS):
 %Typical of other scenarios such as linear regression, one would like
 
-\begin{equation} \label{eq:rss}
-RSS(\theta_0,..,\theta_p) = \sum_{i=1}^n [y_i - \hat{y}_i]^2 \\
-= \sum_{i=1}^n [y_i - h( \theta \cdot x_i)]^2
+\begin{equation}\label{eq:rss}
+RSS(\theta_0,..,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
+= \sum_{i=1}^n  {[y_i - h( \theta \cdot x_i)] }^2
 \end{equation}
 
 The equation reflects our goal to correctly match a training sample with their targets (also known as labels). Nonetheless, we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones from the true distrubtion of the data. The preceding equation is a bad attempt to generalize the classification model constructed from the data. It is built to fit the actual dataset, but we wouldn't expect it to perform well with any other given sample of the \textit{true} distribution for $\mathrm{T}$.

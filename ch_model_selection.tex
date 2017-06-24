@@ -1,20 +1,20 @@
 
-\chapter{Generalization Error and Model Selection } \label{cha:modelSelection}
+\chapter{Generalization Error and Model Selection }\label{cha:modelSelection}
 
-%\section{ Model Selection} \label{section-modelSelection}
+%\section{ Model Selection}\label{section-modelSelection}
 
 
-\section{Prediction and Generalization Error} \label{subsection-generalizationError}
+\section{Prediction and Generalization Error}\label{subsection-generalizationError}
 
-Given that in supervised learning settings, the goal is to build a learner with low predictive error, the algorithm's generalization power will then lie on its ability to correctly label new samples which wasn't used in the training phase. Measuring and comparing this ability among models is needed to select the best supervised estimator. 
-% of independent test data from $\mathrm{T_s}$ 
+Given that in supervised learning settings, the goal is to build a learner with low predictive error, the algorithm's generalization power will then lie on its ability to correctly label new samples which wasn't used in the training phase. Measuring and comparing this ability among models is needed to select the best supervised estimator.
+% of independent test data from $\mathrm{T_s}$
 
-For now, let us assume that $f: X \rightarrow Y$ is a function which interacts the true existent relationship in the data: $Y = f(X) + \epsilon$. In this mapping from feature to target space we also assume $\epsilon$ to be the noise, with $0$ mean and fixed $\sigma^2$ variance i.e. $\epsilon \sim \calN(0,1) $. Then the equation in \cref{eq:rss} can be read as an approximation of the expected prediction error given the training set $\mathrm{T}$.
+For now, let us assume that $f: X \rightarrow Y$ is a function which interacts the true existent relationship in the data: $Y = f(X) + \epsilon$. In this mapping from feature to target space we also assume $\epsilon$ to be the noise, with $0$ mean and fixed $\sigma^2$ variance i.e.\ $\epsilon \sim \calN(0,1) $. Then the equation in \cref{eq:rss} can be read as an approximation of the expected prediction error given the training set $\mathrm{T}$.
 
 
 \begin{definition}{Prediction Error:}
 	Given a loss function $L(\cdot,\cdot)$ and a function $f$, we say that the \textbf{prediction error} for the resulting classifier $f$ is
-	\[ 
+	\[
 	PE(f_\theta)= \left[ L(\textbf{Y},f(\textbf{X}))\right]
 	\]
 \end{definition}
@@ -23,12 +23,12 @@ This is the error between our model transformation and the target labels, as qua
 
 \begin{definition}{Squared Loss Prediction Error:}
 	Given a choice of parameter $\theta$ and the \textit{squared error loss}, we say that the \textbf{prediction error} for the resulting classifier $f_\theta$ is
-	
+
 	\begin{equation}
 	PE_{true}(\theta) =L(\textbf{y} - h(\textbf{x} \cdot \theta) )  \\
-	=  (\textbf{y} - h(\textbf{x} \cdot \theta) )^2 
+	=  (\textbf{y} - h(\textbf{x} \cdot \theta) )^2
 	\end{equation}
-	
+
 \end{definition}
 
 Our interest is now in minimizing this error for all possible values. We would like to quantify the expected error over all random occurences of $\textbf{X}$ and $\textbf{Y}$. This is known as the generalization error and is very related to the prediction error as it is its expectation.
@@ -63,13 +63,13 @@ In practice we have finite access to samples, so we have to estimate the general
 \begin{definition}{Training Error:}
 	is the average loss over the sample prediction errors:
 	$$ \overline{err}_{\mathrm{T}} = \frac{1}{N} \sum_{i=1}^N L(y_i, \hat{f}(x_i) )$$
-\end{definition} \label{def:trainingError}
+\end{definition}\label{def:trainingError}
 
 Let \textbf{x} $\in \mathbb{R}^{p}$ denote a random input variable and \textbf{y} $\in \mathbb{R}$ denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
 
 We will then turn to evaluate models according to their performance errors on $\mathrm{T}$ and $\mathrm{Ts}$ Combinations of high or low values for these, across training and test data, are used as model evaluation and highlight aspects to be improved.
 
-\section{Bias, Variance and Systematic Values} \label{subsection-biasVariance}	If we look closer at the generalization error in our specific case of the squared loss function with 
+\section{Bias, Variance and Systematic Values}\label{subsection-biasVariance}	If we look closer at the generalization error in our specific case of the squared loss function with
 
 \begin{equation}\label{squaredPE}
 EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert Y - \hat{f}(X) \right\Vert_2^2 \right]
@@ -96,7 +96,7 @@ We must assume then that calculating this integral is not possible for any $\the
 
 For example, we could try and sample $M$ i.i.d. points from $P(x,y)$ to approximate the integral by a Monte Carlo scheme such as
 
-\begin{equation} \label{eq:mcarlo-approx}
+\begin{equation}\label{eq:mcarlo-approx}
 Err_{true}(\theta) \approx \frac{1}{M} \sum_i^M ( y - h(x \cdot \theta) )^2
 \end{equation}
 
@@ -116,13 +116,13 @@ Err_{train}(\theta) \approx  \Expect_{ \mathrm{T}}[(y - h(x \cdot \theta) )^2]
 
 In the literature such as \textcite{james-biasVarianceGeneral}, authors point to two sources responsible for this error, namely the bias and the variance of the learner. And the improvement of one generally leads to a hinder on the other. These errors are key elements in the prediction error because they point to different weak points in the algorithms. This in turn leads to different ways of tackling each error. To better improve the performance of an algorithm, controlling both is a key issue.
 
-Conceptually the bias error represents the model's accuracy in labeling predictions correctly. It is the model's best attempt to capture the functional relationship among the feature and target variables. This could either mean it is correctly assigning the sample to its correct class in classification settings, or by predicting correctly the sample's target value in a regression setting. 
+Conceptually the bias error represents the model's accuracy in labeling predictions correctly. It is the model's best attempt to capture the functional relationship among the feature and target variables. This could either mean it is correctly assigning the sample to its correct class in classification settings, or by predicting correctly the sample's target value in a regression setting.
 
-The bias is lower when models correctly learn the underlying structures of the data. However, as bias decreases, the model complexity increases and more data is needed to train it correctly because the model becomes very fit to the training set i.e. it loses the ability to extend this predictive accuracy to new samples because they it learns too much from the available samples only. In this situation, we have another type of error which is known as an increase in variance.
+The bias is lower when models correctly learn the underlying structures of the data. However, as bias decreases, the model complexity increases and more data is needed to train it correctly because the model becomes very fit to the training set i.e.\ it loses the ability to extend this predictive accuracy to new samples because they it learns too much from the available samples only. In this situation, we have another type of error which is known as an increase in variance.
 
 In the generalization error, the loss function determines how \textit{good} the model's prediction are by quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on this data.
 
-By comparing for each sample the target predictions versus their actual values, loss functions give a measure of how strong classifiers are with respect to their predictions. These can be described as semi metrics on the target space i.e. functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
+By comparing for each sample the target predictions versus their actual values, loss functions give a measure of how strong classifiers are with respect to their predictions. These can be described as semi metrics on the target space i.e.\ functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
 
 %{\huge \textbf{UNCOMMENT PROOFS, DEFINITIONS AND THEOREMS}}
 
@@ -134,7 +134,7 @@ Given a training set $\mathrm{T}$, a loss function $L(\cdot)$ and a random varia
 $$ SZ = arg \ min_u \Expect_{Z} \left[ L(u,Z) \right]$$
 \end{definition}
 
-The systematic value is the nearest constant value to the random variable, with the measure as given by the loss function. In this definition we are implicitly assuming that the necessary finiteness conditions of the expectation of the loss function with the random variable exist. 
+The systematic value is the nearest constant value to the random variable, with the measure as given by the loss function. In this definition we are implicitly assuming that the necessary finiteness conditions of the expectation of the loss function with the random variable exist.
 
 %The systematic value for the input and target variable then the same way as with the squared loss function, where the expectation is over the target's distribution.
 
@@ -182,15 +182,15 @@ Note that the first term is equal to the variability of the target variable with
 
 For the case of supervised classifiers, loss functions are also called \textit{metrics} and they originate from \textit{Type I \& Type II} errors common in statistics but have different meanings in this context. There are a number of variations for classification metrics. The suitability of each will always depend on the problem, since they differ on what type of prediction errors are more valuable to minimize.
 
-For our specific case, $Y$ will be taking any of the values in the class set $\calG$. We will denote $K = |\calG|$ as the number of classes. Since we are trying to correctly label samples, the most common loss function used in this context is 
+For our specific case, $Y$ will be taking any of the values in the class set $\calG$. We will denote $K = |\calG|$ as the number of classes. Since we are trying to correctly label samples, the most common loss function used in this context is
 
 \begin{equation}
 L(Y, \hat{f}(X)) = I(Y \neq \hat{f}(X))
-\end{equation} \label{eq:classificationLossFunction}
+\end{equation}\label{eq:classificationLossFunction}
 %$$.
 % In multi-class supervised problem setting,
 
-With the definitoin above, the systematic and variance values then become 
+With the definitoin above, the systematic and variance values then become
 \begin{equation}
 	\begin{split}
 	SY = & \arg max_{1\leq i \leq K} P(Y=i) \\
@@ -203,7 +203,7 @@ With the definitoin above, the systematic and variance values then become
 
 With the above, we have that the decomposition of the prediction error among variance, systematic and variance effect becomes
 \begin{equation}
-Var(Y) + P(Y=SY) - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)	
+Var(Y) + P(Y=SY) - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)
 \end{equation}
 	 which again relies heavily on the variability of the target and on how well the classifier approximates the labels.
 
@@ -212,7 +212,7 @@ Var(Y) + P(Y=SY) - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)
 %Let
 With all of the above we have that the classification prediction error will be as
 \begin{equation}
-EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right] =  
+EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right] =
 \Expect_X\left[ \sum_{k=1}^{K} I(Y _K\neq \hat{f}(X)) P(Y_k|X) \right]
 \end{equation}\label{eq:classificationEPE}
 
@@ -223,7 +223,7 @@ Given that we can have a high or low variance and bias, there are only four poss
 
 For example, a very common scenario is having a model that has a high overall variance and low bias. \textcite{dworkFeldman-adaptiveDataAnalysis2015} defines that a learner overfits a training set $\mathcal{T}$ if it fits parameter $\hat{\theta}$ while there $\exists \theta^*$ and $\epsilon > 0 $ such that
 
-\begin{equation} 
+\begin{equation}
 Error_{train}(\hat{\theta}) < Error_{train}(\theta^*) \ and \ Error(\theta^*) + \epsilon < Error(\hat{\theta})
 %\sum_{i=0}^{\infty} a_i x^i
 \end{equation}\label{eq:overfitting}
@@ -256,14 +256,14 @@ At first the bias of the model is high both for the training and testing sets, a
 In this situation, a rough heuristic to select the best model is to stop increasing the model's complexity once the $EPE$ stops decreasing.
 %% EZECORRECTION: Destacar esto en la grafica anterior y explicar mas.
 
-\section{ Using the Vapnik--Chervonenkis (VC) Dimension for prediction error estimation} \label{section-VcDimension}
+\section{ Using the Vapnik--Chervonenkis (VC) Dimension for prediction error estimation}\label{section-VcDimension}
 
 %\textcite{vapnik-nature2013}
 %\textcite{cherkassky-learning2007}
 
 In Vapnik and Chervonenkis' work, the focus is on the estimation of the prediction error through the convergence and consistency of the training error. The authores derive the VC dimension as an important value in determining convergence speeds for different machine learning algorithms. In this way, a theoretical framework is provided to effectively characterize these dimensions in a constructive way. By the derived analytic bounds for a number of algorithms, we are enabled to estimate the distance between the empirical error and the generalization error.
 
-The Vapnik--Chervonenkis (VC) Dimension is a number based on a theoretical framework now called \textit{Statistical Learning Theory} (SLT). SLT is used to estimate the true expected prediction error from finite samples. Surprisingly, very few assumptions are needed and the results are distribution independent. In addition, exact bounds are given for some common use cases with constructive analytical methods. For other cases, authors propose sampling or experimental methods to estimate the VC dimension. 
+The Vapnik--Chervonenkis (VC) Dimension is a number based on a theoretical framework now called \textit{Statistical Learning Theory} (SLT). SLT is used to estimate the true expected prediction error from finite samples. Surprisingly, very few assumptions are needed and the results are distribution independent. In addition, exact bounds are given for some common use cases with constructive analytical methods. For other cases, authors propose sampling or experimental methods to estimate the VC dimension.
 
 For this part, most of the results and reasoning follows the works in \textcite{cherkassky-learning2007}. For a more broad development of this work, \textcite{vapnik-nature2013} is recommended too. Here we present a brief comment on the consistency of the training error with respect to the prediction error and give example bounds for classification learners. In a supervised learning context, we use the empirical training ($\overline{err}$) or test errors ($\overline{err}_{test}$) to estimate the $EPE$.
 
@@ -304,7 +304,7 @@ We know that the training error depends on the model learned from the data and i
 
 \begin{definition}{Consistency of the Training error}
 
-Let $\{\mathcal {T}_1, \mathcal {T}_2, ..., \mathcal {T}_n, ... \}$ be a set of training samples such that $\forall n \ |T_n|=n$. Given a training sample of size $n$ and a class of learners $\Theta$, let $\theta^{*}_n$ be the argument minimizing the training error and let $\theta_0$ be the minimizing argument for the prediction error over the class of functions i.e. over all the models of the class.
+Let $\{\mathcal {T}_1, \mathcal {T}_2, ..., \mathcal {T}_n, ... \}$ be a set of training samples such that $\forall n \ |T_n|=n$. Given a training sample of size $n$ and a class of learners $\Theta$, let $\theta^{*}_n$ be the argument minimizing the training error and let $\theta_0$ be the minimizing argument for the prediction error over the class of functions i.e.\ over all the models of the class.
 
 Then, the training error is said to be consistent if
 
@@ -322,7 +322,7 @@ In reality, it is reasonable to think that the approximation of the prediction e
 
 %\end{definition}
 \begin{equation}
-\forall \epsilon > 0 \ , \ \lim_{n\to\infty} P\left[ \sup_{\theta \in \Theta} \mid Err^{n}_{train}(\theta) - EPE(\theta) \mid  > \epsilon  \right] = 0 
+\forall \epsilon > 0 \ , \ \lim_{n\to\infty} P\left[ \sup_{\theta \in \Theta} \mid Err^{n}_{train}(\theta) - EPE(\theta) \mid  > \epsilon  \right] = 0
 \end{equation}
 
 Here the training error $Err^{n}_{train}(\theta)$ is the value of this error when using a sample of size $n$. In this sense, the training error is said to be consistent if it converges uniformly in probability over the whole class of functions\footnote{Remember that approximating functions in the SLT setting are indexed by the $\theta$ parameter.}. This implies that it characterizes the set of functions $Q(t,\theta)$ used to approximate the data will be important in finding an appropriate model. %SLT theory then introduces
@@ -350,7 +350,7 @@ Vapnik et AL provides bounds for the exponential convergence of this error. Thes
 
 \begin{definition}{Vapnik--Chervonenkis (VC) Dimension}
 
-The Vapnik--Chervonenkis Dimension (VC) of a class of binary functions is the cardinality of the largest set which is shattered by $\mathcal {F}$. \footnote{The VC dimension is briefly introduced here for the purpose of giving a theoretical approach to error estimation in machine learning methods. For a complete explanation on this topic, refer to \textcite{vapnik-nature2013}}
+The Vapnik--Chervonenkis Dimension (VC) of a class of binary functions is the cardinality of the largest set which is shattered by $\mathcal {F}$.\footnote{The VC dimension is briefly introduced here for the purpose of giving a theoretical approach to error estimation in machine learning methods. For a complete explanation on this topic, refer to \textcite{vapnik-nature2013}}
 \end{definition}
 
 
@@ -359,13 +359,13 @@ Note that by definition this means that there needs only to exist one set shatte
 
 The VC dimension gives a certain criteria for measuring the complexity of a class of binary functions by evaluating its expressiveness. The value, however, need not be finite.
 
-As a simple example, one could use a linear regression of $d$ features 
+As a simple example, one could use a linear regression of $d$ features
 \begin{equation}
 g_{\theta} = \sum_{i=1}^d x_i \theta_i + \theta_0
 \end{equation}
 
- as a classifier if we consider the indicator function of the positive half-plane induced by the regression: 
- 
+ as a classifier if we consider the indicator function of the positive half-plane induced by the regression:
+
 \begin{equation}
 f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)
 \end{equation}
@@ -380,29 +380,29 @@ SLT then proves that if a class of binary classifiers is of finite VC dimension,
  %% EZECORRECTION: citar a algun lado que la den sobre esto.
 
 They show that for classes which have a finite VC dimension $h$, the n-th shattering coefficient is bounded by a polynomial of order equal to the dimension
-i.e. $\Delta_n(\mathcal {F}) \leq O(n^{h})$, \footnote{$O(\cdot)$ corresponds to Big-O notation.}.
+i.e.\ $\Delta_n(\mathcal {F}) \leq O(n^{h})$,\footnote{$O(\cdot)$ corresponds to Big-O notation.}.
  %% EZECORRECTION: citar a algun lado que la den sobre esto.
 
 
  %% EZECORRECTION: explicar mejor la relacion entre eta, que es algo que se elije, y n para la cota + grado de confianza que vos necesitas para saber cual es el intervalo de confianza, etc.
-  
+
 Also, we can define $\eta \in (0,1)$ to have that with probability at least $1 - \eta$ and $\forall \theta \in \Theta$
 
 \begin{equation}
 EPE(\theta) \leq Err^n_{train}(\theta) + \frac{\epsilon}{2} \left(1 + \sqrt{1 + \frac{4 Err^n_{train}(\theta) }{\epsilon}} \right)
-\end{equation} \label{eq:vapnik-classificationBound}
+\end{equation}\label{eq:vapnik-classificationBound}
 
 , and when the approximating class $F$ is infinite of size $N$:
 
 \begin{equation}
 \epsilon = a_1 \frac{h \left( ln(\frac{a_2 n}{h} ) - ln(\frac{\eta}{4} ) \right)}{n}
-\end{equation} \label{eq:vapnik-epsilonBound}
+\end{equation}\label{eq:vapnik-epsilonBound}
 
 or
 
 \begin{equation}
 \epsilon = 2 \frac{ ln(d) - ln(\eta)}{n}
-\end{equation} \label{eq:vapnik-epsilonBoundSimple}
+\end{equation}\label{eq:vapnik-epsilonBoundSimple}
 
 when $F$ is finite and consists of $d$ elements.
 
@@ -412,7 +412,7 @@ As a last result, the authors show that a more precise bound can be given for th
 
 \begin{equation}
 Err^n_{train}(\theta^*) - EPE(\theta_0) \leq \sqrt{\frac{-ln(\eta)}{2n} } + \frac{\epsilon}{2}\left( \sqrt{1 + \frac{4}{\epsilon} } \right)
-\end{equation} \label{eq:vapnik-classificationBoundPrecise}
+\end{equation}\label{eq:vapnik-classificationBoundPrecise}
 
 These results prove that effective approximations of the prediction error can be given for most algorithms of finite VC dimensions. They also give a distinct characterization of how model complexity is related to the prediction error estimation.
 
@@ -424,7 +424,7 @@ In practical applications though, use of estimates might be limited to the deter
 
 The objective of Cross Validation is to systematically explore the different configurations of tuning parameters and decide which learner is better for the task at hand. By comparing the estimated generalization error of each model, where models vary accordingly with the values of the tuning parameters, a value is given and then used to select the \textit{best} model in the class.
 
-This technique is considered one of the most widespread to evaluate the generalization performance of a set of learners. Given a number of possible configurations or values for the tuning (hyper) parameters of an algorithm, we would want to decide which selection of these fit the best estimator, as measured by the generalization error. 
+This technique is considered one of the most widespread to evaluate the generalization performance of a set of learners. Given a number of possible configurations or values for the tuning (hyper) parameters of an algorithm, we would want to decide which selection of these fit the best estimator, as measured by the generalization error.
 
 In terms of the concepts introduced before, the quality of an estimated model $\hat{f}$ from a family of algorithms is evaluted in the Cross Validation procedure. Where quality refers to the rate of generalization error.
 
@@ -466,7 +466,7 @@ From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_
 \todo{show with/without CV and different results with logreg for some of the problems}
 
 \subsection{Choice of \texorpdfstring{$K$ parameter}{Lg} }
- 
+
  Experimental results show the differences among CV routines used with varying $K$ number of folds. In synthetic and actual dataset~ \textcite{hastie-elemstatslearn} P. 243, have found that using a \textit{higher} value of $K$, relative to the size of the dataset, means having a bigger training fold since each left-out partition is only $\frac{N}{K}$ in size. The results show models with good bias but high variance, which is in conformity with the small size of the validation set. Note that having a higher value for $K$ will effect to a higher computational burden since $K$ estimators need to be fitted.
 
 Having a lower $K$ value means using a smaller training set. Then it is common to find models with lower variance and higher bias. Empirical results suggest that to show that the $EPE$ is overestimated. This is because having less available data to fit the model, implies having worse estimates from asymptotic results.
@@ -480,7 +480,7 @@ A valuable survey and explanation of the drawbacks of the $K$-Fold CV estimator 
 
 Empirical examples are built from synthetic datasets to show the shortcomings of the cross validation's algorithm which might show high deviations from its central value. Some exceptions appear though, specifically where distribution-free bounds can be found for a class of approximating functions. But these cases are specific only for this class. In general, these bounds are not known, so using an unknown deviation of the CV estimator will affect the evaluation of different models.
 
-Consensus \footnote{\textcite{hastie-elemstatslearn} P. 260} is that in general CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
+Consensus\footnote{\textcite{hastie-elemstatslearn} P. 260} is that in general CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
 
 
 
@@ -536,7 +536,7 @@ Some of the most used metrics include the following:
 
 \subsection{ROC Curve}
 
-One last important metric used widely in classification is the \textbf{Area under ROC curve (ROC AUC)}. This metric applies only to algorithms which output for each sample the probability of belonging to the positive class. 
+One last important metric used widely in classification is the \textbf{Area under ROC curve (ROC AUC)}. This metric applies only to algorithms which output for each sample the probability of belonging to the positive class.
 
 With these algorithms we would have that the output target will be defined as
 
@@ -548,7 +548,7 @@ With these algorithms we would have that the output target will be defined as
 \end{cases}
 \end{equation}
 
-where $\pi$ is a threshold value which will separate positive from negative samples. If we consider different values for $\pi$, we will see that the recall $R$ and the fall-out $FPR$ of the algorithm will vary accordingly. We can then define the ROC curve to be 
+where $\pi$ is a threshold value which will separate positive from negative samples. If we consider different values for $\pi$, we will see that the recall $R$ and the fall-out $FPR$ of the algorithm will vary accordingly. We can then define the ROC curve to be
 
 \begin{equation}
 \sigma(\pi) = (R_\pi, FPR_\pi)
@@ -556,7 +556,7 @@ where $\pi$ is a threshold value which will separate positive from negative samp
 
 As expected, there is an inverse relationship between these two as the threshold is varied. The result is a curve defined in $[0,1]\times[0,1]$, referred to as the \textit{ROC space}.
 
-To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score calculated is thus known as \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$. \footnote{As a side note, the ROC AUC measure is proportional to the statistic of the Mann-Whitney U-test, where the means of the classifier's output positive and negative classes are compared. More information on this can be found in \textcite{mason-rocAucRelationship}.}
+To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score calculated is thus known as \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$.\footnote{As a side note, the ROC AUC measure is proportional to the statistic of the Mann-Whitney U-test, where the means of the classifier's output positive and negative classes are compared. More information on this can be found in \textcite{mason-rocAucRelationship}.}
 
 
 

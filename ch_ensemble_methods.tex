@@ -1,9 +1,9 @@
-\chapter{Ensemble Methods and  Naive Bayes Classifier} \label{cha:ensembleMethods}
+\chapter{Ensemble Methods and  Naive Bayes Classifier}\label{cha:ensembleMethods}
 
 
 \section{Classifier : Naive Bayes}
 
-The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features. Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$ i.e. there are more attributes than samples in the data.
+The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features. Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$ i.e.\ there are more attributes than samples in the data.
 
 It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthermore, the algorithm has linear complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{larger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as techniques using gradient descent or other similar iterative optimizators.
 
@@ -11,9 +11,9 @@ Let $x = (x_1,...,x_p)$ be any given data sample and $C_k$ be one of $K$ possibl
 
 In \cref{ch:machineLearning}
 we have used
-\begin{equation} 
+\begin{equation}
 p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
-\end{equation} \label{eq:equation-posteriorProbabilties}
+\end{equation}\label{eq:equation-posteriorProbabilties}
 
 
 and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class.
@@ -22,7 +22,7 @@ Here we can approximate the posterior as
 
 \begin{equation}
 P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
-\end{equation} \label{eq:posteriorProbabilityDecomposition1}
+\end{equation}\label{eq:posteriorProbabilityDecomposition1}
 
 
 We now impose a strong independence assumption among features, given the target class, to let the conditional probability factors become the probability of each feature. %This assumption is what gives the model its
@@ -31,7 +31,7 @@ This yields a posterior probability which depends only on the prior probability 
 
 \begin{equation}
 P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
-\end{equation} \label{eq:posteriorProbabilityDecomposition2}
+\end{equation}\label{eq:posteriorProbabilityDecomposition2}
 
 As we have said before, the parameters of the model can only reweigh the likelihood factors, so if we look to maximize the posterior probability, our final estimate of the posterior will take the following form.
 
@@ -64,7 +64,7 @@ Altogether, a tree defines a partition of feature space in disjoint regions $A_1
 In brief, the learner can be characterized by
 \begin{equation}
 h(X) = \sum_{k=1}^K c_k I(X \in A_k)
-\end{equation} \label{eq:decisionTreeModel}
+\end{equation}\label{eq:decisionTreeModel}
 
 where $c_k$ is the value that our model estimates for samples in the $A_k$ region. Both of these will have to be learned by the model in the optimization procedure. %by minimizing its loss function
 
@@ -84,11 +84,11 @@ $A_L = \{x \in \mathcal{T} \ / \ x^p \leq t \} $ and $A_R = \{x \in \mathcal{T}\
 %\begin{split}
 min_{p,t} \big[ min_{c_L }  \frac{1}{N_l}\sum_{x \in A_L(p,t) } L(y,c_L)    \ +  min_{c_R}  \frac{1}{N_r}\sum_{x \in A_R(p,t) } L(y,c_R) \big]
 %\end{split}
-\end{equation} \label{eq:decisionTreeGreedyOptimization}
+\end{equation}\label{eq:decisionTreeGreedyOptimization}
 
 where $y$ is the target associated to our sample $x$ and $L(\cdot)$ is the loss function we have used to measure the quality of our split. Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently.
 
-A tree is then grown in an iterative way from the top down \footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each rule split. All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, in accordance to their fulfillment or not of each node's rule. A branch of the tree would stop growing once all samples at a node belong to the same target class.
+A tree is then grown in an iterative way from the top down\footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each rule split. All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, in accordance to their fulfillment or not of each node's rule. A branch of the tree would stop growing once all samples at a node belong to the same target class.
 
 Finally, we would have that the tree's leafs are the partition subsets over the input data and once a learner is fit, predicting targets for new samples is straightforward: the prediction of their target class will be the value given after traveling the sample down to its corresponding leaf node.
 
@@ -143,7 +143,7 @@ N_j & = \mid\{x \in R_j \}\mid\\
 \hat{p}_{jk} & = \frac{1}{N_j} \sum_{x \in R_j} I(y=k)\\
 c_j & = argmax_{k} \ \hat{p}_{jk} \\
 \end{split}
-\end{equation} \label{eq:decisionTreePruneParameters}
+\end{equation}\label{eq:decisionTreePruneParameters}
 
 As we have mentioned before, at each split we use the node impurity measure to quantify this action. Here, we will denote $Q_j(T)$ to be the impurity measure for region $j$. In addition, we list the three most used impurity measures of classification trees:
 
@@ -196,17 +196,17 @@ Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the par
 We denote $h(\textbf{x},\Theta_k)$ to be the corresponding classifier and $N$ the number of samples in the training set. The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution but independently of the previous parameters $\Theta_1, \ ..., \ \Theta_{k-1}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
 
-Let $\{h_k(\textbf{x})\}_{i=1}^K$ \footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function. Define the margin function as
+Let $\{h_k(\textbf{x})\}_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function. Define the margin function as
 
 \begin{equation}
 mg(\textbf{x},\textbf{y}) = \frac{1}{K}  \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})
-- max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right) 
-\end{equation} \label{eq:rf-marginFun}
+- max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right)
+\end{equation}\label{eq:rf-marginFun}
 
-The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to 
+The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to
 
 
-The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to 
+The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to
 
 \begin{equation}
 P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
@@ -215,7 +215,7 @@ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
  It can be shown that, for $K$ sufficiently large, the generalization error under the misclassification loss converges to
 
 \begin{equation}
- P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{y}) - max_{j \neq \textbf{y}} P_{\Theta} (h(\textbf{x}, \Theta) = j) < 0) 
+ P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{y}) - max_{j \neq \textbf{y}} P_{\Theta} (h(\textbf{x}, \Theta) = j) < 0)
  \end{equation}
 
 almost surely for all sequences of parameters $\Theta_1, ..., \Theta_k,...$
@@ -224,7 +224,7 @@ almost surely for all sequences of parameters $\Theta_1, ..., \Theta_k,...$
 The proof follows from seeing that given a training set, a tree $\Theta$ and a class $j$ then
 \begin{equation}
 \forall \textbf{x}  \ P_\Theta(h(\theta,\textbf{x}) = j) \ = \
-\lim_{L\to\infty} \frac{1}{L} \sum_{l=1}^K I(h_l(\textbf{x}) = j) \ 
+\lim_{L\to\infty} \frac{1}{L} \sum_{l=1}^K I(h_l(\textbf{x}) = j) \
 \end{equation}
 
 almost surely.
@@ -237,17 +237,17 @@ It is immediate that
 
 \begin{equation}
 \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x},\Theta) = j) \ = \ \frac{1}{L} \sum_{m=1}^M L_m I(\textbf{x} \in S_m)
-\end{equation} \label{eq:rf-PEconvergence1}
+\end{equation}\label{eq:rf-PEconvergence1}
 
 and that following the law of large numbers, there is a convergence almost everywhere of
-\begin{equation} \label{rf-PEconvergence2}
+\begin{equation}\label{rf-PEconvergence2}
 \frac{L_m}{L} = \frac{1}{L} \sum_{l=1}^L I(\phi(\Theta_l) = m) \xrightarrow[L \to \infty]{}  P_{\Theta}(\phi(\Theta)= m).
 \end{equation}
 
 If we let $C = $ $\bigcup\limits_{m=1}^{M} C_{m}$ where each $C_m$ are zero-measured sets representing the points where the sequence is not converging. If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will finally have that outside of $C$,
 
 \begin{equation}
- \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} \sum_m^M  P_{\Theta}(\phi(\Theta)= m) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j) 
+ \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} \sum_m^M  P_{\Theta}(\phi(\Theta)= m) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)
  \end{equation}
 
 
@@ -268,29 +268,29 @@ There exists an upper bound for the generalization error.
 
 \begin{proof}
 	Define $\hat{j}(\textbf{x},\textbf{y})$ as $arg max_{j\neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$ and let the margin function for a random forest (not a group of classifiers) be defined as
-	
+
 	\[\label{eq:rf-marginFunRf}
 	mr(\textbf{x},\textbf{y}) = P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{j})
 	\\
 	= \Expect_{\Theta} \left[ I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{j} ) \right]
 	\]
-	
-	
+
+
 	%\[%\]
-	
+
 	%\]
-	
+
 	Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the ensemble classifier can correctly classify or not the sample's label, given $\Theta$.
-	
+
 	With these definitions, it is straight to see that
-	
+
 	%\[%\]
 	\[
-	mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} ) \right] 
+	mr( \textbf{x},\textbf{y} )^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} ) \right]
 	\].
-	
+
 	This in turn implies that
-	
+
 	\[\label{eq:rf-marginFunVar}
 	\begin{split}
 	var(mr) & = \Expect_{\Theta, \Theta'}
@@ -304,48 +304,48 @@ There exists an upper bound for the generalization error.
 	\right]
 	\end{split}
 	\]
-	
+
 	where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$. In both cases, $\Theta$ and $\Theta'$ are given.% to be fixed.
-	
+
 	Equation \cref{eq:rf-marginFunVar} in turn implies that
-	
+
 	\[
 	\begin{split}
 	var(mr) & = \overline{\rho} (\Expect_{\Theta}\left[ \sigma(\Theta)\right] )^2 \\
 	& \leq \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right]
 	\end{split}
-	\] \label{eq:rf-varianceBound}
-	
+	\]\label{eq:rf-varianceBound}
+
 	where we have conveniently defined $\overline{\rho}$ as
-	
+
 	\[
 	\frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
 	{\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
-	\] \label{eq:rf-meanCorrelation}
-	
+	\]\label{eq:rf-meanCorrelation}
+
 	Note that this is the mean value of the correlation.
-	
+
 	Let the strength of the set of weak classifiers in the forest be defined as
-	
+
 	\[
-	s = \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right] 
+	s = \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right]
 	\].\label{eq:rf-strength}
-	
+
 	Assuming that $s \geq 0$ we have that the prediction error is bounded by
 	\[
 	PE^* \leq var(mr)/s^2
-	\] \label{eq:rf-predictiveErrorBound1}
+	\]\label{eq:rf-predictiveErrorBound1}
 	by Chebyshev's inequality. On the other we also have that
-	
-	
+
+
 	\[
 	\begin{split}
 	\Expect_{\Theta} \left[ var(\Theta) \right] & \leq \Expect_{\Theta} \left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})  \right] \right]^2 -s^2 \\
 	& \leq 1-s^2
 	\end{split}
-	\] \label{eq:rf-expectedVarBound}
-	
-	
+	\]\label{eq:rf-expectedVarBound}
+
+
 	We can use \cref{eq:rf-varianceBound}, \cref{eq:rf-predictiveErrorBound1} and \cref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
 	\[\label{eq:rf-PEBound}
 	PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
@@ -362,17 +362,17 @@ In the context of a binary class problem, where the target variable can only tak
 
 The bounds prediction error bounds derived in \cref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
 \begin{equation}
-\Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2} 
+\Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2}
 \end{equation}
 
 
 Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
 
 \begin{equation}
- \overline{\rho} = \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)  \right] 
+ \overline{\rho} = \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)  \right]
  \end{equation}
- 
- 
+
+
  \todo{do run on a problem and compare to results with solely decision trees}
 
 \subsection{Other Notes on Random Forests}
@@ -406,7 +406,7 @@ These properties underline a substantial difference to Random Forests where base
 \subsection{Ada Boost Formulation}
 
 Let
-\begin{equation} \label{equation-adaBoostTrainingError}
+\begin{equation}\label{equation-adaBoostTrainingError}
 \overline{err} = \frac{1}{N} \sum_{i=1}^{N} I(y_i \neq \hat{y_i})
 \end{equation}
 
@@ -419,7 +419,7 @@ to be the expected error rate of the model on the true, unknown distribution of 
 
 Let $m$ index the iteration number in the Ada Boost algorithm. Set $w^{(m)}_i$ to be the $i$-th sample's weight. We will initialize this variable to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. Let $h(x,\theta)$ denote our model's weak learner. With this notation, we assume the function to have a domain in the input feature space and in the parameters defining the learner. Naturally these will depend on the problem structure and on the base learner. Then Ada Boost's model takes the following form:
 
-\begin{equation} \label{equation-adaBoostModel}
+\begin{equation}\label{equation-adaBoostModel}
 \hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
 \end{equation}
 
@@ -427,7 +427,7 @@ where $M$ is the model's hyperparameter indicating the amount of weak learners a
 
 The algorithm's iteration will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the last model. At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
 
-\begin{equation} \label{equation-adaBoostIteration}
+\begin{equation}\label{equation-adaBoostIteration}
 \begin{split}
 (\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & L\big( y_i,  \hat{y}^{m}(x_i) + \gamma h(x_i,\theta) \big) \\
 = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & L\big( y_i,  \sum_{j=1}^{m} \gamma_j h(x_i,\theta_j) + \gamma h(x_i,\theta) \big)
@@ -440,7 +440,7 @@ Ada Boost was first derived in ~\textcite{schapire-adaBoost} and it was introduc
 
 This particular case yields a similar equation as in \cref{equation-adaBoostIteration}, but where
 
-\begin{equation} \label{equation-adaBoostExponentialIteration}
+\begin{equation}\label{equation-adaBoostExponentialIteration}
 \begin{split}
 (\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & exp\big( -y_i (\hat{y}^{m}(x_i) + \gamma h(x_i,\theta) )\big) \\
 = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & exp\big( -y_i \hat{y}^{m}(x_i)\big) exp\big(- \gamma h(x_i,\theta)y_i \big)
@@ -452,13 +452,13 @@ Given that we are only minimizing $\gamma$ and $\theta$, we can group $e^{-y_i \
 
 %We can also take the $\gamma$ factor out of the sum, since it is fixed for all samples.
 *
-\begin{equation} \label{equation-adaBoostExponentialIteration2}
+\begin{equation}\label{equation-adaBoostExponentialIteration2}
 (\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \  \sum_{i=1}^{N} w_i^{(m)} exp \big(-\gamma h(x_i,\theta)y_i \big)
 \end{equation}
 
 We can then minimize for $\theta$ first, independently of the value of $\gamma$. The series in \cref{equation-adaBoostExponentialIteration2} can be decomposed
 
-\begin{equation} \label{equation-adaBoostThetaDecomposition}
+\begin{equation}\label{equation-adaBoostThetaDecomposition}
 \begin{split}
 e^{-\gamma} \sum_{i \mid y_i = h(x_i,\theta)} w_i^{(m)} + e^{\gamma} \sum_{i \mid y_i \neq h(x_i,\theta)} w_i^{(m)} & = \\
 ( e^{\gamma} - e^{-\gamma}) \sum_{i = 1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big) + e^{-\gamma} \sum_{i = 1}^{N}  w_i^{(m)} &
@@ -468,13 +468,13 @@ e^{-\gamma} \sum_{i \mid y_i = h(x_i,\theta)} w_i^{(m)} + e^{\gamma} \sum_{i \mi
 
 and then the minimizing solution for $h(\cdot, \theta_{m+1})$ will be the one satisfying
 
-\begin{equation} \label{equation-adaBoostThetaMinimization}
+\begin{equation}\label{equation-adaBoostThetaMinimization}
 \theta_{m} = \underset{ \theta}{\mathrm{argmin}} \sum_{i=1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big)
 \end{equation}
 
 Let $u = \sum_{i=1}^{N} w_i^{(m)}$ and $v = \sum_{i=1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big) $, which are both constant in $\gamma$. Consider \cref{equation-adaBoostTrainingError} and note that $\frac{u}{v} = \frac{1}{\overline{err}}$. If we now solve for $\gamma$ in \cref{equation-adaBoostThetaDecomposition}, we can take
 
-\begin{equation} \label{equation-adaBoostBetaMinimization}
+\begin{equation}\label{equation-adaBoostBetaMinimization}
 f(\gamma) = ( e^{\gamma} - e^{-\gamma}) u + e^{-\gamma}v
 \end{equation}
 
@@ -498,7 +498,7 @@ The final form of the model is
 \begin{equation}
  \hat{y}(x) = sgn\big( \sum_{m=1}^{M} \gamma_m h_m(x) \big)
 \end{equation}
-  which outputs the most frequent prediction given by all of the weak learners. This is because all the correct predictions will be greater than zero and negative values for the incorrect predictions. \footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}
+  which outputs the most frequent prediction given by all of the weak learners. This is because all the correct predictions will be greater than zero and negative values for the incorrect predictions.\footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}
 %This particular property is what gives rise
 
 At first the choice of the exponential loss function can seem arbitrary, but in the context of statistical learning this measure presents an important property where its minimizing function is the log-odds ratio of the two output classes:
@@ -552,9 +552,9 @@ with $\theta_j \in \mathbb{R} \ \forall j = 1,...,J$ and $ \cup_{j=1}^J R_j$ a p
 
 For the high model, the objective function would account for the relationships among the trees and we would have that
 
-\begin{equation} 
-Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i)) + \sum_t R(f_t) 
-\end{equation} \label{eq:boositing-objfunction} \footnote{In the formula \cref{eq:boositing-objfunction} }
+\begin{equation}
+Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i)) + \sum_t R(f_t)
+\end{equation}\label{eq:boositing-objfunction}\footnote{In the formula \cref{eq:boositing-objfunction} }
 
 At this level $\Theta$ is a parameter encoding all of the base trees' model information. For each base tree $f_t$, $\theta_t$ is the parameter associated to it. This means that $\Theta = \bigcup_{t \in {0...K}} \theta_t \cup \theta_0$. The parameter $\Theta_0$ is not associated to any tree but reserved to characterize the tree ensemble.
 
@@ -566,7 +566,7 @@ As usual, the first take on this optimization problem goes using a greedy optimi
 
 Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Theta)$ be the objective function and $\hat{y}^t$ be the target variable respectively. Then the $i$-eth target's value at each step would iterate in the following way:
 
-\begin{equation} \label{eq:gb-targetSteps}
+\begin{equation}\label{eq:gb-targetSteps}
 \begin{split}
 \hat{y}_i^0 = & 0 \\
 ... \\
@@ -600,7 +600,7 @@ Still, the equation \cref{equation-gradientBoostingTaylor} can be simplified by 
 
 %for that tree's evaluation.
 
-\begin{equation} \label{eq:gb-objSteps1}
+\begin{equation}\label{eq:gb-objSteps1}
 Obj^t(\theta) \approx \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
 \end{equation}
 
@@ -608,7 +608,7 @@ As an example, we have already replaced the regularization terms $c(t)$ and $R(f
 
 If we rearrange the equation above we get
 
-\begin{equation} \label{eq:gb-objSteps2}
+\begin{equation}\label{eq:gb-objSteps2}
 \begin{split}
 Obj^t(\theta) \approx & \sum_{j=1}^{t-1} \left( \sum_{i \in \{q(x_i)=j\}} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \theta_{j}^2 \right) + \gamma ({t-1}) \\
 \approx & \sum_{j=1}^{t-1} \left( \theta_{j}\sum_{i \in \{q(x_i)=j\}} (g_i ) + \frac{\theta_{j}^2}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \right) + \gamma ({t-1})
