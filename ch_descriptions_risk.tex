@@ -6,8 +6,7 @@
 %    Description: Chapter 2: Data descriptions, exploration and risk maps
 %===============================================================================
 
-\chapter{Data Description and Risk Maps}
-\label{cha:descr-risk}
+\chapter{Data Description and Risk Maps}\label{cha:descr-risk}
 
 \section{Mobile Phone Data Sources}
 
@@ -73,12 +72,12 @@ The first step to build the risk maps determines the antenna in which each user 
 
 Having the granularity of the geolocated data at the antenna level, we can match each user $u \in \calN_C$ with its \textit{home antenna} $H_u$. To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights. This, according to our categorization of days of the week's types, corresponds to Monday through Thursday nights, from 8pm to 6am of the following day. Note that this home antenna analysis will not precisely locate users but will define their area of influence. This will enable us to detect long range migrations.
 
-This \textit{home} characterization is based on the assumption that on any given day, users will be located at home during night time. The implications of this assumption for Argentinean CDRs are explored in detail in ~\cite{sarraute2015socialevents,csaji2012exploring}. The authors explain that given the large user base, this assumption proves helpful when trying to predict migration patterns at large scale. For our case we need not detect specific agent movements but are more interested in movement of large amount of people.
+This \textit{home} characterization is based on the assumption that on any given day, users will be located at home during night time. The implications of this assumption for Argentinean CDRs are explored in detail in~\cite{sarraute2015socialevents,csaji2012exploring}. The authors explain that given the large user base, this assumption proves helpful when trying to predict migration patterns at large scale. For our case we need not detect specific agent movements but are more interested in movement of large amount of people.
 
 Given a user's $H_u$, he will be considered endemic if his inferred home antenna is located in the endemic zone $E_Z$. These tagged users are considered to be the set of \textit{residents of $E_Z$}.
 
-In the case of Argentina, the risk area is the \textit{Gran Chaco} ecoregion, as described in Section~ \cref{endemic_zone_argentina};
-whereas in the case of Mexico, we used the region described in Section~ \cref{endemic_zone_mexico}.
+In the case of Argentina, the risk area is the \textit{Gran Chaco} ecoregion, as described in Section~\cref{endemic_zone_argentina};
+whereas in the case of Mexico, we used the region described in Section~\cref{endemic_zone_mexico}.
 
 
 \subsection{Detection of Vulnerable Users}
@@ -125,13 +124,14 @@ We also have that parameters were tuned differently when zomming into different 
 
 The following section presents these maps.
 
-\section{Riskmap Visualizations}\label{section:riskmaps}
+\section{Risk Maps Visualizations}\label{section:riskmaps}
 
 \subsection{Risk Maps for Argentina}
 
 
 \begin{figure}[h!]
-
+	\caption{Risk map for Argentina, filtered according to $\beta$.}
+	\label{fig:mapa_argentina}
 	\begin{minipage}{.495\linewidth}
 		\centering
 		\includegraphics[width=0.90\linewidth]
@@ -146,26 +146,24 @@ The following section presents these maps.
 
 		(b) $\beta = 0.15$
 	\end{minipage}
-	\caption{Risk map for Argentina, filtered according to $\beta$.}
-	\label{fig:mapa_argentina}
 \end{figure}
 
 As a first visualization, maps were drawn using a provincial or national scale.
 Advised by \textit{Mundo Sano} Foundation's experts, we then focused on areas of specific epidemic interest.
 
-Figure~ \cref{fig:mapa_argentina} shows the risk maps for Argentina, generated with
+\cref{fig:mapa_argentina} shows the risk maps for Argentina, generated with
 two values for the $\beta$ filtering parameter, and fixing $m_v = 50$ inhabitants per antenna. After filtering with $\beta = 0.15$, we see that large portions of the country harbor potentially vulnerable individuals.
-Namely, Figure~ \cref{fig:mapa_argentina}(b) shows antennas where more that 15\% of the users has social ties with the endemic region $E_Z$.
+Namely, \cref{fig:mapa_argentina} (b) shows antennas where more that 15\% of the users has social ties with the endemic region $E_Z$.
 
-Figure~ \cref{fig:cba_sfe} shows a close-up for the Cordoba and Santa Fe provinces,
+\cref{fig:cba_sfe} shows a close-up for the Cordoba and Santa Fe provinces,
 where we can see a gradient from the regions closer to the endemic zone $E_Z$ to the ones further away.
 
 \begin{figure}[p]
+	\caption{Risk map for Cordoba and Santa Fe provinces, filtered according to $\beta = 0.15$.}
+	\label{fig:cba_sfe}
 	\centering
 	\includegraphics[width=0.95\linewidth]
 	{figures/201112_hi_res_cba_sfe_usuarios_proporcion_circulos_beta15/201112_hi_res_cba_sfe_usuarios_proporcion_circulos_beta15}
-	\caption{Risk map for Cordoba and Santa Fe provinces, filtered according to $\beta = 0.15$.}
-	\label{fig:cba_sfe}
 \end{figure}
 
 
@@ -175,9 +173,9 @@ where we can see a gradient from the regions closer to the endemic zone $E_Z$ to
 % Histograma de porcentaje de vulnerabilidad por antena?
 % Cambios en los colores de los mapas (aclarar que el codigo de color cambia)
 
-As a result of inspecting the maps in Figure~ \cref{fig:mapa_argentina}, we decided to
+As a result of inspecting the maps in \cref{fig:mapa_argentina}, we decided to
 focus visualizations in areas whose results were unexpected to the epidemiological experts.
-These areas included the provinces of Tierra del Fuego, Chubut, Santa Cruz and Buenos Aires, with special focus on the metropolitan area of Greater Buenos Aires whose heatmap is shown in Figure~ \cref{fig:amba_map}.
+These areas included the provinces of Tierra del Fuego, Chubut, Santa Cruz and Buenos Aires, with special focus on the metropolitan area of Greater Buenos Aires whose heatmap is shown in \cref{fig:amba_map}.
 
 In some cases, antennas stood out for having a significantly higher link to the epidemic area than the adjacent ones. Our objective here was to enhance the visualization in areas outside of Gran Chaco looking for possible host communities of migrants from the ecoregion, infered by the social links given by the CDRs. Our assumptions were that if, in average, there was a high percentage of vulnerable users in that non-epidemic antenna, this would mean that there's a high possibility of having more infected users in that community.
 
@@ -186,36 +184,39 @@ As a result of this visualization, high risk antennas were separately listed and
 \todo{preguntarle a Diego si hubo algun avance/resultado sobre esto.}
 
 \begin{figure}[p]
+	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.02$.}
+	\label{fig:amba_map}
 	\centering
 	\includegraphics[width=0.75\linewidth]
 	{figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta2/201112_hi_res_amba_usuarios_proporcion_circulos_beta2}
-	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.02$.}
-	\label{fig:amba_map}
 \end{figure}
 
 \begin{figure}[h!]
+	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.2$.}
+	\label{fig:amba_map_beta20}
 	\begin{center}
 		\includegraphics[width=0.35\columnwidth]{figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta20/201112_hi_res_amba_usuarios_proporcion_circulos_beta20}
-		\caption{Replace this text with your caption%
-		}
+
 	\end{center}
 \end{figure}
 
-This data exploration allowed us to specifically detect outlying communities in the focused regions. Some of these can be seen directly from the heatmap in Figure~ \cref{fig:amba_map}, where the towns of Avellaneda, San Isidro and Parque Patricios have been pinpointed.
+This data exploration allowed us to specifically detect outlying communities in the focused regions. Some of these can be seen directly from the heatmap in \cref{fig:amba_map}, where the towns of Avellaneda, San Isidro and Parque Patricios have been pinpointed.
 
 
 \newpage
 
 \subsection{Risk Maps for Mexico}
 
-With the data provided by the CDRs and the endemic region defined in Section~ \cref{endemic_zone_mexico}, heatmaps were generated for Mexico using the methods described in Section~ \cref{methods}. The first generated visualizations are depicted in Figure~ \cref{fig:mapas_mexico},
+With the data provided by the CDRs and the endemic region defined in \cref{endemic_zone_mexico}, heatmaps were generated for Mexico using the methods described in \cref{methods}. The first generated visualizations are depicted in \cref{fig:mapas_mexico},
 which includes a map of the country of Mexico, and a zoom-in on the South region of the country.
 We used $m_v = 80$ inhabitants per antenna, and a high filtering value $\beta = 0.50$, which
-means that in all the antennas shown in Figure~ \cref{fig:mapas_mexico},
+means that in all the antennas shown in \cref{fig:mapas_mexico},
 more that 50\% of inhabitants have a social tie with the endemic region $E_Z$.
 For space reasons, we don't provide here more specific visualizations and analysis of the regions of Mexico.
 
 \begin{figure}[ht!]
+	\caption{Risk maps for Mexico}
+	\label{fig:mapas_mexico}
 	\begin{minipage}{.475\linewidth}
 		\centering
 		\includegraphics[width=0.95\columnwidth,height=3.2cm,keepaspectratio]
@@ -238,8 +239,6 @@ For space reasons, we don't provide here more specific visualizations and analys
 
 		(c) State of Mexico, $\beta = 0.50$
 	\end{minipage}
-	\caption{Risk maps for Mexico}
-	\label{fig:mapas_mexico}
 \end{figure}
 
 \newpage
@@ -257,8 +256,8 @@ The CDR logs available for Argentina span a period of 5 months,
 whereas the Mexican dataset includes 24 months, from January 2014 to December 2015, making it more suitable for this study.
 
 To start, we divide the available data into two distinct periods:
-$T_0$, from January 2014 to July 2015, considered as the ``past" in our experiment;
-and $T_1$, from August 2015 to December 2015, considered as the ``present". Let $E_{Z1}$ be the users that live in the endemic region in period $T_0$
+$T_0$, from January 2014 to July 2015, considered as the ``past'' in our experiment;
+and $T_1$, from August 2015 to December 2015, considered as the ``present''. Let $E_{Z1}$ be the users that live in the endemic region in period $T_0$
 and  $E_{Z0}$ bet he users that lived in the past (period $T_0$). Their set complements are defined as ${ E_{Z1} }^{\complement}$ and ${ E_{Z0} }^{\complement}$ respectively.
 
 Our dataset thus runs from August 2015 to December 2015 (period $T_1$) and all CDRs are processed to extract features by user and by link. This is because we can't introduce data from $T_0$ for a model trying to predict this same information.

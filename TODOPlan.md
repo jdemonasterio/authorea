@@ -1,4 +1,4 @@
-\# TODO PLAN
+# TODO PLAN
 
 ## In general:
 
