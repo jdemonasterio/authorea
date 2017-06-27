@@ -445,19 +445,19 @@ As an example we show here how regularization affects an instance of a Logistic 
 
 In this simple case we used all of the features from $\mathrm{T}$ and we generated multiple models $f(x,\cdot)$. We defined
 $$C = \frac{1}{\lambda}$$
-and built models for different values of $C$. Each resulting model's error was measured for the $\mathrm{T}$ and $\mathrm{Ts}$ sets seprately and graphed in \cref{fig:log_loss_regularization_validation_curve}. As we can see from this graph, there is a clear tendency to have
+and built models for different values of $C$. Each resulting model's error was measured for the $\mathrm{T}$ and $\mathrm{Ts}$ sets seprately and graphed in \cref{fig:log_loss_regularization_validation_curve}. As we can see from this graph, there is a clear tendency to have beter performance across smaller values of $C$ which is equivalent to having stronger model regularizations. 
 Then we compared the losses of each model $f(\cdot,C)$
 
 
-As a second option, we did the same as before but using a different loss function called the ``area under the receiver operating characteristic curve''. We will expand on this scoring function later in \cref{section:scoring_functions}. This function will have higher values for better classifiers and with this, the following graphic confirms the idea that having a regularized model means having better performance across training and testing sets. The tendency shows that the smaller the value of $C$, the bette the model performance.
+%As a second option, we did the same as before but using a different loss function called the ``area under the receiver operating characteristic curve''. We will expand on this scoring function later in \cref{section:scoring_functions}. This function will have higher values for better classifiers and with this, the following graphic confirms the idea that having a regularized model means having better performance across training and testing sets. The tendency shows that the smaller the value of $C$, the bette the model performance.
 
-\begin{figure}[h!]
-\begin{center}
-\includegraphics[width=0.7\columnwidth]{figures/regularization/figure-roc_auc_error_validation_curve.png}
-\caption{ Validation curve comparing ROC AUC loss for different values of the $C$ regularization parameter. }
-\label{fig:log_loss_regularization_validation_curve}
-\end{center}
-\end{figure}
+%\begin{figure}[h!]
+%\begin{center}
+%\includegraphics[width=0.7\columnwidth]{figures/regularization/figure-log_loss_error_validation_curve.png}
+%\caption{ Validation curve comparing ROC AUC loss for different values of the $C$ regularization parameter. }
+%\label{fig:log_loss_regularization_validation_curve}
+%\end{center}
+%\end{figure}
 
 
 \subsection{HyperParameters}
