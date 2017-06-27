@@ -37,80 +37,78 @@ In its essence, a machine learning method is a probabilistic model built from da
 These subtle differences in the machine learning approach of a problem is also reflected in the terminology used by the field. We know that different disciplines often speak about the same machine learning methods in different terms and this difference is most notable with classic statistics. Where we can, we will be identifying these differences along the text. As a start, the \textit{dependent} $Y$ is called the target or label and the \textit{independent} variables, \textit{covariates} or \textit{input variables} are named \textit{features} in this case.
 %Labels that are representing categorical or discrete variables are also named factors or \textit{qualitative} variables.
 
-\section{Long-term Human Migrations}\label{long_term}
+\section{Supervised Classification of Long-term Human Migrations}\label{long_term}
 
-To better characterize migrations, we decided to divide our task into four problems. All of them together give us a better overview of the relationship of CDRs to
-long term migrations. These are solved using user information of how they communicated during $T_1$ and no information from $T_0$ will be used. The only difference among the problems will be in how the target variable will be defined.\footnote{In reality, certain variations of the data were considered too, were best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}
+To better characterize migrations, we decided to divide our task into four problems. These are different persepectives of the issue and all of them together give us a better overview of the relationship of CDRs to long term migrations. These are solved using user information of how they communicated during $T_1$ whilst no information from $T_0$ will be used as input to the model.
 
-We process the raw data to build our target variable which will be determined as $Y$. This will always be defined for every user $u$. We take $H_u$ to be the user's home antenna. With these definitions, the list of problems considered in this work are defined in the following way:
-
+We process the raw data to build our target variable which will be determined as $Y$. This will always be defined for every user $u$. We take $H_u$ to be the user's home antenna. The only differences among the problems will be in how the target variable will be defined.\footnote{In reality, certain variations of the data were considered too, were best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}
 
 
-Knowing which users live in the endemic region we want to infer whether they lived in $E_Z$ in the past:
+With these definitions, the list of problems considered in this work are defined in the following way:
+
 
 
 \begin{problems}
-	The following is an enumeration of the tasks we set to evaluate in this work. Together, these are different persepectives of the problem of long-term migrations predictions. 
+
 	\begin{enumerate}\label{def:problems}
-		\item We want to infer which users lived in $E_Z$ in the past:
-		\label{itm:target1} 
+		\item We want to infer which users lived in the endemic region in the past:
+		\label{itm:target1}
 		\begin{align*}
-			Y_u = 
+			Y_u =
 			\begin{cases}
 				&1 \ \mbox{if} \ H_u \in E_{Z0} \\
 				&0 \ \mbox{if not}.
 			\end{cases}
 		\end{align*}
-		
-		\item We want to infer which users lived in $E_Z$ in the past and then migrated:\label{itm:target2} 
+
+		\item We want to infer which users lived in $E_Z$ in the past and then migrated:\label{itm:target2}
 		\begin{align*}
-			Y_u = 
+			Y_u =
 			\begin{cases}
 				&1 \ \mbox{if} \ H_u \in E_{Z0} \cap { E_{Z1} }^{\complement}  \\
 				&0 \ \mbox{if not}.
 			\end{cases}
 		\end{align*}
-		
-		
-		\item Users that migrated to a different region: \label{itm:target3} 
+
+
+		\item Users that migrated to a different region: \label{itm:target3}
 		\begin{align*}
-			Y_u = 
+			Y_u =
 			\begin{cases}
 				&1 \ \mbox{if} \ H_u \in (E_{Z0} \cap { E_{Z1} }^{\complement}) \cup (E_{Z1} \cap { E_{Z0} }^{\complement}) \\
 				&0 \ \mbox{if not}.
 			\end{cases}
 		\end{align*}
-		
-		\item Users that are currently not endemic and migrated. This means only analyzing those users where $H_u \in { E_{Z1} }^{\complement}$: \label{itm:target4} 
+
+		\item Users that are currently not endemic and migrated. This means only analyzing those users where $H_u \in { E_{Z1} }^{\complement}$: \label{itm:target4}
 		\begin{align*}
-			Y_u = 
+			Y_u =
 			\begin{cases}
 				&1 \ \mbox{if} \ {H_u \in  E_{Z0} } \\
 				&0 \ \mbox{if not}.
 			\end{cases}
-		\end{align*} 
-		
+		\end{align*}
+
 		\item \textbf{Bonus.} As an extra problem and for exemplary reasons, we considered tried to detect if a user has a high mobile footpring $M_u$, as defined in \cref{section:def_mobility_diameter}.
-		Users that are currently not endemic and migrated. This means only analyzing those users where $H_u \in { E_{Z1} }^{\complement}$: \label{itm:target5} 
+		Users that are currently not endemic and migrated. This means only analyzing those users where $H_u \in { E_{Z1} }^{\complement}$: \label{itm:target5}
 		\begin{align*}
-			Y_u = 
+			Y_u =
 			\begin{cases}
 				&1 \ \mbox{if} \ {M_u >  1000 } \\
 				&0 \ \mbox{if not}.
 			\end{cases}
 		\end{align*}
-		
+
 	\end{enumerate}
 \end{problems}
 
 
-Note that not all problems can be represented by the same dataset. Problems might have different limitations on what is available as our input variable $X$. For example, in \cref{itm:target1} we have no limitations to know $H_u$ at $E_{Z1}$. On the contrary, using this same feature in \cref{itm:target1} would be a problem since we are implicitly introducing the target variable as an attribute. Thus appropriate care must be taken for each case on which attributes are available for the problem being analyzed. 
+Note that not all problems can be represented by the same dataset. Problems might have different limitations on what is available as our input variable $X$. For example, in \cref{itm:target1} we have no limitations to know $H_u$ at $E_{Z1}$. This means we might as well use it as a feature for the model. On the contrary, using this same feature in \cref{itm:target1} would be a problem since we are implicitly introducing the target variable as an attribute. Thus appropriate care must be taken for each case on which attributes are available for the problem being analyzed.
 
 With the target variables already set in \cref{def:problems}, we tackle the predictions as a supervised classification problem.
 
 
-
-\subsection{A working example of a Machine Learning setup}\label{section-example}
+\section{A working example of a Machine Learning setup}\label{section-example}
 
 From now on we will be talking of the training set and the test set, noted by $\mathrm{T}$  and $\mathrm{Ts}$ as our two data sources. The test set will be a part of the whole dataset that will only used at the end of the algorithmic process. This set will not take part in buidling the machine learning model and will be used only to evaluate its performance. This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathrm{Ts}$, based on having seen information of objects from $\mathrm{T}$.
 
@@ -134,11 +132,11 @@ EA23AD & 12 & 43 & 5 & 154 & \textit{Buenos Aires} \\
 \end{tabular}
 \end{table}
 
-In this form a row is representing the available data acquired from each user and the columns represent different types of measurements or information on that user. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. Where rows represent objects or \textit{samples} and columns are measurements or \textit{features} of our samples.
+In this form a row is representing the available data acquired from each user and the columns represent the feaures which are the different types of measurements or information on that user. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. And it is common to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
 
 Both $\mathrm{T}$ and $\mathrm{Ts}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$ and $Y \in \mathbb{R}^n $. The difference will lie in the way each set is used to computationally build a probabilistic model. In essence the former is used to algorithmically create a function which maps inputs to outputs,  whilst the latter will be used to measure how \textit{well} this mapping would behave in real situations, given a way of measuring this performance.
 
-More specifically, we note that the $jth$ column of $X$ or equivalently the $jth$ feature of the dataset is denoted by $X^j$. In a similar way, the $ith$ row or sample of $X$ is denoted by $X_i$ or $x$ when it is clear from context or when we are referring to a generic sample. A similar notation is used with the outputs, where $Y_i$ or $y$ will be used to denote the target of a specific sample depending on context.
+More specifically, the $jth$ column of $X$ or equivalently the $jth$ feature of the dataset is denoted by $X^j$. In a similar way, the $ith$ row or sample of $X$ is denoted by $X_i$ or $x$ when it is clear from context or when we are referring to a generic sample. A similar notation is used with the outputs, where $Y_i$ or $y$ will be used to denote the target of a specific sample depending on context.
 
 In this particular example, even though the last column of the dataset in \cref{tab:sample_CDR} is not a measurement \textit{per se}, it provides information on each user's province of residence. With this we can map users to \textit{classes} which are elements of the set of provinces.
 
@@ -150,14 +148,16 @@ Hereon, there are various questions one could try to answer using this dataset. 
 \item Give an estimate of the probability density function of user's calls duration, during weekdays.
 \end{itemize}
 
-The first two problems are examples of supervised learning. For each, the $Y$ variables or \textit{labels} are respectively the last and first features (columns in the dataset). Even more, the first problem is a classification one since users are to be categorized according to one of the three possible provinces, whilst the second one is a regression problem for which the output could be any of a range of numerical values. The labels in classification problems are numerically encoded with a finite range of numbers where $\{0,1\}$ or $\{-1,1\}$ are usually used in the binary class problem.
+These questions can be shaped into the form of a taret variable. In this way, they become our machine learning problem.
+
+The first two problems are examples of supervised learning task. For each, the $Y$ variables or \textit{labels} are respectively the last and first features (columns in the dataset). Even more, the first problem is a classification one since users are to be categorized according to one of the three possible provinces, whilst the second one is a regression problem for which the output could be any of a range of numerical values. The labels in classification problems are numerically encoded with a finite range of numbers where $\{0,1\}$ or $\{-1,1\}$ are usually used in the binary class problem.
 
 Note that we are not making any assumptions on the data which we take as given. %to us in this way.
 This is common in machine learning applications and because of this, algorithms tend to be designed to account for this lack of context. The type of problems and questions that could be done, then depend entirely on the data.
 
 From the list before, the last example belongs to the unsupervised learning category where there is no need to have a label on the data. A priori, the data doesnt' give any examples of this. Here the question is on the structure of a specific column, namely the estimation of the true probability distribution of the calling time. As such, there is no output expected from new data. For the most of this work, we will be talking about supervised classification scenario.
 
-To further illustrate this scenario, a brief notation outline is described below. In this example, we follow a standard logistic regression classifier:
+To further illustrate this scenario, we briefly introduce some notation below. For this task, we build a standard logistic regression classifier:
 
 Let's suppose that we want to build a predictive model to determine the origin province of a user. A classification algorithm should assign samples to provinces. Let $\{C_1,..,C_k\}$ denote the set of possible target classes. Our aim is to maximize the probability of belonging to a certain class, given the phone data:
 \begin{equation}
@@ -334,28 +334,56 @@ Maximum likelihood is the most common method employed to fit the model. %with mu
 Given a parameter $\theta$, the probability of having a target vector $y$ is
 
 \begin{equation}
-P(Y =y \mid \theta ) = \prod_{i=1}^N {P(y_1 \in C_1 \mid x_i, \theta)}^y_i {(1 - P(y_1 \in C_1 \mid x_i, \theta) )}^{(1-y_i)}
+P(Y =y \mid \theta ) = \prod_{i=1}^N {P(y_1 \in C_1 \mid x_i, \theta)}^{y_i} {(1 - P(y_1 \in C_1 \mid x_i, \theta) )}^{(1-y_i)}
 \end{equation}
 
-If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ and the logistic function's derivative form \cref{eq:logitFunction}, then the estimation of $\theta$ for $N$ samples gives the following loss function
+If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ and the logistic function's derivative form \cref{eq:logitFunction}, then the estimation of $\theta$ for $N$ samples gives the following form
+loss function
 
-\begin{equation}
+\begin{equation}\label{eq:logLossFunction}
 l(\theta) = \sum_{i=1}^N \big(y_i \log(P(y_i \mid x_i,\theta)) + (1-y_i)\log(1 - P(y_i \mid x_i,\theta) ) \big)
 \end{equation}
 
-Note the advantage that the loss function is concave in the parameters. Another strength of this model is that closed forms can be given for the gradient and the Hessian of the loss function with regard to the whole dataset $X$ as a sum involving individual samples $x$. The negative gradient can be expressed in the following way: %can thus be analytically expressed
+In Machine Learning this is called the log loss function. It is used as a metric or score function of the quality of $\theta$ in correctly assigning estimated targets $ {\hat{p_i}} = P(y_i \mid x_i,\theta)$ for the model defined by $\theta$ and the input data $X$.
 
-\begin{equation}
+\begin{definition}{Loss Function}
+
+The loss function of a model $l: \mathbb{R}^{ p} \rightarrow  \mathbb{R} $ maps the model's parameters a quantification of a model's error when using parameter $\theta$.
+\end{definition}
+
+The loss functions defines the underlying optimization procedure behind the Machine Learning problem. From this function we will output the optimum $\theta*$ as the $\argmin_{\theta} l(\theta) $. Thus we say that loss functions or scoring functions give us a way to find the best parameters for our model.
+
+Note however, that the optimimum parameter will be dependentof the choice of the algorithm used to construct the model. That is, we have selected the optimum $\theta$ for a Logistic Classifier with input data $X$. Other algorithms can be used for the same task, and these will have their own parameters and scores.
+
+In our derivation the loss function rised from the assumptions proposed at the start. However, we could in fact build \textit{any} type of algorithm which given an input $x_i$ and a parametrization of the model $\theta$, outputs a value $P(y_i \mid x_i,\theta)$. And we could in fact compare the performance of that model to the one built by a Logistic Regression Classifier by using the same log loss function for both. Thus we have introduced a way of determining how to select a model from the data.
+
+In the case of \cref{eq:logLossFunction} we have that it is a concave, monotone increasing function. The \cref{figure-logLossValues} expands on the values of this function:
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{figures/logloss/figure-logLossValues.png}
+\caption{ Values for the log loss function.}
+\label{figure-logLossValues}
+oc\end{center}
+\end{figure}
+
+As we can see, the function is much more negative for small values near zero than it is positive for large values near one. This means that it penalizes strongly on wrong predictions, for samples where the algorithm has a strong confidence that won't be of the positive class. Another advantage is that the function is concave in the parameters. This means that the optimization procedure will always, if converged, stop at a global optima.
+
+Finally, the closed form given by the logistic regression model has the benefit that explicit forms can be given for the gradient and the Hessian of the loss function with regard to the whole dataset $X$ as a sum involving individual samples $x$.
+
+The negative gradient can be expressed in the following way: %can thus be analytically expressed
+
+\begin{equation}\label{eq:logitHessian}
 - \nabla l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))\cdot x_i = \textbf{X}^{\intercal}(\textbf{y}-\textbf{p})
 \end{equation}
 
 whilst the Hessian takes the following form:
 
-\begin{equation}
+\begin{equation}\label{eq:logitHessian}
 \frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
 \end{equation}
 
-From the derivations above, we can now firt $\theta$ using an optimization procedure that would take advantage of having the closed-form representations of the first and second derivatives of the maximum likellihood function.
+From the derivations above, we can now fit $\theta$ using an optimization procedure that would take advantage of having the closed-form representations of the first and second derivatives of the loss function.
 
 
 \section{Model Regularization and Hyper-parameters}\label{section-hyperParametersRegularization}
@@ -367,7 +395,9 @@ Regularization of models is the process in which restrictions and conditions are
 
 \end{definition}
 
-Regularization is widely used in problems which are ill-posed either because the model is biased or overfit. In general, restrictions are subject to reduce the number of predictors used in the model. This \textit{shrinkage} of parameters can be forced by penalizing large values for $\theta$ either by the number of non-null components of this parameter or by measuring its distance to zero. By so doing, we hope that only the most relevant features are selected in the model. As we will see in \cref{section-VcDimension}, a shorter model has the benefit of being more accurate in the estimation of the prediction error. In other cases, the benefit of a reduced model is that the variance of the model is reduced, only with a slight increase in bias. A slightly more \textit{heuristic} argument for model parsimony is that as such, all models will approximate nature up to a certain level; and if two models have the same predictive power, the simpler model should be used.
+Regularization is widely used in problems which are ill-posed either because the model has very different performance in the training vs the test set's performance. In general, restrictions are added to the model in order to reduce the number of predictors used.
+
+This \textit{shrinkage} of parameters can be forced by penalizing large values for $\theta$ either by the number of non-null components of this parameter or by measuring its distance to zero. By doing so, we hope that only the most relevant features are selected in the final model. As we will see in \cref{section-VcDimension}, a shorter model has the benefit of being more accurate in the estimation of the prediction error. In other cases, the benefit of a reduction in the number of features is that the overall variance of the predictions are reduced, only with a slight increase in error. A slightly more \textit{heuristic} argument for model parsimony is that as such, all models will approximate nature up to a certain level; and if two models have the same predictive power, the simpler model should be used.
 
 
 There is a number of different functionals $R(\cdot)$ used to impose conditions on the model. The most common ones include introducing a penalty to the size of $\theta$ by measuring a given norm $\| \theta \|$. Most implementations of the algorithms use $l1$ and $l2$ norms.
@@ -376,9 +406,8 @@ Each has its advantages and the details exceed the nature of this work. As a sum
 
 \todo{correct this part and add example with/without regularization}
 
-and taking a weighted average of two different penalizations. T
 
-Even though some regularization methods have closed-form solutions, in practice most of them are found by iterative optimization routines such as gradient descent.
+in practice, most optimal solutions $\theta*$ are fit from loss functions with iterative optimizations. This is done even when some models with regularization have closed-form solutions. By far the most widely practiced routin is gradient descent.
 
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
 
@@ -400,6 +429,40 @@ The following example shows the logistic regression's model loss function with a
 The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the minimization function and $P$ is the number of features used in the model. Note that in an abuse of notation, the functional takes the form $R(f) = \lambda { \| \theta \|_{2}}^2$ where the model is identified by its $\theta$ parameter.
 
 In this work, we will be only considering model regularization with lasso, ridge, or elastic-net.
+
+As an example we show here how regularization affects an instance of a Logistic Classifier over the  \cref{def:problems} \cref{itm:target1}.
+
+
+\todo{add regularization figure for logloss}
+
+%\begin{figure}[h!]
+%\begin{center}
+%\includegraphics[width=0.7\columnwidth]{figures/regularization/figure-figure-log_los_error_validation_curve.png}
+%\caption{ Validation curve comparing log loss for different values of the $C$ regularization parameter. }
+%\label{fig:log_loss_regularization_validation_curve}
+%\end{center}
+%\end{figure}
+
+In this simple case we used all of the features from $\mathrm{T}$ and we generated multiple models $f(x,\cdot)$. We defined
+$$C = \frac{1}{\lambda}$$
+and built models for different values of $C$. Each resulting model's error was measured for the $\mathrm{T}$ and $\mathrm{Ts}$ sets seprately and graphed in \cref{fig:log_loss_regularization_validation_curve}. As we can see from this graph, there is a clear tendency to have
+Then we compared the losses of each model $f(\cdot,C)$
+
+
+As a second option, we did the same as before but using a different loss function called the ``area under the receiver operating characteristic curve''. We will expand on this scoring function later in \cref{section:scoring_functions}. This function will have higher values for better classifiers and with this, the following graphic confirms the idea that having a regularized model means having better performance across training and testing sets. The tendency shows that the smaller the value of $C$, the bette the model performance.
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{figures/regularization/figure-roc_auc_error_validation_curve.png}
+\caption{ Validation curve comparing ROC AUC loss for different values of the $C$ regularization parameter. }
+\label{fig:log_loss_regularization_validation_curve}
+\end{center}
+\end{figure}
+
+
+\subsection{HyperParameters}
+
+
 
 Note that in the model built from equation \cref{logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure. Notably $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are deemed to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical model. Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.
 
