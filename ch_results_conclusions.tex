@@ -8,7 +8,7 @@
 \chapter{Summary of Results and Conclusion}\label{cha:results_conclusion}
 
 
-\todo{redo chapter. Use this to only present a combined overview of results. }
+\todo{redo chapter. Use this to only present a combined overview of results and Conclusion at teh end }
 
 
 % \subsection{Supervised Algorithms}
@@ -156,5 +156,46 @@ a user being endemic in $T_1$ is very correlated to being endemic in $T_0$, and 
 %|   1    |    0    | 3525 |
 %+--------------+-----------------+-------+
 %'f1\_score': 0.5244840145690004, ''accuracy': 0.3554580,, 'precision': 1.0, 'recall': 0.35545803,
+
+
+
+\section{Conclusions}\label{section:conclusions}
+
+The heatmaps shown in Section~\cref{cha:evaluation-results} expose a `temperature' descent from the core regions outwards. The heat is concentrated in the ecoregion and gradually descends as we move further away. This expected behavior could be explained by the fact that calls are in general of a local nature and limited to 3 or 4 main antennas used per user.
+
+A more surprising fact is the finding of communities atypical to their neighboring region. They stand out for their strong communication ties with the studied region, showing significantly higher links of vulnerable communication. The detection of these antennas through the visualizations is of great value to health campaign managers. Tools that target specific areas help to prioritize resources and calls to action more effectively.
+
+In Section~\cref{long_term}, we tackled the problem of predicting long-term migrations. In particular, we showed that it is possible to use the mobile phone records of users during a bounded period (of 5 months) in order to predict whether they have lived in the endemic zone $E_Z$ in a previous time frame (of 19 months).
+The very good results obtained demonstrate that CDRs are particularly well suited for this task.
+
+To conclude, the results presented in this work show that it is possible to explore CDRs as a mean to tag human mobility. Combining social and geolocated information, the data at hand has been given an innovative use, different from its original billing purpose.
+
+Epidemic counter-measures nowadays include setting national surveillance systems, vector-centered policy interventions and individual screenings of people. These measures require costly infrastructures to set up and be run. However, systems built on top of existing mobile networks would demand lower costs, taking advantage of the already available infrastructure. The potential value these results could add to health research is hereby exposed.
+Finally, the results stand as a proof of concept which can be extended to other countries or to diseases with similar characteristics.
+
+
+
+\subsection{Lines for Future Work}
+
+The mobility and social information extracted from CDRs analysis has been shown to be of practical use for Chagas disease research. Helping to make data driven decisions which in turn is key to support epidemiological policy interventions in the region. For the purpose of continuing this line of work, the following is a list of possible extensions being considered:
+
+\begin{description}
+    \item [Results validation.] Compare against actual serology or disease prevalence surveys. Data collected from fieldwork could be fed to the algorithm in order to supervise the learning.
+
+    \item [Differentiating rural antennas from urban ones.] This is important as rural areas have conditions which are more vulnerable to the disease expansion. \textit{Trypanosoma cruzi} transmission is favored by rural housing materials and domestic animals contribute to complete the parasite's lifecycle. Antennas could be automatically tagged as rural by analyzing the differences between the spatial distribution of the antennas in each area. A similar goal could be to identify precarious settlements within urban areas, with the help of census data sources.
+
+    \item [Seasonal migration analysis.] Experts from the \textit{Mundo Sano} Foundation underlined that many seasonal migrations occur in the \textit{Gran Chaco} region.
+    Workers might leave the endemic area for several months possibly introducing the parasite to foreign populations.
+    The analysis of these movements can give information on which communities have a high influx of people from the endemic zone.
+    %\item Add more regions to the analysis.
+
+    \item [Search for epidemiological data at a finer grain.] For instance, specific historical infection cases. Splitting the endemic region according to the infection rate in different areas, or considering particular infections.
+    \item Feature exploration to search for correlations with being infected.
+    %\item (FALTA RESCRIBIR) Apply best fit model to Argentinian dataset. Provide that info to a Chagas risk model. Assuming that a high influx of individuals from epidemic regions is correlated with a higher risk in that area the algorithm could highlight these points. % revisar
+\end{description}
+
+
+
+
 
 
