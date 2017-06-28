@@ -30,12 +30,12 @@
     * [DONE] gradient boosting sobre los mejores features de random forest.
 
 ## Meeting 28/06
-    * Juntar Cap. 6 y 7.
+    * [DONE] Juntar Cap. 6 y 7.
     * Agregar un poco de redundancia a las definiciones de los problemas.
     * Decir que los problemas los vamos a retomar en elcap 4 y 5 bla bla para resolver ciertas cosas.
     * Tener 5 Problems en vez de problems con items.
     * Figura 4.2.1 agregar la grafica de CV de decision trees y referenciar al futuro.
-    * Meter mas figures.
+    * Meter mas figures overall.
 
 ## Meeting 21/06
     * [DONE] meter TODOs tags with command to make them appear in red to have it visualized on the pdf.

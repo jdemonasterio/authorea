@@ -7,6 +7,7 @@
 \chapter{Machine Learning}
 \label{ch:machineLearning}
 
+\todo{meter mas figures overall.}
 
 \section{Preamble}\label{section-preamble}
 Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}. Some fundamental concepts and material were also used from\label{scikit-learn}. While other texts were also used, it is not necessary that we point them out here as they have been correctly cited. Where not specified, the reader can assume that the proof is based from said texts.
@@ -47,6 +48,9 @@ We process the raw data to build our target variable which will be determined as
 With these definitions, the list of problems considered in this work are defined in the following way:
 
 
+\todo{Agregar un poco mas de redundancia en la definicion de los problemas con respecto a definiciones que ya conocemos.}
+
+\todo{Tener una lista de 5 objetos Problems en vez de un problem con listas adentro.}
 
 \begin{problems}
 
@@ -102,6 +106,7 @@ With these definitions, the list of problems considered in this work are defined
 	\end{enumerate}
 \end{problems}
 
+\todo{Avisar que vamos a retomar sobre estos problemas en los capitulos X, Y, Z, etc.}
 
 Note that not all problems can be represented by the same dataset. Problems might have different limitations on what is available as our input variable $X$. For example, in \cref{itm:target1} we have no limitations to know $H_u$ at $E_{Z1}$. This means we might as well use it as a feature for the model. On the contrary, using this same feature in \cref{itm:target1} would be a problem since we are implicitly introducing the target variable as an attribute. Thus appropriate care must be taken for each case on which attributes are available for the problem being analyzed.
 
