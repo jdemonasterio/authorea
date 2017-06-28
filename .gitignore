@@ -1,0 +1,9 @@
+*.synctex.gz
+*.bcf
+*.idx
+*.blg
+*.DS_Store
+*.ipynb_checkpoints
+.*bbl
+*.xml
+*.toc
