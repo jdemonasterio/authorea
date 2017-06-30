@@ -52,59 +52,57 @@ With these definitions, the list of problems considered in this work are defined
 
 \todo{Tener una lista de 5 objetos Problems en vez de un problem con listas adentro.}
 
-\begin{problems}
-
-	\begin{enumerate}\label{def:problems}
-		\item We want to infer which users lived in the endemic region in the past:
-		\label{itm:target1}
+\begin{problem}\label{target1}
+We want to infer which users lived in the endemic region in the past:
 		\begin{align*}
-			Y_u =
-			\begin{cases}
-				&1 \ \mbox{if} \ H_u \in E_{Z0} \\
-				&0 \ \mbox{if not}.
-			\end{cases}
+		Y_u =
+		\begin{cases}
+		&1 \ \mbox{if} \ H_u \in E_{Z0} \\
+		&0 \ \mbox{if not}.
+		\end{cases}
 		\end{align*}
-
-		\item We want to infer which users lived in $E_Z$ in the past and then migrated:\label{itm:target2}
-		\begin{align*}
-			Y_u =
-			\begin{cases}
-				&1 \ \mbox{if} \ H_u \in E_{Z0} \cap { E_{Z1} }^{\complement}  \\
-				&0 \ \mbox{if not}.
-			\end{cases}
-		\end{align*}
+\end{problem}
 
 
-		\item Users that migrated to a different region: \label{itm:target3}
-		\begin{align*}
+
+\begin{problem}\label{target2}
+We want to infer which users lived in $E_Z$ in the past and then migrated:\label{itm:target2}
+	\begin{align*}
+				Y_u =
+				\begin{cases}
+					&1 \ \mbox{if} \ H_u \in E_{Z0} \cap { E_{Z1} }^{\complement}  \\
+					&0 \ \mbox{if not}.
+				\end{cases}
+			\end{align*}
+\end{problem}
+
+
+
+\begin{problem}\label{target3}
+Users that migrated to a different region
+\begin{align*}
 			Y_u =
 			\begin{cases}
 				&1 \ \mbox{if} \ H_u \in (E_{Z0} \cap { E_{Z1} }^{\complement}) \cup (E_{Z1} \cap { E_{Z0} }^{\complement}) \\
 				&0 \ \mbox{if not}.
 			\end{cases}
 		\end{align*}
+\end{problem}
 
-		\item Users that are currently not endemic and migrated. This means only analyzing those users where $H_u \in { E_{Z1} }^{\complement}$: \label{itm:target4}
-		\begin{align*}
-			Y_u =
-			\begin{cases}
-				&1 \ \mbox{if} \ {H_u \in  E_{Z0} } \\
-				&0 \ \mbox{if not}.
-			\end{cases}
-		\end{align*}
 
-		\item \textbf{Bonus.} As an extra problem and for exemplary reasons, we considered tried to detect if a user has a high mobile footpring $M_u$, as defined in \cref{section:def_mobility_diameter}.
-		Users that are currently not endemic and migrated. This means only analyzing those users where $H_u \in { E_{Z1} }^{\complement}$: \label{itm:target5}
-		\begin{align*}
-			Y_u =
-			\begin{cases}
-				&1 \ \mbox{if} \ {M_u >  1000 } \\
-				&0 \ \mbox{if not}.
-			\end{cases}
-		\end{align*}
+\begin{problem}\label{target4}
+As a \textbf{bonus} problem and for exemplary reasons, we considered tried to detect if a user has a high mobile footpring $M_u$, as defined in \cref{section:def_mobility_diameter}.
 
-	\end{enumerate}
-\end{problems}
+	\begin{align*}
+		Y_u =
+		\begin{cases}
+			&1 \ \mbox{if} \ {M_u >  1000 } \\
+			&0 \ \mbox{if not}.
+		\end{cases}
+	\end{align*}
+	
+\end{problem}
+
 
 \todo{Avisar que vamos a retomar sobre estos problemas en los capitulos X, Y, Z, etc.}
 
