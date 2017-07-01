@@ -50,7 +50,9 @@
     * Cap 1. : Tiene que ser algo introductorio y que sea un extended abstract. Intro de la tesis. Que se hace.
         Porque sirve. Intro de chagas, el marco teorico, marco del proyecto, hablar CDRs y diseaseas (epidemiology), Machine Learning. Intro to _rest of thesis_: "En el Cap2 hacemos esto, en el 3 tal otra,
         en el 4".
+        - ejemplo de intro: https://www.iro.umontreal.ca/~lecuyer/myftp/papers/pagerank.pdf
         - Menos copy-pasteo y mas integrado con la tesis actual.
+        - dar resumen de lo que serian los "out of scopes" en la intro.
     * Chagas/epidemiologia en su propio capitulo (o en la intro ) y con comentarios sobre lo que hicieron otros. (trabajos recientes).
         - agregar referencia al paper de ASONAM donde presentamos parte de los resultados. (deMonasterio2016)
 
