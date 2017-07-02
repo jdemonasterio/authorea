@@ -50,8 +50,6 @@ With these definitions, the list of problems considered in this work are defined
 
 \todo{Agregar un poco mas de redundancia en la definicion de los problemas con respecto a definiciones que ya conocemos.}
 
-\todo{Tener una lista de 5 objetos Problems en vez de un problem con listas adentro.}
-
 \begin{problem}\label{target1}
 We want to infer which users lived in the endemic region in the past:
 		\begin{align*}
@@ -63,7 +61,15 @@ We want to infer which users lived in the endemic region in the past:
 		\end{align*}
 \end{problem}
 
+With this definition and the description of the features extracted from the data in \cref{cha:descr-risk}, it is important to observe that we are using the information of a user's endemicity $E_{Z1}$ to predict $E_{Z0}$.
+And it wouldn't be of much surprise to know that these two variables are indeed highly correlated with a value of 93\%. This means that, overall, the feature is a good predictor of the target variable causing algorithms to be heavily weighted towards this attribute. A simple enough algorithm would use this single feature as sole predictor.
 
+To prevent this from happening and to try and capture the change in endemicity for a small groups of users, we decided then to hide the feature when solving \cref{target1}.
+
+% Other features, such as the number of calls to endemic regions, are correlated to the target variable. This is an expected behavior since most people use cellphones for local calls only. Yet these correlations are not as high as with the $E_{Z1}$ variable. Also, given the assumptions used in
+
+% However we have not excluded any other features
+% are locally  an and given the assumptions used maps in \cref{}, this is a result which
 
 \begin{problem}\label{target2}
 We want to infer which users lived in $E_Z$ in the past and then migrated:\label{itm:target2}
@@ -76,10 +82,14 @@ We want to infer which users lived in $E_Z$ in the past and then migrated:\label
 			\end{align*}
 \end{problem}
 
+In this task, we have not excluded any attributes from the data since this is a much difficult problem.
+Recall from \cref{tab:changes} that we have at most 23 thousand users that satisfy this condition from more than a million users. This volume unbalance in the target class proves to be a much harder problem to solve than in \cref{target1} since these users become harder to find.
+
+% This is because we could use a dumb predictor to always output the value of the bigger class. With this, the error over the small class would be dominated if not correctly taken into account.
 
 
 \begin{problem}\label{target3}
-Users that migrated to a different region
+Users that migrated to a different region.
 \begin{align*}
 			Y_u =
 			\begin{cases}
@@ -89,8 +99,24 @@ Users that migrated to a different region
 		\end{align*}
 \end{problem}
 
+This task has a similar difficulty as in the previous one. Yet there are more users satisfying this condition.
+The difference relies in that cross-migrations are not as important to our study as migrations directly from the endemic region.
 
 \begin{problem}\label{target4}
+Users that migrated from the endemic region, but only those which are currently not endemic.
+\begin{align*}
+			Y_u =
+			\begin{cases}
+				&1 \ \mbox{if} \ H_u \in (E_{Z0} \cap { E_{Z1} }^{\complement}) \forall u s.t. H_u \in E_{Z1}^{\complement}    \\
+				&0 \ \mbox{if not}.
+			\end{cases}
+		\end{align*}
+\end{problem}
+
+Note that at this point we are looking at a reduced instance of our CDRs. That is, we are only considering currently non-endemic users other than the whole sample population. Still, we are taking more than a million users in this dataset.
+
+
+\begin{problem}\label{target5}
 As a \textbf{bonus} problem and for exemplary reasons, we considered tried to detect if a user has a high mobile footpring $M_u$, as defined in \cref{section:def_mobility_diameter}.
 
 	\begin{align*}
@@ -100,15 +126,16 @@ As a \textbf{bonus} problem and for exemplary reasons, we considered tried to de
 			&0 \ \mbox{if not}.
 		\end{cases}
 	\end{align*}
-	
+
 \end{problem}
 
 
-\todo{Avisar que vamos a retomar sobre estos problemas en los capitulos X, Y, Z, etc.}
+We can see from what was mentioned before that not all problems can be represented by the same dataset.
+The limitations on what is available as our input set $X$ attributes or samples. For example, we said that in \cref{itm:target1} we have no limitations to use that $H_u$ at $E_{Z1}$, yet we decide to ignore this highly correlated feature. As a result, we  would be implicitly introducing the target variable as an attribute.
+With this in mind, appropriate care must be taken for each case on which attributes are available for the problem being analyzed.
 
-Note that not all problems can be represented by the same dataset. Problems might have different limitations on what is available as our input variable $X$. For example, in \cref{itm:target1} we have no limitations to know $H_u$ at $E_{Z1}$. This means we might as well use it as a feature for the model. On the contrary, using this same feature in \cref{itm:target1} would be a problem since we are implicitly introducing the target variable as an attribute. Thus appropriate care must be taken for each case on which attributes are available for the problem being analyzed.
 
-With the target variables already set in \cref{def:problems}, we tackle the predictions as a supervised classification problem.
+With \cref{target1,target2,target3,target4,target5}, we continue onto define and illustrate techniques for supervised classification. Throughout \cref{cha:modelSelection,cha:ensembleMethods,cha:results_conclusion} we will come back to these problems by applying them with the techniques and methods we discuss.
 
 
 \section{A working example of a Machine Learning setup}\label{section-example}
