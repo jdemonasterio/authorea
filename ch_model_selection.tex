@@ -31,7 +31,7 @@ This is the error between our model transformation and the target labels, as qua
 
 \end{definition}
 
-Our interest is now in minimizing this error for all possible values. We would like to quantify the expected error over all random occurences of $\textbf{X}$ and $\textbf{Y}$. This is known as the generalization error and is very related to the prediction error as it is its expectation.
+Our interest is now in minimizing this error for all possible values. We would like to quantify the expected error over all random occurrences of $\textbf{X}$ and $\textbf{Y}$. This is known as the generalization error and is very related to the prediction error as it is its expectation.
 
 \begin{definition}{Generalization Error:}
 \begin{equation}
@@ -190,7 +190,7 @@ L(Y, \hat{f}(X)) = I(Y \neq \hat{f}(X))
 %$$.
 % In multi-class supervised problem setting,
 
-With the definitoin above, the systematic and variance values then become
+With the definition above, the systematic and variance values then become
 \begin{equation}
 	\begin{split}
 	SY = & \argmax_{1\leq i \leq K} P(Y=i) \\
@@ -222,7 +222,7 @@ EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right] =
 Given that we can have a high or low variance and bias, there are only four possible performances of any model. Our objective will then be to work out the data and the model to reach a state of low bias and variance. Different states of bias and variance require strategies to make a better model.
 
 For example, a very common scenario is having a model that has a high overall variance and low bias.
-It is said in theliterature that when this situation is combined with a model which gives a good performance on the $mathrm{T}$ whilst having a poor performance on $mathrm{Ts}$, then the model \textit{overfits} the data. This can happen for various reasons and is mostly related to overly-complex models or having insufficient data to train, which leads to model well trained only for $mathrm{T}$.
+It is said in the literature that when this situation is combined with a model which gives a good performance on the $mathrm{T}$ whilst having a poor performance on $mathrm{Ts}$, then the model \textit{overfits} the data. This can happen for various reasons and is mostly related to overly-complex models or having insufficient data to train, which leads to model well trained only for $mathrm{T}$.
 
 Overfit models will fail to generalize on new data since the variance structure of the training set is such that the number of training samples is not enough to lower the overall variance of this model.
 
@@ -255,7 +255,7 @@ Overfit models will fail to generalize on new data since the variance structure 
 \end{figure}
 
 
-In \cref{figure-biasVariance}, the authors fit a regression model on data to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is becose during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
+In \cref{figure-biasVariance}, the authors fit a regression model on data to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is because during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
 
 \todo{do this with own data if possible? (can't overfit with logReg yet. Which is the only technique introduced up to this point.)}
 
@@ -269,7 +269,7 @@ In this situation, a rough heuristic to select the best model is to stop increas
 %\textcite{vapnik-nature2013}
 %\textcite{cherkassky-learning2007}
 
-In Vapnik and Chervonenkis' work, the focus is on the estimation of the prediction error through the convergence and consistency of the training error. The authores derive the VC dimension as an important value in determining convergence speeds for different machine learning algorithms. In this way, a theoretical framework is provided to effectively characterize these dimensions in a constructive way. By the derived analytic bounds for a number of algorithms, we are enabled to estimate the distance between the empirical error and the generalization error.
+In Vapnik and Chervonenkis' work, the focus is on the estimation of the prediction error through the convergence and consistency of the training error. The authors derive the VC dimension as an important value in determining convergence speeds for different machine learning algorithms. In this way, a theoretical framework is provided to effectively characterize these dimensions in a constructive way. By the derived analytic bounds for a number of algorithms, we are enabled to estimate the distance between the empirical error and the generalization error.
 
 The Vapnik-Chervonenkis (VC) Dimension is a number based on a theoretical framework now called \textit{Statistical Learning Theory} (SLT). SLT is used to estimate the true expected prediction error from finite samples. Surprisingly, very few assumptions are needed and the results are distribution independent. In addition, exact bounds are given for some common use cases with constructive analytical methods. For other cases, authors propose sampling or experimental methods to estimate the VC dimension.
 
@@ -434,7 +434,7 @@ The objective of Cross Validation is to systematically explore the different con
 
 This technique is considered one of the most widespread to evaluate the generalization performance of a set of learners. Given a number of possible configurations or values for the tuning (hyper) parameters of an algorithm, we would want to decide which selection of these fit the best estimator, as measured by the generalization error.
 
-In terms of the concepts introduced before, the quality of an estimated model $\hat{f}$ from a family of algorithms is evaluted in the Cross Validation procedure. Where quality refers to the rate of generalization error.
+In terms of the concepts introduced before, the quality of an estimated model $\hat{f}$ from a family of algorithms is evaluated in the Cross Validation procedure. Where quality refers to the rate of generalization error.
 
 In most cases data is generally scarce. At the same time prediction error estimates are based on asymptotic or analytical results which hardly computable in practice Thus CV intends to prevent over-fitting by iteratively holding out a random part of the dataset and by measuring the predictive accuracy of the learner fit of data \textit{in-sample} against new values from the \textit{hold-out} part of the dataset. The accuracy measure here is weighted by the loss function, which must be selected beforehand.
 
