@@ -445,6 +445,7 @@ In practical applications though, use of estimates might be limited to the deter
 
 
 \section{Cross Validation}\label{section:crossValidation}
+
  There are a number of approximating functions or algorithms to be used in classification problems and each of these have different configurations or setups that, when fitted, produce different learners. The differences between the configurations are controlled by the \textit{parameters} of the algorithm. The nature of each parameter might stem from computation or statistical variants in the algorithm used. One common example of this is the $\lambda$ penalization parameter in logistic regressions, where $\lambda$ controls the amount of weight to be placed on the regularization term of the minimized function.
 
 The objective of Cross Validation is to systematically explore the different configurations of tuning parameters and decide which learner is better for the task at hand. By comparing the estimated generalization error of each model, where models vary accordingly with the values of the tuning parameters, a value is given and then used to select the \textit{best} model in the class.
@@ -461,7 +462,7 @@ In this procedure, a partition of the samples is called a \textit{fold}. CV then
 
 Cross validation intends to estimate the expected \textit{out-of-sample} error $\Expect \left[ L(Y, \hat{f}(X)) \right]$, when the model is tested against \textbf{independent} samples from the true distribution. For this reason, it is fundamental to ensure independence of the training set and the test set. Any transformations that must be done on the input data that jointly use the input and output samples in the process must be done and \textit{learned} only on the training set. This is because we mustn't introduce information from our test set in the estimator as the model should never \textit{see} the test data until we use it to evaluate our learner.
 
-\textbf{Tuning-parameters (hyper-parameters) Selection}:
+\subsection{Selection of tuning-parameters (hyper-parameters) }\label{subsection:selection_hyper_params}
 
  Let $\mathcal{A} = [\alpha_0, \alpha_1,\ldots, \alpha_l  ]$ be a list of hyperparameter settings and $\mathcal{K} =[1,..,K]$ a list of folds. A full K-Fold Cross Validation procedure takes the following form.
 
@@ -469,23 +470,25 @@ Cross validation intends to estimate the expected \textit{out-of-sample} error $
  \SetAlgoLined\KwResult{Data table mapping error scores $CV(\alpha) \ \forall \alpha$}
  Initialize $\mathcal{A}$ and $\gamma(\cdot)$\;
  \For{ $\alpha \in \mathcal{A}$}{
- \eIf{data transformation}{
+ \If{data transformation}{
  Perform data transformation on the whole training set \;
- }{
- continue\;
- }
+									 }
  \For{ $k \in \mathcal{K}$}{
+ 	 \If{feature selection}{
+ 	 	Perform feature selection on the $\textrm(T)^{-k}$ \;
+ 	 }
  fit $\hat{f}^{-k}(\cdot, \alpha)$\;
- }
-
+										}
  compute $CV(\alpha) = \frac{1}{N} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
- }
+												}
  \caption{K-Fold Cross Validation Estimation Procedure}
  \end{algorithm}
 
-Note that during the loop, each sample's prediction was tested on the model which was fitted without using that sample.
+Note that during the loop for $\alpha$, each sample's prediction is tested on the model which was fitted without using that sample same sample. 
+This is central to the idea of cross-validation in which training samples are used \textit{as if} they were testing samples. 
+For this reason, samples that are not used to train the model are called validation samples. 
 
-From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \cref{section-VcDimension}, importance is also given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. In practice however, a class of approximating functions might have a defined complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
+From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \cref{section-VcDimension}, importance should also be given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. In practice however, a class of approximating functions might have a defined complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
 
 \todo{show with/without CV and different results with logreg for some of the problems}
 
