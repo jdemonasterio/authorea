@@ -400,13 +400,13 @@ Finally, the closed form given by the logistic regression model has the benefit 
 
 The negative gradient can be expressed in the following way: %can thus be analytically expressed
 
-\begin{equation}\label{eq:logitHessian}
+\begin{equation}\label{eq:logitHessian1}
 - \nabla l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))\cdot x_i = \textbf{X}^{\intercal}(\textbf{y}-\textbf{p})
 \end{equation}
 
 whilst the Hessian takes the following form:
 
-\begin{equation}\label{eq:logitHessian}
+\begin{equation}\label{eq:logitHessian2}
 \frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
 \end{equation}
 
