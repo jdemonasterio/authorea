@@ -244,25 +244,42 @@ Overfit models will fail to generalize on new data since the variance structure 
 %rise Typical combinations
 %The four possible combinations of high
 
-\todo{reemplazar esta figure con los resultados de nuestra corrida con un Decision Tree, haciendo referencia a la tecnica que se introduce en el futuro.}
-
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/figure-biasVariance}
-\caption{\label{figure-biasVariance} Figure borrowed from \protect\textcite{hastie-elemstatslearn} P. 220. Curves are measures of the estimated prediction error for the different degrees of freedom in the model (number of features). Blue curves correspond to the training error and red curves are for the test error. The bold curves are calculated by averaging over all the colored curves.%
+\caption{ Figure borrowed from \protect\textcite{hastie-elemstatslearn} P. 220. Curves are measures of the estimated prediction error for the different degrees of freedom in the model (number of features). Blue curves correspond to the training error and red curves are for the test error. The bold curves are calculated by averaging over all the colored curves.%
 }
+\label{figure:biasVariance}
 \end{center}
 \end{figure}
 
 
-In \cref{figure-biasVariance}, the authors fit a regression model on data to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is because during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
+In \cref{figure-biasVariance}, the authors fit a model to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is because during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
 
-\todo{do this with own data if possible? (can't overfit with logReg yet. Which is the only technique introduced up to this point.)}
+As a similar example, we reproduce the previous behavior on our own dataset.
+Consider \cref{target2} which has a high imbalance between the positive and negative target classes.
+With a Decision Tree classifier, we try to produce a model which overfits $\mathrm{T}$. This model can increase complexity by considering the depth of the tree. Where higher depth means more complex models\footnote{A detailed explanation of this technique can be found later in \cref{section:decision_trees}. }.
+To score the model, we take a monotonically increasing scoring function where
+higher values mean better scores.
+With this, the different model errors produces the following figure. Where the test and training errors are given as a function of the tree\'s depth:
 
-At first the bias of the model is high both for the training and testing sets, and as a consequence, we would expect to have a high generalization error. Then the overall error decreases as complexity increases. This behavior is expected because the model learns to better fit the data to give a better model output. We have that the expected prediction error, estimated by averaging over the test set' prediction error's, also decreases when the model's complexity is increased. However, when the model starts to overfit the data, the test error starts to rise whilst the train error keeps decreasing. This situation is important to our prediction error estimation cause it hinders that the model has lost predictive power due to an increase in variance.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
+\caption{
+}
+\label{figure:dtree_overfit_problem_2}
+\end{center}
+\end{figure}
 
-In this situation, a rough heuristic to select the best model is to stop increasing the model's complexity once the $EPE$ stops decreasing.
-%% EZECORRECTION: Destacar esto en la grafica anterior y explicar mas.
+
+At first the bias of the model is high both for the training and testing sets, and as a consequence, we would expect to have a high generalization error. Then the overall error decreases as complexity increases. This behavior is expected because the model learns to better fit the data to give a better model output. We have that the expected prediction error, estimated by averaging over the test set' prediction error's, also decreases when the model's complexity is increased. However, when the model starts to overfit the data, the test error starts to rise whilst the train error keeps decreasing. This situation is important to our prediction error estimation cause it hints that the model has lost predictive power due to an increase in variance.
+
+In these situations, the author\'s of \cref{figure:biasVariance} argument that a rough heuristic to select the best model is to stop increasing the model's complexity once the $EPE$ stops decreasing. That is, when the scoring error of the test set stops decreasing along with the training error. In \cref{figure:dtree_overfit_problem_2} this would be when $Max Depth = 10$.
+
+For the examples exposed, we see that we are only finding the best model by searching only on one hyperparameter. In practice, the models will have more parameters to tune. This makes finding the lowest prediction error difficult.
+Still, we might settle for near-optimal models which have an acceptable error score. The following section introduces the assumptions to consider the test error as a good approximation of the generalization error. It also gives a formal argument in favor of finding models whose scores are not optimal for that dataset.
+
 
 \section{ Using the Vapnik-Chervonenkis (VC) Dimension for prediction error estimation}\label{section-VcDimension}
 
