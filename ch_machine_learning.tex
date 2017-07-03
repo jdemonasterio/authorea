@@ -378,11 +378,11 @@ In Machine Learning this is called the log loss function. It is used as a metric
 The loss function of a model $l: \mathbb{R}^{ p} \rightarrow  \mathbb{R} $ maps the model's parameters a quantification of a model's error when using parameter $\theta$.
 \end{definition}
 
-The loss functions defines the underlying optimization procedure behind the Machine Learning problem. From this function we will output the optimum $\theta*$ as the $\argmin_{\theta} l(\theta) $. Thus we say that loss functions or scoring functions give us a way to find the best parameters for our model.
+The loss function will define the underlying optimization procedure behind the Machine Learning problem. From this function we will output the optimum $\theta*$ as the $\argmin_{\theta} l(\theta) $. Thus we say that loss or scoring functions give us a way to find the best parameters for our model.
 
 Note however, that the optimum parameter will be dependent on the choice of the algorithm used to construct the model. That is, we have selected the optimum $\theta$ for a Logistic Classifier with input data $X$. Other algorithms can be used for the same task, and these will have their own parameters and scores.
 
-In our derivation the loss function was constructed from the assumptions proposed at the start. However, we could in fact build \textit{any} type of algorithm which given an input $x_i$ and a parametrization of the model $\theta$, outputs a value $P(y_i \mid x_i,\theta)$. And we could in fact compare the performance of that model to the one built by a Logistic Regression Classifier by using the same log loss function for both. Thus we have introduced a way of determining how to select a model from the data.
+In our derivation, the scoring function was constructed from the assumptions proposed at the start. However, we could in fact build \textit{any} type of algorithm which given an input $x_i$ and a parametrization of the model $\theta$, outputs a value $P(y_i \mid x_i,\theta)$. And we could in fact compare the performance of that model to the one built by a Logistic Regression Classifier by using the same log loss function for both. Thus we have introduced a way of determining how to select a model from the data.
 
 In the case of \cref{eq:logLossFunction} we have that it is a concave, monotone increasing function. The \cref{figure-logLossValues} expands on the values of this function:
 
@@ -418,7 +418,7 @@ From the derivations above, we can now fit $\theta$ using an optimization proced
 
 \begin{definition}{Model Regularization}
 
-Regularization of models is the process in which restrictions and conditions are imposed on the model's function $f$ through a functional $ R(f)$. The regularization term is used in the optimization procedure through the loss function.
+Regularization of models is the process in which restrictions and conditions are imposed on the model's function $f$ through a functional $ R(f)$. The regularization term is used in the optimization procedure through the scoring function.
 
 \end{definition}
 
@@ -433,7 +433,7 @@ Each has its advantages and the details exceed the nature of this work. As a sum
 
 
 In practice, optimal solutions $\theta*$ are searched by iterative optimizations on loss functions.
-For some specific algorithms though, closed-form solutions can be used, even with regularized loss functions.
+For some specific algorithms though, closed-form solutions can be used, even with regularized scoring functions.
 However for the former case, gradient descent is by far the most widely practiced routine.
 
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
@@ -475,7 +475,7 @@ $$C = \frac{1}{\lambda}$$
 
 Each model was built from a specific $C$ in  $[10^{-5},10^5]$  and the model's negative log loss error was measured for the $\mathrm{T}$ and $\mathrm{Ts}$ sets separately. These errors are graphed in \cref{fig:log_loss_regularization_validation_curve} as line curves over the $C$ value.
 
-As we can see, there is a clear tendency to have better performance across smaller values of $C$ which is equivalent to having stronger regularization of the loss function. Note that the negative log loss will have higher values for better classifiers. Thus as a simple case and with no other manipulation of the data, we find that a regularized model helps in having a better performance across the test and train sets error.
+As we can see, there is a clear tendency to have better performance across smaller values of $C$ which is equivalent to having stronger regularization of the scoring function. Note that the negative log loss will have higher values for better classifiers. Thus as a simple case and with no other manipulation of the data, we find that a regularized model helps in having a better performance across the test and train sets error.
 
 
 
@@ -495,12 +495,12 @@ On the other hand, in a Bayesian context the definition of hyper-parameter is di
 
 \section{Chapter Summary}\label{section-ch_machine_learning_summary}
 
-As we know, a learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$. The first idea led to finding the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we now have a problem of $p$ degrees of freedom, we are left to find or fit the parameter by optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is preferable than another. For example the choice of $0.5$ as a threshold in \cref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning, loss functions give a quantitative measure of a parameter's performance.
+As we know, a learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$. The first idea led to finding the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we now have a problem of $p$ degrees of freedom, we are left to find or fit the parameter by optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is preferable than another. For example the choice of $0.5$ as a threshold in \cref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning, loss functions give a quantitative measure of a parameter's performance. In the context of binary classification, these are also known as scoring functions.
 %the criteria used to choose the best parameters
 
-Historically, a loss function used to find the parameters would be to minimize the residual sum of squares. 
-We define it as is defined as $$L(z,w) = \left\Vert z-w \right\Vert^2_2$$. 
-This function was favored over other functions because it is more analytically tractable. 
+Historically, a loss function used to find the parameters would be to minimize the residual sum of squares.
+We define it as is defined as $$L(z,w) = \left\Vert z-w \right\Vert^2_2$$.
+This function was favored over other functions because it is more analytically tractable.
 
 In the context of linear regression with Gaussian residuals, minimizing the residual sum of squares is equal to maximizing the likelihood probability of the target, given the input data. This results in minimizing the following sum (RSS):
 %Typical of other scenarios such as linear regression, one would like
@@ -510,5 +510,5 @@ RSS(\theta_0,..,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
 = \sum_{i=1}^n  {[y_i - h( \theta \cdot x_i)] }^2
 \end{equation}
 
-The equation reflects our goal to correctly match a training sample with their targets (also known as labels). Nonetheless, we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones from the true distribution of the data. 
+The equation reflects our goal to correctly match a training sample with their targets (also known as labels). Nonetheless, we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones from the true distribution of the data.
 This generalization concept is lacking in the preceding equation. We'll see why it is a bad attempt to generalize the classification model constructed from the data. The idea is that because its built to fit the actual dataset which is a sample of the population. And we wouldn't expect it to perform well with any other given sample of the \textit{true} distribution for $\mathrm{T}$.
