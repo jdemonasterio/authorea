@@ -266,7 +266,7 @@ With this, the different model errors produces the following figure. Where the t
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
-\caption{
+\caption{ Training and cross-validated score averages along the change in max tree depth.
 }
 \label{figure:dtree_overfit_problem_2}
 \end{center}
@@ -491,8 +491,23 @@ For this reason, samples that are not used to train the model are called validat
 From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \cref{section-VcDimension}, importance should also be given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. In practice however, a class of approximating functions might have a defined complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
 
 
-As an example, we consider here a cross validation procedure done on a logistic regression model. The hyperparameter to search is the $C = \frac{1}{\lambda}$. Recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, where a smaller value in $C$ meant a stronger regularization. We perform this experiment and consider the difference in errors for $$
-In figure
+As an example, we consider here a cross validation procedure done on a logistic regression model. The hyperparameter to search is the $C = \frac{1}{\lambda}$. Recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, where a smaller value in $C$ meant a stronger regularization. We perform this experiment and consider the difference in scores between  $\mathcal{T}$ and $\mathcal{T_s}$ along each value. It is important to note that all test scores were performed on models built only from $\mathcal{T}$.
+
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{figures/cross_validation/train_and_cv_score_comparison_logreg.jpg}
+\caption{ CV score averages with standard deviation bands vs the test set score along the change in $C$.}
+\label{fig:cv_vs_test_score}
+\end{center}
+\end{figure}
+
+In \cref{fig:cv_vs_test_score} the x-axis graphed on the $C$ parameter has been draw with a log scale.
+The score used is the log loss function and a twelve fold cross validation has been done.
+It is interesting to see that for low $C$ values, the test and CV scores are very similar. This is probably due to the fact that being on a log scale, this regularaization dominates the optimization routine.
+However, at some point near $\exp^{-4}$, the lines separate strongly, though continuing their direction of descent.
+It can be seen, that the test score is barely in the one standard deviation band of the average CV score. And this difference continuis stable for bigger values.
+From this image we can see how different the CV and test scores are.
 
 \subsection{Choice of \texorpdfstring{$K$ parameter}{Lg} }
 
