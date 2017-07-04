@@ -9,7 +9,7 @@
 Given that in supervised learning settings, the goal is to build a learner with low predictive error, the algorithm's generalization power will then lie on its ability to correctly label new samples which wasn't used in the training phase. Measuring and comparing this ability among models is needed to select the best supervised estimator.
 % of independent test data from $\mathrm{T_s}$
 
-For now, let us assume that $f: X \rightarrow Y$ is a function which interacts the true existent relationship in the data: $Y = f(X) + \epsilon$. In this mapping from feature to target space we also assume $\epsilon$ to be the noise, with $0$ mean and fixed $\sigma^2$ variance i.e.\ $\epsilon \sim \calN(0,1) $. Then the equation in \cref{eq:rss} can be read as an approximation of the expected prediction error given the training set $\mathrm{T}$.
+For now, let us assume that $f: X \rightarrow Y$ is a function which interacts the true existent relationship in the data: $Y = f(X) + \epsilon$. In this mapping from feature to target space we also assume $\epsilon$ to be the noise, with $0$ mean and fixed $\sigma^2$ variance i.e.\ $\epsilon \sim \calN(0,1) $. Then the equation in \cref{eq:rss} can be read as an approximation of the expected prediction error given the training set $\mathcal{T}$.
 
 
 \begin{definition}{Prediction Error:}
@@ -40,12 +40,12 @@ Err = \Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f(X)) \right]
 \end{definition}
 
 Given that any model is always built on a dataset, we are required to estimate the generalization error using only the model's error over the data.
-% $\mathrm{Ts}$:
+% $\mathcal{T_s}$:
 
 
 \begin{equation}
-	Err_{\mathrm{T}} = \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) | \mathrm{T}\right] \\
-	= \int_{\mathrm{T}} {(y - h(x \cdot \theta) )}^2 P(x,y)dxdy
+	Err_{\mathcal{T}} = \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X)) | \mathcal{T}\right] \\
+	= \int_{\mathcal{T}} {(y - h(x \cdot \theta) )}^2 P(x,y)dxdy
 \end{equation}
 
 	%\begin{equation}
@@ -56,18 +56,18 @@ Given that any model is always built on a dataset, we are required to estimate t
 Note that in this definition the expectation is taken conditional on the training set and also from which the model is built.
 
 %\begin{equation}
-% PE = \Expect_{X,Y} \left[ L(Y,\hat{f}(X))\right] = \Expect \left[ Err_{\mathrm{T}} \right]
+% PE = \Expect_{X,Y} \left[ L(Y,\hat{f}(X))\right] = \Expect \left[ Err_{\mathcal{T}} \right]
 % \end{equation}.
 
 In practice we have finite access to samples, so we have to estimate the generalization error. As such, we will have data to build or \textit{train} our model. From this reduced sample we will extract a training error to determine how well the model is performing. This will be our approximated prediction error through the
 \begin{definition}{Training Error:}
 	is the average loss over the sample prediction errors:
-	$$ \overline{err}_{\mathrm{T}} = \frac{1}{N} \sum_{i=1}^N L(y_i, \hat{f}(x_i) )$$
+	$$ \overline{err}_{\mathcal{T}} = \frac{1}{N} \sum_{i=1}^N L(y_i, \hat{f}(x_i) )$$
 \end{definition}\label{def:trainingError}
 
 Let \textbf{x} $\in \mathbb{R}^{p}$ denote a random input variable and \textbf{y} $\in \mathbb{R}$ denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
 
-We will then turn to evaluate models according to their performance errors on $\mathrm{T}$ and $\mathrm{Ts}$ Combinations of high or low values for these, across training and test data, are used as model evaluation and highlight aspects to be improved.
+We will then turn to evaluate models according to their performance errors on $\mathcal{T}$ and $\mathcal{T_s}$ Combinations of high or low values for these, across training and test data, are used as model evaluation and highlight aspects to be improved.
 
 \section{Bias, Variance and Systematic Values}\label{subsection-biasVariance}	If we look closer at the generalization error in our specific case of the squared loss function with
 
@@ -91,7 +91,7 @@ PE( \hat{f} ) = & {\Expect_X \left[  f(X) - \hat{f}(X) \right]}^2 + \Expect_X \l
 
 Equation \cref{squaredBiasDecomposition} is hereby designated as the \textit{bias-variance decomposition for the squared loss}. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how this random variable varies along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. Note that we have already taken the expectation over the target and that is why we are left with the target's noise. This part of the error we cannot minimize or control with our learner. It is due to the random nature of the problem.
 
-Note that integration here is done over the joint distribution of inputs and outputs. As we've mentioned before, we have incomplete information on $P(x,y)$ given the finite data $ \mathrm{T}$.
+Note that integration here is done over the joint distribution of inputs and outputs. As we've mentioned before, we have incomplete information on $P(x,y)$ given the finite data $ \mathcal{T}$.
 We must assume then that calculating this integral is not possible for any $\theta$ and must rely on estimation procedures.
 
 For example, we could try and sample $M$ i.i.d.\ points from $P(x,y)$ to approximate the integral by a Monte Carlo scheme such as
@@ -107,7 +107,7 @@ Historically the errors due to bias and variance where associated directly with 
 For this, we use a simple series approximation
 
 \begin{equation}
-Err_{train}(\theta) \approx  \Expect_{ \mathrm{T}}[{(y - h(x \cdot \theta) )}^2]
+Err_{train}(\theta) \approx  \Expect_{ \mathcal{T}}[{(y - h(x \cdot \theta) )}^2]
 \end{equation}
 
 %, and can be decomposed into two types of errors
@@ -120,7 +120,7 @@ Conceptually the bias error represents the model's accuracy in labeling predicti
 
 The bias is lower when models correctly learn the underlying structures of the data. However, as bias decreases, the model complexity increases and more data is needed to train it correctly because the model becomes very fit to the training set i.e.\ it loses the ability to extend this predictive accuracy to new samples because they it learns too much from the available samples only. In this situation, we have another type of error which is known as an increase in variance.
 
-In the generalization error, the loss function determines how \textit{good} the model's prediction are by quantifying these errors. Given a training set $\mathrm{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on this data.
+In the generalization error, the loss function determines how \textit{good} the model's prediction are by quantifying these errors. Given a training set $\mathcal{T} = (X,Y)$, let $\hat{f}(X)$ be the model's predictive function for the features and denote $L( Y,\hat{f(X)} )$ the loss function acting on this data.
 
 By comparing for each sample the target predictions versus their actual values, loss functions give a measure of how strong classifiers are with respect to their predictions. These can be described as semi metrics on the target space i.e.\ functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
 
@@ -130,7 +130,7 @@ We can extend the notion of bias and variance to loss functions more general tha
 
 
 \begin{definition}{Systematic Value:}
-Given a training set $\mathrm{T}$, a loss function $L(\cdot)$ and a random variable $Z$, the systematic value or systematic component of this variable is
+Given a training set $\mathcal{T}$, a loss function $L(\cdot)$ and a random variable $Z$, the systematic value or systematic component of this variable is
 $$ SZ =  \argmin_u \Expect_{Z} \left[ L(u,Z) \right]$$
 \end{definition}
 
@@ -258,7 +258,7 @@ In \cref{figure-biasVariance}, the authors fit a model to illustrate the interac
 
 As a similar example, we reproduce the previous behavior on our own dataset.
 Consider \cref{target2} which has a high imbalance between the positive and negative target classes.
-With a Decision Tree classifier, we try to produce a model which overfits $\mathrm{T}$. This model can increase complexity by considering the depth of the tree. Where higher depth means more complex models\footnote{A detailed explanation of this technique can be found later in \cref{section:decision_trees}. }.
+With a Decision Tree classifier, we try to produce a model which overfits $\mathcal{T}$. This model can increase complexity by considering the depth of the tree. Where higher depth means more complex models\footnote{A detailed explanation of this technique can be found later in \cref{section:decision_trees}. }.
 To score the model, we take a monotonically increasing scoring function where
 higher values mean better scores.
 With this, the different model errors produces the following figure. Where the test and training errors are given as a function of the tree\'s depth:
@@ -292,7 +292,7 @@ The Vapnik-Chervonenkis (VC) Dimension is a number based on a theoretical framew
 
 For this part, most of the results and reasoning follows the works in \textcite{cherkassky-learning2007}. For a more broad development of this work, \textcite{vapnik-nature2013} is recommended too. Here we present a brief comment on the consistency of the training error with respect to the prediction error and give example bounds for classification learners. In a supervised learning context, we use the empirical training ($\overline{err}$) or test errors ($\overline{err}_{test}$) to estimate the $EPE$.
 
-Let $\mathrm{T} = (\textbf{X},\textbf{Y})$ be a training set of $n$ samples, $Y = \{0,1 \}$ and let $\mathcal {F} = \big \{ f(x,\theta) \mid x \in X, \theta \in \Theta \big \}$ be a class of classifiers where $f_\theta: X \rightarrow Y \, \forall f \in \mathcal {F}$. This is a class of functions with domain over the input dataset $X$ and which are indexed by a parameter $theta$. This parameter will represent the index over the functions in $F$ and it will vary over all possible models attainable by our algorithm.
+Let $\mathcal{T} = (\textbf{X},\textbf{Y})$ be a training set of $n$ samples, $Y = \{0,1 \}$ and let $\mathcal {F} = \big \{ f(x,\theta) \mid x \in X, \theta \in \Theta \big \}$ be a class of classifiers where $f_\theta: X \rightarrow Y \, \forall f \in \mathcal {F}$. This is a class of functions with domain over the input dataset $X$ and which are indexed by a parameter $theta$. This parameter will represent the index over the functions in $F$ and it will vary over all possible models attainable by our algorithm.
 
 As an example, in logistic regression, $theta$ can be indexed by the values of each feature's weights $x^p$. The class $F$ will then represent the set of all possible functions from which to select the final model.
 %In applications, a learner is fit from a class of functions.
@@ -484,13 +484,15 @@ Cross validation intends to estimate the expected \textit{out-of-sample} error $
  \caption{K-Fold Cross Validation Estimation Procedure}
  \end{algorithm}
 
-Note that during the loop for $\alpha$, each sample's prediction is tested on the model which was fitted without using that sample same sample. 
-This is central to the idea of cross-validation in which training samples are used \textit{as if} they were testing samples. 
-For this reason, samples that are not used to train the model are called validation samples. 
+Note that during the loop for $\alpha$, each sample's prediction is tested on the model which was fitted without using that sample same sample.
+This is central to the idea of cross-validation in which training samples are used \textit{as if} they were testing samples.
+For this reason, samples that are not used to train the model are called validation samples.
 
 From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \cref{section-VcDimension}, importance should also be given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. In practice however, a class of approximating functions might have a defined complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
 
-\todo{show with/without CV and different results with logreg for some of the problems}
+
+As an example, we consider here a cross validation procedure done on a logistic regression model. The hyperparameter to search is the $C = \frac{1}{\lambda}$. Recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, where a smaller value in $C$ meant a stronger regularization. We perform this experiment and consider the difference in errors for $$
+In figure
 
 \subsection{Choice of \texorpdfstring{$K$ parameter}{Lg} }
 

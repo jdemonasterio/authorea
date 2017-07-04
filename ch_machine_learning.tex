@@ -137,7 +137,7 @@ With \cref{target1,target2,target3,target4,target5}, we continue onto define and
 
 \section{A working example of a Machine Learning setup}\label{section-example}
 
-From now on we will be talking of the training set and the test set, noted by $\mathrm{T}$  and $\mathrm{Ts}$ as our two data sources. The test set will be a part of the whole dataset that will only used at the end of the algorithmic process. This set will not take part in building the machine learning model and will be used only to evaluate its performance. This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathrm{Ts}$, based on having seen information of objects from $\mathrm{T}$.
+From now on we will be talking of the training set and the test set, noted by $\mathcal{T}$  and $\mathcal{T_s}$ as our two data sources. The test set will be a part of the whole dataset that will only used at the end of the algorithmic process. This set will not take part in building the machine learning model and will be used only to evaluate its performance. This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathcal{T_s}$, based on having seen information of objects from $\mathcal{T}$.
 
 As an example, let's consider a reduced training dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of the following provinces: \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}.
 %\url{http://stackoverflow.com/}
@@ -159,9 +159,9 @@ EA23AD & 12 & 43 & 5 & 154 & \textit{Buenos Aires} \\
 \end{tabular}
 \end{table}
 
-In this form a row is representing the available data acquired from each user and the columns represent the features which are the different types of measurements or information on that user. In general, most machine learning problems will be associated with a training set $\mathrm{T}$ of similar form as the one shown before. And it is common to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
+In this form a row is representing the available data acquired from each user and the columns represent the features which are the different types of measurements or information on that user. In general, most machine learning problems will be associated with a training set $\mathcal{T}$ of similar form as the one shown before. And it is common to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
 
-Both $\mathrm{T}$ and $\mathrm{Ts}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$ and $Y \in \mathbb{R}^n $. The difference will lie in the way each set is used to computationally build a probabilistic model. In essence the former is used to algorithmically create a function which maps inputs to outputs,  whilst the latter will be used to measure how \textit{well} this mapping would behave in real situations, given a way of measuring this performance.
+Both $\mathcal{T}$ and $\mathcal{T_s}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$ and $Y \in \mathbb{R}^n $. The difference will lie in the way each set is used to computationally build a probabilistic model. In essence the former is used to algorithmically create a function which maps inputs to outputs,  whilst the latter will be used to measure how \textit{well} this mapping would behave in real situations, given a way of measuring this performance.
 
 More specifically, the $jth$ column of $X$ or equivalently the $jth$ feature of the dataset is denoted by $X^j$. In a similar way, the $ith$ row or sample of $X$ is denoted by $X_i$ or $x$ when it is clear from context or when we are referring to a generic sample. A similar notation is used with the outputs, where $Y_i$ or $y$ will be used to denote the target of a specific sample depending on context.
 
@@ -438,7 +438,7 @@ However for the former case, gradient descent is by far the most widely practice
 
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
 
-\begin{equation}\label{logitRegularization}
+\begin{equation}\label{eq:logitRegularization}
 \begin{split}
 \min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + \log(1 + e^{\theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
 \min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + \log(1 + e^{\theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
@@ -470,10 +470,10 @@ As an example we show here how regularization affects an instance of a Logistic 
 \end{center}
 \end{figure}
 
-For the case  showed in \cref{fig:log_loss_regularization_validation_curve}, we used all of the features from $\mathrm{T}$ and we generated multiple models $f(x,C)$ where we defined
+For the case  showed in \cref{fig:log_loss_regularization_validation_curve}, we used all of the features from $\mathcal{T}$ and we generated multiple models $f(x,C)$ where we defined
 $$C = \frac{1}{\lambda}$$
 
-Each model was built from a specific $C$ in  $[10^{-5},10^5]$  and the model's negative log loss error was measured for the $\mathrm{T}$ and $\mathrm{Ts}$ sets separately. These errors are graphed in \cref{fig:log_loss_regularization_validation_curve} as line curves over the $C$ value.
+Each model was built from a specific $C$ in  $[10^{-5},10^5]$  and the model's negative log loss error was measured for the $\mathcal{T}$ and $\mathcal{T_s}$ sets separately. These errors are graphed in \cref{fig:log_loss_regularization_validation_curve} as line curves over the $C$ value.
 
 As we can see, there is a clear tendency to have better performance across smaller values of $C$ which is equivalent to having stronger regularization of the scoring function. Note that the negative log loss will have higher values for better classifiers. Thus as a simple case and with no other manipulation of the data, we find that a regularized model helps in having a better performance across the test and train sets error.
 
@@ -483,7 +483,7 @@ As we can see, there is a clear tendency to have better performance across small
 
 
 
-Note that in the model built from equation \cref{logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure. Notably $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are deemed to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical construction. Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.
+Note that in the model built from equation \cref{eq:logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure. Notably $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are deemed to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical construction. Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.
 
 The hyper-parameters are the values set to configure the different possible variants in the loss function and in the model's training phase. They are values that directly affect the estimated fit $f_{\hat{\theta}}$ but are not the $\theta$ parameter themselves. They need to be instantiated before training the learner and as such, they can't be learned from the dataset.
 
@@ -511,4 +511,4 @@ RSS(\theta_0,..,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
 \end{equation}
 
 The equation reflects our goal to correctly match a training sample with their targets (also known as labels). Nonetheless, we are interested in having a generalized model, one which can make a \textit{good} prediction on any sample, even new ones from the true distribution of the data.
-This generalization concept is lacking in the preceding equation. We'll see why it is a bad attempt to generalize the classification model constructed from the data. The idea is that because its built to fit the actual dataset which is a sample of the population. And we wouldn't expect it to perform well with any other given sample of the \textit{true} distribution for $\mathrm{T}$.
+This generalization concept is lacking in the preceding equation. We'll see why it is a bad attempt to generalize the classification model constructed from the data. The idea is that because its built to fit the actual dataset which is a sample of the population. And we wouldn't expect it to perform well with any other given sample of the \textit{true} distribution for $\mathcal{T}$.
