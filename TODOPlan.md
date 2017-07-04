@@ -31,10 +31,10 @@
 
 ## Meeting 28/06
     * [DONE] Juntar Cap. 6 y 7.
-    * Agregar un poco de redundancia a las definiciones de los problemas.
-    * Decir que los problemas los vamos a retomar en elcap 4 y 5 bla bla para resolver ciertas cosas.
-    * Tener 5 Problems en vez de problems con items.
-    * Figura 4.2.1 agregar la grafica de CV de decision trees y referenciar al futuro.
+    * [DONE] Agregar un poco de redundancia a las definiciones de los problemas.
+    * [DONE] Decir que los problemas los vamos a retomar en elcap 4 y 5 bla bla para resolver ciertas cosas.
+    * [DONE] Tener 5 Problems en vez de problems con items.
+    * [DONE] Figura 4.2.1 agregar la grafica de CV de decision trees y referenciar al futuro.
     * Meter mas figures overall.
 
 ## Meeting 21/06
@@ -68,7 +68,7 @@
     * Pedidos de entrega: links de netmob dengue.
 
 ## Revision 17/02
-    * Show an instance of overfitting the data with a decision Tree (with depth).
+    * [DONE] Show an instance of overfitting the data with a decision Tree (with depth).
     * [DONE]Focalizarse solamente en los que actualmente no viven en la zona endemica y comparar resultados entre distintos metodos y configuracion de parametros. e.g. regularizar el problema vs. sin regularizar el problema y comparar.
     * Mostrar ejemplos concretos de _porque_ es importante lo que se cuenta teoricamente.
     * iterar con la gente del DM las correcciones. (Patu, Mathieu).
