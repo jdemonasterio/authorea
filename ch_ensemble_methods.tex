@@ -180,13 +180,31 @@ There are various methods we could use to find the optimal subtree. As an exampl
 
 Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added.~\textcite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees built for this. This sequence is constructed by iteratively pruning the node $j$ that, when removed from the tree, creates the smallest increase in $B(T)$.
 
-\todo{show concrete example of tree on a Problem of ours.}
+\todo{fix the decision tree image and give some info about this run, best features , impurity,,etc}
+
+
+\begin{figure*}[tb]
+\centering
+ \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map.png}}
+\caption{ Example of a decision tree which has been pruned to fit the image. This was made on a CV procedure for \cref{target3}.}
+\label{fig:decision_tree_actual_problem}
+\end{figure*}
+
+
+% \begin{landscape}%[ht!]
+% %\begin{center}
+% % \includegraphics[width=0.7\columnwidth]{}
+% \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{figures/decision_tree/full_tree_map.png}
+% \caption{ Example of a decision tree which has been pruned to fit the image. This was made on a CV procedure for \cref{target3}.}
+% \label{fig:decision_tree_actual_problem}
+% %\end{center}
+% \end{landscape}
+
 
 In this way, we'll have a sequence of trees $T_0,T_1,\ldots,T_l$ and a sequence of nodes $j_0, j_1,\ldots,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),\ldots,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
 For a more complete explanation of a decision tree for classification or regression problems, please refer to~\textcite{breiman-cart84}.
 
-\textit{}
 
 \subsection{ Random Forests: Formulation }
 
