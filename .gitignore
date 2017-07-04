@@ -1,9 +1,14 @@
+**.aux
+**.gz
+**.log
+**.pid
+**.xml
+**.pdf
+**.bcf
 *.synctex.gz
-*.bcf
 *.idx
 *.blg
 *.DS_Store
 *.ipynb_checkpoints
 .*bbl
-*.xml
 *.toc
