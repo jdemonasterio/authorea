@@ -5,7 +5,7 @@
 
 The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features. Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$ i.e.\ there are more attributes than samples in the data.
 
-It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthermore, the algorithm has linear complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{larger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as techniques using gradient descent or other similar iterative optimizators.
+It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthermore, the algorithm has linear complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{larger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as techniques using gradient descent or other similar iterative optimization routines.
 
 Let $x = (x_1,\ldots,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. We take $p(C_k \mid x)$ to be the class posterior probability of this class given the sample.
 
@@ -41,13 +41,13 @@ P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
 
 where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
 
-In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparamters and the best one can be selected with our CV procedure.
+In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparameters and the best one can be selected with our CV procedure.
 %Indeed,
 
 
 Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability $P(C_k' \mid x)$.
 
-\section{Classifier: Decision Trees}
+\section{Classifier: Decision Trees}\label{section:decision_trees}
 
 %view of this supervised learner used in regression and classification problems.
 
@@ -109,7 +109,7 @@ To illustrate this method, an instance is show in figure \cref{fg:rf-treeFigure}
 
 %[.{\textit{M}} ] [.{\textit{F}} ]
 
-The most used metrics to build each rule are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the two resulting sets. Where it values the accuracy of the model if all samples were to be tagged with the most common target-label in that split. The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Liebler divergence} of the resulting sets with respect to the original set previous to the split.
+The most used metrics to build each rule are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the two resulting sets. Where it values the accuracy of the model if all samples were to be tagged with the most common target-label in that split. The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Leibler divergence} of the resulting sets with respect to the original set previous to the split.
 
 In decision trees, the process of iteratively partitioning the samples in splits continues until a predefined tuning parameter limit will stop the optimization or when there is only a single target class for all samples at the node.
 
@@ -387,7 +387,7 @@ The depth of growth for each tree is another important tuning parameter. We must
 The algorithm also benefits from a heuristic to measure variable importance.
 A special modification in the way forests are built allows this to happen.
 
-The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it. Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the improvement in the split performance, as measured by some pre-selected criteria, with and without $X_j$. These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature. The features with highest scores can be thought to be the most informative variables of the model.
+The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it. Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the improvement in the split performance, as measured by some preselected criteria, with and without $X_j$. These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature. The features with highest scores can be thought to be the most informative variables of the model.
 
  \todo{show feature importances for 1 problem}
 

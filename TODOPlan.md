@@ -10,7 +10,7 @@
 
 ## Machine Learning Chapter
     * fix logistic regression part:
-    * add example of why it's important to do logReg regularization
+    * [DONE] add example of why it's important to do logReg regularization
     * add graphic example of a real decision tree (with nodes, etc.)
             for a minor problem in our dataset.
     * [Half Done] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
@@ -19,14 +19,6 @@
 
 ## Results Chapter
     Agregar cuadro de doble entrada comparando los resultados con distintas metricas y algunos graficos mas comparativos.
-
-## Revision 17/02
-    * Show an instance of overfitting the data with a decision Tree (with depth).
-    * [DONE]Focalizarse solamente en los que actualmente no viven en la zona endemica y comparar resultados entre distintos metodos y configuracion de parametros. e.g. regularizar el problema vs. sin regularizar el problema y comparar.
-    * Mostrar ejemplos concretos de _porque_ es importante lo que se cuenta teoricamente.
-    * iterar con la gente del DM las correcciones. (Patu, Mathieu).
-    * [DONE] Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors. Or with highly correlated features.
-    * [DONE] show an instance of overfitting the data comparing the learning curve of training vs CV set (tried with different params of sklearn's      logReg classifier and still can't find a clear case of overfitting).
 
 ### Dar instancias de:
     * [DONE] logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
@@ -37,21 +29,31 @@
     * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
     * [DONE] gradient boosting sobre los mejores features de random forest.
 
+## Meeting 28/06
+    * [DONE] Juntar Cap. 6 y 7.
+    * Agregar un poco de redundancia a las definiciones de los problemas.
+    * Decir que los problemas los vamos a retomar en elcap 4 y 5 bla bla para resolver ciertas cosas.
+    * Tener 5 Problems en vez de problems con items.
+    * Figura 4.2.1 agregar la grafica de CV de decision trees y referenciar al futuro.
+    * Meter mas figures overall.
+
 ## Meeting 21/06
     * [DONE] meter TODOs tags with command to make them appear in red to have it visualized on the pdf.
-    * Cap. machine learning: Arrancar con cuales son los problemas/hipotesis a testear. Definirlos antes de hablar de  Machine Learning y despues de data description.
-    * borrar defincion formal de overfit.
+    * [DONE] Cap. machine learning: Arrancar con cuales son los problemas/hipotesis a testear. Definirlos antes de hablar de  Machine Learning y despues de data description.
+    * [DONE] borrar defincion formal de overfit.
 
 ## Meeting 12/06
     * Paginas en blanco, borrar, reordenar.
-    * Bad \cref s pointing to sections other than equations. (ask pedrof)
+    * [DONE] Bad \cref s pointing to sections other than equations. (ask pedrof) (Problem was with correctly running biber and bitex.)
     * [Done] Falta abstract en ingles & spanish. (no pasar una carilla). Se extiende una carilla pero por el titulo del asbtract que ocupa media pagina. Habria que arreglar.
     * [Done] Titulo en ingles & spanish.
     * Cap 1. : Tiene que ser algo introductorio y que sea un extended abstract. Intro de la tesis. Que se hace.
         Porque sirve. Intro de chagas, el marco teorico, marco del proyecto, hablar CDRs y diseaseas (epidemiology), Machine Learning. Intro to _rest of thesis_: "En el Cap2 hacemos esto, en el 3 tal otra,
         en el 4".
+        - ejemplo de intro: https://www.iro.umontreal.ca/~lecuyer/myftp/papers/pagerank.pdf
         - Menos copy-pasteo y mas integrado con la tesis actual.
-    * Chagas/epidemiologia en su propio capitulo y con comentarios sobre lo que hicieron otros. (trabajos recientes).
+        - dar resumen de lo que serian los "out of scopes" en la intro.
+    * Chagas/epidemiologia en su propio capitulo (o en la intro ) y con comentarios sobre lo que hicieron otros. (trabajos recientes).
         - agregar referencia al paper de ASONAM donde presentamos parte de los resultados. (deMonasterio2016)
 
     * [Half Done] Parte de Machine Learning grande vs. el resto. Refactor para integrar evaluacion c/ tecnicas en estos siguientes capitulos:
@@ -60,9 +62,18 @@
         - Tree techniques.
 
     La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
+
     * Conclusiones: results summaries, para ir comparando las distintas tecnicas.
         - Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
     * Pedidos de entrega: links de netmob dengue.
+
+## Revision 17/02
+    * Show an instance of overfitting the data with a decision Tree (with depth).
+    * [DONE]Focalizarse solamente en los que actualmente no viven en la zona endemica y comparar resultados entre distintos metodos y configuracion de parametros. e.g. regularizar el problema vs. sin regularizar el problema y comparar.
+    * Mostrar ejemplos concretos de _porque_ es importante lo que se cuenta teoricamente.
+    * iterar con la gente del DM las correcciones. (Patu, Mathieu).
+    * [DONE] Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors. Or with highly correlated features.
+    * [DONE] show an instance of overfitting the data comparing the learning curve of training vs CV set (tried with different params of sklearn's      logReg classifier and still can't find a clear case of overfitting).
 
 # Maybe TODOs:
     ## Problem / Data Description Chapter

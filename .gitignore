@@ -5,4 +5,10 @@
 **.xml
 **.pdf
 **.bcf
-**.aux
+*.synctex.gz
+*.idx
+*.blg
+*.DS_Store
+*.ipynb_checkpoints
+.*bbl
+*.toc

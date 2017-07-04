@@ -60,13 +60,13 @@ Although a lot of information is available in the CDR datasets, there may be lim
 % Visualizar (agrego alfa, min_volume y zoom en regiones)
 
 
-\section{ Risk Maps}\label{methods}
+\section{ Risk Maps}\label{section:risk_maps}
 
 In this section we describe how the Chagas disease risk maps were built for the in Argentina and in Mexico and we give an overview of their uses. As an overview, the risk maps hypothesize on the possibility of locating specific communities of higher disease prevalence outside of the endemic regions. They are based on the assumption that the stronger communication tie there is from the community to the endemic region, the higher the risk chances.
 
 To do this, the maps built display a geographical map with all of the Telco's antennas situated on the map. And for each of the antennas, a circle is be drawn on it that represents, graphically, the volume of usage of that antenna and the vulnerability of its users. We will expand on this last concept later by analyzing this variable importance in the detection of long-term migrations.
 
-\subsection{Home Detection}
+\subsection{Home Detection}\label{subsection:home_detection}
 
 The first step to build the risk maps determines the antenna in which each user lives. The antenna's neighborhood will define his area of influence and with this, his risk condition associated with being inside or outside the epidemic region.
 
@@ -207,7 +207,7 @@ This data exploration allowed us to specifically detect outlying communities in 
 
 \subsection{Risk Maps for Mexico}
 
-With the data provided by the CDRs and the endemic region defined in \cref{endemic_zone_mexico}, heatmaps were generated for Mexico using the methods described in \cref{methods}. The first generated visualizations are depicted in \cref{fig:mapas_mexico},
+With the data provided by the CDRs and the endemic region defined in \cref{endemic_zone_mexico}, heatmaps were generated for Mexico using the methods described in \cref{subsection:home_detection}. The first generated visualizations are depicted in \cref{fig:mapas_mexico},
 which includes a map of the country of Mexico, and a zoom-in on the South region of the country.
 We used $m_v = 80$ inhabitants per antenna, and a high filtering value $\beta = 0.50$, which
 means that in all the antennas shown in \cref{fig:mapas_mexico},
@@ -300,7 +300,7 @@ We register the mobility diameter of each user, as the diameter in kilometers of
 
 
 
-\subsection{Graph data and communications.}
+\subsection{Graph data and communications.}\label{section:def_graph_data}
 
 We look at the social graph $\calG_C$ built from the CDRs, and the communications between nodes in $\calN_C$.
 
@@ -355,7 +355,7 @@ ands count each user's amount of neighbors in the communication graph, as well a
 
 %Additionally, for each user, we extract the total
 
-\subsection{Antenna Distribution}
+\subsection{Antenna Distribution}\label{subsection:antenna_distribution}
 
 As explained, the training data belongs to period $T_1$, from August 2015 to December 2015;
 whereas the ground truth that we use to validate the predictions belongs to $T_0$, from January 2014 to August 2015. Raw data logs contain between 11 million and 30 million calls per day and the volume of calls increases over the months, where most recent months have higher rates.
@@ -400,7 +400,7 @@ Note that during this work we considered only postpaid users, i.e., users which 
 % Data was manipulated to build a ??
 
 
-\subsubsection{ User Migrations} % {Ground Truth.}
+\subsection{ User Migrations}\label{subsection:user_migrations} % {Ground Truth.}
 
 We performed an analysis similar to the home antenna detection previously described in \cref{endemic_zone_mexico},
 but considering the time period $T_0$ (from January 2014 to July 2015),

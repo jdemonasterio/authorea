@@ -31,7 +31,7 @@ This is the error between our model transformation and the target labels, as qua
 
 \end{definition}
 
-Our interest is now in minimizing this error for all possible values. We would like to quantify the expected error over all random occurences of $\textbf{X}$ and $\textbf{Y}$. This is known as the generalization error and is very related to the prediction error as it is its expectation.
+Our interest is now in minimizing this error for all possible values. We would like to quantify the expected error over all random occurrences of $\textbf{X}$ and $\textbf{Y}$. This is known as the generalization error and is very related to the prediction error as it is its expectation.
 
 \begin{definition}{Generalization Error:}
 \begin{equation}
@@ -190,7 +190,7 @@ L(Y, \hat{f}(X)) = I(Y \neq \hat{f}(X))
 %$$.
 % In multi-class supervised problem setting,
 
-With the definitoin above, the systematic and variance values then become
+With the definition above, the systematic and variance values then become
 \begin{equation}
 	\begin{split}
 	SY = & \argmax_{1\leq i \leq K} P(Y=i) \\
@@ -221,18 +221,23 @@ EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right] =
 
 Given that we can have a high or low variance and bias, there are only four possible performances of any model. Our objective will then be to work out the data and the model to reach a state of low bias and variance. Different states of bias and variance require strategies to make a better model.
 
-For example, a very common scenario is having a model that has a high overall variance and low bias. \textcite{dworkFeldman-adaptiveDataAnalysis2015} defines that a learner overfits a training set $\mathcal{T}$ if it fits parameter $\hat{\theta}$ while there $\exists \theta^*$ and $\epsilon > 0 $ such that
+For example, a very common scenario is having a model that has a high overall variance and low bias.
+It is said in the literature that when this situation is combined with a model which gives a good performance on the $mathrm{T}$ whilst having a poor performance on $mathrm{Ts}$, then the model \textit{overfits} the data. This can happen for various reasons and is mostly related to overly-complex models or having insufficient data to train, which leads to model well trained only for $mathrm{T}$.
 
-\begin{equation}
-Error_{train}(\hat{\theta}) < Error_{train}(\theta^*) \ and \ Error(\theta^*) + \epsilon < Error(\hat{\theta})
-%\sum_{i=0}^{\infty} a_i x^i
-\end{equation}\label{eq:overfitting}
+Overfit models will fail to generalize on new data since the variance structure of the training set is such that the number of training samples is not enough to lower the overall variance of this model.
+
+ % The result of this setting will be a learnier that works very accurately on the train set only and with poor overall performance on new samples.
+
 
 %% EZECORRECTION: citar la definicion de overfitting.  Pero entonces todos los modelos estan overfiteados? (tomar la union de train y test?)
 %% nota, se hace dificil encontrar una definicion formal online.
+%% charles y alejo quedaron en dejarlo sin definicion, sino como ejemplos.
 
-This means that the variance structure of the training set is such that the number of training samples is not enough to lower the overall variance of this model. The result of this setting will be a learnier that works very accurately on the train set only and with poor overall performance on new samples.
-
+% This scenario is commonly known as ov \textcite{dworkFeldman-adaptiveDataAnalysis2015} defines that a learner overfits a training set $\mathcal{T}$ if it fits parameter $\hat{\theta}$ while there $\exists \theta^*$ and $\epsilon > 0 $ such that
+% \begin{equation}
+% Error_{train}(\hat{\theta}) < Error_{train}(\theta^*) \ and \ Error(\theta^*) + \epsilon < Error(\hat{\theta})
+% %\sum_{i=0}^{\infty} a_i x^i
+% \end{equation}\label{eq:overfitting}
 
 %A trivial algorithm that would
 %An opposite scenario scenario occurs when
@@ -242,26 +247,46 @@ This means that the variance structure of the training set is such that the numb
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/figure-biasVariance}
-\caption{\label{figure-biasVariance} Figure borrowed from \protect\textcite{hastie-elemstatslearn} P. 220. Curves are measures of the estimated prediction error for the different degrees of freedom in the model (number of features). Blue curves correspond to the training error and red curves are for the test error. The bold curves are calculated by averaging over all the colored curves.%
+\caption{ Figure borrowed from \protect\textcite{hastie-elemstatslearn} P. 220. Curves are measures of the estimated prediction error for the different degrees of freedom in the model (number of features). Blue curves correspond to the training error and red curves are for the test error. The bold curves are calculated by averaging over all the colored curves.%
 }
+\label{figure:biasVariance}
 \end{center}
 \end{figure}
 
-In \cref{figure-biasVariance}, the authors fit a regression model on data to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is becose during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
 
-\todo{do this with own data if possible? (can't overfit with logReg yet. Which is the only technique introduced up to this point.)}
+In \cref{figure-biasVariance}, the authors fit a model to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is because during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
 
-At first the bias of the model is high both for the training and testing sets, and as a consequence, we would expect to have a high generalization error. Then the overall error decreases as complexity increases. This behavior is expected because the model learns to better fit the data to give a better model output. We have that the expected prediction error, estimated by averaging over the test set' prediction error's, also decreases when the model's complexity is increased. However, when the model starts to overfit the data, the test error starts to rise whilst the train error keeps decreasing. This situation is important to our prediction error estimation cause it hinders that the model has lost predictive power due to an increase in variance.
+As a similar example, we reproduce the previous behavior on our own dataset.
+Consider \cref{target2} which has a high imbalance between the positive and negative target classes.
+With a Decision Tree classifier, we try to produce a model which overfits $\mathrm{T}$. This model can increase complexity by considering the depth of the tree. Where higher depth means more complex models\footnote{A detailed explanation of this technique can be found later in \cref{section:decision_trees}. }.
+To score the model, we take a monotonically increasing scoring function where
+higher values mean better scores.
+With this, the different model errors produces the following figure. Where the test and training errors are given as a function of the tree\'s depth:
 
-In this situation, a rough heuristic to select the best model is to stop increasing the model's complexity once the $EPE$ stops decreasing.
-%% EZECORRECTION: Destacar esto en la grafica anterior y explicar mas.
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
+\caption{
+}
+\label{figure:dtree_overfit_problem_2}
+\end{center}
+\end{figure}
+
+
+At first the bias of the model is high both for the training and testing sets, and as a consequence, we would expect to have a high generalization error. Then the overall error decreases as complexity increases. This behavior is expected because the model learns to better fit the data to give a better model output. We have that the expected prediction error, estimated by averaging over the test set' prediction error's, also decreases when the model's complexity is increased. However, when the model starts to overfit the data, the test error starts to rise whilst the train error keeps decreasing. This situation is important to our prediction error estimation cause it hints that the model has lost predictive power due to an increase in variance.
+
+In these situations, the author\'s of \cref{figure:biasVariance} argument that a rough heuristic to select the best model is to stop increasing the model's complexity once the $EPE$ stops decreasing. That is, when the scoring error of the test set stops decreasing along with the training error. In \cref{figure:dtree_overfit_problem_2} this would be when $Max Depth = 10$.
+
+For the examples exposed, we see that we are only finding the best model by searching only on one hyperparameter. In practice, the models will have more parameters to tune. This makes finding the lowest prediction error difficult.
+Still, we might settle for near-optimal models which have an acceptable error score. The following section introduces the assumptions to consider the test error as a good approximation of the generalization error. It also gives a formal argument in favor of finding models whose scores are not optimal for that dataset.
+
 
 \section{ Using the Vapnik-Chervonenkis (VC) Dimension for prediction error estimation}\label{section-VcDimension}
 
 %\textcite{vapnik-nature2013}
 %\textcite{cherkassky-learning2007}
 
-In Vapnik and Chervonenkis' work, the focus is on the estimation of the prediction error through the convergence and consistency of the training error. The authores derive the VC dimension as an important value in determining convergence speeds for different machine learning algorithms. In this way, a theoretical framework is provided to effectively characterize these dimensions in a constructive way. By the derived analytic bounds for a number of algorithms, we are enabled to estimate the distance between the empirical error and the generalization error.
+In Vapnik and Chervonenkis' work, the focus is on the estimation of the prediction error through the convergence and consistency of the training error. The authors derive the VC dimension as an important value in determining convergence speeds for different machine learning algorithms. In this way, a theoretical framework is provided to effectively characterize these dimensions in a constructive way. By the derived analytic bounds for a number of algorithms, we are enabled to estimate the distance between the empirical error and the generalization error.
 
 The Vapnik-Chervonenkis (VC) Dimension is a number based on a theoretical framework now called \textit{Statistical Learning Theory} (SLT). SLT is used to estimate the true expected prediction error from finite samples. Surprisingly, very few assumptions are needed and the results are distribution independent. In addition, exact bounds are given for some common use cases with constructive analytical methods. For other cases, authors propose sampling or experimental methods to estimate the VC dimension.
 
@@ -420,13 +445,14 @@ In practical applications though, use of estimates might be limited to the deter
 
 
 \section{Cross Validation}\label{section:crossValidation}
+
  There are a number of approximating functions or algorithms to be used in classification problems and each of these have different configurations or setups that, when fitted, produce different learners. The differences between the configurations are controlled by the \textit{parameters} of the algorithm. The nature of each parameter might stem from computation or statistical variants in the algorithm used. One common example of this is the $\lambda$ penalization parameter in logistic regressions, where $\lambda$ controls the amount of weight to be placed on the regularization term of the minimized function.
 
 The objective of Cross Validation is to systematically explore the different configurations of tuning parameters and decide which learner is better for the task at hand. By comparing the estimated generalization error of each model, where models vary accordingly with the values of the tuning parameters, a value is given and then used to select the \textit{best} model in the class.
 
 This technique is considered one of the most widespread to evaluate the generalization performance of a set of learners. Given a number of possible configurations or values for the tuning (hyper) parameters of an algorithm, we would want to decide which selection of these fit the best estimator, as measured by the generalization error.
 
-In terms of the concepts introduced before, the quality of an estimated model $\hat{f}$ from a family of algorithms is evaluted in the Cross Validation procedure. Where quality refers to the rate of generalization error.
+In terms of the concepts introduced before, the quality of an estimated model $\hat{f}$ from a family of algorithms is evaluated in the Cross Validation procedure. Where quality refers to the rate of generalization error.
 
 In most cases data is generally scarce. At the same time prediction error estimates are based on asymptotic or analytical results which hardly computable in practice Thus CV intends to prevent over-fitting by iteratively holding out a random part of the dataset and by measuring the predictive accuracy of the learner fit of data \textit{in-sample} against new values from the \textit{hold-out} part of the dataset. The accuracy measure here is weighted by the loss function, which must be selected beforehand.
 
@@ -436,7 +462,7 @@ In this procedure, a partition of the samples is called a \textit{fold}. CV then
 
 Cross validation intends to estimate the expected \textit{out-of-sample} error $\Expect \left[ L(Y, \hat{f}(X)) \right]$, when the model is tested against \textbf{independent} samples from the true distribution. For this reason, it is fundamental to ensure independence of the training set and the test set. Any transformations that must be done on the input data that jointly use the input and output samples in the process must be done and \textit{learned} only on the training set. This is because we mustn't introduce information from our test set in the estimator as the model should never \textit{see} the test data until we use it to evaluate our learner.
 
-\textbf{Tuning-parameters (hyper-parameters) Selection}:
+\subsection{Selection of tuning-parameters (hyper-parameters) }\label{subsection:selection_hyper_params}
 
  Let $\mathcal{A} = [\alpha_0, \alpha_1,\ldots, \alpha_l  ]$ be a list of hyperparameter settings and $\mathcal{K} =[1,..,K]$ a list of folds. A full K-Fold Cross Validation procedure takes the following form.
 
@@ -444,23 +470,25 @@ Cross validation intends to estimate the expected \textit{out-of-sample} error $
  \SetAlgoLined\KwResult{Data table mapping error scores $CV(\alpha) \ \forall \alpha$}
  Initialize $\mathcal{A}$ and $\gamma(\cdot)$\;
  \For{ $\alpha \in \mathcal{A}$}{
- \eIf{data transformation}{
+ \If{data transformation}{
  Perform data transformation on the whole training set \;
- }{
- continue\;
- }
+									 }
  \For{ $k \in \mathcal{K}$}{
+ 	 \If{feature selection}{
+ 	 	Perform feature selection on the $\textrm(T)^{-k}$ \;
+ 	 }
  fit $\hat{f}^{-k}(\cdot, \alpha)$\;
- }
-
+										}
  compute $CV(\alpha) = \frac{1}{N} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
- }
+												}
  \caption{K-Fold Cross Validation Estimation Procedure}
  \end{algorithm}
 
-Note that during the loop, each sample's prediction was tested on the model which was fitted without using that sample.
+Note that during the loop for $\alpha$, each sample's prediction is tested on the model which was fitted without using that sample same sample. 
+This is central to the idea of cross-validation in which training samples are used \textit{as if} they were testing samples. 
+For this reason, samples that are not used to train the model are called validation samples. 
 
-From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \cref{section-VcDimension}, importance is also given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. In practice however, a class of approximating functions might have a defined complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
+From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \cref{section-VcDimension}, importance should also be given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. In practice however, a class of approximating functions might have a defined complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
 
 \todo{show with/without CV and different results with logreg for some of the problems}
 
