@@ -3,9 +3,9 @@
 ## In general:
 
 ## Data Description Chapter:
-    * add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty,
+    * [DONE] add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty,
                     argentina has 21m of users)
-    * add antennas distributions compared to national level.
+    * [DONE] add antennas distributions compared to national level.
     * [DONE] Better heatmap descriptions.
 
 ## Machine Learning Chapter
@@ -28,6 +28,17 @@
     * [DONE] Naive Bayes example
     * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
     * [DONE] gradient boosting sobre los mejores features de random forest.
+
+## Meeting 05/07
+    * captions con texto mas cargado. Para mirar el caption y entender de que se trata.
+    * agregar con que problema fitie la grafica. Y agregar los detalles de "que" otros parametros se estan usando como fijos.
+    * meter 3 imagenes de ejemplos de arboles con 3 corridas distintas a ver como van variando.
+    * Cap. 6 Results & Conclusion responder estas preguntas:
+        - hacer explicita la respuesta a esta pregunta: ?Que tanto se puede predecir long term migrations usando datos de CDRs?
+        - cuales fueron las mejores tecnicas? Que tuvieron a favor y en contra?
+        - repasar los 5 problemas y resumir los mejores resultados de c/ algoritmo. Que scorings tuvieron?
+        - Enganchar los resultados con lo que se vio en los mapas. Hablar de como los features del algoritmo estan relacionados con el armado del mapa y como se "valida" la hipotesis.
+        -
 
 ## Meeting 28/06
     * [DONE] Juntar Cap. 6 y 7.
@@ -70,7 +81,6 @@
 ## Revision 17/02
     * [DONE] Show an instance of overfitting the data with a decision Tree (with depth).
     * [DONE]Focalizarse solamente en los que actualmente no viven en la zona endemica y comparar resultados entre distintos metodos y configuracion de parametros. e.g. regularizar el problema vs. sin regularizar el problema y comparar.
-    * Mostrar ejemplos concretos de _porque_ es importante lo que se cuenta teoricamente.
     * iterar con la gente del DM las correcciones. (Patu, Mathieu).
     * [DONE] Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors. Or with highly correlated features.
     * [DONE] show an instance of overfitting the data comparing the learning curve of training vs CV set (tried with different params of sklearn's      logReg classifier and still can't find a clear case of overfitting).
