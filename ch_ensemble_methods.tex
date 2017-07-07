@@ -180,16 +180,6 @@ There are various methods we could use to find the optimal subtree. As an exampl
 
 Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added.~\textcite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees built for this. This sequence is constructed by iteratively pruning the node $j$ that, when removed from the tree, creates the smallest increase in $B(T)$.
 
-\todo{fix the decision tree image and give some info about this run, best features , impurity,,etc}
-
-
-\begin{figure*}[tb]
-\centering
- \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map.png}}
-\caption{ Example of a decision tree which has been pruned to fit the image. This was made on a CV procedure for \cref{target3}.}
-\label{fig:decision_tree_actual_problem}
-\end{figure*}
-
 
 % \begin{landscape}%[ht!]
 % %\begin{center}
@@ -203,7 +193,54 @@ Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complex
 
 In this way, we'll have a sequence of trees $T_0,T_1,\ldots,T_l$ and a sequence of nodes $j_0, j_1,\ldots,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),\ldots,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
-For a more complete explanation of a decision tree for classification or regression problems, please refer to~\textcite{breiman-cart84}.
+For a complete explanation of decision trees construction and uses in classification or regression problems, please refer to~\textcite{breiman-cart84}.
+
+We present here a run of the a decision tree over $\mathcal{T}$.
+In this case the \cref{target2} was used as an example.
+The tree was built using a standard configuration with a low depth of 5 and a gini splitting criteria.
+All features $X^j$ are available to be chosen at each split and a node has to have at least 20 samples to be split again. The algorithm ran in approximately 15 seconds.
+
+\todo{fix decision tree horizontal, whole page, h! appearence}
+
+\begin{figure*}[tb]
+\centering
+ \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map.png}}
+\caption{ Example of a final decision tree. This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. For every node, the samples are split into sets given by the implicit indicator function defined in the conditon.}
+\label{fig:decision_tree_actual_problem}
+\end{figure*}
+
+From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the gini splitting criteria.
+Given that in \cref{target2} we are looking for people that migrated in any direction, the choice of the tree\'s root feature is not surprising.
+ The mobility diameter gives an idea of the area of influence of a user when using his mobile phone and as such, might be a proxy for migrations.
+Subsequently, the volume of use of a user\'s home antenna appears as the second most important features, both duing the weeknight and during the whole day.
+Yet the error score out by this tree yields a poor performance. Evaluated with the $F1$ metric, we see 43.2\% result with this model which shows very poor prediction erro over all of the samples.
+With this, comparing how the top features result in the tree can be of little use to the overall problem.
+
+We decide to iterate once again on this model, but now slightly changing the hyperparamter which controls the balance of $\mathcal{T}$.
+The reason for this is that with the current task, the positive and negative classes have a disproportionate balance of samples and this is reflected in the overall model\'s poor performance.
+For this reason, we modified the setup of the loss function of the tree to weigh more samples from the under-represented class over the samples from the abundant group.
+For each sample, it\'s loss weight was adjusted by it\'s class representation ratio.
+With this, the new run scored a 57.9\% $F1$ error score which is more than a 15\% previous score.
+Still, this is considered a poor model overall.
+
+The figure for this model is shown below.
+
+\begin{figure*}[tb]
+\centering
+ \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map2.png}}
+\caption{ Second example of a decision tree. This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset. The resulting tree has been pruned to fit the image.}
+\label{fig:decision_tree_actual_problem}
+\end{figure*}
+
+From \cref{fig:decision_tree_actual_problem} the importance of the mobility diameter is more clear.
+Once again the algorithm uses it as the first split in the data, even with balanced samples.
+The same happens for the count of calls made from the home antenna.
+
+The tree still does a poor predictive job at determining which users have migrated in the past.
+Even though balancing classes pointed to a better predictive outcome, there are still various misrepresentations in the predicted target classes.
+If we let the tree grow deper though, we might increase the performance of the training error as shown in \cref{figures/figure-biasVariance/figure-biasVariance}.
+Yet this won't help our generalization error.
+To tackle most of the disadvantages described by this technique, \textit{Random Forests} are what follow as a natural extension to this classifier.
 
 
 \subsection{ Random Forests: Formulation }
@@ -214,7 +251,7 @@ Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the par
 We denote $h(\textbf{x},\Theta_k)$ to be the corresponding classifier and $N$ the number of samples in the training set. The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution but independently of the previous parameters $\Theta_1, \ \ldots, \ \Theta_{k-1}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
 
-Let $\{h_k(\textbf{x}) \}_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x}$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function. Define the margin function as
+Let $\{h_k(\textbf{x}) \}_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x})$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function. Define the margin function as
 
 \begin{equation}
 mg(\textbf{x},\textbf{y}) = \frac{1}{K}  \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})
@@ -393,7 +430,7 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
  \end{equation}
 
 
- \todo{do run on a problem and compare to results with solely decision trees}
+ \todo{do run on a problem and compare to results solely with decision trees}
 
 \subsection{Other Notes on Random Forests}
 One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of a number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hyper geometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
