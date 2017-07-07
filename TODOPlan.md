@@ -24,15 +24,15 @@
     * [DONE] logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
     * [DONE] achicar/filtrar el dataset para hacer el problema mas complejo.
         * X: solo users no_endemicos / Y: migrantes en cualquier direccion. / usuarios del DF
-    * [DONE] Do SVD.
+    * [WILL NOT DO - too many techniques] Do SVD.
     * [DONE] Naive Bayes example
     * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
     * [DONE] gradient boosting sobre los mejores features de random forest.
 
 ## Meeting 05/07
-    * captions con texto mas cargado. Para mirar el caption y entender de que se trata.
+    * [DONE] captions con texto mas cargado. Para mirar el caption y entender de que se trata.
     * agregar con que problema fitie la grafica. Y agregar los detalles de "que" otros parametros se estan usando como fijos.
-    * meter 3 imagenes de ejemplos de arboles con 3 corridas distintas a ver como van variando.
+    * [DONE] meter 2 imagenes de ejemplos de arboles con 2 corridas distintas a ver como van variando y hablar acerca de lo que se ve en los resultados.
     * Cap. 6 Results & Conclusion responder estas preguntas:
         - hacer explicita la respuesta a esta pregunta: ?Que tanto se puede predecir long term migrations usando datos de CDRs?
         - cuales fueron las mejores tecnicas? Que tuvieron a favor y en contra?
