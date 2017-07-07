@@ -145,7 +145,7 @@ As an example, let's consider a reduced training dataset built from Call Detail 
 Five measurements were taken on all of the observations to account for the user's number of calls and total minute duration of calls. All data was extracted from a week of logging measurements. Below we print a short overview of this dataset:
 
 \begin{table}[ht]
-\caption{{Head of the CDR dataset}}
+\caption{{Head of the CDR dataset. A three-row mock example.}}
 \label{tab:sample_CDR}
 \centering
 \begin{tabular}{ l l l l l l }
@@ -389,7 +389,7 @@ In the case of \cref{eq:logLossFunction} we have that it is a concave, monotone 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/logloss/figure-logLossValues.png}
-\caption{ Values for the log loss function.}
+\caption{ Series plot for different values of the log loss function used as an error score.}
 \label{figure-logLossValues}
 \end{center}
 \end{figure}
@@ -458,14 +458,14 @@ The value $\lambda$ acts here as the weight that our optimization procedure will
 
 In this work, we will be only considering model regularization with lasso, ridge, or elastic-net.
 
-As an example we show here how regularization affects an instance of a Logistic Classifier on  \cref{target1}.
+As an example we show here how regularization affects an instance of a Logistic Classifier on \cref{target1}.
 
 % figures/regularization/figure-log_loss_error_validation_curve.png
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/regularization/figure-log_loss_error_validation_curve.png}
-\caption{ Validation curve comparing the \textit{negative log loss} for different values of the $C$ regularization parameter.}
+\caption{ Validation curve of the model's training and test sets scores using the \textit{negative log loss} and where each model is built with a different value of the $C$ regularization parameter.}
 \label{fig:log_loss_regularization_validation_curve}
 \end{center}
 \end{figure}

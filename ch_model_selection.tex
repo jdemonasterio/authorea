@@ -266,7 +266,7 @@ With this, the different model errors produces the following figure. Where the t
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
-\caption{ Training and cross-validated score averages along the change in max tree depth.
+\caption{ Training and cross-validated mean score along the change in max tree depth. One model is fit for each tree depth value on both the training and cross validation sets. Then their scores are compared in the seires with the CV series showing a shaded standard deviation band.
 }
 \label{figure:dtree_overfit_problem_2}
 \end{center}
@@ -481,7 +481,7 @@ Cross validation intends to estimate the expected \textit{out-of-sample} error $
 										}
  compute $CV(\alpha) = \frac{1}{N} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
 												}
- \caption{K-Fold Cross Validation Estimation Procedure}
+ \caption{Pseudo-algorithm for K-Fold Cross Validation Estimation for an index of $\alpha$ hyper parameters.}
  \end{algorithm}
 
 Note that during the loop for $\alpha$, each sample's prediction is tested on the model which was fitted without using that sample same sample.
@@ -491,13 +491,16 @@ For this reason, samples that are not used to train the model are called validat
 From the \textbf{CV} procedure, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyperparameters. However, following ideas detailed in \cref{section-VcDimension}, importance should also be given to the \textit{complexity} of the approximating function. A common rule of thumb is to favor models with a lower number of hyper parameters or number of features. In practice however, a class of approximating functions might have a defined complexity which is not analytically computable. Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
 
 
-As an example, we consider here a cross validation procedure done on a logistic regression model. The hyperparameter to search is the $C = \frac{1}{\lambda}$. Recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, where a smaller value in $C$ meant a stronger regularization. We perform this experiment and consider the difference in scores between  $\mathcal{T}$ and $\mathcal{T_s}$ along each value. It is important to note that all test scores were performed on models built only from $\mathcal{T}$.
+As an example, we consider here a cross validation procedure done on a logistic regression model for \cref{target1}.
+The hyperparameter to search is the $C = \frac{1}{\lambda}$ and we're trying to find those users that used to live in the endemic area.
+ Recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, where a smaller value in $C$ meant a stronger regularization.
+ We perform this experiment and consider the difference in scores between  $\mathcal{T}$ and $\mathcal{T_s}$ along each value. It is important to note that all test scores were performed on models built only from $\mathcal{T}$.
 
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/cross_validation/train_and_cv_score_comparison_logreg.jpg}
-\caption{ CV score averages with standard deviation bands vs the test set score along the change in $C$.}
+\caption{ Series comparison of  CV average scores with standard deviation bands and test set scores along the change in $C$.}
 \label{fig:cv_vs_test_score}
 \end{center}
 \end{figure}
@@ -623,5 +626,6 @@ As a counter example, another algorithm was run on the same problem as \cref{fg:
 }
 \end{center}
 \end{figure}
+
 
 \todo{add positive ROC concrete example on one of the problems}

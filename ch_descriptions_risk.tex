@@ -130,7 +130,7 @@ The following section presents these maps.
 
 
 \begin{figure}[h!]
-	\caption{Risk map for Argentina, filtered according to $\beta$.}
+	\caption{Risk map for Argentina, filtered according to the value of $\beta$.}
 	\label{fig:mapa_argentina}
 	\begin{minipage}{.495\linewidth}
 		\centering
@@ -215,7 +215,7 @@ more that 50\% of inhabitants have a social tie with the endemic region $E_Z$.
 For space reasons, we don't provide here more specific visualizations and analysis of the regions of Mexico.
 
 \begin{figure}[ht!]
-	\caption{Risk maps for Mexico}
+	\caption{Risk maps for Mexico, filtered according to the value of $\beta$.}
 	\label{fig:mapas_mexico}
 	\begin{minipage}{.475\linewidth}
 		\centering
@@ -322,7 +322,7 @@ Since the samples in our dataset are users, we have to aggregate all these varia
 To illustrate the point, we show a small example of how two calling features could look like. Groupings and filters are applied only on the user's calls:
 
 \begin{table}[ht]
-	\caption{Graph Data Features Example}
+	\caption{Example of features extraed from the social graph data.}
 	\label{tab:data_example}
 	\centering
 	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
@@ -370,7 +370,7 @@ the percentage of telco users per state, for the top 10 Mexican states.
 
 
 \begin{table}[ht]
-	\caption{Distribution of antennas, population and telco users by state.}
+	\caption{Table distribution of antennas, population and telco users by state.}
 	\label{tab:distribution_by_state}
 	\centering
 	\begin{tabular}{l r r r}
@@ -426,7 +426,7 @@ Table~\cref{tab:changes}
 shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users that were in group $i$ during period $T_0$ (the past) and moved to group $j$ during the training period $T_1$. As an example, lower left means was endemic, is now not endemic.
 
 \begin{table}[ht]
-	\caption{Matrix of endemicity change}
+	\caption{Matrix of endemicity change combinging endemicity and time factors.}
 	\label{tab:changes}
 	\centering
 	\begin{tabular}{l r r }
