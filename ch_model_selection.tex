@@ -630,7 +630,7 @@ As a counter example, another algorithm was run on the same problem as \cref{fg:
 
 
 We experimented with this metric with a Logistic Classifier over different hyperparameter settings.
-To do this, we set up to find users that lived in endemic regions in the past, namely \cref{target1}, yet excluding certain features which are correlated with the target variable: the current user\'s endemicity and the state in which this user is living.
+To do this, we set up to find users that lived in endemic regions in the past, namely \cref{target1}, yet excluding the feature that indicates in which state is the user currently living.
 For this experiment we set the ``ROC AUC'' metric to compare the $l1$ vs. the $l2$ regularization of the model on more than a hundred values for the regularization parameter $C$.
 For each regularization type, we set a value for $C$ that ranged from $\exp^{-2}$ to $\exp^{5}$ and then a cross validation routine was done on an 8- folded, training set.
 \cref{tab:roc_auc_logreg_target1_results} shows a summary of results.
