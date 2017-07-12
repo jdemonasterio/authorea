@@ -581,6 +581,38 @@ Some of the most used metrics include the following:
 
 \todo{show an instance of problem comparing all metrics}
 
+To illustrate the difference in these metrics we ran an experiment on \cref{target2}.
+We took one logistic classifier with common settings and we ran a cross validation procedure over values of the regularization strength $C$.
+% This problem should certainly be more difficult than \cref{target1} due to the stronger class imbalance.
+% Where there is a smaller positive-to-negative target ratio.
+In this run, we considered four metrics to cross-validate our models: $Accuracy$, $Precision$, $Recall$ and $F1$.
+We compared all of them in a procedure which had fixed hyperparameters for all models.
+The folds were set to eight whilst the the $l1$ regularization was chosen.
+At the same time, we set to 100 the maximum descent iterations for any optimization and we balanced the classes in the loss functions, where samples of the under-represented class a higher weight in the loss function, in relation to the recprocal of their ratio towards the over-reprsented class.
+For each metric, the best scoring model resulted from the CV procedure which was then evaluated against $\mathcal{Ts}$ to give a final model score.
+No other information from $\mathcal{Ts}$ was used during the whole process.
+In \cref{tab:metrics_comparison_logreg_target1_results} we show a summary of results.
+
+
+\begin{table}[ht]
+\caption{ Results comparing an 8-fold CV fit of a Logistic Classifier over varying regularization $C$ values. Four metrics were cross-validated and compared in this experiment: $Accuracy$, $Precision$, $Recall$ and $F1$.}
+\label{tab:metrics_comparison_logreg_target1_results}
+\centering
+\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
+%{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
+\toprule
+Metric & Best CV $C$ value & Mean CV score & Test score & Full CV time (s)  \\
+\midrule
+$Accuracy$ & 3.162 & 0.685 & 0.695 & 4628.3  \\
+$Precision$ & 0.107 & 0.242 & 0.232 & 4638.2 \\
+$Recall$ & 0.0006 & 0.673 & 0.668 & 4667.5 \\
+$F1$ & 0.0015 & 0.339 & 0.340 & 4612.1 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+
+
 \subsection{ROC Curve}
 
 One last important metric used widely in classification is the \textbf{Area under ROC curve (ROC AUC)}. This metric applies only to algorithms which output for each sample the probability of belonging to the positive class.
@@ -631,7 +663,7 @@ As a counter example, another algorithm was run on the same problem as \cref{fg:
 
 We experimented with this metric with a Logistic Classifier over different hyperparameter settings.
 To do this, we set up to find users that lived in endemic regions in the past, namely \cref{target1}, yet excluding the feature that indicates in which state is the user currently living.
-For this experiment we set the ``ROC AUC'' metric to compare the $l1$ vs. the $l2$ regularization of the model on more than a hundred values for the regularization parameter $C$.
+For this experiment we set the ``ROC AUC'' metric to compare the $l1$ vs the $l2$ regularization of the model on more than a hundred values for the regularization parameter $C$.
 For each regularization type, we set a value for $C$ that ranged from $\exp^{-2}$ to $\exp^{5}$ and then a cross validation routine was done on an 8- folded, training set.
 \cref{tab:roc_auc_logreg_target1_results} shows a summary of results.
 In these, our experiments resulted in higher values for $l1$ regularized models.
@@ -639,10 +671,10 @@ This gap is even widened when comparing test scores for both and the same happen
 
 
 \begin{table}[ht]
-\caption{Table of results comparing an 8 fold cross validation fit for a Logistic Classifier with varying regularization $C$ values . The metric for this experiment was the ``ROC AUC''.}
+\caption{Table of results comparing an 8 fold cross validation fit for a Logistic Classifier with varying regularization $C$ values. The metric for this experiment was the ``ROC AUC''.}
 \label{tab:roc_auc_logreg_target1_results}
 \centering
-\begin{tabular}{ l l l l l }
+\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
 %{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
 \toprule
 Regularization type & Best CV $C$ value & Mean CV score & Test score & Full CV time (s)  \\
@@ -651,7 +683,7 @@ $l2$ & 1e-5 & 0.805 & 0.744 & 17579.7  \\
 $l1$ & 1e-5 & 0.81 & 0.76 & 15892.9 \\
 
 \bottomrule
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 
