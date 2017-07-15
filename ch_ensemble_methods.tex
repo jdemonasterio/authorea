@@ -126,13 +126,25 @@ The hyper-parameters for this model include the length of the tree, the splittin
 \item Number of features selected to decide on the best split feature at each node.
 \end{itemize}
 
-Intuitively, it is natural to find that trees of longer depth will overfit the data since more complex interactions among variables will be captured by refining the partition on input space. A trivial case would be to allow a tree to grow fully in depth and later assign to each sample in the training set its own region. This would yield a model with absolutely no bias but which will have a very high prediction error since new samples won't be labeled accordingly.
 
-On the other hand having a tree which is too shallow will result in most cases in a biased algorithm. This is because it results in an overly simple model incapable of correctly assigning labels. We must then consider that the depth of a tree is a measure of the model's complexity and as such one of the most important hyperparameters of our model.
+Intuitively, it is natural to find that trees of longer depth will overfit the data since more complex interactions among variables will be captured by refining the partition on input space.
+A trivial case would be to allow a tree to grow fully in depth to later assign to each sample in the training set its own self-contained region.
+This would yield a model with virtually low bias yet with a very high prediction error.
+As we've shown before, this situation produces and overfit model since it will fail to predict correctly on new samples.
+Recall that this was described in \cref{figure:dtree_overfit_problem_2}.
+Here the training scores and CV scores were compared on models with increasing tree depth which at some point started to overfit the training set by increasing the gap of the CV and training errors.
 
-Another drawback of the model is the high variance instability. Authors point out that two very similar datasets can grow two very different resulting trees. This is due to the hierarchical nature of the splits, where errors randomly made in the first splits will be carried onward towards the leafs since samples continue down on a single branch.
+At the same time, having a tree which is too shallow will result in most cases in a biased algorithm.
+This is because it results in an overly simple model incapable of correctly assigning labels.
+We must then consider that the depth of a tree is a measure of the model's complexity and as such one of the most important hyperparameters of our model.
 
-The most common methods to control the tree's depth grow a very large tree $T_0$, that will continue until it reaches a depth limit threshold that is unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity, with only a slight loss of accuracy.
+Another drawback of the decision tree model is the high variance instability.
+Authors point out that two very similar datasets can grow two very different resulting trees.
+This is due to the hierarchical nature of the splits, where errors randomly made in the first splits will be carried onward towards the leafs since samples continue down on a single branch.
+
+For the reasons described, in this model it is important to control the depth of the trees built.
+The most common method to do this grows a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive.
+Then the tree will be pruned by removing branches and nodes to remove model complexity with only a slight loss of accuracy.
 
 To expand on the idea of tree complexity control, let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$. Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,\ldots,|T| \}$.
 
@@ -154,9 +166,14 @@ As we have mentioned before, at each split we use the node impurity measure to q
 \end{itemize}
 
 
-As an extension to the Gini index, it is also common to use a reweighed version of the sum. A loss matrix is multiplied to the factors in each summand. The matrix is reassigning weights to different cases of misclassification. Indeed, these weights become practical when we have that a sample from class $k$ incorrectly assigned to class $k'$ might be less important than other misclassifications.
+As an extension to the Gini index, it is also common to use a reweighed version of the sum.
+A loss matrix is multiplied to the factors in each summand.
+The matrix is reassigning weights to different cases of misclassification.
+Indeed, these weights become practical when we have that a sample from class $k$ incorrectly assigned to class $k'$ might be less important than other misclassifications.
 
-Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $L_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$. Naturally we have that $L$ is a null diagonal matrix. Then the Gini index's summands will take the reweighed form $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
+Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $L_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$.
+Naturally we have that $L$ is a null diagonal matrix.
+Then the Gini index's summands will take the reweighed form $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
 
 For the binary (two class) case $Q_j(T)$ can be expressed in simpler terms. If we consider $p$ to be the probability of success, then we have
 
@@ -218,7 +235,7 @@ All features $X^j$ are available to be chosen at each split and a node has to ha
 
 From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the gini splitting criteria.
 Given that in \cref{target2} we are looking for people that migrated in any direction, the choice of the tree\'s root feature is not surprising.
- The mobility diameter gives an idea of the area of influence of a user when using his mobile phone and as such, might be a proxy for migrations.
+The mobility diameter gives an idea of the area of influence of a user when using his mobile phone and as such, might be a proxy for migrations.
 Subsequently, the volume of use of a user\'s home antenna appears as the second most important features, both duing the weeknight and during the whole day.
 Yet the error score out by this tree yields a poor performance. Evaluated with the $F1$ metric, we see 43.2\% result with this model which shows very poor prediction erro over all of the samples.
 With this, comparing how the top features result in the tree can be of little use to the overall problem.
@@ -228,7 +245,7 @@ The reason for this is that with the current task, the positive and negative cla
 For this reason, we modified the setup of the loss function of the tree to weigh more samples from the under-represented class over the samples from the abundant group.
 For each sample, it\'s loss weight was adjusted by it\'s class representation ratio.
 With this, the new run scored a 57.9\% $F1$ error score which is more than a 15\% previous score.
-Still, this is considered a poor model overall.
+Still, this is considered a poor model for supervised learning.
 
 The figure for this model is shown below.
 
@@ -243,15 +260,18 @@ The figure for this model is shown below.
 
 \smallskip
 
-From \cref{fig:decision_tree_actual_problem2} the importance of the mobility diameter is more clear.
-Once again the algorithm uses it as the first split in the data, even with balanced samples.
-The same happens for the count of calls made from the home antenna.
+From \cref{fig:decision_tree_actual_problem} the importance of the mobility diameter is more clear.
+Once again the learner uses it as the first split in the data, even with balanced samples.
+Recall that by the stochastic nature of the algorithm that builds a tree, two runs with the same setting need not output the same trees.
+In this however, it is notable that the final tree still uses the mobility as the first split in the data, even with balanced samples.
+And the same can be said of the feature representing the count of calls made from the home antenna.
 
-The tree still does a poor predictive job at determining which users have migrated in the past.
-Even though balancing classes pointed to a better predictive outcome, there are still various misrepresentations in the predicted target classes.
+This tree also perfooms poorly in its prediction of which users have migrated in the past.
+At some point, it is reasonable to assume that balancing classes leads to a better predictive outcome.
+Yet there are still various misclassifcations in the predicted target classes.
 If we let the tree grow deper though, we might increase the performance of the training error as shown in \cref{figures/figure-biasVariance/figure-biasVariance}.
-Yet this won't help our generalization error.
-To tackle most of the disadvantages described by this technique, \textit{Random Forests} are what follow as a natural extension to this classifier.
+But again, this won't help our generalization error.
+So to tackle most of the disadvantages described by this technique, \textit{Random Forests} are what follow as a natural extension to this classifier.
 
 
 \section{ Random Forests}\label{section:random_forests}
@@ -462,7 +482,7 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
  \end{equation}
 
 
- \todo{do run on a problem and compare to results solely with decision trees}
+\todo{add figures of the validation curve comparing max depth of the tree vs the score (in a CV procedure) and the number of trees vs the results of using decision trees}
 
 \subsection{Other Notes on Random Forests}\label{subsection:random_forests_other_notes}
 
@@ -606,6 +626,8 @@ A drawback of this loss though, is that it is not robust to outliers or to noisy
  \todo{compare adaboost on same problem as in RF, talk about benefits and drawbacks}
 
 \subsection{Gradient Tree Boosting}
+
+\todo{Add reference to friedman paper in "friedman-gradientBoosting2001"}
 
 As explained before, the boosting method builds a high model learned from other \textit{weaker} learners. In the case of \textit{gradient tree boosting}, decision trees serve as base learners. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
 

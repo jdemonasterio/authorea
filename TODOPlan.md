@@ -1,6 +1,7 @@
 # TODO PLAN
 
 ## In general:
+    * Figures appearing in sub/sections different from where they are spawned.
 
 ## Data Description Chapter:
     * [DONE] add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty,
@@ -28,6 +29,9 @@
     * [DONE] Naive Bayes example
     * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
     * [DONE] gradient boosting sobre los mejores features de random forest.
+
+## Meeting 12/07
+    * [DONE] cambiar orden de idiomas en el abstract y en el titulo, primero ingles luego espanyol.
 
 ## Meeting 05/07
     * [DONE] captions con texto mas cargado. Para mirar el caption y entender de que se trata.
@@ -93,3 +97,4 @@
         - section Technical Observations (python, jupyter, sklearn, pandas,
                                         sframes, graphlab, spark mllib,
                                         theano, tensor flow, xgboost)
+
