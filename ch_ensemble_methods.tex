@@ -44,8 +44,9 @@ where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset
 In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparameters and the best one can be selected with our CV procedure.
 %Indeed,
 
-
 Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability $P(C_k' \mid x)$.
+
+\todo{add experiment for this classifier. Talk about how fast it is to set it up, with few hyperparams and almost no prior knowledge. Talk about fast execution and runs as well.}
 
 \section{Classifier: Decision Trees}\label{section:decision_trees}
 
@@ -370,11 +371,11 @@ In this way, having a lower score in the graphic means a better model was reache
 \centering
 \begin{minipage}{.5\textwidth}
 %  \centering
-  \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
+  \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
 %  \centering
-  \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
+  \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
   \end{minipage}
 \caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown where the nubmer of trees and the depth of the trees hyperparams were tested.}
 \label{fig:f1_random_forest_validation_curves_depth_num_trees}
@@ -405,8 +406,8 @@ This percentage difference signals that the max depth hyperparameter is signific
 \subsection{Predictive error bounds}
 
 Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error.
-To build an estimate of the generalization error on the ensemble classifier, these individual scores and the relationship between them must measured.
-In this sense, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
+To build an estimate of the generalization error on the ensemble classifier, these individual scores and the relationship between them must be measured.
+In this sense, the \textit{strength} and \textit{correlation}of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
 
 %\begin{lemma}
 %Given two line segments whose lengths are $a$ and $b$ respectively there is a
@@ -530,7 +531,9 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
  \end{equation}
 
 
-\todo{add figures of the validation curve comparing max depth of the tree vs the score (in a CV procedure) and the number of trees vs the results of using decision trees}
+
+%
+
 
 \subsection{Other Notes on Random Forests}\label{subsection:random_forests_other_notes}
 
@@ -543,15 +546,20 @@ The depth of growth for each tree is another important tuning parameter. We must
 The algorithm also benefits from a heuristic to measure variable importance.
 A special modification in the way forests are built allows this to happen.
 
-The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it. Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the improvement in the split performance, as measured by some preselected criteria, with and without $X_j$. These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature. The features with highest scores can be thought to be the most informative variables of the model.
+The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it. Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the improvement in the split performance, as measured by some loss function, with and without $X_j$.
+These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature. The features with highest scores can be thought to be the most informative variables of the model.
 
- \todo{show feature importances for 1 problem}
+\subsection{Experiments}\label{subsection:random_forests_experiments}
+
+ \todo{Add experiment results for Random Forest runs and show feature importances for 1 problem.}
+
 
 \section{Boosting Models}\label{section:gradient_boosting}
-\subsection{Ada Boost}
-%~\textcite{schapire-adaBoost}
 
 Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak learners to output the combined model's prediction. The full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator. This provides greater predictive power when the base model's accuracy is weak. But care must be taken to control the increase in variance.
+
+\subsection{Ada Boost}
+%~\textcite{schapire-adaBoost}
 
 In the Ada Boost variation of ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner. Weights are used to rank the samples by importance, where a sample with higher misclassification rate will receive a stronger weight. The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
 

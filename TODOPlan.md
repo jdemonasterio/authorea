@@ -63,21 +63,22 @@
     * [DONE] Bad \cref s pointing to sections other than equations. (ask pedrof) (Problem was with correctly running biber and bitex.)
     * [Done] Falta abstract en ingles & spanish. (no pasar una carilla). Se extiende una carilla pero por el titulo del asbtract que ocupa media pagina. Habria que arreglar.
     * [Done] Titulo en ingles & spanish.
+
     * Cap 1. : Tiene que ser algo introductorio y que sea un extended abstract. Intro de la tesis. Que se hace.
         Porque sirve. Intro de chagas, el marco teorico, marco del proyecto, hablar CDRs y diseaseas (epidemiology), Machine Learning. Intro to _rest of thesis_: "En el Cap2 hacemos esto, en el 3 tal otra,
         en el 4".
         - ejemplo de intro: https://www.iro.umontreal.ca/~lecuyer/myftp/papers/pagerank.pdf
         - Menos copy-pasteo y mas integrado con la tesis actual.
         - dar resumen de lo que serian los "out of scopes" en la intro.
+
     * Chagas/epidemiologia en su propio capitulo (o en la intro ) y con comentarios sobre lo que hicieron otros. (trabajos recientes).
         - agregar referencia al paper de ASONAM donde presentamos parte de los resultados. (deMonasterio2016)
 
-    * [Half Done] Parte de Machine Learning grande vs. el resto. Refactor para integrar evaluacion c/ tecnicas en estos siguientes capitulos:
+    * [Done] Parte de Machine Learning grande vs. el resto. Refactor para integrar evaluacion c/ tecnicas en estos siguientes capitulos:
         - Preambulo como supervised classification problems (ver de mechar) + logreg
         - bias variance, regularization.
         - Tree techniques.
-
-    La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
+        - La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
 
     * Conclusiones: results summaries, para ir comparando las distintas tecnicas.
         - Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
