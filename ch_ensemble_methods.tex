@@ -61,6 +61,7 @@ For numerical features, the input space $X$ will be partitioned into $L$ and $R$
 
 Altogether, a tree defines a partition of feature space in disjoint regions $A_1,\ldots,A_K$ such that the tree's predicted output $\hat{y}$ for a sample $x$ is $c_k$ if the sample belongs to $A_k$. Here $c_k$ is one of the possible values taken by the target variable $y$ in the training set. And by the way trees were built, each $A_k$ is a hyper-rectangles in feature space.
 
+\subsection{Decision Trees Formulation}\label{subsection:decision_trees_formulation}
 In brief, the learner can be characterized by
 \begin{equation}
 h(X) = \sum_{k=1}^K c_k I(X \in A_k)
@@ -109,9 +110,12 @@ To illustrate this method, an instance is show in figure \cref{fg:rf-treeFigure}
 
 %[.{\textit{M}} ] [.{\textit{F}} ]
 
+\subsection{Node Splitting Criteria \& Hyperparameters}\label{subsection:decision_trees_impurity_measures_hyperparameters}
+
+
 The most used metrics to build each rule are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. The former optimizes for misclassification error in the two resulting sets. Where it values the accuracy of the model if all samples were to be tagged with the most common target-label in that split. The latter optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Leibler divergence} of the resulting sets with respect to the original set previous to the split.
 
-In decision trees, the process of iteratively partitioning the samples in splits continues until a predefined tuning parameter limit will stop the optimization or when there is only a single target class for all samples at the node.
+In this model, the process of iteratively partitioning the samples in splits continues until a predefined tuning parameter limit will stop the optimization or when there is only a single target class for all samples at the node.
 
 The hyper-parameters for this model include the length of the tree, the splitting rule threshold and the node impurity measures. From the descriptions previously given, we can list these directly:
 
@@ -122,19 +126,15 @@ The hyper-parameters for this model include the length of the tree, the splittin
 \item Number of features selected to decide on the best split feature at each node.
 \end{itemize}
 
-
-
 Intuitively, it is natural to find that trees of longer depth will overfit the data since more complex interactions among variables will be captured by refining the partition on input space. A trivial case would be to allow a tree to grow fully in depth and later assign to each sample in the training set its own region. This would yield a model with absolutely no bias but which will have a very high prediction error since new samples won't be labeled accordingly.
-
-\todo{add example of low bias high variance with one of the problems}
 
 On the other hand having a tree which is too shallow will result in most cases in a biased algorithm. This is because it results in an overly simple model incapable of correctly assigning labels. We must then consider that the depth of a tree is a measure of the model's complexity and as such one of the most important hyperparameters of our model.
 
 Another drawback of the model is the high variance instability. Authors point out that two very similar datasets can grow two very different resulting trees. This is due to the hierarchical nature of the splits, where errors randomly made in the first splits will be carried onward towards the leafs since samples continue down on a single branch.
 
-The most common methods to control the tree's depth grow a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity with only a slight loss of accuracy.
+The most common methods to control the tree's depth grow a very large tree $T_0$, that will continue until it reaches a depth limit threshold that is unrestrictive. Then the tree will be pruned by removing branches and nodes to remove model complexity, with only a slight loss of accuracy.
 
-To expand on this idea, let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$. Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,\ldots,|T| \}$.
+To expand on the idea of tree complexity control, let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$. Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,\ldots,|T| \}$.
 
 Given a loss function, and a problem with $K$ possible target classes, we can define the following values:
 \begin{equation}
@@ -195,6 +195,8 @@ In this way, we'll have a sequence of trees $T_0,T_1,\ldots,T_l$ and a sequence 
 
 For a complete explanation of decision trees construction and uses in classification or regression problems, please refer to~\textcite{breiman-cart84}.
 
+\subsection{Experiment}\label{subsection:decision_trees_experiment}
+
 We present here a run of the a decision tree over $\mathcal{T}$.
 In this case the \cref{target2} was used as an example.
 The tree was built using a standard configuration with a low depth of 5 and a gini splitting criteria.
@@ -202,12 +204,17 @@ All features $X^j$ are available to be chosen at each split and a node has to ha
 
 \todo{fix decision tree horizontal, whole page, h! appearence}
 
+\smallskip
+
 \begin{figure*}[tb]
 \centering
  \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map.png}}
 \caption{ Example of a final decision tree. This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. For every node, the samples are split into sets given by the implicit indicator function defined in the conditon.}
 \label{fig:decision_tree_actual_problem}
 \end{figure*}
+
+\smallskip
+
 
 From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the gini splitting criteria.
 Given that in \cref{target2} we are looking for people that migrated in any direction, the choice of the tree\'s root feature is not surprising.
@@ -225,14 +232,18 @@ Still, this is considered a poor model overall.
 
 The figure for this model is shown below.
 
+\smallskip
+
 \begin{figure*}[tb]
 \centering
  \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map2.png}}
 \caption{ Second example of a decision tree. This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset. The resulting tree has been pruned to fit the image.}
-\label{fig:decision_tree_actual_problem}
+\label{fig:decision_tree_actual_problem2}
 \end{figure*}
 
-From \cref{fig:decision_tree_actual_problem} the importance of the mobility diameter is more clear.
+\smallskip
+
+From \cref{fig:decision_tree_actual_problem2} the importance of the mobility diameter is more clear.
 Once again the algorithm uses it as the first split in the data, even with balanced samples.
 The same happens for the count of calls made from the home antenna.
 
@@ -243,25 +254,38 @@ Yet this won't help our generalization error.
 To tackle most of the disadvantages described by this technique, \textit{Random Forests} are what follow as a natural extension to this classifier.
 
 
-\subsection{ Random Forests: Formulation }
+\section{ Random Forests}\label{section:random_forests}
+
+Random Forests are estimators that extend from constructing a number of single decision trees and then combining them to produce a single output variable in what is called an \textit{ensemble}.
+The objective in this construction is to focus on decision tree\'s low bias whilst controlling their overfit as much as possible.
+The main idea behind this is that a forest of single trees will be constructed in such a way that correlations among each of the individual models is limited as much as possible.
+The concept behind this is that each individual model will learn on a random subset of features or samples and then, an average of the single outputs will be used as the forest's target output.
+In practice, there are other variants used to construct uncorrelated trees and then combine them, but the main idea still applies.
+
+\subsection{ Random Forests Formulation}\label{subsection:random_forests_formulation}
+
+Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the parameters for the $k$-th tree.
+As we have mentioned before, there are various variants to the model and these variants will define the type encoding of the $\Theta_k$ parameters.
+For this part, we will not specify the type of ensemble constructed since the following proofs apply to all of them.
+
+We denote $h(\textbf{x},\Theta_k)$ to be the corresponding classifier and $N$ the number of samples in the training set.
+The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution but independently of the previous parameters $\Theta_1, \ \ldots, \ \Theta_{k-1}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
 
-Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the parameters for the $k$-th tree. As we have mentioned before, there are various variants to the model and these variants will define the type encoding of the $\Theta_k$ parameters. In this part, we will not specify the type of forest used since the following proofs apply to all.
-
-We denote $h(\textbf{x},\Theta_k)$ to be the corresponding classifier and $N$ the number of samples in the training set. The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution but independently of the previous parameters $\Theta_1, \ \ldots, \ \Theta_{k-1}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
-
-
-Let $\{h_k(\textbf{x}) \}_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x})$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function. Define the margin function as
+Let ${h_k(\textbf{x}) }_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x})$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.
+Define the margin function as
 
 \begin{equation}
 mg(\textbf{x},\textbf{y}) = \frac{1}{K}  \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})
 - \max{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right)
 \end{equation}\label{eq:rf-marginFun}
 
-The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to
+The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes.
+It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to
 
 
-The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes. It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to
+The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes.
+It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to
 
 \begin{equation}
 P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
@@ -284,7 +308,9 @@ The proof follows from seeing that given a training set, a tree $\Theta$ and a c
 
 almost surely.
 
-This is because if we consider the nature of the tree, we see that the set $\{\textbf{x} / h_l(\textbf{x}, \Theta) = j \}$ is built as a union of hyper-rectangles partitioning feature space. And given the finite size of the training set, there can be but a finite set of these unions of hyper-rectangles for all the input data. Let $S_1, \ldots, S_M$ be an indexation of these unions and define $\phi(\Theta) = m $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_m$.
+This is because if we consider the nature of the tree, we see that the set $\{\textbf{x} / h_l(\textbf{x}, \Theta) = j \}$ is built as a union of hyper-rectangles partitioning feature space.
+And given the finite size of the training set, there can be but a finite set of these unions of hyper-rectangles for all the input data.
+Let $S_1, \ldots, S_M$ be an indexation of these unions and define $\phi(\Theta) = m $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_m$.
 
 We denote by $L_m$ the number of times that $\phi(\Theta_l) =m $, where $l \in {1,\ldots,L}$ and $L$ is the total number of trees in this forest.
 
@@ -299,7 +325,8 @@ and that following the law of large numbers, there is a convergence almost every
 \frac{L_m}{L} = \frac{1}{L} \sum_{l=1}^L I(\phi(\Theta_l) = m) \xrightarrow[L \to \infty]{}  P_{\Theta}(\phi(\Theta)= m).
 \end{equation}
 
-If we let $C = $ $\bigcup\limits_{m=1}^{M} C_{m}$ where each $C_m$ are zero-measured sets representing the points where the sequence is not converging. If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will finally have that outside of $C$,
+If we let $C = $ $\bigcup\limits_{m=1}^{M} C_{m}$ where each $C_m$ are zero-measured sets representing the points where the sequence is not converging.
+If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will finally have that outside of $C$,
 
 \begin{equation}
  \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} \sum_m^M  P_{\Theta}(\phi(\Theta)= m) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)
@@ -309,7 +336,9 @@ If we let $C = $ $\bigcup\limits_{m=1}^{M} C_{m}$ where each $C_m$ are zero-meas
 
 \subsection{Predictive error bounds}
 
-Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error. To build an estimate of the generalization error on the ensemble classifier, these individual scores and the relationship between them must measured. In this sense, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
+Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error.
+To build an estimate of the generalization error on the ensemble classifier, these individual scores and the relationship between them must measured.
+In this sense, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
 
 %\begin{lemma}
 %Given two line segments whose lengths are $a$ and $b$ respectively there is a
@@ -335,7 +364,8 @@ There exists an upper bound for the generalization error.
 
 	%\]
 
-	Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}. Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the ensemble classifier can correctly classify or not the sample's label, given $\Theta$.
+	Here the margin function is described as the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}.
+    Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the ensemble classifier can correctly classify or not the sample's label, given $\Theta$.
 
 	With these definitions, it is straight to see that
 
@@ -360,7 +390,8 @@ There exists an upper bound for the generalization error.
 	            \end{split}
             \end{equation}
 
-	where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$. In both cases, $\Theta$ and $\Theta'$ are given.% to be fixed.
+	where $ \rho(\Theta, \Theta')$ is the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$, and $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$.
+    In both cases, $\Theta$ and $\Theta'$ are given.% to be fixed.
 
 	Equation \cref{eq:rf-marginFunVar} in turn implies that
 
@@ -413,7 +444,8 @@ There exists an upper bound for the generalization error.
 This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. The author of the algorithm~\textcite{breiman-randomforests} remarks here that this bound may not be strong. He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier.
 
 
-\subsection{Binary Class}
+\subsection{Binary Class}\label{subsection:random_forests_binary_class}
+
 In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \cref{eq:rf-PEBound}. In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$.
 
 
@@ -432,7 +464,8 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
 
  \todo{do run on a problem and compare to results solely with decision trees}
 
-\subsection{Other Notes on Random Forests}
+\subsection{Other Notes on Random Forests}\label{subsection:random_forests_other_notes}
+
 One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. The model is also robust to the introduction of a number of noisy features. If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features. Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. This is because it follows a hyper geometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
 
 The depth of growth for each tree is another important tuning parameter. We must chose it correctly by assessing the model's performance across different values for $m$. A deep tree will tend to overfit the data by partitioning input space to fit the training data. This effect will counter the overall reduction in variance of the forest and thus increase the generalization error of our algorithm.
@@ -446,7 +479,7 @@ The idea for this is that at each split we can measure the gain of using a certa
 
  \todo{show feature importances for 1 problem}
 
-\section{Boosting Models}\label{section-boosting}
+\section{Boosting Models}\label{section:gradient_boosting}
 \subsection{Ada Boost}
 %~\textcite{schapire-adaBoost}
 
@@ -460,10 +493,10 @@ The chained construction of weak learners has its implications in computational 
 
 These properties underline a substantial difference to Random Forests where base learners are built as uncorrelated as possible and where optimization can be performed globally, which allowed a significant parallelization of the algorithm.
 
-\subsection{Ada Boost Formulation}
+\subsection{Ada Boost Formulation}\label{section:gradient_boosting_formulation}
 
 Let
-\begin{equation}\label{equation-adaBoostTrainingError}
+\begin{equation}\label{eq:adaBoostTrainingError}
 \overline{err} = \frac{1}{N} \sum_{i=1}^{N} I(y_i \neq \hat{y_i})
 \end{equation}
 
@@ -476,7 +509,7 @@ to be the expected error rate of the model on the true, unknown distribution of 
 
 Let $m$ index the iteration number in the Ada Boost algorithm. Set $w^{(m)}_i$ to be the $i$-th sample's weight. We will initialize this variable to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. Let $h(x,\theta)$ denote our model's weak learner. With this notation, we assume the function to have a domain in the input feature space and in the parameters defining the learner. Naturally these will depend on the problem structure and on the base learner. Then Ada Boost's model takes the following form:
 
-\begin{equation}\label{equation-adaBoostModel}
+\begin{equation}\label{eq:adaBoostModel}
 \hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
 \end{equation}
 
@@ -484,7 +517,7 @@ where $M$ is the model's hyperparameter indicating the amount of weak learners a
 
 The algorithm's iteration will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the last model. At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
 
-\begin{equation}\label{equation-adaBoostIteration}
+\begin{equation}\label{eq:adaBoostIteration}
 \begin{split}
 (\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & L\big( y_i,  \hat{y}^{m}(x_i) + \gamma h(x_i,\theta) \big) \\
 = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & L\big( y_i,  \sum_{j=1}^{m} \gamma_j h(x_i,\theta_j) + \gamma h(x_i,\theta) \big)
@@ -495,9 +528,9 @@ The greedy nature of the algorithm becomes explicit in the procedure above, wher
 
 Ada Boost was first derived in~\textcite{schapire-adaBoost} and it was introduced with a specific minimizing function. The general version here presented allows the use of a broad range of base learners which need not to be from the same algorithmic family. In the first version introduced, the loss function used was the exponential loss which is $L(y,z) = e^{-yz}$ and the target variable took the values $1$ or $-1$.
 
-This particular case yields a similar equation as in \cref{equation-adaBoostIteration}, but where
+This particular case yields a similar equation as in \cref{eq:adaBoostIteration}, but where
 
-\begin{equation}\label{equation-adaBoostExponentialIteration}
+\begin{equation}\label{eq:sadaBoostExponentialIteration}
 \begin{split}
 (\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & \exp\big( -y_i (\hat{y}^{m}(x_i) + \gamma h(x_i,\theta) )\big) \\
 = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} &
@@ -510,13 +543,13 @@ Given that we are only minimizing $\gamma$ and $\theta$, we can group $e^{-y_i \
 
 %We can also take the $\gamma$ factor out of the sum, since it is fixed for all samples.
 *
-\begin{equation}\label{equation-adaBoostExponentialIteration2}
+\begin{equation}\label{eq:adaBoostExponentialIteration2}
 (\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \  \sum_{i=1}^{N} w_i^{(m)} \exp \big(-\gamma h(x_i,\theta)y_i \big)
 \end{equation}
 
-We can then minimize for $\theta$ first, independently of the value of $\gamma$. The series in \cref{equation-adaBoostExponentialIteration2} can be decomposed
+We can then minimize for $\theta$ first, independently of the value of $\gamma$. The series in \cref{eq:adaBoostExponentialIteration2} can be decomposed
 
-\begin{equation}\label{equation-adaBoostThetaDecomposition}
+\begin{equation}\label{eq:adaBoostThetaDecomposition}
 \begin{split}
 e^{-\gamma} \sum_{i \mid y_i = h(x_i,\theta)} w_i^{(m)} + e^{\gamma} \sum_{i \mid y_i \neq h(x_i,\theta)} w_i^{(m)} & = \\
 ( e^{\gamma} - e^{-\gamma}) \sum_{i = 1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big) + e^{-\gamma} \sum_{i = 1}^{N}  w_i^{(m)} &
@@ -526,13 +559,13 @@ e^{-\gamma} \sum_{i \mid y_i = h(x_i,\theta)} w_i^{(m)} + e^{\gamma} \sum_{i \mi
 
 and then the minimizing solution for $h(\cdot, \theta_{m+1})$ will be the one satisfying
 
-\begin{equation}\label{equation-adaBoostThetaMinimization}
+\begin{equation}\label{eq:adaBoostThetaMinimization}
 \theta_{m} = \underset{ \theta}{\mathrm{argmin}} \sum_{i=1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big)
 \end{equation}
 
-Let $u = \sum_{i=1}^{N} w_i^{(m)}$ and $v = \sum_{i=1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big) $, which are both constant in $\gamma$. Consider \cref{equation-adaBoostTrainingError} and note that $\frac{u}{v} = \frac{1}{\overline{err}}$. If we now solve for $\gamma$ in \cref{equation-adaBoostThetaDecomposition}, we can take
+Let $u = \sum_{i=1}^{N} w_i^{(m)}$ and $v = \sum_{i=1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big) $, which are both constant in $\gamma$. Consider \cref{eq:adaBoostTrainingError} and note that $\frac{u}{v} = \frac{1}{\overline{err}}$. If we now solve for $\gamma$ in \cref{eq:adaBoostThetaDecomposition}, we can take
 
-\begin{equation}\label{equation-adaBoostBetaMinimization}
+\begin{equation}\label{eq:adaBoostBetaMinimization}
 f(\gamma) = ( e^{\gamma} - e^{-\gamma}) u + e^{-\gamma}v
 \end{equation}
 
@@ -642,7 +675,7 @@ Note that we have included here a regularization term (see section \cref{section
 
 If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
 
-\begin{equation}\label{equation-gradientBoostingTaylor}
+\begin{equation}\label{eq:gradientBoostingTaylor}
 Obj^t(\theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i,\theta_t) + \frac{1}{2} h_i {f_t(x_i,\theta_t)}^2 } + R(f(\Theta)) + c(t)
 \end{equation}
 
@@ -655,7 +688,7 @@ h_i = & \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial {(\hat{y}^{t-1}_i)}^2
 \end{split}
 \end{equation}
 
-Still, the equation \cref{equation-gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. This also means replacing the actual tree's predictions for each sample as $\theta_{q(x_i)}$, where $q(\cdot): X \rightarrow leaf$ is the function that maps samples to the tree's leaves. Then,
+Still, the equation \cref{eq:gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. This also means replacing the actual tree's predictions for each sample as $\theta_{q(x_i)}$, where $q(\cdot): X \rightarrow leaf$ is the function that maps samples to the tree's leaves. Then,
 
 %for that tree's evaluation.
 
