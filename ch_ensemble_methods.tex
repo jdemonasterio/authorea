@@ -553,6 +553,35 @@ These results are recorded and averaged across all trees and all the split scena
 
  \todo{Add experiment results for Random Forest runs and show feature importances for 1 problem.}
 
+In this subsection, we explore on the task described on \cref{target4} by fitting random forest learners.
+Here, our cross validation procedure will explore multiple combinations of hyperparameter values, by grid searching over a cartesian product of finite sets.
+The procedure is onerous in practice since we generally have to search over more than 5 parameters.
+If each of this has at least 10 possible values, then the search of the best hyperparameters spans a space of more than ten thousand points.
+Moreover, each of these configurations needs to be cross validated in a number of folds.
+This then expands the amount of times we fit a random forest model, creating a large amount of iterations during this search.
+And if we were to use commodity hardware with standard tools for this, it would take weeks or be probably impossible to do with the number of samples we are using in our dataset.
+
+For the reasones exposed, before, we take on the task of using a specialized server for the experiments.
+Our setup consists of a 16 core CPU with 72GB of available RAM running a UNIX based OS.
+As for the software, we used \cref{python3.5} as the scripting language with a specialized machine learning package \cref{graphlab}.
+We can't stress enough how convenient the ``Graphlab'' is for our purposes.
+It handles most of the complex task of parallelizing the cross validation procedures and the building of the models.
+Also, it has an \texit{out-of-the-box} management of big datasets which might exceed the available amount of memory used by the server by natively pooling and sharing resources among computer processes, without need of any user interaction.
+This has allowed us to conveniently run these long experiments without risk of failure due to lack of memory and without any prior expert domain knowledge on computer systems.
+
+For this experiment, we would like to only consider migrant people that are non-endemic at $T_1$, but have been during $T_0$.
+We used different setups for this, but in all we cross validated the same possible hyperparameter configurations.
+The grid of hyperparameters used spanned the following items:
+
+\begin{itemize}\label{list:random_forest_grid_search_params}
+
+  \item The tree's max depth
+  \item If we pre-weighted the positive and negative classes in the loss function
+  \item
+
+\end{itemize}
+
+
 
 \section{Boosting Models}\label{section:gradient_boosting}
 
