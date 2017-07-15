@@ -1,4 +1,4 @@
-\chapter{Ensemble Methods and  Naive Bayes Classifier}\label{cha:ensembleMethods}
+\chapter{Ensemble Methods and  Naive Bayes Classifier}\label{ch:ensembleMethods}
 
 
 \section{Classifier: Naive Bayes}
@@ -269,7 +269,7 @@ And the same can be said of the feature representing the count of calls made fro
 This tree also perfooms poorly in its prediction of which users have migrated in the past.
 At some point, it is reasonable to assume that balancing classes leads to a better predictive outcome.
 Yet there are still various misclassifcations in the predicted target classes.
-If we let the tree grow deper though, we might increase the performance of the training error as shown in \cref{figures/figure-biasVariance/figure-biasVariance}.
+If we let the tree grow deper though, we might increase the performance of the training error as shown in \cref{figure:biasVariance}.
 But again, this won't help our generalization error.
 So to tackle most of the disadvantages described by this technique, \textit{Random Forests} are what follow as a natural extension to this classifier.
 
@@ -292,16 +292,13 @@ We denote $h(\textbf{x},\Theta_k)$ to be the corresponding classifier and $N$ th
 The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution but independently of the previous parameters $\Theta_1, \ \ldots, \ \Theta_{k-1}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
 
-Let ${h_k(\textbf{x}) }_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x})$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I$ denote the indicator function.
+Let ${h_k(\textbf{x}) }_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x})$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I(\cdot)$ denote the indicator function.
 Define the margin function as
 
 \begin{equation}
 mg(\textbf{x},\textbf{y}) = \frac{1}{K}  \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})
-- \max{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right)
+- \max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right)
 \end{equation}\label{eq:rf-marginFun}
-
-The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes.
-It is the training error of the model when using the misclassification loss. Here the generalization error is denoted as $PE*$ and is equal to
 
 
 The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes.
@@ -352,6 +349,57 @@ If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will 
  \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} \sum_m^M  P_{\Theta}(\phi(\Theta)= m) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)
  \end{equation}
 
+
+\subsection{ Comparison to Decision Trees}\label{subsection:random_forests_comparison_trees}
+
+From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Treees,  we ran two experiment setups on a Random Forest learner for the simple task in \cref{target1}, using an $F1$ score. This was a cross validation procedure of 10 folds for each configuration, where each experiment optimized the score on a different hyperparamter.
+
+For the first one, we test the scores of the forest by varying the maximum depth that the trees can have.
+And on the second one, we try to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing tree size.
+As a default configuration, we set on 10 the trees' max depth and on 10 the default number of trees.
+
+In both, we set a balanced weighting of positive and negative samples in the loss function. Also, we use the gini index as the impurity measure in the splitting criteria of each tree's node.
+
+Cross validation procedures ran for 1412.8 and 2506.1 seconds respectively and they both excluded attributes of the user's which informed on the user's home state and its current endemic condition at $T_1$.
+
+The experiment's scores outcomes across their hyperparameter values were graphed  in \cref{fig:f1_random_forest_validation_curves_depth_num_trees}.
+The couple of cross-validated and training set scores where compared, where, for each hyperparameter value, the $1-F1$ score is shown.
+In this way, having a lower score in the graphic means a better model was reached.
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+%  \centering
+  \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+%  \centering
+  \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
+  \end{minipage}
+\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown where the nubmer of trees and the depth of the trees hyperparams were tested.}
+\label{fig:f1_random_forest_validation_curves_depth_num_trees}
+\end{figure}
+
+
+Recall how this relates to \cref{figure:dtree_overfit_problem_2}, in which a tree's training error always improves as a result of an increase in the tree's depth.
+Yet the tree's prediction error at one point suffers and deteriorates.
+From what we can see in \cref{fig:f1_random_forest_validation_curves_depth_num_trees}, the cross validated erros is always decreasing for increasing tree depth.
+A very slight deceleration in the decrease of the cross validated error can be seen for tree depth bigger than 9.
+Yet the scores keeps improving and don't worsen.
+This is different to \cref{figure:dtree_overfit_problem_2} where if we let the tree grow deeper, at one point we only increase the performance of the training error.
+Here, we are possibly improving the generalization error, as indicated by the CV estimation.
+
+ On the other hand, it is interesting to note that there is a very slow decrease in the training and CV scores when the number of trees is increased.
+ This might be explained by the fact that we are setting a default tree depth of 9 leves.
+ A configuration of this type then might be capturing all the needed model complexity to attain
+ Another plausible explanation for this is that, for this task, the forest fastly converges to the generalization error and that adding more trees doesn't certainly improve on the predictions.
+
+
+At their optimal configuration, both setups reached CV score averages of at least 0.75, with a maximum of 0.81 for the forest
+with trees of 16 levels.
+The optimal number of estimators for the CV and the training sets were not the same though, were 139 was the best configuration for the training score whilst 133 was the best average for the CV set. The relative difference in these best scores was of 3.3\%.
+At the same time, the relative difference of the best CV and training scores, for the maximum tree depth experiment was of 9.5\%.
+This percentage difference signals that the max depth hyperparameter is significantly more sensible to overfitting than the number of trees parameter.
 
 
 \subsection{Predictive error bounds}
