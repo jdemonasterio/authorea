@@ -51,6 +51,7 @@
     * [DONE] Tener 5 Problems en vez de problems con items.
     * [DONE] Figura 4.2.1 agregar la grafica de CV de decision trees y referenciar al futuro.
     * Meter mas figures overall.
+    * [DONE] Add experiments/runs for Naive Bayes Classifier. Show how fast the implementation is and relate to how "non-parametric" this is i.e. easy to set up and use as a benchmarking for better, more complex models.
 
 ## Meeting 21/06
     * [DONE] meter TODOs tags with command to make them appear in red to have it visualized on the pdf.
