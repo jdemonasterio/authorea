@@ -58,7 +58,7 @@ We want to infer which users lived in the endemic region in the past:
 		\end{align*}
 \end{problem}
 
-With this definition and the description of the features extracted from the data in \cref{cha:descr-risk}, it is important to observe that we are using the information of a user's endemicity $E_{Z1}$ to predict $E_{Z0}$.
+With this definition and the description of the features extracted from the data in \cref{ch:descr-risk}, it is important to observe that we are using the information of a user's endemicity $E_{Z1}$ to predict $E_{Z0}$.
 And it wouldn't be of much surprise to know that these two variables are indeed highly correlated with a value of 93\%. This means that, overall, the feature is a good predictor of the target variable causing algorithms to be heavily weighted towards this attribute. A simple enough algorithm would use this single feature as sole predictor.
 
 To prevent this from happening and to try and capture the change in endemicity for a small groups of users, we decided then to hide the feature when solving \cref{target1}.
@@ -69,7 +69,7 @@ To prevent this from happening and to try and capture the change in endemicity f
 % are locally  an and given the assumptions used maps in \cref{}, this is a result which
 
 \begin{problem}\label{target2}
-We want to infer which users lived in $E_Z$ in the past and then migrated:\label{itm:target2}
+We want to infer which users lived in $E_Z$ in the past and then migrated:
 	\begin{align*}
 				Y_u =
 				\begin{cases}
@@ -128,11 +128,11 @@ As a \textbf{bonus} problem and for exemplary reasons, we considered tried to de
 
 
 We can see from what was mentioned before that not all problems can be represented by the same dataset.
-The limitations on what is available as our input set $X$ attributes or samples. For example, we said that in \cref{itm:target1} we have no limitations to use that $H_u$ at $E_{Z1}$, yet we decide to ignore this highly correlated feature. As a result, we  would be implicitly introducing the target variable as an attribute.
+The limitations on what is available as our input set $X$ attributes or samples. For example, we said that in \cref{target1} we have no limitations to use that $H_u$ at $E_{Z1}$, yet we decide to ignore this highly correlated feature. As a result, we  would be implicitly introducing the target variable as an attribute.
 With this in mind, appropriate care must be taken for each case on which attributes are available for the problem being analyzed.
 
 
-With \cref{target1,target2,target3,target4,target5}, we continue onto define and illustrate techniques for supervised classification. Throughout \cref{cha:modelSelection,cha:ensembleMethods,cha:results_conclusion} we will come back to these problems by applying them with the techniques and methods we discuss.
+With \cref{target1,target2,target3,target4,target5}, we continue onto define and illustrate techniques for supervised classification. Throughout \cref{ch:modelSelection,ch:ensembleMethods,ch:results_conclusion} we will come back to these problems by applying them with the techniques and methods we discuss.
 
 
 \section{A working example of a Machine Learning setup}\label{section-example}

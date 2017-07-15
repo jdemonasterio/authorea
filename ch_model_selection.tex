@@ -1,5 +1,5 @@
 
-\chapter{Generalization Error and Model Selection }\label{cha:modelSelection}
+\chapter{Generalization Error and Model Selection }\label{ch:modelSelection}
 
 %\section{ Model Selection}\label{section-modelSelection}
 
@@ -245,16 +245,16 @@ Overfit models will fail to generalize on new data since the variance structure 
 %The four possible combinations of high
 
 \begin{figure}[h!]
-\begin{center}
+\begin{center} \label{figure:biasVariance}
 \includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/figure-biasVariance}
 \caption{ Figure borrowed from \protect\textcite{hastie-elemstatslearn} P. 220. Curves are measures of the estimated prediction error for the different degrees of freedom in the model (number of features). Blue curves correspond to the training error and red curves are for the test error. The bold curves are calculated by averaging over all the colored curves.%
 }
-\label{figure:biasVariance}
+
 \end{center}
 \end{figure}
 
 
-In \cref{figure-biasVariance}, the authors fit a model to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is because during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
+In \cref{figure:biasVariance}, the authors fit a model to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is because during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
 
 As a similar example, we reproduce the previous behavior on our own dataset.
 Consider \cref{target2} which has a high imbalance between the positive and negative target classes.
@@ -693,7 +693,7 @@ $l1$ & 1e-5 & 0.81 & 0.76 & 15892.9 \\
 
 
 Another interesting result is that in both experiments, the best CV scores were achieved for highly regularized models.
-To further explore this, we looked at their CV mean scores for each hyperparameter setting. \cref{fig:rocauc_logreg_cv_regularized_l1} and \cref{fig:rocauc_logreg_cv_regularized_l2} show the series comparison.
+To further explore this, we looked at their CV mean scores for each hyperparameter setting. \cref{fig:rocauc_logreg_cv_regularized_comparison} shows the series comparison.
  From this it is clear that both models improve the more regularized they become.
  The full extent to which this regularization would keep improving the score is not explored because both experiments' $C$ parameter had a minimum at $10^{-5}$ which corresponds to the highest score for both.
  Also, there is a difference in the stability of the fitting, where the scores are more noisy for the $l2$ regularization at high $C$ values.
