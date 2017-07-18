@@ -384,14 +384,14 @@ In this way, having a lower score in the graphic means a better model was reache
 
 Recall how this relates to \cref{figure:dtree_overfit_problem_2}, in which a tree's training error always improves as a result of an increase in the tree's depth.
 Yet the tree's prediction error at one point suffers and deteriorates.
-From what we can see in \cref{fig:f1_random_forest_validation_curves_depth_num_trees}, the cross validated erros is always decreasing for increasing tree depth.
+From what we can see in \cref{fig:f1_random_forest_validation_curves_depth_num_trees}, the cross validated error is always decreasing for increasing tree depth.
 A very slight deceleration in the decrease of the cross validated error can be seen for tree depth bigger than 9.
 Yet the scores keeps improving and don't worsen.
 This is different to \cref{figure:dtree_overfit_problem_2} where if we let the tree grow deeper, at one point we only increase the performance of the training error.
 Here, we are possibly improving the generalization error, as indicated by the CV estimation.
 
  On the other hand, it is interesting to note that there is a very slow decrease in the training and CV scores when the number of trees is increased.
- This might be explained by the fact that we are setting a default tree depth of 9 leves.
+ This might be explained by the fact that we are setting a default tree depth of 9 levels.
  A configuration of this type then might be capturing all the needed model complexity to attain
  Another plausible explanation for this is that, for this task, the forest fastly converges to the generalization error and that adding more trees doesn't certainly improve on the predictions.
 
@@ -721,27 +721,24 @@ The use of the exponential loss function $\exp(-Yf(X))$ is also desirable in thi
 A drawback of this loss though, is that it is not robust to outliers or to noisy data. During runtime weights are constantly shifting towards misclassified samples. Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data.
 
 
- \todo{fix subsection of adaboost compared to RF, talk about benefits and drawbacks}
-
 \subsection{ Comparison to Random Forests}\label{subsection:boosting_comparison_forest}
 
 In order to compare this learner to Random Forests, we ran the same setup as in \cref{subsection:random_forests_comparison_trees}
 with two experiments each varying a different hyperparameter.
-The Boosting models were built to classify on task \cref{target1} and were evaluted with an $F1$ score.
+The Boosting models were built to classify on task \cref{target1} and the $F1$ score was used to evalute their performance.
 The cross validation procedure set 10 folds for each hyperparameter
- configuration and both experiments separately tuned on the maximum depth and the number of trees.
+ configuration and both experiments individually tuned on: a) the maximum tree depth and b) the number of base learners.
 
-For the first one, we test the scores of the forest by varying the maximum depth that the trees can have.
-And on the second one, we try to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing tree size.
-As a default configuration, we set on 10 the trees' max depth and on 10 the default number of trees.
+For both, we vary the tested hyperparameter's values over a predefined range and then graph the change in score across these values.
+As a default configuration, 50 was the number of trees, and 6 were the trees' maximum depth and 0.1 was the fixed learning rate.
+Additionally, we used the gini index as the impurity measure in the splitting criteria of each tree's node and the exponential loss function to grow the next estimator in line with the formulation given in \cref{eq:adaBoostThetaDecomposition}.
+% .\footnote{Other loss functions are available but these would not yield the AdaBoost formulation.}
 
-In both, we set a balanced weighting of positive and negative samples in the loss function. Also, we use the gini index as the impurity measure in the splitting criteria of each tree's node.
+Cross validation procedures ran for 82150.8
+ and 6076.3 seconds respectively and they both excluded attributes of the user's home state and their current endemic condition at $T_1$.
 
-Cross validation procedures ran for
-and    seconds respectively and they both excluded attributes of the user's which informed on the user's home state and its current endemic condition at $T_1$.
-
-The experiment's scores outcomes across their hyperparameter values were graphed  in \cref{fig:f1_boosting_validation_curves_depth_num_trees}.
-The couple of cross-validated and training set scores where compared, where, for each hyperparameter value, the $1-F1$ score is shown.
+The experiment's scores outcomes across their hyperparameter values were graphed in \cref{fig:f1_boosting_validation_curves_depth_num_trees}.
+These compare the cross-validated and training set scores, where, for each hyperparameter value, the $1-F1$ score is graphed as a function of the hyperparameter's value.
 In this way, having a lower score in the graphic means a better model was reached.
 
 \begin{figure}
@@ -762,28 +759,25 @@ In this way, having a lower score in the graphic means a better model was reache
 Recall how these outcomes compare to \cref{figure:dtree_overfit_problem_2} and \cref{fig:f1_random_forest_validation_curves_depth_num_trees},
 in which a tree's training error always improves as a result of an increase in the tree's depth.
 
-Yet the tree's prediction error at one point suffers and deteriorates.
+Here, we see that the estimator is prone to overfitting when using a high $max depth$ value.
+This is because the training deviates faster from the CV error when the depth is higher.
+This accelaration is clear from the figure where the CV score is invariant while the training error decreases.
+This model differs to the Random Forest classifier in that the trees are not uncorrelated, because the $t$-th tree improves on the error of the model at $t$.
+This is an effective difference in the models.
 
-From what we can see in, the cross validated erros is always decreasing for increasing tree depth.
-A very slight deceleration in the decrease of the cross validated error can be seen for tree depth bigger than 9.
-Yet the scores keeps improving and don't worsen.
-This is different to the Random Forest experiment,
+For the second experiment, the overfitting difference in the CV score and the train score is smaller, relative to the CV score.
 
-where if we let the tree grow deeper, at one point we only increase the performance of the training error.
-Here, we are possibly improving the generalization error, as indicated by the CV estimation.
+It is interesting to note that, for both cases, there is a very small gain in the CV error when varying the hyperparameters, as evidenced by the range of the scores.
+Yet the decrease in CV score is slightly better for the second experiment.
+This is different to the Random Forest experiment, where the scores had a stronger improvement in the cross validated score.
+The learner seems to better fit the data than the Random Forest model, since lower error rates are achieved, and it converges faster to a stable CV error where adding more trees or depth doesn't improve on the score.
 
- On the other hand, it is interesting to note that there is a very slow decrease in the training and CV scores when the number of trees is increased.
- This might be explained by the fact that we are setting a default tree depth of 9 leves.
- A configuration of this type then might be capturing all the needed model complexity to attain
- Another plausible explanation for this is that, for this task, the forest fastly converges to the generalization error and that adding more trees doesn't certainly improve on the predictions.
+At their optimal configuration, both setups reached CV score averages of at least 0.865, with a maximum of 0.8659 for the learner with trees of 12 levels.
+However, the optimal number of estimators for the CV and the training sets were different, were 105 was the best configuration for the training score and 95 was the best average for the CV set. The relative difference in these best scores was of 1.5\%.
+It is not surprising that the relative difference of the best CV and training scores, for the maximum tree depth experiment was much higher, with 11.5\%.
 
-
-At their optimal configuration, both setups reached CV score averages of at least , with a maximum of  for the forest
-with trees of  levels.
-The optimal number of estimators for the CV and the training sets were not the same though, were  was the best configuration for the training score whilst  was the best average for the CV set. The relative difference in these best scores was of \%.
-At the same time, the relative difference of the best CV and training scores, for the maximum tree depth experiment was of \%.
-This percentage difference signals that the max depth hyperparameter is significantly more sensible to overfitting than the number of trees parameter.
-
+The outcomes here expose the drawbacks of this model which is more prone to overfitting and takes longer to fit when comapred to the Random Forest algorithm.
+Yet it gives better overall performance on the CV error, when the model is correctly calibrated.
 
 
 
