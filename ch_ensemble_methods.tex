@@ -556,25 +556,26 @@ These results are recorded and averaged across all trees and all the split scena
 In this subsection, we explore on the task described on \cref{target4} by fitting random forest learners.
 Here, our cross validation procedure explored multiple combinations of hyperparameters that we predefined.
 
-Denote all possible combinations by $\Alpha_1 \times \Alpha_2 \ldots \times  \Alpha_j$, where each hyperparameter $\alpha_i$ will take all possible predefined values in $\Alpha_i \forall i \in {1,\ldots,j}$.
+Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_j$, where each hyperparameter $\alpha_i$ will take all possible predefined values in $A_i \forall i \in {1,\ldots,j}$.
+Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_j$, where each hyperparameter $\alpha_i$ will take all possible predefined values in $A_i \forall i \in {1,\ldots,j}$.
 In practice, we must be careful with this procedure for the Random Forest algorithm since it is costly.
-The learner has $j\geq 10$ and for each $\Alpha_i$ it is normal to have more than 10 possible values.
+The learner has $j\geq 10$ and for each $A_i$ it is normal to have more than 10 possible values.
 Thus the search spans a space of more than ten thousand combinations.
 Moreover, each combintation has to be cross validated on the number of folds we define, creating a very large amount of iterations during this search.
 These fits will take computer resources such as memory and CPU time.
 So we have to limit ourselves to search over a limited amount of values.
 
 Also, if we were to use commodity hardware with standard tools for this procedure, the experiment could take weeks and, given our dataset size, it would not fit into computer memory.
-For these reasons, we take on the task with a specialized server with a 16 core CPU and 72 gigabytes of available RAM .
+For these reasons, we take on the task with a specialized server with a 16 core CPU and 72 gigabytes of available RAM.\@
 The system runs a UNIX based OS and our algorithms were scripted in \cref{python3.5}.
 We used the specialized machine learning package \cref{graphlab} to handle the parallelization and the distribution of system resources.
 As a side note, we can't stress enough how convenient this package is for our purposes.
 It handles most of the complex task of maxing out the system resources to perform as fast as possible in the cross validation procedure and in the construction of the main $X$ dataset.
-Also, it has an \texit{out-of-the-box} memory management for large datasets.
+Also, it has an \textit{out-of-the-box} memory management for large datasets.
 Wit this, we can natively handle data that is larger than the amount of memory in the server used by the server, requiring minimal user knowledge to tune.
 \cref{graphlab} has allowed us to conveniently run these long experiments without risk of failure due to lack of memory and without any prior expert domain knowledge on computer systems.
 
-For this experiment, we only considered migrant people that are non-endemic at $T_1$, but have been during $T_0.
+For this experiment, we only considered migrant people that are non-endemic at $T_1$, but have been during $T_0$.
 In the general procedure, we cross validated the same possible hyperparameter configurations, where these spanned the following items:
 
 \begin{itemize}\label{list:random_forest_grid_search_params}
