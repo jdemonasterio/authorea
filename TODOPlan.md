@@ -47,7 +47,7 @@
 ## Meeting 28/06
     * [DONE] Juntar Cap. 6 y 7.
     * [DONE] Agregar un poco de redundancia a las definiciones de los problemas.
-    * [DONE] Decir que los problemas los vamos a retomar en elcap 4 y 5 bla bla para resolver ciertas cosas.
+    * [DONE] Decir que los problemas los vamos a retomar en el cap 4 y 5 bla bla para resolver ciertas cosas.
     * [DONE] Tener 5 Problems en vez de problems con items.
     * [DONE] Figura 4.2.1 agregar la grafica de CV de decision trees y referenciar al futuro.
     * Meter mas figures overall.
