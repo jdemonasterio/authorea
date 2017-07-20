@@ -2,6 +2,7 @@
 
 ## In general:
     * Figures appearing in sub/sections different from where they are spawned.
+    * Minor spell check with computer spell checkers in sublime.
 
 ## Data Description Chapter:
     * [DONE] add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty,
