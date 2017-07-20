@@ -217,31 +217,31 @@ For a complete explanation of decision trees construction and uses in classifica
 
 We present here a run of the a decision tree over $\mathcal{T}$.
 In this case the \cref{target2} was used as an example.
-The tree was built using a standard configuration with a low depth of 5 and a gini splitting criteria.
+The tree was built using a standard configuration with a low depth of 5 and a Gini splitting criteria.
 All features $X^j$ are available to be chosen at each split and a node has to have at least 20 samples to be split again. The algorithm ran in approximately 15 seconds.
 
-\todo{fix decision tree horizontal, whole page, h! appearence}
+\todo{fix decision tree horizontal, whole page, h! appearance}
 
 \smallskip
 
 \begin{figure*}[tb]
 \centering
  \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map.png}}
-\caption{ Example of a final decision tree. This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. For every node, the samples are split into sets given by the implicit indicator function defined in the conditon.}
+\caption{ Example of a final decision tree. This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. For every node, the samples are split into sets given by the implicit indicator function defined in the condition.}
 \label{fig:decision_tree_actual_problem}
 \end{figure*}
 
 \smallskip
 
 
-From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the gini splitting criteria.
+From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the Gini splitting criteria.
 Given that in \cref{target2} we are looking for people that migrated in any direction, the choice of the tree\'s root feature is not surprising.
 The mobility diameter gives an idea of the area of influence of a user when using his mobile phone and as such, might be a proxy for migrations.
-Subsequently, the volume of use of a user\'s home antenna appears as the second most important features, both duing the weeknight and during the whole day.
-Yet the error score out by this tree yields a poor performance. Evaluated with the $F1$ metric, we see 43.2\% result with this model which shows very poor prediction erro over all of the samples.
+Subsequently, the volume of use of a user\'s home antenna appears as the second most important features, both during the weeknight and during the whole day.
+Yet the error score out by this tree yields a poor performance. Evaluated with the $F1$ metric, we see 43.2\% result with this model which shows very poor prediction error over all of the samples.
 With this, comparing how the top features result in the tree can be of little use to the overall problem.
 
-We decide to iterate once again on this model, but now slightly changing the hyperparamter which controls the balance of $\mathcal{T}$.
+We decide to iterate once again on this model, but now slightly changing the hyperparameter which controls the balance of $\mathcal{T}$.
 The reason for this is that with the current task, the positive and negative classes have a disproportionate balance of samples and this is reflected in the overall model\'s poor performance.
 For this reason, we modified the setup of the loss function of the tree to weigh more samples from the under-represented class over the samples from the abundant group.
 For each sample, it\'s loss weight was adjusted by it\'s class representation ratio.
@@ -267,10 +267,10 @@ Recall that by the stochastic nature of the algorithm that builds a tree, two ru
 In this however, it is notable that the final tree still uses the mobility as the first split in the data, even with balanced samples.
 And the same can be said of the feature representing the count of calls made from the home antenna.
 
-This tree also perfooms poorly in its prediction of which users have migrated in the past.
+This tree also performs poorly in its prediction of which users have migrated in the past.
 At some point, it is reasonable to assume that balancing classes leads to a better predictive outcome.
-Yet there are still various misclassifcations in the predicted target classes.
-If we let the tree grow deper though, we might increase the performance of the training error as shown in \cref{figure:biasVariance}.
+Yet there are still various misclassifications in the predicted target classes.
+If we let the tree grow deeper though, we might increase the performance of the training error as shown in \cref{figure:biasVariance}.
 But again, this won't help our generalization error.
 So to tackle most of the disadvantages described by this technique, \textit{Random Forests} are what follow as a natural extension to this classifier.
 
@@ -353,13 +353,13 @@ If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will 
 
 \subsection{ Comparison to Decision Trees}\label{subsection:random_forests_comparison_trees}
 
-From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Trees,  we ran two experiment setups on a Random Forest learner for the simple task in \cref{target1}, using an $F1$ score. This was a cross validation procedure of 10 folds for each configuration, where each experiment optimized the score on a different hyperparamter.
+From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Trees,  we ran two experiment setups on a Random Forest learner for the simple task in \cref{target1}, using an $F1$ score. This was a cross validation procedure of 10 folds for each configuration, where each experiment optimized the score on a different hyperparameter.
 
 For the first one, we test the scores of the forest by varying the maximum depth that the trees can have.
 And on the second one, we try to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing tree size.
 As a default configuration, we set on 10 the trees' max depth and on 10 the default number of trees.
 
-In both, we set a balanced weighting of positive and negative samples in the loss function. Also, we use the gini index as the impurity measure in the splitting criteria of each tree's node.
+In both, we set a balanced weighting of positive and negative samples in the loss function. Also, we use the Gini index as the impurity measure in the splitting criteria of each tree's node.
 
 Cross validation procedures ran for 1412.8 and 2506.1 seconds respectively and they both excluded attributes of the user's which informed on the user's home state and its current endemic condition at $T_1$.
 
@@ -377,7 +377,7 @@ In this way, having a lower score in the graphic means a better model was reache
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
   \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown where the nubmer of trees and the depth of the trees hyperparams were tested.}
+\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown where the number of trees and the depth of the trees hyperparams were tested.}
 \label{fig:f1_random_forest_validation_curves_depth_num_trees}
 \end{figure}
 
@@ -393,14 +393,14 @@ Here, we are possibly improving the generalization error, as indicated by the CV
  On the other hand, it is interesting to note that there is a very slow decrease in the training and CV scores when the number of trees is increased.
  This might be explained by the fact that we are setting a default tree depth of 9 levels.
  A configuration of this type then might be capturing all the needed model complexity to attain
- Another plausible explanation for this is that, for this task, the forest fastly converges to the generalization error and that adding more trees doesn't certainly improve on the predictions.
+ Another plausible explanation for this is that, for this task, the forest rapidly converges to the generalization error and that adding more trees doesn't certainly improve on the predictions.
 
 
 At their optimal configuration, both setups reached CV score averages of at least 0.75, with a maximum of 0.81 for the forest
 with trees of 16 levels.
 The optimal number of estimators for the CV and the training sets were not the same though, were 139 was the best configuration for the training score whilst 133 was the best average for the CV set. The relative difference in these best scores was of 3.3\%.
 At the same time, the relative difference of the best CV and training scores, for the maximum tree depth experiment was of 9.5\%.
-This percentage difference signals that the max depth hyperparameter is significantly more sensible to overfitting than the number of trees parameter.
+This percentage difference signals that the max depth hyperparameter is significantly more sensible to over-fitting than the number of trees parameter.
 
 
 \subsection{Predictive error bounds}
@@ -554,28 +554,29 @@ These results are recorded and averaged across all trees and all the split scena
  \todo{Add experiment results for Random Forest runs and show feature importances for 1 problem.}
 
 In this subsection, we explore on the task described on \cref{target4} by fitting random forest learners.
-Here, our cross validation procedure explored multiple combinations of hyperparameters that we predefined.
+Here, our cross validation procedure explored multiple combinations of hyperparameters that we predefined Let $\alpha_i \forall i \in {1,\ldots,j}$ be the list of our $j$ hyperparameters..
 
-Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_j$, where each hyperparameter $\alpha_i$ will take all possible predefined values in $A_i \forall i \in {1,\ldots,j}$.
-Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_j$, where each hyperparameter $\alpha_i$ will take all possible predefined values in $A_i \forall i \in {1,\ldots,j}$.
-In practice, we must be careful with this procedure for the Random Forest algorithm since it is costly.
-The learner has $j\geq 10$ and for each $A_i$ it is normal to have more than 10 possible values.
-Thus the search spans a space of more than ten thousand combinations.
-Moreover, each combintation has to be cross validated on the number of folds we define, creating a very large amount of iterations during this search.
+Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_j$, where each hyperparameter $\alpha_i$ will take all possible values in the predefined sets $A_i $.
+
+In practice, we must be careful with the size of these combinations since the full cross validation procedure is costly for the Random Forest algorithm.
+The learner has $j \geq 10$ and for each $A_i$ it is normal to have more than 10 possible values.
+Thus the search will span a space of more than ten thousand combinations.
+Moreover, each combination has to be cross validated on the number of folds we define, creating a very large amount of iterations during this search.
 These fits will take computer resources such as memory and CPU time.
 So we have to limit ourselves to search over a limited amount of values.
 
-Also, if we were to use commodity hardware with standard tools for this procedure, the experiment could take weeks and, given our dataset size, it would not fit into computer memory.
+Also, if we were to use commodity hardware with standard tools for this procedure, the experiment would take weeks and, given our dataset size, it would not fit into a standard computer's memory of less than 12GB of memory.
+
 For these reasons, we take on the task with a specialized server with a 16 core CPU and 72 gigabytes of available RAM.\@
 The system runs a UNIX based OS and our algorithms were scripted in \cref{python3.5}.
 We used the specialized machine learning package \cref{graphlab} to handle the parallelization and the distribution of system resources.
 As a side note, we can't stress enough how convenient this package is for our purposes.
 It handles most of the complex task of maxing out the system resources to perform as fast as possible in the cross validation procedure and in the construction of the main $X$ dataset.
 Also, it has an \textit{out-of-the-box} memory management for large datasets.
-Wit this, we can natively handle data that is larger than the amount of memory in the server used by the server, requiring minimal user knowledge to tune.
-\cref{graphlab} has allowed us to conveniently run these long experiments without risk of failure due to lack of memory and without any prior expert domain knowledge on computer systems.
+With this, we can natively handle data that is larger than the amount of memory used by the server, requiring minimal user knowledge to tune.
+\cref{graphlab} has allowed us to conveniently run these long experiments without risk of failure due to lack of memory and without any prior expert domain knowledge in multi-threading or parallel computing.
 
-For this experiment, we only considered migrant people that are non-endemic at $T_1$, but have been during $T_0$.
+For this case, we only considered migrant people that are non-endemic at $T_1$, but have been during $T_0$.
 In the general procedure, we cross validated the same possible hyperparameter configurations, where these spanned the following items:
 
 \begin{itemize}\label{list:random_forest_grid_search_params}
@@ -584,7 +585,7 @@ In the general procedure, we cross validated the same possible hyperparameter co
   \item If we pre-weighted the positive and negative classes in the loss function
   \item The maximum number of trees to grow
   \item The splitting criterion at each node
-  \item The number of features available to use at each split
+  \item The fraction of features available to use at each split
   \item The minimum number of splits
   \item The scoring function used to evaluate the learner
   \item The minimum loss reduction needed to allow a split
@@ -592,9 +593,44 @@ In the general procedure, we cross validated the same possible hyperparameter co
 \end{itemize}
 
 
-The experiment ran two different procedures, where each varied in the attributes used for our $X$ dataset. In the first one the procedure ran with all available features and in the second one we separated the features that were highly correlated ($> 0.2$) with the target variable.
+The full experiment ran two different tasks, where each was defined by the attributes used for our $X$ dataset.
+In the first one, the procedure ran with all available features and in the second one we separated the features that had a high correlation, bigger than $0.2$, with the target variable.
+For both, we recorded the outcome of the cross validation procedures for each experiment in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as given by the algorithm.
 
-\todo{add experiment results}
+
+
+
+\begin{table}[!htb]
+\caption{Table of best results comparing two 5-fold full grid cross validation procedures on a Random Forest Classifier.  The metrics and runtime for both experiments are shown.}
+\label{tab:random_forest_big_experiment}
+\centering
+\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
+%{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
+\toprule
+Result & Experiment 1 & Experiment 2 \\
+\midrule
+CV $F1$ score           & 0..770  &  0.663 \\
+CV $Accuracy$ score & 0.848 &  0.889 \\
+CV $Precision$ score  & 0.788 &  0.817 \\
+CV $Recall$ score       & 0.753 &  0.557 \\
+CV $Logloss$ score     & 0.391 &  0.337 \\
+CV $ROC AUC$ score   & 0.903 & 0.880  \\
+Maximum tree depth  & 12 &  12 \\
+Number of trees          & 200 &  200 \\
+Balanced Classes        & True & True  \\
+Split Criterion             & Gini &  Gini \\
+Minimum loss reduction  & 1 &  1 \\
+Running time (s)        & 2030 &  6293 \\
+Features sample at a split & 0.9 & 0.8  \\
+
+\bottomrule
+\end{tabular*}
+\end{table}
+
+
+
+\todo{Add best features comparison and comment on experiments comparison. Fall in metrics, change in hyperparams, etc..}
+
 
 
 \section{Boosting Models}\label{section:gradient_boosting}
@@ -726,13 +762,13 @@ A drawback of this loss though, is that it is not robust to outliers or to noisy
 
 In order to compare this learner to Random Forests, we ran the same setup as in \cref{subsection:random_forests_comparison_trees}
 with two experiments each varying a different hyperparameter.
-The Boosting models were built to classify on task \cref{target1} and the $F1$ score was used to evalute their performance.
+The Boosting models were built to classify on task \cref{target1} and the $F1$ score was used to evaluate their performance.
 The cross validation procedure set 10 folds for each hyperparameter
  configuration and both experiments individually tuned on: a) the maximum tree depth and b) the number of base learners.
 
 For both, we vary the tested hyperparameter's values over a predefined range and then graph the change in score across these values.
 As a default configuration, 50 was the number of trees, and 6 were the trees' maximum depth and 0.1 was the fixed learning rate.
-Additionally, we used the gini index as the impurity measure in the splitting criteria of each tree's node and the exponential loss function to grow the next estimator in line with the formulation given in \cref{eq:adaBoostThetaDecomposition}.
+Additionally, we used the Gini index as the impurity measure in the splitting criteria of each tree's node and the exponential loss function to grow the next estimator in line with the formulation given in \cref{eq:adaBoostThetaDecomposition}.
 % .\footnote{Other loss functions are available but these would not yield the AdaBoost formulation.}
 
 Cross validation procedures ran for 82150.8
@@ -752,7 +788,7 @@ In this way, having a lower score in the graphic means a better model was reache
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
   \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown, where the nubmer of trees and the depth of the trees hyperparams were tested in seperate experiments.}
+\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown, where the number of trees and the depth of the trees hyperparams were tested in separate experiments.}
 \label{fig:f1_boosting_validation_curves_depth_num_trees}
 \end{figure}
 
@@ -762,7 +798,7 @@ in which a tree's training error always improves as a result of an increase in t
 
 Here, we see that the estimator is prone to overfitting when using a high $max depth$ value.
 This is because the training deviates faster from the CV error when the depth is higher.
-This accelaration is clear from the figure where the CV score is invariant while the training error decreases.
+This acceleration is clear from the figure where the CV score is invariant while the training error decreases.
 This model differs to the Random Forest classifier in that the trees are not uncorrelated, because the $t$-th tree improves on the error of the model at $t$.
 This is an effective difference in the models.
 
@@ -777,14 +813,14 @@ At their optimal configuration, both setups reached CV score averages of at leas
 However, the optimal number of estimators for the CV and the training sets were different, were 105 was the best configuration for the training score and 95 was the best average for the CV set. The relative difference in these best scores was of 1.5\%.
 It is not surprising that the relative difference of the best CV and training scores, for the maximum tree depth experiment was much higher, with 11.5\%.
 
-The outcomes here expose the drawbacks of this model which is more prone to overfitting and takes longer to fit when comapred to the Random Forest algorithm.
+The outcomes here expose the drawbacks of this model which is more prone to overfitting and takes longer to fit when compared to the Random Forest algorithm.
 Yet it gives better overall performance on the CV error, when the model is correctly calibrated.
 
 
 
 \subsection{Gradient Tree Boosting}
 
-\todo{Add reference to friedman paper in "friedman-gradientBoosting2001"}
+\todo{Add reference to Friedman paper in "Friedman-gradientBoosting2001"}
 
 As explained before, the boosting method builds a high model learned from other \textit{weaker} learners. In the case of \textit{gradient tree boosting}, decision trees serve as base learners. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
 
