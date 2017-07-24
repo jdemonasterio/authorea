@@ -554,10 +554,9 @@ These results are recorded and averaged across all trees and all the split scena
  \todo{Add experiment results for Random Forest runs and show feature importances for 1 problem.}
 
 In this subsection, we explore on the task described on \cref{target4} by fitting random forest learners.
-Here, our cross validation procedure explored multiple combinations of hyperparameters that we predefined Let $\alpha_i \forall i \in {1,\ldots,j}$ be the list of our $j$ hyperparameters..
+Here, our cross validation procedure explored multiple combinations of hyperparameters that we predefined Let $\alpha_i \forall i \in {1,\ldots,j}$ be the list of our $j$ hyperparameters.
 
-Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_j$, where each hyperparameter $\alpha_i$ will take all possible values in the predefined sets $A_i $.
-
+Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_j$, where each hyperparameter $\alpha_i$ will take all possible values in the predefined sets $A_i$.
 In practice, we must be careful with the size of these combinations since the full cross validation procedure is costly for the Random Forest algorithm.
 The learner has $j \geq 10$ and for each $A_i$ it is normal to have more than 10 possible values.
 Thus the search will span a space of more than ten thousand combinations.
@@ -593,12 +592,14 @@ In the general procedure, we cross validated the same possible hyperparameter co
 \end{itemize}
 
 
-The full experiment ran two different tasks, where each was defined by the attributes used for our $X$ dataset.
-In the first one, the procedure ran with all available features and in the second one we separated the features that had a high correlation, bigger than $0.2$, with the target variable.
-For both, we recorded the outcome of the cross validation procedures for each experiment in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as given by the algorithm.
+The full experiment ran two different tasks, where each was characterized by the attributes used for our $X$ dataset.
+In the first one, the procedure ran with all available features and in the second one we separated the features that had a high correlation, bigger than $0.25$, with the target variable.
+This means we removed all of the features that counted the user\'s vulnerable neighbours for a given month, segmented by the direction of the call.\footnote{For a complete description on the definition of these features, please refer to \cref{tab:data_example}.}
+Recall that all of these features were central in the construction of the risk maps in \cref{section:riskmaps}.
+The color of each antenna's circle represented the amount of vulnerable users, for that given month, when looking at the incoming or outgoing calls.
+Then, these feature's correlation to the target variable are indicative, upto a certain point, of the predictive power of them.
 
-
-
+For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as given by the algorithm. The summary of these results is given in \cref{tab:random_forest_big_experiment}.
 
 \begin{table}[!htb]
 \caption{Table of best results comparing two 5-fold full grid cross validation procedures on a Random Forest Classifier.  The metrics and runtime for both experiments are shown.}
@@ -609,27 +610,49 @@ For both, we recorded the outcome of the cross validation procedures for each ex
 \toprule
 Result & Experiment 1 & Experiment 2 \\
 \midrule
-CV $F1$ score           & 0..770  &  0.663 \\
-CV $Accuracy$ score & 0.848 &  0.889 \\
-CV $Precision$ score  & 0.788 &  0.817 \\
+CV $F1$ score           & 0.770  &  0.663 \\
+CV $Accuracy$ score    & 0.848 &  0.889 \\
+CV $Precision$ score    & 0.788 &  0.817 \\
 CV $Recall$ score       & 0.753 &  0.557 \\
 CV $Logloss$ score     & 0.391 &  0.337 \\
-CV $ROC AUC$ score   & 0.903 & 0.880  \\
-Maximum tree depth  & 12 &  12 \\
-Number of trees          & 200 &  200 \\
+CV $ROC AUC$ score     & 0.903 & 0.880  \\
+Maximum tree depth     & 12 &  12 \\
+Number of trees          & 150 &  200 \\
 Balanced Classes        & True & True  \\
-Split Criterion             & Gini &  Gini \\
-Minimum loss reduction  & 1 &  1 \\
+Split Criterion          & Gini &  Gini \\
+Minimum loss reduction  & 10 &  1 \\
 Running time (s)        & 2030 &  6293 \\
-Features sample at a split & 0.9 & 0.8  \\
+Features sample in a split (\%) & 50 & 80  \\
 
 \bottomrule
 \end{tabular*}
 \end{table}
 
 
+From the result's table, it's relevant to note that both optimal learners chose the Gini splitting criterion as best, with tree's of a relatively high depth with 12 levels.
+A similar situation happened with the number of trees grown; best configurations had more than 100 trees with the second experiment having an optimal number of 200.
 
-\todo{Add best features comparison and comment on experiments comparison. Fall in metrics, change in hyperparams, etc..}
+Bigger differences appear in the choice of the minimum loss reduction and the features sampled per split.
+There are no clear indications as to which configuration is better.
+And, whilst having a higher level of randomization in the growth of the trees hints to a less overfitting learner, this difference is not that notable in the CV scorings.
+
+For most of the metrics used to evaluate the cross validation procedure, the scores look very similar. It is notable that the second experiment is slightly better in the accuracy, precision, logloss and ROC AUC scores, with a maximum difference of 5\% for all of them.
+Yet at the same time the second experiment's performance drastically drops for the recall and, because of this, for the $F1$ measure.
+This means that the learner is losing performance in correctly tagging the user's who have migrated from the endemic region.
+This 15\% difference hints to how much of an impact is characterized by removing the features for the second experiment.
+We can suspect that there's enough missing information in those features to reduce the predictive power of the learner.
+
+In both experiments, tt is important to note though that the elected hyperparameters are not optimal in any strict sense.
+At most, they can hint to the best possible configuration.
+Given the large combinatorial nature of this process, there is no guarantee of optimality in this search.
+To a greater degree were only covering as much space as our time and our computational systems allow.
+
+
+
+
+
+% \todo{add this to last concluding chapter}
+% Still, the results are very relevant in answering the question of long-term migrations. High roc-auc and f1 scores for the first expriment prove that there is value in CDR data to predict long-term migrations between two regions.
 
 
 
