@@ -46,7 +46,7 @@ In practice, the model will stem into different algorithms where each variant wi
 
 Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability $P(C_k' \mid x)$.
 
-\todo{add experiment for this classifier. Talk about how fast it is to set it up, with few hyperparams and almost no prior knowledge. Talk about fast execution and runs as well.}
+\todo{add experiment for this classifier. Talk about how fast it is to set it up, with few hyperparameters and almost no prior knowledge. Talk about fast execution and runs as well.}
 
 \section{Classifier: Decision Trees}\label{section:decision_trees}
 
@@ -377,7 +377,7 @@ In this way, having a lower score in the graphic means a better model was reache
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
   \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown where the number of trees and the depth of the trees hyperparams were tested.}
+\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown where the number of trees and the depth of the trees hyperparameters were tested.}
 \label{fig:f1_random_forest_validation_curves_depth_num_trees}
 \end{figure}
 
@@ -581,7 +581,7 @@ In the general procedure, we cross validated the same possible hyperparameter co
 \begin{itemize}\label{list:random_forest_grid_search_params}
 
   \item The tree's maximum depth
-  \item If we pre-weighted the positive and negative classes in the loss function
+  \item If we pre weighted the positive and negative classes in the loss function
   \item The maximum number of trees to grow
   \item The splitting criterion at each node
   \item The fraction of features available to use at each split
@@ -594,10 +594,10 @@ In the general procedure, we cross validated the same possible hyperparameter co
 
 The full experiment ran two different tasks, where each was characterized by the attributes used for our $X$ dataset.
 In the first one, the procedure ran with all available features and in the second one we separated the features that had a high correlation, bigger than $0.25$, with the target variable.
-This means we removed all of the features that counted the user\'s vulnerable neighbours for a given month, segmented by the direction of the call.\footnote{For a complete description on the definition of these features, please refer to \cref{tab:data_example}.}
+This means we removed all of the features that counted the user\'s vulnerable neighbors for a given month, segmented by the direction of the call.\footnote{For a complete description on the definition of these features, please refer to \cref{tab:data_example}.}
 Recall that all of these features were central in the construction of the risk maps in \cref{section:riskmaps}.
 The color of each antenna's circle represented the amount of vulnerable users, for that given month, when looking at the incoming or outgoing calls.
-Then, these feature's correlation to the target variable are indicative, upto a certain point, of the predictive power of them.
+Then, these feature's correlation to the target variable are indicative, up-to a certain point, of the predictive power of them.
 
 For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as given by the algorithm. The summary of these results is given in \cref{tab:random_forest_big_experiment}.
 
@@ -642,7 +642,7 @@ This means that the learner is losing performance in correctly tagging the user'
 This 15\% difference hints to how much of an impact is characterized by removing the features for the second experiment.
 We can suspect that there's enough missing information in those features to reduce the predictive power of the learner.
 
-In both experiments, tt is important to note though that the elected hyperparameters are not optimal in any strict sense.
+In both experiments, its important to note though that the elected hyperparameters are not optimal in any strict sense.
 At most, they can hint to the best possible configuration.
 Given the large combinatorial nature of this process, there is no guarantee of optimality in this search.
 To a greater degree were only covering as much space as our time and our computational systems allow.
@@ -811,7 +811,7 @@ In this way, having a lower score in the graphic means a better model was reache
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
   \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown, where the number of trees and the depth of the trees hyperparams were tested in separate experiments.}
+\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown, where the number of trees and the depth of the trees hyperparameters were tested in separate experiments.}
 \label{fig:f1_boosting_validation_curves_depth_num_trees}
 \end{figure}
 
