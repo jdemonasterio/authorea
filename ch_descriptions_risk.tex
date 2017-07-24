@@ -80,7 +80,7 @@ In the case of Argentina, the risk area is the \textit{Gran Chaco} ecoregion, as
 whereas in the case of Mexico, we used the region described in Section~\cref{endemic_zone_mexico}.
 
 
-\subsection{Detection of Vulnerable Users}
+\subsection{Detection of Vulnerable Users}\label{subsection:vulnerable_users_detection}
 
 Given the set of inhabitants of the risk area, we want to find those with a high communication pattern with residents of the endemic zone $E_Z$. To do this, we get the list of calls for each user and then determine the set of their neighbors in the social graph $\calG_C$. For each resident of the endemic zone, we tag all his graph neighbors as potentially vulnerable. We also tag the calls to (from) a certain antenna from (to) residents of the endemic area $E_Z$ as \textit{vulnerable calls}. With our definition, a user with at least one call from (to) the endemic area is enough to tag this user as vulnerable.
 
@@ -264,7 +264,6 @@ Our dataset thus runs from August 2015 to December 2015 (period $T_1$) and all C
 
 To start off building attributes from the data, each week is divided into time periods:
 \begin{definition}\label{def:week-periods}
-
 	(i) the period \textit{weekday} is from Monday to Friday, on working hours (from 8hs to 20hs); (ii) \textit{weeknight} is from Monday to Friday, between 20hs and 8hs of the following day;
 	and (iii) \textit{weekend} is Saturday and Sunday.
 \end{definition}
