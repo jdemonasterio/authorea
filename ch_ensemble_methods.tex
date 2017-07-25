@@ -543,15 +543,12 @@ The depth of growth for each tree is another important tuning parameter. We must
 
 %Therefore controlling the maximum allowed growth for the base learners will be important to improve the performance of the model.
 
-The algorithm also benefits from a heuristic to measure variable importance.
-A special modification in the way forests are built allows this to happen.
-
+The algorithm also benefits from a heuristic to measure variable importance, where a special modification in the way forests are built allows this to happen.
 The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it. Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the improvement in the split performance, as measured by some loss function, with and without $X_j$.
-These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature. The features with highest scores can be thought to be the most informative variables of the model.
+These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature.
+With this, the features with highest scores can be thought to be the most informative variables of the model.
 
 \subsection{Experiments}\label{subsection:random_forests_experiments}
-
- \todo{Add experiment results for Random Forest runs and show feature importances for 1 problem.}
 
 In this subsection, we explore on the task described on \cref{target4} by fitting random forest learners.
 Here, our cross validation procedure explored multiple combinations of hyperparameters that we predefined Let $\alpha_i \forall i \in {1,\ldots,j}$ be the list of our $j$ hyperparameters.
@@ -599,11 +596,11 @@ Recall that all of these features were central in the construction of the risk m
 The color of each antenna's circle represented the amount of vulnerable users, for that given month, when looking at the incoming or outgoing calls.
 Then, these feature's correlation to the target variable are indicative, up-to a certain point, of the predictive power of them.
 
-For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as given by the algorithm. The summary of these results is given in \cref{tab:random_forest_big_experiment}.
+For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as given by the algorithm. The summary of these results is given in \cref{tab:random_forest_big_experiment_results}.
 
 \begin{table}[!htb]
 \caption{Table of best results comparing two 5-fold full grid cross validation procedures on a Random Forest Classifier.  The metrics and runtime for both experiments are shown.}
-\label{tab:random_forest_big_experiment}
+\label{tab:random_forest_big_experiment_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
 %{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
@@ -648,10 +645,26 @@ Given the large combinatorial nature of this process, there is no guarantee of o
 To a greater degree were only covering as much space as our time and our computational systems allow.
 
 
+We also recorded the model's selection of best features, using the process outlined in \cref{subsection:random_forests_other_notes}.
+These results are outlined in \cref{tab:random_forest_big_experiment_best_features}, where the top 10 features found with this methodology are exposed.
 
+\todo{fix this table}
+\begin{table*}[t]
+    \centering
+    \begin{tabular}{lllll}
+        \toprule
+        \multirow{2}{*}{First experiment} & \multicolumn{4}{c}{Top Best Features} \\
+        \cmidrule{2-5} & 1 & 2 & 3 & 4 & 5 \\
+        6 & 7 & 8 & 9 & 10 \\
+        \midrule
+        \multirow{2}{*}{Second experiment} & \multicolumn{4}{c}{Top Best Features}  \\
+        \cmidrule{2-5} & a & b & c & d & e \\
+        f & g & h & i & j \\
+    \end{tabular}
+    \caption{A representation of the top features that resulted from  }\label{tab:random_forest_big_experiment_best_features}
+\end{table*}
 
-
-% \todo{add this to last concluding chapter}
+\todo{More comments on best feature results for random forests.}
 % Still, the results are very relevant in answering the question of long-term migrations. High roc-auc and f1 scores for the first expriment prove that there is value in CDR data to predict long-term migrations between two regions.
 
 
