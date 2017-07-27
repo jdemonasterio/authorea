@@ -590,7 +590,7 @@ In the general procedure, we cross validated the same possible hyperparameter co
 
 
 The full experiment ran two different tasks, where each was characterized by the attributes used for our $X$ dataset.
-In the first one, the procedure ran with all available features and in the second one we separated the features that had a high correlation, bigger than $0.25$, with the target variable.
+In the first one, the procedure ran with all available features and in the second one we separated the features that had a high correlation, bigger than $0.3$, with the target variable.
 This means we removed all of the features that counted the user\'s vulnerable neighbors for a given month, segmented by the direction of the call.\footnote{For a complete description on the definition of these features, please refer to \cref{tab:data_example}.}
 Recall that all of these features were central in the construction of the risk maps in \cref{section:riskmaps}.
 The color of each antenna's circle represented the amount of vulnerable users, for that given month, when looking at the incoming or outgoing calls.
@@ -608,8 +608,8 @@ For this experimentation, we recorded the outcome of the cross validation proced
 Result & Experiment 1 & Experiment 2 \\
 \midrule
 CV $F1$ score           & 0.770  &  0.663 \\
-CV $Accuracy$ score    & 0.848 &  0.889 \\
-CV $Precision$ score    & 0.788 &  0.817 \\
+CV $Accuracy$ score    & 0.848 &  0.843 \\
+CV $Precision$ score    & 0.788 &  0.780 \\
 CV $Recall$ score       & 0.753 &  0.557 \\
 CV $Logloss$ score     & 0.391 &  0.337 \\
 CV $ROC AUC$ score     & 0.903 & 0.880  \\
@@ -618,7 +618,7 @@ Number of trees          & 150 &  200 \\
 Balanced Classes        & True & True  \\
 Split Criterion          & Gini &  Gini \\
 Minimum loss reduction  & 10 &  1 \\
-Running time (s)        & 2030 &  6293 \\
+Running time (s)        & 2030 &  2064 \\
 Features sample in a split (\%) & 50 & 80  \\
 
 \bottomrule
@@ -645,38 +645,49 @@ Given the large combinatorial nature of this process, there is no guarantee of o
 To a greater degree were only covering as much space as our time and our computational systems allow.
 
 
-We also recorded the model's selection of best features, using the process outlined in \cref{subsection:random_forests_other_notes}.
-These results are outlined in \cref{tab:random_forest_big_experiment_best_features}, where the top 10 features found with this methodology are exposed.
+We also recorded the model's selection of best features, using the explanation outlined in \cref{subsection:random_forests_other_notes}.
+This outcome is presented in \cref{tab:random_forest_big_experiment_best_features}, where the top 10 features for each experiment are shown.
 
-\todo{fix this table}
-\begin{table*}[t]
+\begin{table}[ht]
     \centering
-    \begin{tabular}{lllll}
-        \toprule
-        \multirow{2}{*}{First experiment} & \multicolumn{4}{c}{Top Best Features} \\
-        \cmidrule{2-5} & 1 & 2 & 3 & 4 & 5 \\
-        6 & 7 & 8 & 9 & 10 \\
-        \midrule
-        \multirow{2}{*}{Second experiment} & \multicolumn{4}{c}{Top Best Features}  \\
-        \cmidrule{2-5} & a & b & c & d & e \\
-        f & g & h & i & j \\
-    \end{tabular}
-    \caption{A representation of the top features that resulted from  }\label{tab:random_forest_big_experiment_best_features}
-\end{table*}
+    \resizebox{\textwidth}{!}{%
+        \begin{tabular}{@{}llll@{}}
+            \toprule
+            & \multicolumn{3}{l}{Top Features}                                                                   \\ \midrule
+            \multicolumn{1}{l|}{\multirow{4}{*}{First Experiment}}  & Call Count Antenna\_0           & Mobility Diameter               & Mobility Diameter Weeknight    \\
+            \multicolumn{1}{l|}{}                                   & Call Count Weeknight Antenna\_0 & TimeWeekDay Out Month\_09       & CallsWeekDay In Vuln Month\_08 \\
+            \multicolumn{1}{l|}{}                                   & TimeWeekDay Out Month\_08       & State Hidalgo                   & CallsWeekDay In Month\_08      \\
+            \multicolumn{1}{l|}{}                                   &                                 & TimeWeekDay Out Month\_12       &                                \\ \midrule
+            \multicolumn{1}{l|}{\multirow{4}{*}{Second Experiment}} & Mobility Diameter               & Call Count Antenna\_0           & Mobility Diameter Weeknight    \\
+            \multicolumn{1}{l|}{}                                   & Call Count Antenna\_1           & Call Count Weeknight Antenna\_0 & TimeWeekDay Out Month\_12      \\
+            \multicolumn{1}{l|}{}                                   & TimeWeekDay In Vuln Month\_09   & TimeWeekDay Out Vuln Month\_08  & TimeWeekDay Out Month\_09      \\
+            \multicolumn{1}{l|}{}                                   &                                 & TimeWeekDay In Vuln Month\_08   &                                \\ \midrule
+        \end{tabular}%
+    }
+    \caption{A representation of the top features that resulted from the Random Forest experiment on target4. }\label{tab:random_forest_big_experiment_best_features}
+\end{table}
 
-\todo{More comments on best feature results for random forests.}
+
+The top features list shows us the importance of mobility diameter in both cases.
+Where for weeknights and for the whole week, the user's mobility is  relevant to detect his past endemic condition. The same happens with the amount of
+the prediction of the target. other time periods this the vulnerability condition in
+
 % Still, the results are very relevant in answering the question of long-term migrations. High roc-auc and f1 scores for the first expriment prove that there is value in CDR data to predict long-term migrations between two regions.
 
 
 
 \section{Boosting Models}\label{section:gradient_boosting}
 
-Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak learners to output the combined model's prediction. The full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator. This provides greater predictive power when the base model's accuracy is weak. But care must be taken to control the increase in variance.
+Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak learners to output the combined model's prediction.
+The full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator.
+This provides greater predictive power when the base model's accuracy is weak. But care must be taken to control the increase in variance.
 
 \subsection{Ada Boost}
 %~\textcite{schapire-adaBoost}
 
-In the Ada Boost variation of ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner. Weights are used to rank the samples by importance, where a sample with higher misclassification rate will receive a stronger weight. The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
+In the Ada Boost variation of ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner.
+Weights are used to rank the samples by importance, where a sample with higher misclassification rate will receive a stronger weight.
+The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
 
 Tuning parameters in this algorithm are the same as those in the base learners. In addition, the number of steps that the algorithm will \textit{boost} is a new hyperparameter.
 
