@@ -575,17 +575,18 @@ With this, we can natively handle data that is larger than the amount of memory 
 For this case, we only considered migrant people that are non-endemic at $T_1$, but have been during $T_0$.
 In the general procedure, we cross validated the same possible hyperparameter configurations, where these spanned the following items:
 
-\begin{itemize}\label{list:random_forest_grid_search_params}
+\begin{itemize}
 
-  \item The tree's maximum depth
-  \item If we pre weighted the positive and negative classes in the loss function
-  \item The maximum number of trees to grow
-  \item The splitting criterion at each node
-  \item The fraction of features available to use at each split
-  \item The minimum number of splits
-  \item The scoring function used to evaluate the learner
-  \item The minimum loss reduction needed to allow a split
-
+  \item Every tree's maximum depth --- [max\_depth]
+  \item If the loss function will balance the weights of the positive and negative classes --- [balanced]
+  \item The maximum number of trees to grow in each fit--- [max\_iterations]
+  \item The splitting criterion at each node which can be either by the Gini Index or the Entropy condition--- [split\_criteria]
+  \item The sample percentage of features which are available to use at each split --- [max\_features]
+  \item The minimum number of samples required to split a node --- [min\_split]
+  \item The scoring function used to evaluate the learner in the CV evaluation --- [CV score]
+  \item The minimum reduction in the loss function required to split a node  --- [min\_loss]
+\caption{Available hyperparameters for the Random Forest classifier, with their corresponding code names.}
+\label{list:random_forest_grid_search_params}
 \end{itemize}
 
 
@@ -613,13 +614,13 @@ CV $Precision$ score    & 0.788 &  0.780 \\
 CV $Recall$ score       & 0.753 &  0.557 \\
 CV $Logloss$ score     & 0.391 &  0.337 \\
 CV $ROC AUC$ score     & 0.903 & 0.880  \\
-Maximum tree depth     & 12 &  12 \\
-Number of trees          & 150 &  200 \\
-Balanced Classes        & True & True  \\
-Split Criterion          & Gini &  Gini \\
-Minimum loss reduction  & 10 &  1 \\
+max\_depth     & 12 &  12 \\
+max\_iterations          & 150 &  200 \\
+balanced        & True & True  \\
+split\_criteria          & Gini &  Gini \\
+min\_loss  & 10 &  1 \\
 Running time (s)        & 2030 &  2064 \\
-Features sample in a split (\%) & 50 & 80  \\
+ max\_features (\%) & 50 & 80  \\
 
 \bottomrule
 \end{tabular*}
@@ -664,7 +665,7 @@ This outcome is presented in \cref{tab:random_forest_big_experiment_best_feature
             \multicolumn{1}{l|}{}                                   &                                 & TimeWeekDay In Vuln Month\_08   &                                \\ \midrule
         \end{tabular}%
     }
-    \caption{A representation of the top features that resulted from the Random Forest experiment on target4. }\label{tab:random_forest_big_experiment_best_features}
+    \caption{A representation of the top features that resulted from the Random Forest experiment on \cref{target4}. }\label{tab:random_forest_big_experiment_best_features}
 \end{table}
 
 
@@ -1014,63 +1015,74 @@ The other heuristic is considered to be more important, at least experimentally 
 
 \todo{Do rewording for whole gradient boosting experiment section.}
 
-In this subsection, we explore on the task described on \cref{target4} with Gradient Boosting classifiers.
-This is done in comparison with the results outlined in \label{subsection:random_forest_experiments}.
-Again, we perform a cross validation procedure over the available hyperparamters of this model which are, for the most part, the same as in the Random Forests classifiers.
-The
+In this subsection, we explore on the task described in \cref{target4}, using Gradient Boosting classifiers.
+The outcomes are compared with the results outlined in \cref{subsection:random_forest_experiments}.
+We set two experiments as before, where we run two procedures, one with all available and other without the top correlated ones.
 
-\begin{itemize}\label{list:random_forest_grid_search_params}
+In this setup though, we had a minor difference, where, as before, it was characterized by the attributes used by our training dataset.
+In the third experiment, we \textbf{only} used the best features extracted from the second Random Forest experiment.
+With this third variant, we expected to see how good of a performance can the gradient boosting classifier achieve, using only the top 30 features, as selected by the random forest.
+% Even though
+Doing this has a hypothetical trade-off between accuracy and procedure runtime, where we can gain speed in our fitting process by compromising some of the predictive power of the algorithm.
 
-  \item The tree's maximum depth
-  \item If we pre weighted the positive and negative classes in the loss function
-  \item The maximum number of trees to grow
-  \item The splitting criterion at each node
-  \item The fraction of features available to use at each split
-  \item The minimum number of splits
-  \item The scoring function used to evaluate the learner
-  \item The minimum loss reduction needed to allow a split
+Once again, here we performed a cross validation procedure over the available hyperparameters of this classifier.
+For the most part, these factors are the same as in the Random Forests classifier.
+Still, this model has some additional parameters, which we outline in \cref{list:boosting_grid_search_params}.
+For our CV procedure, we will be searching the best learner over a grid combination of these parameters.
 
+\begin{itemize}
+
+  \item The gradient descent's defined step size  --- [step\_size]
+  % \item The number of rounds without loss function improvement required to early stop the fit  --- [early\_stopping]
+  \item Minimum threshold for the sum of samples' Hessians at a given node. If a node's sum is smaller than this threshold then the fitting will stop  --- [min\_leaf\_weight]
+\label{list:boosting_grid_search_params}
 \end{itemize}
 
 
-The full experiment ran two different tasks, where each was characterized by the attributes used for our $X$ dataset.
-In the first one, the procedure ran with all available features and in the second one we separated the features that had a high correlation, bigger than $0.3$, with the target variable.
-This means we removed all of the features that counted the user\'s vulnerable neighbors for a given month, segmented by the direction of the call.\footnote{For a complete description on the definition of these features, please refer to \cref{tab:data_example}.}
-Recall that all of these features were central in the construction of the risk maps in \cref{section:riskmaps}.
-The color of each antenna's circle represented the amount of vulnerable users, for that given month, when looking at the incoming or outgoing calls.
-Then, these feature's correlation to the target variable are indicative, up-to a certain point, of the predictive power of them.
+Using the same setup as before, we recorded the outcome of the cross validation procedures for the three experiments.
+The results were tabulated in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as selected by the best models.
 
-For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as given by the algorithm. The summary of these results is given in \cref{tab:random_forest_big_experiment_results}.
+A summary of the metrics and best hyperparameter values is given in \cref{tab:boosting_big_experiment_results}.
 
 \begin{table}[!htb]
-\caption{Table of best results comparing two 5-fold full grid cross validation procedures on a Random Forest Classifier.  The metrics and runtime for both experiments are shown.}
-\label{tab:random_forest_big_experiment_results}
+\caption{Table of best results comparing three 5-fold full grid cross validation procedures with a Gradient Boosting Classifier.  All of the relevant scores and best hyperparameters values are  shown.}
+\label{tab:boosting_big_experiment_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
 %{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
 \toprule
-Result & Experiment 1 & Experiment 2 \\
+Result & Experiment 1 & Experiment 2 & Experiment 3 \\
 \midrule
-CV $F1$ score           & 0.770  &  0.663 \\
-CV $Accuracy$ score    & 0.848 &  0.843 \\
-CV $Precision$ score    & 0.788 &  0.780 \\
-CV $Recall$ score       & 0.753 &  0.557 \\
-CV $Logloss$ score     & 0.391 &  0.337 \\
-CV $ROC AUC$ score     & 0.903 & 0.880  \\
-Maximum tree depth     & 12 &  12 \\
-Number of trees          & 150 &  200 \\
-Balanced Classes        & True & True  \\
-Split Criterion          & Gini &  Gini \\
-Minimum loss reduction  & 10 &  1 \\
-Running time (s)        & 2030 &  2064 \\
-Features sample in a split (\%) & 50 & 80  \\
+Running time (s)        & 1172 &  6293 &  204 \\
+CV $Accuracy$ score    & 0.889 &  0.843 &  0.8327 \\
+CV $ROC AUC$ score     & 0.884 & 0.880  &  0.881 \\
+CV $F1$ score           & 0.668  &  0.663 &  0.735 \\
+CV $Logloss$ score     & 0.524 &  0.337 &  0.399 \\
+CV $Precision$ score    & 0.805 &  0.780 &  0.789 \\
+CV $Recall$ score       & 0.575 &  0.557 &  0.688 \\
+balanced        & False & False  &  False \\
+% early\_stopping  & 5 &  5 & 5 \\
+max\_features (\%) & 80 & 75  &  10 \\
+max\_depth     & 15 &  15 &  2 \\
+max\_iterations     & 250 &  300 &  120 \\
+min\_leaf\_weight  & 2 &  5 &  10 \\
+min\_loss  & 10 &  1 &  0.01 \\
+step\_size  & 0.01 &  0.1 &  1 \\
+
 
 \bottomrule
 \end{tabular*}
 \end{table}
 
+Overfit compared to random forest.
+sometimes better precision
+Chose the non-balanced class.
 
-From the result's table, it's relevant to note that both optimal learners chose the Gini splitting criterion as best, with tree's of a relatively high depth with 12 levels.
+Last model had much better F1 score, comparable to random forest model and trained blazingly fast.
+The information in the top 30 features of the RF models was efficiently used in the boosting. It had lots of accuracy, recall, etc.
+Notable difference among hyperparameters elected. The values chosen are those in favor of a less overfit model
+
+with tree's of a relatively high depth with 12 levels.
 A similar situation happened with the number of trees grown; best configurations had more than 100 trees with the second experiment having an optimal number of 200.
 
 Bigger differences appear in the choice of the minimum loss reduction and the features sampled per split.
@@ -1089,8 +1101,9 @@ Given the large combinatorial nature of this process, there is no guarantee of o
 To a greater degree were only covering as much space as our time and our computational systems allow.
 
 
-We also recorded the model's selection of best features, using the explanation outlined in \cref{subsection:random_forests_other_notes}.
-This outcome is presented in \cref{tab:random_forest_big_experiment_best_features}, where the top 10 features for each experiment are shown.
+The model's selection of best features, but only for the first two experiments. Since the last one has the same
+
+This outcome is presented in \cref{tab:boosting_big_experiment_best_features}, where the top 10 features for each experiment are shown.
 
 \begin{table}[ht]
     \centering
@@ -1108,9 +1121,10 @@ This outcome is presented in \cref{tab:random_forest_big_experiment_best_feature
             \multicolumn{1}{l|}{}                                   &                                 & TimeWeekDay In Vuln Month\_08   &                                \\ \midrule
         \end{tabular}%
     }
-    \caption{A representation of the top features that resulted from the Random Forest experiment on target4. }\label{tab:random_forest_big_experiment_best_features}
+    \caption{A representation of the top features that resulted from the Gradient Boosting procedure on two experiments of  \cref{target4}. }\label{tab:boosting_big_experiment_best_features}
 \end{table}
 
+\todo{reword this explanation}
 
 The top features list shows us the importance of mobility diameter in both cases.
 Where for weeknights and for the whole week, the user's mobility is  relevant to detect his past endemic condition.
