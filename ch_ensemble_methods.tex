@@ -1094,9 +1094,6 @@ Here, the first model reached a score of almost 90\%, whereas the third model ha
 Still, the lowest value for all experiments is more than satisfactory for the prediction task.
 With these results, and due to the difference in $ROC$ vs. $F1$ scores, there is no clear indication as to which configuration is better across all experiments.
 
-\todo{Do rewording for whole gradient boosting experiment section.}
-
-
 
 The model's selection of best features, but only for the experiments.
 Note that the last selection will have a very similar configuration to the top Random Forest features, since it selects 10 features of the available 30 used to train the model.
@@ -1146,5 +1143,6 @@ This could be indicative of familiar relations as it is a month which coincides 
 
 The analysis here confirms the relevance of CDR information in giving predictive information of long-term migrations.
 Once again, experiments results in satisfactory scores across different metrics and for a highly imbalanced class.
-Top features here selected expose the importance of the vulnerability condition of the users and of their calling patterns.
-Also, their mobility carries information enough to discriminate between the positive and negative samples.
+Also, top features are in line with the assumptions on which the risk maps were constructed.
+Top features are related to the vulnerability and to the users mobility
+
