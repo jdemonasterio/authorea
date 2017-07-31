@@ -575,7 +575,7 @@ With this, we can natively handle data that is larger than the amount of memory 
 For this case, we only considered migrant people that are non-endemic at $T_1$, but have been during $T_0$.
 In the general procedure, we cross validated the same possible hyperparameter configurations, where these spanned the following items:
 
-\begin{itemize}
+\begin{itemize}\label{list:random_forest_grid_search_params}
 
   \item Every tree's maximum depth --- [max\_depth]
   \item If the loss function will balance the weights of the positive and negative classes --- [balanced]
@@ -585,8 +585,7 @@ In the general procedure, we cross validated the same possible hyperparameter co
   \item The minimum number of samples required to split a node --- [min\_split]
   \item The scoring function used to evaluate the learner in the CV evaluation --- [CV score]
   \item The minimum reduction in the loss function required to split a node  --- [min\_loss]
-\caption{Available hyperparameters for the Random Forest classifier, with their corresponding code names.}
-\label{list:random_forest_grid_search_params}
+%\caption{Available hyperparameters for the Random Forest classifier, with their corresponding code names.}
 \end{itemize}
 
 
@@ -655,10 +654,10 @@ This outcome is presented in \cref{tab:random_forest_big_experiment_best_feature
         \begin{tabular}{@{}llll@{}}
             \toprule
             & \multicolumn{3}{l}{Top Features}                                                                   \\ \midrule
-            \multicolumn{1}{l|}{\multirow{4}{*}{First Experiment}}  & Call Count Antenna\_0           & Mobility Diameter               & Mobility Diameter Weeknight    \\
+            \multicolumn{1}{l|}{\multirow{4}{*}{First Experiment}}  & Call Count Antenna\_0    &   Mobility Diameter   & Mobility Diameter Weeknight \\
             \multicolumn{1}{l|}{}                                   & Call Count Weeknight Antenna\_0 & TimeWeekDay Out Month\_09       & CallsWeekDay In Vuln Month\_08 \\
-            \multicolumn{1}{l|}{}                                   & TimeWeekDay Out Month\_08       & State Hidalgo                   & CallsWeekDay In Month\_08      \\
-            \multicolumn{1}{l|}{}                                   &                                 & TimeWeekDay Out Month\_12       &                                \\ \midrule
+            \multicolumn{1}{l|}{}                                   & TimeWeekDay Out Month\_08       & State Hidalgo          & CallsWeekDay In Month\_08      \\
+            \multicolumn{1}{l|}{}                                   &                                 & TimeWeekDay Out Month\_12       &      \\ \midrule
             \multicolumn{1}{l|}{\multirow{4}{*}{Second Experiment}} & Mobility Diameter               & Call Count Antenna\_0           & Mobility Diameter Weeknight    \\
             \multicolumn{1}{l|}{}                                   & Call Count Antenna\_1           & Call Count Weeknight Antenna\_0 & TimeWeekDay Out Month\_12      \\
             \multicolumn{1}{l|}{}                                   & TimeWeekDay In Vuln Month\_09   & TimeWeekDay Out Vuln Month\_08  & TimeWeekDay Out Month\_09      \\
@@ -1074,7 +1073,28 @@ step\_size  & 0.01 &  0.1 &  1 \\
 \end{tabular*}
 \end{table}
 
-Overfit compared to random forest.
+The first notable fact from the results is how fast the last procedure is, compared to the two before.
+This should not be surprising as we have limited the amount of available features to use, thus decreasing the necessary computer resources to compute the fit.
+% However, this conclusion might seem
+
+The second interesting fact from the outcome is that the model seems to be more overfit, when compared to the experiments of the random forest.
+Specially on the two experiments, where very complex models were chosen from the procedure, with a depth of 15 levels and at least 250 trees for both.
+This is not the case on the last model though, where a more simple model resulted with a depth of only two levels and 120 trees grown.
+The same applies for the max\_features and min\_leaf\_weight hyperparameters, for which lower complexity values resulted form the last CV procedure.
+There is difficulty though in establishing which of them had the most weight in an underweight model.
+
+This situation the big difference in the $F1$ score among the algorithms.
+Where the last procedure improved on the first two experiments in more than 10\%, using this score and in almost a 20\% increase in the recall score.
+A clear conclusion is that the model first two models were clearly overfit, and using the top random forest features had a strong impact for the task.
+Finally, when compared with the experiments using the Random Forest, none of these improved on the top value of 77\% achieved there.
+Still, this value was from the first experiment with Random Forests, where the correlated features
+
+
+On the other hand, the third model lacked the same strength for the $ROC AUC$ score.
+Here, the first model reached a score of almost 90\%, whereas the third model had a poorer performance of 83\%.
+Still, the lowest value for all experiments is more than satisfactory for the prediction task.
+
+
 sometimes better precision
 Chose the non-balanced class.
 
@@ -1105,37 +1125,50 @@ The model's selection of best features, but only for the first two experiments. 
 
 This outcome is presented in \cref{tab:boosting_big_experiment_best_features}, where the top 10 features for each experiment are shown.
 
+
 \begin{table}[ht]
     \centering
+    \caption{A representation of the top features that resulted from the Gradient Boosting procedure on two experiments of  \cref{target4}. }\label{tab:boosting_big_experiment_best_features}
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{@{}llll@{}}
             \toprule
             & \multicolumn{3}{l}{Top Features}                                                                   \\ \midrule
-            \multicolumn{1}{l|}{\multirow{4}{*}{First Experiment}}  & Call Count Antenna\_0           & Mobility Diameter               & Mobility Diameter Weeknight    \\
-            \multicolumn{1}{l|}{}                                   & Call Count Weeknight Antenna\_0 & TimeWeekDay Out Month\_09       & CallsWeekDay In Vuln Month\_08 \\
-            \multicolumn{1}{l|}{}                                   & TimeWeekDay Out Month\_08       & State Hidalgo                   & CallsWeekDay In Month\_08      \\
-            \multicolumn{1}{l|}{}                                   &                                 & TimeWeekDay Out Month\_12       &                                \\ \midrule
-            \multicolumn{1}{l|}{\multirow{4}{*}{Second Experiment}} & Mobility Diameter               & Call Count Antenna\_0           & Mobility Diameter Weeknight    \\
-            \multicolumn{1}{l|}{}                                   & Call Count Antenna\_1           & Call Count Weeknight Antenna\_0 & TimeWeekDay Out Month\_12      \\
-            \multicolumn{1}{l|}{}                                   & TimeWeekDay In Vuln Month\_09   & TimeWeekDay Out Vuln Month\_08  & TimeWeekDay Out Month\_09      \\
-            \multicolumn{1}{l|}{}                                   &                                 & TimeWeekDay In Vuln Month\_08   &                                \\ \midrule
-        \end{tabular}%
+            \multicolumn{1}{l|}{\multirow{4}{*}{First Experiment}}  & Call Count Antenna\_0 & Mobility Diameter  & Mobility Diameter Weeknight  \\
+            \multicolumn{1}{l|}{}                                   &  Call Count Weeknight Antenna\_0 &  Call Count Antenna\_1  & Call Count Antenna\_2  \\
+            \multicolumn{1}{l|}{}                                   &   TimeWeekDay In Month\_08  & Call Count Weeknight Antenna\_2 &  TimeWeekDay Out Month\_09  \\
+            \multicolumn{1}{l|}{}                                   &  & TimeWeekDay Out Month\_12  &       \\ \midrule
+            \multicolumn{1}{l|}{\multirow{4}{*}{Second Experiment}} & Mobility Diameter  & Mobility Diameter Weeknight   &  Call Count Antenna\_0   \\
+            \multicolumn{1}{l|}{}                                   &  Call Count Weeknight Antenna\_0 & Call Count Antenna\_0   & TimeWeekDay In Month\_09   \\
+            \multicolumn{1}{l|}{}                                   &  TimeWeekDay Out Month\_09  & TimeWeekDay Out Month\_12   &  TimeWeekDay Out Vul Month\_08 \\
+            \multicolumn{1}{l|}{}                                   &   &  TimeWeekDay In Month\_10  &              \\ \midrule
+           \multicolumn{1}{l|}{\multirow{4}{*}{Third Experiment}} &  TimeWeekDay In Vul Month\_09 & CallsWeekDay In  Month\_09   &  TimeWeekDay Out Vul Month\_12   \\
+            \multicolumn{1}{l|}{}                                   &  Mobility Diameter Weeknight  & Call Count Weeknight Antenna\_0   & CallsWeekDay Out  Month\_09    \\
+            \multicolumn{1}{l|}{}                                   &  CallsWeekDay In Vul  Month\_08 &  TimeWeekDay In Vul  Month\_08  &  TimeWeekDay Out  Month\_08  \\
+            \multicolumn{1}{l|}{}                                   &   & TimeWeekDay In  Month\_12 &   \\
+            \midrule
+            \end{tabular}%
     }
-    \caption{A representation of the top features that resulted from the Gradient Boosting procedure on two experiments of  \cref{target4}. }\label{tab:boosting_big_experiment_best_features}
 \end{table}
 
-\todo{reword this explanation}
 
 The top features list shows us the importance of mobility diameter in both cases.
-Where for weeknights and for the whole week, the user's mobility is  relevant to detect his past endemic condition.
+Both weeknight and whole week user's mobility, is deemed relevant to detect his past endemic condition.
+This also confirms what was seen in \cref{tab:random_forest_big_experiment_best_features} where these attributes were, in general, performing.
 As expected, in both cases we see that there are a number of features logging vulnerable interactions of users living in non-endemic regions.
-This is in line with what we hypothesized in the construction of the risk maps in \cref{section:riskmaps}.
+The phone usage is also selected as important, both in the number and times of calls.
+Unluckily, we can't determine its relationship to the target variable in the sense that it might equally affect in both a positive and negative way.
+% Phone behavior might differ along
+% Where user phone behavior
+
+These results are in line with what we hypothesized in the construction of the risk maps in \cref{section:riskmaps}.
 The direction of the call and the calls' duration or number of occurrences are both important predictors of this model.
 Given that this best feature methodology is an heuristic, there doesn't seem to be any clear indication over which type of CDR interaction has better predictive power.
-Yet there is a preference for interactions logged in the earlier months, August and September,
-This might be the case where the algorithm is picking up on the most recent migrations, given that our time period of analysis $T_1$ starts in August.
+Once again, we see there are more features of earlier month interactions, such as August and September.
+At the same time, the only other month appearing is December.
+This could be indicative of familiar relations as it is a month which coincides with festivities and family reunions.
 
 The analysis here presented is relevant in answering the question of long-term migrations.
 High scores for these experiments show that there is value in CDR data to predict long-term migrations between two regions.
 Also, top features are in line with the assumptions on which the risk maps were constructed.
+Top features are related to the vulnerability and to the users mobility
 
