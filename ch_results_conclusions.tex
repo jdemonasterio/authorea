@@ -15,12 +15,19 @@
 
 \todo{Reword sentences. Expand, correct and finish them.}
 
-the hypothesis stipulates that there are social interactions captured by the cellphone usage logs, which is informative on long-term migrations and disease spread.
+The overall picture shows that the hypothesis stipulates that there are social interactions captured by the cellphone usage logs, which is informative on long-term migrations and disease spread.
+CDRs can be extensively used for non business purposes and, specifically in this case, there is light evidence that they might capture well the fluxes of diseases among humans.
+This data can be used as a surrogate to other, more traditional, methods of disease control and surveillance.
+
+The large temporal and user scale of the CDRs allowed us to capture a variety of human movements throughout the country.
+
+
 
 extensive research of machine learning literature and CDR usage in health problems.
 handling data, models and features with acumen
 focus on the strengths of the ensemble learners to achieve higher predictions
 try and draw the greates prediction performance from the features
+
 
 Through a number of experiments, we demonstrated how the supervised classifaction models performed across different prediction tasks.
 These case test sheds light on how relevant this dataset is to the question on long-term migrations.
@@ -39,8 +46,17 @@ And it was showed in \cref{ch:descr-risk}, that  epidemic regions extend politic
 With the current dataset we cannot capture international migrations and our analysis is limited to movements of national Telco users only.
 The same applies for detecting movement patterns of people which lack cell phone antennas.
 
+In extracting each user's home antenna, based on the user's ``working hours'', we also made the assumption that this can be used in a generalized case.
+Even though this decision was supported by past research, it might not be easily translated into datasets of other geographical and cultural regions.
+
+
+
 The resulting analysis, allowed to show that the Risk maps we developed are of interest to national health campaigns.
 They pintpoint to likely spots of high disease prevalence, with a low cost to produce this outcome.
+
+Next to traditional health control actions, this research may provide a very insightful piece of information for decision-makers.
+Capturing long-term human movements will also enable better simiulations of disease spreads in different contexts.
+In this work, the impact of this in our predictive capacity of disease prevalence is shown.
 
 
 
@@ -52,6 +68,14 @@ We believe it is acceptable to say that most human dynamics in the form of migra
 
 Feature selection of ensemble algorithms were concurring in the choice of the best features for the prediction task.
 Human mobility, vulnerable calling patterns, interactions in earlier months and in december, etc.
+Model regularization and hyperparameter cross validation improved the models predictive power.
+Also, the effects of overfitting the models were visible in some of the experiments where deep trees and complex configurations underpowered the resulting model's generalization error.
+
+
+
+High discrepancies exist in the scores of the different machine learning models.
+Some are better at capturing the relevant information to predict human movements in the long-term.
+This is becaause not all social information is presented directly in the dataset, and feature interactions are helpful.
 
 
 The importance of other user specific features, such as demographics, should be examined as well.
