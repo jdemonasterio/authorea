@@ -49,6 +49,13 @@ The same applies for detecting movement patterns of people which lack cell phone
 In extracting each user's home antenna, based on the user's ``working hours'', we also made the assumption that this can be used in a generalized case.
 Even though this decision was supported by past research, it might not be easily translated into datasets of other geographical and cultural regions.
 
+Time seasonalities and sationarity was considered but only in a limited fashion.
+Weekends and working hours were separately tagged in attributes.
+The same with month specific attributes for the user's accalling patterns.
+However there are mor long-term time segmentation which were not used in this work.
+It is possible that migration patterns be strongly related to seasonal factors such as, for example, in the agriculture workforce.
+
+% discriminated in the construction of the features, yet there were no long-term time
 
 
 The resulting analysis, allowed to show that the Risk maps we developed are of interest to national health campaigns.
@@ -62,9 +69,10 @@ In this work, the impact of this in our predictive capacity of disease prevalenc
 
 
 
-
-
 We believe it is acceptable to say that most human dynamics in the form of migration patterns are captured by the use of this data.
+This work was performed in two Latin-American countries and in one single endemic region.
+We expect that this CDR usage can be extended to other similar countires and diseases, with demographic, cultural and geographical similarities.
+
 
 Feature selection of ensemble algorithms were concurring in the choice of the best features for the prediction task.
 Human mobility, vulnerable calling patterns, interactions in earlier months and in december, etc.
