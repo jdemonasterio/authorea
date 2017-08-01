@@ -8,11 +8,88 @@
 \chapter{Summary of Results and Conclusion}\label{ch:results_conclusion}
 
 
-\todo{redo chapter. Use this to only present a combined overview of results and Conclusion at teh end }
+\todo{Present a combined overview of results and Conclusion at the end. }
+
+
+\subsection{Some nice sentences}
+
+\todo{Reword sentences. Expand, correct and finish them.}
+
+the hypothesis stipulates that there are social interactions captured by the cellphone usage logs, which is informative on long-term migrations and disease spread.
+
+extensive research of machine learning literature and CDR usage in health problems.
+handling data, models and features with acumen
+focus on the strengths of the ensemble learners to achieve higher predictions
+try and draw the greates prediction performance from the features
+
+Through a number of experiments, we demonstrated how the supervised classifaction models performed across different prediction tasks.
+These case test sheds light on how relevant this dataset is to the question on long-term migrations.
+Migration patterns can then be used to suggest actual epidemic spread of this disease into areas not deemed endemic.
+
+
+
+There are also weak points with this methodology. We can not jump directly to a disease spread conclusion when we are only looking
+
+Bias in the sample of the country's population that is part of our dataset.
+Still, these results should be interpreted with caution, since we have no real comparisons with actual disease data, outside of the endemic region and at a municipal or regional level.\footnote{As a matter of fact, we have tried to contact hearlth institutions and organizations working on the matter to try and enrich the dataset with more info. This intent did not reach any health data of the kind.}
+
+There are other interesting limitations concerning international pattern migrations.
+For this work, we measured migrations only in national phone owners.
+And it was showed in \cref{ch:descr-risk}, that  epidemic regions extend political borders.
+With the current dataset we cannot capture international migrations and our analysis is limited to movements of national Telco users only.
+The same applies for detecting movement patterns of people which lack cell phone antennas.
+
+The resulting analysis, allowed to show that the Risk maps we developed are of interest to national health campaigns.
+They pintpoint to likely spots of high disease prevalence, with a low cost to produce this outcome.
+
+
+
+
+
+
+
+We believe it is acceptable to say that most human dynamics in the form of migration patterns are captured by the use of this data.
+
+Feature selection of ensemble algorithms were concurring in the choice of the best features for the prediction task.
+Human mobility, vulnerable calling patterns, interactions in earlier months and in december, etc.
+
+
+The importance of other user specific features, such as demographics, should be examined as well.
+Yet these are out of the scope of this work, for the lack of data.
+
+
+This work may give us some insights into future disease spreads in other similar contexts.
+Where
+It also helps to showcase interesting ways of using the CDRs for reasons other than logging a user\'s calling expenses.
+
+
+\subsection{Descriptions of key results}
+
+
+\todo{Rewrite all key results of the experiments.}
+
+The features most brought up in the experiments of ensembel learners where A, B, C .
+These indicated this and that.
+They also pointed to information in.. bla
+
+
+The best learners for the following tasks where A,B.
+We saw differences in these and that type of learners, where the former was better at this score, whilst the latter at the second.
+
+The Random Forest model played an important role in having the highest scores across all tasks and in presenting the best features of the datset.
+This information was later availed by the boosting models trained on said set of features.
+
+
+
+
+
+
+
+
 
 
 % \subsection{Supervised Algorithms}
-\subsection{Supervised Classification}
+\subsection{Evaluation}
 
 We applied all of the supervised learners explained before in the preceding chapters to our problems. These are the most common techniques found in the literature for what we were trying to solve.
 
