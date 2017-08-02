@@ -441,3 +441,42 @@ shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users tha
 In relative numbers, this shows that only 2.59\% of users had a change in their endemic condition over time. A similar count results in that 66.0\% of users have not changed their home antenna from $T_0$ to $T_1$. This is not surprising given that we wouldn't expect a large number of people migrating in a time lapse of only two years.
 
 
+
+\subsection{ Feature Correlations }\label{subsection:feature_correlations} % {Ground Truth.}
+
+
+The dataset used in this work shows significant correlations between communication and mobility patterns.
+Some features are essentially highly correlated across time periods.
+Thus knowing a user's current endimicity will be highly correlated to his past endmicity since a user being endemic in $T_1$ is very correlated to being endemic in $T_0$.
+The same property extends to attributes of user's interaction with vulnerable neighbors during $T_1$.
+Their relationship to the user's endemicity in $T_0$ is expected
+In these cases, it is important to know the value of this correlation to the past endemicity.
+\cref{tab:featureCorrelations} quantifies these relationships, where only features with an absolute correlation value highern than $0.25$ are shown.
+It is notable how the correlation is slightly increasing as we get closer to the split month i.e.\ the month chosen to separate $T_0$ from $T_1$.
+This behavior might be an indicator of seasonality in the data, where events from $T_1$more closer to $T_0$ carry more intrinsic value.
+Added to this, there is a very small indication that a user's calling volume in the month of December is more related to a user's past endemicity in the sense that it carries a higher correlation with his past endemicity.
+Again, this suggests data seasonality in the data, where December is a festive month by tradition in Latin America.
+
+
+\hfill
+\
+\begin{table}\label{tab:featureCorrelations}
+	% \parbox{0.45\linewidth}{
+	\caption{Correlations.}
+	\centering
+	\begin{tabular}{l l }
+		\toprule
+		Feature & Correlation \\
+		\midrule
+		Endemic in $T_0$        & 1.0 \\
+		Endemic in $T_1$        & 0.933801 \\
+		Call Count  OUT\ 08/2015  & 0.730294 \\ %%outgoing significa outgoing calls
+		Vuln. calls \ 08   & 0.732498 \\
+		Vuln. calls  09   & 0.714566 \\
+		Vuln.  calls 12  & 0.715448 \\
+		Vuln. calls  10  & 0.694106 \\
+		Vuln. calls  11   & 0.694265 \\
+	\end{tabular}
+\end{table}
+
+
