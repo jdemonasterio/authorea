@@ -448,9 +448,11 @@ In relative numbers, this shows that only 2.59\% of users had a change in their 
 The dataset used in this work shows significant correlations between communication and mobility patterns.
 Some features are essentially highly correlated across time periods.
 Thus knowing a user's current endimicity will be highly correlated to his past endmicity since a user being endemic in $T_1$ is very correlated to being endemic in $T_0$.
-The same property extends to attributes of user's interaction with vulnerable neighbors during $T_1$.
-Their relationship to the user's endemicity in $T_0$ is expected
+The same property extends to attributes of user's interaction with vulnerable neighbors during $T_1$, where their relationship to the user's endemicity in $T_0$ is expected
+
 In these cases, it is important to know the value of this correlation to the past endemicity.
+Where in sections further in this work (\cref{ch:ensembleMethods}), we will take into account this observation to improve on the task of predicting long-term migrations.
+
 \cref{tab:featureCorrelations} quantifies these relationships, where only features with an absolute correlation value highern than $0.25$ are shown.
 It is notable how the correlation is slightly increasing as we get closer to the split month i.e.\ the month chosen to separate $T_0$ from $T_1$.
 This behavior might be an indicator of seasonality in the data, where events from $T_1$more closer to $T_0$ carry more intrinsic value.
