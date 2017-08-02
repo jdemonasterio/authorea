@@ -16,10 +16,18 @@
 \todo{Reword sentences. Expand, correct and finish them.}
 
 The overall picture shows that the hypothesis stipulates that there are social interactions captured by the cellphone usage logs, which is informative on long-term migrations and disease spread.
+The experiments discussed in previous sections highlight the benefit of using these type of data to capture human movements at the national level and with user granularity.
+
+Some supervised classification models realized the importance of attributes tagged with vulnerable behavior obtained from the CDR.
+
+
+
 CDRs can be extensively used for non business purposes and, specifically in this case, there is light evidence that they might capture well the fluxes of diseases among humans.
 This data can be used as a surrogate to other, more traditional, methods of disease control and surveillance.
+This work intends to help authorities with disease-control strategies in way which is not intrusive for cellphone users.
+Measures can then be applied outside of the endemic region, and directed towards specific neighbourhoods and communities by using the recommendations output by the risk algorithm.
 
-The large temporal and user scale of the CDRs allowed us to capture a variety of human movements throughout the country.
+
 
 
 
@@ -30,9 +38,10 @@ try and draw the greates prediction performance from the features
 
 
 Through a number of experiments, we demonstrated how the supervised classifaction models performed across different prediction tasks.
-These case test sheds light on how relevant this dataset is to the question on long-term migrations.
+These case test sheds light on how relevant this dataset is to the question on complex long-term migrations.
+Their complexity and scale of these movements can be, up to a certain degree, assimilated by probabilistic algorithms, using the models outlined before.
+In this owrk we took advantatge of the large user scale and temporal range of the CDRs allowed us to capture a variety of human movements throughout the country.
 Migration patterns can then be used to suggest actual epidemic spread of this disease into areas not deemed endemic.
-
 
 
 There are also weak points with this methodology. We can not jump directly to a disease spread conclusion when we are only looking
@@ -112,149 +121,83 @@ The Random Forest model played an important role in having the highest scores ac
 This information was later availed by the boosting models trained on said set of features.
 
 
+We wrote an introdcutory review for a list of supervised classification algorithms and then applied them in the preceding chapters to our tasks.
+These models presented are some of the most common techniques found in the literature for the classification task we were trying to solve.
 
 
 
+The heatmaps shown in Section~\cref{ch:descr-risk} expose a `temperature' descent from the core regions outwards.
+The heat is concentrated in the ecoregion and gradually descends as we move further away.
+ This expected behavior could be explained by the fact that calls are in general of a local nature and limited to 3 or 4 main antennas used per user.
+
+Another fact found in this work is of certain communities atypical to their neighboring region.
+They stand out for their strong communication ties with the studied region, showing significantly higher links of vulnerable communication.
+The detection of these antennas through the visualizations was of great value to the health researchers participating in this project.
+
+In \cref{ch:ensembleMethods, ch:modelSelection, ch:machineLearning}, we introduced and evaluated a systematic process that tackles the problem of predicting long-term migrations.
+In particular, we showed that it is possible to use the mobile phone records of users during a bounded period (of 5 months) in order to predict whether they have lived in the endemic zone $E_Z$ in a previous time frame (of 19 months).
+The results obtained demonstrate that CDRs are particularly well suited for this task.
+
+To conclude, the results presented in this work show that it is possible to explore CDRs as a mean to tag human mobility.
+Combining social and geolocated information, the data at hand has been given an innovative use, different from its original billing purpose.
+
+Epidemic counter-measures nowadays include setting national surveillance systems, vector-centered policy interventions and individual screenings of people. These measures require costly infrastructures to set up and be run. However, systems built on top of existing mobile networks would demand lower costs, taking advantage of the already available infrastructure. The potential value these results could add to health research is hereby exposed.
+Finally, the results stand as a proof of concept which can be extended to other countries or to diseases with similar characteristics.
 
 
 
-
-
-% \subsection{Supervised Algorithms}
-\subsection{Evaluation}
-
-We applied all of the supervised learners explained before in the preceding chapters to our problems. These are the most common techniques found in the literature for what we were trying to solve.
-
-Gradient Boosting, Random Forest, Logistic Regression, and Multinomial Naive Bayes. The last method was added solely for benchmarking reasons. This is because it usually sets to be a very fast, non-parametric with few hyper-parameters that need to be preset.
-
-All algorithms were run on a 16-core Linux machine with 72GB of RAM.\@ Processing and learning scripts were run on Python. %\footnote{Python Software Foundation. Python Language Reference, version 3.5. Available at http://www.python.org}.
-Along the project, a variety of external packages were used for different purposes. For the classification routines, we used Scikit-learn~\textcite{scikit-learn} and Graphlab~\textcite{graphlab}.
-The data was split into 70\% for training and 30\% for testing.
-
-
-%\textcit{Python}
-%\textcit{sklearn}
-%\textcit{graphlab}
-
-
-Where possible, feature importance methods were used to quantify the contribution of the feature or the interaction of features to the mobility of the users.
 
 
 % Algorithms: SVM, Random Forest and Logistic Regression, Multinomial Naive Bayes
 
 
-\subsubsection{Multinomial Bayes.}
-
-The Multinomial Bayes classifier has a linear time complexity, and thus serves as a fast benchmark that we used to establish a baseline classification performance. However, one shortcoming of this method is that it only allows for non-negative numerical features. This results in a reduced training and testing set.
-
-The classifier has two hyperparameters: $\alpha$, an additive smoothing parameter for which we defined values of $[0,{10^{-2}},{10^{-1}},1]$; and the \textit{fit prior} parameter which determines whether or not class prior probabilities are learned from the training set.
-
-This setup gave 8 possible models and 24 fits on the 3-fold cross validated model training set where, on average, learning took 5s for one million samples. The F1-weighted metric was chosen to evaluate the best performing estimator.
-The best and worst scores achieved were 0.940 and 0.918 respectively.
-% which gave a score of 0.9409381515 noting that the worst estimator had a score of 0.918.
-
-A full classification report on the out of sample data is shown below, where values are detailed for each target class:
-\begin{table}\label{tab:classification_report}[ht]
-	% \caption{Matrix of changes.}
-	\centering
-	\begin{tabular}{ l r r r r }
-		\toprule
-		{ } & precision score & recall & f1-score & support \\
-		\midrule
-		0 		 & 0.96 & 0.96 & 0.96 & 323278 \\
-		1		 & 0.89 & 0.90 & 0.90 & 411200 \\
-		avg/total & 0.94 & 0.94 & 0.94 & 445464 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-% precision  recall f1-score  support
-% 0    0.96   0.96   0.96  323278
-% 1    0.89   0.90   0.90  122186
-% avg / total    0.94   0.94   0.94  445464
-
-\subsubsection{SVM and Logistic Regression.}
-
-Support Vector Machines (SVM) and Logistic Regression are two algorithms for classification which are standard in the Machine Learning literature and performed better than Multinomial Bayes in this case.
-At the same time, they are more complex and have higher time complexity, taking more computational resources to optimize.
-
-Only the standard hyperparameters for these two models were tuned: $L2$-penalty regularization for Logistic Regression and kernel bandwidth for the Gaussian Kernel SVM.\@
-Both learning routines were executed in parallel and in each iteration 5\% of the training set was sampled for cross validation. The best classifier was selected based on accuracy scores from this set.
 
 % L-BFGS is the optimization routine. limited memory Broyden–Fletcher–Goldfarb–Shanno
 %(reference the limited memory Broyden–Fletcher–Goldfarb–Shanno (BFGS) algorithm \url{https://en.wikipedia.org/wiki/Limited-memory_BFGS} )
 %% es un algoritmo de optimizacion numerica para computar minimos de funciones
 
 
-% With a running time of 80s, 10 steps are generally needed to achieve a 0.977 validation accuracy score on
-The best model was a Logistic Regression Classifier with an $L2$-penalty value of 0.01.
-% Table~\cref{ts}
-The following table
-shows the scores obtained by the selected model on the out-of-sample set.
+% % With a running time of 80s, 10 steps are generally needed to achieve a 0.977 validation accuracy score on
+% The best model was a Logistic Regression Classifier with an $L2$-penalty value of 0.01.
+% % Table~\cref{ts}
+% The following table
+% shows the scores obtained by the selected model on the out-of-sample set.
 
-\begin{center}
-	\begin{tabular}{ l l }
-		\toprule
-		Score & Value \\
-		\midrule
-		F1 score & 0.964537  \\
-		Accuracy & 0.980670  \\
-		AUC    & 0.991593  \\
-		Precision & 0.970838  \\
-		Recall  & 0.958316  \\
-		\bottomrule
-	\end{tabular}
-\end{center}
-
-
-\begin{table}\label{tab:results}[ht]
-	\caption{Resulting scores.}
-
-	\centering
-	\begin{tabular}{ l l }
-		\toprule
-		Score & Value \\
-		\midrule
-		F1 score & 0.964537  \\
-		Accuracy & 0.980670  \\
-		AUC    & 0.991593  \\
-		Precision & 0.970838  \\
-		Recall  & 0.958316  \\
-		\bottomrule
-	\end{tabular}
-\end{table}
-
-High values across all scoring measures are achieved. % with the best estimator, with the lowest metric starting at a value of 0.958.
-These results can be explained by the fact that
-%Scores results become less surprising when looking closer at the dataset.
-communication and mobility patterns are in essence highly correlated across time periods.
-In this case, correlation between the target variable $Y$ and the models' features are expected:
-% The table below shows the top 7 target-correlated features.
-a user being endemic in $T_1$ is very correlated to being endemic in $T_0$, and the same holds with a user's interaction with vulnerable neighbors during $T_1$.
-
-% \hfill
-\begin{table}\label{tab:featureCorrelations}
-	% \parbox{0.45\linewidth}{
-	\caption{Correlations.}
-	\centering
-	\begin{tabular}{l l }
-		\toprule
-		Feature & Correlation \\
-		\midrule
-		Endemic in $T_1$        & 0.933801 \\
-		Vuln. contact outgoing\ 08/2015  & 0.730294 \\ %%outgoing significa outgoing calls
-		Vuln. contact incoming\ 08/2015   & 0.732498 \\
-		Vuln. contact outgoing\ 09/2015  & 0.714448 \\
-		Vuln. contact incoming\ 09/2015   & 0.715566 \\
-		Vuln. contact outgoing\ 10/2015  & 0.694106 \\
-		Vuln. contact incoming\ 10/2015   & 0.694265 \\
-		%VULNERABLE\_OUT\_11  & 0.688250 \\
-		%VULNERABLE\_IN\_11   & 0.688407 \\
-		\bottomrule
-	\end{tabular}
-\end{table}
+% \begin{center}
+% 	\begin{tabular}{ l l }
+% 		\toprule
+% 		Score & Value \\
+% 		\midrule
+% 		F1 score & 0.964537  \\
+% 		Accuracy & 0.980670  \\
+% 		AUC    & 0.991593  \\
+% 		Precision & 0.970838  \\
+% 		Recall  & 0.958316  \\
+% 		\bottomrule
+% 	\end{tabular}
+% \end{center}
 
 
+% \begin{table}\label{tab:results}[ht]
+% 	\caption{Resulting scores.}
+
+% 	\centering
+% 	\begin{tabular}{ l l }
+% 		\toprule
+% 		Score & Value \\
+% 		\midrule
+% 		F1 score & 0.964537  \\
+% 		Accuracy & 0.980670  \\
+% 		AUC    & 0.991593  \\
+% 		Precision & 0.970838  \\
+% 		Recall  & 0.958316  \\
+% 		\bottomrule
+% 	\end{tabular}
+% \end{table}
+
+% High values across all scoring measures are achieved. % with the best estimator, with the lowest metric starting at a value of 0.958.
+% These results can be explained by the fact that
+% %Scores results become less surprising when looking closer at the dataset.
 %
 %Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron). Los scores bajan mucho:
 %
@@ -270,40 +213,54 @@ a user being endemic in $T_1$ is very correlated to being endemic in $T_0$, and 
 
 \section{Conclusions}\label{section:conclusions}
 
-The heatmaps shown in Section~\cref{ch:descr-risk} expose a `temperature' descent from the core regions outwards. The heat is concentrated in the ecoregion and gradually descends as we move further away. This expected behavior could be explained by the fact that calls are in general of a local nature and limited to 3 or 4 main antennas used per user.
-
-A more surprising fact is the finding of communities atypical to their neighboring region. They stand out for their strong communication ties with the studied region, showing significantly higher links of vulnerable communication. The detection of these antennas through the visualizations is of great value to health campaign managers. Tools that target specific areas help to prioritize resources and calls to action more effectively.
-
-In Section~\cref{long_term}, we tackled the problem of predicting long-term migrations. In particular, we showed that it is possible to use the mobile phone records of users during a bounded period (of 5 months) in order to predict whether they have lived in the endemic zone $E_Z$ in a previous time frame (of 19 months).
-The very good results obtained demonstrate that CDRs are particularly well suited for this task.
-
-To conclude, the results presented in this work show that it is possible to explore CDRs as a mean to tag human mobility. Combining social and geolocated information, the data at hand has been given an innovative use, different from its original billing purpose.
-
-Epidemic counter-measures nowadays include setting national surveillance systems, vector-centered policy interventions and individual screenings of people. These measures require costly infrastructures to set up and be run. However, systems built on top of existing mobile networks would demand lower costs, taking advantage of the already available infrastructure. The potential value these results could add to health research is hereby exposed.
-Finally, the results stand as a proof of concept which can be extended to other countries or to diseases with similar characteristics.
+ASDF ASDF
 
 
+\subsection{ Future Work Lines}
 
-\subsection{Lines for Future Work}
-
-The mobility and social information extracted from CDRs analysis has been shown to be of practical use for Chagas disease research. Helping to make data driven decisions which in turn is key to support epidemiological policy interventions in the region. For the purpose of continuing this line of work, the following is a list of possible extensions being considered:
+The mobility and social information extracted from CDRs analysis has been shown to be of practical use for long-term human migrations and for Chagas disease research.
+it adds value and information to help make data driven decisions which in turn is key to support epidemiological policy interventions in the region.
+For the purpose of continuing this line of work, the following is a list of possible extensions:
 
 \begin{description}
-    \item [Results validation.] Compare against actual serology or disease prevalence surveys. Data collected from fieldwork could be fed to the algorithm in order to supervise the learning.
+    \item [Results validation.] Compare observed experiment results of risk maps and best features against actual serology or disease prevalence surveys.
+    Data collected from fieldwork could be fed to the algorithm in order to supervise the learning towards a target variable that is defined by the disease prevalence at a certain level.
 
-    \item [Differentiating rural antennas from urban ones.] This is important as rural areas have conditions which are more vulnerable to the disease expansion. \textit{Trypanosoma cruzi} transmission is favored by rural housing materials and domestic animals contribute to complete the parasite's lifecycle. Antennas could be automatically tagged as rural by analyzing the differences between the spatial distribution of the antennas in each area. A similar goal could be to identify precarious settlements within urban areas, with the help of census data sources.
+    \item [Differentiating rural antennas from urban ones.] This is important as studies show that rural areas have epidemiological conditions which are more favorable to the expansion of the disease expansion.
+    The vector-borne transmission through \textit{Trypanosoma cruzi} is helped with poor housing materials and domestic animals.
+    All  contribute to complete the parasite's lifecycle.
+    Using the CDR data, antennas could be automatically tagged as rural by analyzing the differences between the spatial distribution of the antennas in each area.
+    A similar goal could be to identify precarious settlements within urban areas, with the help of census data sources.
 
     \item [Seasonal migration analysis.] Experts from the \textit{Mundo Sano} Foundation underlined that many seasonal migrations occur in the \textit{Gran Chaco} region.
-    Workers might leave the endemic area for several months possibly introducing the parasite to foreign populations.
-    The analysis of these movements can give information on which communities have a high influx of people from the endemic zone.
+    Workers are known to leave the endemic area for several months possibly introducing the parasite to foreign populations.
+    The analysis of these movements can give information on which communities have a higher influx of people from the endemic zone during a certain period.
     %\item Add more regions to the analysis.
 
     \item [Search for epidemiological data at a finer grain.] For instance, specific historical infection cases. Splitting the endemic region according to the infection rate in different areas, or considering particular infections.
     \item Feature exploration to search for correlations with being infected.
-    %\item (FALTA RESCRIBIR) Apply best fit model to Argentinian dataset. Provide that info to a Chagas risk model. Assuming that a high influx of individuals from epidemic regions is correlated with a higher risk in that area the algorithm could highlight these points. % revisar
+
 \end{description}
 
 
+
+% \subsection{Supervised Algorithms}
+\subsection{Brief Technical Notes }
+
+
+Results were satisfactory in most algorithms such as Gradient Boosting, Random Forest and Logistic Regression.
+The Multinomial Naive Bayes method was used solely for benchmarking reasons and for its fast runtime and low number of parameters required to configure.
+All algorithms were run on a 16-core Linux machine with 72GB of RAM.\@ Processing and learning scripts were run on Python.
+When available, we showed how the feature importance methods qualified the attributes of the dataset, selecting the most relevant for the experiment.
+
+\todo{add python, graphlab, sklearn, pandas citations}.
+
+The project involved working with more than 2 terabytes of raw data which had to be extracted, processed, transformed, loaded and classified as demanded.
+To do this, most of the project's code was built using existing Machine Learning and Data Analysis frameworks for Python.
+For the latter part of the job, we used Pandas and Graphlab whilst for the classification part it was mostly implemented with Scikit-learn~\textcite{scikit-learn} and, in some cases, with Graphlab~\textcite{graphlab}.
+
+We can not recommend highly enough all the aforementioned python modules.
+All were critical in the development of a working experimentation pipeline.
 
 
 
