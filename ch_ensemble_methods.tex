@@ -563,13 +563,13 @@ So we have to limit ourselves to search over a limited amount of values.
 Also, if we were to use commodity hardware with standard tools for this procedure, the experiment would take weeks and, given our dataset size, it would not fit into a standard computer's memory of less than 12GB of memory.
 
 For these reasons, we take on the task with a specialized server with a 16 core CPU and 72 gigabytes of available RAM.\@
-The system runs a UNIX based OS and our algorithms were scripted in \cref{python3.5}.
-We used the specialized machine learning package \cref{graphlab} to handle the parallelization and the distribution of system resources.
+The system runs a UNIX based OS and our algorithms were scripted in~\cite{python3.5}.
+We used the specialized machine learning package~\cite{graphlab} to handle the parallelization and the distribution of system resources.
 As a side note, we can't stress enough how convenient this package is for our purposes.
 It handles most of the complex task of maxing out the system resources to perform as fast as possible in the cross validation procedure and in the construction of the main $X$ dataset.
 Also, it has an \textit{out-of-the-box} memory management for large datasets.
 With this, we can natively handle data that is larger than the amount of memory used by the server, requiring minimal user knowledge to tune.
-\cref{graphlab} has allowed us to conveniently run these long experiments without risk of failure due to lack of memory and without any prior expert domain knowledge in multi-threading or parallel computing.
+\cite{graphlab} has allowed us to conveniently run these long experiments without risk of failure due to lack of memory and without any prior expert domain knowledge in multi-threading or parallel computing.
 
 For this case, we only considered migrant people that are non-endemic at $T_1$, but have been during $T_0$.
 In the general procedure, we cross validated the same possible hyperparameter configurations, where these spanned the following items:
