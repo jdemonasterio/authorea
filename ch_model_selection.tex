@@ -89,7 +89,7 @@ PE( \hat{f} ) = & {\Expect_X \left[  f(X) - \hat{f}(X) \right]}^2 + \Expect_X \l
 \end{equation}
 
 
-Equation \cref{squaredBiasDecomposition} is hereby designated as the \textit{bias-variance decomposition for the squared loss}. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how this random variable varies along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. Note that we have already taken the expectation over the target and that is why we are left with the target's noise. This part of the error we cannot minimize or control with our learner. It is due to the random nature of the problem.
+ \cref{squaredBiasDecomposition} is hereby designated as the \textit{bias-variance decomposition for the squared loss}. The first term is called the square of the bias of the estimator. It measures how well off are our estimator's predictions compared to the true relational function. On the other hand, the second and third terms are the variance of the estimator. This will measure how this random variable varies along its most expected non-random value. The noise's variance term is that part of the prediction error which is irreducible. Note that we have already taken the expectation over the target and that is why we are left with the target's noise. This part of the error we cannot minimize or control with our learner. It is due to the random nature of the problem.
 
 Note that integration here is done over the joint distribution of inputs and outputs. As we've mentioned before, we have incomplete information on $P(x,y)$ given the finite data $ \mathcal{T}$.
 We must assume then that calculating this integral is not possible for any $\theta$ and must rely on estimation procedures.
@@ -100,7 +100,7 @@ For example, we could try and sample $M$ i.i.d.\ points from $P(x,y)$ to approxi
 Err_{true}(\theta) \approx \frac{1}{M} \sum_i^M {( y - h(x \cdot \theta) )}^2
 \end{equation}
 
-Yet this would be unfeasible as well. Since the sampling process should be done for each specific $\theta$. Notice however the close resemblance of this equation \cref{eq:mcarlo-approx} to the form in \cref{eq:rss}.
+Yet this would be unfeasible as well. Since the sampling process should be done for each specific $\theta$. Notice however the close resemblance of the \cref{eq:mcarlo-approx} to the form in \cref{eq:rss}.
 
 Historically the errors due to bias and variance where associated directly with the squared loss function.  Yet in classification problems, the residual sum of squares is not the loss function used to estimate the model\'s parameters. Instead, they rely on other \textit{loss} functions that we will introduce later.
 
