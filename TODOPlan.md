@@ -51,7 +51,7 @@
     * [DONE] Decir que los problemas los vamos a retomar en el cap 4 y 5 bla bla para resolver ciertas cosas.
     * [DONE] Tener 5 Problems en vez de problems con items.
     * [DONE] Figura 4.2.1 agregar la grafica de CV de decision trees y referenciar al futuro.
-    * Meter mas figures overall.
+    * [DONE] Meter mas figures overall.
     * [DONE] Add experiments/runs for Naive Bayes Classifier. Show how fast the implementation is and relate to how "non-parametric" this is i.e. easy to set up and use as a benchmarking for better, more complex models.
 
 ## Meeting 21/06
@@ -83,7 +83,6 @@
 
     * Conclusiones: results summaries, para ir comparando las distintas tecnicas.
         - Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
-    * Pedidos de entrega: links de netmob dengue.
 
 ## Revision 17/02
     * [DONE] Show an instance of overfitting the data with a decision Tree (with depth).
