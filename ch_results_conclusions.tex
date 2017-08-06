@@ -8,15 +8,40 @@
 \chapter{Summary of Results and Conclusion}\label{ch:results_conclusion}
 
 
-\todo{Present a combined overview of results and Conclusion at the end. }
+The idea of this chapter is to present a combined overview of the work done and results we encountered in \cref{ch:descr-risk, ch:machineLearning, ch:modelSelection, ch:ensembleMethods}. All in all, we
+ and Conclusion at the end.
+
+As a summary of the work done we can say we have discussed issues on the most of the following items:
+
+%\cref{ch:descr-risk}
+%\cref{ch:machineLearning}
+%\cref{{ch:modelSelection}
+%\cref{ch:ensembleMethods}
+
+%\cref{}
+
+\begin{itemize}
+    \item
+    Predict a user's province when given information on only the first four features.
+    \item Predict a user's number of calls made on weekends when given information on the last four features.
+    \item Give an estimate of the probability density function of user's calls duration, during weekdays.
+\end{itemize}
+
+\todo{Reword sentences. Expand, correct and finish them in a cohesive structure.}
 
 
 \subsection{Some nice sentences}
 
-\todo{Reword sentences. Expand, correct and finish them.}
+
 
 The overall picture shows that the hypothesis stipulates that there are social interactions captured by the cellphone usage logs, which is informative on long-term migrations and disease spread.
-The experiments discussed in previous sections highlight the benefit of using these type of data to capture human movements at the national level and with user granularity.
+
+
+The experiments discussed in previous sections highlight the benefit of using these types of data.
+The Argentinean and Mexican case studies allow to reach an inisght on to whether it is possible to characterize human movements of long durations.
+CDRs are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
+
+
 
 Some supervised classification models realized the importance of attributes tagged with vulnerable behavior obtained from the CDR.
 
@@ -237,7 +262,12 @@ For the purpose of continuing this line of work, the following is a list of poss
     The analysis of these movements can give information on which communities have a higher influx of people from the endemic zone during a certain period.
     %\item Add more regions to the analysis.
 
-    \item [Search for epidemiological data at a finer grain.] For instance, specific historical infection cases. Splitting the endemic region according to the infection rate in different areas, or considering particular infections.
+    \item [Search for epidemiological data at a detailed level.] For instance, specific historical infection cases.
+    Splitting the endemic region according to the infection rate in different areas, or considering particular infections.
+    With the use of a high-quality epidemic dataset, we assume that a more model complex can be built, to detect infected users nationwide.
+    It is of primary importance though to have a good dataset availabe.
+    Since otherwise, it would not be possible to reach a generalizing classifier.
+
     \item Feature exploration to search for correlations with being infected.
 
 \end{description}
