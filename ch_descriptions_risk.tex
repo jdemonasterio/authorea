@@ -31,7 +31,7 @@ are clients of the mobile operator, the remaining nodes $\calN \setminus \calN_C
 users that communicated with users in $ \calN_C $ but themselves are not clients of
 the mobile operator.
 
-Since geolocation information is available only for users in $\calN_C$, in the analysis we considered the graph $\calG_C = \left< \calN_C, \calE_C \right> $ of communications between clients of the operator.
+Since geolocation information is available only for users in $\calN_C$, in the analysis we considered the graph $\calG_C = \left< \calN_C, \calE_C \right>$ of communications between clients of the operator.
 
 % \paragraph{Argentina.}
 \paragraph{Datasets Information.}
@@ -42,14 +42,17 @@ The Argentinian dataset contains CDRs collected over a period of 5 months, from 
 The Mexican data source is an anonymized dataset from a national mobile phone operator. Data is available for every call made within a period of 24 months from January 2014 to December 2015. The raw logs contain at least 11 and at most 47 million daily calls. These were for the dates of   day for more than 8 million users that accessed the telecommunication company's (\textit{telco}) network to place the call. This means that users from other companies are logged, as long as one of the users registering the call is a client of the operator. In practice, we only considered CDRs between users in $\calN_C$ since geolocalization was only possible for this group.
 
 Information logged for each call included the duration and timestamp of the call, the users participating in the call and the antenna id that transmitted the call to the TelCo client.
+All in all, the project involved working with more than 1 terabyte in size.
+The data was used in a raw CSV format which was compressed under the Gzip\footnote{For more information on this file format, please refer to Wikipedia's article on this subject: \url{https://en.wikipedia.org/wiki/Gzip}} format.
+All of the call logs under this data format were be parsed, processed, transformed and loaded to create the datasets which were structured as needed by this project.
+
+% the necessary datasets the output datasets used during this project.
+% and classified as demanded.
 
 
 % \subsection{Data Limitations}
 \paragraph{Data Limitations.}
 Although a lot of information is available in the CDR datasets, there may be limitations in their representativeness of the whole population. In each case, data is sourced from a single mobile phone operator, and no information is given on the distribution of its users, thus calls might in principle not represent correctly social interactions and movements between two given jurisdictions. Also, not all user movements will be captured by the log records. However, these limitations are offset by the huge datasets' sizes, from which we can safely assume that the amount of users observed in each set is sufficient to correlate real mobility or social links between different areas.
-
-
-% Si podemos reflotemos el grafico de clustering de provincias segun comunicaciones, y repitamos para estados en Mexico.
 
 
 % Procedimiento:
@@ -130,8 +133,7 @@ The following section presents these maps.
 
 
 \begin{figure}[h!]
-	\caption{Risk map for Argentina, filtered according to the value of $\beta$.}
-	\label{fig:mapa_argentina}
+	\caption{Risk map for Argentina, filtered according to the value of $\beta$.}\label{fig:mapa_argentina}
 	\begin{minipage}{.495\linewidth}
 		\centering
 		\includegraphics[width=0.90\linewidth]
@@ -159,8 +161,7 @@ Namely, \cref{fig:mapa_argentina} (b) shows antennas where more that 15\% of the
 where we can see a gradient from the regions closer to the endemic zone $E_Z$ to the ones further away.
 
 \begin{figure}[p]
-	\caption{Risk map for Cordoba and Santa Fe provinces, filtered according to $\beta = 0.15$.}
-	\label{fig:cba_sfe}
+	\caption{Risk map for Cordoba and Santa Fe provinces, filtered according to $\beta = 0.15$.}\label{fig:cba_sfe}
 	\centering
 	\includegraphics[width=0.95\linewidth]
 	{figures/201112_hi_res_cba_sfe_usuarios_proporcion_circulos_beta15/201112_hi_res_cba_sfe_usuarios_proporcion_circulos_beta15}
@@ -184,16 +185,14 @@ As a result of this visualization, high risk antennas were separately listed and
 \todo{preguntarle a Diego si hubo algun avance/resultado sobre esto.}
 
 \begin{figure}[p]
-	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.02$.}
-	\label{fig:amba_map}
+	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.02$.}\label{fig:amba_map}
 	\centering
 	\includegraphics[width=0.75\linewidth]
 	{figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta2/201112_hi_res_amba_usuarios_proporcion_circulos_beta2}
 \end{figure}
 
 \begin{figure}[h!]
-	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.2$.}
-	\label{fig:amba_map_beta20}
+	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.2$.}\label{fig:amba_map_beta20}
 	\begin{center}
 		\includegraphics[width=0.35\columnwidth]{figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta20/201112_hi_res_amba_usuarios_proporcion_circulos_beta20}
 
@@ -215,8 +214,7 @@ more that 50\% of inhabitants have a social tie with the endemic region $E_Z$.
 For space reasons, we don't provide here more specific visualizations and analysis of the regions of Mexico.
 
 \begin{figure}[ht!]
-	\caption{Risk maps for Mexico, filtered according to the value of $\beta$.}
-	\label{fig:mapas_mexico}
+	\caption{Risk maps for Mexico, filtered according to the value of $\beta$.}\label{fig:mapas_mexico}
 	\begin{minipage}{.475\linewidth}
 		\centering
 		\includegraphics[width=0.95\columnwidth,height=3.2cm,keepaspectratio]
@@ -321,8 +319,7 @@ Since the samples in our dataset are users, we have to aggregate all these varia
 To illustrate the point, we show a small example of how two calling features could look like. Groupings and filters are applied only on the user's calls:
 
 \begin{table}[ht]
-	\caption{Example of features extraed from the social graph data.}
-	\label{tab:data_example}
+	\caption{Example of features extraed from the social graph data.}\label{tab:data_example}
 	\centering
 	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
 		%{l r r r r r r }
@@ -369,8 +366,7 @@ the percentage of telco users per state, for the top 10 Mexican states.
 
 
 \begin{table}[ht]
-	\caption{Table distribution of antennas, population and telco users by state.}
-	\label{tab:distribution_by_state}
+	\caption{Table distribution of antennas, population and telco users by state.}\label{tab:distribution_by_state}
 	\centering
 	\begin{tabular}{l r r r}
 		\toprule
@@ -425,8 +421,7 @@ Table~\cref{tab:changes}
 shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users that were in group $i$ during period $T_0$ (the past) and moved to group $j$ during the training period $T_1$. As an example, lower left means was endemic, is now not endemic.
 
 \begin{table}[ht]
-	\caption{Matrix of endemicity change combinging endemicity and time factors.}
-	\label{tab:changes}
+	\caption{Matrix of endemicity change combinging endemicity and time factors.}\label{tab:changes}
 	\centering
 	\begin{tabular}{l r r }
 		\toprule
@@ -473,11 +468,11 @@ Again, this suggests data seasonality in the data, where December is a festive m
 		Endemic in $T_0$        & 1.0 \\
 		Endemic in $T_1$        & 0.933801 \\
 		Call Count  OUT\ 08/2015  & 0.730294 \\ %%outgoing significa outgoing calls
-		Vuln. calls \ 08   & 0.732498 \\
-		Vuln. calls  09   & 0.714566 \\
-		Vuln.  calls 12  & 0.715448 \\
-		Vuln. calls  10  & 0.694106 \\
-		Vuln. calls  11   & 0.694265 \\
+		Vuln. calls \ 08& \ 0.732498 \\
+		Vuln. calls  09   &0.714566 \\
+		Vuln.  calls 12  &0.715448 \\
+		Vuln. calls  10  &0.694106 \\
+		Vuln. calls  11   &0.694265 \\
 	\end{tabular}
 \end{table}
 
