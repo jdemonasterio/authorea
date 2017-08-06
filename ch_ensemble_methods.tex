@@ -1,50 +1,4 @@
-\chapter{Ensemble Methods and  Naive Bayes Classifier}\label{ch:ensembleMethods}
-
-
-\section{Classifier: Naive Bayes}
-
-The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features. Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$ i.e.\ there are more attributes than samples in the data.
-
-It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthermore, the algorithm has linear complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{larger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as techniques using gradient descent or other similar iterative optimization routines.
-
-Let $x = (x_1,\ldots,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. We take $p(C_k \mid x)$ to be the class posterior probability of this class given the sample.
-
-In \cref{ch:machineLearning}
-we have used
-\begin{equation}
-p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
-\end{equation}\label{eq:equation-posteriorProbabilties}
-
-
-and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class.
-
-Here we can approximate the posterior as
-
-\begin{equation}
-P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
-\end{equation}\label{eq:posteriorProbabilityDecomposition1}
-
-
-We now impose a strong independence assumption among features, given the target class, to let the conditional probability factors become the probability of each feature. %This assumption is what gives the model its
-
-This yields a posterior probability which depends only on the prior probability and on the individual likelihood of each feature.
-
-\begin{equation}
-P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
-\end{equation}\label{eq:posteriorProbabilityDecomposition2}
-
-As we have said before, the parameters of the model can only reweigh the likelihood factors, so if we look to maximize the posterior probability, our final estimate of the posterior will take the following form.
-
-\begin{equation}
-P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
-\end{equation}\label{equation-posteriorProbabilityDecomposition3}
-
-where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
-
-In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparameters and the best one can be selected with our CV procedure.
-%Indeed,
-
-Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability $P(C_k' \mid x)$.
+\chapter{Ensemble Methods and the Naive Bayes Classifier}\label{ch:ensembleMethods}
 
 
 \section{Classifier: Decision Trees}\label{section:decision_trees}
@@ -1146,3 +1100,77 @@ Once again, experiments results in satisfactory scores across different metrics 
 Also, top features are in line with the assumptions on which the risk maps were constructed.
 Top features are related to the vulnerability and to the users mobility
 
+
+
+\section{Classifier: Naive Bayes}
+
+The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features. Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems. In addition, it does not suffer in problems of high-dimensionality, where $p >> n$ i.e.\ there are more attributes than samples in the data.
+
+It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. Furthermore, the algorithm has linear complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{larger} problem implementations. Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as techniques using gradient descent or other similar iterative optimization routines.
+
+Let $x = (x_1,\ldots,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. We take $p(C_k \mid x)$ to be the class posterior probability of this class given the sample.
+
+In \cref{ch:machineLearning}
+we have used
+\begin{equation}
+p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
+\end{equation}\label{eq:equation-posteriorProbabilties}
+
+
+and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class.
+
+Here we can approximate the posterior as
+
+\begin{equation}
+P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
+\end{equation}\label{eq:posteriorProbabilityDecomposition1}
+
+
+We now impose a strong independence assumption among features, given the target class, to let the conditional probability factors become the probability of each feature. %This assumption is what gives the model its
+
+This yields a posterior probability which depends only on the prior probability and on the individual likelihood of each feature.
+
+\begin{equation}
+P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
+\end{equation}\label{eq:posteriorProbabilityDecomposition2}
+
+As we have said before, the parameters of the model can only reweigh the likelihood factors, so if we look to maximize the posterior probability, our final estimate of the posterior will take the following form.
+
+\begin{equation}
+P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
+\end{equation}\label{equation-posteriorProbabilityDecomposition3}
+
+where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
+
+In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparameters and the best one can be selected with our CV procedure.
+%Indeed,
+
+Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability $P(C_k' \mid x)$.
+
+\subsection{Experiments}\label{subsection:naive_bayes_experiments}
+
+Here we present a very brief outline of this algorithm's performance on our general problem.
+Without going in to depth on the specifics of the experiments, we ran the classifier in a cross validation procedure against all of the four tasks outlined in \cref{long_term}, and using the same $Accuracy$, $F1$ and $ROC AUC$ classifier scores as in other method's experiment runs.
+We took advantage of this method's fast fit to be able to evaluate all tasks on this algorithm.
+% The speed small time needed to fit this classifier on a large dataset.
+The results were composed into \cref{tab:naive_bays_experiment_results} and are shown to highlight two aspects of the method: its lower performance when compared to other previous methods, and the algorithm's fast runtime.
+
+
+\begin{table}[!htb]
+\caption{Table comparing cross validated results
+of best results comparing all 8-fold full grid cross validation procedures with a Naive Bayes classifier using a Multinomial prior probability. Relevant classification scores and runtime are shown}
+\label{tab:naive_bays_experiment_results}
+\centering
+\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
+%{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
+\toprule
+Measure & Problem 1 & Problem 2 & Problem 3 & Problem 4  \\
+\midrule
+Running time (s)        & 125    &  121   &  105     &  85     \\
+CV $Accuracy$ score     & 0.842  & 0.649  &  0.658   &  0.852   \\
+CV $F1$ score           & 0.753  & 0.313  &  0.457   &  0.626   \\
+CV $ROC AUC$ score      & 0.827  & 0.617  &  0.635   &  0.768   \\
+
+\bottomrule
+\end{tabular*}
+\end{table}
