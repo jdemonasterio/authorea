@@ -52,7 +52,7 @@ All of the call logs under this data format were be parsed, processed, transform
 
 % \subsection{Data Limitations}
 \paragraph{Data Limitations.}
-Although a lot of information is available in the CDR datasets, there may be limitations in their representativeness of the whole population. In each case, data is sourced from a single mobile phone operator, and no information is given on the distribution of its users, thus calls might in principle not represent correctly social interactions and movements between two given jurisdictions. Also, not all user movements will be captured by the log records. However, these limitations are offset by the huge datasets' sizes, from which we can safely assume that the amount of users observed in each set is sufficient to correlate real mobility or social links between different areas.
+Although a lot of information is available in the CDR datasets, there may be limitations in their representations of the whole population. In each case, data is sourced from a single mobile phone operator, and no information is given on the distribution of its users, thus calls might in principle not represent correctly social interactions and movements between two given jurisdictions. Also, not all user movements will be captured by the log records. However, these limitations are offset by the huge datasets' sizes, from which we can safely assume that the amount of users observed in each set is sufficient to correlate real mobility or social links between different areas.
 
 
 % Procedimiento:
@@ -123,7 +123,7 @@ We used two filtering parameters to control which antennas are plotted.
 
 When displaying the maps, these parameters were helpful to identify special small antennas which were covered under the circles of other antennas. Having more than four thousand antennas for each plot means that high volume antennas would graphically overlap those small neighboring ones. This \textit{noise} is unhelpful to the detection of smaller, more vulnerable, antennas.
 
-We also have that parameters were tuned differently when zomming into different regions. For example: an antenna whose vulnerable percentage would be considered low at the national level can be locally high when zooming in at a more local level. These filtering parameters helped us explore these cases with more detail and provided great insight to the Mundo Sano Foundation.
+We also have that parameters were tuned differently when zooming into different regions. For example: an antenna whose vulnerable percentage would be considered low at the national level can be locally high when zooming in at a more local level. These filtering parameters helped us explore these cases with more detail and provided great insight to the Mundo Sano Foundation.
 
 The following section presents these maps.
 
@@ -178,7 +178,7 @@ As a result of inspecting the maps in \cref{fig:mapa_argentina}, we decided to
 focus visualizations in areas whose results were unexpected to the epidemiological experts.
 These areas included the provinces of Tierra del Fuego, Chubut, Santa Cruz and Buenos Aires, with special focus on the metropolitan area of Greater Buenos Aires whose heatmap is shown in \cref{fig:amba_map}.
 
-In some cases, antennas stood out for having a significantly higher link to the epidemic area than the adjacent ones. Our objective here was to enhance the visualization in areas outside of Gran Chaco looking for possible host communities of migrants from the ecoregion, infered by the social links given by the CDRs. Our assumptions were that if, in average, there was a high percentage of vulnerable users in that non-epidemic antenna, this would mean that there's a high possibility of having more infected users in that community.
+In some cases, antennas stood out for having a significantly higher link to the epidemic area than the adjacent ones. Our objective here was to enhance the visualization in areas outside of Gran Chaco looking for possible host communities of migrants from the ecoregion, inferred by the social links given by the CDRs. Our assumptions were that if, in average, there was a high percentage of vulnerable users in that non-epidemic antenna, this would mean that there's a high possibility of having more infected users in that community.
 
 As a result of this visualization, high risk antennas were separately listed and manually located in political maps. This information was made available to the \textit{Mundo Sano} Foundation collaborators who used it as an aid for their campaign planning and as education for community health workers.
 
@@ -319,7 +319,7 @@ Since the samples in our dataset are users, we have to aggregate all these varia
 To illustrate the point, we show a small example of how two calling features could look like. Groupings and filters are applied only on the user's calls:
 
 \begin{table}[ht]
-	\caption{Example of features extraed from the social graph data.}\label{tab:data_example}
+	\caption{Example of features extracted from the social graph data.}\label{tab:data_example}
 	\centering
 	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
 		%{l r r r r r r }
@@ -341,8 +341,8 @@ To illustrate the point, we show a small example of how two calling features cou
 Finally we aggregate all these variables at the user level, summing over all columns and grouping by user.
 In practice, this means grouping either by $j$ or $i$, and summing across all of the different components shown above.
 
-We also label each edge $\left< n_i, n_j \right> \in \calE_C$ if one or both users is endemic and
-ands count each user's amount of neighbors in the communication graph, as well as the endemic neighbors. This labeling defines user $i$ as \textit{vulnerable} whenever he has any edge with another user $j$ who lives in the endemic region $E_Z$.
+We also label each edge $\left< n_i, n_j \right> \in \calE_C$ if one or both users is endemic and count each user's amount of neighbors in the communication graph, as well as the endemic neighbors.
+This labeling defines user $i$ as \textit{vulnerable} whenever he has any edge with another user $j$ who lives in the endemic region $E_Z$.
 
 %% el vulnerable NO es el edge, sino que es el usuario .
 %La idea es, parate en el nodo i, hace algun filtro - o ninguno - de weeknight, in/out, weekend, mes, etc. y ahora decime
@@ -421,7 +421,7 @@ Table~\cref{tab:changes}
 shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users that were in group $i$ during period $T_0$ (the past) and moved to group $j$ during the training period $T_1$. As an example, lower left means was endemic, is now not endemic.
 
 \begin{table}[ht]
-	\caption{Matrix of endemicity change combinging endemicity and time factors.}\label{tab:changes}
+	\caption{Matrix of endemicity change combining endemicity and time factors.}\label{tab:changes}
 	\centering
 	\begin{tabular}{l r r }
 		\toprule
@@ -442,13 +442,13 @@ In relative numbers, this shows that only 2.59\% of users had a change in their 
 
 The dataset used in this work shows significant correlations between communication and mobility patterns.
 Some features are essentially highly correlated across time periods.
-Thus knowing a user's current endimicity will be highly correlated to his past endmicity since a user being endemic in $T_1$ is very correlated to being endemic in $T_0$.
+Thus knowing a user's current endemicity will be highly correlated to his past endemicity since a user being endemic in $T_1$ is very correlated to being endemic in $T_0$.
 The same property extends to attributes of user's interaction with vulnerable neighbors during $T_1$, where their relationship to the user's endemicity in $T_0$ is expected
 
 In these cases, it is important to know the value of this correlation to the past endemicity.
 Where in sections further in this work (\cref{ch:ensembleMethods}), we will take into account this observation to improve on the task of predicting long-term migrations.
 
-\cref{tab:featureCorrelations} quantifies these relationships, where only features with an absolute correlation value highern than $0.25$ are shown.
+\cref{tab:featureCorrelations} quantifies these relationships, where only features with an absolute correlation value higher than $0.25$ are shown.
 It is notable how the correlation is slightly increasing as we get closer to the split month i.e.\ the month chosen to separate $T_0$ from $T_1$.
 This behavior might be an indicator of seasonality in the data, where events from $T_1$more closer to $T_0$ carry more intrinsic value.
 Added to this, there is a very small indication that a user's calling volume in the month of December is more related to a user's past endemicity in the sense that it carries a higher correlation with his past endemicity.
