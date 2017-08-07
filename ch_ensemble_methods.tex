@@ -549,10 +549,10 @@ Recall that all of these features were central in the construction of the risk m
 The color of each antenna's circle represented the amount of vulnerable users, for that given month, when looking at the incoming or outgoing calls.
 Then, these feature's correlation to the target variable are indicative, up-to a certain point, of the predictive power of them.
 
-For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as given by the algorithm. The summary of these results is given in \cref{tab:random_forest_big_experiment_results}.
+For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the run-time, the hyperparameters chosen and the top ten best features as given by the algorithm. The summary of these results is given in \cref{tab:random_forest_big_experiment_results}.
 
 \begin{table}[!htb]
-\caption{Table of best results comparing two 5-fold full grid cross validation procedures on a Random Forest Classifier.  The metrics and runtime for both experiments are shown.}
+\caption{Table of best results comparing two 5-fold full grid cross validation procedures on a Random Forest Classifier.  The metrics and run-time for both experiments are shown.}
 \label{tab:random_forest_big_experiment_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
@@ -586,7 +586,7 @@ Bigger differences appear in the choice of the minimum loss reduction and the fe
 There are no clear indications as to which configuration is better.
 And, whilst having a higher level of randomization in the growth of the trees hints to a less overfitting learner, this difference is not that notable in the CV scorings.
 
-For most of the metrics used to evaluate the cross validation procedure, the scores look very similar. It is notable that the second experiment is slightly better in the accuracy, precision, logloss and ROC AUC scores, with a maximum difference of 5\% for all of them.
+For most of the metrics used to evaluate the cross validation procedure, the scores look very similar. It is notable that the second experiment is slightly better in the accuracy, precision, Logloss and ROC AUC scores, with a maximum difference of 5\% for all of them.
 Yet at the same time the second experiment's performance drastically drops for the recall and, because of this, for the $F1$ measure.
 This means that the learner is losing performance in correctly tagging the user's who have migrated from the endemic region.
 This 15\% difference hints to how much of an impact is characterized by removing the features for the second experiment.
@@ -762,7 +762,7 @@ f^*(X) = \underset{f}{\mathrm{argmin}} \ \Expect_{Y | f(X)}\big[ \exp(-Yf(X)) \b
 
 The use of the exponential loss function $\exp(-Yf(X))$ is also desirable in this context since significantly more weight is put on misclassifications rather than on correct classifications. This is because the function is not symmetric in $Yf(X)$ and that having a correct classification will mean a factor of only $e^{-1}$, whilst on the other hand a misclassification will mean a factor of $e$.
 
-A drawback of this loss though, is that it is not robust to outliers or to noisy data. During runtime weights are constantly shifting towards misclassified samples. Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data.
+A drawback of this loss though, is that it is not robust to outliers or to noisy data. During run-time weights are constantly shifting towards misclassified samples. Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data.
 
 
 \subsection{ Comparison to Random Forests}\label{subsection:boosting_comparison_forest}
@@ -974,7 +974,7 @@ In this setup though, we had a minor difference, where, as before, it was charac
 In the third experiment, we \textbf{only} used the best features extracted from the second Random Forest experiment.
 With this third variant, we expected to see how good of a performance can the gradient boosting classifier achieve, using only the top 30 features, as selected by the random forest.
 % Even though
-Doing this has a hypothetical trade-off between accuracy and procedure runtime, where we can gain speed in our fitting process by compromising some of the predictive power of the algorithm.
+Doing this has a hypothetical trade-off between accuracy and procedure run-time, where we can gain speed in our fitting process by compromising some of the predictive power of the algorithm.
 
 Once again, here we performed a cross validation procedure over the available hyperparameters of this classifier.
 For the most part, these factors are the same as in the Random Forests classifier.
@@ -991,7 +991,7 @@ For our CV procedure, we will be searching the best learner over a grid combinat
 
 
 Using the same setup as before, we recorded the outcome of the cross validation procedures for the three experiments.
-The results were tabulated in terms of different scoring metrics, the runtime, the hyperparameters chosen and the top ten best features as selected by the best models.
+The results were tabulated in terms of different scoring metrics, the run-time, the hyperparameters chosen and the top ten best features as selected by the best models.
 
 A summary of the metrics and best hyperparameter values is given in \cref{tab:boosting_big_experiment_results}.
 
@@ -1027,7 +1027,7 @@ step\_size  & 0.01 &  0.1 &  1 \\
 The first notable fact from the results is how fast the last procedure is, compared to the two before.
 It trained much faster, with almost 3 minutes to complete the full procedure whilst the others had at minimum 15 minutes to do so.
 We see that the information from the top 30 features of the RF models was efficiently used in this boosting experiment.
-This runtime improvement then should not be surprising as we have limited the amount of available features to use, thus decreasing the necessary computer resources to compute the fit.
+This run-time improvement then should not be surprising as we have limited the amount of available features to use, thus decreasing the necessary computer resources to compute the fit.
 % However, this conclusion might seem
 
 The second interesting fact from the outcome is that the model seems to be more overfit, when compared to the experiments of the random forest.
@@ -1142,7 +1142,7 @@ P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
 
 where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
 
-In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a nonparametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparameters and the best one can be selected with our CV procedure.
+In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. It is common to choose among using a non-parametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. Different choices will certainly lead to different cross validation scores among problems. Altogether, these choices can be treated as part our model's hyperparameters and the best one can be selected with our CV procedure.
 %Indeed,
 
 Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability $P(C_k' \mid x)$.
@@ -1153,12 +1153,12 @@ Here we present a very brief outline of this algorithm's performance on our gene
 Without going in to depth on the specifics of the experiments, we ran the classifier in a cross validation procedure against all of the four tasks outlined in \cref{long_term}, and using the same $Accuracy$, $F1$ and $ROC AUC$ classifier scores as in other method's experiment runs.
 We took advantage of this method's fast fit to be able to evaluate all tasks on this algorithm.
 % The speed small time needed to fit this classifier on a large dataset.
-The results were composed into \cref{tab:naive_bays_experiment_results} and are shown to highlight two aspects of the method: its lower performance when compared to other previous methods, and the algorithm's fast runtime.
+The results were composed into \cref{tab:naive_bays_experiment_results} and are shown to highlight two aspects of the method: its lower performance when compared to other previous methods, and the algorithm's fast run-time.
 
 
 \begin{table}[!htb]
 \caption{Table comparing cross validated results
-of best results comparing all 8-fold full grid cross validation procedures with a Naive Bayes classifier using a Multinomial prior probability. Relevant classification scores and runtime are shown}
+of best results comparing all 8-fold full grid cross validation procedures with a Naive Bayes classifier using a Multinomial prior probability. Relevant classification scores and run-time are shown}
 \label{tab:naive_bays_experiment_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
