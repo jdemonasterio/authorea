@@ -222,7 +222,7 @@ EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right] =
 Given that we can have a high or low variance and bias, there are only four possible performances of any model. Our objective will then be to work out the data and the model to reach a state of low bias and variance. Different states of bias and variance require strategies to make a better model.
 
 For example, a very common scenario is having a model that has a high overall variance and low bias.
-It is said in the literature that when this situation is combined with a model which gives a good performance on the $mathrm{T}$ whilst having a poor performance on $mathrm{Ts}$, then the model \textit{overfits} the data. This can happen for various reasons and is mostly related to overly-complex models or having insufficient data to train, which leads to model well trained only for $mathrm{T}$.
+It is said in the literature that when this situation is combined with a model which gives a good performance on the $\mathrm{T}$ whilst having a poor performance on $\mathrm{Ts}$, then the model \textit{overfits} the data. This can happen for various reasons and is mostly related to overly-complex models or having insufficient data to train, which leads to model well trained only for $\mathrm{T}$.
 
 Overfit models will fail to generalize on new data since the variance structure of the training set is such that the number of training samples is not enough to lower the overall variance of this model.
 
@@ -507,9 +507,9 @@ The hyperparameter to search is the $C = \frac{1}{\lambda}$ and we're trying to 
 
 In \cref{fig:cv_vs_test_score} the x-axis graphed on the $C$ parameter has been draw with a log scale.
 The score used is the log loss function and a twelve fold cross validation has been done.
-It is interesting to see that for low $C$ values, the test and CV scores are very similar. This is probably due to the fact that being on a log scale, this regularaization dominates the optimization routine.
+It is interesting to see that for low $C$ values, the test and CV scores are very similar. This is probably due to the fact that being on a log scale, this regularization dominates the optimization routine.
 However, at some point near $\exp^{-4}$, the lines separate strongly, though continuing their direction of descent.
-It can be seen, that the test score is barely in the one standard deviation band of the average CV score. And this difference continuis stable for bigger values.
+It can be seen, that the test score is barely in the one standard deviation band of the average CV score. And this difference continues stable for bigger values.
 From this image we can see how different the CV and test scores are.
 
 \subsection{Choice of \texorpdfstring{$K$ parameter}{Lg} }
@@ -586,7 +586,7 @@ We took one logistic classifier with common settings and we ran a cross validati
 In this run, we considered four metrics to cross-validate our models: $Accuracy$, $Precision$, $Recall$ and $F1$.
 We compared all of them in a procedure which had fixed hyperparameters for all models.
 The folds were set to eight whilst the the $l1$ regularization was chosen.
-At the same time, we set to 100 the maximum descent iterations for any optimization and we balanced the classes in the loss functions, where samples of the under-represented class a higher weight in the loss function, in relation to the recprocal of their ratio towards the over-reprsented class.
+At the same time, we set to 100 the maximum descent iterations for any optimization and we balanced the classes in the loss functions, where samples of the under-represented class a higher weight in the loss function, in relation to the reciprocal of their ratio towards the over-represented class.
 For each metric, the best scoring model resulted from the CV procedure which was then evaluated against $\mathcal{Ts}$ to give a final model score.
 No other information from $\mathcal{Ts}$ was used during the whole process.
 In \cref{tab:metrics_comparison_logreg_target1_results} we show a summary of results.
@@ -609,10 +609,10 @@ $F1$ & 0.0015 & 0.339 & 0.340 & 4612.1 \\
 \end{tabular*}
 \end{table}
 
-From these results it is clear that there are no significant time differences in chosing one metric over another.
-Also, all metrics favor stronger regularized modles, except for the $Accuracy$ metric which favored a very loosely regularized model in the CV procedure.
+From these results it is clear that there are no significant time differences in choosing one metric over another.
+Also, all metrics favor stronger regularized models, except for the $Accuracy$ metric which favored a very loosely regularized model in the CV procedure.
 The biggest difference between the test and average CV scores among all models was of 4\% yet still the algorithm has trouble finding samples of the positive class.
-This is evidenced in the extremely low value for the $Precision$ scores where only a handful of positie classes can be correctly captured by the model.
+This is evidenced in the extremely low value for the $Precision$ scores where only a handful of positive classes can be correctly captured by the model.
 The effect of the low precision is also evident in the $F1$ score which drags this metric down, even when the recall is has an acceptable rate of 0.65.
 In practice, the experimenter would chose the metric which would be most appropriate for the task at hand.
 Then, the quality of solutions vary in the way they are evaluated and this evaluation will depend on the task.
@@ -640,11 +640,11 @@ where $\pi$ is a threshold value which will separate positive from negative samp
 
 As expected, there is an inverse relationship between these two as the threshold is varied. The result is a curve defined in $[0,1]\times[0,1]$, referred to as the \textit{ROC space}.
 
-To find a balance between these two rates, the ROCAUC metric measures the integral of this curve in ROC space. The score calculated is thus known as \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$.\footnote{As a side note, the ROC AUC measure is proportional to the statistic of the Mann-Whitney U-test, where the means of the classifier's output positive and negative classes are compared. More information on this can be found in \textcite{mason-rocAucRelationship}.}
+To find a balance between these two rates, the ROC AUC metric measures the integral of this curve in ROC space. The score calculated is thus known as \textit{Area Under the ROC Curve}. This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$.\footnote{As a side note, the ROC AUC measure is proportional to the statistic of the Mann-Whitney U-test, where the means of the classifier's output positive and negative classes are compared. More information on this can be found in \textcite{mason-rocAucRelationship}.}
 
 
 
-The following figure is an example ROC curve for an instance problem. Notice the algorithm's poor prediction performance where the ROCAUC is barely over the `Luck' line. This line constitutes the performance of a \textit{random} classifier which arbitrarily labels samples as being to each possible class. It is expected to see good learners have better ROCAUC scores than the \textit{random classifier}.
+The following figure is an example ROC curve for an instance problem. Notice the algorithm's poor prediction performance where the ROC AUC is barely over the `Luck' line. This line constitutes the performance of a \textit{random} classifier which arbitrarily labels samples as being to each possible class. It is expected to see good learners have better ROC AUC scores than the \textit{random classifier}.
 
 \begin{figure}[h!]
 \begin{center}
@@ -654,12 +654,12 @@ The following figure is an example ROC curve for an instance problem. Notice the
 \end{figure}\label{fg:lowROCAUC}
 %
 
-As a counter example, another algorithm was run on the same problem as \cref{fg:lowROCAUC}.Notice how the algorithm is considered \textit{perfect} by the ROCAUC metric. No data transformation has been applied to the set between runs. The difference in the two scores is notable and corresponds entirely to the algorithm chosen.\footnote{The code used for this run can be found in a public iPython Notebook accessible at \url{https://github.com/jdemonasterio/authorea/blobster/Notebooks/roc_curve_graph.ipynb}}
+As a counter example, another algorithm was run on the same problem as \cref{fg:lowROCAUC}.Notice how the algorithm is considered \textit{perfect} by the ROC AUC metric. No data transformation has been applied to the set between runs. The difference in the two scores is notable and corresponds entirely to the algorithm chosen.\footnote{The code used for this run can be found in a public iPython Notebook accessible at \url{https://github.com/jdemonasterio/authorea/blobster/Notebooks/roc_curve_graph.ipynb}}
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/figure-highROCAUC/figure-highROCAUC}
-\caption{Example of a ROC curve from a Support Vector Machine classifier. The $0.97$ ROCAUC score given is now almost perfect for this problem.%
+\caption{Example of a ROC curve from a Support Vector Machine classifier. The $0.97$ ROC AUC score given is now almost perfect for this problem.%
 }
 \end{center}
 \end{figure}
