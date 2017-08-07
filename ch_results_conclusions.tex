@@ -20,23 +20,23 @@
 The idea of this chapter is to present a combined overview of the work done and results we encountered in \cref{ch:descr-risk, ch:machineLearning, ch:modelSelection, ch:ensembleMethods}.
 All in all, we intend to showcase most of the relevant information from the preceding sections.
 The overall picture of this work shows that there is evidence to confirm the hypothesis which stipulates that there are social interactions captured by the cellphone usage logs.
-This is because the dataset is informative enough on long-term migrations and human mobility.
+This is because the data-set is informative enough on long-term migrations and human mobility.
 To summarize the work done we can say that:
 % A summary of the work done we can say we have discussed issues on the most of the following items:
 
 
 \begin{itemize}
 
-    \item We presented a visualization of the datasets with heat maps that showed georeferrenced call interactions and colored cellphone antennas according to their level of vulnerable interactions.
+    \item We presented a visualization of the datasets with heat maps that showed georeferenced call interactions and colored cellphone antennas according to their level of vulnerable interactions.
     The maps produced showed results that were coherent with the expert's knowledge of the endemic zone's migration patterns.
     Added to this, they produced many interesting insights of specific antennas that have higher vulnerable interactions with the endemic region, where these are located outside of the endemic region.
 
     \item We applied a systematic approach to analyze the information contained in the dataset.
-    The idea was to try to explore the human mobility patterns, as captured by the phonecall records.
+    The idea was to try to explore the human mobility patterns, as captured by the phone call records.
 
     \item We broke the problem of long-term human migrations down to four tasks which were analyzed separately.
-    To peform this analysis, we introduced machine learning theory and methods.
-    A discussion of these methods' applications to these kinds of tasks was ellaborated.
+    To perform this analysis, we introduced machine learning theory and methods.
+    A discussion of these methods' applications to these kinds of tasks was elaborated.
     The models presented are some of the most common techniques found in the literature for the classification task we were trying to solve.
 
     \item We compared the strengths and weaknesses of these methods.
@@ -65,7 +65,7 @@ The best models can find complex interactions in the data whilst taking care not
 \todo{Rewrite all key results of the project.}
 
 
-In this work on CDRs, the Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long durations.
+In this work on CDRs, the Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
 Where cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
 
 
@@ -74,14 +74,14 @@ Where cellphone datasets are rich enough in information to detect detailed patte
 The heatmaps shown in Section~\cref{ch:descr-risk} expose a `temperature' descent from the core regions outwards.
 The heat is concentrated in the ecoregion and gradually descends as we move further away.
 This expected behavior could be explained by the fact that calls are in general of a local nature.
-Where users, in general, have an antenna usage limited to 3 or 4 telco antennas used during the period analyzed.
+Where users, in general, have an antenna usage limited to 3 or 4 Telco antennas used during the period analyzed.
 
-The risk maps highlight that the interactions from non-endemic antennas towards those in the endemic region are non-homogenous.
+The risk maps highlight that the interactions from non-endemic antennas towards those in the endemic region are non-homogeneous.
 As an example, \cref{fig:amba_map} outlines various antennas with higher vulnerability, which would help detect communities with higher probability of disease prevalence.
 These anomalies found could point to potential communities atypical of their neighboring region.
 They stand out for their strong communication ties with the regions studied, showing significantly higher links of vulnerable communication.
 In the images presented, the differences in the vulnerable interactions are clear.
-The tetection of these antennas through the visualizations was of great value to the health Mundo Sano Foundation researchers participating in this project.
+The detection of these antennas through the visualizations was of great value to the health Mundo Sano Foundation researchers participating in this project.
 
 
 
@@ -91,7 +91,7 @@ The tetection of these antennas through the visualizations was of great value to
 In \cref{ch:machineLearning, ch:modelSelection, ch:ensembleMethods }, we introduced and evaluated a systematic process that tackles the problem of predicting long-term migrations.
 As a start, we wrote an introductory review for a list of supervised classification algorithms.
 
-Then, through a number of experiments, we demonstrated how the supervised classifaction models performed across different prediction tasks.
+Then, through a number of experiments, we demonstrated how the supervised classification models performed across different prediction tasks.
 For each model, we tried to draw the greatest prediction performance from the features extracted from the dataset.
 
 Results evidence indicating that a supervised classification predictor can be built to detect large patterns of human migrations over time.
@@ -114,7 +114,7 @@ These indicated this and that.
 They also pointed to information in  blablabla.
 Some supervised classification models realized the importance of attributes tagged with vulnerable behavior obtained from the CDR.\@
 
-The Random Forest model played an important role in having the highest scores across all tasks and in presenting the best features of the datset.
+The Random Forest model played an important role in having the highest scores across all tasks and in presenting the best features of the dataset.
 This information was later availed by the boosting models trained on said set of features.
 
 
@@ -148,13 +148,13 @@ These test case shed light on how relevant this dataset is to the question on co
 Their complexity and scale of these movements can be, up to a certain degree, assimilated by probabilistic algorithms, using the models outlined before.
 
 
-In this work we took advantatge of the large user scale and temporal range of the CDRs allowed us to capture a variety of human movements throughout the country.
+In this work we took advantage of the large user scale and temporal range of the CDRs allowed us to capture a variety of human movements throughout the country.
 Migration patterns can then be used to suggest actual epidemic spread of this disease into areas not deemed endemic.
 
 
 
 
-\subsection{Dawbacks on the methodology}
+\subsection{Drawbacks on the methodology}
 
 Several weak points can be made on our methodology.
 An important observation is that we can not directly jump these conclusions on-to a disease spread model.
@@ -165,7 +165,7 @@ Yet, on the advice of this topic's researchers, this work does bring valuable in
 
 Another issue is the representation bias of our dataset.
 As shown in \cref{tab:distribution_by_state}, there are differences in the percentage of population represented by our dataset vs.\ current state distribution estimates.
-With this, results should be interpreted with caution, since we have no real comparisons with actual disease data, outside of the endemic region and at a municipal or regional levels.\footnote{As a matter of fact, we have tried to contact hearlth institutions and organizations working on the matter to try and enrich the dataset with more info. This intent did not reach any health data of the kind.}
+With this, results should be interpreted with caution, since we have no real comparisons with actual disease data, outside of the endemic region and at a municipal or regional levels.\footnote{As a matter of fact, we have tried to contact health institutions and organizations working on the matter to try and enrich the dataset with more info. This intent did not reach any health data of the kind.}
 
 There are other interesting limitations concerning international pattern migrations.
 For this work, we measured migrations only in national phone owners.
@@ -178,8 +178,8 @@ Even though this decision was supported by past research, it might not be easily
 
 Finally, time seasonalities and stationarity, were considered but only in a limited fashion.
 Weekends and working hours were separately tagged in attributes.
-The same with month specific attributes for the user's accalling patterns.
-However there are mor long-term time segmentation which were not used in this work.
+The same with month specific attributes for the user's calling patterns.
+However there are more long-term time segmentation which were not used in this work.
 It is possible that migration patterns be strongly related to seasonal factors such as, for example, in the agriculture workforce.
 
 The importance of other user specific features, such as demographics, should be examined as well.
@@ -194,21 +194,21 @@ Yet these are out of the scope of this work, for the lack of data.
 
 
 The resulting analysis, allowed to show that the Risk maps we developed are of interest to national health campaigns.
-They pintpoint to likely spots of high disease prevalence, with a low cost to produce this outcome.
+They pinpoint to likely spots of high disease prevalence, with a low cost to produce this outcome.
 
 Next to traditional health control actions, this research may provide a very insightful piece of information for decision-makers.
-Capturing long-term human movements will also enable better simiulations of disease spreads in different contexts.
+Capturing long-term human movements will also enable better simulations of disease spreads in different contexts.
 In this work, the impact of this in our predictive capacity of disease prevalence is shown.
 
 
 
 We believe it is acceptable to say that most human dynamics in the form of migration patterns are captured by the use of this data.
 This work was performed in two Latin-American countries and in one single endemic region.
-We expect that this CDR usage can be extended to other similar countires and diseases, with demographic, cultural and geographical similarities.
+We expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities.
 
 
 Feature selection of ensemble algorithms were concurring in the choice of the best features for the prediction task.
-Human mobility, vulnerable calling patterns, interactions in earlier months and in december, etc.
+Human mobility, vulnerable calling patterns, interactions in earlier months and in December, etc.
 Model regularization and hyperparameter cross validation improved the models predictive power.
 Also, the effects of overfitting the models were visible in some of the experiments where deep trees and complex configurations underpowered the resulting model's generalization error.
 
@@ -216,7 +216,7 @@ Also, the effects of overfitting the models were visible in some of the experime
 
 High discrepancies exist in the scores of the different machine learning models.
 Some are better at capturing the relevant information to predict human movements in the long-term.
-This is becaause not all social information is presented directly in the dataset, and feature interactions are helpful.
+This is because not all social information is presented directly in the dataset, and feature interactions are helpful.
 
 
 This work may give us some insights into future disease spreads in other similar contexts.
@@ -231,7 +231,7 @@ This work intends to help authorities with disease-control strategies in way whi
 Measures can then be applied outside of the endemic region, and directed towards specific neighbourhoods and communities by using the recommendations output by the risk algorithm.
 
 
-\cref{tab:all_results} shows a compendium of the results obtained from the CDR datset, using all classification models.
+\cref{tab:all_results} shows a compendium of the results obtained from the CDR dataset, using all classification models.
 Due to time constraints limited by the use of full cross validation fitting procedures, not all models were run for all of the tasks.
 However, where available, we show the resulting classifier's test performance across three scores: $Accuracy$, $F1$ and $ROC AUC$.
 
@@ -314,13 +314,13 @@ For the purpose of continuing this line of work, the following is a list of poss
 
     \item [Differentiating rural antennas from urban ones.] This is important as studies show that rural areas have epidemiological conditions which are more favorable to the expansion of the disease expansion.
     The vector-borne transmission through \textit{Trypanosoma cruzi} is helped with poor housing materials and domestic animals.
-    All  contribute to complete the parasite's lifecycle.
+    All  contribute to complete the parasite's life-cycle.
     Using the CDR data, antennas could be automatically tagged as rural by analyzing the differences between the spatial distribution of the antennas in each area.
     A similar goal could be to identify precarious settlements within urban areas, with the help of census data sources.
 
     \item [International and seasonal migration analysis.] Experts from the \textit{Mundo Sano} Foundation underlined that many seasonal and international migrations occur in the \textit{Gran Chaco} region.
     Workers are known to leave the endemic area for several months possibly introducing the parasite to foreign populations.
-    The same happens with foreign workers, which are not part of our datset.
+    The same happens with foreign workers, which are not part of our dataset.
     The mobility analysis on particular time periods or events, for example on holidays, or specific migrations from bordering countries, can give information on which communities have a higher influx of people from the endemic zone during a certain period.
     This additional analysis would also lower the bias of the current dataset.
 
@@ -328,7 +328,7 @@ For the purpose of continuing this line of work, the following is a list of poss
     \item [Search for epidemiological data at a detailed level.] For instance, specific historical infection cases.
     Splitting the endemic region according to the infection rate in different areas, or considering particular infections.
     With the use of a high-quality epidemic dataset, we assume that a more model complex can be built, to detect infected users nationwide.
-    It is of primary importance though to have a good dataset availabe.
+    It is of primary importance though to have a good dataset available.
     Since otherwise, it would not be possible to reach a generalizing classifier.
 
     \item Feature exploration to search for correlations with being infected.
