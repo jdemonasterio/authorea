@@ -68,7 +68,7 @@ Although a lot of information is available in the CDR datasets, there may be lim
 % Visualizar (agrego alfa, min_volume y zoom en regiones)
 
 
-\section{ Risk Maps}\label{section:risk_maps}
+\section{ Risk Maps Generation}\label{section:risk_maps}
 
 In this section we describe how the Chagas disease risk maps were built for the in Argentina and in Mexico and we give an overview of their uses. As an overview, the risk maps hypothesize on the possibility of locating specific communities of higher disease prevalence outside of the endemic regions. They are based on the assumption that the stronger communication tie there is from the community to the endemic region, the higher the risk chances.
 Earlier versions of this research were presented by \cite{sarraute2015descubriendo}
@@ -277,7 +277,7 @@ The model consists of the following features, which can be classified in 4 categ
 % The data is aggregated by user and by link.0
 
 
-\subsection{Used and home antennas.}\label{homeantenna}
+\subsection{Used and Home Antennas}\label{homeantenna}
 
 For each user $u \in \calN_C$, we register the top ten most used antennas, during each month of the training period,
 together with the number of calls made through each antenna. We tag all users having their home antenna in the epidemic region as \textit{EPIDEMIC}.
@@ -295,7 +295,7 @@ A user's home antenna is defined by the most used antenna. For our algorithms we
 With this, users were tagged as `endemic' if their home antenna is in the endemic zone $E_Z$ and `exposed' if any of the ten antennas logged is in the risk area.
 
 
-\subsection{Mobility diameter.}\label{section:def_mobility_diameter}
+\subsection{Mobility Diameter}\label{section:def_mobility_diameter}
 
 The user's logged antennas define a convex hull in space and the radius of the hull is taken to be as the mobility diameter. This length is representative of the area of influence of that individual, a feature expected to be correlated with long-term migrations.
 
@@ -303,7 +303,7 @@ We register the mobility diameter of each user, as the diameter in kilometers of
 
 
 
-\subsection{Graph data and communications.}\label{section:def_graph_data}
+\subsection{Graph Data and Communications}\label{section:def_graph_data}
 
 We look at the social graph $\calG_C$ built from the CDRs, and the communications between nodes in $\calN_C$.
 
@@ -405,7 +405,7 @@ Note that during this work we considered only postpaid users, i.e., users which 
 % Data was manipulated to build a ??
 
 
-\subsection{ User Migrations}\label{subsection:user_migrations} % {Ground Truth.}
+\subsection{User Migrations}\label{subsection:user_migrations} % {Ground Truth.}
 
 We performed an analysis similar to the home antenna detection previously described in \cref{endemic_zone_mexico},
 but considering the time period $T_0$ (from January 2014 to July 2015),
@@ -447,7 +447,7 @@ In relative numbers, this shows that only 2.59\% of users had a change in their 
 
 
 
-\subsection{Feature Correlations }
+\subsection{Feature Correlations}
 \label{subsection:feature_correlations} % {Ground Truth.}
 
 
