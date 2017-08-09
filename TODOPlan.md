@@ -88,10 +88,10 @@
 
 # Maybe TODOs:
     ## Problem / Data Description Chapter
-        - on how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf
+        - [DONE] On how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf
 
     ## Machine Learning Chapter
-        - section Technical Observations (python, jupyter, sklearn, pandas,
+        - [DONE] section Technical Observations (python, jupyter, sklearn, pandas,
                                         sframes, graphlab, spark mllib,
                                         theano, tensor flow, xgboost)
 
