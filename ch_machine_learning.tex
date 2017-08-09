@@ -232,7 +232,7 @@ h(z) =
 If the goal of the model is to maximize $P(Y_i = y_i | X_i = x) \ \forall i$
 under the assumption that $\nexists\ i \ / \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. Yet this situation is hardly the case. The common approach is then to rely on optimization procedures to minimize the amount of misclassification given by our algorithm. This would be analogous to maximizing the probability of a correct classification in \cref{eq:goodclassification-equation}.
 
-\todo{fix formulas here. Some are badly written/wrong.}
+% \todo{fix formulas here. Some are badly written/wrong.}
 For analytical convenience, a more tractable function for this task is the logistic which is an approximation of the heavy-side step function. Here
 
 \begin{equation}\label{eq:logisticFunction}
@@ -450,7 +450,6 @@ The following example shows the logistic regression's model loss function with a
 %
 %\end{equation}
 
-\todo{correct this part and add example with/without regularization}
 
 The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the minimization function and $P$ is the number of features used in the model. Note that in an abuse of notation, the functional takes the form $R(f) = \lambda { \| \theta \|_{2}}^2$ where the model is identified by its $\theta$ parameter.
 

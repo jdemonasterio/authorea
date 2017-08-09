@@ -2,7 +2,7 @@
 
 ## In general:
     * Figures appearing in sub/sections different from where they are spawned.
-    * Minor spell check with computer spell checkers in sublime.
+    * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`
 
 ## Data Description Chapter:
     * [DONE] add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty,
@@ -11,16 +11,14 @@
     * [DONE] Better heatmap descriptions.
 
 ## Machine Learning Chapter
-    * fix logistic regression part:
+    * [DONE] fix logistic regression part:
     * [DONE] add example of why it's important to do logReg regularization
-    * add graphic example of a real decision tree (with nodes, etc.)
+    * [DONE] add graphic example of a real decision tree (with nodes, etc.)
             for a minor problem in our dataset.
     * [Half Done] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
     * [DONE] fix eze's recommendations on logReg part (minor fixes in equations).
     * [DONE] separate evaluation, problem, results and validation from intro.
 
-## Results Chapter
-    Agregar cuadro de doble entrada comparando los resultados con distintas metricas y algunos graficos mas comparativos.
 
 ### Dar instancias de:
     * [DONE] logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
@@ -36,14 +34,14 @@
 
 ## Meeting 05/07
     * [DONE] captions con texto mas cargado. Para mirar el caption y entender de que se trata.
-    * agregar con que problema fitie la grafica. Y agregar los detalles de "que" otros parametros se estan usando como fijos.
+    * [DONE] agregar con que problema fitie la grafica. Y agregar los detalles de "que" otros parametros se estan usando como fijos.
     * [DONE] meter 2 imagenes de ejemplos de arboles con 2 corridas distintas a ver como van variando y hablar acerca de lo que se ve en los resultados.
     * Cap. 6 Results & Conclusion responder estas preguntas:
         - hacer explicita la respuesta a esta pregunta: ?Que tanto se puede predecir long term migrations usando datos de CDRs?
         - cuales fueron las mejores tecnicas? Que tuvieron a favor y en contra?
-        - repasar los 5 problemas y resumir los mejores resultados de c/ algoritmo. Que scorings tuvieron?
-        - Enganchar los resultados con lo que se vio en los mapas. Hablar de como los features del algoritmo estan relacionados con el armado del mapa y como se "valida" la hipotesis.
-        -
+        - [DONE] Enganchar los resultados con lo que se vio en los mapas. Hablar de como los features del algoritmo estan relacionados con el armado del mapa y como se "valida" la hipotesis.
+        - Agregar cuadro de doble entrada comparando los resultados con distintas metricas y algunos graficos mas comparativos. Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
+        - Repasar los 4 problemas y resumir los mejores resultados de c/ algoritmo.
 
 ## Meeting 28/06
     * [DONE] Juntar Cap. 6 y 7.
@@ -76,13 +74,10 @@
         - agregar referencia al paper de ASONAM donde presentamos parte de los resultados. (deMonasterio2016)
 
     * [Done] Parte de Machine Learning grande vs. el resto. Refactor para integrar evaluacion c/ tecnicas en estos siguientes capitulos:
-        - Preambulo como supervised classification problems (ver de mechar) + logreg
-        - bias variance, regularization.
-        - Tree techniques.
-        - La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
-
-    * Conclusiones: results summaries, para ir comparando las distintas tecnicas.
-        - Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
+        - [DONE] Preambulo como supervised classification problems (ver de mechar) + logreg
+        - [DONE] bias variance, regularization.
+        - [DONE] Tree techniques.
+        - [DONE] La idea es ir mechando tecnicas con problemas para ilustrar los puntos teoricos que se hacen. *No* hacer todos los problemas para todas las tecnicas nomas. Sino ir contando algo a lo que se quiere llegar.
 
 ## Revision 17/02
     * [DONE] Show an instance of overfitting the data with a decision Tree (with depth).
