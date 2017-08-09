@@ -10,7 +10,7 @@
 
 % \documentclass[a4paper,11pt,leqno]{book}
 
-% opcion
+% opcion con menos paginas en blanco
 \documentclass[a4paper,11pt,leqno,openany]{book}
 
 \input{preamble.tex}
@@ -20,6 +20,7 @@
 \begin{document}
 
 \frontmatter
+% not necessary
 %  \halftitlepg
   \titlepg
   \copyrightpg
@@ -32,10 +33,10 @@
 
   \mainmatter
   \include{ch_introduction}
-	\include{ch_descriptions_risk}
+  \include{ch_descriptions_risk}
   \include{ch_machine_learning}
   \include{ch_model_selection}
-	\include{ch_ensemble_methods}
+  \include{ch_ensemble_methods}
   \include{ch_results_conclusions}  
 
 \backmatter
@@ -43,3 +44,4 @@
 	\bibbysection[heading=subbib]
   % \printindex
 \end{document}
+
