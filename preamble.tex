@@ -361,14 +361,16 @@ pdfkeywords={machine learning}
       \emph{\large{To all.}}
       \end{center}
     \endgroup
-  \thispagestyle{empty}\cleardoublepage
+%  \thispagestyle{empty}\cleardoublepage
+  \thispagestyle{empty}\clearpage
 }
 
 %-------------------+
 % Table of contents |
 %-------------------+
 % Add bookmark for table of contents and increase spacing of items
-\preto{\tableofcontents}{\cleardoublepage\pdfbookmark[0]{\contentsname}{toc}%
+% \preto{\tableofcontents}{\cleardoublepage\pdfbookmark[0]{\contentsname}{toc}%  \setstretch{1.1}}
+\preto{\tableofcontents}{\clearpage\pdfbookmark[0]{\contentsname}{toc}%
   \setstretch{1.1}}
 \appto{\tableofcontents}{\singlespacing}
 
