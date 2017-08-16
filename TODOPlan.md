@@ -29,6 +29,10 @@
     * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
     * [DONE] gradient boosting sobre los mejores features de random forest.
 
+## Meeting 16/08
+    * Cambiar las figuras 4.4.3 y 4.4.4 que usan data foranea y reemplazar alguna de ellas con una instancia de un problema nuestro.
+    * Revisar todas las figuras y especificar de que problemas vienen estos resultados.
+
 ## Meeting 12/07
     * [DONE] cambiar orden de idiomas en el abstract y en el titulo, primero ingles luego espanyol.
 
