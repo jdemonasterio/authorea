@@ -277,7 +277,7 @@ P(C_1| x) & = \frac{P(x|C_1) }{P(x|C_1)p(C_1) + P(x|C_2)p(C_2)} \\
 & = \frac{1 }
 {1 + \exp(- \log(  \frac{ P(x|C_1)p(C_1)}
 {P(x|C_2)p(C_2)
-})) 
+}))
 }
 \end{split}
 \end{equation}
@@ -292,7 +292,7 @@ Here we see the close resemblance to the logistic function which is acting on th
 The second defining property of logistic regression is that the log-odds are modeled with a transformation on a linear combination of inputs. It also conditions the posterior probabilities must sum to one. Let $j$ be a fixed class and denote
 \begin{equation}\label{logit-logOddss}
  \log\big( \frac{P(C_i|x)}{P(C_j|x)}\big) = \theta_{i0} + \theta_i^\intercal \cdot x
- \end{equation}  
+ \end{equation}
 for $i,j \in \{1,2,\ldots,K\}, i\neq j$
 
 With these same indices we have that
@@ -320,7 +320,7 @@ Here the logit function is utilized to map log odds into conditional probabiliti
 
 This is why we are specifying a model where the target is a linear function of the inputs, corrected by an error term. Our model will then be characterized by:
 \begin{equation}\label{logit-indicatorFunction}
-Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon > \frac{1}{2}) \ \forall i 
+Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon > \frac{1}{2}) \ \forall i
 \end{equation}
 where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution. %and \dfrac{num}{den}parameter $p_i$.
 
@@ -452,9 +452,7 @@ Each model was built from a specific $C$ in  $[10^{-5},10^5]$  and the model's n
 As we can see, there is a clear tendency to have better performance across smaller values of $C$ which is equivalent to having stronger regularization of the scoring function. Note that the negative log loss will have higher values for better classifiers. Thus as a simple case and with no other manipulation of the data, we find that a regularized model helps in having a better performance across the test and train sets error.
 
 
-
 \subsection{Hyperparameters}
-
 
 
 Note that in the model built from equation \cref{eq:logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure. Notably $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are deemed to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical construction. Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.

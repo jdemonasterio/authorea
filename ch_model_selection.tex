@@ -654,6 +654,8 @@ The following figure is an example ROC curve for an instance problem. Notice the
 \end{figure}\label{fg:lowROCAUC}
 %
 
+\todo{Replace or erase this ROC AUC figures by examples in our own dataset only.}
+
 As a counter example, another algorithm was run on the same problem as \cref{fg:lowROCAUC}.Notice how the algorithm is considered \textit{perfect} by the ROC AUC metric. No data transformation has been applied to the set between runs. The difference in the two scores is notable and corresponds entirely to the algorithm chosen.\footnote{The code used for this run can be found in a public iPython Notebook accessible at \url{https://github.com/jdemonasterio/authorea/blobster/Notebooks/roc_curve_graph.ipynb}}
 
 \begin{figure}[h!]
@@ -711,6 +713,6 @@ To further explore this, we looked at their CV mean scores for each hyperparamet
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/cross_validation/logreg_cv_regularization_l2_rocauc_series}
   \end{minipage}
-\caption{Series of CV mean average scores for the ``ROC AUC'' metric where the $l1$ regularization strength of the logistic classifier was tested, measured in $C$.}
+\caption{Series of CV mean average scores for the ``ROC AUC'' metric where the $l1$ regularization strength of the logistic classifier was tested, measured in $C$. The \cref{target1} is taken into consideration here. }
 \label{fig:rocauc_logreg_cv_regularized_comparison}
 \end{figure}
