@@ -41,7 +41,14 @@ These subtle differences in the machine learning approach of a problem is also r
 
 \section{Supervised Classification of Long-term Human Migrations}\label{long_term}
 
-To better characterize migrations, we decided to divide our task into four problems. These are different perspectives of the issue and all of them together give us a better overview of the relationship of CDRs to long term migrations. These are solved using user information on their communications during $T_1$, whilst no information from $T_0$ will be used as input to the model.
+Given the dataset we have described in \cref{ch:descr-risk} and the nature of our problem, we develop here a set of machine learning problems that will aid us in further characterizing the mobility of users in our two year time period.
+These will help us establish to what extent the CDRs allow us to predict a user's past home and migration movement across both endemic and non-endemic regions.
+More precisely, we would like to explore the relationship of the dataset attributes based on calling patterns across regions to the movement of humans. 
+Where possible, we would like to establish which features are most important in our predictions.
+
+To do so, in this work we decided to divide our task into four problems. 
+These will be used as different perspectives of the issue and all of them together give us a better characterization of the whole problem. 
+For all, we solve them with user information on their communications during $T_1$, whilst no information from $T_0$ will be used as input to the statistical models.
 
 We process the raw data to build our target variable which will be determined as $Y$. This will always be defined for every user $u$. We take $H_u$ to be the user's home antenna. The only differences among the problems will be in how the target variable will be defined.\footnote{In reality, certain variations of the data were considered too, were best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}
 
