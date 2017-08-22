@@ -33,14 +33,30 @@ To the best of our knowledge, current studies on human migration patterns in Lat
 
 In this work, we discuss the use of mobile phone records --also known as Call Detail Records (CDRs)-- for the analysis of mobility patterns and the detection of possible risk zones of Chagas disease in two Latin American countries. Key health expertise on the subject was provided by the \textit{Mundo Sano} Foundation. We will analyze and use  \textit{Machine Learning} tools for this.
 
-This thesis is structured as follows: for the remaining of this chapter we will give some key aspects of Chagas disease in Argentina and Mexico and introduce shortly the subfield of \textit{Machine Learning}.
+This thesis is structured as follows: for the remaining of this chapter we will give some key aspects of Chagas disease, and introduce some particular aspects to the countries of our study: Argentina and Mexico. We will also give a very brief introduction to the field of \textit{Machine Learning}.
 
-Chapter 2 will introduce the data used for this problem and show how we constructed national disease risk maps.
+%\cref{ch:descr-risk}
+%\cref{ch:machineLearning}
+%\cref{{ch:modelSelection}
+%\cref{ch:ensembleMethods}
 
-Chapter 3 will talk about Machine Learning theory, describing methods and algorithms which will be applied to this problem. Chapter 4 will show the results of the models introduced in the chapter before and outline the consequences of this to our problem.
+\cref{ch:descr-risk} will present the data sources and give the main idea behind our data processing. It will also explore some basic descriptive aspects of what information can be found in the CDR logs.
+Finally, it will present the methodology to construct chagasic national disease risk maps.
+Examples will be shown to illustrate the results.
 
-Chapter 5 is the final conclusion of this work.
+In \cref{ch:machineLearning} we will give a more in-depth introduction to Machine Learning theory, describing use cases, ideas and concepts of the field.
+Our long-term migration prediction task will be formulated in a way that can be converted to an probabilistic model.
+Added to this, we will use introduce the theory in hand with dataset used in this work, where examples will aid in the illustration of the main points.
 
+\cref{ch:modelSelection} will further expand the main concepts behind this field and give an overview in to different model selection strategies.
+Also, a brief mention on Vapnik-Chervonenkis Statistical Learning Theory will be made.
+
+\cref{ch:ensembleMethods} will concentrate on specific tree-based algorithms for Supervised Machine Learning Classification tasks.
+We will introduce the necessary formulations for the models, as well as examples.
+Finally, we will show specific experiments on long-term human migrations using CDR data, in-line with the presentation of each method.
+For each case, we will show the results of these applications.
+
+We close with a summary of results and conclusions in \cref{ch:results_conclusion}, where different key information is presented, along with possible lines of future work.
 
 \section{Mobile Phone Records, Mobility and Epidemiology}
 
