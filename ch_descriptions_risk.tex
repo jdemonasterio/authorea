@@ -325,7 +325,7 @@ Since the samples in our dataset are users, we have to aggregate all these varia
 To illustrate the point, we show a small example of how two calling features could look like. Groupings and filters are applied only on the user's calls:
 
 \begin{table}[ht]
-	\caption{Example of features extracted from the social graph data.}\label{tab:data_example}
+	\caption{Ane example list of features that were built from the social graph dataset. Each attribute has it\'s code name and a description of the codes used to construct its name.}\label{tab:data_example}
 	\footnotesize
 	\centering
 	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
@@ -333,10 +333,10 @@ To illustrate the point, we show a small example of how two calling features cou
 		%{l r r r r r r }
 		% \toprule
 		\hline
-		Feature name & Call/Time & Time Period & Direction & Endemicity & Month\\
+		Feature name & Call/Time & Time Period & Direction of call & Endemicity & Month number\\
 		% \midrule
 		\hline
-		Calls WeekEnd InVul08       & Count of calls & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
+		Calls WeekEnd InVul08       & Count & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
 		% \midrule
 		\hline
 		Time WeekNight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing   & No endemic filtering   & December \\
@@ -367,8 +367,11 @@ This labeling defines user $i$ as \textit{vulnerable} whenever he has any edge w
 As explained, the training data belongs to period $T_1$, from August 2015 to December 2015;
 whereas the ground truth that we use to validate the predictions belongs to $T_0$, from January 2014 to August 2015. Raw data logs contain between 11 million and 30 million calls per day and the volume of calls increases over the months, where most recent months have higher rates.
 
-After preprocessing and cleaning the dataset, we obtained
-a training set with 1.6 million users.
+After preprocessing and cleaning the dataset, we obtained a dataset with 1.6 million users.
+
+To create our model's input data, by means of relational database operations and algorithms that scrap the whole dataset, we transform raw CDRs into a dataset who's sample corresponds to a single user.
+
+
 To compare how this sampled population compares to country-wide distribution estimates,
 \cref{tab:distribution_by_state} shows the percentage of antennas, the percentage of the population (according to INEGI census 2014) and
 the percentage of telco users per state, for the top 10 Mexican states.
@@ -376,7 +379,7 @@ the percentage of telco users per state, for the top 10 Mexican states.
 
 
 \begin{table}[ht]
-	\caption{Table distribution of antennas, population and telco users by state.}\label{tab:distribution_by_state}
+	\caption{Table showing the mexican distribution of antennas, total population and Telco users by state.}\label{tab:distribution_by_state}
 	\centering
 	\begin{tabular}{l r r r}
 		\toprule
@@ -431,7 +434,7 @@ between $T_0$ and $T_1$, whereas 41,281 had a change.
 shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users that were in group $i$ during period $T_0$ (the past) and moved to group $j$ during the training period $T_1$. As an example, lower left means was endemic, is now not endemic.
 
 \begin{table}[ht]
-	\caption{Matrix of endemicity change combining endemicity and time factors.}\label{tab:changes}
+	\caption{Matrix of user endemicity change across timeperiods $T_1$ and $T_2$.}\label{tab:changes}
 	\centering
 	\begin{tabular}{l r r }
 		\toprule
@@ -468,7 +471,7 @@ Again, this suggests data seasonality in the data, where December is a festive m
 
 \begin{table}
 	% \parbox{0.45\linewidth}{
-	\caption{Correlations.}
+	\caption{Correlations of dataset attributes and a user's endemic condition in $T_0$.}
 	\label{tab:featureCorrelations}
 	\centering
 	\begin{tabular}{l l }
