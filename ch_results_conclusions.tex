@@ -20,7 +20,7 @@
 % handling data, models and features with acumen
 % After extensive research of machine learning literature and CDR usage in health problems.
 
-The idea of this chapter is to present a combined overview of the work done and results we encountered in 
+The idea of this chapter is to present a combined overview of the work done and results we encountered in
 \cref{ch:descr-risk,ch:machineLearning,ch:modelSelection,ch:ensembleMethods}.
 All in all, we intend to showcase most of the relevant information from the preceding sections.
 The overall picture of this work shows that there is evidence to confirm the hypothesis which stipulates that there are social interactions captured by the cellphone usage logs.
@@ -208,14 +208,39 @@ In this work, the impact of this in our predictive capacity of disease prevalenc
 
 We believe it is acceptable to say that most human dynamics in the form of migration patterns are captured by the use of this data.
 This work was performed in two Latin-American countries and in one single endemic region.
-We expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities.
+We expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities beyond Chagasic spread in Mexico or Argentina.
 
 
 Feature selection of ensemble algorithms were concurring in the choice of the best features for the prediction task.
-Human mobility, vulnerable calling patterns, interactions in earlier months and in December, etc.
+
 Model regularization and hyperparameter cross validation improved the models predictive power.
+
 Also, the effects of overfitting the models were visible in some of the experiments where deep trees and complex configurations underpowered the resulting model's generalization error.
 
+Feature importance with tree ensemble gave us insights into which CDR information provided
+predictive value.
+The best features can be broken down into the following categories.
+
+\begin{itemize}
+
+    \item Calls made in older months and in December: Interactions of different type, that occured closer to the split month between both periods $T_0$ and $T_1$ (July), were also distinguished.
+    The model frequently used interactions from the months of August and September, as well as December.
+    We conjecture that this last result can be due to the fact that December is a month where user\'s increase their mobile activity with their families.
+
+    \item Vulnerable calling patterns: As we first suspected in \cref{ch:descr-risk}, the vulnerability of the mobile interaction between users was relevant.
+    Measurements such as the duration and volume of calls at different time periods where selected.
+    We make the reminder here that these measurments were the basis of our construction of the heatmaps in that same chapter.
+    Where the antennas plotted concentrated users with vulnerable calls by calling volume or time, for a given month.
+
+    \item Mobility size: Finally, diffrent measures of the distance in human mobility were
+determined to be important by the model.
+Both general mobility diameters and weekday or weeknight specific mobility endemic were relevant.
+
+\end{itemize}
+
+These gruops identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
+Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
+A more thorough examination of these results can be seen in \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
 
 
 High discrepancies exist in the scores of the different machine learning models.
