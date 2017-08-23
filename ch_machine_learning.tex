@@ -145,7 +145,14 @@ With \cref{target1,target2,target3,target4}, we continue onto define and illustr
 
 \section{A working example of a Machine Learning setup}\label{section-example}
 
-From now on we will be talking of the training set and the test set, noted by $\mathcal{T}$  and $\mathcal{T_s}$ as our two data sources. The test set will be a part of the whole dataset that will only used at the end of the algorithmic process. This set will not take part in building the machine learning model and will be used only to evaluate its performance. This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathcal{T_s}$, based on having seen information of objects from $\mathcal{T}$.
+From now on we will be talking of the training set and the test set, noted by $\mathcal{T}$  and $\mathcal{T_s}$.
+In our work we take advantage of the volume of samples, where, as explained in \cref{}, more than a million users.
+This allows us to randomly split the dataset into training and test sets that do not overlap and which contain 70\% and 30\$ of all samples respectively.
+T as our two data sources. 
+
+The test set will be a part of the model building process that will only be used at the end of it. 
+The idea is that it will not take part in building the machine learning model and will be used only to evaluate its performance, as a simulated qualification of the algorithm's performance with \texit{new} samples.
+This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathcal{T_s}$, based on having seen information of objects from $\mathcal{T}$.
 
 As an example, let's consider a reduced training dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of the following provinces: \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}.
 %\url{http://stackoverflow.com/}
@@ -153,7 +160,7 @@ As an example, let's consider a reduced training dataset built from Call Detail 
 Five measurements were taken on all of the observations to account for the user's number of calls and total minute duration of calls. All data was extracted from a week of logging measurements. Below we print a short overview of this dataset:
 
 \begin{table}[ht]
-\caption{{Head of the CDR dataset. A three-row mock example.}}
+\caption{{Head of the raw CDR dataset. A three-row mock example of calls.}}
 \label{tab:sample_CDR}
 \centering
 \begin{tabular}{ l l l l l l }
@@ -167,7 +174,8 @@ EA23AD & 12 & 43 & 5 & 154 & \textit{Buenos Aires} \\
 \end{tabular}
 \end{table}
 
-In this form a row is representing the available data acquired from each user and the columns represent the features which are the different types of measurements or information on that user. In general, most machine learning problems will be associated with a training set $\mathcal{T}$ of similar form as the one shown before. And it is common to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
+In this form a row is representing the available data acquired from each user and the columns represent the features which are the different types of measurements or information on that user\footnote{We make an important remark here that the user\'s privacy is ensured by not providing a direct identifier of the person. All users are distinguished with their \textit{user\_id} which is information given by the Telco with a salted hash transformation. In this way, we are unable to use thes identifiers in other data sources other than the specific one used for this work.}. 
+In general, most machine learning problems will be associated with a training set $\mathcal{T}$ of similar form as the one shown before. And it is common to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
 
 Both $\mathcal{T}$ and $\mathcal{T_s}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$ and $Y \in \mathbb{R}^n $. The difference will lie in the way each set is used to computationally build a probabilistic model. In essence the former is used to algorithmically create a function which maps inputs to outputs,  whilst the latter will be used to measure how \textit{well} this mapping would behave in real situations, given a way of measuring this performance.
 
@@ -377,7 +385,7 @@ In the case of \cref{eq:logLossFunction} we have that it is a concave, monotone 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/logloss/figure-logLossValues.png}
-\caption{ Series plot for different values of the log loss function used as an error score.}
+\caption{ Error score series plot for the log loss function. Different $p_i$ input values are displayed, with their resulting score.}
 \label{figure-logLossValues}
 \end{center}
 \end{figure}
@@ -422,8 +430,8 @@ However for the former case, gradient descent is by far the most widely practice
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
 \begin{equation}\label{eq:logitRegularization}
 \begin{split}
-\min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + \log(1 + e^{\theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
-\min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + \log(1 + e^{\theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
+\min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
+\min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
 \end{split}
 \end{equation}
 
