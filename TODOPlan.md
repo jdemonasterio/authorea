@@ -4,30 +4,16 @@
     * Figures appearing in sub/sections different from where they are spawned.
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`
 
-## Data Description Chapter:
-    * [DONE] add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty,
-                    argentina has 21m of users)
-    * [DONE] add antennas distributions compared to national level.
-    * [DONE] Better heatmap descriptions.
+## Meeting 23/08
+    * Recortar teoria y pasar a un apendice. Todos los detours respecto del probelma nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
+    * Ninguna figura de afuera (o contadas excepciones). Que sean con datos propios directamente.
+    * Meter una introduccion de c/capitulo para ordenar bien el hilo de la tesis.
+    * Documentar las cosas que vas probando y lo que te va pasando.
+    * Revisar notacion de los problemas y fixear.
+    * Cap. introduccion: alguien que solo lee el cap. 1, se queda con una buena idea de lo que se hizo en la tesis?
+    * Revisar el \cref{} con respecto a figures que son secciones y ecuaciones que tengan su name que diga "Equation".
+    * Storty telling un poco.
 
-## Machine Learning Chapter
-    * [DONE] fix logistic regression part:
-    * [DONE] add example of why it's important to do logReg regularization
-    * [DONE] add graphic example of a real decision tree (with nodes, etc.)
-            for a minor problem in our dataset.
-    * [Half Done] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
-    * [DONE] fix eze's recommendations on logReg part (minor fixes in equations).
-    * [DONE] separate evaluation, problem, results and validation from intro.
-
-
-### Dar instancias de:
-    * [DONE] logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
-    * [DONE] achicar/filtrar el dataset para hacer el problema mas complejo.
-        * X: solo users no_endemicos / Y: migrantes en cualquier direccion. / usuarios del DF
-    * [WILL NOT DO - too many techniques] Do SVD.
-    * [DONE] Naive Bayes example
-    * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
-    * [DONE] gradient boosting sobre los mejores features de random forest.
 
 ## Meeting 16/08
     * Cambiar las figuras 4.4.3 y 4.4.4 que usan data foranea y reemplazar alguna de ellas con una instancia de un problema nuestro.
@@ -36,6 +22,7 @@
     * Presentar algo mas en los numeros concretos y como esos son los resultados. Que aprendi del dataset, que hay para contar del dataset.
     * Contar mas como se relacionan con los mapas que introducimos en los capitulos anteriores.
     * Bajar a tierra los resultados de problemas 1 a 4 en los clasificadores con como esto se relaciona con los mapas.
+    * Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion.
 
 ## Meeting 12/07
     * [DONE] cambiar orden de idiomas en el abstract y en el titulo, primero ingles luego espanyol.
@@ -93,6 +80,33 @@
     * iterar con la gente del DM las correcciones. (Patu, Mathieu).
     * [DONE] Rerun algorithms but excluding the Top N (N \in {1,2,3}) predictors/regressors. Or with highly correlated features.
     * [DONE] show an instance of overfitting the data comparing the learning curve of training vs CV set (tried with different params of sklearn's      logReg classifier and still can't find a clear case of overfitting).
+
+## Data Description Chapter:
+    * [DONE] add counts users (barely 2m users in Mexico with homeantenna - 1947835 exacty,
+                    argentina has 21m of users)
+    * [DONE] add antennas distributions compared to national level.
+    * [DONE] Better heatmap descriptions.
+
+## Machine Learning Chapter
+    * [DONE] fix logistic regression part:
+    * [DONE] add example of why it's important to do logReg regularization
+    * [DONE] add graphic example of a real decision tree (with nodes, etc.)
+            for a minor problem in our dataset.
+    * [Half Done] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
+    * [DONE] fix eze's recommendations on logReg part (minor fixes in equations).
+    * [DONE] separate evaluation, problem, results and validation from intro.
+
+
+### Dar instancias de:
+    * [DONE] logistic regression con o sin regularizacion, con o sin CV. y con todos/sin hiperparametros.
+    * [DONE] achicar/filtrar el dataset para hacer el problema mas complejo.
+        * X: solo users no_endemicos / Y: migrantes en cualquier direccion. / usuarios del DF
+    * [WILL NOT DO - too many techniques] Do SVD.
+    * [DONE] Naive Bayes example
+    * [DONE]  eliminar ciertas features correlacionadas con el target variable (solo EPIDEMIC col, pues luego tengo mucha correlacion en las columnas de hipotesis, )
+    * [DONE] gradient boosting sobre los mejores features de random forest.
+
+
 
 # Maybe TODOs:
     ## Problem / Data Description Chapter
