@@ -43,17 +43,20 @@ These subtle differences in the machine learning approach of a problem is also r
 
 Given the dataset we have described in \cref{ch:descr-risk} and the nature of our problem, we develop here a set of machine learning problems that will aid us in further characterizing the mobility of users in our two year time period.
 These will help us establish to what extent the CDRs allow us to predict a user's past home and migration movement across both endemic and non-endemic regions.
-More precisely, we would like to explore the relationship of the dataset attributes based on calling patterns across regions to the movement of humans. 
+More precisely, we would like to explore the relationship of the dataset attributes based on calling patterns across regions to the movement of humans.
 Where possible, we would like to establish which features are most important in our predictions.
 
-To do so, in this work we decided to divide our task into four problems. 
-These will be used as different perspectives of the issue and all of them together give us a better characterization of the whole problem. 
+To do so, in this work we decided to divide our task into four problems.
+These will be used as different perspectives of the issue and all of them together give us a better characterization of the whole problem.
 For all, we solve them with user information on their communications during $T_1$, whilst no information from $T_0$ will be used as input to the statistical models.
 
 We process the raw data to build our target variable which will be determined as $Y$. This will always be defined for every user $u$. We take $H_u$ to be the user's home antenna. The only differences among the problems will be in how the target variable will be defined.\footnote{In reality, certain variations of the data were considered too, were best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}
 
-
 With these definitions, the list of problems considered in this work are defined in the following way:
+
+
+
+\todo{Correctly define H0 and H1 and correctly tune the problems. Correctly describe the universe of users.}
 
 \begin{problem}\label{target1}
 We want to infer which users lived in the endemic region in the past:
@@ -107,6 +110,8 @@ Users that migrated to a different region.
 This task has a similar difficulty as in the previous one. Yet there are more users satisfying this condition.
 The difference relies in that cross-migrations are not as important to our study as migrations directly from the endemic region.
 
+\todo{Correclty define base users for prob 4}
+
 \begin{problem}\label{target4}
 Users that migrated from the endemic region, but only those which are currently not endemic.
 \begin{align*}
@@ -148,10 +153,10 @@ With \cref{target1,target2,target3,target4}, we continue onto define and illustr
 From now on we will be talking of the training set and the test set, noted by $\mathcal{T}$  and $\mathcal{T_s}$.
 In our work we take advantage of the volume of samples, where, as explained in \cref{}, more than a million users.
 This allows us to randomly split the dataset into training and test sets that do not overlap and which contain 70\% and 30\$ of all samples respectively.
-T as our two data sources. 
+T as our two data sources.
 
-The test set will be a part of the model building process that will only be used at the end of it. 
-The idea is that it will not take part in building the machine learning model and will be used only to evaluate its performance, as a simulated qualification of the algorithm's performance with \texit{new} samples.
+The test set will be a part of the model building process that will only be used at the end of it.
+The idea is that it will not take part in building the machine learning model and will be used only to evaluate its performance, as a simulated qualification of the algorithm's performance with \textit{new} samples.
 This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathcal{T_s}$, based on having seen information of objects from $\mathcal{T}$.
 
 As an example, let's consider a reduced training dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of the following provinces: \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}.
@@ -174,7 +179,7 @@ EA23AD & 12 & 43 & 5 & 154 & \textit{Buenos Aires} \\
 \end{tabular}
 \end{table}
 
-In this form a row is representing the available data acquired from each user and the columns represent the features which are the different types of measurements or information on that user\footnote{We make an important remark here that the user\'s privacy is ensured by not providing a direct identifier of the person. All users are distinguished with their \textit{user\_id} which is information given by the Telco with a salted hash transformation. In this way, we are unable to use thes identifiers in other data sources other than the specific one used for this work.}. 
+In this form a row is representing the available data acquired from each user and the columns represent the features which are the different types of measurements or information on that user\footnote{We make an important remark here that the user\'s privacy is ensured by not providing a direct identifier of the person. All users are distinguished with their \textit{user\_id} which is information given by the Telco with a salted hash transformation. In this way, we are unable to use thes identifiers in other data sources other than the specific one used for this work.}.
 In general, most machine learning problems will be associated with a training set $\mathcal{T}$ of similar form as the one shown before. And it is common to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
 
 Both $\mathcal{T}$ and $\mathcal{T_s}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$ and $Y \in \mathbb{R}^n $. The difference will lie in the way each set is used to computationally build a probabilistic model. In essence the former is used to algorithmically create a function which maps inputs to outputs,  whilst the latter will be used to measure how \textit{well} this mapping would behave in real situations, given a way of measuring this performance.
@@ -233,7 +238,7 @@ If we let our decision boundary be $ t_i = \theta \cdot x_i \ \forall \ i $, in 
 \end{equation}
 %    \forall 1 \leq i \leq n = y^i $
 
-As an example, we could take the heavy-side step function as our transformation $h(z)$ where
+As an example, we could take the Heaviside step function as our transformation $h(z)$ where
 \begin{equation}
 h(z) =
 \begin{cases}
@@ -247,7 +252,7 @@ If the goal of the model is to maximize $P(Y_i = y_i | X_i = x) \ \forall i$
 under the assumption that $\nexists\ i \ / \ t_i = 0$, the algorithm would then correctly classify all samples to their targets. Yet this situation is hardly the case. The common approach is then to rely on optimization procedures to minimize the amount of misclassification given by our algorithm. This would be analogous to maximizing the probability of a correct classification in \cref{eq:goodclassification-equation}.
 
 % \todo{fix formulas here. Some are badly written/wrong.}
-For analytical convenience, a more tractable function for this task is the logistic which is an approximation of the heavy-side step function. Here
+For analytical convenience, a more tractable function for this task is the logistic which is an approximation of the Heaviside step function. Here
 \begin{equation}\label{eq:logisticFunction}
 \sigma(z) = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}
 \end{equation}
@@ -422,7 +427,6 @@ There is a number of different functionals $R(\cdot)$ used to impose conditions 
 
 Each has its advantages and the details exceed the nature of this work. As a summary, benefits are related to the robustness of the solution, convexity of the minimization function, unique minimum and model parsimony. The former case is known as \textit{ Lasso} regularization and the latter is known as \textit{ridge} or \textit{Tikhonov} regularization. Other variants include the \textit{elastic-net} penalty which is a weighted average of the previous two norms, or the $l_0$ norm, which is the number of non null components of $\theta$.
 
-
 In practice, optimal solutions $\theta*$ are searched by iterative optimizations on loss functions.
 For some specific algorithms though, closed-form solutions can be used, even with regularized scoring functions.
 However for the former case, gradient descent is by far the most widely practiced routine.
@@ -439,7 +443,6 @@ The following example shows the logistic regression's model loss function with a
 %\min_{\theta} & \sum_{i=1}^N L(f(X_i,\theta),Y_i)  + \lambda \sum_{j=1}^{P} \theta_j^2
 
 %\begin{equation}\label{logit-optimization}
-%
 %\end{equation}
 
 
@@ -449,6 +452,7 @@ In this work, we will be only considering model regularization with lasso, ridge
 
 As an example we show here how regularization affects an instance of a Logistic Classifier on \cref{target1}.
 
+\todo{missing y axis tick.}
 % figures/regularization/figure-log_loss_error_validation_curve.png
 
 \begin{figure}[h!]
@@ -469,7 +473,6 @@ As we can see, there is a clear tendency to have better performance across small
 
 \subsection{Hyperparameters}
 
-
 Note that in the model built from equation \cref{eq:logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure. Notably $\lambda$ and the $l2$ norm used to measure the size of $\theta$. These values are deemed to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical construction. Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.
 
 The hyper-parameters are the values set to configure the different possible variants in the loss function and in the model's training phase. They are values that directly affect the estimated fit $f_{\hat{\theta}}$ but are not the $\theta$ parameter themselves. They need to be instantiated before training the learner and as such, they can't be learned from the dataset.
@@ -479,10 +482,11 @@ On the other hand, in a Bayesian context the definition of hyper-parameter is di
 
 %\textit{}
 
-
 \section{Chapter Summary}\label{section-ch_machine_learning_summary}
 
-As we know, a learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$. The first idea led to finding the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we now have a problem of $p$ degrees of freedom, we are left to find or fit the parameter by optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is preferable than another. For example the choice of $0.5$ as a threshold in \cref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning, loss functions give a quantitative measure of a parameter's performance. In the context of binary classification, these are also known as scoring functions.
+\todo{This is obsolete.}
+
+As we know, a learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$. The first idea led to finding the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$. Given that we now have a problem of $p$ degrees of freedom, we are left to find or fit the parameter by optimizing a certain criteria. This choice will certainly depend on the way we decide that one parameter is preferable than another. For example the choice of $0.5$ as a threshold in \cref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process. In the context of machine learning, loss functions give a quantitative measure of a parameter's performance. In the context of binary classification, these are also known as scoring functions. 
 %the criteria used to choose the best parameters
 
 Historically, a loss function used to find the parameters would be to minimize the residual sum of squares.
