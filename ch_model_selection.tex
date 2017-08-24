@@ -244,6 +244,8 @@ Overfit models will fail to generalize on new data since the variance structure 
 %rise Typical combinations
 %The four possible combinations of high
 
+\todo{remove figure or do with own data.}
+
 \begin{figure}[h!]
 \begin{center} \label{figure:biasVariance}
 \includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/figure-biasVariance}
@@ -254,7 +256,8 @@ Overfit models will fail to generalize on new data since the variance structure 
 \end{figure}
 
 
-In \cref{figure:biasVariance}, the authors fit a model to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is because during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
+
+In \cref{figure:biasVariance}, the authors of \cr0ef{} fit a model to illustrate the interaction between bias and variance. The model increases complexity when using a greater number of features. This is because during the optimization procedure, the algorithm has to fit more parameters. Thus, the model increases in complexity, as measured in its degrees of freedom.
 
 As a similar example, we reproduce the previous behavior on our own dataset.
 Consider \cref{target2} which has a high imbalance between the positive and negative target classes.
