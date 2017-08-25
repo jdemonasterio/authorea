@@ -729,7 +729,6 @@ From this metrics scores are constructed to provide values on the algorithm's pe
 Different interactions of these counts can measure different aspect's of an algorithm's classification performance.
 
 %Their focus is in measuring $FP$ and $FN$ volumes.
-
 % to measure the algorithm's performance.
 % Notice that the only correct cells are the $TP$ and $TN$ categories, each correctly classifying positive and negative samples
 Some of the most used metrics include the following:
@@ -748,10 +747,7 @@ A high recall of the algorithm indicates that a high number of the real positive
 
 \item \textbf{Accuracy:} $\frac{TP + TN}{P + N} = \frac{TP + TN}{TP + FP + TN + FN}$ \\ This rate measures the \textit{confidence} of the algorithm in all of its predictions.
 
-%\item $F1_\beta$ \textbf{Score:} $(1 + \beta^2) \frac{TP + TN}{P + N} $ \\ This is the harmonic mean of the recall and the precision.
-It's advantage is that it can capture both of the scores in equal weight.
-Its values range in the $\[0,1 \]$ domain and are ordered in the sense that perfect classifiers have a $F1$ score of 1.
-%
+
 \item \textbf{F1 Score:} $\frac{TP + TN}{P + N} = \frac{TP}{TP + FP} = 2 \frac{1}{ \frac{1}{recall} + \frac{1}{precision} }$ \\ This is the harmonic mean of the recall and the precision METRICS.\@ It's advantage is that it can capture both of the scores in equal weight.
 Its values range in the ${[0,1 ]}$ domain and are ordered in the sense that perfect classifiers have an $F1$ score of 1.
 
