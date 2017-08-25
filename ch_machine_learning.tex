@@ -6,11 +6,12 @@
 %    Created: 08 Feb 2017
 %  Description: Chapter : Machine Learning
 %===============================================================================
+
 \chapter{Machine Learning}
 \label{ch:machineLearning}
 
 % \section{Preamble}\label{section-preamble}
-Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}. Some fundamental concepts and material were also used from \cite{scikit-learn}. Other texts were also used, and they have been duly cited in the thesis. Where not specified, the reader can assume that the proof is based from the above mentioned textbooks.
+Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}. Some fundamental concepts and material were also used from\cite{scikit-learn}. Other texts were also used, and they have been duly cited in the thesis. Where not specified, the reader can assume that the proof is based from the above mentioned textbooks.
 
 
 \section{Supervised Classification Problems}
@@ -41,19 +42,29 @@ These subtle differences in the machine learning approach of a problem is also r
 
 \section{Supervised Classification of Long-term Human Migrations}\label{long_term}
 
-Given the dataset we have described in \cref{ch:descr-risk} and the nature of our problem, we develop here a set of machine learning problems that will aid us in further characterizing the mobility of users in our two year time period.
-These will help us establish to what extent the CDRs allow us to predict a user's past home and migration movement across both endemic and non-endemic regions.
+Given the dataset we have described in \cref{ch:descr-risk} and the nature of our problem, we develop here a set of machine learning problems that will aid us in further characterizing the mobility of users in the analysis of CDRs that span a two year time period.
+
+This will help us establish to what extent the CDRs allow us to predict a user's past home and migration movement across both endemic and non-endemic regions.
 More precisely, we would like to explore the relationship of the dataset attributes based on calling patterns across regions to the movement of humans.
-Where possible, we would like to establish which features are most important in our predictions.
+Where possible, we would like to establish which features are most relevant for our predictors.
+% In an ideal case, we would like to have a certain inisght into the causes of these movements, without being able to make any causal inferences.
 
-To do so, in this work we decided to divide our task into four problems.
-These will be used as different perspectives of the issue and all of them together give us a better characterization of the whole problem.
-For all, we solve them with user information on their communications during $T_1$, whilst no information from $T_0$ will be used as input to the statistical models.
+To be accurate, let $EU_{1}$ be the users that lived in the endemic region in period $T_1$
+and  $EU_{1}$ be the users that lived in the past (period $T_0$).
+Their set complements are defined as ${ EU_1 }^{\complement}$ and ${ EU_1 }^{\complement}$ respectively.
+As such, we can naturally extend this categorization to the user's home antenna too.
+We will have a home antenna for both periods denoted by $H0_u$ and $H1_u$ as before.
 
-We process the raw data to build our target variable which will be determined as $Y$. This will always be defined for every user $u$. We take $H_u$ to be the user's home antenna. The only differences among the problems will be in how the target variable will be defined.\footnote{In reality, certain variations of the data were considered too, where best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}
+Keeping the above in mind, we decided to divide our task into four problems.
+These will serve as different perspectives of the issue and all of them together give us a principled understanding of the problem.
 
-With these definitions, the list of problems considered in this work are defined in the following way:
+All problems are solved with user data extracted from their communications during $T_1$, whilst no information from $T_0$ will be used as input to the statistical models.
 
+We process the raw data to build our target variable which will be determined as $Y$ which will be defined for every user $u$.
+Then the only difference among all of the problems will be in how the target variable is defined\footnote{In reality, certain variations of the data were considered too, where best performing features were filtered from the dataset to explore how this decreased the overall prediction ability of the algorithm.}.
+
+
+We present here the list of problems considered in this work are defined in the following way:
 
 
 \todo{Correctly define H0 and H1 and correctly tune the problems. Correctly describe the universe of users.}
@@ -63,18 +74,19 @@ We want to infer which users lived in the endemic region in the past:
 		\begin{align*}
 		Y_u =
 		\begin{cases}
-		&1 \ \mbox{if} \ H_u \in E_{Z0} \\
+		&1 \ \mbox{if} \ u \in EU_{0} \\
 		&0 \ \mbox{if not}.
 		\end{cases}
 		\end{align*}
 \end{problem}
 
-With this definition and the description of the features extracted from the data in \cref{ch:descr-risk}, it is important to observe that we are using the information of a user's endemicity $E_{Z1}$ to predict $E_{Z0}$.
-And it wouldn't be of much surprise to know that these two variables are indeed highly correlated with a value of 93\%. This means that, overall, the feature is a good predictor of the target variable causing algorithms to be heavily weighted towards this attribute. A simple enough algorithm would use this single feature as sole predictor.
+With this definition and the description of the features extracted from the data in \cref{ch:descr-risk}, it is important to observe that we are using the information of a user's endemicity $EU_{1}$ to predict their membership to $EU_{0}$.
+And it wouldn't be of much surprise to know that these two variables are indeed highly correlated with a value of 93\%.
+This means that, overall, the feature is a good predictor of the target variable causing algorithms to be heavily weighted towards this attribute. A simple enough algorithm would use this single feature as sole predictor.
 
 To prevent this from happening and to try and capture the change in endemicity for a small groups of users, we decided then to hide the feature when solving \cref{target1}.
 
-% Other features, such as the number of calls to endemic regions, are correlated to the target variable. This is an expected behavior since most people use cellphones for local calls only. Yet these correlations are not as high as with the $E_{Z1}$ variable. Also, given the assumptions used in
+% Other features, such as the number of calls to endemic regions, are correlated to the target variable. This is an expected behavior since most people use cellphones for local calls only. Yet these correlations are not as high as with the $EU_{1}$ variable. Also, given the assumptions used in
 
 % However we have not excluded any other features
 % are locally  an and given the assumptions used maps in \cref{}, this is a result which
@@ -84,7 +96,7 @@ We want to infer which users lived in $E_Z$ in the past and then migrated:
 	\begin{align*}
 				Y_u =
 				\begin{cases}
-					&1 \ \mbox{if} \ H_u \in E_{Z0} \cap { E_{Z1} }^{\complement}  \\
+					&1 \ \mbox{if} \ u \in EU_{0} \cap { EU_{1} }^{\complement}  \\
 					&0 \ \mbox{if not}.
 				\end{cases}
 			\end{align*}
@@ -101,7 +113,7 @@ Users that migrated to a different region.
 \begin{align*}
 			Y_u =
 			\begin{cases}
-				&1 \ \mbox{if} \ H_u \in (E_{Z0} \cap { E_{Z1} }^{\complement}) \cup (E_{Z1} \cap { E_{Z0} }^{\complement}) \\
+				&1 \ \mbox{if} \ u \in (EU_{0} \cap { EU_{1} }^{\complement}) \cup (EU_{1} \cap { EU_{0} }^{\complement}) \\
 				&0 \ \mbox{if not}.
 			\end{cases}
 		\end{align*}
@@ -110,20 +122,22 @@ Users that migrated to a different region.
 This task has a similar difficulty as in the previous one. Yet there are more users satisfying this condition.
 The difference relies in that cross-migrations are not as important to our study as migrations directly from the endemic region.
 
-\todo{Correclty define base users for prob 4}
 
 \begin{problem}\label{target4}
-Users that migrated from the endemic region, but only those which are currently not endemic.
+Users that migrated from the endemic region, but conditional to users which are currently not endemic. This means that we have $u \in EU_{1}^{\complement}$ as a base condition.
+
 \begin{align*}
 			Y_u =
 			\begin{cases}
-				&1 \ \mbox{if} \ H_u \in (E_{Z0} \cap { E_{Z1} }^{\complement}) \forall u s.t. H_u \in E_{Z1}^{\complement}    \\
-				&0 \ \mbox{if not}.
+				& 1 \ \mbox{if} \ u \in ( EU_{0} \cap { EU_{1} }^{\complement}) \forall u s.t. u \in EU_{1}^{\complement}    \\
+				& 0 \ \mbox{if not}.
 			\end{cases}
 		\end{align*}
 \end{problem}
 
-Note that at this point we are looking at a reduced instance of our CDRs. That is, we are only considering currently non-endemic users other than the whole sample population. Still, we are taking more than a million users in this dataset.
+Note that at this point we are looking at a reduced instance of our CDRs.
+That is, we are only considering currently non-endemic users other than the whole sample population.
+Still, we are taking more than a million users in this dataset.
 
 
 % \begin{problem}\label{target5}
@@ -141,11 +155,14 @@ Note that at this point we are looking at a reduced instance of our CDRs. That i
 
 
 We can see from what was mentioned before that not all problems can be represented by the same dataset.
-The limitations on what is available as our input set $X$ attributes or samples. For example, we said that in \cref{target1} we have no limitations to use that $H_u$ at $E_{Z1}$, yet we decide to ignore this highly correlated feature. As a result, we  would be implicitly introducing the target variable as an attribute.
-With this in mind, appropriate care must be taken for each case on which attributes are available for the problem being analyzed.
+The limitations on what is available as our input set $X$ attributes or samples.
+For example, we said that in \cref{target1} we have no limitations to use that $u \in EU_{1}$, yet we decide to ignore this highly correlated feature.
+As a result, we  would be implicitly introducing the target variable as an attribute.
+Thus, appropriate care must be taken for each case on which attributes are available for the problem being analyzed.
 
 
-With \cref{target1,target2,target3,target4}, we continue onto define and illustrate techniques for supervised classification. Throughout \cref{ch:modelSelection,ch:ensembleMethods,ch:results_conclusion} we will come back to these problems by applying them with the techniques and methods we discuss.
+With \cref{target1,target2,target3,target4}, we continue onto define and illustrate techniques for supervised classification.
+Throughout \cref{ch:modelSelection,ch:ensembleMethods,ch:results_conclusion} we will come back to these problems by applying them with the techniques and methods we discuss.
 
 
 \section{A working example of a Machine Learning setup}\label{section-example}
@@ -162,7 +179,8 @@ This makes sense knowing that the objective is to build a probabilistic model wh
 As an example, let's consider a reduced training dataset built from Call Detail Records (CDRs) where samples are calls being made by users who can belong to any of the following provinces: \textit{Buenos Aires}, \textit{Cordoba} and \textit{Santa Fe}.
 %\url{http://stackoverflow.com/}
 %\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
-Five measurements were taken on all of the observations to account for the user's number of calls and total minute duration of calls. All data was extracted from a week of logging measurements. Below we print a short overview of this dataset:
+Five measurements were taken on all of the observations to account for the user's number of calls and total minute duration of calls.
+All data was extracted from a week of logging measurements. Below we print a short overview of this dataset:
 
 \begin{table}[ht]
 \caption{{Head of the raw CDR dataset. A three-row mock example of calls.}}
@@ -180,14 +198,21 @@ EA23AD & 12 & 43 & 5 & 154 & \textit{Buenos Aires} \\
 \end{table}
 
 
-In this form a row is representing the available data acquired from each user and the columns represent the features which are the different types of measurements or information on that user\footnote{We make an important remark here that the user's privacy is ensured by not providing a direct identifier of the person. All users are distinguished with their \textit{user\_id} which is information given by the Telco with a salted hash transformation. In this way, we are unable to use thes identifiers in other data sources other than the specific one used for this work.}.
-In general, most machine learning problems will be associated with a training set $\mathcal{T}$ of similar form as the one shown before. And it is common to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
+In this form a row is representing the available data acquired from each user and the columns represent the features which are the different types of measurements or information on that user\footnote{We make an important remark here that the user's privacy is ensured by not providing a direct identifier of the person.
+All users are distinguished with their \textit{user\_id} which is information given by the Telco with a salted hash transformation. In this way, we are unable to use thes identifiers in other data sources other than the specific one used for this work.}.
+In general, most machine learning problems will be associated with a training set $\mathcal{T}$ of similar form as the one shown before.
+And it is common to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
 
-Both $\mathcal{T}$ and $\mathcal{T_s}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$ and $Y \in \mathbb{R}^n $. The difference will lie in the way each set is used to computationally build a probabilistic model. In essence, the training set $\mathcal{T}$ is used to algorithmically create a function which maps inputs to outputs,  whilst the test set $\mathcal{T_s}$ will be used to measure how \textit{well} this mapping would behave in real situations, given a way of measuring this performance.
+Both $\mathcal{T}$ and $\mathcal{T_s}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$ and $Y \in \mathbb{R}^n $.
+The difference will lie in the way each set is used to computationally build a probabilistic model.
+In essence, the training set $\mathcal{T}$ is used to algorithmically create a function which maps inputs to outputs,  whilst the test set $\mathcal{T_s}$ will be used to measure how \textit{well} this mapping would behave in real situations, given a way of measuring this performance.
 
-More specifically, the $jth$ column of $X$ or equivalently the $jth$ feature of the dataset is denoted by $X^j$. In a similar way, the $ith$ row or sample of $X$ is denoted by $X_i$ or $x$ when it is clear from context or when we are referring to a generic sample. A similar notation is used with the outputs, where $Y_i$ or $y$ will be used to denote the target of a specific sample depending on context.
+More specifically, the $jth$ column of $X$ or equivalently the $jth$ feature of the dataset is denoted by $X^j$.
+In a similar way, the $ith$ row or sample of $X$ is denoted by $X_i$ or $x$ when it is clear from context or when we are referring to a generic sample.
+A similar notation is used with the outputs, where $Y_i$ or $y$ will be used to denote the target of a specific sample depending on context.
 
-In this particular example, even though the last column of the dataset in \cref{tab:sample_CDR} is not a measurement \textit{per se}, it provides information on each user's province of residence. With this we can map users to \textit{classes} which conform the partition of the set of provinces.
+In this particular example, even though the last column of the dataset in \cref{tab:sample_CDR} is not a measurement \textit{per se}, it provides information on each user's province of residence.
+With this we can map users to \textit{classes} which conform the partition of the set of provinces.
 
 Hereon, there are various questions one could try to answer using this dataset. Examples of problems that a machine learning algorithm could tackle could be:
 
