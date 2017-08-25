@@ -15,7 +15,6 @@
     * Storty telling un poco.
 
 
-
 ## Meeting 16/08
     * Cambiar las figuras 4.4.3 y 4.4.4 que usan data foranea y reemplazar alguna de ellas con una instancia de un problema nuestro.
     * Revisar todas las figuras y especificar de que problemas vienen estos resultados.
