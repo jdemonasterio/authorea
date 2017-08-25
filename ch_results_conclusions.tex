@@ -50,9 +50,11 @@ To summarize the work done we can say that:
     \item Where possible, we exposed the best features of the dataset to solve the general problem.
     These exposed the relationship between the attributes that characterize vulnerable user interactions, and the target variable of the task.
     Other relevant features, such as the user's mobility size, were also found to provide relevant information for the classification task.
-     % the algorithms detected that the characterization of the user's mobility provided relevant information to the task. It was important in detecting the long-term movement of users.
+     % the algorithms detected that the characterization of the user's mobility provided relevant information to the task
+It was important in detecting the long-term movement of users.
 
-    \item According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions. In some instances, we have achieved high values across all scoring measures.
+    \item According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions
+In some instances, we have achieved high values across all scoring measures.
 
 \end{itemize}
 
@@ -62,7 +64,8 @@ Each of the tasks will have different scores across the algorithms used.
 However, the results show that the performance of Random Forests or Gradient Boosting models is best over other models such as Logistic Regression or Naive Bayes algorithms.
 The best models can find complex interactions in the data whilst taking care not to lose generalization power.
 
-\todo{Reword sentences. Expand, correct and finish them in a cohesive structure.}
+\todo{Reword sentences
+Expand, correct and finish them in a cohesive structure.}
 
 \section{Key Results}
 
@@ -131,7 +134,10 @@ Combining social and geolocated information, the data at hand has been given an 
 
 
 
-Epidemic counter-measures nowadays include setting national surveillance systems, vector-centered policy interventions and individual screenings of people. These measures require costly infrastructures to set up and be run. However, systems built on top of existing mobile networks would demand lower costs, taking advantage of the already available infrastructure. The potential value these results could add to health research is hereby exposed.
+Epidemic counter-measures nowadays include setting national surveillance systems, vector-centered policy interventions and individual screenings of people
+These measures require costly infrastructures to set up and be run
+However, systems built on top of existing mobile networks would demand lower costs, taking advantage of the already available infrastructure
+The potential value these results could add to health research is hereby exposed.
 Finally, the results stand as a proof of concept which can be extended to other countries or to diseases with similar characteristics.
 
 
@@ -141,8 +147,10 @@ Finally, the results stand as a proof of concept which can be extended to other 
 
 % - hacer explicita la respuesta a esta pregunta: Que tanto se puede predecir long term migrations usando datos de CDRs?
 % - cuales fueron las mejores tecnicas? Que tuvieron a favor y en contra?
-% - repasar los 5 problemas y resumir los mejores resultados de c/ algoritmo. Que scorings tuvieron?
-% - Enganchar los resultados con lo que se vio en los mapas. Hablar de como los features del algoritmo estan relacionados con el armado del mapa y como se "valida" la hipotesis.
+% - repasar los 5 problemas y resumir los mejores resultados de c/ algoritmo
+Que scorings tuvieron?
+% - Enganchar los resultados con lo que se vio en los mapas
+Hablar de como los features del algoritmo estan relacionados con el armado del mapa y como se "valida" la hipotesis.
 
 
 
@@ -169,7 +177,8 @@ Yet, on the advice of this topic's researchers, this work does bring valuable in
 
 Another issue is the representation bias of our dataset.
 As shown in \cref{tab:distribution_by_state}, there are differences in the percentage of population represented by our dataset vs.\ current state distribution estimates.
-With this, results should be interpreted with caution, since we have no real comparisons with actual disease data, outside of the endemic region and at a municipal or regional levels.\footnote{As a matter of fact, we have tried to contact health institutions and organizations working on the matter to try and enrich the dataset with more info. This intent did not reach any health data of the kind.}
+With this, results should be interpreted with caution, since we have no real comparisons with actual disease data, outside of the endemic region and at a municipal or regional levels.\footnote{As a matter of fact, we have tried to contact health institutions and organizations working on the matter to try and enrich the dataset with more info
+This intent did not reach any health data of the kind.}
 
 There are other interesting limitations concerning international pattern migrations.
 For this work, we measured migrations only in national phone owners.
@@ -265,7 +274,8 @@ Due to time constraints limited by the use of full cross validation fitting proc
 However, where available, we show the resulting classifier's test performance across three scores: $Accuracy$, $F1$ and $ROC AUC$.
 
 \begin{table}
-\caption{Table comparing cross validated results for all of the classifiers run in this work. For each task, we show the triplet of $Accuracy$, $F1$ and $ROC AUC$ test scores after a full cross validation procedures on the learner.}
+\caption{Table comparing cross validated results for all of the classifiers run in this work
+For each task, we show the triplet of $Accuracy$, $F1$ and $ROC AUC$ test scores after a full cross validation procedures on the learner.}
 \label{tab:all_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
@@ -311,11 +321,13 @@ Gradient Boosting   & (,,)  & (,,)  &  (,,)   & (,,)   \\
 % \end{table}
 
 
-% High values across all scoring measures are achieved. % with the best estimator, with the lowest metric starting at a value of 0.958.
+% High values across all scoring measures are achieved
+% with the best estimator, with the lowest metric starting at a value of 0.958.
 % These results can be explained by the fact that
 % %Scores results become less surprising when looking closer at the dataset.
 %
-%Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron). Los scores bajan mucho:
+%Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron)
+Los scores bajan mucho:
 %
 %+--------------+-----------------+-------+
 %| target\_label | predicted\_label | count |
