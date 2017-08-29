@@ -328,9 +328,9 @@ Where the test and training errors are given as a function of the tree\'s depth:
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
-\caption{ Training and cross-validated mean score along the change in max tree depth.
-One model is fit for each tree depth value on both the training and cross validation sets.
-Then their series of scores are compared side by side, showing a shaded standard deviation band for the CV folds.}
+\caption{ Training and cross-validated mean score functions along the change in max tree depth.
+For \cref{target2}, one model is fit for each tree depth value on both the training and cross validation sets.
+Both score series are compared side by side, with their corresponding standard deviation band for the CV folds.}
 \label{figure:dtree_overfit_problem_2}
 \end{center}
 \end{figure}
@@ -646,7 +646,7 @@ It is important to note that all test scores were performed on models built only
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/cross_validation/train_and_cv_score_comparison_logreg.jpg}
-\caption{ Series comparison of  CV average scores with standard deviation bands and test set scores along the change in $C$.}
+\caption{ Comparison of CV and test average $1-NLL$ scores in \cref{target1} for hyperparameter $C$. The standard deviation bands are added to the graph.}
 \label{fig:cv_vs_test_score}
 \end{center}
 \end{figure}
@@ -852,14 +852,13 @@ The difference in the two scores is notable and corresponds entirely to the algo
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/figure-highROCAUC/figure-highROCAUC}
-\caption{Example of a ROC curve from a Support Vector Machine classifier.
-The $0.97$ ROC AUC score given is now almost perfect for this problem.}
+\caption{Example of a ROC curve from a Random Forest classifier on the same cancer dataset.
+The resulting $0.97$ ROC AUC score has almost perfect accuracy fot this problem.}
 \end{center}
 \end{figure}
 
 
-
-We experimented with this metric with a Logistic Classifier over different hyperparameter settings.
+We experimented this metric on a Logistic Classifier over different hyperparameter settings.
 To do this, we set up to find users that lived in endemic regions in the past, namely \cref{target1}, yet excluding the feature that indicates in which state is the user currently living.
 For this experiment we set the ``ROC AUC'' metric to compare the $l1$ vs the $l2$ regularization of the model on more than a hundred values for the regularization parameter $C$.
 For each regularization type, we set a value for $C$ that ranged from $\exp^{-2}$ to $\exp^{5}$ and then a cross validation routine was done on an 8- folded, training set.
@@ -870,7 +869,7 @@ This gap is even widened when comparing test scores for both and the same happen
 
 \begin{table}[!htb]
 \caption{Table of results comparing an 8 fold cross validation fit for a Logistic Classifier with varying regularization $C$ values.
-The metric for this experiment was the ``ROC AUC''.}
+The metric for this experiment was the ``ROC AUC'' and the \cref{target1} was tackled.}
 \label{tab:roc_auc_logreg_target1_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
@@ -906,6 +905,6 @@ To further explore this, we looked at their CV mean scores for each hyperparamet
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/cross_validation/logreg_cv_regularization_l2_rocauc_series}
   \end{minipage}
-\caption{Series of CV mean average scores for the ``ROC AUC'' metric where the $l1$ regularization strength of the logistic classifier was tested, measured in $C$.
-The \cref{target1} is taken into consideration here.}\label{fig:rocauc_logreg_cv_regularized_comparison}
+\caption{Series of CV mean average scores for the ``ROC AUC'' metric where the $l1$ regularization method on a logistic classifier was tested, varying along the $C$ hyperparameter.
+The \cref{target1} is tackled here.}\label{fig:rocauc_logreg_cv_regularized_comparison}
 \end{figure}

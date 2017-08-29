@@ -522,7 +522,7 @@ In the case of \cref{eq:logLossFunction} we have that it is a concave, monotone 
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/logloss/figure-logLossValues.png}
 \caption{ Error score series plot for the log loss function.
-Different $p_i$ input values are displayed, with their resulting score.}
+Different $p_i$ input values are displayed with their output log loss score.}
 \label{figure-logLossValues}
 \end{center}
 \end{figure}
@@ -599,13 +599,12 @@ In this work, we will be only considering model regularization with lasso, ridge
 
 As an example we show here how regularization affects an instance of a Logistic Classifier on \cref{target1}.
 
-\todo{missing y axis tick.}
 % figures/regularization/figure-log_loss_error_validation_curve.png
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.9\columnwidth]{figures/regularization/figure-log_loss_error_validation_curve.png}
-\caption{ Validation curve of the model's training and test sets scores using the \textit{negative log loss} and where each model is built with a different value of the $C$ regularization parameter.}
+\caption{ \cref{target1}'s validation curve of a Logistic Classifier model on training and test sets. Here, for each value of the $C$ regularization parameter, we show the score $1 - NLL$. Note that with this, higher scores mean better results.}
 \label{fig:log_loss_regularization_validation_curve}
 \end{center}
 \end{figure}
@@ -613,17 +612,17 @@ As an example we show here how regularization affects an instance of a Logistic 
 For the case  showed in \cref{fig:log_loss_regularization_validation_curve}, we used all of the features from $\mathcal{T}$ and we generated multiple models $f(x,C)$ where we defined
 $$C = \frac{1}{\lambda} $$
 
-Each model was built from a specific $C$ in  $[10^{-5},10^5]$  and the model's negative log loss error was measured for the $\mathcal{T}$ and $\mathcal{T_s}$ sets separately.
-These errors are graphed in \cref{fig:log_loss_regularization_validation_curve} as line curves over the $C$ value.
+In detail, we have that each logistic model was built from a specific $C$ in  $[10^{-5},10^5]$  and the model's negative log loss error ($NLL(C)$) was measured for the $\mathcal{T}$ and $\mathcal{T_s}$ sets separately.
+Then, the function of scores $1-NLL(C)$ is graphed as curves over the $C$ value.
 
 As we can see, there is a clear tendency to have better performance across smaller values of $C$ which is equivalent to having stronger regularization of the scoring function.
-Note that the negative log loss will have higher values for better classifiers.
-Thus as a simple case and with no other manipulation of the data, we find that a regularized model helps in having a better performance across the test and train sets error.
+Note that the $1-NLL(C)$ will have higher values for better classifiers.
+Thus as a simple case and with no other manipulation of the data, we find that a regularized model helps in having a better performance across the test and training sets error.
 
 
 \subsection{Hyperparameters}
 
-Note that in the model built from equation \cref{eq:logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure.
+We can see that in the model built from equation \cref{eq:logitRegularization} there are two specific parameters which must be predefined before starting the optimization procedure.
 Notably $\lambda$ and the $l2$ norm used to measure the size of $\theta$.
 These values are deemed to be \textit{hyper-parameters} of the models since they are not directly part of the theoretical construction.
 Also, some authors in the literature can refer to the \textit{hyper-parameters} of the model as \textit{tuning parameters}.
