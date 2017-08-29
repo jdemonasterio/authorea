@@ -515,7 +515,7 @@ However, we could in fact build \textit{any} type of algorithm which given an in
 In this way we could compare the performance of that model to the one built by a Logistic Regression Classifier by using the same log loss function for both.
 In this way we are constructing a way of determining how to select a model from the data.
 
-In the case of \cref{eq:logLossFunction} we have that it is a concave, monotone increasing function.
+In the case of \cref{eq:logLossFunction} we have that it is a concave, monotone increasing function with the estimated probability output by the classifier.
 \cref{figure-logLossValues} expands on the values of this function:
 
 \begin{figure}[h!]
@@ -527,10 +527,10 @@ Different $p_i$ input values are displayed, with their resulting score.}
 \end{center}
 \end{figure}
 
-As we can see, the function is much more negative for small values near zero than it is positive for large values near one.
-This means that it penalizes strongly on wrong predictions, for samples where the algorithm has a strong confidence that won't be of the positive class.
-Another advantage is that the function is concave in the parameters.
-This means that the optimization procedure will always, if converged, stop at a global optima.
+As we can see, the function is heavier for small probability values near zero than it is positive for large values near one.
+This means that it penalizes strongly on wrong predictions; samples where the algorithm has a strong confidence in the prediction yet has misclassified.
+By definition the function is negatively valued and concave in the parameters.
+So this can be taken into advantage during the optimization procedure, which will always converge to a global optima.
 
 Finally, the closed form given by the logistic regression model has the benefit that explicit forms can be given for the gradient and the Hessian of the loss function with regard to the whole dataset $X$ as a sum involving individual samples $x$.
 
