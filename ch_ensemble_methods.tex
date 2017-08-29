@@ -306,7 +306,7 @@ If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will 
 
 \subsection{ Comparison to Decision Trees}\label{subsection:random_forests_comparison_trees}
 
-From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Trees,  we ran two experiment setups on a Random Forest learner for the simple task in \cref{target1}, using an $F1$ score. This was a cross validation procedure of 10 folds for each configuration, where each experiment optimized the score on a different hyperparameter.
+From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Trees,  we ran two experiment setups on a Random Forest learner for the simple task in \cref{target2}, using an $F1$ score. This was a cross validation procedure of 10 folds for each configuration, where each experiment optimized the score on a different hyperparameter.
 
 For the first one, we test the scores of the forest by varying the maximum depth that the trees can have.
 And on the second one, we try to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing tree size.
@@ -330,7 +330,7 @@ In this way, having a lower score in the graphic means a better model was reache
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
   \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown for \cref{target1} where the number and the depth of the trees of each model were our varied hyperparameters.}
+\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown for \cref{target2} where the number and the depth of the trees of each model were our varied hyperparameters.}
 \label{fig:f1_random_forest_validation_curves_depth_num_trees}
 \end{figure}
 
@@ -769,7 +769,7 @@ A drawback of this loss though, is that it is not robust to outliers or to noisy
 
 In order to compare this learner to Random Forests, we ran the same setup as in \cref{subsection:random_forests_comparison_trees}
 with two experiments each varying a different hyperparameter.
-The Boosting models were built to classify on task \cref{target1} and the $F1$ score was used to evaluate their performance.
+The Boosting models were built to classify on task \cref{target2} and the $F1$ score was used to evaluate their performance.
 The cross validation procedure set 10 folds for each hyperparameter
  configuration and both experiments individually tuned on: a) the maximum tree depth and b) the number of base learners.
 
@@ -795,7 +795,7 @@ In this way, having a lower score in the graphic means a better model was reache
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
   \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown for \cref{target1}, where, again, the number and depth of the trees hyperparameters were tested in separate experiments.}
+\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown for \cref{target2}, where, again, the number and depth of the trees hyperparameters were tested in separate experiments.}
 \label{fig:f1_boosting_validation_curves_depth_num_trees}
 \end{figure}
 
