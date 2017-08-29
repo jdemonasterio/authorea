@@ -56,7 +56,7 @@ To illustrate this method, an instance is show in \cref{fg:rf-treeFigure}. This 
 [.{ $Time\_Weekday \geq 17$} [.{\textit{M}} ] [.{\textit{F}} ]] [.{\textit{F}} ] ] ]
 [.{$Calls\_Mondays \geq 2$} [.{$Province \in \{ Chubut, Cordoba \} $} [.{\textit{M}} ] [.{\textit{F}} ] ]
 [.{\textit{M}} ]]]
-
+\label{Classification tree example built for a toy gender prediction problem, using CDR available data.}
 \end{figure}
 
 \smallskip
@@ -314,9 +314,9 @@ As a default configuration, we set on 10 the trees' max depth and on 10 the defa
 
 In both, we set a balanced weighting of positive and negative samples in the loss function. Also, we use the Gini index as the impurity measure in the splitting criteria of each tree's node.
 
-Cross validation procedures ran for 1412.8 and 2506.1 seconds respectively and they both excluded attributes of the user's which informed on the user's home state and its current endemic condition at $T_1$.
+Cross validation procedures ran for 1412.8 and 2506.1 seconds respectively, and they both excluded attributes of the users which informed their home state and current endemic condition at $T_1$.
 
-The experiment's scores outcomes across their hyperparameter values were graphed  in \cref{fig:f1_random_forest_validation_curves_depth_num_trees}.
+The experiment's scores outcomes across their hyperparameter values were graphed in \cref{fig:f1_random_forest_validation_curves_depth_num_trees}.
 The couple of cross-validated and training set scores where compared, where, for each hyperparameter value, the $1-F1$ score is shown.
 In this way, having a lower score in the graphic means a better model was reached.
 
@@ -330,7 +330,7 @@ In this way, having a lower score in the graphic means a better model was reache
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
   \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown where the number of trees and the depth of the trees hyperparameters were tested.}
+\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown for \cref{target1} where the number and the depth of the trees of each model were our varied hyperparameters.}
 \label{fig:f1_random_forest_validation_curves_depth_num_trees}
 \end{figure}
 
@@ -795,7 +795,7 @@ In this way, having a lower score in the graphic means a better model was reache
 %  \centering
   \includegraphics[width=.8\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
   \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown, where the number of trees and the depth of the trees hyperparameters were tested in separate experiments.}
+\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown for \cref{target1}, where, again, the number and depth of the trees hyperparameters were tested in separate experiments.}
 \label{fig:f1_boosting_validation_curves_depth_num_trees}
 \end{figure}
 
