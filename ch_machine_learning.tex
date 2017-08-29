@@ -7,8 +7,7 @@
 %  Description: Chapter : Machine Learning
 %===============================================================================
 
-\chapter{Machine Learning}
-\label{ch:machineLearning}
+\chapter{Machine Learning}\label{ch:machineLearning}
 
 % \section{Preamble}\label{section-preamble}
 Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}.
@@ -17,8 +16,7 @@ ther texts were also used, and they have been duly cited in the thesis.
 here not specified, the reader can assume that the proof is based from the above mentioned textbooks.
 
 
-\section{Supervised Classification Problems}
-\label{section-supervised-learning}
+\section{Supervised Classification Problems}\label{section-supervised-learning}
 
 
 Machine Learning is divided into two main categories: Supervised and Unsupervised Learning.
@@ -82,11 +80,17 @@ More precisely, we would like to explore the relationship of the dataset attribu
 Where possible, we would like to establish which features are most relevant for our predictors.
 % In an ideal case, we would like to have a certain inisght into the causes of these movements, without being able to make any causal inferences.
 
-To be accurate, let $EU_{1}$ be the users that lived in the endemic region in period $T_1$
-and  $EU_{1}$ be the users that lived in the past (period $T_0$).
-Their set complements are defined as ${ EU_1 }^{\complement}$ and ${ EU_1 }^{\complement}$ respectively.
-As such, we can naturally extend this categorization to the user's home antenna too.
-We will have a home antenna for both periods denoted by $H0_u$ and $H1_u$ as before.
+To help us with this, let us introduce some notation to describe sets of users.
+To start off building attributes from the data, each week is divided into time periods:
+\begin{definition}\label{def:endemic_sets_periods}
+	(i) $EU_{1}$ are the users that lived in the endemic region in period $T_1$ while $EU_{0}$ are the users that lived in the past (period $T_0$);
+	(ii) their set complements are defined as ${ EU_1 }^{\complement}$ and ${ EU_0 }^{\complement}$ respectively and
+	(iii) the user's home antenna in each period will be referred to as $H0_u$ and $H1_u$, using the same time convention as before.
+\end{definition}
+
+
+%We will have these can be differentiated for both periods by 
+
 
 Keeping the above in mind, we decided to divide our task into four problems.
 These will serve as different perspectives of the issue and all of them together give us a principled understanding of the problem.
@@ -114,11 +118,11 @@ We want to infer which users lived in the endemic region in the past:
 \end{problem}
 
 With this definition and the description of the features extracted from the data in \cref{ch:descr-risk}, it is important to observe that we are using the information of a user's endemicity $EU_{1}$ to predict their membership to $EU_{0}$.
-And it wouldn't be of much surprise to know that these two variables are indeed highly correlated with a value of 93\%.
+And it would not be of much surprise to know that these two variables are indeed highly correlated with a value of 93\%.
 This means that, overall, the feature is a good predictor of the target variable causing algorithms to be heavily weighted towards this attribute.
- simple enough algorithm would use this single feature as sole predictor.
+A simple enough algorithm would use this single feature as sole predictor.
 
-To prevent this from happening and to try and capture the change in endemicity for a small groups of users, we decided then to hide the feature when solving \cref{target1}.
+To prevent this from happening and to capture the change in endemicity for a small groups of users, we decided then to hide this feature when solving \cref{target1}.
 
 % Other features, such as the number of calls to endemic regions, are correlated to the target variable. This is an expected behavior since most people use cellphones for local calls only. Let these correlations are not as high as with the $EU_{1}$ variable. Also, given the assumptions used in
 
@@ -136,7 +140,7 @@ We want to infer which users lived in $E_Z$ in the past and then migrated:
 			\end{align*}
 \end{problem}
 
-In this task, we have not excluded any attributes from the data since this is a much difficult problem.
+In this task, we have not excluded any attributes from the data since this problem does not carry the feature-target correlation problems like before.
 Recall from \cref{tab:changes} that we have at most 23 thousand users that satisfy this condition from more than a million users.
 This unbalance in the target class proves to be a much harder problem to solve than in \cref{target1} since these users become harder to find.
 
@@ -319,8 +323,9 @@ This brings us to a binary classification problem since there are two possible o
 
 As a simple solution to predict the target variable, we could build a learner $f$ from a transformed linear combination of the input features.
 n the ideal case we would have that for every sample
-\begin{equation}\label{formula:1}
+\begin{equation}
 y \approx f(x) = h\left(\sum_{j}\theta^j x^j\right)
+\label{formula:1}
 \end{equation}
 where $\theta$ is unknown and generally referred to as the coefficient or parameter\footnote{In formula~\cref{formula:1} we have omitted the intercept parameter, generally noted as $\theta_0$.
 The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all its components equal to 1.}.
@@ -375,7 +380,7 @@ It is also bijective, with the inverse given by the \textit{logit} function
 \sigma^{-1}(z) = \log \left( \frac{z}{1 - z} \right)
 \end{equation}
 
-For the scenario characterized in equation \cref{formula:1}, we would have to finally assign each output to a specific class.
+For the scenario characterized in \cref{formula:1}, we would have to finally assign each output to a specific class.
 A common approach for this is to categorize each output whether $\hat{y} > 0.5$\label{formula:logitThreshold}.
 Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$.
 Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane.
@@ -507,17 +512,17 @@ Other algorithms can be used for the same task, and these will have their own pa
 
 In our derivation, the scoring function was constructed from the assumptions proposed at the start.
 However, we could in fact build \textit{any} type of algorithm which given an input $x_i$ and a parametrization of the model $\theta$, outputs a value $P(y_i \mid x_i,\theta)$.
-And we could in fact compare the performance of that model to the one built by a Logistic Regression Classifier by using the same log loss function for both.
-Thus we have introduced a way of determining how to select a model from the data.
+In this way we could compare the performance of that model to the one built by a Logistic Regression Classifier by using the same log loss function for both.
+In this way we are constructing a way of determining how to select a model from the data.
 
-In the case of equation \cref{eq:logLossFunction} we have that it is a concave, monotone increasing function.
+In the case of \cref{eq:logLossFunction} we have that it is a concave, monotone increasing function.
 \cref{figure-logLossValues} expands on the values of this function:
 
 \begin{figure}[h!]
 \begin{center}
 \includegraphics[width=0.7\columnwidth]{figures/logloss/figure-logLossValues.png}
 \caption{ Error score series plot for the log loss function.
-ifferent $p_i$ input values are displayed, with their resulting score.}
+Different $p_i$ input values are displayed, with their resulting score.}
 \label{figure-logLossValues}
 \end{center}
 \end{figure}
