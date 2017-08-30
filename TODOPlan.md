@@ -5,22 +5,21 @@
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`
 
 ## Meeting 23/08
-    * Recortar teoria y pasar a un apendice. Todos los detours respecto del probelma nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
+    * Recortar teoria y pasar a un apendice. Todos los detours respecto del problema nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
     * Ninguna figura de afuera (o contadas excepciones). Que sean con datos propios directamente.
     * Meter una introduccion de c/capitulo para ordenar bien el hilo de la tesis.
     * Documentar las cosas que vas probando y lo que te va pasando.
-    * Revisar notacion de los problemas y fixear.
+    * [DONE] Revisar notacion de los problemas y fixear.
     * Cap. introduccion: alguien que solo lee el cap. 1, se queda con una buena idea de lo que se hizo en la tesis?
-    * Revisar el \cref{} con respecto a figures que son secciones y ecuaciones que tengan su name que diga "Equation". Fijarse de pasar todos los `$$` a un equation environment estilo `\begin{equation}`
+    * [REVIEWING] Revisar el \cref{} con respecto a figures que aparecen con el tag de Secciones y con ecuaciones que tengan su name que diga "Equation". Fijarse de pasar todos los `$$` a un equation environment estilo `\begin{equation}`.
     * Storty telling un poco.
 
 
 ## Meeting 16/08
     * Cambiar las figuras 4.4.3 y 4.4.4 que usan data foranea y reemplazar alguna de ellas con una instancia de un problema nuestro.
-    * Revisar todas las figuras y especificar de que problemas vienen estos resultados.
+    * [DONE] Revisar todas las figuras y especificar de que problemas vienen estos resultados.
     * Sacarle jugo a los resultados.
     * Presentar algo mas en los numeros concretos y como esos son los resultados. Que aprendi del dataset, que hay para contar del dataset.
-    * Contar mas como se relacionan con los mapas que introducimos en los capitulos anteriores.
     * Bajar a tierra los resultados de problemas 1 a 4 en los clasificadores con como esto se relaciona con los mapas.
     * Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion.
 
