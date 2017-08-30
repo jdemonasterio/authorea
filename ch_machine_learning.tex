@@ -322,12 +322,11 @@ In our example, a reduced problem instance would be to determine if a user belon
 This brings us to a binary classification problem since there are two possible output classes.
 
 As a simple solution to predict the target variable, we could build a learner $f$ from a transformed linear combination of the input features.
-n the ideal case we would have that for every sample
+In the ideal case we would have that for every sample
 \begin{equation}
-y \approx f(x) = h\left(\sum_{j}\theta^j x^j\right)
-\label{formula:1}
+y \approx f(x) = h\left(\sum_{j}\theta^j x^j\right)  \label{formula:1}
 \end{equation}
-where $\theta$ is unknown and generally referred to as the coefficient or parameter\footnote{In formula~\cref{formula:1} we have omitted the intercept parameter, generally noted as $\theta_0$.
+where $\theta$ is unknown and generally referred to as the coefficient or parameter\footnote{In ~\cref{formula:1} we have omitted the intercept parameter, generally noted as $\theta_0$.
 The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all its components equal to 1.}.
 Here the model is said to be \textit{linear} because it is linear in the input space $X$.
 
@@ -359,8 +358,9 @@ This would be analogous to maximizing the probability of a correct classificatio
 % \todo{fix formulas here, some are badly written/wrong.}
 
 For analytical convenience, a more tractable function for this task is the logistic, which is an approximation of the Heaviside step function:
-\begin{equation}\label{eq:logisticFunction}
+\begin{equation}
 \sigma(z) = \frac{e^{z}}{1 + e^{z}} = \frac{1}{1 + e^{-z}}
+\label{eq:logisticFunction}
 \end{equation}
 where we use the relation
 \begin{equation}
@@ -371,17 +371,19 @@ The logistic function has the advantage of being smooth, well defined for all re
 This property lends itself to reading outputs as probabilities of targets belonging to a certain class.
 
 Its derivative can be put in terms of the logistic function itself, where
-\begin{equation}\label{eq:derivativeLogisticFunction}
+\begin{equation}
 \sigma '(a) = \sigma(a)( 1 - \sigma(a) )
+\label{eq:derivativeLogisticFunction}
 \end{equation}
 
 It is also bijective, with the inverse given by the \textit{logit} function
-\begin{equation}\label{eq:logitFunction}
+\begin{equation}
 \sigma^{-1}(z) = \log \left( \frac{z}{1 - z} \right)
+\label{eq:logitFunction}
 \end{equation}
 
 For the scenario characterized in \cref{formula:1}, we would have to finally assign each output to a specific class.
-A common approach for this is to categorize each output whether $\hat{y} > 0.5$\label{formula:logitThreshold}.
+A common approach for this is to categorize each output whether $\hat{y} > 0.5$ \label{formula:logitThreshold}.
 Notice that having $h(x \cdot \theta) = 0.5$ implies that $x \cdot \theta = 0$ and thus our classifier is separating samples in feature space (the space of the inputs) with the hyper-plane defined by the parameter $\theta$.
 Having a higher $\hat{y}$ for a given sample implies that it is further away from the hyper-plane.
 The same goes for low estimated targets.
@@ -426,8 +428,9 @@ This equivalent form of the posterior distribution of one class with regards to 
 The second defining property of logistic regression is that the log-odds are modeled with a transformation on a linear combination of inputs.
 It also conditions the posterior probabilities must sum to one.
 Let $j$ be a fixed class and denote
-\begin{equation}\label{logit-logOddss}
+\begin{equation}
  \log \left( \frac{P(C_i|x)}{P(C_j|x)} \right) = \theta_{i0} + \theta_i^\intercal \cdot x
+ \label{logit-logOddss}
  \end{equation}
 for $i,j \in \{1,2,\ldots,K\}, i\neq j$.
 
@@ -448,8 +451,9 @@ Y_i \mid X_i \ \sim & \operatorname{Bernoulli}(p_i) \\
 
 
 The probability function of the target given the features $\Pr(Y_i=y\mid X_i)$ is given by
-\begin{equation}\label{logit-probabilityDensity}
+\begin{equation}
 \Pr(Y_i=y \mid X_i = x_i) = p_i \ I(y=0) + (1-p_i) \ I(y=1) = p_i^{y} {(1-p_i)}^{(1-y)}
+\label{logit-probabilityDensity}
 \end{equation}
 where this depends on the class dependence of $y$.
 
@@ -457,8 +461,9 @@ Here the logit function is utilized to map log odds into conditional probabiliti
 
 This is why we are specifying a model where the target is a linear function of the inputs, corrected by an error term.
 Our model will then be characterized by:
-\begin{equation}\label{logit-indicatorFunction}
+\begin{equation}
 Y_i = I(\theta_0 + \theta \cdot X_i + \epsilon > \frac{1}{2}) \ \forall i
+\label{logit-indicatorFunction}
 \end{equation}
 where $\epsilon$ is the error of the approximation and is distributed with the standard logistic distribution.
 %and \dfrac{num}{den}parameter $p_i$.
@@ -490,8 +495,9 @@ P(Y =y \mid \theta ) = \prod_{i=1}^N {P(y_1 \in C_1 \mid x_i, \theta)}^{y_i} {(1
 
 If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ and the logistic function's derivative form \cref{eq:logitFunction}, then the estimation of $\theta$ for $N$ samples gives the following form
 loss function
-\begin{equation}\label{eq:logLossFunction}
+\begin{equation}
 l(\theta) = \sum_{i=1}^N \big(y_i \log(P(y_i \mid x_i,\theta)) + (1-y_i)\log(1 - P(y_i \mid x_i,\theta) ) \big)
+\label{eq:logLossFunction}
 \end{equation}
 
 In Machine Learning this is called the log loss function.
@@ -535,12 +541,14 @@ So this can be taken into advantage during the optimization procedure, which wil
 Finally, the closed form given by the logistic regression model has the benefit that explicit forms can be given for the gradient and the Hessian of the loss function with regard to the whole dataset $X$ as a sum involving individual samples $x$.
 
 The negative gradient can be expressed in the following way: %can thus be analytically expressed
-\begin{equation}\label{eq:logitHessian1}
+\begin{equation}
 - \nabla l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))\cdot x_i = \textbf{X}^{\intercal}(\textbf{y}-\textbf{p})
+\label{eq:logitHessian1}
 \end{equation}
 whilst the Hessian takes the following form:
-\begin{equation}\label{eq:logitHessian2}
+\begin{equation}
 \frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
+\label{eq:logitHessian2}
 \end{equation}
 
 From the derivations above, we can now fit $\theta$ using an optimization procedure that would take advantage of having the closed-form representations of the first and second derivatives of the loss function.
@@ -578,11 +586,12 @@ For some specific algorithms though, closed-form solutions can be used, even wit
 However for the former case, gradient descent is by far the most widely practiced routine.
 
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
-\begin{equation}\label{eq:logitRegularization}
+\begin{equation}
 \begin{split}
 \min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
 \min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
 \end{split}
+\label{eq:logitRegularization}
 \end{equation}
 
 %\min_{\theta} & \sum_{i=1}^N L(f(X_i,\theta),Y_i)  + \lambda\| \theta\|_{2}^2 \\
@@ -658,9 +667,10 @@ This function was favored over other functions because it is more analytically t
 When working with a linear regression with Gaussian residuals, minimizing the residual sum of squares is equal to maximizing the likelihood probability of the target, given the input data.
 This results in minimizing the following sum (RSS):
 %Typical of other scenarios such as linear regression, one would like
-\begin{equation}\label{eq:rss}
+\begin{equation}
 RSS(\theta_0,..,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
 = \sum_{i=1}^n  {[y_i - h( \theta \cdot x_i)] }^2
+\label{eq:rss}
 \end{equation}
 
 The equation reflects our goal to correctly match a training sample with their targets (also known as labels).
