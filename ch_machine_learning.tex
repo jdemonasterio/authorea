@@ -508,8 +508,11 @@ They define the evaluation space of the learner.
 The loss function of a model $l: \mathbb{R}^{ p} \rightarrow  \mathbb{R} $ maps the model's parameters to quantify a model\'s error when using parameter $\theta$.
 \end{definition}
 
-In all cases, the loss function will define the underlying optimization procedure behind the algorithmic procedure.
-From this function we will output the optimum $\theta*$ as the $\argmin_{\theta} l(\theta) $.
+In all cases, the loss function will define the underlying optimization procedure behind the algorithmic procedure. 
+By comparing for each sample the target predictions versus their actual values, loss functions give a measure of how strong classifiers are with respect to their predictions.
+These can be described as semi metrics on the target space i.e.\ functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
+
+Loss functions are used to find the optimum $\theta*$ as the $\argmin_{\theta} l(\theta) $.
 Thus we say that loss or scoring functions give us a way to find the best parameters for our model.
 
 Note however, that the optimum parameter will be dependent on the choice of the algorithm used to construct the model.
