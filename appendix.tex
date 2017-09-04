@@ -58,5 +58,198 @@ With this formulation, we can take any optimization procedure that benefits from
 
 \section{Extension of bias and variance to other loss functions}\label{appx:sec:biasVarianceExtensionLoss}
 
-adsfas
+The work in~\cite{james-biasVarianceGeneral} defines what properties should be displayed by the bias and variance of an estimator in the general case.
 
+For this, they define the systematic value of a random variable with respect to a loss function.
+
+
+\begin{definition}{Systematic Value:}
+Given a training set $\mathcal{T}$, a loss function $L(\cdot)$ and a random variable $Z$, the systematic value or systematic component of this variable is
+$$ SZ =  \argmin_u \Expect_{Z} \left[ L(u,Z) \right]$$
+\end{definition}
+
+The systematic value is the nearest constant value to the random variable, with the measure as given by the loss function.
+In this definition we are implicitly assuming that the necessary finiteness conditions of the expectation of the loss function with the random variable exist.
+
+The systematic value for the input and target varialbe then the same way as with the squared loss function in \cref{eq:rss}, where the expectation is over the target's distribution.
+
+For the general setting, the author argues that the bias should be the measure of the systematic difference in which a random variable differs from a particular target value and it should also be the measure of how much this systematic difference contributes to the error.
+
+On the other hand the variance of an estimator should measure the spread of the estimator around its systematic component and it should also capture be the effect this variability has on the prediction.
+In this sense, the author defines the variance and bias of the learner to be:
+
+\begin{equation}
+\begin{split}
+& {Bias(\hat{f})}^2 = L(S\hat{f},SY) \\
+& Var(\hat{f}) = \Expect_{\hat{f}} \left[ L(\hat{f} , S\hat{f}) \right]
+\end{split}
+\end{equation}
+
+With these definitions we have that the variance is an operator defined only for the estimator and which is null only when the predictor is a constant value for any training set.
+As such, it is unchanged by new data.
+The bias on the other hand is an operator built from the systemic values of $Y$ and $\hat{f}$ and is null only if both of these are equal.
+
+The generalized bias-variance decomposition now takes the following form, where the bias and variance of the squared loss are replaced with more general properties such as the variance effect and the systematic effect:
+
+\begin{equation}
+\begin{split}
+\Expect_{X,Y} \left[ L(\hat{f}(X),Y )\right] = & \Expect_{Y} \left[ L(SY,Y )\right] + \\
+ & \Expect_{Y} \left[ L(S\hat{f}(X),Y ) - L(SY,Y )\right] + \\
+ & \Expect_{Y,X} \left[ L(\hat{f}(X),Y ) - L(S\hat{f}(X),Y )\right]
+\end{split}
+\end{equation}
+
+Note that the first term is equal to the variability of the target variable with respect to its systematic value, the second term is the systematic effect.
+That is, the expected bias between the systematic values of $Y$ and $\hat{f}(X)$.
+The last term is the variance effect which is the expected variability between $Y$ and $\hat{f}(X)$.
+% $\Expect_{Y} \left[ L(SY,Y )\right]$
+
+%\begin{equation}\label{squaredBiasDecomposition}
+%PE( \hat{f} ) = \Expect_X \left[  f(X) - \hat{f}(X) \right]^2 + \Expect_X \left[ \hat{f}(X)^2 %\right] - \Expect_X \left[ \hat{f}(X) \right]^2 + \sigma^2
+%= Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
+%\end{equation}
+%One is that it represents the systematic difference between a random
+%variable and a particular value, e.g. the target, and the other is the degree to which a random variable systematically aligns over a particular value.
+%to which that difference in value contributes to error.
+
+For the case of supervised classifiers, loss functions are also called \textit{metrics} and they originate from \textit{Type I \& Type II} errors common in statistics but have different meanings in this context.
+There are a number of variations for classification metrics.
+The suitability of each will always depend on the problem, since they differ on what type of prediction errors are more valuable to minimize.
+
+With the definition above, the systematic and variance values then become
+\begin{equation}
+	\begin{split}
+	SY = & \argmax_{1\leq i \leq K} P(Y=i) \\
+	S\hat{f}(X) = &\argmax_{1\leq i \leq K} P(\hat{f}(X)=i) \\
+	Var(Y) = &1 - P(Y=SY) \\
+	Var(\hat{f}(X)) =& 1 - P(Y = S\hat{f}(X)) \\
+	\end{split}
+\end{equation}
+
+
+With the above, we have that the decomposition of the prediction error among variance, systematic and variance effect becomes
+\begin{equation}
+Var(Y) + P(Y=SY) - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)
+\end{equation}
+	 which again relies heavily on the variability of the target and on how well the classifier approximates the labels.
+
+%S\hat{f}(X)
+
+%Let
+Summarizing all of the above we have that the classification prediction error will be as
+\begin{equation}
+EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right] =
+\Expect_X\left[ \sum_{k=1}^{K} I(Y _K\neq \hat{f}(X)) P(Y_k|X) \right]
+\end{equation}\label{eq:classificationEPE}
+
+
+\section{Vapnik-Chervonenkis (VC) Dimension }\label{appx:sec:vcDimension}
+
+The next results will be focused on a binary supervised machine learning setting.
+Yet the extension to other forms of supervised learning can be found in \textcite{cherkassky-learning2007}.
+
+
+To start off, we need to define what we mean by the shattering coefficient of a functional space.
+
+\begin{definition}{Shattering}
+
+Let $\mathcal {A}= \{A_1,A_{2},\dots \}$ be a set family and $T$ a finite set.
+Let $t \subseteq T$, it is said that $\mathcal {A}$ picks out $t$ if there exists $A' \subseteq \mathcal {A} $ such that $ T \cap A' = t$.
+$T$ is said to be shattered by $\mathcal {A}$ if it picks out all its subsets.
+
+%The VC dimension of $\mathcal {A}$ is the biggest cardinality of a set shattered by $\mathcal {A}$.
+
+\end{definition}
+
+The n-th shattering coefficient $\Delta_n$ of a class $\mathcal {A}$ is defined to be the maximum number of subsets of $n$ elements picked out by the class.
+
+If, for each training set $\mathcal {T}$ of size $n$, we consider a learned function from our set of classifiers:
+We can think of each classifier acting as an indicator function on the inputs $\{ x_1,x_2,\ldots,x_n \}$.
+The \textit{diversity} of this set of classifiers intuitively represents all the different ways in which the input sample can be partitioned by the classifiers.
+
+We would say that $t$ is picked out by $\Theta$ if there exists a classifier $f_{\theta} \in \Theta$ such that $T = f_{\theta}^{-1}(\{1\})$.
+In this way, the classifiers in $\Theta$ define a unique mapping to the class of sets where each classifier is positive.
+Taking this into account, it is said that $\mathcal {F}$ shatters a set $A$ if all its subsets are picked out by the class of functions.
+
+We will now reproduce the main necessary and sufficient conditions to have uniform consistency in predictive error approximation of our defined class of loss functions.
+These are needed to provide the explicit bounds for the exponential convergence of this error.
+The benefit of these bounds are that they are built and can be calculated for a number of known classifiers such as linear regressors and support vector machines.
+%More so, these bounds depend \textbf{only} on the structure of the approximators rather than the true distribution of the data.
+
+
+\begin{definition}{Vapnik-Chervonenkis (VC) Dimension}
+
+The Vapnik-Chervonenkis Dimension (VC) of a class of binary functions is the cardinality of the largest set which is shattered by $\mathcal {F}$.
+\end{definition}
+
+Note that by definition this means that there needs only to exist one set shattered by $\mathcal {A}$, to have the VC dimension at least as big as that set's cardinality.
+
+With this dimension, we can give a certain criteria for measuring the complexity of a class of binary functions by evaluating its expressiveness.
+Note however that it need not be finite.
+
+As a simple example, one could use a linear regression of $d$ features
+\begin{equation}
+g_{\theta} = \sum_{i=1}^d x_i \theta_i + \theta_0
+\end{equation}
+
+ as a classifier if we consider the indicator function of the positive half-plane induced by the regression:
+
+\begin{equation}
+f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)
+\end{equation}
+
+This class of approximating functions can shatter up to $d+1$ samples, but no bigger sample.
+Thus the VC dimension is exactly $d+1$.
+The proof relies can be given on induction on the number of dimensions. 
+Still we omit it and refer the reader to the bibliography \textcite{cherkassky-learning2007} Pg.
+113 for the details. 
+Other examples are given, both for finite and infinite VC classes.
+
+%if a class of binary classifiers is of finite VC dimension, accurate bounds can be given to estimate train and predictive errors.
+
+SLT proves that for classes which have a finite VC dimension $h$, the n-th shattering coefficient is bounded by a polynomial of order equal to the dimension
+i.e.\ $\Delta_n(\mathcal {F}) \leq O(n^{h})$,\footnote{$O(\cdot)$ corresponds to Big-O notation.}.
+
+%For a sample of size $n$, take $Err^n_{train}(\theta^*)$ to be the minimum training error and $EPE(\theta_0)$ the minimum true predictive error.
+ %% EZECORRECTION: citar a algun lado que la den sobre esto.
+ %% EZECORRECTION: explicar mejor la relacion entre eta, que es algo que se elije, y n para la cota + grado de confianza que vos necesitas para saber cual es el intervalo de confianza, etc.
+
+Also, if we have a uniformly bounded class of risk functions such as 
+
+\begin{equation}
+Q(t,\theta) \leq A,  \ \forall t \in \mathcal {T}, \theta in \Theta
+\end{equation}
+
+we can then define $\eta \in (0,1)$ to have that with probability at least $1 - \eta$ and $\forall \theta \in \Theta$
+
+\begin{equation}
+EPE(\theta) \leq Err^n_{train}(\theta) + \frac{A \epsilon}{2} \left(1 + \sqrt{1 + \frac{4 Err^n_{train}(\theta) }{A \epsilon}} \right)
+\end{equation}\label{eq:vapnik-classificationBound}
+
+, and when the approximating class $F$ is infinite of size $N$:
+
+\begin{equation}
+\epsilon = a_1 \frac{h \left( \ln(\frac{a_2 n}{h} ) - \ln(\frac{\eta}{4} ) \right)}{n}
+\end{equation}\label{eq:vapnik-epsilonBound}
+
+or
+
+\begin{equation}
+\epsilon = 2 \frac{ \ln(d) - \ln(\eta)}{n}
+\end{equation}\label{eq:vapnik-epsilonBoundSimple}
+
+when $F$ is finite and consists of $d$ elements.
+
+In the preceding equations, the values of constants $a_1$ and $a_2$ are related to the nature of the density function $p(t)$ of the data.
+However, its values are proven to be uniformly bounded for all distributions, with $a_1 \in {\left(0,4 \right] }$ and $a2 \in {\left(0,2 \right]}$.
+
+As a last result, the authors show that a more precise bound can be given for the function that minimizes the empirical risk $Err^n_{train}(\theta^*)$.
+They show that with probability $1 - 2\eta$
+
+\begin{equation}
+Err^n_{train}(\theta^*) - EPE(\theta_0) \leq A \sqrt{\frac{-\ln(\eta)}{2n} } + \frac{A \epsilon}{2}\left( 1+ \sqrt{1 + \frac{4}{\epsilon} } \right)
+\end{equation}\label{eq:vapnik-classificationBoundPrecise}
+
+These results prove that effective approximations of the prediction error can be given for most algorithms of finite VC dimensions.
+They also give a distinct characterization of how model complexity is related to the prediction error estimation.
+All of them are explained in detail in \textcite{vapnik-nature2000}, Ch. 3. 
