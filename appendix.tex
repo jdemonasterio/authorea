@@ -217,7 +217,7 @@ i.e.\ $\Delta_n(\mathcal {F}) \leq O(n^{h})$,\footnote{$O(\cdot)$ corresponds to
 Also, if we have a uniformly bounded class of risk functions such as 
 
 \begin{equation}
-Q(t,\theta) \leq A,  \ \forall t \in \mathcal {T}, \theta in \Theta
+Q(t,\theta) \leq A,  \ \forall t \in \mathcal {T}, \theta \in \Theta
 \end{equation}
 
 we can then define $\eta \in (0,1)$ to have that with probability at least $1 - \eta$ and $\forall \theta \in \Theta$
@@ -226,19 +226,20 @@ we can then define $\eta \in (0,1)$ to have that with probability at least $1 - 
 EPE(\theta) \leq Err^n_{train}(\theta) + \frac{A \epsilon}{2} \left(1 + \sqrt{1 + \frac{4 Err^n_{train}(\theta) }{A \epsilon}} \right)
 \end{equation}\label{eq:vapnik-classificationBound}
 
-, and when the approximating class $F$ is infinite of size $N$:
+
 
 \begin{equation}
 \epsilon = a_1 \frac{h \left( \ln(\frac{a_2 n}{h} ) - \ln(\frac{\eta}{4} ) \right)}{n}
 \end{equation}\label{eq:vapnik-epsilonBound}
 
-or
+, and when the approximating class $F$ is finite of size $d$:
 
 \begin{equation}
 \epsilon = 2 \frac{ \ln(d) - \ln(\eta)}{n}
 \end{equation}\label{eq:vapnik-epsilonBoundSimple}
 
-when $F$ is finite and consists of $d$ elements.
+
+which is a simpler relation for $\epsilon$.
 
 In the preceding equations, the values of constants $a_1$ and $a_2$ are related to the nature of the density function $p(t)$ of the data.
 However, its values are proven to be uniformly bounded for all distributions, with $a_1 \in {\left(0,4 \right] }$ and $a2 \in {\left(0,2 \right]}$.
