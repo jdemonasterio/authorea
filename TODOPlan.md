@@ -5,8 +5,8 @@
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`
 
 ## Meeting 23/08
-    * Recortar teoria y pasar a un apendice. Todos los detours respecto del problema nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
-    * Ninguna figura de afuera (o contadas excepciones). Que sean con datos propios directamente.
+    * [IN DOING] Recortar teoria y pasar a un apendice. Todos los detours respecto del problema nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
+    * [DONE] Ninguna figura de afuera (o contadas excepciones). Que sean con datos propios directamente.
     * Meter una introduccion de c/capitulo para ordenar bien el hilo de la tesis.
     * Documentar las cosas que vas probando y lo que te va pasando.
     * [DONE] Revisar notacion de los problemas y fixear.
@@ -16,11 +16,10 @@
 
 
 ## Meeting 16/08
-    * Cambiar las figuras 4.4.3 y 4.4.4 que usan data foranea y reemplazar alguna de ellas con una instancia de un problema nuestro.
+    * [DONE] Cambiar las figuras 4.4.3 y 4.4.4 que usan data foranea y reemplazar alguna de ellas con una instancia de un problema nuestro.
     * [DONE] Revisar todas las figuras y especificar de que problemas vienen estos resultados.
-    * Sacarle jugo a los resultados.
-    * Presentar algo mas en los numeros concretos y como esos son los resultados. Que aprendi del dataset, que hay para contar del dataset.
-    * Bajar a tierra los resultados de problemas 1 a 4 en los clasificadores con como esto se relaciona con los mapas.
+    * Sacarle jugo a los resultados. Presentar algo mas en los numeros concretos y como esos son los resultados. Que aprendi del dataset, que hay para contar del dataset.
+    * [DONE] Bajar a tierra los resultados de problemas 1 a 4 en los clasificadores con como esto se relaciona con los mapas.
     * Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion.
 
 ## Meeting 12/07
