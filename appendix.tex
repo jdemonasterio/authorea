@@ -254,3 +254,37 @@ Err^n_{train}(\theta^*) - EPE(\theta_0) \leq A \sqrt{\frac{-\ln(\eta)}{2n} } + \
 These results prove that effective approximations of the prediction error can be given for most algorithms of finite VC dimensions.
 They also give a distinct characterization of how model complexity is related to the prediction error estimation.
 All of them are explained in detail in \textcite{vapnik-nature2000}, Ch. 3. 
+
+
+
+\section{Choice of \texorpdfstring{$K$ parameter}{Lg} }\label{appx:sec:optimalKfoldNumber}
+
+In synthetic and actual dataset~\textcite{hastie-elemstatslearn} P.
+243, have found that using a \textit{higher} value of $K$, relative to the size of the dataset, means having a bigger training fold since each left-out partition is only $\frac{N}{K}$ in size.
+The results show models with good bias but high variance, which is in conformity with the small size of the validation set.
+Note that having a higher value for $K$ will effect to a higher computational burden since $K$ estimators need to be fitted.
+
+Having a lower $K$ value means using a smaller training set.
+Then it is common to find models with lower variance and higher bias.
+Empirical results suggest that to show that the $EPE$ is overestimated.
+This is because having less available data to fit the model, implies having worse estimates from asymptotic results.
+
+One last common choice for $K$ is $N-1$.
+This scenario is known as \textit{leave-one-out CV} and is a very used format for problems where data arrives sequentially over time.
+Here, samples of the training set $t_i = ( \boldsymbol{x_i} , \boldsymbol{y_i} )$ are accessible only in an orderly fashion.
+For these cases model evaluations are made against the new sample and the training set is updated with every arrival.\footnote{Note that here we must assume samples to be \textit{exchangeable}.
+	This means that the training set distribution is not altered by a permutation of samples $F(x_1,\ldots,x_n ) = F(x_\sigma{1},\ldots,x_\sigma{n})$ for any random permutation $\sigma$.}
+
+A valuable survey and explanation of the drawbacks of the $K$-Fold CV estimator can be found in \textcite{bengio-unbiasedCvEstimator}.
+The authors prove that there is no distribution-free estimator unbiased estimator of the $K$-Fold cross validation estimator's variance.
+The theoretical arguments focus on the idea that error correlations between the training and validation sets are not taken into account by the CV procedure.
+These correlations are known and understood for the general case, but their estimation is not possible.
+As a consequence of this, comparison between different possible models are hindered.
+
+Empirical examples are built from synthetic datasets to show the shortcomings of the cross validation's algorithm which might show high deviations from its central value.
+Some exceptions appear though, specifically where distribution-free bounds can be found for a class of approximating functions.
+But these cases are specific only for this class.
+In general, these bounds are not known, so using an unknown deviation of the CV estimator will affect the evaluation of different models.
+
+Consensus\footnote{\textcite{hastie-elemstatslearn} P.
+	260} is that in general CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
