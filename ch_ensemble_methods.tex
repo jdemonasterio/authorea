@@ -173,16 +173,25 @@ In this case the \cref{target2} was used as an example.
 The tree was built using a standard configuration with a low depth of 5 and a Gini splitting criteria.
 All features $X^j$ are available to be chosen at each split and a node has to have at least 20 samples to be split again. The algorithm ran in approximately 15 seconds.
 
-\todo{fix decision tree horizontal, whole page, h! appearance}
 
-\smallskip
+\bigskip
 
-\begin{figure*}[tb]
-\centering
- \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map.png}}
-\caption{ Example of a final decision tree. This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. For every node, the samples are split into sets given by the implicit indicator function defined in the condition.}
-\label{fig:decision_tree_actual_problem}
-\end{figure*}
+
+\begin{sidewaysfigure}
+	\centering
+	\makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map.png}}
+	\caption{ Example of a final decision tree. This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. For every node, the samples are split into sets given by the implicit indicator function defined in the condition.}
+	\label{fig:decision_tree_actual_problem}
+\end{sidewaysfigure}
+
+
+
+%\begin{figure*}[tb]
+%\centering
+% \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map.png}}
+%\caption{ Example of a final decision tree. This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. For every node, the samples are split into sets given by the implicit indicator function defined in the condition.}
+%\label{fig:decision_tree_actual_problem}
+%\end{figure*}
 
 \smallskip
 
@@ -203,14 +212,15 @@ Still, this is considered a poor model for supervised learning.
 
 The figure for this model is shown below.
 
-\smallskip
+\bigskip
 
-\begin{figure*}[tb]
-\centering
- \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/decision_tree/full_tree_map2.png}}
-\caption{ Second example of a decision tree. This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset. The resulting tree has been pruned to fit the image.}
-\label{fig:decision_tree_actual_problem2}
-\end{figure*}
+\begin{sidewaysfigure}
+	\centering
+	\makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map2.png}}
+	\caption{ Second example of a decision tree. This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset. The resulting tree has been pruned to fit the image.}
+	\label{fig:decision_tree_actual_problem2}
+\end{sidewaysfigure}
+
 
 \smallskip
 
