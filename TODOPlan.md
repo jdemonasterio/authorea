@@ -4,6 +4,10 @@
     * Figures appearing in sub/sections different from where they are spawned.
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`
 
+## Meeting 13/09
+    * En general, agrandar figures y dejarlas en su propio environment.
+    * Agregar runtime a la tabla.
+
 ## Meeting 23/08
     * [IN DOING] Recortar teoria y pasar a un apendice. Todos los detours respecto del problema nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
     * [DONE] Ninguna figura de afuera (o contadas excepciones). Que sean con datos propios directamente.
