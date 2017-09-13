@@ -653,8 +653,8 @@ The following figures are example ROC curves for two of the problems defined fro
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{figures/figure-lowROCAUC/figure-lowROCAUC_original}
-\caption{Example of a ROC curve from a Decision Tree classifier used on \cref{target1}. A 8-fold CV procedure is fit and then the best learner's performance is evaluated on $\mathcal{T_s}$ which gives score of $0.76$.}
+\includegraphics[width=1.2\columnwidth]{figures/figure-lowROCAUC/figure-lowROCAUC_original}
+\caption{Example of a ROC curve from a Decision Tree classifier used on \cref{target2}. A 8-fold CV procedure is fit and then the best learner's performance is evaluated on $\mathcal{T_s}$ which gives score of $0.53$. This model was specifically grown to overfit the dataset by growing a tree of 12 levels.}
 \label{fg:lowROCAUC}
 \end{center}
 \end{figure}
@@ -723,15 +723,16 @@ To further explore this, we looked at their CV mean scores for each hyperparamet
  This can be an indication that the $l1$ experiment required less iterations to fit and find an optimum.
 
 
+\todo{Add each into own figures.}
 \begin{figure}
 \centering
 \begin{minipage}{.5\textwidth}
 %  \centering
-  \includegraphics[width=.8\linewidth]{figures/cross_validation/logreg_cv_regularization_l1_rocauc_series}
+  \includegraphics[width=1.2\linewidth]{figures/cross_validation/logreg_cv_regularization_l1_rocauc_series}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
 %  \centering
-  \includegraphics[width=.8\linewidth]{figures/cross_validation/logreg_cv_regularization_l2_rocauc_series}
+  \includegraphics[width=1.2\linewidth]{figures/cross_validation/logreg_cv_regularization_l2_rocauc_series}
   \end{minipage}
 \caption{Series of CV mean average scores for the ``ROC AUC'' metric where the $l1$ regularization method on a logistic classifier was tested, varying along the $C$ hyperparameter.
 The \cref{target1} is tackled here.}\label{fig:rocauc_logreg_cv_regularized_comparison}
