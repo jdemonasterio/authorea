@@ -3,15 +3,14 @@
 
 \section{Classifier: Decision Trees}\label{section:decision_trees}
 
-%view of this supervised learner used in regression and classification problems.
 
 % The models builds a
-Decision trees are such as in the graph theoretical sense where each node acts as a rule to which any input sample can comply or not. The rules are built as linear (or similar) partitions of input space and they are built on the value of a given feature
+Decision trees are models that can be understood as a tree-like graph, where each node in the tree acts as a binary rule to which any input sample can comply or not. The rules are built as linear (or similar) partitions of input space and they act on the value of a single given feature.
 %properties of the values for each feature.
 
-At any given node the model takes a decision to include or exclude a sample $s$ from that partition by checking if $X_i(s) \in U$ where $X_i$ might be any given feature of the data and $U$ is a subset of said feature's space.
+At any node, the model creates a binary partition of the data by evaluating a sample $s$ in the rule. This decision forwards it to one of the possible output sets by checking if $X_i(s) \in U$ where $X_i$ is the feature used in the node's rule and $U$ is a subset of said feature's space.
 
-For numerical features, the input space $X$ will be partitioned into $L$ and $R$ where $L$ of the form $(-\infty,c]$. The value $c \in \mathbb{R}$ is any given number predefined by the rule itself. In the same way, for categorical features $L$ will be a subset of the possible values of that feature.
+For numerical features, the input space $X$ will be partitioned into $L$ and $R$ where $L$ of the form $(-\infty,c]$. The value $c \in \mathbb{R}$ is a number predefined by the rule itself. In the same way, for categorical features $L$ will be a subset of the possible categories of that feature.
 
 Altogether, a tree defines a partition of feature space in disjoint regions $A_1,\ldots,A_K$ such that the tree's predicted output $\hat{y}$ for a sample $x$ is $c_k$ if the sample belongs to $A_k$. Here $c_k$ is one of the possible values taken by the target variable $y$ in the training set. And by the way trees were built, each $A_k$ is a hyper-rectangles in feature space.
 
