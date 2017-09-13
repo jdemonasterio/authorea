@@ -837,9 +837,12 @@ Yet it gives better overall performance on the CV error, when the model is corre
 
 \subsection{Gradient Tree Boosting}
 
-\todo{Add reference to Friedman paper in "Friedman-gradientBoosting2001"}
+As explained before, the boosting method builds a high model learned from other \textit{weaker} learners. In the case of \textit{gradient tree boosting}, decision trees serve as base learners. 
 
-As explained before, the boosting method builds a high model learned from other \textit{weaker} learners. In the case of \textit{gradient tree boosting}, decision trees serve as base learners. If $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
+This type of boosting algorithm was first introduced by Friedman, J. in \cref{friedman-gradientBoosting2001}. Full details of this model can be found in that work.
+
+
+To start off, if $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
 
 \begin{equation}
 \hat{y}^{(m)}= \sum_t^m \gamma_t h_t(x) , \ h_t \in Tr \ \forall t \in {0,\ldots,K}
