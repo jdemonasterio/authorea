@@ -288,3 +288,39 @@ In general, these bounds are not known, so using an unknown deviation of the CV 
 
 Consensus\footnote{\textcite{hastie-elemstatslearn} P.
 	260} is that in general CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
+
+
+
+\chapter{Ensemble Methods \& Naive Bayes Classifier}\label{appx:ensembleBayes}
+
+\section{Tree Pruning}\label{appx:sec:tree_pruning}
+
+Let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$. Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,\ldots,|T| \}$.
+
+Given a loss function, and a problem with $K$ possible target classes, we can define the following values:
+\begin{equation}
+\begin{split}
+N_j & = \mid \{x \in R_j \}\mid \\
+\hat{p}_{jk} & = \frac{1}{N_j} \sum_{x \in R_j} I(y=k)\\
+c_j & = argmax_{k} \ \hat{p}_{jk} \\
+\end{split}
+\end{equation}\label{eq:decisionTreePruneParameters}
+
+As we have mentioned before, at each split we use the node impurity measure to quantify this action. Here, we will denote $Q_j(T)$ to be the impurity measure for region $j$. 
+With this we will have an impurity measure for each region $R_j$ and the algorithm will then aggregate all of them into a single measure called the \textit{cost complexity criterion}. The idea is that this loss function, as a function of a tree, will control the whole optimization procedure through the tree's parameters. The criterion will be managed to control the final model's bias and variance. We define it in the following way
+
+\begin{equation}
+C_\alpha(T) = \sum_{j=1}^{|T|} N_j Q_j(T) + \alpha|T|
+\end{equation}\label{eq:decisionTreeCostComplexity}
+
+
+Here $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that values the trade-off between the tree complexity, as given by its depth, and the accuracy of the model as given by the measure we proposed in \cref{decisionTreeCostFunctions}. The idea is that given an $\alpha$ we find the subtree $T_{alpha} \subset T_0$ that minimizes \cref{eq:decisionTreeCostComplexity}.
+
+There are various methods we could use to find the optimal subtree. As an example, here we give an example of the \textit{weakest link pruning} algorithm which goes as follows:
+%must \textit{prune} the initially grown tree
+
+Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added.~\cite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees built for this. This sequence is constructed by iteratively pruning the node $j$ that, when removed from the tree, creates the smallest increase in $B(T)$.
+
+
+In this way, we'll have a sequence of trees $T_0,T_1,\ldots,T_l$ and a sequence of nodes $j_0, j_1,\ldots,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),\ldots,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
+
