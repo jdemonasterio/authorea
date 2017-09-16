@@ -1,9 +1,5 @@
 # TODO PLAN
 
-## In general:
-    * Figures appearing in sub/sections different from where they are spawned.
-    * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`
-
 ## Meeting 13/09
     * En general, agrandar figures y dejarlas en su propio environment.
     * Agregar runtime a la tabla.
@@ -120,3 +116,6 @@
                                         sframes, graphlab, spark mllib,
                                         theano, tensor flow, xgboost)
 
+## In general:
+    * Figures appearing in sub/sections different from where they are spawned.
+    * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`
