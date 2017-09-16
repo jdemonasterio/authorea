@@ -255,7 +255,7 @@ Here the test and training errors are given as a function of the tree\'s depth:
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
+\includegraphics[width=1.2\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
 \caption{ Training and cross-validated mean score functions along the change in max tree depth.
 For \cref{target2}, one model is fit for each tree depth value on both the training and cross validation sets.
 Both score series are compared side by side, with their corresponding standard deviation band for the CV folds.}
@@ -494,7 +494,7 @@ It is important to note that all test scores were performed on models built only
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{figures/cross_validation/train_and_cv_score_comparison_logreg.jpg}
+\includegraphics[width=1.2\columnwidth]{figures/cross_validation/train_and_cv_score_comparison_logreg.jpg}
 \caption{ Comparison of 12-fold cross validated and test average errors for \cref{target2}.   $1-NLL$ scores are shown for each value of the regularization parameter $C$. Standard deviation bands on the $K$ fold errors are added to the CV series.}
 \label{fig:cv_vs_test_score}
 \end{center}
@@ -673,7 +673,7 @@ The difference in the two scores is notable and corresponds entirely to the prob
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=0.7\columnwidth]{figures/figure-highROCAUC/figure-highROCAUC}
+\includegraphics[width=1.2\columnwidth]{figures/figure-highROCAUC/figure-highROCAUC}
 \caption{Example of a ROC curve from a Decision Tree classifier used on \cref{target1}. A 8-fold CV procedure is fit and then the best learner's performance is evaluated on $\mathcal{T_s}$ which gives score of $0.76$.}
 \label{fg:highROCAUC}
 \end{center}
@@ -714,28 +714,33 @@ $l1$ & 1e-5 & 0.81 & 0.76 & 15892.9 \\
 
 Another interesting result is that in both experiments, the best CV scores were achieved for highly regularized models.
 To further explore this, we looked at their CV mean scores for each hyperparameter setting.
-\cref{fig:rocauc_logreg_cv_regularized_comparison} shows the series comparison.
+\cref{fig:rocauc_logreg_cv_l1_regularized_comparison, rocauc_logreg_cv_l2_regularized_comparison} shows both series to compare.
  
  From these it is clear that both models improve the more regularized they become.
  The full extent to which this regularization would keep improving the score is not explored because both experiments' $C$ parameter had a minimum at $10^{-5}$ which corresponds to the highest score for both.
- Also, there is a difference in the stability of the fitting, where the scores are more noisy for the $l2$ regularization at high $C$ values.
+ Also, there is a difference in the stability of the fitting, where the scores are more noisy for the $l2$ regularization at high $C$ values as can be seen in \cref{rocauc_logreg_cv_l2_regularized_comparison}.
+
  On the other hand, the $l1$ regularization has a more stable performance across $C$.
  This can be an indication that the $l1$ experiment required less iterations to fit and find an optimum.
 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=0.7\linewidth]{figures/cross_validation/logreg_cv_regularization_l1_rocauc_series}
+		\caption{Series of CV mean average scores for the ``ROC AUC'' metric where the $l1$ regularization method on a logistic classifier was tested, varying along the $C$ hyperparameter. 
+			Here the \cref{target1} is tackled.}
+		\label{fig:rocauc_logreg_cv_l1_regularized_comparison}
+	\end{center}
+\end{figure}
 
-\todo{Add each into own figures.}
-\begin{figure}
-\centering
-\begin{minipage}{.5\textwidth}
-%  \centering
-  \includegraphics[width=1.2\linewidth]{figures/cross_validation/logreg_cv_regularization_l1_rocauc_series}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-%  \centering
-  \includegraphics[width=1.2\linewidth]{figures/cross_validation/logreg_cv_regularization_l2_rocauc_series}
-  \end{minipage}
-\caption{Series of CV mean average scores for the ``ROC AUC'' metric where the $l1$ regularization method on a logistic classifier was tested, varying along the $C$ hyperparameter.
-The \cref{target1} is tackled here.}\label{fig:rocauc_logreg_cv_regularized_comparison}
+
+
+\begin{figure}[h!]
+	\begin{center}
+		 \includegraphics[width=0.7\linewidth]{figures/cross_validation/logreg_cv_regularization_l2_rocauc_series}
+		\caption{Series of CV mean average scores for the ``ROC AUC'' metric where the $l2$ regularization method on a logistic classifier was tested, varying along the $C$ hyperparameter. 
+			Here the \cref{target1} is tackled.}
+		\label{fig:rocauc_logreg_cv_l2_regularized_comparison}
+	\end{center}
 \end{figure}
 
 
