@@ -324,3 +324,39 @@ Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complex
 
 In this way, we'll have a sequence of trees $T_0,T_1,\ldots,T_l$ and a sequence of nodes $j_0, j_1,\ldots,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),\ldots,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
+\section{Random Forests' Margin Function Convergence}\label{appx:sec:rforest_margin_function_convergence}
+
+
+\subsection{Proof}
+The proof follows from seeing that given a training set, a tree $\Theta$ and a class $j$ then
+\begin{equation}
+\forall \textbf{x}  \ P_\Theta(h(\theta,\textbf{x}) = j) \ = \
+\lim_{L\to\infty} \frac{1}{L} \sum_{l=1}^K I(h_l(\textbf{x}) = j) \
+\end{equation}
+
+almost surely.
+
+This is because if we consider the nature of the tree, we see that the set $\{\textbf{x} / h_l(\textbf{x}, \Theta) = j \}$ is built as a union of hyper-rectangles partitioning feature space.
+And given the finite size of the training set, there can be but a finite set of these unions of hyper-rectangles for all the input data.
+Let $S_1, \ldots, S_M$ be an indexation of these unions and define $\phi(\Theta) = m $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_m$.
+
+We denote by $L_m$ the number of times that $\phi(\Theta_l) =m $, where $l \in {1,\ldots,L}$ and $L$ is the total number of trees in this forest.
+
+It is immediate that
+
+\begin{equation}
+\frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x},\Theta) = j) \ = \ \frac{1}{L} \sum_{m=1}^M L_m I(\textbf{x} \in S_m)
+\end{equation}\label{eq:rf-PEconvergence1}
+
+and that following the law of large numbers, there is a convergence almost everywhere of
+\begin{equation}\label{rf-PEconvergence2}
+\frac{L_m}{L} = \frac{1}{L} \sum_{l=1}^L I(\phi(\Theta_l) = m) \xrightarrow[L \to \infty]{}  P_{\Theta}(\phi(\Theta)= m).
+\end{equation}
+
+If we let $C = $ $\bigcup\limits_{m=1}^{M} C_{m}$ where each $C_m$ are zero-measured sets representing the points where the sequence is not converging.
+If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will finally have that outside of $C$,
+
+\begin{equation}
+\frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} \sum_m^M  P_{\Theta}(\phi(\Theta)= m) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)
+\end{equation}
+
