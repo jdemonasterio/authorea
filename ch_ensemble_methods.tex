@@ -24,8 +24,9 @@ And by the way trees were built, each $A_k$ is a hyper-rectangle in feature spac
 \subsection{Decision Trees Formulation}\label{subsection:decision_trees_formulation}
 In short, the learner can be characterized by the following formula:
 \begin{equation}
+\label{eq:decisionTreeModel}
 h(X) = \sum_{k=1}^K c_k I(X \in A_k)
-\end{equation}\label{eq:decisionTreeModel}
+\end{equation}
 
 where $c_k$ is the value that our model estimates for samples in the $A_k$ region. 
 Both of these will have to be learned by the model in the optimization procedure. %by minimizing its loss function
@@ -51,10 +52,11 @@ Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$
 %\frac{1}{N_{right}}
 
 \begin{equation}
+\label{eq:decisionTreeGreedyOptimization}
 %\begin{split}
 \min_{p,t} \big[ \min_{c_L }  \frac{1}{N_l}\sum_{x \in A_L(p,t) } L(y,c_L)    \ +  \min_{c_R}  \frac{1}{N_r}\sum_{x \in A_R(p,t) } L(y,c_R) \big]
 %\end{split}
-\end{equation}\label{eq:decisionTreeGreedyOptimization}
+\end{equation}
 
 where $y$ is the target associated to our sample $x$ and $L(\cdot)$ is the loss function we have used to measure the quality of our split. 
 Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently.
@@ -69,13 +71,14 @@ To illustrate this method, an instance is show in \cref{fg:rf-treeFigure}.
 This classification tree example is built for the two class problem of gender prediction using data from CDRs:
 %[.{\textit{Woman}}]
 \smallskip
-\begin{figure}[h]\label{fg:rf-treeFigure}
+\begin{figure}[h]
 \Tree[.{ $Calling\_Volume \leq 23$ } [.{$Province \in \{ San Luis, Chubut \} $} [.{$Time\_Weekend \geq 16$} [.{\textit{M}} ] [.{\textit{F}} ] ]
 [.{$Calls\_Weekdays \leq 48$}
 [.{ $Time\_Weekday \geq 17$} [.{\textit{M}} ] [.{\textit{F}} ]] [.{\textit{F}} ] ] ]
 [.{$Calls\_Mondays \geq 2$} [.{$Province \in \{ Chubut, Cordoba \} $} [.{\textit{M}} ] [.{\textit{F}} ] ]
 [.{\textit{M}} ]]]
-\label{Classification tree example built for a toy gender prediction problem, using CDR available data.}
+\caption{Classification tree example built for a toy gender prediction problem, using CDR available data.}
+\label{fg:rf-treeFigure}
 \end{figure}
 
 \smallskip
@@ -113,13 +116,14 @@ For the binary (two class) case these measures can be expressed in simpler terms
 If we consider $p$ to be the probability of success, then we have
 
 \begin{itemize}
-\item Misclassification binary error: $1 - \\max(p, 1-p)$
+\item Misclassification binary error: $1 - max(p, 1-p)$ \label{it:decisionTreeCostFunctions}
 \item Gini binary index: $ 2p(1-p) $
 \item Binary cross-entropy: $ -\log(p)p - \log(1- p)(1-p) $
-\end{itemize}\label{decisionTreeCostFunctions}
+\end{itemize}
+
+
 
 \subsection{Hyperparameters}\label{subsection:decision_trees_hyperparameters}
-
 
 For the decision tree model, the process of iteratively partitioning the samples in splits continues until a predefined tuning parameter stops the optimization or when the node is pure i.e.\ there is only a single target class for all samples at the node.
 
@@ -256,9 +260,10 @@ Let $\{ h_k(\textbf{x}) \}_{i=1}^K$\footnote{There is an abuse of notation by no
 Define the margin function as
 
 \begin{equation}
+\label{eq:rf-marginFun}
 mg(\textbf{x},\textbf{y}) = \frac{1}{K}  \sum_{k=1}^K I(h_k(\textbf{x}) = \textbf{y})
 - \max_{j\neq \textbf{y}}\left(\frac{1}{K} \sum_{k=1}^K I(h_k(\textbf{x}) = j) \right)
-\end{equation}\label{eq:rf-marginFun}
+\end{equation}
 
 
 The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes.
@@ -794,7 +799,7 @@ During run-time weights are constantly shifting towards misclassified samples.
 Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data.
 
 
-\subsection{ Comparison to Random Forests}\label{subsection:boosting_comparison_forest}
+\subsection{ Experimental comparison to Random Forests}\label{subsection:boosting_comparison_forest}
 
 In order to compare this learner to Random Forests, we ran the same setup as in \cref{subsection:random_forests_comparison_trees}
 with two experiments each varying a different hyperparameter.
@@ -907,9 +912,10 @@ Note that finding the best partition of feature space is a non-trivial optimizat
 
 For the high model, the objective function would account for the relationships among the trees and we would have that
 
-\begin{equation}
+\begin{equation}\label{eq:boosting-objfunction}
 Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i) + \sum_t R(f_t)
-\end{equation}\label{eq:boositing-objfunction}\footnote{In the formula \cref{eq:boositing-objfunction} }
+\end{equation}
+%\footnote{In the formula \cref{eq:boosting-objfunction} }
 
 At this level $\Theta$ is a parameter encoding all of the base trees' model information. 
 For each base tree $f_t$, $\theta_t$ is the parameter associated to it. 
@@ -962,7 +968,7 @@ h_i = & \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial {(\hat{y}^{t-1}_i)}^2
 \end{split}
 \end{equation}
 
-Still, the equation \cref{eq:gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. 
+Still, the \cref{eq:gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. 
 This also means replacing the actual tree's predictions for each sample as $\theta_{q(x_i)}$, where $q(\cdot): X \rightarrow leaf$ is the function that maps samples to the tree's leaves. Then,
 
 %for that tree's evaluation.
@@ -1122,7 +1128,8 @@ This outcome is presented in \cref{tab:boosting_big_experiment_best_features}, w
 
 \begin{table}[ht]
     \centering
-    \caption{A representation of the top features that resulted from the Gradient Boosting procedure on two experiments of  \cref{target4}. }\label{tab:boosting_big_experiment_best_features}
+    \caption{A representation of the top features that resulted from the Gradient Boosting procedure on two experiments of  \cref{target4}. }
+    \label{tab:boosting_big_experiment_best_features}
     \resizebox{\textwidth}{!}{%
         \begin{tabular}{@{}llll@{}}
             \toprule
@@ -1168,7 +1175,7 @@ Top features are related to the vulnerability and to the users mobility
 
 
 
-\section{Classifier: Naive Bayes}
+\section{Benchmark Classifier: Naive Bayes}\label{sec:naive_bayes}
 
 The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features. 
 Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems. 
@@ -1184,8 +1191,9 @@ We take $p(C_k \mid x)$ to be the class posterior probability of this class give
 In \cref{ch:machineLearning}
 we have used
 \begin{equation}
+\label{eq:posteriorProbabilties}
 p(C_k| x) = \frac{P(x|C_k)P(C_k)}{P(x)}
-\end{equation}\label{eq:equation-posteriorProbabilties}
+\end{equation}
 
 
 and argued that if our data is given, then our model can only improve the posterior probability by optimizing $P(x|C_k)P(C_k)$ which is just the joint probability of the sample and the class.
@@ -1193,23 +1201,23 @@ and argued that if our data is given, then our model can only improve the poster
 Here we can approximate the posterior as
 
 \begin{equation}
+\label{eq:posteriorProbabilityDecomposition1}
 P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
-\end{equation}\label{eq:posteriorProbabilityDecomposition1}
+\end{equation}
 
 
 We now impose a strong independence assumption among features, given the target class, to let the conditional probability factors become the probability of each feature. %This assumption is what gives the model its
 
 This yields a posterior probability which depends only on the prior probability and on the individual likelihood of each feature.
 
-\begin{equation}
+\begin{equation}\label{eq:posteriorProbabilityDecomposition2}
 P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
-\end{equation}\label{eq:posteriorProbabilityDecomposition2}
-
+\end{equation}
 As we have said before, the parameters of the model can only reweigh the likelihood factors, so if we look to maximize the posterior probability, our final estimate of the posterior will take the following form.
 
-\begin{equation}
+\begin{equation}\label{eq:posteriorProbabilityDecomposition3}
 P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
-\end{equation}\label{equation-posteriorProbabilityDecomposition3}
+\end{equation}
 
 where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
 
