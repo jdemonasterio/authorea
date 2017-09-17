@@ -203,11 +203,11 @@ So to tackle most of the disadvantages described by this technique, \textit{Rand
 
 \section{ Random Forests}\label{section:random_forests}
 
-Random Forests are estimators that extend from constructing a number of single decision trees and then combining them to produce a single output variable in what is called an \textit{ensemble}.
+Random Forests are estimators that extend from constructing a group of single decision trees and then combining them to produce a single output decision. This grouping of lots of classifieres is what is known as an \textit{ensemble}.
 The objective in this construction is to focus on decision tree\'s low bias whilst controlling their overfit as much as possible.
-The main idea behind this is that a forest of single trees will be constructed in such a way that correlations among each of the individual models is limited as much as possible.
-The concept behind this is that each individual model will learn on a random subset of features or samples and then, an average of the single outputs will be used as the forest's target output.
-In practice, there are other variants used to construct uncorrelated trees and then combine them, but the main idea still applies.
+For this, a forest of single trees will be constructed in such a way that correlations among each of the individual models is limited as much as possible.
+And this is because each individual model will learn on a random subset of features or samples and then, an average of the single outputs will be used as the forest's target output to preserve single estimator's interdependence as much as possible.
+There  are other different techniques that intent to construct uncorrelated trees which are combined at the output, yet the main idea is common to all.
 
 \subsection{ Random Forests Formulation}\label{subsection:random_forests_formulation}
 
