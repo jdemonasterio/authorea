@@ -212,14 +212,15 @@ There  are other different techniques that intent to construct uncorrelated tree
 \subsection{ Random Forests Formulation}\label{subsection:random_forests_formulation}
 
 Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the parameters for the $k$-th tree.
-As we have mentioned before, there are various variants to the model and these variants will define the type encoding of the $\Theta_k$ parameters.
-For this part, we will not specify the type of ensemble constructed since the following proofs apply to all of them.
+As we have mentioned before, there are various variants to the model and these variants will define the type of encoding for the $\Theta_k, k \in {1,\cdots,K}$  parameters.
+For the following part, we will not specify the overall type of ensemble constructed since the  proofs are general to all of them.
 
-We denote $h(\textbf{x},\Theta_k)$ to be the corresponding classifier and $N$ the number of samples in the training set.
-The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution but independently of the previous parameters $\Theta_1, \ \ldots, \ \Theta_{k-1}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
+To start, we define  
+$$h(\textbf{x},\Theta_k)$$ will be the corresponding individual classifier and we let $N$ be the number of samples in the training set $\mathcal{T}$.
+The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution as $\Theta_j, \ j<k$, yet it is built in a way that is independent of the previous parameters $\{\Theta_1, \ \ldots, \ \Theta_{k-1} \}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
 
-Let ${h_k(\textbf{x}) }_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x})$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I(\cdot)$ denote the indicator function.
+Let $\{ h_k(\textbf{x}) \}_{i=1}^K$\footnote{There is an abuse of notation by noting trees as $h_k(\textbf{x})$ and not $h(\textbf{x}, \Theta_k)$ } be a set of classifying trees and let $I(\cdot)$ denote the indicator function.
 Define the margin function as
 
 \begin{equation}
@@ -241,40 +242,8 @@ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
  P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{y}) - \max_{j \neq \textbf{y}} P_{\Theta} (h(\textbf{x}, \Theta) = j) < 0)
  \end{equation}
 
-almost surely for all sequences of parameters $\Theta_1, \ldots, \Theta_k,\ldots$
-
-\subsection{Proof}
-The proof follows from seeing that given a training set, a tree $\Theta$ and a class $j$ then
-\begin{equation}
-\forall \textbf{x}  \ P_\Theta(h(\theta,\textbf{x}) = j) \ = \
-\lim_{L\to\infty} \frac{1}{L} \sum_{l=1}^K I(h_l(\textbf{x}) = j) \
-\end{equation}
-
-almost surely.
-
-This is because if we consider the nature of the tree, we see that the set $\{\textbf{x} / h_l(\textbf{x}, \Theta) = j \}$ is built as a union of hyper-rectangles partitioning feature space.
-And given the finite size of the training set, there can be but a finite set of these unions of hyper-rectangles for all the input data.
-Let $S_1, \ldots, S_M$ be an indexation of these unions and define $\phi(\Theta) = m $ if $\{\textbf{x} / h(\textbf{x}, \Theta) = j \} = S_m$.
-
-We denote by $L_m$ the number of times that $\phi(\Theta_l) =m $, where $l \in {1,\ldots,L}$ and $L$ is the total number of trees in this forest.
-
-It is immediate that
-
-\begin{equation}
-\frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x},\Theta) = j) \ = \ \frac{1}{L} \sum_{m=1}^M L_m I(\textbf{x} \in S_m)
-\end{equation}\label{eq:rf-PEconvergence1}
-
-and that following the law of large numbers, there is a convergence almost everywhere of
-\begin{equation}\label{rf-PEconvergence2}
-\frac{L_m}{L} = \frac{1}{L} \sum_{l=1}^L I(\phi(\Theta_l) = m) \xrightarrow[L \to \infty]{}  P_{\Theta}(\phi(\Theta)= m).
-\end{equation}
-
-If we let $C = $ $\bigcup\limits_{m=1}^{M} C_{m}$ where each $C_m$ are zero-measured sets representing the points where the sequence is not converging.
-If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will finally have that outside of $C$,
-
-\begin{equation}
- \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} \sum_m^M  P_{\Theta}(\phi(\Theta)= m) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)
- \end{equation}
+almost surely for all sequences of parameters $\Theta_1,\Theta_2, \ldots, \Theta_k,\ldots$
+The proof of this can be found in \cref{appx:sec:rforest_margin_function_convergence}.
 
 
 \subsection{ Comparison to Decision Trees}\label{subsection:random_forests_comparison_trees}
