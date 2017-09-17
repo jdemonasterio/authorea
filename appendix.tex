@@ -360,8 +360,84 @@ If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will 
 \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} \sum_m^M  P_{\Theta}(\phi(\Theta)= m) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)
 \end{equation}
 
+\section{Gradient Boosting heuristic optimization}\label{appx:sec:boosting_optimization_heuristic}
 
+The first take on this optimization problem goes using a greedy optimization routine. 
+One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
+
+Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Theta)$ be the objective function and $\hat{y}^t$ be the target variable respectively. 
+Then the $i$-eth target's value at each step would iterate in the following way:
+
+\begin{equation}\label{eq:gb-targetSteps}
+\begin{split}
+\hat{y}_i^0 = & 0 \\
+\ldots \\
+\hat{y}_i^t = &\sum_{k=1}^{t} f_k(x_i) = \hat{y}^{t-1}_i + f_t(x_i)
+\end{split}
+\end{equation}
+%\sum_{i=0}^{\infty} a_i x_i
+where each tree is added in such a way that we are minimizing
+
+\begin{equation}
+Obj^t(\theta) = \sum_i^n L(y_i, \hat{y}^{t-1}_i + f_t(x_i) ) + c(t) + R(f)
+\end{equation}
+
+
+Note that we have included here a regularization term (see section \cref{section-hyperParametersRegularization}) $R$ on all of the weak learners. 
+For most cases, this term will be in the form of a Tikhonov regularization. 
+This will add another complexity tuning parameter to control the length of the overall procedure $c(t)$ which is variable only in $t$.
+
+If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
+
+\begin{equation}\label{eq:gradientBoostingTaylor}
+Obj^t(\theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i,\theta_t) + \frac{1}{2} h_i {f_t(x_i,\theta_t)}^2 } + R(f(\Theta)) + c(t)
+\end{equation}
+
+Here $g_i$ and $h_i$ are first and second order approximations of the loss function with,
+
+\begin{equation}
+\begin{split}
+g_i = & \frac{\partial L(y_i, \hat{y}^{t-1}_i)}{\partial \hat{y}^{t-1}_i},  \\
+h_i = & \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial {(\hat{y}^{t-1}_i)}^2 }
+\end{split}
+\end{equation}
+
+Still, the \cref{eq:gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. 
+This also means replacing the actual tree's predictions for each sample as $\theta_{q(x_i)}$, where $q(\cdot): X \rightarrow leaf$ is the function that maps samples to the tree's leaves. Then,
+
+%for that tree's evaluation.
+
+\begin{equation}\label{eq:gb-objSteps1}
+Obj^t(\theta) \approx \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
+\end{equation}
+
+As an example, we have already replaced the regularization terms $c(t)$ and $R(f)$ with penalties on the size of the ensemble and with an $l$2 penalty on the weight of each individual leaf.
+
+If we rearrange the equation above we get
+
+\begin{equation}\label{eq:gb-objSteps2}
+\begin{split}
+Obj^t(\theta) \approx & \sum_{j=1}^{t-1} \left( \sum_{i \in \{q(x_i)=j\}} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \theta_{j}^2 \right) + \gamma ({t-1}) \\
+\approx & \sum_{j=1}^{t-1} \left( \theta_{j}\sum_{i \in \{q(x_i)=j\}} (g_i ) + \frac{\theta_{j}^2}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \right) + \gamma ({t-1})
+\end{split}
+\end{equation}
+
+which, as a function of $\theta$ is a quadratic equation if we assume $\gamma$ to be fixed. 
+This results in a convenient and closed-form analytical formulation to select the value at step $t$. 
+In this sense, a greedy direct optimization approach, such as gradient descent, can be used to find the tree $f_t(\theta)$ minimizing the previous expression.
+
+As we have stated before the approach assumes that we have met enough smoothness conditions on the loss function with respect to the prediction variable and that these values are actually computable. 
+This is why smooth loss functions play an important part here in providing a feasible method.
+
+%\begin{equation}
+
+%Obj^t(\Theta) \approx \sum_i^n { g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
+%\end{equation}
+
+%This equation form results in a direct method for a greedy optimization approach. We will have to search for the tree $f_t$ that minimizes \\
+%$\sum_i^n { g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step.
 
 
 
 %\section{Foo }\label{Bar}
+

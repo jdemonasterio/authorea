@@ -248,7 +248,7 @@ There  are other different techniques that intent to construct uncorrelated tree
 \subsection{ Random Forests Formulation}\label{subsection:random_forests_formulation}
 
 Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the parameters for the $k$-th tree.
-As we have mentioned before, there are various variants to the model and these variants will define the type of encoding for the $\Theta_k, k \in {1,\cdots,K}$  parameters.
+As we have mentioned before, there are various variants to the model and these variants will define the type of encoding for the $\Theta_k, k \in {1,\ldots,K}$  parameters.
 For the following part, we will not specify the overall type of ensemble constructed since the  proofs are general to all of them.
 
 To start, we define  
@@ -867,171 +867,110 @@ Yet it gives better overall performance on the CV error, when the model is corre
 
 \subsection{Gradient Tree Boosting}
 
-As explained before, the boosting method builds a high model learned from other \textit{weaker} learners where decision trees are the most commonly used base models.
+As explained before, the boosting methods build an ensemble model learned from other \textit{weaker} learners where decision trees are the most commonly used base models.
 This is the same for \textit{gradient tree boosting}.
 
 This type of boosting algorithm was first introduced by Friedman, J., and the full details of the work can be found in Full details of this model can be found in \cref{friedman-gradientBoosting2001}. 
 
-To start off, if $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
+Using the same formulation as before, let $Tr$ be a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
 
 \begin{equation}
 \hat{y}^{(m)}= \sum_t^m \gamma_t h_t(x) , \ h_t \in Tr \ \forall t \in {0,\ldots,K}
 \end{equation}
 
-where $\gamma_t$ indexes the weight for each tree $h_t$ and $K$ is a hyper-parameter that represents the number of trees. 
-Each new base learner is added to the model
+where $\gamma_t$ indexes the weight for each tree $h_t$.
+
+At each step, a new base learner is added to the model through $\gamma_{m+1}$ and $h_{m+1}(\cdot)$:
 
 \begin{equation}
-\hat{y}^{(m+1)} =  \hat{y}^{(m)} + \gamma_m h_m(x)
+\hat{y}^{(m+1)} =  \hat{y}^{(m)} + \gamma_{m+1} h_{m+1}(x)
 \end{equation}
 
-and the latest base model is selected upon minimizing the misclassification rate of the full model in the previous step $m$, where a loss function previously selected is minimized to select the next best base learner:
+in such a way that the loss function previously is minimized by the next best base learner:
+
+\begin{equation}\label{eq:boosting_iterative_minimization}
+h_{m+1}(\cdot) = \underset{h_{m+1},\gamma_{m+1}}{\mathrm{argmin}}  \sum_{i=1}^{n} L ( y_i, \hat{y_i}^{(m)} - \gamma_{m+1} h_{m+1}(x_i) )
+\end{equation}
+
+
+If we treat the tree's weight $\gamma$ as part of the weak learners hyper parameters, we can absorb note each weak learner as $\theta^{m+1}_{q(x)} \forall m in \{1,2,\ldots,K \}$. 
+This notation follows the one used in $\cref{section:decision_trees}$
+
+where we represent a generic tree in the form of
 
 \begin{equation}
-h_m(\cdot) = \underset{h,\gamma}{\mathrm{argmin}}  \sum_{i=1}^{n} L ( y_i, \hat{y_i}^{(m-1)} - \gamma h(x_i) )
+\theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in R_j)
 \end{equation}
 
 
-For the moment, we include the tree's weight $\gamma$ as part of the weak learners in a single function $f_t(\cdot)$. 
-Therefore the model results in,
+%Therefore the model results in,
+%
+%\begin{equation}
+%y = \sum_k f_t(x) , \ f_t \in Tr \ \forall t \in {0,\ldots,K}
+%\end{equation}
 
+
+with $\theta_j \in \mathbb{R} \ \forall j = 1,\ldots,J$ and $ \cup_{j=1}^J R_j$ a feature space partition.
+ 
+The function 
 \begin{equation}
-y = \sum_k f_t(x) , \ f_t \in Tr \ \forall t \in {0,\ldots,K}
+q : X \mapsto \{1,\ldots,J\}
 \end{equation}
 
-where we represent a single tree with the form
+denotes the mapping from samples to regions in the partition.
+ 
+In summary, this notation sets 
+$${\{\theta_j, R_j\}}_{j=1}^J$$ 
+as the weak model's parameters and $J$ as a hyper-parameter. 
+We know that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is combinatorially hard.
 
-\begin{equation}
-f(x) = \theta_{q(x)} = \sum_{j=1}^J \theta_j I(x \in R_j)
-\end{equation}
-
-with $\theta_j \in \mathbb{R} \ \forall j = 1,\ldots,J$ and $ \cup_{j=1}^J R_j$ a partition of feature space. 
-The function $q : X \mapsto \{1,\ldots,J\}$ denotes the mapping from samples to regions. 
-In summary, ${\{\theta_j, R_j\}}_{j=1}^J$ are the weak model's parameters and $J$ is a hyper-parameter. 
-Note that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is a combinatorial feat.
-
-For the high model, the objective function would account for the relationships among the trees and we would have that
+For the full model, the objective function would account for the relationships among the trees and we would have that
 
 \begin{equation}\label{eq:boosting-objfunction}
-Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i) + \sum_t R(f_t)
+Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i) + \sum_t^K R(\theta^m_{q(x)})
 \end{equation}
 %\footnote{In the formula \cref{eq:boosting-objfunction} }
 
-At this level $\Theta$ is a parameter encoding all of the base trees' model information. 
-For each base tree $f_t$, $\theta_t$ is the parameter associated to it. 
-This means that $\Theta = \bigcup_{t \in {0,\ldots,K}} \theta_t \cup \theta_0$. 
-The parameter $\Theta_0$ is not associated to any tree but reserved to characterize the tree ensemble.
+At the outer level view of the model,$\Theta$ is a parameter encoding all of the base trees' model information. 
+For each base tree $\theta^m$ is the parameter associated to it and $R{\cdot}$ is a regulating function on the trees's complexity.
+
+This means that 
+
+$$\Theta = \bigcup_{m \in {0,\ldots,K}} \theta^m \cup \theta_0$$
+ 
+The parameter $\Theta$ is not associated to any tree but reserved to characterize the whole ensemble.
 
 If an optimization routine were to collectively fit all the parameters in $\Theta$ to learn this model, we would have a very computational complex model. 
 In practice this would result in an prohibitive cost. 
-Instead, we rely on optimization heuristics.
-
-\subsubsection{Additive Optimization of the}
-
-As usual, the first take on this optimization problem goes using a greedy optimization routine. 
-One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
-
-Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Theta)$ be the objective function and $\hat{y}^t$ be the target variable respectively. 
-Then the $i$-eth target's value at each step would iterate in the following way:
-
-\begin{equation}\label{eq:gb-targetSteps}
-\begin{split}
-\hat{y}_i^0 = & 0 \\
-\ldots \\
-\hat{y}_i^t = &\sum_{k=1}^{t} f_k(x_i) = \hat{y}^{t-1}_i + f_t(x_i)
-\end{split}
-\end{equation}
-%\sum_{i=0}^{\infty} a_i x_i
-where each tree is added in such a way that we are minimizing
-
-\begin{equation}
-Obj^t(\theta) = \sum_i^n L(y_i, \hat{y}^{t-1}_i + f_t(x_i) ) + c(t) + R(f)
-\end{equation}
+Instead, we rely on optimization heuristics which rely on first and second order approximations of the loss function at step $m$ to build on the next tree $m+1$. 
+Smooth loss functions are then fundamental for this procedure to work such as in the adaboost formulation.
+The \textit{boosting} optimization heuristic is explained in detail in \cref{appx:sec:boosting_optimization_heuristic}.
 
 
-Note that we have included here a regularization term (see section \cref{section-hyperParametersRegularization}) $R$ on all of the weak learners. 
-For most cases, this term will be in the form of a Tikhonov regularization. 
-This will add another complexity tuning parameter to control the length of the overall procedure $c(t)$ which is variable only in $t$.
-
-If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
-
-\begin{equation}\label{eq:gradientBoostingTaylor}
-Obj^t(\theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i,\theta_t) + \frac{1}{2} h_i {f_t(x_i,\theta_t)}^2 } + R(f(\Theta)) + c(t)
-\end{equation}
-
-Here $g_i$ and $h_i$ are first and second order approximations of the loss function with,
-
-\begin{equation}
-\begin{split}
-g_i = & \frac{\partial L(y_i, \hat{y}^{t-1}_i)}{\partial \hat{y}^{t-1}_i},  \\
-h_i = & \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial {(\hat{y}^{t-1}_i)}^2 }
-\end{split}
-\end{equation}
-
-Still, the \cref{eq:gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. 
-This also means replacing the actual tree's predictions for each sample as $\theta_{q(x_i)}$, where $q(\cdot): X \rightarrow leaf$ is the function that maps samples to the tree's leaves. Then,
-
-%for that tree's evaluation.
-
-\begin{equation}\label{eq:gb-objSteps1}
-Obj^t(\theta) \approx \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
-\end{equation}
-
-As an example, we have already replaced the regularization terms $c(t)$ and $R(f)$ with penalties on the size of the ensemble and with an $l$2 penalty on the weight of each individual leaf.
-
-If we rearrange the equation above we get
-
-\begin{equation}\label{eq:gb-objSteps2}
-\begin{split}
-Obj^t(\theta) \approx & \sum_{j=1}^{t-1} \left( \sum_{i \in \{q(x_i)=j\}} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \theta_{j}^2 \right) + \gamma ({t-1}) \\
-\approx & \sum_{j=1}^{t-1} \left( \theta_{j}\sum_{i \in \{q(x_i)=j\}} (g_i ) + \frac{\theta_{j}^2}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \right) + \gamma ({t-1})
-\end{split}
-\end{equation}
-
-which, as a function of $\theta$ is a quadratic equation if we assume $\gamma$ to be fixed. 
-This results in a convenient and closed-form analytical formulation to select the value at step $t$. 
-In this sense, a greedy direct optimization approach, such as gradient descent, can be used to find the tree $f_t(\theta)$ minimizing the previous expression.
-
-As we have stated before the approach assumes that we have met enough smoothness conditions on the loss function with respect to the prediction variable
-%$ \forall i \in {1\ldotsn}, \forall t \in {1..K}, \exists g_i(\hat{y}^{t}_i), h_i(\hat{y}^{t}_i) $
-and that these values are actually computable. 
-This is why smooth loss functions play an important part here in providing a feasible method.
-
-%\begin{equation}
-
-%Obj^t(\Theta) \approx \sum_i^n { g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + Obj_{t-1}(\Theta) + R(f_t) - R(f_{t-1})
-%\end{equation}
-
-%This equation form results in a direct method for a greedy optimization approach. We will have to search for the tree $f_t$ that minimizes \\
-%$\sum_i^n { g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step.
-
-
-As a concluding remark on boosting algorithms, there are two additional heuristics used to improve the generalization performance of boosting algorithms. 
+As a concluding remark on boosting algorithms, there are two additional heuristics used to improve their generalization performance.
 The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive. 
 The authors in~\cite{hastie-elemstatslearn} and~\cite{bishop-patternRecognition} mention them because of their overall contribution to the generalization error.
 
 The first idea to reduce the overall variance of the algorithm is to subsample the data. 
 This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner. 
+Samples from $\mathcal{T}$ which are not part of the boostrapped sample are ignored when optimizing for the new learner at \cref{eq:boosting_iterative_minimization}.
+
 The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method. 
 In practice, the rate of sampling will be supervised by a tuning parameter in the model.
 
-The other heuristic is considered to be more important, at least experimentally by~\cite{hastie-elemstatslearn}. 
-This is done by successively applying a \textit{shrinkage} factor $v \in (0,1)$ to the new model. 
-At step $t$, instead of letting the overall model become $ \hat{y_i}^{(t)} = \hat{y_i}^{(t-1)} + \theta_t h_t(x_i) $, we multiply the shrinkage factor $v$ to these values before adding them to the overall model at step $t-1$. 
+The other heuristic, which was found to be more experimentally important by~\cite{hastie-elemstatslearn}, is to successively apply a \textit{shrinkage} factor $v \in (0,1)$ to the new model. 
+At step $m$, instead of letting the overall model be 
+
+\begin{equation} 
+\hat{y_i}^{(m)} = \hat{y_i}^{(m-1)} + \theta_m h_m(x_i)
+\end{equation}
+
+ we multiply the shrinkage factor $v$ to the new learners before adding them to the overall model. 
+
 In the literature this shrinkage factor is also called the \textit{learning rate} of the algorithm. 
-Note that $v$ is reducing the movement of the algorithm in the direction of optimization provided by $\theta_t$ and $h_t$. In practice, this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. However, when this factor is combined with sub sampling, it has been empirically shown to improve the overall generalization accuracy.
-
-
-%\textbf{TODO A desarrollar}
-%Python, sklearn, pandas, graphlab, etc
-%
-%Data process raw data by reading in chunks from huge files (compressed file sizes amount to 1TB), applying filters like modulus 10.
-%
-%On the nature of computational issues such as memory size, disk size, parallelization, multi-core, linear algebra routines.
-%
-%In general, algorithms will load all data in RAM and execute optimization routines. If K Folds is used, some implementations will run learning routines simultaneously in each fold group and keep the "best" scores at the end.
-%
-%Joblib, sklearn and Graphlab are all Python modules
+Note that $v$ is reducing the movement of the algorithm in the direction of optimization provided by $\theta_t$ and $h_t$. 
+In practice, this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. 
+However, when this factor is combined with sub sampling, experiments have shown improvements in the overall generalization accuracy.
 
 
 \subsection{Experiments}\label{subsection:boosting_experiments}
