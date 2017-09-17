@@ -58,7 +58,7 @@ Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$
 
 where $y$ is the target associated to our sample $x$ and $L(\cdot)$ is the loss function we have used to measure the quality of our split. 
 Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently.
-
+	
 A tree is then grown in an iterative way from the top down\footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each rule split. 
 All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, in accordance to their fulfillment or not of each node's rule. 
 A branch of the tree would stop growing once all samples at a node belong to the same target class.
@@ -276,10 +276,11 @@ P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
  \end{equation}
 
 almost surely for all sequences of parameters $\Theta_1,\Theta_2, \ldots, \Theta_k,\ldots$
+
 This proof can be found in \cref{appx:sec:rforest_margin_function_convergence}.
 
 
-\subsection{ Comparison to Decision Trees}\label{subsection:random_forests_comparison_trees}
+\subsection{ Experimental comparison to Decision Trees}\label{subsection:random_forests_comparison_trees}
 
 From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Tree model, we ran two experiment setups on a Random Forest learner for the simple task in \cref{target2}, using an $F1$ score. 
 This was a cross validation procedure of 10 folds for each configuration, where each experiment optimized the score on a different hyperparameter.
@@ -319,7 +320,7 @@ In this way, having a lower score in the graphic means a better model was reache
 
 Recall how this relates to \cref{figure:dtree_overfit_problem_2}, in which a tree's training error always improves as a result of an increase in the tree's depth.
 Yet the tree's prediction error at one point suffers and deteriorates.
-From what we can see in \cref{fig:f1_random_forest_validation_curves_depth_num_trees}, the cross validated error is always decreasing for increasing tree depth.
+From what we can see in \cref{fig:f1_random_forest_validation_curves_depth_trees}, the cross validated error is always decreasing for increasing tree depth.
 A very slight deceleration in the decrease of the cross validated error can be seen for tree depth bigger than 9.
 Yet the scores keeps improving and don't worsen.
 This is different to \cref{figure:dtree_overfit_problem_2} where if we let the tree grow deeper, at one point we only increase the performance of the training error.
@@ -477,20 +478,21 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
 
 \subsection{Other Notes on Random Forests}\label{subsection:random_forests_other_notes}
 
-One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias. 
+One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias.
+ 
 The model is also robust to the introduction of a number of noisy features. 
 If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features. 
 Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. 
 This is because it follows a hyper geometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
 
 The depth of growth for each tree is another important tuning parameter. 
-We must chose it correctly by assessing the model's performance across different values for $m$. 
+We must choose it correctly by assessing the model's performance across different values for $m$. 
 A deep tree will tend to overfit the data by partitioning input space to fit the training data. 
 This effect will counter the overall reduction in variance of the forest and thus increase the generalization error of our algorithm.
 
 %Therefore controlling the maximum allowed growth for the base learners will be important to improve the performance of the model.
 
-The algorithm also benefits from a heuristic to measure variable importance, where a special modification in the way forests are built allows this to happen.
+In addition, the algorithm benefits from a heuristic to measure variable importance, where a special modification in the way forests are built allows this to happen.
 The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it. 
 Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the improvement in the split performance, as measured by some loss function, with and without $X_j$.
 These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature.
