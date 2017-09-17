@@ -117,5 +117,6 @@
                                         theano, tensor flow, xgboost)
 
 ## In general:
-    * Figures appearing in sub/sections different from where they are spawned.
-    * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`
+    * [DONE] Figures appearing in sub/sections different from where they are spawned $\rightarrow $ just use `\begin{figure}[H]`.
+    * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
+    * Check bad `\cref` for appendix subsection references.
