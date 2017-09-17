@@ -140,7 +140,7 @@ All features $X^j$ are available to be chosen at each split and a node has to ha
 
 \bigskip
 
-\begin{sidewaysfigure}
+\begin{sidewaysfigure}[H]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map.png}}
 	\caption{ Example of a final decision tree. This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. For every node, the samples are split into sets given by the implicit indicator function defined in the condition.}
@@ -177,7 +177,7 @@ The figure for this model is shown below.
 
 \bigskip
 
-\begin{sidewaysfigure}
+\begin{sidewaysfigure}[H]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map2.png}}
 	\caption{ Second example of a decision tree. This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset. The resulting tree has been pruned to fit the image.}
@@ -289,25 +289,27 @@ In both, we set a balanced weighting of positive and negative samples in the los
 
 Cross validation procedures ran for 1412.8 and 2506.1 seconds respectively, and they both excluded attributes of the users which informed their home state and current endemic condition at $T_1$.
 
-The experiment's scores outcomes across their hyperparameter values were graphed in \cref{fig:f1_random_forest_validation_curves_depth_num_trees}.
+The experiment's scores outcomes across their hyperparameter values were graphed in \cref{fig:f1_random_forest_validation_curves_depth_trees,fig:f1_random_forest_validation_curves_num_trees}.
 The couple of cross-validated and training set scores where compared, where, for each hyperparameter value, the $1-F1$ score is shown.
 In this way, having a lower score in the graphic means a better model was reached.
 
-\todo{Figures in own environments.}
-\begin{figure}
-\centering
-\begin{minipage}{.5\textwidth}
-%  \centering
-  \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-%  \centering
-  \includegraphics[width=.8\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
-  \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Random Forest learner. The mean CV scores for the $1 - F1$ score is shown for \cref{target2} where the number and the depth of the trees of each model were our varied hyperparameters.}
-\label{fig:f1_random_forest_validation_curves_depth_num_trees}
+
+\begin{figure}[h!]
+	\begin{center}
+	 \includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
+		\caption{ Validation curve on the tree-depth hyperparameter values for the Random Forest  learner. The mean CV scores for the $1 - F1$ score is shown for a CV run experiment on \cref{target2}}
+		\label{fig:f1_random_forest_validation_curves_depth_trees}
+		
+	\end{center}
 \end{figure}
 
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
+			\caption{ Validation curve on the number of trees hyperparameter values, for the Random Forest  learner. The mean CV scores for the $1 - F1$ score is shown for a CV run experiment on \cref{target2}}
+		\label{f1_random_forest_validation_curves_num_trees}
+	\end{center}
+\end{figure}
 
 Recall how this relates to \cref{figure:dtree_overfit_problem_2}, in which a tree's training error always improves as a result of an increase in the tree's depth.
 Yet the tree's prediction error at one point suffers and deteriorates.
@@ -755,29 +757,29 @@ Additionally, we used the Gini index as the impurity measure in the splitting cr
 Cross validation procedures ran for 82150.8
  and 6076.3 seconds respectively and they both excluded attributes of the user's home state and their current endemic condition at $T_1$.
 
-The experiment's scores outcomes across their hyperparameter values were graphed in \cref{fig:f1_boosting_validation_curves_depth_num_trees}.
+The experiment's score outcomes across the different hyperparameter values were graphed in \cref{fig:f1_boosting_validation_curves_depth_trees,fig:f1_boosting_validation_curves_num_trees}.
 These compare the cross-validated and training set scores, where, for each hyperparameter value, the $1-F1$ score is graphed as a function of the hyperparameter's value.
 In this way, having a lower score in the graphic means a better model was reached.
 
-\todo{Figures in own environments.}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_depth_series_f1}
+		\caption{ Validation curve for the tree-depth hyperparameter of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown for a CV run experiment on \cref{target2}}
+		\label{fig:f1_boosting_validation_curves_depth_trees}
 
+	\end{center}
+\end{figure}
 
-\begin{figure}
-\centering
-\begin{minipage}{.5\textwidth}
-%  \centering
-  \includegraphics[width=.8\linewidth]{figures/gradient-boosting/validation_curve_boosting_depth_series_f1}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-%  \centering
-  \includegraphics[width=.8\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
-  \end{minipage}
-\caption{ Side comparison of validation curves for two hyperparameters of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown for \cref{target2}, where, again, the number and depth of the trees hyperparameters were tested in separate experiments.}
-\label{fig:f1_boosting_validation_curves_depth_num_trees}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1} 
+			\caption{ Validation curve for the number of trees hyperparameter of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown for a CV run experiment on \cref{target2}}
+			\label{fig:f1_boosting_validation_curves_num_trees}
+	\end{center}
 \end{figure}
 
 
-Recall how these outcomes compare to \cref{figure:dtree_overfit_problem_2} and \cref{fig:f1_random_forest_validation_curves_depth_num_trees},
+Recall how these outcomes compare to \cref{figure:dtree_overfit_problem_2} and \cref{fig:f1_random_forest_validation_curves_num_trees},
 in which a tree's training error always improves as a result of an increase in the tree's depth.
 
 Here, we see that the estimator is prone to overfitting when using a high $max depth$ value.
