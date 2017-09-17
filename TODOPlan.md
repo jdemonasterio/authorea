@@ -13,7 +13,7 @@
     * [DONE] Revisar notacion de los problemas y fixear.
     * Cap. introduccion: alguien que solo lee el cap. 1, se queda con una buena idea de lo que se hizo en la tesis?
     * [DONE] Revisar el \cref{} con respecto a figures que aparecen con el tag de Secciones y con ecuaciones que tengan su name que diga "Equation". Fijarse de pasar todos los `$$` a un equation environment estilo `\begin{equation}`.
-    * Storty telling un poco.
+    * Story telling un poco.
 
 
 ## Meeting 16/08
@@ -91,7 +91,7 @@
     * [DONE] add example of why it's important to do logReg regularization
     * [DONE] add graphic example of a real decision tree (with nodes, etc.)
             for a minor problem in our dataset.
-    * [Half Done] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
+    * [DON] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
     * [DONE] fix eze's recommendations on logReg part (minor fixes in equations).
     * [DONE] separate evaluation, problem, results and validation from intro.
 
@@ -106,7 +106,6 @@
     * [DONE] gradient boosting sobre los mejores features de random forest.
 
 
-
 # Maybe TODOs:
     ## Problem / Data Description Chapter
         - [DONE] On how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf
@@ -119,4 +118,4 @@
 ## In general:
     * [DONE] Figures appearing in sub/sections different from where they are spawned $\rightarrow $ just use `\begin{figure}[H]`.
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
-    * Check bad `\cref` for appendix subsection references.
+    * Check bad `\cref` references for appendix subsections.
