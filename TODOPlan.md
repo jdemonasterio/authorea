@@ -1,7 +1,7 @@
 # TODO PLAN
 
 ## Meeting 13/09
-    * En general, agrandar figures y dejarlas en su propio environment.
+    * [DONE] En general, agrandar figures y dejarlas en su propio environment.
     * Agregar runtime a la tabla.
     * [DONE] Fix roman numbers problem.
 
