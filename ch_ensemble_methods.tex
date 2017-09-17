@@ -651,20 +651,21 @@ But care must be taken to control the increase in variance.
 \subsection{Ada Boost}
 %~\cite{schapire-adaBoost}
 
-In the Ada Boost variation of ensembling, each iteration builds a new weak learner which is set to improve on the samples misclassified by the weak learner before, rather than building a new uncorrelated learner.
-Weights are used to rank the samples by importance, where a sample with higher misclassification rate will receive a stronger weight.
+In the Ada Boost variation of ensembles, each iteration builds a new weak learner which is set to improve on the samples misclassified by the previous ensemble of weak learners.
+The new learner will not be uncorrelated and this is an important distinction of this model. 
+Weights are used by the algorithm to rank the samples by misclassification importance: a sample with higher misclassification rate will receive a stronger weight.
 The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
 
-Tuning parameters in this algorithm are the same as those in the base learners. 
-In addition, the number of steps that the algorithm will \textit{boost} is a new hyperparameter.
+Tuning parameters in this algorithm are a superset of those used in the base learners. 
+As an addition, the number of steps \textit{boosting} the ensemble is added, among other new hyperparameters.
 
-The chained construction of weak learners has its implications in computational complexity. 
-Base learners are not constructed independently and as such, the parallelization of this algorithm is rarely possible. 
+This chained construction of weak learners has implications on the computational complexity of the optimization. 
+Base learners are not constructed independently and as such, the parallelization of this algorithm becomes limited. 
 At the same time, the sequential optimization of learners improving on the one before marks a \textit{greedy} minimization approach of the general loss function.
 
-These properties underline a substantial difference to Random Forests where base learners are built as uncorrelated as possible and where optimization can be performed globally, which allowed a significant parallelization of the algorithm.
+These properties underline a substantial difference to Random Forests where base learners are built as uncorrelated as possible and where optimization can be performed globally, which allowed for a significant runtime improvement by parallelizing the algorithm.
 
-\subsection{Ada Boost Formulation}\label{subsection:gradient_boosting_formulation}
+\subsection{Formulation}\label{subsection:adaboost_formulation}
 
 Let
 \begin{equation}\label{eq:adaBoostTrainingError}
@@ -681,13 +682,14 @@ We also take
 to be the expected error rate of the model on the true, unknown distribution of the data.
 
 Let $m$ index the iteration number in the Ada Boost algorithm. 
-Set $w^{(m)}_i$ to be the $i$-th sample's weight. 
-We will initialize this variable to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. 
-Let $h(x,\theta)$ denote our model's weak learner. 
-With this notation, we assume the function to have a domain in the input feature space and in the parameters defining the learner. 
-Naturally these will depend on the problem structure and on the base learner. 
-Then Ada Boost's model takes the following form:
+Set $w^{(m)}_i$ to be the $i$-th sample's weight at this iteration. 
+We will initialize $w$ to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. 
 
+Let $h(x,\theta)$ denote a weak learner. 
+With this notation, we assume the loss function to have a domain in the input feature space and in the parameters defining the learner. 
+Naturally these will depend on the problem structure and on the base learner. 
+
+Then Ada Boost's model takes the following form:
 \begin{equation}\label{eq:adaBoostModel}
 \hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
 \end{equation}
@@ -865,12 +867,10 @@ Yet it gives better overall performance on the CV error, when the model is corre
 
 \subsection{Gradient Tree Boosting}
 
-As explained before, the boosting method builds a high model learned from other \textit{weaker} learners. 
-In the case of \textit{gradient tree boosting}, decision trees serve as base learners. 
+As explained before, the boosting method builds a high model learned from other \textit{weaker} learners where decision trees are the most commonly used base models.
+This is the same for \textit{gradient tree boosting}.
 
-This type of boosting algorithm was first introduced by Friedman, J. in \cref{friedman-gradientBoosting2001}. 
-Full details of this model can be found in that work.
-
+This type of boosting algorithm was first introduced by Friedman, J., and the full details of the work can be found in Full details of this model can be found in \cref{friedman-gradientBoosting2001}. 
 
 To start off, if $Tr$ is a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
 
@@ -926,7 +926,7 @@ If an optimization routine were to collectively fit all the parameters in $\Thet
 In practice this would result in an prohibitive cost. 
 Instead, we rely on optimization heuristics.
 
-\subsubsection{Additive Training}
+\subsubsection{Additive Optimization of the}
 
 As usual, the first take on this optimization problem goes using a greedy optimization routine. 
 One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
