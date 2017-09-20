@@ -1,12 +1,18 @@
 # TODO PLAN
 
+## Meeting 20/09
+    * In table of contents, notify start of appendix somewehere. Correct the presentation form.
+    * Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion. Uno de resultados en resultados
+    numericos y la compilacion de todos los resultados en terminos de numeros y metodos, etc. Los problmeas que tienen, los metodos
+     En conclusiones mas a nivel de cosas de que aprendiste, eleccion de metodos, que aprendi, que sirven los CDRs para esto, que limitaciones tienen en prediccion y otras cuestiones mas alto nivel.
+
 ## Meeting 13/09
     * [DONE] En general, agrandar figures y dejarlas en su propio environment.
     * Agregar runtime a la tabla.
     * [DONE] Fix roman numbers problem.
 
 ## Meeting 23/08
-    * [IN DOING] Recortar teoria y pasar a un apendice. Todos los detours respecto del problema nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
+    * [DONE] Recortar teoria y pasar a un apendice. Todos los detours respecto del problema nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
     * [DONE] Ninguna figura de afuera (o contadas excepciones). Que sean con datos propios directamente.
     * Meter una introduccion de c/capitulo para ordenar bien el hilo de la tesis.
     * Documentar las cosas que vas probando y lo que te va pasando.
@@ -21,7 +27,6 @@
     * [DONE] Revisar todas las figuras y especificar de que problemas vienen estos resultados.
     * Sacarle jugo a los resultados. Presentar algo mas en los numeros concretos y como esos son los resultados. Que aprendi del dataset, que hay para contar del dataset.
     * [DONE] Bajar a tierra los resultados de problemas 1 a 4 en los clasificadores con como esto se relaciona con los mapas.
-    * Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion.
 
 ## Meeting 12/07
     * [DONE] cambiar orden de idiomas en el abstract y en el titulo, primero ingles luego espanyol.
