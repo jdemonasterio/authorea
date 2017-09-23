@@ -380,23 +380,19 @@ For the purpose of continuing this line of work, the following is a list of poss
 
 
 
-% \subsection{Supervised Algorithms}
-% \subsection{Brief Technical Notes }
 
+\todo{Erase this section}
+\section{Random notes to add to results}
 
-% Results were satisfactory in most algorithms such as Gradient Boosting, Random Forest and Logistic Regression.
-% The Multinomial Naive Bayes method was used solely for benchmarking reasons and for its fast runtime and low number of parameters required to configure.
-% All algorithms were run on a 16-core Linux machine with 72GB of RAM.\@ Processing and learning scripts were run on Python.
-% When available, we showed how the feature importance methods qualified the attributes of the dataset, selecting the most relevant for the experiment.
+\begin{description}
+    \item confirmation of decision tree overfitting on model complexity. Random Forests improving on this. Gradient Boosting better in bias with a slight incrase in overfit.
+    \item Suprising low F1 overall when best-fitting on ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. This would be interesting to weight under the eyes of a health researcher. Where focus might be either on one over the other. \todo{ask Diego Weinberg}.
+    \item Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
+    \item Naive Bayes fast run time on the whole dataset. Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3).
+    \item Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
+    \item The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
+    \item
 
-% \todo{add python, graphlab, sklearn, pandas citations}.
-
-
-% For the latter part of the job, we used Pandas and Graphlab whilst for the classification part it was mostly implemented with Scikit-learn~\textcite{scikit-learn} and, in some cases, with Graphlab~\textcite{graphlab}.
-
-% We can not recommend highly enough all the aforementioned python modules.
-% All were critical in the development of a working experimentation pipeline.
-
-
+\end{description}
 
 
