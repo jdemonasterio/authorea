@@ -5,20 +5,20 @@
 
 
 % The models builds a
-Decision trees are models that can be understood as a tree-like graph, where each node in the tree acts as a binary decision rule to which any input data sample can comply or not. 
+Decision trees are models that can be understood as a tree-like graph, where each node in the tree acts as a binary decision rule to which any input data sample can comply or not.
 The rules are built as linear (or similar) partitions over feature space and they act on the value of a single feature, for every sample.
 %properties of the values for each feature.
 
-At any node, the model creates a binary partition of the data by evaluating a sample $s$ in the rule. 
+At any node, the model creates a binary partition of the data by evaluating a sample $s$ in the rule.
 This decision forwards it to one of the possible remaining partitions by checking if $X_i(s) \in U$, where $X_i$ is the feature used in the node's rule and $U$ is a subset of said feature's space.
 
-For numerical features, the input space $X$ will be partitioned into $L$ and $R$ where $L$ takes the form $(-\infty,c]$. The value $c \in \mathbb{R}$ is a number predefined by the rule itself. 
+For numerical features, the input space $X$ will be partitioned into $L$ and $R$ where $L$ takes the form $(-\infty,c]$. The value $c \in \mathbb{R}$ is a number predefined by the rule itself.
 In the same way, for categorical features $L$ will be a subset of the possible categories of that feature.
 
-By iterating this process over more and more nodes, a tree defines a partition of feature space in multiple regions $A_1,\ldots,A_K$. 
-Each region will have an associated value $c_k$ in such a way that the tree's predicted output $\hat{y}$, for a sample $x$, is $c_k$, when the sample belongs to $A_k$. 
+By iterating this process over more and more nodes, a tree defines a partition of feature space in multiple regions $A_1,\ldots,A_K$.
+Each region will have an associated value $c_k$ in such a way that the tree's predicted output $\hat{y}$, for a sample $x$, is $c_k$, when the sample belongs to $A_k$.
 
-Here $c_k$ will be one of the possible values taken by the target variable $y$ in the training set. 
+Here $c_k$ will be one of the possible values taken by the target variable $y$ in the training set.
 And by the way trees were built, each $A_k$ is a hyper-rectangle in feature space.
 
 \subsection{Decision Trees Formulation}\label{subsection:decision_trees_formulation}
@@ -28,24 +28,24 @@ In short, the learner can be characterized by the following formula:
 h(X) = \sum_{k=1}^K c_k I(X \in A_k)
 \end{equation}
 
-where $c_k$ is the value that our model estimates for samples in the $A_k$ region. 
+where $c_k$ is the value that our model estimates for samples in the $A_k$ region.
 Both of these will have to be learned by the model in the optimization procedure. %by minimizing its loss function
 
-By the principles given above, the algorithm will need to determine an ``optimal''wayto split a set of samples, that flow through a decision node. 
+By the principles given above, the algorithm will need to determine an ``optimal''wayto split a set of samples, that flow through a decision node.
 The \textit{goodness of split} will be measured by specific tree measures called \textit{node impurity measures}.
 %them according, in order to optimize a loss metric.
 
 %at each node
-Most variations for this machine learning model build rules (tree nodes) in a sequential, greedy, fashion, where node impurity measures are locally optimized at each node to decide on which is the best splitting value. 
-The reason for doing this is because the construction of optimal binary decision trees is NP-Complete~\cite{decisionTreesNP}. 
-Doing otherwise would result in an algorithm whose computational complexity is infeasible. 
+Most variations for this machine learning model build rules (tree nodes) in a sequential, greedy, fashion, where node impurity measures are locally optimized at each node to decide on which is the best splitting value.
+The reason for doing this is because the construction of optimal binary decision trees is NP-Complete~\cite{decisionTreesNP}.
+Doing otherwise would result in an algorithm whose computational complexity is infeasible.
 
 At any splitting node we have to find the \textit{best} feature $X^p$ and value split $t$ for which to partition the data in
-$$A_L = \{x \in \mathcal{T} \ / \ x^p \leq t \} $$ 
-and 
-$$A_R = \{x \in \mathcal{T}\ / \ x^p> t \} $$. 
+$$A_L = \{x \in \mathcal{T} \ / \ x^p \leq t \} $$
+and
+$$A_R = \{x \in \mathcal{T}\ / \ x^p> t \} $$.
 Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$
- respectively. 
+ respectively.
  Then, to quantify the \textit{best} feature for this split the algorithm minimizes:
 
 %\frac{1}{N_{left}}
@@ -58,16 +58,16 @@ Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$
 %\end{split}
 \end{equation}
 
-where $y$ is the target associated to our sample $x$ and $L(\cdot)$ is the loss function we have used to measure the quality of our split. 
+where $y$ is the target associated to our sample $x$ and $L(\cdot)$ is the loss function we have used to measure the quality of our split.
 Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently.
-	
-A tree is then grown in an iterative way from the top down\footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each rule split. 
-All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, in accordance to their fulfillment or not of each node's rule. 
+
+A tree is then grown in an iterative way from the top down\footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each rule split.
+All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, in accordance to their fulfillment or not of each node's rule.
 A branch of the tree would stop growing once all samples at a node belong to the same target class.
 
 Finally, we would have that the tree's leafs are the partition subsets over the input data and once a learner is fit, predicting targets for new samples is straightforward: the prediction of their target class will be the value given after traveling the sample down to its corresponding leaf node.
 
-To illustrate this method, an instance is show in \cref{fg:rf-treeFigure}. 
+To illustrate this method, an instance is show in \cref{fg:rf-treeFigure}.
 This classification tree example is built for the two class problem of gender prediction using data from CDRs:
 %[.{\textit{Woman}}]
 \smallskip
@@ -89,13 +89,13 @@ This classification tree example is built for the two class problem of gender pr
 \subsection{Impurity Measures}\label{subsection:decision_trees_impurity_measures}
 
 
-The most used metrics to build each rule are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion. 
-The former minimizes the  misclassification error in the output sets resulting from the partition. 
-It optimizes the accuracy of the model as the resulting value of tagging all resulting samples with the majority label in that partition. 
+The most used metrics to build each rule are the \textit{Gini impurity measure} and the \textit{entropy} or \textit{information gain} criterion.
+The former minimizes the  misclassification error in the output sets resulting from the partition.
+It optimizes the accuracy of the model as the resulting value of tagging all resulting samples with the majority label in that partition.
 
 The latter measure optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Leibler divergence} of the resulting sets with respect to the original set previous to the split.
 
-In addition, we have the misclassification measure. 
+In addition, we have the misclassification measure.
 Following is listed formulation of the three most used impurity measures for classification trees:
 
 \begin{itemize}
@@ -112,7 +112,7 @@ Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $L_{(k,k')}$ is the cost of mis
 Naturally we will have $L$ as a null diagonal matrix.
 As such, the Gini index's summands will take the reweighed form $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
 
-For the binary (two class) case these measures can be expressed in simpler terms. 
+For the binary (two class) case these measures can be expressed in simpler terms.
 If we consider $p$ to be the probability of success, then we have
 
 \begin{itemize}
@@ -127,13 +127,13 @@ If we consider $p$ to be the probability of success, then we have
 
 For the decision tree model, the process of iteratively partitioning the samples in splits continues until a predefined tuning parameter stops the optimization or when the node is pure i.e.\ there is only a single target class for all samples at the node.
 
-The hyper-parameters for this model include the length of the tree, the splitting rule threshold and the node impurity measures. 
+The hyper-parameters for this model include the length of the tree, the splitting rule threshold and the node impurity measures.
 From the descriptions previously given, we can list these directly:
 
 \begin{itemize}
 \item Max depth of the tree, or the allowed levels of splits.
 \item The criteria or measure used to select the best split feature at each node.
-\item The leaf size or the total number of minimum samples allowed per leaf. 
+\item The leaf size or the total number of minimum samples allowed per leaf.
 Note that this is a related to limit on branch depth.
 \item Number of features selected to decide on the best split feature at each node.
 \end{itemize}
@@ -142,7 +142,7 @@ Note that this is a related to limit on branch depth.
 Intuitively, it is natural to find that trees of longer depth will overfit the data since more complex interactions among variables will be captured by refining the partition on input space.
 A trivial example is to allow a tree to grow fully in depth to later assign to each sample in the training set its own self-contained region.
 This yields a model with virtually zero bias yet with a very high prediction error.
-In \cref{figure:dtree_overfit_problem_2} we give an example of an overfit decision tree on the CDR dataset for \cref{target2} where the overly-complex model produces poor generalization error. 
+In \cref{figure:dtree_overfit_problem_2} we give an example of an overfit decision tree on the CDR dataset for \cref{target2} where the overly-complex model produces poor generalization error.
 Recall that this was described in \cref{figure:dtree_overfit_problem_2}.
 Here the training scores and CV scores were compared on models with increasing tree depth which at some point started to overfit the training set by increasing the gap of the CV and training errors.
 
@@ -156,7 +156,7 @@ This is due to the hierarchical nature of the splits, where errors randomly made
 
 For the reasons described, in this model it is important to control the depth of the trees built.
 The most common method to do this grows a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive.
-Then the tree will be pruned by removing branches and nodes to remove model complexity with only a slight loss of accuracy. 
+Then the tree will be pruned by removing branches and nodes to remove model complexity with only a slight loss of accuracy.
 More details on this can be seen in \cref{appx:sec:tree_pruning}.
 And for a complete characterization of decision trees and their construction in classification or regression problems, please refer to~\cite{breiman-cart84}.
 
@@ -165,7 +165,7 @@ And for a complete characterization of decision trees and their construction in 
 We present here a run of the a decision tree over $\mathcal{T}$.
 In this case the \cref{target2} was used as an example.
 The tree was built using a standard configuration with a low depth of 5 and a Gini splitting criteria.
-All features $X^j$ are available to be chosen at each split and a node has to have at least 20 samples to be split again. 
+All features $X^j$ are available to be chosen at each split and a node has to have at least 20 samples to be split again.
 The algorithm ran in approximately 15 seconds.
 
 \bigskip
@@ -173,8 +173,8 @@ The algorithm ran in approximately 15 seconds.
 \begin{sidewaysfigure}[H]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map.png}}
-	\caption{ Example of a final decision tree. 
-		This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image. 
+	\caption{ Example of a final decision tree.
+		This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image.
 		For every node, the samples are split into sets given by the implicit indicator function defined in the condition.}
 	\label{fig:decision_tree_actual_problem}
 \end{sidewaysfigure}
@@ -195,7 +195,7 @@ From \cref{fig:decision_tree_actual_problem} we can approximate which features a
 Given that in \cref{target2} we are looking for people that migrated in any direction, the choice of the tree\'s root feature is not surprising.
 The mobility diameter gives an idea of the area of influence of a user when using his mobile phone and as such, might be a proxy for migrations.
 Subsequently, the volume of use of a user\'s home antenna appears as the second most important features, both during the weeknight and during the whole day.
-Yet the error score out by this tree yields a poor performance. 
+Yet the error score out by this tree yields a poor performance.
 Evaluated with the $F1$ metric, we see 43.2\% result with this model which shows very poor prediction error over all of the samples.
 With this, comparing how the top features result in the tree can be of little use to the overall problem.
 
@@ -213,8 +213,8 @@ The figure for this model is shown below.
 \begin{sidewaysfigure}[H]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map2.png}}
-	\caption{ Second example of a decision tree. 
-		This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset. 
+	\caption{ Second example of a decision tree.
+		This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset.
 		The resulting tree has been pruned to fit the image.}
 	\label{fig:decision_tree_actual_problem2}
 \end{sidewaysfigure}
@@ -238,7 +238,7 @@ So to tackle most of the disadvantages described by this technique, \textit{Rand
 
 \section{ Random Forests}\label{section:random_forests}
 
-Random Forests are estimators that extend from constructing a group of single decision trees and then combining them to produce a single output decision. 
+Random Forests are estimators that extend from constructing a group of single decision trees and then combining them to produce a single output decision.
 This grouping of lots of classifieres is what is known as an \textit{ensemble}.
 The objective in this construction is to focus on decision tree\'s low bias whilst controlling their overfit as much as possible.
 For this, a forest of single trees will be constructed in such a way that correlations among each of the individual models is limited as much as possible.
@@ -251,7 +251,7 @@ Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the par
 As we have mentioned before, there are various variants to the model and these variants will define the type of encoding for the $\Theta_k, k \in {1,\ldots,K}$  parameters.
 For the following part, we will not specify the overall type of ensemble constructed since the  proofs are general to all of them.
 
-To start, we define  
+To start, we define
 $$h(\textbf{x},\Theta_k)$$ will be the corresponding individual classifier and we let $N$ be the number of samples in the training set $\mathcal{T}$.
 The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution as $\Theta_j, \ j<k$, yet it is built in a way that is independent of the previous parameters $\{\Theta_1, \ \ldots, \ \Theta_{k-1} \}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
@@ -267,7 +267,7 @@ mg(\textbf{x},\textbf{y}) = \frac{1}{K}  \sum_{k=1}^K I(h_k(\textbf{x}) = \textb
 
 
 The margin function measures, in average, how much do the trees vote for the correct class in comparison to all other classes.
-It is the training error of the model when using the misclassification loss. 
+It is the training error of the model when using the misclassification loss.
 Here the generalization error is denoted as $PE*$ and is equal to
 
 \begin{equation}
@@ -287,39 +287,39 @@ This proof can be found in \cref{appx:sec:rforest_margin_function_convergence}.
 
 \subsection{ Experimental comparison to Decision Trees}\label{subsection:random_forests_comparison_trees}
 
-From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Tree model, we ran two experiment setups on a Random Forest learner for the simple task in \cref{target2}, using an $F1$ score. 
+From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Tree model, we ran two experiment setups on a Random Forest learner for the simple task in \cref{target2}, using an $F1$ score.
 This was a cross validation procedure of 10 folds for each configuration, where each experiment optimized the score on a different hyperparameter.
 
-For the first one, we test the scores of the forest by varying the maximum depth that the trees can have.
-And on the second one, we try to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing tree size.
-As a default configuration, we set on 10 the trees' max depth and on 10 the default number of trees.
+For the first, we evaluate the forest's scores on a maximum depth variation for the trees.
+And on the second one, we try to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing size.
+As a default configuration, we set bothe the trees' max depth and the number of trees to 10.
 
-In both, we set a balanced weighting of positive and negative samples in the loss function. 
-Also, we use the Gini index as the impurity measure in the splitting criteria of each tree's node.
+Also, we pre-configure a balanced weighting of positive and negative samples in the loss function, where the each sample is weighted by the reciprocal of the class's ratio to the whole dataset.
+Finally, the impurity measure  we used was the is the Gini index for the splitting criteria at each tree's node.
 
-Cross validation procedures ran for 1412.8 and 2506.1 seconds respectively, and they both excluded attributes of the users which informed their home state and current endemic condition at $T_1$.
+Cross validation procedures ran for 1412.8 and 2506.1 seconds respectively. In both of them we excluded any user attributes that informed their home state and current endemic condition, in the time period $T_1$.
 
 The experiment's scores outcomes across their hyperparameter values were graphed in \cref{fig:f1_random_forest_validation_curves_depth_trees,fig:f1_random_forest_validation_curves_num_trees}.
-The couple of cross-validated and training set scores where compared, where, for each hyperparameter value, the $1-F1$ score is shown.
+For both, the cross-validated and training set scores were compared. In this way, for each hyperparameter value, the $1-F1$ score is shown.
 In this way, having a lower score in the graphic means a better model was reached.
 
 
 \begin{figure}[h!]
 	\begin{center}
 	 \includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
-		\caption{ Validation curve on the tree-depth hyperparameter values for the Random Forest  learner. 
+		\caption{ Validation curve on the tree-depth hyperparameter values for the Random Forest  learner.
 			The mean CV scores for the $1 - F1$ score is shown for a CV run experiment on \cref{target2}}
 		\label{fig:f1_random_forest_validation_curves_depth_trees}
-		
+
 	\end{center}
 \end{figure}
 
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
-			\caption{ Validation curve on the number of trees hyperparameter values, for the Random Forest  learner. 
+			\caption{ Validation curve on the number of trees hyperparameter values, for the Random Forest  learner.
 				The mean CV scores for the $1 - F1$ score is shown for a CV run experiment on \cref{target2}}
-		\label{f1_random_forest_validation_curves_num_trees}
+		\label{fig:f1_random_forest_validation_curves_num_trees}
 	\end{center}
 \end{figure}
 
@@ -331,16 +331,17 @@ Yet the scores keeps improving and don't worsen.
 This is different to \cref{figure:dtree_overfit_problem_2} where if we let the tree grow deeper, at one point we only increase the performance of the training error.
 Here, we are possibly improving the generalization error, as indicated by the CV estimation.
 
- On the other hand, it is interesting to note that there is a very slow decrease in the training and CV scores when the number of trees is increased.
- This might be explained by the fact that we are setting a default tree depth of 9 levels.
- A configuration of this type then might be capturing all the needed model complexity to attain
- Another plausible explanation for this is that, for this task, the forest rapidly converges to the generalization error and that adding more trees doesn't certainly improve on the predictions.
+ On the other hand, it is interesting to note that there is an insignificant decrease in the training and CV scores when the number of trees is increased.
+For this case, there is virtually no change in model error by improving bias or variance.
+ An explanation for this might that we are setting a default tree depth of 10 levels already when running this experiment. And a tree configuration of this type might then be capturing all the possible model complexity to this dataset.
+ Another plausible explanation for this is that, for this task, the forest's performance rapidly converges to the generalization error with a minimum of 10 trees and that adding more trees doesn't certainly improve on the predictions.
 
 
 At their optimal configuration, both setups reached CV score averages of at least 0.75, with a maximum of 0.81 for the forest
 with trees of 16 levels.
-The optimal number of estimators for the CV and the training sets were not the same though, were 139 was the best configuration for the training score whilst 133 was the best average for the CV set. 
+The optimal number of estimators for the CV and the training sets were not the same though, were 139 was the best configuration for the training score whilst 133 was the best average for the CV set.
 The relative difference in these best scores was of 3.3\%.
+
 At the same time, the relative difference of the best CV and training scores, for the maximum tree depth experiment was of 9.5\%.
 This percentage difference signals that the max depth hyperparameter is significantly more sensible to over-fitting than the number of trees parameter.
 
@@ -432,7 +433,7 @@ There exists an upper bound for the generalization error.
             \begin{equation}\label{eq:rf-predictiveErrorBound1}
             PE^* \leq var(mr)/s^2
             \end{equation}
-	by Chebyshev's inequality. 
+	by Chebyshev's inequality.
 	On the other we also have that
 
             \begin{equation}\label{eq:rf-expectedVarBound}
@@ -453,14 +454,14 @@ There exists an upper bound for the generalization error.
 \end{proof}
 
 
-This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them. 
-The author of the algorithm~\cite{breiman-randomforests} remarks here that this bound may not be strong. 
+This bound on the generalization error shows the importance of the strength of each individual weak classifier in the forest and the correlation interdependence among them.
+The author of the algorithm~\cite{breiman-randomforests} remarks here that this bound may not be strong.
 He also puts special importance on the ratio between the correlation and the strength $\frac{\overline{\rho}}{s^2}$ where this should be as small as possible to build a strong classifier.
 
 
 \subsection{Binary Class}\label{subsection:random_forests_binary_class}
 
-In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \cref{eq:rf-PEBound}. 
+In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \cref{eq:rf-PEBound}.
 In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$.
 
 
@@ -484,21 +485,21 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
 \subsection{Other Notes on Random Forests}\label{subsection:random_forests_other_notes}
 
 One benefit of building Random Forest classifiers is that the algorithm easily increases the prediction error of a group of estimators by randomly building each of these in a way that decreases the variance of the overall model whilst trading a small loss in bias.
- 
-The model is also robust to the introduction of a number of noisy features. 
-If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features. 
-Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high. 
+
+The model is also robust to the introduction of a number of noisy features.
+If the ratio of informative to non-informative features is not extreme, selecting $m$ features at random at each split will mean that in most cases, splits will be made on those informative features.
+Note that in any given tree, the probability of drawing at least one informative feature in a split is still very high.
 This is because it follows a hyper geometric distribution $\mathcal{H}(P,j,l)$ with $l$ draws from a total population of $P$ features and only $j$ informative ones.
 
-The depth of growth for each tree is another important tuning parameter. 
-We must choose it correctly by assessing the model's performance across different values for $m$. 
-A deep tree will tend to overfit the data by partitioning input space to fit the training data. 
+The depth of growth for each tree is another important tuning parameter.
+We must choose it correctly by assessing the model's performance across different values for $m$.
+A deep tree will tend to overfit the data by partitioning input space to fit the training data.
 This effect will counter the overall reduction in variance of the forest and thus increase the generalization error of our algorithm.
 
 %Therefore controlling the maximum allowed growth for the base learners will be important to improve the performance of the model.
 
 In addition, the algorithm benefits from a heuristic to measure variable importance, where a special modification in the way forests are built allows this to happen.
-The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it. 
+The idea for this is that at each split we can measure the gain of using a certain variable for the split versus not using it.
 Given a candidate feature $X_j$ to be analyzed and for every node in a tree where a split is to be done, we compare the improvement in the split performance, as measured by some loss function, with and without $X_j$.
 These results are recorded and averaged across all trees and all the split scenarios to have a score for the feature.
 With this, the features with highest scores can be thought to be the most informative variables of the model.
@@ -551,12 +552,12 @@ Recall that all of these features were central in the construction of the risk m
 The color of each antenna's circle represented the amount of vulnerable users, for that given month, when looking at the incoming or outgoing calls.
 Then, these feature's correlation to the target variable are indicative, up-to a certain point, of the predictive power of them.
 
-For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the run-time, the hyperparameters chosen and the top ten best features as given by the algorithm. 
+For this experimentation, we recorded the outcome of the cross validation procedures in terms of different scoring metrics, the run-time, the hyperparameters chosen and the top ten best features as given by the algorithm.
 The summary of these results is given in \cref{tab:random_forest_big_experiment_results}.
 
 \begin{table}[!htb]
-\caption{Table of best results comparing two 5-fold full grid cross validation procedures on a Random Forest Classifier.  
-	The metrics and run-time for both experiments are shown.}
+\caption{Table of best results comparing two 5-fold full grid cross validation procedures on a Random Forest Classifier fit for \cref{target4}.
+	The scores, best hyperparameter values and run-time are shown for both experiments.}
 \label{tab:random_forest_big_experiment_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
@@ -564,12 +565,12 @@ The summary of these results is given in \cref{tab:random_forest_big_experiment_
 \toprule
 Result & Experiment 1 & Experiment 2 \\
 \midrule
-CV $F1$ score           & 0.770  &  0.663 \\
-CV $Accuracy$ score    & 0.848 &  0.843 \\
-CV $Precision$ score    & 0.788 &  0.780 \\
-CV $Recall$ score       & 0.753 &  0.557 \\
-CV $Logloss$ score     & 0.391 &  0.337 \\
-CV $ROC AUC$ score     & 0.903 & 0.880  \\
+CV $F1$ score           & 0.273  &  0.196 \\
+CV $Accuracy$ score     & 0.880 & 0.903   \\
+CV $Precision$ score    & 0.175 &  0.123 \\
+CV $Recall$ score       & 0.618 &  0.480 \\
+CV $Logloss$ score     &  0.337 & 0.391 \\
+CV $ROC AUC$ score    &  0.843 & 0.848 \\
 max\_depth     & 12 &  12 \\
 max\_iterations          & 150 &  200 \\
 balanced        & True & True  \\
@@ -590,10 +591,11 @@ Bigger differences appear in the choice of the minimum loss reduction and the fe
 There are no clear indications as to which configuration is better.
 And, whilst having a higher level of randomization in the growth of the trees hints to a less overfitting learner, this difference is not that notable in the CV scorings.
 
-For most of the metrics used to evaluate the cross validation procedure, the scores look very similar. 
+For most of the metrics used to evaluate the cross validation procedure, the scores look very similar.
 It is notable that the second experiment is slightly better in the accuracy, precision, Logloss and ROC AUC scores, with a maximum difference of 5\% for all of them.
-Yet at the same time the second experiment's performance drastically drops for the recall and, because of this, for the $F1$ measure.
-This means that the learner is losing performance in correctly tagging the user's who have migrated from the endemic region.
+Yet at the same time the second experiment's performance drastically drops for the recall and precision. 
+The same occurs accordingly for the $F1$ measure.
+We see the learner is losing performance in correctly tagging the user's who have migrated from the endemic region.
 This 15\% difference hints to how much of an impact is characterized by removing the features for the second experiment.
 We can suspect that there's enough missing information in those features to reduce the predictive power of the learner.
 
@@ -645,22 +647,22 @@ Also, top features are in line with the assumptions on which the risk maps were 
 
 Boosting methods are similar to additive methods such as in Random Forests because they combine the predictions of weak learners to output the combined model's prediction.
 The full model is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator.
-This provides greater predictive power when the base model's accuracy is weak. 
+This provides greater predictive power when the base model's accuracy is weak.
 But care must be taken to control the increase in variance.
 
 \subsection{Ada Boost}
 %~\cite{schapire-adaBoost}
 
 In the Ada Boost variation of ensembles, each iteration builds a new weak learner which is set to improve on the samples misclassified by the previous ensemble of weak learners.
-The new learner will not be uncorrelated and this is an important distinction of this model. 
+The new learner will not be uncorrelated and this is an important distinction of this model.
 Weights are used by the algorithm to rank the samples by misclassification importance: a sample with higher misclassification rate will receive a stronger weight.
 The name of the algorithm is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
 
-Tuning parameters in this algorithm are a superset of those used in the base learners. 
+Tuning parameters in this algorithm are a superset of those used in the base learners.
 As an addition, the number of steps \textit{boosting} the ensemble is added, among other new hyperparameters.
 
-This chained construction of weak learners has implications on the computational complexity of the optimization. 
-Base learners are not constructed independently and as such, the parallelization of this algorithm becomes limited. 
+This chained construction of weak learners has implications on the computational complexity of the optimization.
+Base learners are not constructed independently and as such, the parallelization of this algorithm becomes limited.
 At the same time, the sequential optimization of learners improving on the one before marks a \textit{greedy} minimization approach of the general loss function.
 
 These properties underline a substantial difference to Random Forests where base learners are built as uncorrelated as possible and where optimization can be performed globally, which allowed for a significant runtime improvement by parallelizing the algorithm.
@@ -672,8 +674,8 @@ Let
 \overline{err} = \frac{1}{N} \sum_{i=1}^{N} I(y_i \neq \hat{y_i})
 \end{equation}
 
-denote the training set's misclassification error. 
-As usual, $N$ is the amount of samples in our dataset, $y$ is our target variable and $\hat{y}$ is our model's prediction for the target, given the samples. 
+denote the training set's misclassification error.
+As usual, $N$ is the amount of samples in our dataset, $y$ is our target variable and $\hat{y}$ is our model's prediction for the target, given the samples.
 We also take
 \begin{equation}
 \Expect_{X \ Y} [ I(Y \neq \hat{Y}(X)) ]
@@ -681,23 +683,23 @@ We also take
 
 to be the expected error rate of the model on the true, unknown distribution of the data.
 
-Let $m$ index the iteration number in the Ada Boost algorithm. 
-Set $w^{(m)}_i$ to be the $i$-th sample's weight at this iteration. 
-We will initialize $w$ to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$. 
+Let $m$ index the iteration number in the Ada Boost algorithm.
+Set $w^{(m)}_i$ to be the $i$-th sample's weight at this iteration.
+We will initialize $w$ to be equiprobable at $w^{(0)}_i = \frac{1}{N} \forall i$.
 
-Let $h(x,\theta)$ denote a weak learner. 
-With this notation, we assume the loss function to have a domain in the input feature space and in the parameters defining the learner. 
-Naturally these will depend on the problem structure and on the base learner. 
+Let $h(x,\theta)$ denote a weak learner.
+With this notation, we assume the loss function to have a domain in the input feature space and in the parameters defining the learner.
+Naturally these will depend on the problem structure and on the base learner.
 
 Then Ada Boost's model takes the following form:
 \begin{equation}\label{eq:adaBoostModel}
 \hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
 \end{equation}
 
-where $M$ is the model's hyperparameter indicating the amount of weak learners and thus the amount of iterations. 
+where $M$ is the model's hyperparameter indicating the amount of weak learners and thus the amount of iterations.
 Here, each $\theta_m$ will encode the base learner's parameters and $\gamma_m$ will denote the weight of that weak learner in the overall model.
 
-The algorithm's iteration will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the last model. 
+The algorithm's iteration will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the last model.
 At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
 
 \begin{equation}\label{eq:adaBoostIteration}
@@ -709,8 +711,8 @@ At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
 
 The greedy nature of the algorithm becomes explicit in the procedure above, where we have fixed all the previous optimized values for $\gamma_j$ and $\theta_j$.
 
-Ada Boost was first derived in~\cite{schapire-adaBoost} and it was introduced with a specific minimizing function. 
-The general version here presented allows the use of a broad range of base learners which need not to be from the same algorithmic family. 
+Ada Boost was first derived in~\cite{schapire-adaBoost} and it was introduced with a specific minimizing function.
+The general version here presented allows the use of a broad range of base learners which need not to be from the same algorithmic family.
 In the first version introduced, the loss function used was the exponential loss which is $L(y,z) = e^{-yz}$ and the target variable took the values $1$ or $-1$.
 
 This particular case yields a similar equation as in \cref{eq:adaBoostIteration}, but where
@@ -724,8 +726,8 @@ This particular case yields a similar equation as in \cref{eq:adaBoostIteration}
 \end{equation}
 
 
-Given that we are only minimizing $\gamma$ and $\theta$, we can group $e^{-y_i \hat{y}^{m}(x_i)}$ into a single value $w_i^{(m)}$ which we will set to the weight of each sample. 
-This weight strongly depends on the past steps of the algorithm. 
+Given that we are only minimizing $\gamma$ and $\theta$, we can group $e^{-y_i \hat{y}^{m}(x_i)}$ into a single value $w_i^{(m)}$ which we will set to the weight of each sample.
+This weight strongly depends on the past steps of the algorithm.
 The equation now becomes
 
 %We can also take the $\gamma$ factor out of the sum, since it is fixed for all samples.
@@ -734,7 +736,7 @@ The equation now becomes
 (\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \  \sum_{i=1}^{N} w_i^{(m)} \exp \big(-\gamma h(x_i,\theta)y_i \big)
 \end{equation}
 
-We can then minimize for $\theta$ first, independently of the value of $\gamma$. 
+We can then minimize for $\theta$ first, independently of the value of $\gamma$.
 The series in \cref{eq:adaBoostExponentialIteration2} can be decomposed
 
 \begin{equation}\label{eq:adaBoostThetaDecomposition}
@@ -751,8 +753,8 @@ and then the minimizing solution for $h(\cdot, \theta_{m+1})$ will be the one sa
 \theta_{m} = \underset{ \theta}{\mathrm{argmin}} \sum_{i=1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big)
 \end{equation}
 
-Let $u = \sum_{i=1}^{N} w_i^{(m)}$ and $v = \sum_{i=1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big) $, which are both constant in $\gamma$. 
-Consider \cref{eq:adaBoostTrainingError} and note that $\frac{u}{v} = \frac{1}{\overline{err}}$. 
+Let $u = \sum_{i=1}^{N} w_i^{(m)}$ and $v = \sum_{i=1}^{N} w_i^{(m)} I \big( y_i \neq h(x_i,\theta)  \big) $, which are both constant in $\gamma$.
+Consider \cref{eq:adaBoostTrainingError} and note that $\frac{u}{v} = \frac{1}{\overline{err}}$.
 If we now solve for $\gamma$ in \cref{eq:adaBoostThetaDecomposition}, we can take
 
 \begin{equation}\label{eq:adaBoostBetaMinimization}
@@ -764,16 +766,16 @@ which has a minimum at
 \gamma_{m} = \frac{1}{2} \log\big( \frac{1 - \overline{err} }{ \overline{err} } \big)
 \end{equation}
 
-As seen from the equation above, the minimizing value for $\gamma$ is directly related to the training error of the algorithm for the \textit{whole} dataset. 
-This weight will be reflected upon all samples in general and then we would expect this rate to decrease at every iteration. 
+As seen from the equation above, the minimizing value for $\gamma$ is directly related to the training error of the algorithm for the \textit{whole} dataset.
+This weight will be reflected upon all samples in general and then we would expect this rate to decrease at every iteration.
 Taking advantage of this closed form, the value is plugged into the next step of the Ada Boost procedure to update sample weights as
 
 \begin{equation}
 w_i^{(m+1)} =  w_i^{(m+1)} e^{\gamma_m(-y_i h_m(x_i))} \\
 \end{equation}
 
-In this way, we have that the weights are updated for those samples which have a higher misclassification rate. 
-This is a relevant aspect of the algorithm. 
+In this way, we have that the weights are updated for those samples which have a higher misclassification rate.
+This is a relevant aspect of the algorithm.
 At each step, more importance is given to misclassified samples over correctly classified ones.
 
 %$-y_i h_m(x_i) = 2I \big( y_i = h_m(x_i)  \big) -1$ which means that $\gamma_m(-y_i h_m(x_i))$
@@ -783,7 +785,7 @@ The final form of the model is
 \begin{equation}
  \hat{y}(x) = sgn\big( \sum_{m=1}^{M} \gamma_m h_m(x) \big)
 \end{equation}
-  which outputs the most frequent prediction given by all of the weak learners. 
+  which outputs the most frequent prediction given by all of the weak learners.
   This is because all the correct predictions will be greater than zero and negative values for the incorrect predictions\footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}.
 %This particular property is what gives rise
 
@@ -793,11 +795,11 @@ f^*(X) = \underset{f}{\mathrm{argmin}} \ \Expect_{Y | f(X)}\big[ \exp(-Yf(X)) \b
 \end{equation}
 
 
-The use of the exponential loss function $\exp(-Yf(X))$ is also desirable in this context since significantly more weight is put on misclassifications rather than on correct classifications. 
+The use of the exponential loss function $\exp(-Yf(X))$ is also desirable in this context since significantly more weight is put on misclassifications rather than on correct classifications.
 This is because the function is not symmetric in $Yf(X)$ and that having a correct classification will mean a factor of only $e^{-1}$, whilst on the other hand a misclassification will mean a factor of $e$.
 
-A drawback of this loss though, is that it is not robust to outliers or to noisy data. 
-During run-time weights are constantly shifting towards misclassified samples. 
+A drawback of this loss though, is that it is not robust to outliers or to noisy data.
+During run-time weights are constantly shifting towards misclassified samples.
 Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data.
 
 
@@ -824,7 +826,7 @@ In this way, having a lower score in the graphic means a better model was reache
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_depth_series_f1}
-		\caption{ Validation curve for the tree-depth hyperparameter of the Gradient Boosting learner. 
+		\caption{ Validation curve for the tree-depth hyperparameter of the Gradient Boosting learner.
 		The mean CV scores for the $1 - F1$ score is shown for a CV run experiment on \cref{target2}}
 		\label{fig:f1_boosting_validation_curves_depth_trees}
 
@@ -833,7 +835,7 @@ In this way, having a lower score in the graphic means a better model was reache
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1} 
+		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
 			\caption{ Validation curve for the number of trees hyperparameter of the Gradient Boosting learner. The mean CV scores for the $1 - F1$ score is shown for a CV run experiment on \cref{target2}}
 			\label{fig:f1_boosting_validation_curves_num_trees}
 	\end{center}
@@ -870,7 +872,7 @@ Yet it gives better overall performance on the CV error, when the model is corre
 As explained before, the boosting methods build an ensemble model learned from other \textit{weaker} learners where decision trees are the most commonly used base models.
 This is the same for \textit{gradient tree boosting}.
 
-This type of boosting algorithm was first introduced by Friedman, J., and the full details of the work can be found in Full details of this model can be found in \cref{friedman-gradientBoosting2001}. 
+This type of boosting algorithm was first introduced by Friedman, J., and the full details of the work can be found in Full details of this model can be found in \cref{friedman-gradientBoosting2001}.
 
 Using the same formulation as before, let $Tr$ be a set of tree models and $K$ the number of trees in $Tr$, then trees will be the parameters for this model and at step $m$ the output will be
 
@@ -893,7 +895,7 @@ h_{m+1}(\cdot) = \underset{h_{m+1},\gamma_{m+1}}{\mathrm{argmin}}  \sum_{i=1}^{n
 \end{equation}
 
 
-If we treat the tree's weight $\gamma$ as part of the weak learners hyper parameters, we can absorb note each weak learner as $\theta^{m+1}_{q(x)} \forall m in \{1,2,\ldots,K \}$. 
+If we treat the tree's weight $\gamma$ as part of the weak learners hyper parameters, we can absorb note each weak learner as $\theta^{m+1}_{q(x)} \forall m in \{1,2,\ldots,K \}$.
 This notation follows the one used in $\cref{section:decision_trees}$
 
 where we represent a generic tree in the form of
@@ -911,17 +913,17 @@ where we represent a generic tree in the form of
 
 
 with $\theta_j \in \mathbb{R} \ \forall j = 1,\ldots,J$ and $ \cup_{j=1}^J R_j$ a feature space partition.
- 
-The function 
+
+The function
 \begin{equation}
 q : X \mapsto \{1,\ldots,J\}
 \end{equation}
 
 denotes the mapping from samples to regions in the partition.
- 
-In summary, this notation sets 
-$${\{\theta_j, R_j\}}_{j=1}^J$$ 
-as the weak model's parameters and $J$ as a hyper-parameter. 
+
+In summary, this notation sets
+$${\{\theta_j, R_j\}}_{j=1}^J$$
+as the weak model's parameters and $J$ as a hyper-parameter.
 We know that finding the best partition of feature space is a non-trivial optimization problem since finding subset partitions satisfying a global condition is combinatorially hard.
 
 For the full model, the objective function would account for the relationships among the trees and we would have that
@@ -931,45 +933,45 @@ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i) + \sum_t^K R(\theta^m_{q(x)})
 \end{equation}
 %\footnote{In the formula \cref{eq:boosting-objfunction} }
 
-At the outer level view of the model,$\Theta$ is a parameter encoding all of the base trees' model information. 
+At the outer level view of the model,$\Theta$ is a parameter encoding all of the base trees' model information.
 For each base tree $\theta^m$ is the parameter associated to it and $R{\cdot}$ is a regulating function on the trees's complexity.
 
-This means that 
+This means that
 
 $$\Theta = \bigcup_{m \in {0,\ldots,K}} \theta^m \cup \theta_0$$
- 
+
 The parameter $\Theta$ is not associated to any tree but reserved to characterize the whole ensemble.
 
-If an optimization routine were to collectively fit all the parameters in $\Theta$ to learn this model, we would have a very computational complex model. 
-In practice this would result in an prohibitive cost. 
-Instead, we rely on optimization heuristics which rely on first and second order approximations of the loss function at step $m$ to build on the next tree $m+1$. 
+If an optimization routine were to collectively fit all the parameters in $\Theta$ to learn this model, we would have a very computational complex model.
+In practice this would result in an prohibitive cost.
+Instead, we rely on optimization heuristics which rely on first and second order approximations of the loss function at step $m$ to build on the next tree $m+1$.
 Smooth loss functions are then fundamental for this procedure to work such as in the adaboost formulation.
 The \textit{boosting} optimization heuristic is explained in detail in \cref{appx:sec:boosting_optimization_heuristic}.
 
 
 As a concluding remark on boosting algorithms, there are two additional heuristics used to improve their generalization performance.
-The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive. 
+The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive.
 The authors in~\cite{hastie-elemstatslearn} and~\cite{bishop-patternRecognition} mention them because of their overall contribution to the generalization error.
 
-The first idea to reduce the overall variance of the algorithm is to subsample the data. 
-This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner. 
+The first idea to reduce the overall variance of the algorithm is to subsample the data.
+This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner.
 Samples from $\mathcal{T}$ which are not part of the boostrapped sample are ignored when optimizing for the new learner at \cref{eq:boosting_iterative_minimization}.
 
-The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method. 
+The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method.
 In practice, the rate of sampling will be supervised by a tuning parameter in the model.
 
-The other heuristic, which was found to be more experimentally important by~\cite{hastie-elemstatslearn}, is to successively apply a \textit{shrinkage} factor $v \in (0,1)$ to the new model. 
-At step $m$, instead of letting the overall model be 
+The other heuristic, which was found to be more experimentally important by~\cite{hastie-elemstatslearn}, is to successively apply a \textit{shrinkage} factor $v \in (0,1)$ to the new model.
+At step $m$, instead of letting the overall model be
 
-\begin{equation} 
+\begin{equation}
 \hat{y_i}^{(m)} = \hat{y_i}^{(m-1)} + \theta_m h_m(x_i)
 \end{equation}
 
- we multiply the shrinkage factor $v$ to the new learners before adding them to the overall model. 
+ we multiply the shrinkage factor $v$ to the new learners before adding them to the overall model.
 
-In the literature this shrinkage factor is also called the \textit{learning rate} of the algorithm. 
-Note that $v$ is reducing the movement of the algorithm in the direction of optimization provided by $\theta_t$ and $h_t$. 
-In practice, this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate. 
+In the literature this shrinkage factor is also called the \textit{learning rate} of the algorithm.
+Note that $v$ is reducing the movement of the algorithm in the direction of optimization provided by $\theta_t$ and $h_t$.
+In practice, this results in longer iterations needed to reach the algorithm's \textit{best} prediction rate.
 However, when this factor is combined with sub sampling, experiments have shown improvements in the overall generalization accuracy.
 
 
@@ -995,7 +997,7 @@ For our CV procedure, we will be searching the best learner over a grid combinat
 
   \item The gradient descent's defined step size  --- [step\_size]
   % \item The number of rounds without loss function improvement required to early stop the fit  --- [early\_stopping]
-  \item Minimum threshold for the sum of samples' Hessians at a given node. 
+  \item Minimum threshold for the sum of samples' Hessians at a given node.
   If a node's sum is smaller than this threshold then the fitting will stop  --- [min\_leaf\_weight]
 \label{list:boosting_grid_search_params}
 \end{itemize}
@@ -1007,7 +1009,7 @@ The results were tabulated in terms of different scoring metrics, the run-time, 
 A summary of the metrics and best hyperparameter values is given in \cref{tab:boosting_big_experiment_results}.
 
 \begin{table}[!htb]
-\caption{Table of best results comparing three 5-fold full grid cross validation procedures with a Gradient Boosting Classifier.  All of the relevant scores and best hyperparameters values are  shown.}
+\caption{Table of best results comparing three 5-fold full grid cross validation procedures with a Gradient Boosting Classifier for \cref{target4}.  All relevant scores, best hyperparameter values and run-time are shown for both experiments.}
 \label{tab:boosting_big_experiment_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
@@ -1050,7 +1052,7 @@ There is difficulty though in establishing which of them had the most weight in 
 This situation the big difference in the $F1$ score among the algorithms.
 Where the last procedure improved on the first two experiments in more than 10\%, using this score and in almost a 20\% increase in the recall score.
 A clear conclusion is that the model first two models were clearly overfit, and using the top random forest features had a strong impact for the task.
-Finally, when compared with the experiments using the Random Forest, none of these improved on the top value of 77\% achieved there. 
+Finally, when compared with the experiments using the Random Forest, none of these improved on the top value of 77\% achieved there.
 Still, this value was from the first experiment with Random Forests, where the correlated features
 
 
@@ -1116,15 +1118,15 @@ Top features are related to the vulnerability and to the users mobility
 
 \section{Benchmark Classifier: Naive Bayes}\label{sec:naive_bayes}
 
-The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features. 
-Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems. 
+The Naive Bayes model encompasses a group of simple and computationally efficient algorithms which are built with a strong statistical assumption of independence among the features.
+Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems.
 In addition, it does not suffer in problems of high-dimensionality, where $p >> n$ i.e.\ there are more attributes than samples in the data.
 
-It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners. 
-Furthermore, the algorithm has linear complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{larger} problem implementations. 
+It is presented mostly for computational benchmark purposes, where in practice the classification rate achieved by this model serves as a baseline for other, more complex, learners.
+Furthermore, the algorithm has linear complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{larger} problem implementations.
 Also, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as techniques using gradient descent or other similar iterative optimization routines.
 
-Let $x = (x_1,\ldots,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem. 
+Let $x = (x_1,\ldots,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem.
 We take $p(C_k \mid x)$ to be the class posterior probability of this class given the sample.
 
 In \cref{ch:machineLearning}
@@ -1160,9 +1162,9 @@ P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
 
 where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
 
-In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$. 
-It is common to choose among using a non-parametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions. 
-Different choices will certainly lead to different cross validation scores among problems. 
+In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$.
+It is common to choose among using a non-parametric density estimations from the data or assuming that the data comes from an exponential family distribution such as a Gaussian, Bernoulli or Multinomial distributions.
+Different choices will certainly lead to different cross validation scores among problems.
 Altogether, these choices can be treated as part our model's hyperparameters and the best one can be selected with our CV procedure.
 %Indeed,
 
@@ -1179,7 +1181,7 @@ The results were composed into \cref{tab:naive_bays_experiment_results} and are 
 
 \begin{table}[!htb]
 \caption{Table comparing cross validated results
-of best results comparing all 8-fold full grid cross validation procedures with a Naive Bayes classifier using a Multinomial prior probability. 
+of best results comparing all 8-fold full grid cross validation procedures with a Naive Bayes classifier using a Multinomial prior probability.
 Relevant classification scores and run-time are shown}
 \label{tab:naive_bays_experiment_results}
 \centering
