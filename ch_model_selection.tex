@@ -255,8 +255,8 @@ Here the test and training errors are given as a function of the tree\'s depth:
 
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=1.2\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
-\caption{ Training and cross-validated mean score functions along the change in max tree depth.
+\includegraphics[width=1\columnwidth]{figures/figure-biasVariance/dtree_overfit_problem_2.png}
+\caption{ Training and cross-validated mean $Accuracy$ score functions along the change in max tree depth.
 For \cref{target2}, one model is fit for each tree depth value on both the training and cross validation sets.
 Both score series are compared side by side, with their corresponding standard deviation band for the CV folds.}
 \label{figure:dtree_overfit_problem_2}
@@ -272,7 +272,7 @@ This is seen to decrease when the model's complexity is increased.
 However, when the model starts to overfit the data, the test error starts to rise whilst the train error keeps decreasing.
 This situation is important to our prediction error estimation cause it hints that the model has lost predictive power due to an increase in variance.
 
-\protect\textcite{hastie-elemstatslearn} argument that in these situations, a rough heuristic to select the best model is to stop increasing the model's complexity once the $EPE$ stops decreasing.
+In \protect\textcite{hastie-elemstatslearn} the authors give a rough heuristic to select the best model: stop increasing the model's complexity once the $EPE$ stops decreasing.
 That is, chose the point where the scoring error of the test set stops decreasing along with the training error.
 For \cref{figure:dtree_overfit_problem_2}, this would roughly be when $Max Depth = 10$.
 
@@ -484,7 +484,7 @@ Thus in some cases, crude heuristic estimates or common sense is used to estimat
 
 \subsection{CV run on CDR data}\label{subsection:cvExperiment}
 
-As an example, we consider here a cross validation procedure over a logistic regression model, using for \cref{target2}.
+As an example, we consider here a cross validation procedure over a logistic regression model, using \cref{target2} for the benchmark.
 The hyperparameter we decide to optimize is the regularization of the model as $C = \frac{1}{\lambda}$. 
 We are trying to find those users that used to live in the endemic area and migrated. 
 Recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, where a smaller value in $C$ meant a stronger regularization.
