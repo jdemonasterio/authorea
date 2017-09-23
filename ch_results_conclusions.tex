@@ -391,7 +391,9 @@ For the purpose of continuing this line of work, the following is a list of poss
     \item Naive Bayes fast run time on the whole dataset. Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3).
     \item Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
     \item The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
-    \item
+    \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
+    \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
+
 
 \end{description}
 
