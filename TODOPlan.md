@@ -96,7 +96,7 @@
     * [DONE] add example of why it's important to do logReg regularization
     * [DONE] add graphic example of a real decision tree (with nodes, etc.)
             for a minor problem in our dataset.
-    * [DON] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
+    * [DONE] fix eze's recommendations on bias, variance, generalization and Vapnik-Cherkovenkis. (tags in .tex are named EZECORRECTION).
     * [DONE] fix eze's recommendations on logReg part (minor fixes in equations).
     * [DONE] separate evaluation, problem, results and validation from intro.
 
@@ -116,11 +116,11 @@
         - [DONE] On how to present features: http://people.csail.mit.edu/romer/papers/TISTRespPredAds.pdf
 
     ## Machine Learning Chapter
-        - [DONE] section Technical Observations (python, jupyter, sklearn, pandas,
-                                        sframes, graphlab, spark mllib,
-                                        theano, tensor flow, xgboost)
+        - [DONE] section Technical Observations (python, jupyter, sklearn, pandas, sframes, graphlab, spark mllib, theano, tensor flow, xgboost)
 
 ## In general:
     * [DONE] Figures appearing in sub/sections different from where they are spawned $\rightarrow $ just use `\begin{figure}[H]`.
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
-    * Check bad `\cref` references for appendix subsections.
+    * [DONE] Check bad `\cref` references for appendix subsections.
+    * Better word wrapping for presented tables' header row. Words appear somewhat cluttered.
+    * iterar con la gente del DM las correcciones. (Patu, Mathieu, Lean).
