@@ -119,6 +119,7 @@
         - [DONE] section Technical Observations (python, jupyter, sklearn, pandas, sframes, graphlab, spark mllib, theano, tensor flow, xgboost)
 
 ## In general:
+    * Talk about general low F1 scores with very bad precision in algorithms and acceptable recalls.
     * [DONE] Figures appearing in sub/sections different from where they are spawned $\rightarrow $ just use `\begin{figure}[H]`.
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
     * [DONE] Check bad `\cref` references for appendix subsections.
