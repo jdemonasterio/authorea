@@ -979,11 +979,12 @@ However, when this factor is combined with sub sampling, experiments have shown 
 
 
 In this subsection, we explore on the task described in \cref{target4}, using Gradient Boosting classifiers.
-The outcomes are compared with the results outlined in \cref{subsection:random_forests_comparison_trees}.
-We set two experiments as before, where we run two procedures, one with all available and other without the top correlated ones.
+The outcomes are compared with the results outlined in \cref{subsection:random_forests_experiments}.
+We set two experiments similar to the ones before, where we run two procedures: one with all available features and another without the top target-correlated ones. 
+In this setup though, we had a minor difference where, as before, it was characterized by the attributes used by our training dataset.
 
-In this setup though, we had a minor difference, where, as before, it was characterized by the attributes used by our training dataset.
-In the third experiment, we \textbf{only} used the best features extracted from the second Random Forest experiment.
+For the third experiment, we \textbf{only} used the best features extracted from the second Random Forest experiment. 
+These were extracted from the best-fit learner used from that case.
 With this third variant, we expected to see how good of a performance can the gradient boosting classifier achieve, using only the top 30 features, as selected by best-fit random forest learner for the previous experiments.
 % Even though
 Doing this has a hypothetical trade-off between accuracy and procedure run-time, where we can gain speed in our fitting process by compromising some of the predictive power of the algorithm.
@@ -1020,10 +1021,10 @@ Result & Experiment 1 & Experiment 2 & Experiment 3 \\
 Running time (s)        & 1172 &  6293 &  204 \\
 CV $Accuracy$ score    & 0.889 &  0.843 &  0.8327 \\
 CV $ROC AUC$ score     & 0.884 & 0.880  &  0.881 \\
-CV $F1$ score           & 0.668  &  0.663 &  0.735 \\
+CV $F1$ score           & 0.264  &  0.259 &  0.294 \\
 CV $Logloss$ score     & 0.524 &  0.337 &  0.399 \\
-CV $Precision$ score    & 0.805 &  0.780 &  0.789 \\
-CV $Recall$ score       & 0.575 &  0.557 &  0.688 \\
+CV $Precision$ score    & 0.629 &  0.601 &  0.607 \\
+CV $Recall$ score       & 0.167 &  0.165 &  0.194 \\
 balanced        & False & False  &  False \\
 % early\_stopping  & 5 &  5 & 5 \\
 max\_features (\%) & 80 & 75  &  10 \\
@@ -1049,11 +1050,13 @@ This is not the case on the last model though, where a more simple model resulte
 The same applies for the max\_features and min\_leaf\_weight hyperparameters, for which lower complexity values resulted form the last CV procedure.
 There is difficulty though in establishing which of them had the most weight in an underweight model.
 
-This situation the big difference in the $F1$ score among the algorithms.
-Where the last procedure improved on the first two experiments in more than 10\%, using this score and in almost a 20\% increase in the recall score.
-A clear conclusion is that the model first two models were clearly overfit, and using the top random forest features had a strong impact for the task.
-Finally, when compared with the experiments using the Random Forest, none of these improved on the top value of 77\% achieved there.
-Still, this value was from the first experiment with Random Forests, where the correlated features
+This situation is not that different for the $F1$ score of the experiments.
+We have that the last procedure improved on the first two experiments in more than 10\%, using this score and in an almost 20\% increase in the recall score.
+A clear conclusion is that the first two models were overfitting the training set. 
+Then byusing the top random forest features we improved on the $F1$ performance in a strong way.
+Finally, when compared with the experiments using the Random Forest, we see that most of the boosting models performed near to the top $F1$ value of 27\% achieved in the Random Forest experiments.
+Still, the top Random Forest $F1$ score was attained in the first experiment with Random Forests, where we included the highly correlated features. 
+This is then a remarkable performance for boosting learners which were not trained on this attributes and still achieved similar or higher scores.
 
 
 On the other hand, the third model lacked the same strength for the $ROC AUC$ score.
