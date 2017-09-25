@@ -9,13 +9,8 @@
 
 \chapter{Summary of Results and Conclusion}\label{ch:results_conclusion}
 
-\todo{This is work in progress.}
+\todo{This chapter is work in progress.}
 
-%\cref{ch:descr-risk}
-%\cref{ch:machineLearning}
-%\cref{{ch:modelSelection}
-%\cref{ch:ensembleMethods}
-%\cref{}
 
 % handling data, models and features with acumen
 % After extensive research of machine learning literature and CDR usage in health problems.
@@ -275,27 +270,48 @@ In all cases, the hyperparameter configuration with highest cross-validated $ROC
 %Due to time constraints limited by the use of full cross validation fitting procedures, not all models were run for all of the tasks.
 The following table shows the best-fit classifier's performance across three scores on the test set \mathcal{T_s}: $Accuracy$, $F1$ and $ROC AUC$.
 
+\todo{Bigger, better and more esthetically pleasing table is commented in the code below this one. Yet the commented table does not fit in a whole page and spawns compilation errors. This needs to be fixed.}
+
 \begin{table}
-\caption{Table comparing cross validated results for all of the classifiers run in this work
-For each task, we show the triplet of $Accuracy$, $F1$ and $ROC AUC$ test scores after a full cross validation procedures on the learner.}
+\caption{Master resutls table comparing results for all of the classifiers run in this work.
+For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}
 \label{tab:all_results}
 \centering
-\begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
-%{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
-\toprule
-Measure & Problem 1 & Problem 2 & Problem 3 & Problem 4  \\
-\midrule
-Naive Bayes     & (0.84,0.75,0.82)  & (0.64,0.31,0.61)  &  (0.65,0.45,0.63)   & (0.85,0.62,0.76)   \\
-Logistic Classifier   & (0.97,0,96,0.99)  & (0.35,0.52,0.67)  &  (,,)   & (,,)   \\
-Random Forest   & (,,)  & (,,)  &  (,,)   & (,,)   \\
-Gradient Boosting   & (,,)  & (,,)  &  (,,)   & (,,)   \\
-% CV $Accuracy$ score     & 0.842  & 0.649  &  0.658   &  0.852   \\
-% CV $F1$ score           & 0.753  & 0.313  &  0.457   &  0.626   \\
-% CV $ROC AUC$ score      & 0.827  & 0.617  &  0.635   &  0.768   \\
-\bottomrule
-\end{tabular*}
+    \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
+    %{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
+    \toprule
+    Measure & Problem 1 & Problem 2 & Problem 3 & Problem 4  \\
+    \midrule
+    Naive Bayes     & (0.84,0.82,0.75)  & (0.64,0.61,0.31)  &  (0.65,0.63,0.45)   & (0.85,0.76,0.62)   \\
+    Logistic Classifier   & (0.893,0.857,0.9)  & (0.71,0.72,0.058)  &  (0.705,0.754,0.107)   & (0.883,0.85,0.181)   \\
+    Random Forest   & (0.878,0.857,0.9)  & (0.714,0.726,0.058)  &  (0.705,0.754,0.107)   & (0.883,0.85,0.181)   \\
+    Gradient Boosting   & (0.974,0.978,0.952)  & (0.838,0.819,0.101)  &  (0.811,0.855,0.169)   & (0.885,0.873,0.194)   \\
+
+    \bottomrule
+    \end{tabular*}
 \end{table}
 
+
+
+% \begin{landscape}% Landscape page
+%         \begin{table*}
+%             \centering
+%             \ra{1.3}
+%             \begin{tabular}{@{}rrrrcrrrrcrrcrr@{}} \toprule
+%                 &  \multicolumn{4}{c}{Problem 1} &  \multicolumn{4}{c}{Problem 2} & \multicolumn{4}{c}{Problem 3}  & \multicolumn{4}{c}{Problem 4}\\
+%                  \cmidrule{2-5} \cmidrule{6-9} \cmidrule{10-13} \cmidrule{14-17}
+%                 & $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ \\ 
+%                 \midrule
+%                 $Naive Bayes$ & 0.84 & 0.82 & 0.75 & 2 && 0.64 & 0.61 & 0.31 & 2 && 0.65 & 0.63 & 0.45 & 1 && 0.85 & 0.76 & 0.62 & 1 \\
+%                 $Logistic \ Regression$ & 0.893 & 0.857 & 0.9 & 96 && 0.714& 0.726 & 0.058  & 119 && 0.705& 0.754 & 0.107 & 115 && 0.883 & 0.85 & 0.181 & 66 \\
+%                 $Random \ Forest$ & 0.878 & 0.903 & 0.77 & 33  && 0.79 & 0.776 & 0.088 & 45 && 0.792 & 0.845 & 0.156 & 21 && 0.898 & 0.853 & 0.203 &  19\\
+%                 $Gradient \ Tree \ Boosting$  & 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 &  0.101 & 54  && 0.811 & 0.855 & 0.169 & 33 && 0.885 & 0.873  & 0.194 & 47 \\
+%                 \bottomrule
+%             \end{tabular}
+%             \caption{Caption}
+%         \end{table*}    
+% \end{landscape}
+    
 
 
 
@@ -328,8 +344,8 @@ Gradient Boosting   & (,,)  & (,,)  &  (,,)   & (,,)   \\
 % These results can be explained by the fact that
 % %Scores results become less surprising when looking closer at the dataset.
 %
-%Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron)
-Los scores bajan mucho:
+%Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron)s
+ % scores bajan mucho:
 %
 %+--------------+-----------------+-------+
 %| target\_label | predicted\_label | count |
