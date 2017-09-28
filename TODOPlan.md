@@ -1,14 +1,17 @@
 # TODO PLAN
 
+## Meeting 27/09
+    * 
+
 ## Meeting 20/09
     * In table of contents, notify start of appendix somewehere. Correct the presentation form.
     * Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion. Uno de resultados en resultados
-    numericos y la compilacion de todos los resultados en terminos de numeros y metodos, etc. Los problmeas que tienen, los metodos
-     En conclusiones mas a nivel de cosas de que aprendiste, eleccion de metodos, que aprendi, que sirven los CDRs para esto, que limitaciones tienen en prediccion y otras cuestiones mas alto nivel.
+        numericos y key insights de lo que vimos con los datos, la compilacion de todos los resultados en terminos de numeros y metodos, etc. Los problmeas que tienen, los metodos usados.
+        En conclusiones mas a nivel de cosas de que aprendiste, eleccion de metodos, que aprendi, que sirven los CDRs para esto, que limitaciones tienen en prediccion y otras cuestiones mas alto nivel.
 
 ## Meeting 13/09
     * [DONE] En general, agrandar figures y dejarlas en su propio environment.
-    * Agregar runtime a la tabla.
+    * [DONE] Agregar runtime a la tabla. Por ahora es estetico.
     * [DONE] Fix roman numbers problem.
 
 ## Meeting 23/08
