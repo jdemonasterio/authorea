@@ -1,7 +1,7 @@
 # TODO PLAN
 
 ## Meeting 27/09
-    * 
+    * Fix master table presentation or chunk in two small tables.
 
 ## Meeting 20/09
     * In table of contents, notify start of appendix somewehere. Correct the presentation form.
@@ -18,7 +18,7 @@
     * [DONE] Recortar teoria y pasar a un apendice. Todos los detours respecto del problema nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
     * [DONE] Ninguna figura de afuera (o contadas excepciones). Que sean con datos propios directamente.
     * Meter una introduccion de c/capitulo para ordenar bien el hilo de la tesis.
-    * Documentar las cosas que vas probando y lo que te va pasando.
+    * [DONE] Documentar las cosas que vas probando y lo que te va pasando.
     * [DONE] Revisar notacion de los problemas y fixear.
     * Cap. introduccion: alguien que solo lee el cap. 1, se queda con una buena idea de lo que se hizo en la tesis?
     * [DONE] Revisar el \cref{} con respecto a figures que aparecen con el tag de Secciones y con ecuaciones que tengan su name que diga "Equation". Fijarse de pasar todos los `$$` a un equation environment estilo `\begin{equation}`.
@@ -127,4 +127,4 @@
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
     * [DONE] Check bad `\cref` references for appendix subsections.
     * Better word wrapping for presented tables' header row. Words appear somewhat cluttered.
-    * iterar con la gente del DM las correcciones. (Patu, Mathieu, Lean).
+    * Iterar con la gente del DM las correcciones. (Patu, Mathieu, Lean).
