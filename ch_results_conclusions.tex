@@ -9,8 +9,21 @@
 
 \chapter{Summary of Results and Conclusion}\label{ch:results_conclusion}
 
-\todo{This chapter is work in progress.}
+\todo{Erase this section}
+\section{Plan / Random notes to add to results chapter}
 
+\begin{description}
+    \item Confirmation of decision tree overfitting on model complexity. Random Forests improving on this. Gradient Boosting better in bias with a slight incrase in overfit.
+    \item Suprising low F1 overall when best-fitting, yet high and acceptable ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. This would be interesting to weight under the eyes of a health researcher. Where focus might be either on one over the other. \todo{ask Diego Weinberg}.
+    \item Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
+    \item Naive Bayes fast run time on the whole dataset. Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3).
+    \item Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
+    \item The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
+    \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
+    \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
+
+
+\end{description}
 
 % handling data, models and features with acumen
 % After extensive research of machine learning literature and CDR usage in health problems.
@@ -18,19 +31,42 @@
 The idea of this chapter is to present a combined overview of the work done and results we encountered in
 \cref{ch:descr-risk,ch:machineLearning,ch:modelSelection,ch:ensembleMethods}.
 All in all, we intend to showcase most of the relevant information from the preceding sections.
-The overall picture of this work shows that there is evidence to confirm the hypothesis which stipulates that there are social interactions captured by the cellphone usage logs.
-This is because the data-set is informative enough on long-term migrations and human mobility.
-To summarize the work done we can say that:
+The overall picture of this work shows that there is evidence to confirm the hypothesis which stipulates that cellphone usage logs are rich in social interactions and in turn, these interactions are informative enough on long-term migrations and human mobility.
+
 % A summary of the work done we can say we have discussed issues on the most of the following items:
+
+In \cref{ch:descr-risk} we presented the dataset and how it was relevant to the problem in that dynamic georeferrenced data and social interactions could be helpful to show long-term human migrations.
+
+As a starting point we transformed the individual data into an antenna dataset which aggregated information of call patterns to and from the endemic region. This information was then presented in a visualization through heat maps. These showed georeferenced call interactions and colored cellphone antennas according to their level of vulnerable interactions, as defined previously.
+
+These visualizations exposed a `temperature' descent from the core regions outwards, where the heat is seend concentrated in the ecoregion.
+As expected, the level of vulnerable interactions per antenna gradually descends as we move further away.
+We say this is expected behavior because it is consistent with findings in the literature in which calls are mostly local. %in general of a local nature.
+Users in ninety percent of the cases limit antenna usage to at most four Telco antennas, for the period analyzed.
+
+However some unexpected findings were higlighted by the risk maps.
+We saw that the interactions from non-endemic antennas towards those in the endemic region are non-homogeneous.
+As an example, \cref{fig:amba_map} outlines various antennas with higher vulnerability.
+We suspect this non-uniformity in the vulnerable interactions can help detect communities with higher probability of disease prevalence.
+
+Health experts agree that these anomalies can be a great starting point to start.
+Where potential communities atypical in their neighboring region could be worthy of a latent endemic foci.
+These antennas stood out for their strong communication ties with the regions studied, showed significantly higher links of vulnerable communication.
+
+In the images presented before, the differences in the vulnerable interactions were clear.
+When talking to the ``Mundo Sano Foundation'' researchers participating in this project, they pointed to the fact that the detection of these antennas through the visualizations was of great value to their goals.
+
+ % to the health Mundo Sano Foundation researchers participating in this project.
+
+At the national level, the results evidenced by the maps were coherent with the expert's knowledge of the endemic zone's migration patterns.
+
 
 
 \begin{itemize}
 
-    \item We presented a visualization of the datasets with heat maps that showed georeferenced call interactions and colored cellphone antennas according to their level of vulnerable interactions.
-    The maps produced showed results that were coherent with the expert's knowledge of the endemic zone's migration patterns.
-    Added to this, they produced many interesting insights of specific antennas that have higher vulnerable interactions with the endemic region, where these are located outside of the endemic region.
+    \item \textbf{Conclusion}
 
-    \item We applied a systematic approach to analyze the information contained in the dataset.
+    \item This method and dataset showed a systematic approach to analyze the information contained in the dataset.
     The idea was to try to explore the human mobility patterns, as captured by the phone call records.
 
     \item We broke the problem of long-term human migrations down to four tasks which were analyzed separately.
@@ -45,13 +81,13 @@ To summarize the work done we can say that:
     \item Where possible, we exposed the best features of the dataset to solve the general problem.
     These exposed the relationship between the attributes that characterize vulnerable user interactions, and the target variable of the task.
     Other relevant features, such as the user's mobility size, were also found to provide relevant information for the classification task.
+
+    \item According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions. In some instances, we have achieved high values across all scoring measures. To summarize the work done we can say that:
      % the algorithms detected that the characterization of the user's mobility provided relevant information to the task
 It was important in detecting the long-term movement of users.
 
-    \item According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions
-In some instances, we have achieved high values across all scoring measures.
-
 \end{itemize}
+
 
 From our findings, we can say that there is no single method that can be single-handedly applied to all problems.
 Each of the tasks will have different scores across the algorithms used.
@@ -73,17 +109,6 @@ Where cellphone datasets are rich enough in information to detect detailed patte
 
 
 
-The heatmaps shown in Section~\cref{ch:descr-risk} expose a `temperature' descent from the core regions outwards.
-The heat is concentrated in the ecoregion and gradually descends as we move further away.
-This expected behavior could be explained by the fact that calls are in general of a local nature.
-Where users, in general, have an antenna usage limited to 3 or 4 Telco antennas used during the period analyzed.
-
-The risk maps highlight that the interactions from non-endemic antennas towards those in the endemic region are non-homogeneous.
-As an example, \cref{fig:amba_map} outlines various antennas with higher vulnerability, which would help detect communities with higher probability of disease prevalence.
-These anomalies found could point to potential communities atypical of their neighboring region.
-They stand out for their strong communication ties with the regions studied, showing significantly higher links of vulnerable communication.
-In the images presented, the differences in the vulnerable interactions are clear.
-The detection of these antennas through the visualizations was of great value to the health Mundo Sano Foundation researchers participating in this project.
 
 
 
@@ -201,20 +226,6 @@ Yet these are out of the scope of this work, for the lack of data.
 
 
 
-The resulting analysis, allowed to show that the Risk maps we developed are of interest to national health campaigns.
-They pinpoint to likely spots of high disease prevalence, with a low cost to produce this outcome.
-
-Next to traditional health control actions, this research may provide a very insightful piece of information for decision-makers.
-Capturing long-term human movements will also enable better simulations of disease spreads in different contexts.
-In this work, the impact of this in our predictive capacity of disease prevalence is shown.
-
-
-
-We believe it is acceptable to say that most human dynamics in the form of migration patterns are captured by the use of this data.
-This work was performed in two Latin-American countries and in one single endemic region.
-We expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities beyond Chagasic spread in Mexico or Argentina.
-
-
 Feature selection of ensemble algorithms were concurring in the choice of the best features for the prediction task.
 
 Model regularization and hyperparameter cross validation improved the models predictive power.
@@ -300,7 +311,7 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
 %             \begin{tabular}{@{}rrrrcrrrrcrrcrr@{}} \toprule
 %                 &  \multicolumn{4}{c}{Problem 1} &  \multicolumn{4}{c}{Problem 2} & \multicolumn{4}{c}{Problem 3}  & \multicolumn{4}{c}{Problem 4}\\
 %                  \cmidrule{2-5} \cmidrule{6-9} \cmidrule{10-13} \cmidrule{14-17}
-%                 & $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ \\ 
+%                 & $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ \\
 %                 \midrule
 %                 $Naive Bayes$ & 0.84 & 0.82 & 0.75 & 2 && 0.64 & 0.61 & 0.31 & 2 && 0.65 & 0.63 & 0.45 & 1 && 0.85 & 0.76 & 0.62 & 1 \\
 %                 $Logistic \ Regression$ & 0.893 & 0.857 & 0.9 & 96 && 0.714& 0.726 & 0.058  & 119 && 0.705& 0.754 & 0.107 & 115 && 0.883 & 0.85 & 0.181 & 66 \\
@@ -309,9 +320,9 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
 %                 \bottomrule
 %             \end{tabular}
 %             \caption{Caption}
-%         \end{table*}    
+%         \end{table*}
 % \end{landscape}
-    
+
 
 
 
@@ -359,7 +370,19 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
 
 \section{Conclusions}\label{section:conclusions}
 
-ASDF ASDF
+
+The analysis exposed allowed us to show that the Risk maps we developed are of interest to national health campaigns.
+They pinpoint to likely spots of high disease prevalence, with a low cost to produce this outcome.
+Added to this, the risk maps produced many interesting insights of specific antennas that have higher vulnerable interactions with the endemic region, where these are located outside of the endemic region.
+
+Next to traditional health control actions, this research may provide a very insightful piece of information for decision-makers.
+Capturing long-term human movements will also enable better simulations of disease spreads in different contexts.
+In this work, the impact of this in our predictive capacity of disease prevalence is shown.
+
+We believe it is acceptable to say that long-term human dynamics in the form of migration patterns can be captured by the use of this data.
+Since this work was performed in two Latin-American countries and in one single endemic region, we expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities beyond Chagasic spread in Mexico or Argentina.
+
+
 
 \subsection{ Lines of Future Work }
 
@@ -367,9 +390,11 @@ The mobility and social information extracted from CDRs analysis has been shown 
 it adds value and information to help make data driven decisions which in turn is key to support epidemiological policy interventions in the region.
 For the purpose of continuing this line of work, the following is a list of possible extensions:
 
+
 \begin{description}
     \item [Results validation.] Compare observed experiment results of risk maps and best features against actual serology or disease prevalence surveys.
     Data collected from fieldwork could be fed to the algorithm in order to supervise the learning towards a target variable that is defined by the disease prevalence at a certain level.
+
 
     \item [Differentiating rural antennas from urban ones.] This is important as studies show that rural areas have epidemiological conditions which are more favorable to the expansion of the disease expansion.
     The vector-borne transmission through \textit{Trypanosoma cruzi} is helped with poor housing materials and domestic animals.
@@ -391,23 +416,6 @@ For the purpose of continuing this line of work, the following is a list of poss
     Since otherwise, it would not be possible to reach a generalizing classifier.
 
     \item Feature exploration to search for correlations with being infected.
-
-\end{description}
-
-
-\todo{Erase this section}
-\section{Plan / Random notes to add to results chapter}
-
-\begin{description}
-    \item confirmation of decision tree overfitting on model complexity. Random Forests improving on this. Gradient Boosting better in bias with a slight incrase in overfit.
-    \item Suprising low F1 overall when best-fitting on ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. This would be interesting to weight under the eyes of a health researcher. Where focus might be either on one over the other. \todo{ask Diego Weinberg}.
-    \item Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
-    \item Naive Bayes fast run time on the whole dataset. Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3).
-    \item Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
-    \item The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
-    \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
-    \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
-
 
 \end{description}
 

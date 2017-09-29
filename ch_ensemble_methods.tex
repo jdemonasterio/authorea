@@ -593,7 +593,7 @@ And, whilst having a higher level of randomization in the growth of the trees hi
 
 For most of the metrics used to evaluate the cross validation procedure, the scores look very similar.
 It is notable that the second experiment is slightly better in the accuracy, precision, Logloss and ROC AUC scores, with a maximum difference of 5\% for all of them.
-Yet at the same time the second experiment's performance drastically drops for the recall and precision. 
+Yet at the same time the second experiment's performance drastically drops for the recall and precision.
 The same occurs accordingly for the $F1$ measure.
 We see the learner is losing performance in correctly tagging the user's who have migrated from the endemic region.
 This high relative difference hints to how much of an impact is characterized by removing the features for the second experiment.
@@ -980,10 +980,10 @@ However, when this factor is combined with sub sampling, experiments have shown 
 
 In this subsection, we explore on the task described in \cref{target4}, using Gradient Boosting classifiers.
 The outcomes are compared with the results outlined in \cref{subsection:random_forests_experiments}.
-We set two experiments similar to the ones before, where we run two procedures: one with all available features and another without the top target-correlated ones. 
+We set two experiments similar to the ones before, where we run two procedures: one with all available features and another without the top target-correlated ones.
 In this setup though, we had a minor difference where, as before, it was characterized by the attributes used by our training dataset.
 
-For the third experiment, we \textbf{only} used the best features extracted from the second Random Forest experiment. 
+For the third experiment, we \textbf{only} used the best features extracted from the second Random Forest experiment.
 These were extracted from the best-fit learner used from that case.
 With this third variant, we expected to see how good of a performance can the gradient boosting classifier achieve, using only the top 30 features, as selected by best-fit random forest learner for the previous experiments.
 % Even though
@@ -1052,10 +1052,10 @@ There is difficulty though in establishing which of them had the most weight in 
 
 This situation is not that different for the $F1$ score of the experiments.
 We have that the last procedure improved on the first two experiments in more than 10\%, using this score and in an almost 20\% increase in the recall score.
-A clear conclusion is that the first two models were overfitting the training set. 
+A clear conclusion is that the first two models were overfitting the training set.
 Then byusing the top random forest features we improved on the $F1$ performance in a strong way.
 Finally, when compared with the experiments using the Random Forest, we see that most of the boosting models performed near to the top $F1$ value of 27\% achieved in the Random Forest experiments.
-Still, the top Random Forest $F1$ score was attained in the first experiment with Random Forests, where we included the highly correlated features. 
+Still, the top Random Forest $F1$ score was attained in the first experiment with Random Forests, where we included the highly correlated features.
 This is then a remarkable performance for boosting learners which were not trained on this attributes and still achieved similar or higher scores.
 
 
