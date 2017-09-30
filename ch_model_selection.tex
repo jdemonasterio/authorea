@@ -578,7 +578,7 @@ We took one logistic classifier with common settings and we ran a cross validati
 In this run, we considered four metrics to cross-validate our models: $Accuracy$, $Precision$, $Recall$ and $F1$.
 We compared all of them in a procedure which had fixed hyper parameters for all models.
 The value of folds $K$ was set to eight and the the $l1$ regularization value was optimized. 
-At the same time, we fixed to 100 the maximum gradient descent iterations in any iteration. 
+At the same time, we fixed to $100$ the maximum gradient descent iterations in any iteration. 
 We also balanced the positive and negative classes in the loss function, where samples of the under-represented class had a higher contribution to the loss.
 This weight was equivalent to the reciprocal of their ratio in the total count of samples.
 
@@ -589,14 +589,14 @@ In \cref{tab:metrics_comparison_logreg_target1_results} shows a summary of these
 
 
 \begin{table}[!htb]
-\caption{ Results comparing an 8-fold CV fit of a Logistic Classifier over varying regularization $C$ values.
+\caption{ Results comparing an 8-fold CV on \cref{target2}, using a Logistic Classifier over varying regularization $C$ values.
 Four metrics were cross-validated and compared in this experiment: $Accuracy$, $Precision$, $Recall$ and $F1$.}
 \label{tab:metrics_comparison_logreg_target1_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
 %{|p{2cm}|p{2cm}|p{1.5cm}|p{1cm}|p{1.5cm}}
 \toprule
-Metric & Best CV $C$ value & Mean CV score & Test score & Full CV time (s)  \\
+Metric & Best $C$ value & Mean CV score & Test score & Full CV time (s)  \\
 \midrule
 $Accuracy$ & 3.162 & 0.685 & 0.695 & 4628.3  \\
 $Precision$ & 0.107 & 0.637 & 0.612 & 4638.2 \\
