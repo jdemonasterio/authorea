@@ -4,7 +4,7 @@
     * Fix master table presentation or chunk in two small tables.
 
 ## Meeting 20/09
-    * In table of contents, notify start of appendix somewehere. Correct the presentation form.
+    * [DONE] In table of contents, notify start of appendix somewehere. Correct the way it is presented.
     * Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion. Uno de resultados en resultados
         numericos y key insights de lo que vimos con los datos, la compilacion de todos los resultados en terminos de numeros y metodos, etc. Los problmeas que tienen, los metodos usados.
         En conclusiones mas a nivel de cosas de que aprendiste, eleccion de metodos, que aprendi, que sirven los CDRs para esto, que limitaciones tienen en prediccion y otras cuestiones mas alto nivel.
