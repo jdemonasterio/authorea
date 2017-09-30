@@ -25,6 +25,8 @@
 
 \end{description}
 
+\todo{Review whole results chapter, fix typos grammar mistakes, etc.}
+
 % handling data, models and features with acumen
 % After extensive research of machine learning literature and CDR usage in health problems.
 
@@ -35,17 +37,36 @@ The overall picture of this work shows that there is evidence to confirm the hyp
 
 % A summary of the work done we can say we have discussed issues on the most of the following items:
 
-In \cref{ch:descr-risk} we presented the dataset and how it was relevant to the problem in that dynamic georeferrenced data and social interactions could be helpful to show long-term human migrations.
+In \cref{ch:descr-risk} we presented the CDR dataset and how it was relevant to the problem.
+We showed how the data contained dynamic georeferrenced data at the user level. 
 
-As a starting point we transformed the individual data into an antenna dataset which aggregated information of call patterns to and from the endemic region. This information was then presented in a visualization through heat maps. These showed georeferenced call interactions and colored cellphone antennas according to their level of vulnerable interactions, as defined previously.
+With a minuscule sample of the CDRs we showed that the dataset is rich in social interactions between users.
+This gave us an idea of how this type of data could be leveraged to the general problem.
+We then framed our problem in the context of long-term human migrations and gave an idea of the importance of them, in relation to the epidemic nature of the disease.
 
-These visualizations exposed a `temperature' descent from the core regions outwards, where the heat is seend concentrated in the ecoregion.
-As expected, the level of vulnerable interactions per antenna gradually descends as we move further away.
-We say this is expected behavior because it is consistent with findings in the literature in which calls are mostly local. %in general of a local nature.
-Users in ninety percent of the cases limit antenna usage to at most four Telco antennas, for the period analyzed.
+As an exploratory We compared the relative sample of users
 
-However some unexpected findings were higlighted by the risk maps.
-We saw that the interactions from non-endemic antennas towards those in the endemic region are non-homogeneous.
+In this stage we set to explore data transformations and  visualizations to explore further the information contained in the data.
+As a starting point we transformed the user-level data into a dataset at the antennas level. 
+This step aggregated information of call patterns to and from the endemic region. 
+It allowed us to present geolocalized visualizations of these social interactions to the vulnerable areas.
+As an intermediate step in this process we had to introduce the definitions that we later used for the rest of this work. 
+We technically set what we meant was a vulnerable interaction and what we find is a user\'s home antenna.
+
+% For the latter we base
+
+The antenna level information was finally aggregated into heat maps. 
+In these, georeferenced call interactions and colored cellphone antennas according to their level of vulnerable interactions, as defined previously.
+% We did this with the help of
+
+The visualizations exposed a `temperature' descent from the core regions outwards.
+As expected, the heat was noted to be concentrated in the ecoregion.
+We also found out that the level of vulnerable interactions per antenna gradually descends as we move further away.
+We say this is expected behavior because it is consistent with findings in the literature in which most calls are done to other local antennas. %in general of a local nature.
+Given this period and TelCo of analysis, we saw that ninety percent of the users limited usage to at most four Telco antennas.
+
+We also discovered some unexpected findings that were higlighted by the risk maps.
+Interactions from non-endemic antennas towards those in the endemic region were seen to be non-homogeneous in some areas.
 As an example, \cref{fig:amba_map} outlines various antennas with higher vulnerability.
 We suspect this non-uniformity in the vulnerable interactions can help detect communities with higher probability of disease prevalence.
 
@@ -53,7 +74,7 @@ Health experts agree that these anomalies can be a great starting point to start
 Where potential communities atypical in their neighboring region could be worthy of a latent endemic foci.
 These antennas stood out for their strong communication ties with the regions studied, showed significantly higher links of vulnerable communication.
 
-In the images presented before, the differences in the vulnerable interactions were clear.
+In these images presented, the differences in the vulnerable interactions were clear.
 When talking to the ``Mundo Sano Foundation'' researchers participating in this project, they pointed to the fact that the detection of these antennas through the visualizations was of great value to their goals.
 
  % to the health Mundo Sano Foundation researchers participating in this project.
@@ -69,10 +90,7 @@ At the national level, the results evidenced by the maps were coherent with the 
     \item This method and dataset showed a systematic approach to analyze the information contained in the dataset.
     The idea was to try to explore the human mobility patterns, as captured by the phone call records.
 
-    \item We broke the problem of long-term human migrations down to four tasks which were analyzed separately.
-    To perform this analysis, we introduced machine learning theory and methods.
-    A discussion of these methods' applications to these kinds of tasks was elaborated.
-    The models presented are some of the most common techniques found in the literature for the classification task we were trying to solve.
+    \item 
 
     \item We compared the strengths and weaknesses of these methods.
     The algorithms  were used to estimate the probability of each user's migrations.
@@ -84,12 +102,22 @@ At the national level, the results evidenced by the maps were coherent with the 
 
     \item According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions. In some instances, we have achieved high values across all scoring measures. To summarize the work done we can say that:
      % the algorithms detected that the characterization of the user's mobility provided relevant information to the task
+
 It was important in detecting the long-term movement of users.
 
 \end{itemize}
 
 
-From our findings, we can say that there is no single method that can be single-handedly applied to all problems.
+In \cref{ch:ch:machineLearning} we gave a practical introduction to the 
+
+We broke the problem of long-term human migrations down to four tasks which were analyzed separately.
+    To perform this analysis, we introduced machine learning theory and methods.
+    A discussion of these methods' applications to these kinds of tasks was elaborated.
+    The models presented are some of the most common techniques found in the literature for the classification task we were trying to solve.
+
+From our findings, we can say that there is no absolute single method that can be single-handedly applied to all problems and evaluation performances. 
+However, our findings note that the gradient boosting methods were, in general, were top performing all tasks and classifiation metrics, except in the case of the $F1$ score. 
+Surprisingly enough, in some tasks the Naive Bayes 
 Each of the tasks will have different scores across the algorithms used.
 % and the same applies to the metrics used to evaluate them.
 However, the results show that the performance of Random Forests or Gradient Boosting models is best over other models such as Logistic Regression or Naive Bayes algorithms.
@@ -386,9 +414,11 @@ Since this work was performed in two Latin-American countries and in one single 
 
 \subsection{ Lines of Future Work }
 
+\todo{Add try other ML methods such as SVM or neural nets to improve on general F1 score or compete against Naive Bayes high F1 score.}
+
 The mobility and social information extracted from CDRs analysis has been shown to be of practical use for long-term human migrations and for Chagas disease research.
 it adds value and information to help make data driven decisions which in turn is key to support epidemiological policy interventions in the region.
-For the purpose of continuing this line of work, the following is a list of possible extensions:
+For the purpose of continuing this reserach line, the following is a list of possible extensions:
 
 
 \begin{description}
