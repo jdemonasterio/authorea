@@ -338,17 +338,18 @@ We also register the most used antennas considering only calls made during the \
 % Log counts as well.
 
 A user's home antenna is defined by the most used antenna.
-For our algorithms we considered two versions, the most used antenna in all of $T_0$., and the most used antenna during the \textit{week night} for 5 months.
+For our algorithms we considered two versions, the most used antenna in all of $T_0$., and the most used antenna during the \textit{week night} for these same months.
 With this, users were tagged as `endemic' if their home antenna is in the endemic zone $E_Z$ and `exposed' if any of the ten antennas logged is in the risk area.
 
 
 \subsection{Mobility Diameter}\label{section:def_mobility_diameter}
 
-The user's logged antennas define a convex hull in space and the radius of the hull is taken to be as the mobility diameter.
-This length is representative of the area of influence of that individual, a feature expected to be correlated with long-term migrations.
+The user's logged antennas define a convex hull in space and the radius of the hull is taken to be the user's mobility diameter.
+This length is representative of the area of influence of that individual. 
+We expect this feature to be correlated with long-term migrations.
 
 We register the mobility diameter of each user, as the diameter in kilometers of the convex hull defined by his top 10 used antennas.
-Again, we generate two values, considering (i) all antennas and (ii) only the antennas used during the \textit{weeknight}.
+Again, we generate two values for this attribute, considering (i) all antennas used and (ii) only those used during \textit{weeknights}.
 
 
 
@@ -385,7 +386,7 @@ Each attribute has it\'s code name and a description of the codes used to constr
 		%{l r r r r r r }
 		% \toprule
 		\hline
-		Feature name & Call/Time & Time Period & Direction of call & Endemicity & Month number\\
+		Feature name & Call/Time & Time Period & Direction of call & Endemicity & Month \\
 		% \midrule
 		\hline
 		Calls WeekEnd InVul08       & Count & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
@@ -432,7 +433,7 @@ the percentage of telco users per state, for the top 10 Mexican states.
 
 
 \begin{table}[ht]
-	\caption{Table showing the mexican distribution of antennas, total population and Telco users by state.}\label{tab:distribution_by_state}
+	\caption{Table showing the mexican distribution of antennas, total population and telco users by state.}\label{tab:distribution_by_state}
 	\centering
 	\begin{tabular}{l r r r}
 		\toprule
