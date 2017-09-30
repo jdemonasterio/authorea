@@ -44,7 +44,14 @@ With a minuscule sample of the CDRs we showed that the dataset is rich in social
 This gave us an idea of how this type of data could be leveraged to the general problem.
 We then framed our problem in the context of long-term human migrations and gave an idea of the importance of them, in relation to the epidemic nature of the disease.
 
-As an exploratory We compared the relative sample of users
+We noted that the dataset posed a very unbalanced classification problem. 
+As expected, most telco users did not show any migration pattern to or from the endemic region, in the time of analysis. 
+This also implied that we had a very correlated problem, where most users did not change their past and present endemic conditions. 
+This information, combined with the local calling nature, meant that we had correlations with the target feature. 
+As users living in the endemic region will most probably have lived there in the past as well.
+
+% in which there are few positive cases over all of the possible.
+ % an exploratory We compared the relative sample of users
 
 In this stage we set to explore data transformations and  visualizations to explore further the information contained in the data.
 As a starting point we transformed the user-level data into a dataset at the antennas level. 
