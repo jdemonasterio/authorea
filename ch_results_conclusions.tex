@@ -138,7 +138,7 @@ With this we can still positively affirm that the best-fit models for this exper
 On the other hand, when using this classifier to solve \cref{target1}, we find that we can attain a $ROC AUC$ score of $0.76\%$. 
 And this score is achieved when cross validating solely on the $l1$ regularization parameter. 
 A similar test score of $0.744\%$ was reached when optimizing for the $l2$ hyperparameter of regularization.
-Each were optimized separately in order to exmplify how the overall $ROC AUC$ varied along different regularization thresholds.
+Each were optimized separately in order to exemplify how the overall $ROC AUC$ varied along different regularization thresholds.
 
 Overall, both procedures had best fits on the more regularized $C$values.
 And these better $ROC AUC$ scores, when compared with the experiments on \cref{target1}, underscore the problems difference in difficulty.
@@ -151,14 +151,23 @@ With this we tackled the task with the introduction of new algorithms in the fol
 
 
 
-In\cref{ch:ensembleMethods} we introduce four new classifiers along with their properties and characteristics.
+In\cref{ch:ensembleMethods} we introduce four new classifiers along with their properties and characteristics. Three of these, \cref{section:decision_trees,section:random_forests,section:gradient_boosting}, were tree based methods whilst the last, \cref{section:naive_bayes}, was a Naive Bayes Classifier used for benchmarking purposes.
+For each, we presented an introductory review and pointed the reader to further literature references where applicable.
 
-% For each, we presented an introductory review and pointed the reader to further readings where needed.
+All were put through a number of experiments to evaluate how they performed across all prediction problems.
+For each model, we tried to draw the greatest prediction performance from the features extracted from the dataset.
+
+Tree based models were evaluated in further detail however.
+These were successively compared in their overfit
+ in succe
+
 
 
 
 
 A discussion of these methods' applications to these kinds of tasks was elaborated.
+
+
 
 From our findings, we can say that there is no absolute single method that can be single-handedly applied to all problems and evaluation performances. 
 However, our results outline that the Gradient Boosting methods were, in general, top performing for all tasks and classifiation metrics, except for the $F1$ score.
@@ -181,12 +190,6 @@ Expand, correct and finish them in a cohesive structure.}
 
 
 
-Then, through a number of experiments, we demonstrated how the supervised classification models performed across different prediction tasks.
-For each model, we tried to draw the greatest prediction performance from the features extracted from the dataset.
-
-Results evidence indicating that a supervised classification predictor can be built to detect large patterns of human migrations over time.
-They also point to the fact that CDRs are particularly well suited for this task.
-Where it is possible to explore CDRs as a mean to tag human mobility.
 
 
 The supervised classification experiments done on the various prediction tasks were discussed in previous sections.
@@ -253,16 +256,18 @@ In this work on CDRs, the Argentinean and Mexican case studies allow us to find 
 Where cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
 
 
+Results show evidence indicating that a supervised classification predictor can be built to detect large patterns of human migrations over time.
+They also point to the idea that CDRs are particularly well suited for this task, where it is possible to explore this data as a mean to tag human mobility.
+These tests effectively helped understand how relevant the dataset is to the question, where the complexity and scale of the data can be, up to a certain degree, assimilated by probabilistic algorithms.
+% , using the models outlined before.
 
-\section{In-depth discussion}
+Large at-scale and temporal user mobility were captured by the CDRs, allowing us to understand a variety of human movements thoughout the country. 
 
 
+% \section{In-depth discussion}
 
-These test case shed light on how relevant this dataset is to the question on complex long-term migrations.
-Their complexity and scale of these movements can be, up to a certain degree, assimilated by probabilistic algorithms, using the models outlined before.
+% In this work we took advantage of the large user scale and temporal range of the CDRs allowed us to capture a variety of human movements throughout the country.
 
-
-In this work we took advantage of the large user scale and temporal range of the CDRs allowed us to capture a variety of human movements throughout the country.
 Migration patterns can then be used to suggest actual epidemic spread of this disease into areas not deemed endemic.
 
 
@@ -270,42 +275,46 @@ Migration patterns can then be used to suggest actual epidemic spread of this di
 
 \section{Drawbacks on the methodology}
 
-Several weak points can be made on our methodology.
-An important observation is that we can not directly jump these conclusions on-to a disease spread model.
-In this work, we are looking solely at human mobility to and from endemic regions.
-This does not imply disease spread or prevalence.
-Yet, on the advice of this topic's researchers, this work does bring valuable insights to the problem.
+There are several points can be stated to point to weak spots on the methodology used.
+An important observation is that we can not directly jump from the human mobility insights found in this study, to conclusions from a model of disease spread. 
+From this work, we were looking solely at human mobility to and from endemic regions, which does not imply disease spread or prevalence.
+However, on the advice of this topic's researchers, this work does bring valuable insights to the problem, reinforcing previous hypothesis that vulnerable users are not only to be found inside vector-infested regions.
 
 
-Another issue is the representation bias of our dataset.
-As shown in \cref{tab:distribution_by_state}, there are differences in the percentage of population represented by our dataset vs.\ current state distribution estimates.
-With this, results should be interpreted with caution, since we have no real comparisons with actual disease data, outside of the endemic region and at a municipal or regional levels.\footnote{As a matter of fact, we have tried to contact health institutions and organizations working on the matter to try and enrich the dataset with more info
-This intent did not reach any health data of the kind.}
+Another issue with this work is the inherent biases in our dataset.
+As shown in \cref{tab:distribution_by_state}, there are significant differences in the percentage of population represented by our dataset vs.\ current state distribution estimates.
+Due to this, we have to interpret results with caution, since we do not hold any real-data comparisons. 
+For this work we did not find any available georeferrenced disease data outside of the endemic region, at municipal or regional levels.\footnote{As a matter of fact, we tried to contact health institutions and research organizations working on the matter with the purpose of enriching the original dataset. 
+This intent did not add any disease-related data of the kind.}
 
-There are other interesting limitations concerning international pattern migrations.
-For this work, we measured migrations only in national phone owners.
-And it was showed in \cref{ch:descr-risk}, that  epidemic regions extend political borders.
-With the current dataset we cannot capture international migrations and our analysis is limited to movements of national Telco users only.
-The same applies for detecting movement patterns of people which lack cell phone antennas.
+Other interesting biases stemming from the data are related to international pattern migrations.
+For this work, we measured migrations only from phone owners within a single country.
+Yet we have seen in \cref{ch:descr-risk}, that  epidemic regions traverse political borders.
+The current dataset is limited to only capturing international migrations, and with this our analysis is limited to movements of national Telco users only.
+A similar argument applies to the detection of mobility patterns for people with no cell-phone usage.
+ % lack cell phone antennas.
 
-In extracting each user's home antenna, based on the user's ``working hours'', we also made the assumption that this can be used in a generalized case.
-Even though this decision was supported by past research, it might not be easily translated into datasets across other geographical and cultural regions.
+Our dataset also presents problems when processing a user's home antenna.
+To do this we had to define what we though were the expected ``working hours'' for all users.
+In doing so, we also assumed that this coulb be generalized to all samples. %used in a generalized case.
+Even though this decision was supported from past research we refereneced, the definitons might not be easily translated for datasets across other geographical and cultural regions.
+% This was done by considering what we thought 
 
-Finally, time seasonalities and stationarity, were considered but only in a limited fashion.
-Weekends and working hours were separately tagged in attributes.
-The same with month specific attributes for the user's calling patterns.
-However there are more long-term time segmentation which were not used in this work.
-It is possible that migration patterns be strongly related to seasonal factors such as, for example, in the agriculture workforce.
 
-The importance of other user specific features, such as demographics, should be examined as well.
-Yet these are out of the scope of this work, for the lack of data.
+Finally, we know that we can have significant time seasonality and stationarity in the data, yet we did not consider statistical methods to reduce this effect in a thorough fashion. % but only in a limited fashion.
+When processing the data, we specifically tagged weekend and working hour attributes separately from the rest of the features.
+The same was done for month specific attributes on user calling patterns.
+However we understand that there could be other longer term time effect which was not considered under our current codebase. %used in this work.
+There are possibilities of migration patterns being strongly related to seasonal factors such as, for example, in agriculturarl workers having seasonal migrations around regions.% workforce.
+
+The importance of other user specific bias, such as demographics unbalance, was not thoroughly examined.
+Yet these were out of the scope of this work, due to the lack of ground truth in the data.
 
 
 % discriminated in the construction of the features, yet there were no long-term time
 
 
-
-
+% ||||||||||||||||||||||||||||||||||||| SPLIT |||||||||
 
 
 Feature selection of ensemble algorithms were concurring in the choice of the best features for the prediction task.
