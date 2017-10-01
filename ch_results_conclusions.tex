@@ -21,16 +21,19 @@
     \item The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
     \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
     \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
+    \item What's the predictive performance of CDRs for the long-term migrations problem?
+    \item Review 4 problems and wrap the best results of each algorithm, what scorings did they have?
 
 
 \end{description}
+
 
 \todo{Review whole results chapter, fix typos grammar mistakes, etc.}
 
 % handling data, models and features with acumen
 % After extensive research of machine learning literature and CDR usage in health problems.
 
-The idea of this chapter is to present a combined overview of the work done and results we encountered in
+The idea of this chapter is to present a combined overview of the work done and the results encountered in
 \cref{ch:descr-risk,ch:machineLearning,ch:modelSelection,ch:ensembleMethods}.
 All in all, we intend to showcase most of the relevant information from the preceding sections.
 The overall picture of this work shows that there is evidence to confirm the hypothesis which stipulates that cellphone usage logs are rich in social interactions and in turn, these interactions are informative enough on long-term migrations and human mobility.
@@ -90,59 +93,87 @@ At the national level, the results evidenced by the maps were coherent with the 
 
 
 
-\begin{itemize}
+In \cref{ch:machineLearning,ch:modelSelection} we gave a practical introduction to Machine Learning in general, and of Supervised Classification problems in specific. 
+This helped us set our Chagas problem inside a systematic process to analyze long-term migrations with the CDR dataset.
 
-    \item \textbf{Conclusion}
+To do this, we broke the problem of long-term human migrations down to four tasks which were later analyzed through different classifiers.
+In these two chapters, we introduced the machine learning theory necessary to structure our problem, along with its methods to solve them.
+These models were some of the most common techniques found in the literature for the task we were trying to solve.
 
-    \item This method and dataset showed a systematic approach to analyze the information contained in the dataset.
-    The idea was to try to explore the human mobility patterns, as captured by the phone call records.
-
-    \item 
-
-    \item We compared the strengths and weaknesses of these methods.
-    The algorithms  were used to estimate the probability of each user's migrations.
-    Also, we showcased the method's results differences for the tasks defined in \cref{ch:machineLearning}.
-
-    \item Where possible, we exposed the best features of the dataset to solve the general problem.
-    These exposed the relationship between the attributes that characterize vulnerable user interactions, and the target variable of the task.
-    Other relevant features, such as the user's mobility size, were also found to provide relevant information for the classification task.
-
-    \item According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions. In some instances, we have achieved high values across all scoring measures. To summarize the work done we can say that:
-     % the algorithms detected that the characterization of the user's mobility provided relevant information to the task
-
-It was important in detecting the long-term movement of users.
-
-\end{itemize}
+To start off we considered the Logistic Regression Classifier along with the logloss metric to evaluate model performance.
+Taking to our advantage the model's more tractable formulation, we showed how model regularization fits inside the machine learning frame.
+This concept was introduced along with the notion of model hyperparameters. 
+Both were relevant to subsequent sections and in particular to \cref{fig:log_loss_regularization_validation_curve}.
+There we showed that there is importance in model regularization by fitting a Logistic Regression classifier and comparing how its logloss varias across different regularization values. 
+This affected both the training and test set performance in a similar way.
 
 
-In \cref{ch:ch:machineLearning} we gave a practical introduction to the 
+At the same time we introduced other relevant concepts in the Machine Learning and we exemplified them from the our long-term prediction problem. 
+As is common in the literature, in \cref{figure:dtree_overfit_problem_2} we saw that increasing a decision tree's complexity leads to a clear case of overfitting the training data when trying to approximate the generalization error.
 
-We broke the problem of long-term human migrations down to four tasks which were analyzed separately.
-    To perform this analysis, we introduced machine learning theory and methods.
-    A discussion of these methods' applications to these kinds of tasks was elaborated.
-    The models presented are some of the most common techniques found in the literature for the classification task we were trying to solve.
+The same procedure was used to illustrate the concept of ``Cross Validation'' in \cref{fig:cv_vs_test_score}. 
+We found that for \cref{target1} the test score was inside a one standard deviation band of the CV score, across a varying hyperparameter value for the Logistic Regression classifier. 
+These findings are consistent with lots of other experiments found in the literature. 
+
+
+Towards the end of \cref{ch:modelSelection} we performed an extensive experimentation with both \cref{target1,target2}, using the same classifier.
+In here we finished testing the Logistic Classifier on the whole dataset, and with a systematic approach.
+
+As a minimum runtime, all of the cross-validated fits took greater than one and a half hours on the whole set.
+In reality this value is a lower bound on the real optimization time for this algorithm, since we limited the number of iterations to at most one hundred steps.
+
+Another issue found with this algorithm was its extremely poor $F1$ performance for \cref{target2} with a test score lower than $0.01\%$.
+As we will see later in other statistical leaners, we had that 
+the overall precision of the classifier was very poor due to not being able to accurately overestimating positive predictions.
+The algorithm was very inefficient in this aspect where the misclassification had a direct impact in the observed $F1$. 
+
+
+Yet this low score was not seen in other metrics evaluated. 
+For \cref{target2} both the best $Recall$ and $Accuracy$ test and CV rates were all over $0.61\%$. 
+The best-fit $C$ values were not consistent along all fits as the values differed in orders of magnitude, where they ranged from to $1E-3$ to $1E-1$.
+With this we can still positively affirm that the best-fit models for this experiment were those which penalized the loss function with strong regularization terms.
+
+
+On the other hand, when using this classifier to solve \cref{target1}, we find that we can attain a $ROC AUC$ score of $0.76\%$. 
+And this score is achieved when cross validating solely on the $l1$ regularization parameter. 
+A similar test score of $0.744\%$ was 
+Both of these two procedures had best fits on the more regularized $C$values.
+These better scores, when compared over the previous ones, show the differene in problem difficulty.
+From the skewed class balance persepective, we confirm our hypothesis about long-term migrations, that this is a harder problem to solve.
+
+
+These previous results outline a complete overview of the Machine Learning toolset we used to evaluate the classifiers
+used to tackle long-term migrations predictions.
+
+
+% their na
+% similar c 
+% We also gave details on the concept
+% Along the way we 
+
+% In \cref{ch:machineLearning,ch:modelSelection}, 
+
+
+
+A discussion of these methods' applications to these kinds of tasks was elaborated.
 
 From our findings, we can say that there is no absolute single method that can be single-handedly applied to all problems and evaluation performances. 
-However, our findings note that the gradient boosting methods were, in general, were top performing all tasks and classifiation metrics, except in the case of the $F1$ score. 
-Surprisingly enough, in some tasks the Naive Bayes 
-Each of the tasks will have different scores across the algorithms used.
+However, our results outline that the Gradient Boosting methods were, in general, top performing for all tasks and classifiation metrics, except for the $F1$ score.
+
+Surprisingly enough, for some problems the Naive Bayes was outperforming in this $F1$ metric. 
+The algorithm was more conservative in its positive predictions and this difference saw a tradeoff in its performance across other metrics.
+
+However we can say that results show that the performance of Gradient Boosting models is best over other models such as Logistic Regression or Naive Bayes algorithms for most tasks, and slightly better over the Random Forests. 
+These models can find complex interactions in the data whilst handling enough care not to lose generalization power.
+
+
+% Each of the tasks will have different scores across the algorithms used.
 % and the same applies to the metrics used to evaluate them.
-However, the results show that the performance of Random Forests or Gradient Boosting models is best over other models such as Logistic Regression or Naive Bayes algorithms.
-The best models can find complex interactions in the data whilst taking care not to lose generalization power.
 
 \todo{Reword sentences
 Expand, correct and finish them in a cohesive structure.}
 
 \section{Key Results}
-
-\todo{Rewrite all key results of the project.}
-
-
-In this work on CDRs, the Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
-Where cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
-
-
-
 
 
 
@@ -196,18 +227,36 @@ The potential value these results could add to health research is hereby exposed
 Finally, the results stand as a proof of concept which can be extended to other countries or to diseases with similar characteristics.
 
 
+\begin{itemize}
+
+    \item \textbf{Conclusion}
+
+    \item This method and dataset showed a systematic approach to analyze the information contained in the dataset.
+    The idea was to try to explore the human mobility patterns, as captured by the phone call records.
+
+    \item Heatmap allowed discovery of anomalous communities with attributes from the data which were later confirmed to be relevant in helping detect long-term movement of users.
+
+    \item We compared the strengths and weaknesses of these methods.
+    The algorithms  were used to estimate the probability of each user's migrations.
+    Also, we showcased the method's results differences for the tasks defined in \cref{ch:machineLearning}.
+
+    \item Where possible, we exposed the best features of the dataset to solve the general problem.
+    These exposed the relationship between the attributes that characterize vulnerable user interactions, and the target variable of the task.
+    Other relevant features, such as the user's mobility size, were also found to provide relevant information for the classification task.
+
+    \item According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions. In some instances, we have achieved high values across all scoring measures. To summarize the work done we can say that:
+     % the algorithms detected that the characterization of the user's mobility provided relevant information to the task
+
+\end{itemize}
+
+
+
+In this work on CDRs, the Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
+Where cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
+
+
 
 \section{In-depth discussion}
-
-
-% - hacer explicita la respuesta a esta pregunta: Que tanto se puede predecir long term migrations usando datos de CDRs?
-% - cuales fueron las mejores tecnicas? Que tuvieron a favor y en contra?
-% - repasar los 5 problemas y resumir los mejores resultados de c/ algoritmo
-Que scorings tuvieron?
-% - Enganchar los resultados con lo que se vio en los mapas
-Hablar de como los features del algoritmo estan relacionados con el armado del mapa y como se "valida" la hipotesis.
-
-
 
 
 
@@ -349,7 +398,7 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
 %                 & $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ && $Accuracy$ & $AUC$ & $F1$ & $Runtime (m)$ \\
 %                 \midrule
 %                 $Naive Bayes$ & 0.84 & 0.82 & 0.75 & 2 && 0.64 & 0.61 & 0.31 & 2 && 0.65 & 0.63 & 0.45 & 1 && 0.85 & 0.76 & 0.62 & 1 \\
-%                 $Logistic \ Regression$ & 0.893 & 0.857 & 0.9 & 96 && 0.714& 0.726 & 0.058  & 119 && 0.705& 0.754 & 0.107 & 115 && 0.883 & 0.85 & 0.181 & 66 \\
+%                 $Logistic \ Regression$ & 0.893 & 0.857 & 0.9 & 96 && 0.714& 0.726 & 0.058  & 119 && 0.705& 0.754 & 0.107 & 115 && 0.883 & 0.85 & 0.181 & 106 \\
 %                 $Random \ Forest$ & 0.878 & 0.903 & 0.77 & 33  && 0.79 & 0.776 & 0.088 & 45 && 0.792 & 0.845 & 0.156 & 21 && 0.898 & 0.853 & 0.203 &  19\\
 %                 $Gradient \ Tree \ Boosting$  & 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 &  0.101 & 54  && 0.811 & 0.855 & 0.169 & 33 && 0.885 & 0.873  & 0.194 & 47 \\
 %                 \bottomrule
@@ -421,7 +470,7 @@ Since this work was performed in two Latin-American countries and in one single 
 
 \subsection{ Lines of Future Work }
 
-\todo{Add try other ML methods such as SVM or neural nets to improve on general F1 score or compete against Naive Bayes high F1 score.}
+\todo{Add try other ML methods such as SVM or neural nets to improve on the general F1 score or compete against Naive Bayes high F1 score.}
 
 The mobility and social information extracted from CDRs analysis has been shown to be of practical use for long-term human migrations and for Chagas disease research.
 it adds value and information to help make data driven decisions which in turn is key to support epidemiological policy interventions in the region.
