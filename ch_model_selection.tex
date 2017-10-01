@@ -599,20 +599,25 @@ Four metrics were cross-validated and compared in this experiment: $Accuracy$, $
 Metric & Best $C$ value & Mean CV score & Test score & Full CV time (s)  \\
 \midrule
 $Accuracy$ & 3.162 & 0.685 & 0.695 & 4628.3  \\
-$Precision$ & 0.107 & 0.637 & 0.612 & 4638.2 \\
-$Recall$ & 0.0006 & 0.038 & 0.035 & 4667.5 \\
+$Recall$ & 0.107 & 0.637 & 0.612 & 4638.2 \\
+$Precision$ & 0.0006 & 0.038 & 0.035 & 4667.5 \\
 $F1$ & 0.0015 & 0.071 & 0.005 & 4612.1 \\
 \bottomrule
 \end{tabular*}
 \end{table}
 
-It is clear from these results  that there are no significant time differences in choosing one metric over another. 
-Added to this, all metrics favor stronger regularized models, except for the $Accuracy$ metric which favored a very loosely regularized model in the CV procedure.
-The biggest difference between the test and average CV scores among all models was of 4\% yet still the algorithm has trouble finding samples of the positive class.
+It is clear from these results that all metrics favor stronger regularized models, except for the $Accuracy$ metric which favored a very loosely regularized model in the CV procedure.
+
+%that there are no significant time differences in choosing one metric over another. 
+Added to this, 
+
+The biggest difference between the test and average CV scores among all models was of 4\% yet still the algorithm very poor performance when finding samples of the positive class.
 This is evidenced in the extremely low value for the $Precision$ scores where only a handful of positive classes can be correctly captured by the model.
-The effect of the low precision is also evident in the $F1$ score which drags this metric down, even when the recall is has an acceptable rate of 0.65.
-In practice, the experimenter would chose the metric which would be most appropriate for the task at hand.
-Then, the quality of solutions vary in the way they are evaluated and this evaluation will depend on the task.
+The effect of the low precision is also evident in the $F1$ score which drags this metric to extremely poor levels, even when the recall is has an acceptable rate of 0.65.
+This is a strong indicator of a very ill-condition problem, where the class imbalance strongly affects the detection of positive cases over all positive predictions made.
+
+Keeping all of the above in mind, in practice the experimenter would chose the metric which would be most appropriate for the task at hand.
+Then, the quality of solutions vary in the way they are evaluated and this evaluation will depend on the task itself.
 
 
 \subsection{ROC Curve}\label{sub:roc_curve}
@@ -683,7 +688,7 @@ The difference in the two scores is notable and corresponds entirely to the prob
 \end{figure}
 
 
-\subsection{Final experiments on models selection}\label{sub:final_model_selection}
+\subsection{Final experiments on model selection}\label{sub:final_model_selection}
 
 As a last remark for this chapter, we show here a brief experiment with a Logistic Regression Classifier. Where we explore different hyperparameter configurations over a full CV procedure.
 
