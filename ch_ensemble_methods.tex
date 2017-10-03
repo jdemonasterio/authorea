@@ -226,10 +226,10 @@ The figure for this model is shown below.
 
 \smallskip
 
-From \cref{fig:decision_tree_actual_problem} the importance of the mobility diameter is more clear.
+From \cref{fig:decision_tree_actual_problem2} the importance of the mobility diameter is more clear.
 Once again the learner uses it as the first split in the data, even with balanced samples.
-Recall that by the stochastic nature of the algorithm that builds a tree, two runs with the same setting need not output the same trees.
-In this however, it is notable that the final tree still uses the mobility as the first split in the data, even with balanced samples.
+Recall that by the stochastic nature of the algorithm building the tree, two runs with the same hyperparameter settings and data, need not output the same trees.
+In this case however, it is notable that the final tree still uses the mobility as the first split in the data, even with balanced samples.
 And the same can be said of the feature representing the count of calls made from the home antenna.
 
 This tree also performs poorly in its prediction of which users have migrated in the past.
