@@ -165,8 +165,12 @@ And for a complete characterization of decision trees and their construction in 
 We present here a run of the a decision tree over $\mathcal{T}$.
 In this case the \cref{target2} was used as an example.
 The tree was built using a standard configuration with a low depth of 5 and a Gini splitting criteria.
-All features $X^j$ are available to be chosen at each split and a node has to have at least 20 samples to be split again.
-The algorithm ran in approximately 15 seconds.
+We allowed the algorithm to select any feature $X^j$ at each split decision. 
+Also, we configured the minimum split threshold to be of $20$ samples.
+This meant that no further splits were created when less than this number of samples was at that node.
+Under this setup, the algorithm ran in approximately 15 seconds.
+\cref{fig:decision_tree_actual_problem} shows a partial representation of the actual decision tree grown on \cref{target2}.
+This allows us to see how the algorithm selects better features at low-level nodes, versus the deeper splits.
 
 \bigskip
 
