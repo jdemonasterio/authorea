@@ -17,8 +17,8 @@
     \item Suprising low F1 overall when best-fitting, yet high and acceptable ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. This would be interesting to weight under the eyes of a health researcher. Where focus might be either on one over the other. \todo{ask Diego Weinberg}.
     \item Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
     \item Naive Bayes fast run time on the whole dataset. Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3).
-    \item Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
-    \item The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
+    \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
+    \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
     \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
     \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
     \item What's the predictive performance of CDRs for the long-term migrations problem?
@@ -140,9 +140,12 @@ And this score is achieved when cross validating solely on the $l1$ regularizati
 A similar test score of $0.744\%$ was reached when optimizing for the $l2$ hyperparameter of regularization.
 Each were optimized separately in order to exemplify how the overall $ROC AUC$ varied along different regularization thresholds.
 
-Overall, both procedures had best fits on the more regularized $C$values.
-And these better $ROC AUC$ scores, when compared with the experiments on \cref{target1}, underscore the problems difference in difficulty.
+This resulted in better $ROC AUC$ scores, when compared with the experiments on \cref{target1}, underscore the problems difference in difficulty.
 From the skewed class balance perspective, we confirm our hypothesis about long-term migrations, that this is a harder problem to solve.
+
+Overall, both procedures had best fits on the more regularized $C$values.
+A similar result can be found for regularization models and on procedures where hyperparameters were cross validated.
+Both optimizations improved improved the models predictive power in varying degrees.
 
 
 The previous results outline a complete systematical Machine Learning approach and toolset used to evaluate the long-term migrations prediction problem. 
@@ -158,14 +161,55 @@ All were put through a number of experiments to evaluate how they performed acro
 For each model, we tried to draw the greatest prediction performance from the features extracted from the dataset.
 
 Tree based models were evaluated in further detail however.
-These were successively compared in their overfit
+All of these methods were successively compared on the same \cref{target2}, to compare and evaluate them on common ground.
+
+As we will see later in \cref{tab:all_results}, \cref{target2} happened to be the hardest task of all, where all classifiers had their lowest scores.
+
+By comparing this problem over the various tree methods, we presented a thorough discussion of the applications that these kind of datasets can provide.
+% to these kinds of tasks was elaborated.
+
+
+
+ gave the lowest values for all classifiers. 
+ 
+in successive 
+in their overfit
  in succe
 
 
 
 
 
-A discussion of these methods' applications to these kinds of tasks was elaborated.
+
+
+
+In all, we can say that for the prediction tasks, the feature selection heuristics of ensemble algorithms did agree upon a group of features. 
+These were highlighted over the rest for a number of times and they provide insight into what CDR information provided most
+predictive value.
+
+From the results we collected, the best features can be broken down into the following categories.
+
+\begin{itemize}
+
+    \item Calls made in older months and in December: Interactions of different type, that occured closer to the split month between both periods $T_0$ and $T_1$ (July), were also distinguished.
+    The model frequently used interactions from the months of August and September, as well as December.
+    We conjecture that this last result can be due to the fact that December is a month where user\'s increase their mobile activity with their families.
+
+    \item Vulnerable calling patterns: As we first suspected in \cref{ch:descr-risk}, the vulnerability of the mobile interaction between users was relevant.
+    Measurements such as the duration and volume of calls at different time periods where selected.
+    We make the reminder here that these measurments were the basis of our construction of the heatmaps in that same chapter.
+    Where the antennas plotted concentrated users with vulnerable calls by calling volume or time, for a given month.
+
+    \item Mobility size: Finally, different measures of the distance in human mobility were determined to be important by the model. Both general mobility diameters and weekday or weeknight specific mobility endemic were relevant and on various occasions. 
+    We can informally add that Decision Tree Learners also selected this features in the higher nodes. 
+    This result can be seen in detail at \cref{subsection:decision_trees_experiment}.
+
+\end{itemize}
+
+These gruops identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
+Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
+A more thorough examination of these results can be seen in \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
+
 
 
 
@@ -190,36 +234,8 @@ Expand, correct and finish them in a cohesive structure.}
 % ||||||||||||||||||||||||||||||||||||| SPLIT |||||||||
 
 
-Feature selection of ensemble algorithms were concurring in the choice of the best features for the prediction task.
-
-Model regularization and hyperparameter cross validation improved the models predictive power.
-
 Also, the effects of overfitting the models were visible in some of the experiments where deep trees and complex configurations underpowered the resulting model's generalization error.
 
-Feature importance with tree ensemble gave us insights into which CDR information provided
-predictive value.
-The best features can be broken down into the following categories.
-
-\begin{itemize}
-
-    \item Calls made in older months and in December: Interactions of different type, that occured closer to the split month between both periods $T_0$ and $T_1$ (July), were also distinguished.
-    The model frequently used interactions from the months of August and September, as well as December.
-    We conjecture that this last result can be due to the fact that December is a month where user\'s increase their mobile activity with their families.
-
-    \item Vulnerable calling patterns: As we first suspected in \cref{ch:descr-risk}, the vulnerability of the mobile interaction between users was relevant.
-    Measurements such as the duration and volume of calls at different time periods where selected.
-    We make the reminder here that these measurments were the basis of our construction of the heatmaps in that same chapter.
-    Where the antennas plotted concentrated users with vulnerable calls by calling volume or time, for a given month.
-
-    \item Mobility size: Finally, different measures of the distance in human mobility were
-determined to be important by the model.
-Both general mobility diameters and weekday or weeknight specific mobility endemic were relevant.
-
-\end{itemize}
-
-These gruops identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
-Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
-A more thorough examination of these results can be seen in \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
 
 
 High discrepancies exist in the scores of the different machine learning models.
@@ -268,6 +284,9 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
 \todo{Bigger, better and more esthetically pleasing table is commented in the code below this one. Yet the commented table does not fit in a whole page and spawns compilation errors. This needs to be fixed.}
 
 
+
+
+
 % \begin{landscape}% Landscape page
 %         \begin{table*}
 %             \centering
@@ -286,56 +305,6 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
 %             \caption{Caption}
 %         \end{table*}
 % \end{landscape}
-
-
-
-
-% % With a running time of 80s, 10 steps are generally needed to achieve a 0.977 validation accuracy score on
-% The best model was a Logistic Regression Classifier with an $L2$-penalty value of 0.01.
-% % Table~\cref{ts}
-% The following table
-% shows the scores obtained by the selected model on the out-of-sample set.
-
-% \begin{table}\label{tab:results}[ht]
-%   \caption{Resulting scores.}
-
-%   \centering
-%   \begin{tabular}{ l l }
-%       \toprule
-%       Score & Value \\
-%       \midrule
-%       F1 score & 0.964537  \\
-%       Accuracy & 0.980670  \\
-%       AUC    & 0.991593  \\
-%       Precision & 0.970838  \\
-%       Recall  & 0.958316  \\
-%       \bottomrule
-%   \end{tabular}
-% \end{table}
-
-
-% High values across all scoring measures are achieved
-% with the best estimator, with the lowest metric starting at a value of 0.958.
-% These results can be explained by the fact that
-% %Scores results become less surprising when looking closer at the dataset.
-%
-%Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron)s
- % scores bajan mucho:
-%
-%+--------------+-----------------+-------+
-%| target\_label | predicted\_label | count |
-%+--------------+-----------------+-------+
-%|   1    |    1    | 1944 |
-%|   1    |    0    | 3525 |
-%+--------------+-----------------+-------+
-%'f1\_score': 0.5244840145690004, ''accuracy': 0.3554580,, 'precision': 1.0, 'recall': 0.35545803,
-
-
-
-
-
-
-% \section{Key Results}
 
 
 
@@ -513,8 +482,60 @@ For the purpose of continuing this reserach line, the following is a list of pos
     It is of primary importance though to have a good dataset available.
     Since otherwise, it would not be possible to reach a generalizing classifier.
 
-    \item Feature exploration to search for correlations with being infected.
+    \item With the above, we could add a similar approach as in ths work, to explore features and determine for the most relevant attributes that are associated with being Chagas infected.
 
 \end{description}
 
+
+
+
+%   ___  _     ___         ___________ __ __ _____ _____ 
+%  /   \| |   |   \       / ___/      |  |  |     |     |
+% |     | |   |    \     (   \_|      |  |  |   __|   __|
+% |  O  | |___|  D  |     \__  |_|  |_|  |  |  |_ |  |_  
+% |     |     |     |     /  \ | |  | |  :  |   _]|   _] 
+% |     |     |     |     \    | |  | |     |  |  |  |   
+%  \___/|_____|_____|      \___| |__|  \__,_|__|  |__|   
+
+% % With a running time of 80s, 10 steps are generally needed to achieve a 0.977 validation accuracy score on
+% The best model was a Logistic Regression Classifier with an $L2$-penalty value of 0.01.
+% % Table~\cref{ts}
+% The following table
+% shows the scores obtained by the selected model on the out-of-sample set.
+
+% \begin{table}\label{tab:results}[ht]
+%   \caption{Resulting scores.}
+
+%   \centering
+%   \begin{tabular}{ l l }
+%       \toprule
+%       Score & Value \\
+%       \midrule
+%       F1 score & 0.964537  \\
+%       Accuracy & 0.980670  \\
+%       AUC    & 0.991593  \\
+%       Precision & 0.970838  \\
+%       Recall  & 0.958316  \\
+%       \bottomrule
+%   \end{tabular}
+% \end{table}
+
+
+% High values across all scoring measures are achieved
+% with the best estimator, with the lowest metric starting at a value of 0.958.
+% These results can be explained by the fact that
+% %Scores results become less surprising when looking closer at the dataset.
+%
+%Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron)s
+ % scores bajan mucho:
+%
+%+--------------+-----------------+-------+
+%| target\_label | predicted\_label | count |
+%+--------------+-----------------+-------+
+%|   1    |    1    | 1944 |
+%|   1    |    0    | 3525 |
+%+--------------+-----------------+-------+
+%'f1\_score': 0.5244840145690004, ''accuracy': 0.3554580,, 'precision': 1.0, 'recall': 0.35545803,
+
+% \section{Key Results}
 
