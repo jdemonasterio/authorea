@@ -1,11 +1,17 @@
 # TODO PLAN
 
+## Meeting 04/10
+    * Ejemplo: dejar en terminos de los problemas migratorios: "no pudimos predecir las migraciones de este estilo". Destraducir de problema 1 a algo de las migraciones. Darle el hilo de la historia que estoy contando.
+    * Separar en Random Forests y Decision Tree vs. Gradient Boosting + Naive Bayes.
+    * El predictive error bounds de random forests pasar la demo a una apendice. Enunciarlo nomas.
+    * Repasar 
+
 ## Meeting 27/09
     * Fix master table presentation or chunk in two small tables.
 
 ## Meeting 20/09
     * [DONE] In table of contents, notify start of appendix somewehere. Correct the way it is presented.
-    * Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion. Uno de resultados en resultados
+    * [WIP] Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion. Uno de resultados en resultados
         numericos y key insights de lo que vimos con los datos, la compilacion de todos los resultados en terminos de numeros y metodos, etc. Los problmeas que tienen, los metodos usados.
         En conclusiones mas a nivel de cosas de que aprendiste, eleccion de metodos, que aprendi, que sirven los CDRs para esto, que limitaciones tienen en prediccion y otras cuestiones mas alto nivel.
 
