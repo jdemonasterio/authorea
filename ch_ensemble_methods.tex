@@ -360,18 +360,18 @@ In this sense, the \textit{strength} and \textit{correlation}of a Random Forest 
 
 Define $$\hat{\jmath}( \textbf{x},\textbf{y}) = \argmax_{j \neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$$ and let the margin function for a random forest (not a group of classifiers) be defined as
 
-\[\label{eq:rf-marginFunRf}
+\[
 mr(\textbf{x},\textbf{y}) = P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{\jmath})
 \\
 = \Expect_{\Theta} \left[ I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{\jmath} ) \right]
 \]
 
-This characterizes the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}.
+This characterizes the expectation taken over another function which is called the \textbf{raw margin function}.
 Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the ensemble classifier can correctly classify or not the sample's label, given $\Theta$.
 
 Let the strength of the set of weak classifiers in the forest be defined as
 
-\begin{equation}\label{eq:rf-strength}
+\begin{equation}
 s = \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right]
 \end{equation}
 
@@ -379,7 +379,7 @@ Define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x
 
 %	where we have conveniently defined as
 %Note that this is the mean value of the correlation.
-\begin{equation}\label{eq:rf-meanCorrelation}
+\begin{equation}
 \overline{\rho} = \frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
 {\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
 \end{equation}
@@ -387,7 +387,7 @@ Define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x
 With these definitions we can then see that,
 
 \begin{theorem}
-There exists an upper bound for the generalization error of a Random Forest which is    \begin{equation}\label{eq:rf-PEBound}
+There exists an upper bound for the generalization error of a Random Forest which is    \begin{equation}
 PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
 \end{equation}
 \end{theorem}
