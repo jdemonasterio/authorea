@@ -143,7 +143,7 @@ Intuitively, it is natural to find that trees of longer depth will overfit the d
 A trivial example is to allow a tree to grow fully in depth to later assign to each sample in the training set its own self-contained region.
 This yields a model with virtually zero bias yet with a very high prediction error.
 In \cref{figure:dtree_overfit_problem_2} we give an example of an overfit decision tree on the CDR dataset for \cref{target2} where the overly-complex model produces poor generalization error.
-Recall that this was described in \cref{figure:dtree_overfit_problem_2}.
+%Recall that this was described in \cref{figure:dtree_overfit_problem_2}.
 Here the training scores and CV scores were compared on models with increasing tree depth which at some point started to overfit the training set by increasing the gap of the CV and training errors.
 
 At the same time, having a tree which is too shallow in depth will result in most cases in a biased algorithm.
@@ -152,13 +152,14 @@ We must then consider that the depth of a tree is a measure of the model's compl
 
 Another drawback of the decision tree model is the high variance instability.
 Authors point out that two very similar datasets can grow two very different resulting trees.
-This is due to the hierarchical nature of the splits, where errors randomly made in the first splits will be carried onward towards the leafs since samples continue down on a single branch.
+This is due to the hierarchical nature of the splits, where errors randomly made in the first splits will be carried onwards.
+This is because once a samples has been directed through a lower branch, it will continue down through this one without reconsideration of the past errors.
 
 For the reasons described, in this model it is important to control the depth of the trees built.
-The most common method to do this grows a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive.
-Then the tree will be pruned by removing branches and nodes to remove model complexity with only a slight loss of accuracy.
+To do this, the most common method to do this grows a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive.
+Then the tree will be pruned by removing branches and nodes to lower the model's complexity whilst at the same time trying not to compromise much of its accuracy.
 More details on this can be seen in \cref{appx:sec:tree_pruning}.
-And for a complete characterization of decision trees and their construction in classification or regression problems, please refer to~\cite{breiman-cart84}.
+For a broad characterization of decision trees and their construction in classification or regression problems, please refer to~\cite{breiman-cart84}.
 
 \subsection{Experiment}\label{subsection:decision_trees_experiment}
 
@@ -197,18 +198,18 @@ This allows us to see how the algorithm selects better features at low-level nod
 
 From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the Gini splitting criteria.
 Given that in \cref{target2} we are looking for people that migrated in any direction, the choice of the tree\'s root feature is not surprising.
-The mobility diameter gives an idea of the area of influence of a user when using his mobile phone and as such, might be a proxy for migrations.
-Subsequently, the volume of use of a user\'s home antenna appears as the second most important features, both during the weeknight and during the whole day.
+The mobility diameter gives an idea of a user's influence area when using his mobile phone and as such, this attribute might indicative of past migrations.
+Subsequently, the usage volume of a user\'s home antenna appears as the second most important features, both during the weeknight and during the whole day.
 Yet the error score out by this tree yields a poor performance.
-Evaluated with the $F1$ metric, we see 43.2\% result with this model which shows very poor prediction error over all of the samples.
-With this, comparing how the top features result in the tree can be of little use to the overall problem.
+Evaluated with the $Accuracy$ metric, we see $43.2\%$ result with this model which shows very poor prediction error over all of the samples.
+With this score, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
 
 We decide to iterate once again on this model, but now slightly changing the hyperparameter which controls the balance of $\mathcal{T}$.
 The reason for this is that with the current task, the positive and negative classes have a disproportionate balance of samples and this is reflected in the overall model\'s poor performance.
 For this reason, we modified the setup of the loss function of the tree to weigh more samples from the under-represented class over the samples from the abundant group.
 For each sample, it\'s loss weight was adjusted by it\'s class representation ratio.
-With this, the new run scored a 57.9\% $F1$ error score which is more than a 15\% previous score.
-Still, this is considered a poor model for supervised learning.
+With this, the new run scored a $57.9\%$ $Accuracy$ error score which is more than a $15\%$ increase over the previous score.
+Still, this is considered a very poor model for supervised learning.
 
 The figure for this model is shown below.
 
