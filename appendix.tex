@@ -324,6 +324,129 @@ Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complex
 
 In this way, we'll have a sequence of trees $T_0,T_1,\ldots,T_l$ and a sequence of nodes $j_0, j_1,\ldots,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),\ldots,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
+
+\section{Random Forests' Predictive Error Bounds}\label{appx:sec:rforest_predictive_error_bounds}
+
+
+Define $$\hat{\jmath}( \textbf{x},\textbf{y}) = \argmax_{j \neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$$ and let the margin function for a random forest (not a group of classifiers) be defined as
+
+\[\label{eq:rf-marginFunRf}
+mr(\textbf{x},\textbf{y}) = P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{\jmath})
+\\
+= \Expect_{\Theta} \left[ I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{\jmath} ) \right]
+\]
+
+This characterizes the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}.
+Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the ensemble classifier can correctly classify or not the sample's label, given $\Theta$.
+
+Let the strength of the set of weak classifiers in the forest be defined as
+
+\begin{equation}\label{eq:rf-strength}
+s = \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right]
+\end{equation}
+
+Define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$ of two weak learners, then we can have the mean value correlation for the ensemble as 
+
+%	where we have conveniently defined as
+%Note that this is the mean value of the correlation.
+\begin{equation}\label{eq:rf-meanCorrelation}
+\overline{\rho} = \frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
+{\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
+\end{equation}
+
+With these definitions we can then see that,
+
+\begin{theorem}
+	There exists an upper bound for the generalization error of a Random Forest which is    \begin{equation}\label{eq:rf-PEBound}
+	PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
+	\end{equation}
+\end{theorem}
+
+
+\begin{proof}
+	
+	
+	It is straight to see that
+	%\[%\]
+	\begin{equation}
+	{mr( \textbf{x},\textbf{y} )}^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} ) \right]
+	\end{equation}
+	
+	
+	This in turn implies that
+	\begin{equation}\label{eq:rf-marginFunVar}
+	\begin{split}
+	var(mr) & = \Expect_{\Theta, \Theta'}
+	\left[
+	cov_{\textbf{x},\textbf{y}}
+	(rmg(\Theta,\textbf{x},\textbf{y} )rmg(\Theta',\textbf{x},\textbf{y} ))
+	\right] \\
+	& = \Expect_{\Theta, \Theta'}
+	\left[
+	\rho(\Theta, \Theta')\sigma(\Theta)\sigma(\Theta')
+	\right]
+	\end{split}
+	\end{equation}
+	
+	where $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$.
+	In both cases, $\Theta$ and $\Theta'$ are given.% to be fixed.
+	
+	Equation \cref{eq:rf-marginFunVar} in turn implies that
+	
+	\begin{equation}\label{eq:rf-varianceBound}
+	\begin{split}
+	var(mr) & = \overline{\rho} {(\Expect_{\Theta}\left[ \sigma(\Theta)\right] )}^2 \\
+	& \leq \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right]
+	\end{split}
+	\end{equation}
+	
+	
+	Assuming that $s \geq 0$ we have that the prediction error is bounded by
+	\begin{equation}\label{eq:rf-predictiveErrorBound1}
+	PE^* \leq var(mr)/s^2
+	\end{equation}
+	by Chebyshev's inequality.
+	On the other we also have that
+	
+	\begin{equation}\label{eq:rf-expectedVarBound}
+	\begin{split}
+	\Expect_{\Theta} \left[ var(\Theta) \right] & \leq \Expect_{\Theta} {\left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})  \right] \right]}^2 -s^2 \\
+	& \leq 1-s^2
+	\end{split}
+	\end{equation}
+	
+	
+	
+	We can use \cref{eq:rf-varianceBound}, \cref{eq:rf-predictiveErrorBound1} and \cref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
+	
+	\begin{equation}\label{eq:rf-PEBound}
+	PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
+	\end{equation}
+	
+\end{proof}
+
+\subsection{Binary Class Bounds}\label{appx:subsec:random_forests_binary_class}
+
+In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \cref{eq:rf-PEBound}.
+In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$.
+
+
+The bounds prediction error bounds derived in \cref{eq:rf-predictiveErrorBound1} assume that $s >0$ which in this case results in
+\begin{equation}
+\Expect_{\textbf{x},\textbf{y}} \left[ P_{\Theta}(h(\textbf{x}) = \textbf{y}) \right] > \frac{1}{2}
+\end{equation}
+
+
+Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h(\textbf{x}, \Theta') = \textbf{y})$, denoted $\overline{\rho}$ will take the form
+
+\begin{equation}
+\overline{\rho} = \Expect_{\Theta,\Theta'} \left[ \rho \left( h(\cdot{},\Theta) ,h(\cdot{},\Theta') \right)  \right]
+\end{equation}
+
+
+
+
+
 \section{Random Forests' Margin Function Convergence}\label{appx:sec:rforest_margin_function_convergence}
 
 

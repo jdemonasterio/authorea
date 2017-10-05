@@ -3,8 +3,7 @@
 ## Meeting 04/10
     * Ejemplo: dejar en terminos de los problemas migratorios: "no pudimos predecir las migraciones de este estilo". Destraducir de problema 1 a algo de las migraciones. Darle el hilo de la historia que estoy contando.
     * Separar en Random Forests y Decision Tree vs. Gradient Boosting + Naive Bayes.
-    * El predictive error bounds de random forests pasar la demo a una apendice. Enunciarlo nomas.
-    * Repasar 
+    * [DONE] El predictive error bounds de random forests pasar la demo a una apendice. Enunciarlo nomas. 
 
 ## Meeting 27/09
     * Fix master table presentation or chunk in two small tables.
