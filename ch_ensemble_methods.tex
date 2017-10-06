@@ -367,15 +367,15 @@ mr(\textbf{x},\textbf{y}) = P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(
 \]
 
 This characterizes the expectation taken over another function which is called the \textbf{raw margin function}.
-Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the ensemble classifier can correctly classify or not the sample's label, given $\Theta$.
+Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the ensemble classifier can correctly classify or not the sample's label, given the ensemble's structure specified by $\Theta$.
 
-Let the strength of the set of weak classifiers in the forest be defined as
+With this, we can introduce the strength for this forest as
 
 \begin{equation}
 s = \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right]
 \end{equation}
 
-Define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$ of two weak learners, then we can have the mean value correlation for the ensemble as 
+Now define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$ of two learners, then we can have the mean value correlation for the ensemble as 
 
 %	where we have conveniently defined as
 %Note that this is the mean value of the correlation.
