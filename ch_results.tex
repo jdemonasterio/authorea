@@ -193,17 +193,13 @@ As we will see later in \cref{tab:master_table_results}, \cref{target2} happened
 \section{Plan / Random notes to add to results chapter}
 
 \begin{description}
-    \item Confirmation of decision tree overfitting on model complexity. Random Forests improving on this. Gradient Boosting better in bias with a slight incrase in overfit.
-    \item Suprising low F1 overall when best-fitting, yet high and acceptable ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. This would be interesting to weight under the eyes of a health researcher. Where focus might be either on one over the other. \todo{ask Diego Weinberg}.
-    \item Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
-    \item Naive Bayes fast run time on the whole dataset. Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3).
+    \item  Random Forests improving decision tree overfitting. Gradient Boosting better in bias with a slight incrase in overfit.
+    
     \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
     \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
     \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
     \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
     \item What's the predictive performance of CDRs for the long-term migrations problem?
-    \item Review 4 problems and wrap the best results of each algorithm, what scorings did they have?
-
 
 \end{description}
 
@@ -276,10 +272,6 @@ Some are better at capturing the relevant information to predict human movements
 This is because not all social information is presented directly in the dataset, and feature interactions are helpful.
 
 
-This work may give us some insights into future disease spreads in other similar contexts.
-Where
-It also helps to showcase interesting ways of using the CDRs for reasons other than logging a user\'s calling expenses.
-
 
 
 The implications of these results argue that CDRs can be extensively used for non business purposes and, specifically in this case, there is light evidence that they might capture well the fluxes of diseases among humans.
@@ -306,19 +298,19 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
     \midrule
     Naive Bayes     & (0.84,0.82,0.75)  & (0.64,0.61,0.31)  &  (0.65,0.63,0.45)   & (0.85,0.76,0.62)   \\
     Logistic Classifier   & (0.893,0.857,0.9)  & (0.71,0.72,0.058)  &  (0.705,0.754,0.107)   & (0.883,0.85,0.181)   \\
-    Random Forest   & (0.878,0.857,0.9)  & (0.714,0.726,0.058)  &  (0.705,0.754,0.107)   & (0.883,0.85,0.181)   \\
+    Random Forest   & (0.878,0.857,0.9)  & (0.79,0.776,0.088)  &  (0.792,0.845,0.156)   & (0.898,0.853,0.203)   \\
     Gradient Boosting   & (0.974,0.978,0.952)  & (0.838,0.819,0.101)  &  (0.811,0.855,0.169)   & (0.885,0.873,0.194)   \\
+%$Naive Bayes$         & 0.84  & 0.82  & 0.75  & 2  && 0.64  & 0.61  & 0.31  & 2  && 0.65   & 0.63  & 0.45  & 1   && 0.85  & 0.76  & 0.62  & 1 \\
+%$Logistic \ Regression& 0.893 & 0.857 & 0.9   & 96 && 0.714 & 0.726 & 0.058 & 119 && 0.705 & 0.754 & 0.107 & 115 && 0.883 & 0.85  & 0.181 & 106 \\
+%$Random \ Forest$     & 0.878 & 0.903 & 0.77  & 33 && 0.79  & 0.776 & 0.088 & 45  && 0.792 & 0.845 & 0.156 & 21  && 0.898 & 0.853 & 0.203 & 19\\
+%$Gradient \ Tree \ Boo& 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 & 0.101 & 54  && 0.811 & 0.855 & 0.169 & 33  && 0.885 & 0.873 & 0.194 & 47 \\
 
     \bottomrule
     \end{tabular*}
 \end{table}
 
 
-\todo{Bigger, better and more esthetically pleasing table is commented in the code below this one. Yet the commented table does not fit in a whole page and spawns compilation errors. This needs to be fixed.}
-
-
-
-
+\todo{Bigger, better and more esthetically pleasing table is commented in the code below this one. Yet the commented table does not fit in a whole page and spawns compilation errors. This could be fixed by splitting the table in half.}
 
 % \begin{landscape}% Landscape page
 %         \begin{table*}
@@ -341,8 +333,68 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
 
 
 
+\todo{Review 4 problems and wrap the best results of each algorithm, what scorings did they have?}
+
+\cref{tab:master_table_results} exposes all combinations in model performance and runtime across the problems studied for this work.
+At a first glance there are some notable results exposed in this table.
+
+\subsection{Runtime Performance}\label{subsec:master_table_runtime}
+
+It is clear that the Naive Bayes algorithms outperforms all other models in runtime and, in some cases, this improvement is in orders of magnitude.
+The algorithm's worst performance for all problems is of two minutes whilst the best runtime for any other classifier is for the Random Forest, with 19 minutes of runtime for the problem of labeling users that travelled out of the endemic region, yet only for a subset of the users base.
+Namely those which are currently settled outside of the endemic region.
+
+The Naive Bayes algorithm's runtime shows a strong difference with the Logistic Regression which was the slowest method overall, with the fastest runtime for all problems being greater than an hour and a half.
+Having the Logistic Regression as the slowest performing algorithm may be surprising to the reader considering that in these runtimes are measured on the cross validation procedures and that this classifier has a short list of hyperparameters to optimize, when compared to tree based methods.
+Still, we suspect that the time bottleneck in this algorithm comes in the slow optimization procedure where, for every iteration, the whole dataset needs to be reused to build the direction of steepest descent.
+
+Interestingly enough the Gradient Boosting algorithm had a worst runtime than the Random Forest, in cases that almost doubled the runtime.
+The reason for this is that when building the Random Forest ensemble we have that the weak learners need not be dependent, so the optimization routine can be easily benefited with parallelization procedures.
+On the other hand boosting trees build successive weak learners that improve on the most current model.
+This dependency limits the optimization routine parallelization opportunities.
+
+Still, at this point it is worth to mention that the runtimes resulted from experiments that were not performed under controlled computer environments.
+For example, there is no way that we can assure that all cross-validation procedures were done having the same computational resources available.
+Even though results seem consistent across all problems, we know that
+this results shouldn't be considered benchmark proofs.
 
 
+
+results from runtimes were note 
+
+ from this and   
+tend to be 
+
+is of lower 
+
+ Logistic Regression is 
+This is surprising
+
+
+\subsection{Low F1 Score}\label{subsec:master_table_low_f1}
+
+\todo{ Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2, 3, 4)}
+
+Overall, we can say that, excepting the problem of predicting users that had lived in the endemic region in the past, no model had satisfactory $F1$ scores for any of the problems. The top two $F1$ score for these three problems and for all best-fit models, were $0.62$ and $0.45$.
+These scores were attained by the Naive Bayes algorithm for the problems of currently non-endemic users that were living in the endemic regionin the past, and for the problem of tagging useres tht had migrated in any direction, respectively.
+
+Interestingly enough, these poor scores for the Naive Bayes algorithm were greatly better than the ones reached by other classifiers, when compared in relative terms. 
+All of the other classifiers had extremely poor $F1$ performances in \cref{target2,target3,target4}.
+The $F1$ score for all of these classifieres in these problems, was $0.194$ .
+
+On the downside
+
+With most scores being lower than  
+
+
+models had surprisingly low $F1$ overall when best-fitting, yet high and acceptable ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. 
+
+         Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
+
+
+\subsection{Other Scores}\label{subsec:master_table_other_scores}
+
+\todo{ Naive Bayes modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3)}
 
 
 
