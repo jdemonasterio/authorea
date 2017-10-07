@@ -17,25 +17,6 @@
 
 \chapter{Summary of Results}\label{ch:results}
 
-\todo{Erase this section}
-\section{Plan / Random notes to add to results chapter}
-
-\begin{description}
-    \item Confirmation of decision tree overfitting on model complexity. Random Forests improving on this. Gradient Boosting better in bias with a slight incrase in overfit.
-    \item Suprising low F1 overall when best-fitting, yet high and acceptable ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. This would be interesting to weight under the eyes of a health researcher. Where focus might be either on one over the other. \todo{ask Diego Weinberg}.
-    \item Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
-    \item Naive Bayes fast run time on the whole dataset. Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3).
-    \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
-    \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
-    \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
-    \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
-    \item What's the predictive performance of CDRs for the long-term migrations problem?
-    \item Review 4 problems and wrap the best results of each algorithm, what scorings did they have?
-
-
-\end{description}
-
-
 \todo{Review whole results chapter, fix typos grammar mistakes, etc.}
 
 % handling data, models and features with acumen
@@ -183,6 +164,9 @@ As a start, we showed through a validation curve that, for the problem of users 
 We had that the cross-validated scores and the test scores diverged rapidly after a tree-depth of $7$ and this is plotted in \cref{figure:dtree_overfit_problem_2}.
 The wide gap in the scores resulted in a difference larger than $0.3\%$.
 
+This result is not surprising in the sense that Decision Trees are known to become highly complex and overfitting models after growing to a certain depth. 
+% Ideally it serves as an example of what aspects of this greedy algorithm are enhanced by Random Forests. 
+
 We also fit two Decision Tree instances for the same and problem and evaluated them on a $Accuracy$ score.
 The first fit was ran over a smaller hyperparameter configuration.
 In particular, this configuration did not
@@ -205,8 +189,23 @@ As we will see later in \cref{tab:master_table_results}, \cref{target2} happened
 
 
 
+\todo{Erase this section}
+\section{Plan / Random notes to add to results chapter}
+
+\begin{description}
+    \item Confirmation of decision tree overfitting on model complexity. Random Forests improving on this. Gradient Boosting better in bias with a slight incrase in overfit.
+    \item Suprising low F1 overall when best-fitting, yet high and acceptable ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. This would be interesting to weight under the eyes of a health researcher. Where focus might be either on one over the other. \todo{ask Diego Weinberg}.
+    \item Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
+    \item Naive Bayes fast run time on the whole dataset. Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3).
+    \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
+    \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
+    \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
+    \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
+    \item What's the predictive performance of CDRs for the long-term migrations problem?
+    \item Review 4 problems and wrap the best results of each algorithm, what scorings did they have?
 
 
+\end{description}
 
 
 
