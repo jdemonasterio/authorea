@@ -124,9 +124,12 @@ We found that when making predictions on wich users were endemic in the past end
 These findings are consistent with lots of other experiments found in the literature where by cross validating the search of optimal hyperparamters, we can have a fair estimation of the test error. 
 
 
-Towards the end of \cref{ch:modelSelection} we performed an extensive experimentation with this same problem and with \cref{target2}, which characterized unidirectional migrants, from the endemic region. 
-For this we used the same classifier as before and found we did this on the whole dataset in an approach which defined systematic procedure.
+Towards the end of \cref{ch:modelSelection} we performed an extensive experimentation with this same problem and also on users that moved out of the endemic region.,
+ % which characterized unidirectional migrants, from the endemic region. 
+For this we used the same classifier as before but on the whole dataset in what defined our sysmetatic approach of analyzing classifiers performance.
+% through cross validation, hyperparameter error assesment, feature selections through iterations and visualization of validaction curves.
 
+ % and found we did this on the whole dataset in an approach which defined systematic procedure.
 % In here we finished testing the Logistic Classifier on the whole dataset, and with a systematic approach.
 
 The runtime for this experiment had a lower bound of one and a half hours.
@@ -154,7 +157,7 @@ A similar test score of $0.744\%$ was reached when optimizing for the $l2$ hyper
 Each were optimized separately in order to exemplify how the overall $ROC AUC$ varied along different regularization thresholds.
 
 This outcome of better $ROC AUC$ scores, when compared with the experiments on migrations out of the endemic region, underscore the difference among the problems' difficulty.
-If we recall the highly unbalanced class relations in \cref{target2}, we confirm our hypothesis that long-term unidirectional migrations are a harder problem to solve.
+If we recall the highly unbalanced class relations for the problem of predicting unidirectional migrants in \cref{target2}, we confirm our hypothesis that these predictions characterize a problem which is very difficult.
 
 Overall, both procedures had best fits on the more regularized $C$values.
 A similar result can be found for regularization models and on procedures where hyperparameters were cross validated.
@@ -190,19 +193,20 @@ Doing this provided some insights into what features were initially being used b
 Still, given the low $Accuracy$ scores for both fits ($43.2\%$,and $57.9\%$)
 Interestingly enough, we found that
 
-All of these methods were successively compared on the same \cref{target2}, to compare and evaluate them on common ground.
+All of these methods were successively compared on the same difficult task of prediting users that migrated out of the endemic region from $T_0$ to $T_1 $.
+This common ground for all algorithms settled a common base ground comparison for the methods. 
+% settled to compare and evaluate them on common ground.
 
 As we will see later in \cref{tab:master_table_results}, \cref{target2} happened to be the hardest task of all, where all classifiers had their lowest scores.
+
 % By comparing this problem over the various tree methods we discuss on applications that these kind of datasets can provide.
 % to these kinds of tasks was elaborated.
 
-To start of
 
- gave the lowest values for all classifiers.
 
-in successive
-in their overfit
- in succe
+
+
+
 
 
 
@@ -237,6 +241,8 @@ From the results we collected, the best features can be broken down into the fol
 These gruops identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
 Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
 A more thorough examination of these results can be seen in \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
+
+
 
 
 
