@@ -6,8 +6,16 @@ They pinpoint to likely spots of high disease prevalence, with a low cost to pro
 Added to this, the risk maps produced many interesting insights of specific antennas that have higher vulnerable interactions with the endemic region, where these are located outside of the endemic region.
 
 Next to traditional health control actions, this research may provide a very insightful piece of information for decision-makers.
+Where the insights derived from the probabilistic models and the risk maps can help in understanding disease spread in other similar contexts.
+
+
+The use of CDRs for reasons other than logging a user\'s calling expenses helps to showcase an interesting use of this data.
+
+interesting ways of using the
+
 Capturing long-term human movements will also enable better simulations of disease spreads in different contexts.
 In this work, the impact of this in our predictive capacity of disease prevalence is shown.
+
 
 We believe it is acceptable to say that long-term human dynamics in the form of migration patterns can be captured by the use of this data.
 Since this work was performed in two Latin-American countries and in one single endemic region, we expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities beyond Chagasic spread in Mexico or Argentina.
@@ -41,7 +49,7 @@ Combining social and geolocated information, the data at hand has been given an 
 % To conclude, the results presented in this work show that
 
 
-Currently, epidemic counter-measures include coordinating national surveillance systems with institutions and primary healthcare organizations, vector-centered policy interventions through fumigation of vector-infested regions and individual in-field screening of people.
+Currently, epidemic counter-measures include coordinating national surveillance systems with institutions and primary health care organizations, vector-centered policy interventions through fumigation of vector-infested regions and individual in-field screening of people.
 
 These measures require costly infrastructures to set up and be run.
 On the other hand, this work shows built on top of existing mobile networks would demand lower costs, taking advantage of the already available infrastructure
@@ -82,7 +90,7 @@ They also point to the idea that CDRs are particularly well suited for this task
 These tests effectively helped understand how relevant the dataset is to the question, where the complexity and scale of the data can be, up to a certain degree, assimilated by probabilistic algorithms.
 % , using the models outlined before.
 
-Large at-scale and temporal user mobility were captured by the CDRs, allowing us to understand a variety of human movements thoughout the country.
+Large at-scale and temporal user mobility were captured by the CDRs, allowing us to understand a variety of human movements throughout the country.
 
 
 % \section{In-depth discussion}
@@ -101,13 +109,13 @@ From this work, we were looking solely at human mobility to and from endemic reg
 However, on the advice of this topic's researchers, this work does bring valuable insights to the problem, reinforcing previous hypothesis that vulnerable users are not only to be found inside vector-infested regions.
 
 
-Added to this, we have stated numerous times before that this methods suffers on highly skewed target classes. 
+Added to this, we have stated numerous times before that this methods suffers on highly skewed target classes.
 The low $F1$ scores achieved on the problem of tagging user that migrated out of the endemic region, across all of the learners, pinpoint a shows a very significant negative outcome using this methodology and these attributes.
 
 Another issue with this work is the inherent biases in our dataset.
 As shown in \cref{tab:distribution_by_state}, there are significant differences in the percentage of population represented by our dataset vs.\ current state distribution estimates.
 Due to this, we have to interpret results with caution, since we do not hold any real-data comparisons.
-For this work we did not find any available georeferrenced disease data outside of the endemic region, at municipal or regional levels.\footnote{As a matter of fact, we tried to contact health institutions and research organizations working on the matter with the purpose of enriching the original dataset.
+For this work we did not find any available georeferenced disease data outside of the endemic region, at municipal or regional levels.\footnote{As a matter of fact, we tried to contact health institutions and research organizations working on the matter with the purpose of enriching the original dataset.
 This intent did not add any disease-related data of the kind.}
 
 Other interesting biases stemming from the data are related to international pattern migrations.
@@ -118,9 +126,9 @@ A similar argument applies to the detection of mobility patterns for people with
  % lack cell phone antennas.
 
 Our dataset also presents problems when processing a user's home antenna.
-To do this we had to define what we though were the expected ``working hours'' for all users.
-In doing so, we also assumed that this coulb be generalized to all samples. %used in a generalized case.
-Even though this decision was supported from past research we refereneced, the definitons might not be easily translated for datasets across other geographical and cultural regions.
+To do this we had to define what we thought were the expected ``working hours'' for all users.
+In doing so, we also assumed that this could be generalized to all samples. %used in a generalized case.
+Even though this decision was supported from past research we referenced, the definitions might not be easily translated for datasets across other geographical and cultural regions.
 % This was done by considering what we thought
 
 
@@ -128,7 +136,7 @@ Finally, we know that we can have significant time seasonality and stationarity 
 When processing the data, we specifically tagged weekend and working hour attributes separately from the rest of the features.
 The same was done for month specific attributes on user calling patterns.
 However we understand that there could be other longer term time effect which was not considered under our current codebase. %used in this work.
-There are possibilities of migration patterns being strongly related to seasonal factors such as, for example, in agriculturarl workers having seasonal migrations around regions.% workforce.
+There are possibilities of migration patterns being strongly related to seasonal factors such as, for example, in agricultural workers having seasonal migrations around different regions.% workforce.
 
 The importance of other user specific bias, such as demographics unbalance, was not thoroughly examined.
 Yet these were out of the scope of this work, due to the lack of ground truth in the data.
@@ -142,7 +150,7 @@ Yet these were out of the scope of this work, due to the lack of ground truth in
 
 The mobility and social information extracted from CDRs analysis has been shown to be of practical use for long-term human migrations and for Chagas disease research.
 it adds value and information to help make data driven decisions which in turn is key to support epidemiological policy interventions in the region.
-For the purpose of continuing this reserach line, the following is a list of possible extensions:
+For the purpose of continuing this research line, the following is a list of possible extensions:
 
 
 \begin{description}
@@ -173,14 +181,14 @@ For the purpose of continuing this reserach line, the following is a list of pos
 
     \item [Test other classifiers] The probabilistic models introduced in this work are a brief list of the ones available in the literature and of these, we know that only Naive Bayes had an acceptable classification performance in \cref{target2}.
     It would be interesting to see how other well-established and known methods perform for this case and see if any of them can correct this.
-    Some examples of other algorithms not shown in this workd are K-Nearest Neighbors, Support Vector Machines and Classification Neural Networks.   
+    Some examples of other algorithms not shown in this work are K-Nearest Neighbors, Support Vector Machines and Classification Neural Networks.   
 
     \item [Test other pre-processing techniques] In line with the problem addressed by the previous point, there are multiple other data-based techniques to address the problem of learning with highly unbalanced classes.
-    These tend to focus on under-sampling the majority class, over-sampling the minority class, or a combination of both.
+    These tend to focus on undersampling the majority class, over-sampling the minority class, or a combination of both.
 
 
-    \item [Domain Evaluation] The evaluation of Machine Learning algorithms needs to incorporate domain specific knowledge to reasses the errors accordingly. In this sense, we can say that Type I or Type II errors may not be the same at the eyes of a health researcher. 
-    In a future iteration, it would be interesting to revaluate the results with the opinion of other domain experts where the algorithm's performance could be seen differently.
+    \item [Domain Evaluation] The evaluation of Machine Learning algorithms needs to incorporate domain specific knowledge to reasses the errors accordingly. In this sense, we can say that Type I or Type II errors may not be the same at the eyes of a health researcher.
+    In a future iteration, it would be interesting to evaluate again the results with the opinion of other domain experts where the algorithm's performance could be seen differently.
 
 \end{description}
 
