@@ -101,6 +101,9 @@ From this work, we were looking solely at human mobility to and from endemic reg
 However, on the advice of this topic's researchers, this work does bring valuable insights to the problem, reinforcing previous hypothesis that vulnerable users are not only to be found inside vector-infested regions.
 
 
+Added to this, we have stated numerous times before that this methods suffers on highly skewed target classes. 
+The low $F1$ scores achieved on the problem of tagging user that migrated out of the endemic region, across all of the learners, pinpoint a shows a very significant negative outcome using this methodology and these attributes.
+
 Another issue with this work is the inherent biases in our dataset.
 As shown in \cref{tab:distribution_by_state}, there are significant differences in the percentage of population represented by our dataset vs.\ current state distribution estimates.
 Due to this, we have to interpret results with caution, since we do not hold any real-data comparisons.
@@ -137,8 +140,6 @@ Yet these were out of the scope of this work, due to the lack of ground truth in
 
 \section{ Lines of Future Work }
 
-\todo{Add try other ML methods such as SVM or neural nets to improve on the general F1 score or compete against Naive Bayes high F1 score.}
-
 The mobility and social information extracted from CDRs analysis has been shown to be of practical use for long-term human migrations and for Chagas disease research.
 it adds value and information to help make data driven decisions which in turn is key to support epidemiological policy interventions in the region.
 For the purpose of continuing this reserach line, the following is a list of possible extensions:
@@ -168,7 +169,18 @@ For the purpose of continuing this reserach line, the following is a list of pos
     It is of primary importance though to have a good dataset available.
     Since otherwise, it would not be possible to reach a generalizing classifier.
 
-    \item With the above, we could add a similar approach as in ths work, to explore features and determine for the most relevant attributes that are associated with being Chagas infected.
+    \item With the above, we could add a similar systematic process as the one defined in this work, to explore features and determine for the most relevant attributes that are associated with being Chagas infected.
+
+    \item [Test other classifiers] The probabilistic models introduced in this work are a brief list of the ones available in the literature and of these, we know that only Naive Bayes had an acceptable classification performance in \cref{target2}.
+    It would be interesting to see how other well-established and known methods perform for this case and see if any of them can correct this.
+    Some examples of other algorithms not shown in this workd are K-Nearest Neighbors, Support Vector Machines and Classification Neural Networks.   
+
+    \item [Test other pre-processing techniques] In line with the problem addressed by the previous point, there are multiple other data-based techniques to address the problem of learning with highly unbalanced classes.
+    These tend to focus on under-sampling the majority class, over-sampling the minority class, or a combination of both.
+
+
+    \item [Domain Evaluation] The evaluation of Machine Learning algorithms needs to incorporate domain specific knowledge to reasses the errors accordingly. In this sense, we can say that Type I or Type II errors may not be the same at the eyes of a health researcher. 
+    In a future iteration, it would be interesting to revaluate the results with the opinion of other domain experts where the algorithm's performance could be seen differently.
 
 \end{description}
 
