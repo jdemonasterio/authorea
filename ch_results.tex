@@ -36,16 +36,26 @@ With a minuscule sample of the CDRs we showed that the dataset is rich in social
 This gave us an idea of how this type of data could be leveraged to the general problem.
 We then framed our problem in the context of long-term human migrations and gave an idea of the importance of them, in relation to the epidemic nature of the disease.
 
-We noted that the dataset posed a very unbalanced classification problem.
-As expected, most telco users did not show any migration pattern to or from the endemic region, in the time of analysis.
+We noted that the dataset posed a very unbalanced classification problem as most telco users did not show any migration pattern to or from the endemic region, in the time of analysis.
 This also implied that we had a very correlated problem, where most users did not change their past and present endemic conditions.
 This information, combined with the local calling nature, meant that we had correlations with the target feature.
-As users living in the endemic region will most probably have lived there in the past as well.
+This was noted by seeing that users living in the endemic region will most probably have lived there in the past as well.
+
+In later sections we also noted that this strong past-to-present correlation in user's homes was relevant to the prediction problems. 
+This is because for tree based learners, knowing where the user lived in the present, was a strong indicator of where the user would be living in the past.
+This information provided the algorithms with features that were highly informative. 
+Yet we decided to exclude this attribute for the problem of predicting a user's past home endemic condition because we wanted to evaluate the information present in other, less trivial, features. 
+
+Moreso, we found other variables having mild interactions with the condition of being a past endemic user. 
+As expected, people with high mobile interactions with the endemic region, in the form of calls durations and calls counts, also resulted in attributes which were related to users having past endemic homes.
+This is most probably due to the locality effect in calling patterns, where most interactions between TelCo users occur in local regions.
+Thus users living in endemic regions would call other users nearby.
+
 
 % in which there are few positive cases over all of the possible.
  % an exploratory We compared the relative sample of users
 
-In this stage we set to explore data transformations and  visualizations to explore further the information contained in the data.
+In this stage we also set to explore the data with feature transformations and visualizations to further discover available in it. % information contained in the data.
 As a starting point we transformed the user-level data into a dataset at the antennas level.
 This step aggregated information of call patterns to and from the endemic region.
 It allowed us to present geolocalized visualizations of these social interactions to the vulnerable areas.
@@ -187,18 +197,21 @@ As we will see later in \cref{tab:master_table_results}, \cref{target2} happened
 % to these kinds of tasks was elaborated.
 
 
+\todo{Add that random Forests improving decision tree overfitting. Gradient Boosting better in bias with a slight incrase in overfit}
+
+
+
+
 
 
 \todo{Erase this section}
 \section{Plan / Random notes to add to results chapter}
 
 \begin{description}
-    \item  Random Forests improving decision tree overfitting. Gradient Boosting better in bias with a slight incrase in overfit.
-    
+        
     \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
     \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
-    \item Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.
-    \item As expected, we had strong past to present correlation in endemic home antennas. We found other strong variables interacting with the condition of being a past endemic user too.
+
     \item What's the predictive performance of CDRs for the long-term migrations problem?
 
 \end{description}
@@ -206,7 +219,7 @@ As we will see later in \cref{tab:master_table_results}, \cref{target2} happened
 
 
 
-
+\todo{ Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.}
 
 
 
@@ -233,9 +246,12 @@ From the results we collected, the best features can be broken down into the fol
 
 \end{itemize}
 
-These gruops identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
+These groups identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
 Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
 A more thorough examination of these results can be seen in \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
+
+
+
 
 
 
@@ -256,6 +272,7 @@ These models can find complex interactions in the data whilst handling enough ca
 % and the same applies to the metrics used to evaluate them.
 
 \todo{Reword sentences
+
 Expand, correct and finish them in a cohesive structure.}
 
 
@@ -266,18 +283,6 @@ Expand, correct and finish them in a cohesive structure.}
 Also, the effects of overfitting the models were visible in some of the experiments where deep trees and complex configurations underpowered the resulting model's generalization error.
 
 
-
-High discrepancies exist in the scores of the different machine learning models.
-Some are better at capturing the relevant information to predict human movements in the long-term.
-This is because not all social information is presented directly in the dataset, and feature interactions are helpful.
-
-
-
-
-The implications of these results argue that CDRs can be extensively used for non business purposes and, specifically in this case, there is light evidence that they might capture well the fluxes of diseases among humans.
-This data was used as a surrogate to other, more traditional, methods of disease control and surveillance.
-This work intends to help authorities with disease-control strategies in way which is not intrusive for cellphone users.
-Measures can then be applied outside of the endemic region, and directed towards specific neighbourhoods and communities by using the recommendations output by the risk algorithm.
 
 
 \cref{tab:master_table_results} shows a compendium of the results obtained from the CDR dataset, using all classification models.
@@ -396,6 +401,17 @@ models had surprisingly low $F1$ overall when best-fitting, yet high and accepta
 
 \todo{ Naive Bayes modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3)}
 
+
+
+
+High discrepancies exist in the scores of the different machine learning models.
+Some are better at capturing the relevant information to predict human movements in the long-term.
+This is because not all social information is presented directly in the dataset, and feature interactions are helpful.
+
+
+
+
+The implications of these results argue that CDRs can be extensively used for non business purposes and, specifically in this case, there is light evidence that they might capture well the fluxes of diseases among humans.
 
 
 %   ___  _     ___         ___________ __ __ _____ _____
