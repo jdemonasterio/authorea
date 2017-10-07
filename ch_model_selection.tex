@@ -7,7 +7,7 @@
 \section{Prediction and Generalization Error}\label{subsection-generalizationError}
 
 Historically, a convenient loss function used to find the parameters was to minimize the residual sum of squares.
-This measures the performance of our model $f(\cdot)$'s predictions on input samples $x$ with respect to the data\'s known output classes $y$ as
+This measures the performance of our model $f(\cdot)$'s predictions on input samples $x$ with respect to the data's known output classes $y$ as
 
 \begin{equation}
 RSS(\theta_0,..,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
@@ -150,7 +150,7 @@ Since the sampling process should be done for each specific $\theta$.
 Notice however the close resemblance of the \cref{eq:mcarlo-approx} to the form in \cref{eq:rss}.
 
 Historically the concepts of bias and variance where associated directly with the squared loss function.
- Yet in classification problems, it is uncommon to use the residual sum of squares to fit the model\'s parameters.
+ Yet in classification problems, it is uncommon to use the residual sum of squares to fit the model's parameters.
 Instead, they rely on other \textit{loss} functions that we will introduce later.
 
 %For this, we use a simple series approximation
@@ -247,7 +247,7 @@ To score the model, we take a monotonically increasing scoring function where
 higher values mean better scores.
 With this, the different model errors for each complexity level, produces the following figure.
 
-Here the test and training errors are given as a function of the tree\'s depth:
+Here the test and training errors are given as a function of the tree's depth:
 
 %This is because Curing the optimization procedure, the algorithm has to fit more parameters.
 %In this sense, the model increases in complexity, as measured in its degrees of freedom.
@@ -264,7 +264,7 @@ Both score series are compared side by side, with their corresponding standard d
 \end{figure}
 
 
-At first the model\'s bias is high both for the training and testing sets, and as a consequence, we would expect to have a high generalization error.
+At first the model's bias is high both for the training and testing sets, and as a consequence, we would expect to have a high generalization error.
 Then the overall error decreases as complexity increases.
 
 The expected prediction error is shown, estimated by averaging over the test set' prediction error's.

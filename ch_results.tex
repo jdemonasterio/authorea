@@ -177,11 +177,15 @@ The wide gap in the scores resulted in a difference larger than $0.3\%$.
 This result is not surprising in the sense that Decision Trees are known to become highly complex and overfitting models after growing to a certain depth. 
 % Ideally it serves as an example of what aspects of this greedy algorithm are enhanced by Random Forests. 
 
-We also fit two Decision Tree instances for the same and problem and evaluated them on a $Accuracy$ score.
-The first fit was ran over a smaller hyperparameter configuration.
-In particular, this configuration did not
+We also fit two Decision Tree instances for the same problem to evaluate the model with an $Accuracy$ score.
+The first of two fits was ran over a smaller hyperparameter configuration.
+
+In particular, this configuration did not consider a rebalancing of the samples when computing the loss function over the whole set.
+
+
 idea was
- and plotted their output in a graph.
+ and plotted their output in a graph which shows up to five levels of splits.
+
 We showed for each node the attribute used in that splitting decision and the actual split value.
 Doing this provided some insights into what features were initially being used by the algorithm to separate samples, according to their split index performance.
 Still, given the low $Accuracy$ scores for both fits ($43.2\%$,and $57.9\%$)
@@ -199,24 +203,10 @@ As we will see later in \cref{tab:master_table_results}, \cref{target2} happened
 
 \todo{Add that random Forests improving decision tree overfitting. Gradient Boosting better in bias with a slight incrase in overfit}
 
+
+
+
 \todo{ Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.}
-
-
-
-
-\todo{Erase this section}
-\section{Plan / Random notes to add to results chapter}
-
-\begin{description}
-        
-    \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
-    \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
-
-    \item Whole Random Forest and Gradient Boosting results from the experiments.
-
-    \item What's the predictive performance of CDRs for the long-term migrations problem?
-
-\end{description}
 
 
 
@@ -248,6 +238,27 @@ From the results we collected, the best features can be broken down into the fol
 These groups identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
 Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
 A more thorough examination of these results can be seen in \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
+
+
+
+
+\todo{Erase this section}
+\section{Plan / Random notes to add to results chapter}
+
+\begin{description}
+        
+    \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
+    \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
+
+    \item Whole Random Forest and Gradient Boosting results from the experiments.
+
+    \item What's the predictive performance of CDRs for the long-term migrations problem?
+
+\end{description}
+
+
+
+
 
 
 
