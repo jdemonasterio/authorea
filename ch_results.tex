@@ -17,8 +17,6 @@
 
 \chapter{Summary of Results}\label{ch:results}
 
-\todo{Review whole results chapter, fix typos grammar mistakes, etc.}
-
 % handling data, models and features with acumen
 % After extensive research of machine learning literature and CDR usage in health problems.
 
@@ -175,7 +173,9 @@ As a start, we showed through a validation curve that, for the problem of users 
 We had that the cross-validated scores and the test scores diverged rapidly after a tree-depth of $7$ and this is plotted in \cref{figure:dtree_overfit_problem_2}.
 The wide gap in the scores resulted in a difference larger than $30\%$.
 
-This result is not surprising in the sense that Decision Trees are known to become highly complex and overfitting models after growing to a certain depth.
+In conclusion, the overfitting effect in this learner was visible in the experiments where deep trees and complex configurations underpowered the resulting model's generalization error.
+This is not surprising as Decision Trees are known to become highly complex after a certain level of tree growth.
+
 % Ideally it serves as an example of what aspects of this greedy algorithm are enhanced by Random Forests.
 
 We also fit two Decision Tree instances for the same problem to evaluate the model with an $Accuracy$ score.
@@ -210,7 +210,8 @@ This means that, due to the low performance of these learners, the interpretatio
 % we could be tempted to interpret the
 
 Interestingly enough, in these experiments we found that for this learner, rebalancing the set helped us increase the learner's score by a great amount.
-We hypothesize that this is an important setting to be used in cases where the target classes are imbalanced.
+We hypothesize that this is a valuable hyperparameter that helps when facing problems with target classes are unbalanced.
+
 % With this score, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
 % Experiments with the Decision Tree was used  
 
@@ -224,22 +225,21 @@ Where we look to tag users that migrated out of the endemic region, from time pe
 In this way se set a common ground to compare and evaluate the algorithms.
 % settled to compare and evaluate them on common ground.
 
-As we will see later in \cref{tab:master_table_results}, this task, \cref{target2}, happened to be the hardest one, as it resulted in the worst metric scores for all classifiers.
+As we will see later in \cref{tab:master_table_results}, this task, \cref{target2}, happened to be the hardest ones, as it resulted in the lowest metric scores for all classifiers.
 
+We performed extensive experimentation both on the Random Forest and Gradient Tree Boosting learners. 
+In both we compared the results with those previously obtained for the Decision Tree, where we pointed to the improvements brought by these ensemble learners. 
 
+\todo{FILL in with experimentation from RF and GBT.}
 
 % By comparing this problem over the various tree methods we discuss on applications that these kind of datasets can provide.
 % to these kinds of tasks was elaborated.
-
 
 \todo{Add that random Forests improving decision tree overfitting. Gradient Boosting better in bias with a slight incrase in overfit}
 
 
 
-\todo{ Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.}
-
-
-
+\todo{ Fill in: Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.}
 
 
 
@@ -273,28 +273,16 @@ A more thorough examination of these results can be seen in \cref{tab:random_for
 
 
 
-\todo{Erase this section}
-\section{Plan / Random notes to add to results chapter}
+\section{Missing parts Plan to add to this section }
 
 \begin{description}
         
     \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
     \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
 
-    \item Whole Random Forest and Gradient Boosting results from the experiments.
-
     \item What's the predictive performance of CDRs for the long-term migrations problem?
 
 \end{description}
-
-
-
-
-
-
-
-
-
 
 
 
@@ -312,19 +300,9 @@ These models can find complex interactions in the data whilst handling enough ca
 % Each of the tasks will have different scores across the algorithms used.
 % and the same applies to the metrics used to evaluate them.
 
-\todo{Reword sentences
-
-Expand, correct and finish them in a cohesive structure.}
-
-
-
 % ||||||||||||||||||||||||||||||||||||| SPLIT |||||||||
 
-
-Also, the effects of overfitting the models were visible in some of the experiments where deep trees and complex configurations underpowered the resulting model's generalization error.
-
-
-
+\section{Master Table of Results}\label{sec:master_table}
 
 \cref{tab:master_table_results} shows a compendium of the results obtained from the CDR dataset, using all classification models.
 For ech problem and model, we found the best performing learner with a cross validation procedure which searched over an extensive grid of hyperparameters.
@@ -378,9 +356,6 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
 % \end{landscape}
 
 
-
-\todo{Review 4 problems and wrap the best results of each algorithm, what scorings did they have?}
-
 \cref{tab:master_table_results} exposes all combinations in model performance and runtime across the problems studied for this work.
 At a first glance there are some notable results exposed in this table.
 
@@ -399,48 +374,51 @@ The reason for this is that when building the Random Forest ensemble we have tha
 On the other hand boosting trees build successive weak learners that improve on the most current model.
 This dependency limits the optimization routine parallelization opportunities.
 
-Still, at this point it is worth to mention that the runtimes resulted from experiments that were not performed under controlled computer environments.
-For example, there is no way that we can assure that all cross-validation procedures were done having the same computational resources available.
-Even though results seem consistent across all problems, we know that
-this results shouldn't be considered benchmark proofs.
+Still, at this point it is worth to mention that the runtimes resulted from experiments that were not performed under controlled computing environments.
+For example, we can no assure that all cross-validation procedures were done in settings with equal available computational resources.
+Even though results seemed consistent across all problems, we know that these results shouldn't be considered as benchmarks.
 
 
+\subsection{Low F1 Scores}\label{subsec:master_table_low_f1}
 
-results from runtimes were note 
+Overall, we can say that, excepting the problem of predicting users that had lived in the endemic region in the past, no model had satisfactory $F1$ scores for any of the problems. The top two $F1$ score for \cref{target2,target3,target4} and for any best-fit learners, were $0.62$ and $0.45$. 
+Both these scores were attained by the Naive Bayes algorithm for the problems of currently non-endemic users that were living in the endemic region in the past, and for the problem of tagging useres tht had migrated in any direction.
 
- from this and   
-tend to be 
+Interestingly enough, these poor scores for the Naive Bayes algorithm were in comprison much higher than the ones reached by any other classifier, when compared in relative terms. 
+All of the other classifiers had extremely poor $F1$ performances in all of \cref{target2,target3,target4}.
+The best $F1$ score for all of these classifieres and for any of these problems, was $0.194$.
 
-is of lower 
+We mentioned this situation earlier for the experiments specifically performed on the problem of tagging unidirectional migrants, for 
+Where for all of the learners output a very low $Precision$ score.
 
- Logistic Regression is 
-This is surprising
+The overconfidence shown by the models dervied a high misclassification rate for the samples in the positive class.
+This error was so strong, that it drove the $F1$ scores to very low values, even when showing acceptable $Recall$ scores.
+Models seemed to output acceptable $Recall$ with a huge tradeoff in the the precision of their positive predictions.
 
+Also, in highly unbalanced classification problems, such as the ones we are working with here, we see this overconfidence effect in learners affected by the unbalanced target class.
+With this we can say that precisely tagging migrant users can be a very difficult prediction problem.
 
-\subsection{Low F1 Score}\label{subsec:master_table_low_f1}
+It was surprising to discover that a very modest and fast model could, under this metric, outperform all of the other more complex ones.
+We suspect that the Naive Bayes's formulation helps limit the overconfidence of the final model, allowing it to still reach acceptable $Recall$ scores.
+In all, we saw that this was the best model for all problems of migrant users, and when evaluated on the $F1$ score.
 
-\todo{ Yet with a modest performance which was first ranked on the $F1$ score for difficult problems (2, 3, 4)}
+In contrast, the problem of predicting users that lived in the past, by only knowing their information from the present, is a task that does not present this ill-conditioned class imbalance. 
+Results show that the Gradient Tree Boosting learner reaches very high $F1$ scores of $95\%$ whilst both the Logistic Regression and Random Forests reach values of $90\%$.
 
-Overall, we can say that, excepting the problem of predicting users that had lived in the endemic region in the past, no model had satisfactory $F1$ scores for any of the problems. The top two $F1$ score for these three problems and for all best-fit models, were $0.62$ and $0.45$.
-These scores were attained by the Naive Bayes algorithm for the problems of currently non-endemic users that were living in the endemic regionin the past, and for the problem of tagging useres tht had migrated in any direction, respectively.
-
-Interestingly enough, these poor scores for the Naive Bayes algorithm were greatly better than the ones reached by other classifiers, when compared in relative terms. 
-All of the other classifiers had extremely poor $F1$ performances in \cref{target2,target3,target4}.
-The $F1$ score for all of these classifieres in these problems, was $0.194$ .
-
-On the downside
-
-With most scores being lower than  
-
-
-models had surprisingly low $F1$ overall when best-fitting, yet high and acceptable ROC AUC.\ Models seem to overvalue recall with a huge loss in precision. 
-
-         Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.
+A very similar situation was observed across other scores and for all of the problems.
 
 
 \subsection{Other Scores}\label{subsec:master_table_other_scores}
 
-\todo{ Naive Bayes modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3)}
+For the $ROC AUC$ and $Accuracy$ scores, we can say that, in general, the best performing learner for all problems were the Gradient Boosting Trees.\footnote{There is only one specific case where the Boosted learner does not achieve the highest score, and that is for the problem of tagging users that moved out of the endemic region, but only for those users that are currently not endemic.}
+
+Overall, we saw ta
+
+\todo{ Overall Naive Bayes output modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3)}
+
+\todo( high and acceptable ROC AUC.}
+
+\todo{Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.}
 
 
 
