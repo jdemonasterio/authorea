@@ -111,13 +111,13 @@ At the same time we introduced other relevant concepts in the Machine Learning a
 As is common in the literature, in \cref{figure:dtree_overfit_problem_2} we saw that increasing a decision tree's complexity leads to a clear case of overfitting the training data when trying to approximate the generalization error.
 
 The same procedure was used to illustrate the concept of ``Cross Validation'' in \cref{fig:cv_vs_test_score}.
-We found that when making predictions on which users were endemic in the past endemic, the test score was inside a one standard deviation band of the CV score, across a varying hyperparameter value for the Logistic Regression classifier.
+We found that when making predictions on which users were endemic in the past, the test score was inside a one standard deviation band from the CV score, across a varying hyperparameter value for the Logistic Regression classifier.
 These findings are consistent with lots of other experiments found in the literature where by cross validating the search of optimal hyperparamters, we can have a fair estimation of the test error.
 
 
-Towards the end of \cref{ch:modelSelection} we performed an extensive experimentation with this same problem and also on users that moved out of the endemic region.,
+Towards the end of \cref{ch:modelSelection} we performed a deeper experimentation with this same problem and also on users that moved out of the endemic region.,
  % which characterized unidirectional migrants, from the endemic region.
-For this we used the same classifier as before but on the whole dataset in what defined our systematic approach of analyzing classifiers performance.
+Here we used the same classifier as before but on the whole dataset in what defined our systematic approach of analyzing classifiers performance.
 % through cross validation, hyperparameter error assessment, feature selections through iterations and visualization of validation curves.
 
  % and found we did this on the whole dataset in an approach which defined systematic procedure.
@@ -128,23 +128,24 @@ This was for all of the cross-validated fits and for the whole set.
 Also since we limited the number of iterations to at most one hundred steps, this runtime is actually smaller than the the real optimization time for this algorithm,
 
 Another issue found with this algorithm was its extremely poor $F1$ performance for unidirectional migrants.
-We found that it had a test score lower than $0.01\%$.
+We found that it had a test score lower than $1\%$.
 As we will see later in other statistical learners, we had that
 the overall precision of the classifier was very poor due to not being able to accurately predict positive samples.
 The algorithm was very inefficient in this aspect of overestimating users that migrated out of the endemic region, and this misclassification had a direct impact in the observed $F1$.
 
 
 However this low score was not repeated in the rest of the metrics we evaluated.
-For this same problem, both the best $Recall$ and $Accuracy$ test and CV rates were over $0.61\%$.
-Another relevant observation was that best-fit $C$ values were not consistent along all fits as the values differed in orders of magnitude.
-Solutions ranged from to $1E-3$ to $1E-1$ on different fits.
+For this same problem, both the best $Recall$ and $Accuracy$ test and CV rates were over $61\%$.
+
+Another relevant observation was that best-fit $C$ values were not consistent along all fits, because these resulting values were seen to differ by orders of magnitude.
+Solutions for $C$ ranged from to $1E-3$ to $1E-1$ on different fits.
 With this we can still positively affirm that the best-fit models for this experiment were those which penalized the loss function with strong regularization terms.
 
 
-In contrast, when using this classifier to predict past endemic users residents, we found that we could get a $ROC AUC$ score of $0.76\%$.
+In contrast, when using this classifier to predict past endemic users residents, we found that we could get a $ROC AUC$ score of $76\%$.
 Moreover this score is achieved when cross validating solely on the $l1$ regularization parameter.
 
-A similar test score of $0.744\%$ was reached when optimizing for the $l2$ hyperparameter of regularization.
+A similar test score of $74.4\%$ was reached when optimizing for the $l2$ hyperparameter of regularization.
 Each were optimized separately in order to exemplify how the overall $ROC AUC$ varied along different regularization thresholds.
 
 This outcome of better $ROC AUC$ scores, when compared with the experiments on migrations out of the endemic region, underscore the difference among the problems' difficulty.
@@ -172,7 +173,7 @@ And even though Decision Trees were not systematically analyzed, they were added
 
 As a start, we showed through a validation curve that, for the problem of users moving out of the endemic regions, the learners would become overfit if we let the trees grow in depth.
 We had that the cross-validated scores and the test scores diverged rapidly after a tree-depth of $7$ and this is plotted in \cref{figure:dtree_overfit_problem_2}.
-The wide gap in the scores resulted in a difference larger than $0.3\%$.
+The wide gap in the scores resulted in a difference larger than $30\%$.
 
 This result is not surprising in the sense that Decision Trees are known to become highly complex and overfitting models after growing to a certain depth.
 % Ideally it serves as an example of what aspects of this greedy algorithm are enhanced by Random Forests.
