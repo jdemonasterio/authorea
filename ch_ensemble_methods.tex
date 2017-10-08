@@ -197,12 +197,14 @@ This allows us to see how the algorithm selects better features at low-level nod
 
 
 From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the Gini splitting criteria.
-Given that in \cref{target2} we are looking for people that migrated in any direction, the choice of the tree's root feature is not surprising.
+Given that in \cref{target2} we are looking for people that migrated out of the endemic region, the choice of the tree's root feature seems appropriate.
 The mobility diameter gives an idea of a user's influence area when using his mobile phone and as such, this attribute might indicative of past migrations.
+
 Subsequently, the usage volume of a user's home antenna appears as the second most important features, both during the weeknight and during the whole day.
-Yet the error score out by this tree yields a poor performance.
-Evaluated with the $Accuracy$ metric, we see $43.2\%$ result with this model which shows very poor prediction error over all of the samples.
-With this score, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
+
+The error score reached by this tree, howerver, yields a poor performance over all of the samples.
+Evaluated with the $Accuracy$ metric, we see a score of $43.2\%$ with this learner.
+Under these circumstances, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
 
 We decide to iterate once again on this model, but now slightly changing some hyperparameter values. 
 In this iteration the the balance of $\mathcal{T}$ is controlled and this is because in this task, the positive and negative classes have a disproportionate balance of samples and this is reflected in the overall model's poor performance.
