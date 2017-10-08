@@ -14,7 +14,6 @@
 % Problem 4: Users that migrated from the endemic region, but conditional to users which are currently not endemic i.e. the base of users wich 
 
 
-
 \chapter{Summary of Results}\label{ch:results}
 
 % handling data, models and features with acumen
@@ -410,15 +409,25 @@ A very similar situation was observed across other scores and for all of the pro
 
 \subsection{Other Scores}\label{subsec:master_table_other_scores}
 
-For the $ROC AUC$ and $Accuracy$ scores, we can say that, in general, the best performing learner for all problems were the Gradient Boosting Trees.\footnote{There is only one specific case where the Boosted learner does not achieve the highest score, and that is for the problem of tagging users that moved out of the endemic region, but only for those users that are currently not endemic.}
+For the $ROC AUC$ and $Accuracy$ test scores, we can say that, in general, the best performing learner for all problems were the Gradient Boosting Trees.\footnote{There is only one specific case where the Boosted learner does not achieve the highest score, and that is for the problem of tagging users that moved out of the endemic region, but only for those users that are currently not endemic.}
 
-Overall, we saw ta
+It scored high across all problems in the $ROC AUC$ metric, where values ranged from $81.9\%$ for the problem of tagging unidirectional migrants, up to $97\%$ for the task of predicting which users had lived in the endemic region in the past.
 
-\todo{ Overall Naive Bayes output modest performance which was first ranked on the $F1$ score for difficult problems (2 and 3)}
+We confirm there that this learner, being more complex than the others presented, effectively outputs higher scores for these metrics.
+The model can better predict those different user migrations with lower bias and with enough regularization that it does not overfit the training set.
 
-\todo( high and acceptable ROC AUC.}
+\todo{ Overall Naive Bayes has the lowest performance on roc and accuracy.}
 
-\todo{Other scoring metrics ended in satisfactory performing models which could accurately with maximum test scores over 81\%.}
+On the other end of the spectrum, we 
+
+
+\todo(High and acceptable ROC AUC for RF as well.}
+
+
+Under this view we would say that with this dataset provides enough information to effectively predicted long-term migrations with the Random Forest and Gradient Tree Bossting learners.
+The resulting scores were more than satisfactory, building best-fit models which could accurately tag users under the $ROC AUC$ and $Accuracy$ metrics.
+ % with maximum test scores over 81\%.
+
 
 
 
