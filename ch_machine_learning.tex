@@ -148,10 +148,12 @@ We want to infer which users lived in $E_Z$ in the past and then migrated:
 
 In this task, we have not excluded any attributes from the data since this problem does not carry the feature-target correlation problems like before.
 Recall from \cref{tab:changes} that we have at most 23 thousand users that satisfy this condition from more than a million users.
-This unbalance in the target class proves to be a much harder problem to solve than in \cref{target1} since these users become harder to find.
+This unbalance in the target class proves to be a much harder problem to solve than in \cref{target1} since these users become harder to find and the error over the small class would be dominated if not correctly taken into account.
+
+It is relevant to note here that we are ignoring any relevant information about the user's endemicity or current state of residence. 
+Otherwise we would have a perfect correlation between $Y_u=0$ and beign currently endemic, or living in an endemic state.
 
 % This is because we could use a dumb predictor to always output the value of the bigger class.
-With this, the error over the small class would be dominated if not correctly taken into account.
 
 
 \begin{problem}\label{target3}
@@ -183,10 +185,9 @@ This means that we will only consider users which $u \in EU_{1}^{\complement}$ a
 		\end{align*}
 \end{problem}
 
-Note that at this point we are looking at a reduced instance of our CDRs.
-That is, we are only considering currently non-endemic users other than the whole sample population.
-Still, we are taking more than a million users in this dataset.
-
+An important observation is that at this point we are looking at a reduced instance of our CDRs, because we are only considering currently non-endemic users other than the whole sample population.
+Still, we are observing more than a million users for this problem.
+  
 
 % \begin{problem}\label{target5}
 % As a \textbf{bonus} problem and for exemplary reasons, we considered tried to detect if a user has a high mobile footprint $M_u$, as defined in \cref{section:def_mobility_diameter}.
