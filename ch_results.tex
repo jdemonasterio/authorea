@@ -1,17 +1,16 @@
-%!TEX root = main.tex
 
 %===============================================================================
-%     File: ch4_evaluation_results.tex
+%     File: ch_results.tex
 %    Author: Juan de Monasterio
-%    Created: 15 Feb 2017
-%  Description: Chapter: Evaluation and Results
+%    Created: 1 Oct 2017
+%  Description: Chapter Results
 %===============================================================================
 
 
 % Problem1: We want to infer which users lived in the endemic region in the past.
 % Problem 2: We want to infer which users lived in $E_Z$ in the past and then migrated.
 % Problem 3: Users that migrated to a different region (any direction movement)
-% Problem 4: Users that migrated from the endemic region, but conditional to users which are currently not endemic i.e. the base of users wich 
+% Problem 4: Users that migrated from the endemic region, but conditional to users which are currently not endemic i.e. the base of users wich
 
 
 \chapter{Summary of Results}\label{ch:results}
@@ -212,7 +211,7 @@ Interestingly enough, in these experiments we found that for this learner, rebal
 We hypothesize that this is a valuable hyperparameter that helps when facing problems with target classes are unbalanced.
 
 % With this score, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
-% Experiments with the Decision Tree was used  
+% Experiments with the Decision Tree was used
 
 
 
@@ -226,8 +225,8 @@ In this way se set a common ground to compare and evaluate the algorithms.
 
 As we will see later in \cref{tab:master_table_results}, this task, \cref{target2}, happened to be the hardest ones, as it resulted in the lowest metric scores for all classifiers.
 
-We performed extensive experimentation both on the Random Forest and Gradient Tree Boosting learners. 
-In both we compared the results with those previously obtained for the Decision Tree, where we pointed to the improvements brought by these ensemble learners. 
+We performed extensive experimentation both on the Random Forest and Gradient Tree Boosting learners.
+In both we compared the results with those previously obtained for the Decision Tree, where we pointed to the improvements brought by these ensemble learners.
 
 \todo{FILL in with experimentation from RF and GBT.}
 
@@ -275,7 +274,7 @@ A more thorough examination of these results can be seen in \cref{tab:random_for
 \section{Missing parts Plan to add to this section }
 
 \begin{description}
-        
+
     \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
     \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
 
@@ -380,14 +379,14 @@ Even though results seemed consistent across all problems, we know that these re
 
 \subsection{Low F1 Scores}\label{subsec:master_table_low_f1}
 
-Overall, we can say that, excepting the problem of predicting users that had lived in the endemic region in the past, no model had satisfactory $F1$ scores for any of the problems. The top two $F1$ score for \cref{target2,target3,target4} and for any best-fit learners, were $0.62$ and $0.45$. 
+Overall, we can say that, excepting the problem of predicting users that had lived in the endemic region in the past, no model had satisfactory $F1$ scores for any of the problems. The top two $F1$ score for \cref{target2,target3,target4} and for any best-fit learners, were $0.62$ and $0.45$.
 Both these scores were attained by the Naive Bayes algorithm for the problems of currently non-endemic users that were living in the endemic region in the past, and for the problem of tagging useres tht had migrated in any direction.
 
-Interestingly enough, these poor scores for the Naive Bayes algorithm were in comprison much higher than the ones reached by any other classifier, when compared in relative terms. 
+Interestingly enough, these poor scores for the Naive Bayes algorithm were in comprison much higher than the ones reached by any other classifier, when compared in relative terms.
 All of the other classifiers had extremely poor $F1$ performances in all of \cref{target2,target3,target4}.
 The best $F1$ score for all of these classifieres and for any of these problems, was $0.194$.
 
-We mentioned this situation earlier for the experiments specifically performed on the problem of tagging unidirectional migrants, for 
+We mentioned this situation earlier for the experiments specifically performed on the problem of tagging unidirectional migrants, for
 Where for all of the learners output a very low $Precision$ score.
 
 The overconfidence shown by the models dervied a high misclassification rate for the samples in the positive class.
@@ -401,7 +400,7 @@ It was surprising to discover that a very modest and fast model could, under thi
 We suspect that the Naive Bayes's formulation helps limit the overconfidence of the final model, allowing it to still reach acceptable $Recall$ scores.
 In all, we saw that this was the best model for all problems of migrant users, and when evaluated on the $F1$ score.
 
-In contrast, the problem of predicting users that lived in the past, by only knowing their information from the present, is a task that does not present this ill-conditioned class imbalance. 
+In contrast, the problem of predicting users that lived in the past, by only knowing their information from the present, is a task that does not present this ill-conditioned class imbalance.
 Results show that the Gradient Tree Boosting learner reaches very high $F1$ scores of $95\%$ whilst both the Logistic Regression and Random Forests reach values of $90\%$.
 
 A very similar situation was observed across other scores and for all of the problems.
@@ -418,10 +417,10 @@ The model can better predict those different user migrations with lower bias and
 
 \todo{ Overall Naive Bayes has the lowest performance on roc and accuracy.}
 
-On the other end of the spectrum, we 
+On the other end of the spectrum, we
 
 
-\todo(High and acceptable ROC AUC for RF as well.}
+\todo{High and acceptable ROC AUC for RF as well.}
 
 
 Under this view we would say that with this dataset provides enough information to effectively predicted long-term migrations with the Random Forest and Gradient Tree Bossting learners.
