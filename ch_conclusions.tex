@@ -1,65 +1,69 @@
 \chapter{Conclusions}\label{ch:conclusions}
 
-\todo{Reorder and correct this section.}
-
 \todo{Reorder paragraphs, reword sentences. Expand, correct and finish them in a cohesive structure.}
 
-The purpose of this work was to analyze and explore howthis type of data data could be used as a surrogate to other, more traditional, methods of disease control and surveillance.
-This was done starting from the hypothesis that long-term migrations 
-are relevant to the spread of this disease out from the region source of vector-borne infections.
-It also took advantage of the georeferenced information contained in the CDR logs, where we showed how the use of this data for reasons other than logging a user's calling expenses demonstrates a use which is relevant to public health policies. 
+The purpose of this work was to analyze and explore how CDR data could be used as a surrogate to other, more traditional, methods of disease control and surveillance.
+This was done starting from the hypothesis that long-term migrations are relevant to the spread of this disease out from the region source of vector-borne infections.
+From other works in the literature we understood that CDRs could be used for non business purposes.
+We took advantage of this by leveraging the georeferenced information contained in the CDR logs, and showing how the use of this data can help with the Chagas disease problem.
 
 
-The analysis we exposed in this work allowed us to show that the Risk maps we developed are of interest to national health campaigns.
-They pinpoint to likely spots of high disease prevalence, with a low cost to produce this outcome.
-Added to this, the risk maps produced many interesting insights of specific antennas that have higher vulnerable interactions with the endemic region, where these are located outside of the endemic region.
+The analysis we exposed allowed us to show that the Risk maps we developed are of interest to national health campaigns.
+These highlighted likely spots of high disease prevalence, associated with communities which had strong calling interactions with the endemic region at a cost to produce which was low.
+With this, the risk maps produced interesting insights as to how migrations might be occurring at a national level and they helped reinforce the hypothesis that these movements spread the disease out of the endemic region.
+% of specific antennas that have higher vulnerable interactions with the endemic region, where these are located outside of the endemic region.
 
+Heatmaps allowed discovery of anomalous communities with attributes from the data which were later confirmed to be relevant in helping detect long-term movement of users.
 
+Added to this, this work served to provide an example of how Machine Learning tools on CDR data can help authorities with disease-control strategies in way which is not intrusive to cellphone users.
+The data can be effectively reused for reasons other than logging a user's calling expenses is relevant to public health issues.
+Health-related measures can then be applied outside of the endemic region, and directed towards specific neighbourhoods and communities by using the recommendations output by the maps, or by the learner's predictions in the problem of detecting, from those users currently not endemic, which of them had migrated in the past from the endemic region.
 
-From this, we intend to provide an example of how Machine Learning tools on CDR data can help authorities with disease-control strategies in way which is not intrusive to cellphone users.
-Health-related measures can then be applied outside of the endemic region, and directed towards specific neighbourhoods and communities by using the recommendations output by the risk algorithm.
 
 Next to traditional health control actions, this research may provide a very insightful piece of information for decision-makers.
-Where the insights derived from the probabilistic models and the risk maps can help in understanding disease spread in other similar contexts.
-
-
+The insights derived from the probabilistic models and the risk maps provide understanding disease spread in other similar contexts.
+There is evidence that they help capture the fluxes of diseases among humans.
 We think that capturing long-term human movements will also enable better simulations of disease spreads in different contexts.
-In this work, the impact of this in our predictive capacity of disease prevalence is shown.
+
+% The implications of the results previously stated argue that
+%  and, specifically in this case,
+% We find acceptable to say at this point that  can be captured by the use of this data.
+% In this work, the impact our predictive capacity to disease prevalence is shown.
+
+In the supervised classification experiments we showed a systematic approach to analyze the problem with information contained in the dataset.
+These experiments effectively helped understand how relevant the dataset is to the question, where the complexity and scale of the data can be, up to a certain degree, assimilated by probabilistic algorithms.
+We saw that large at-scale and temporal user mobility were captured by the learners when using data from the CDRs, allowing us to understand a variety of human movements throughout the country.
 
 
-Also, we find acceptable to say at this point that long-term human dynamics in the form of migration patterns can be captured by the use of this data.
-Since this work was performed in two Latin-American countries and in one single endemic region, we expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities beyond Chagasic spread in Mexico or Argentina.
+From the prediction experiments, we had results that highlighted the benefit of using this type of data to characterize long-term human dynamics in the form of migration patterns.
+Except for the problem of tagging migrants that moved out of the endemic region, out of all of the TelCo's user base, all of the tasks showed high prediction scores.
+
+We compared the strengths and weaknesses of the learners that  were used to estimate the probability of each user's migrations.
+According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions.
+In some instances, we have achieved high values across all scoring measures where the best learners for the tasks were the Random Forests and Gradient Boosting models.
+Because of this, we focused our work on tuning the ensemble learners to achieve higher predictions.
+Still, we saw some differences in both ensemble methods, where the latter was generally better across all scores than the former.
+
+\todo{Fill in the best features and rephrase some sentences.}
+
+The features most brought up in the experiments of ensemble learners where: (i) the area of influence of the users, where large mobilities were indicative of past movements; (ii) the
 
 
-
-The supervised classification experiments done on the various prediction tasks were discussed in previous sections.
-The results highlighted the benefit of using this type of data for the problem.
+We find relevant to know that the ensemble learners realized the importance of attributes tagged with vulnerable behavior obtained from the CDR.\@
 
 
+% Combining social and geolocated information, the data at hand has been given an innovative use, different from its original billing purpose.
 % in the preceding chapters to our tasks.
-The best learners for the following tasks were the Random Forests and Gradient Boosting models.
-Due to this, we focused our work on the strengths of the ensemble learners to achieve higher predictions.
-Still, we saw differences in both ensemble methods, where the former was better at this score, whilst the latter at the second.
-
-
-The features most brought up in the experiments of ensemble learners where A, B, c.
-These indicated this and that.
-They also pointed to information in  blablabla.
-Some supervised classification models realized the importance of attributes tagged with vulnerable behavior obtained from the CDR.\@
-
-The Random Forest model played an important role in having the highest scores across all tasks and in presenting the best features of the dataset.
-This information was later availed by the boosting models trained on said set of features.
-
-
-
-With this, we showed that it is possible to use the mobile phone records of users during a bounded period (of 5 months) in order to predict whether they have lived in the endemic zone $E_Z$ in a previous time frame (of 19 months).
-
-Combining social and geolocated information, the data at hand has been given an innovative use, different from its original billing purpose.
-
 % To conclude, the results presented in this work show that
 
 
-Currently, epidemic counter-measures include coordinating national surveillance systems with institutions and primary health care organizations, vector-centered policy interventions through fumigation of vector-infested regions and individual in-field screening of people.
+Since we performed our analysis on two Latin-American countries and in one single endemic region, we expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities beyond Chagasic spread in Mexico or Argentina.
+
+
+In this work on CDRs, the Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
+Where cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
+
+Currently in Argentina, epidemic countermeasures include coordinating national surveillance systems with institutions and primary health care organizations, vector-centered policy interventions through fumigation of vector-infested regions and individual in-field screening of people.
 
 These measures require costly infrastructures to set up and be run.
 On the other hand, this work shows built on top of existing mobile networks would demand lower costs, taking advantage of the already available infrastructure
@@ -67,77 +71,45 @@ The potential value these results could add to health research is hereby exposed
 Finally, the results stand as a proof of concept which can be extended to other countries or to diseases with similar characteristics.
 
 
-\begin{itemize}
 
-    \item \textbf{Conclusion}
-
-    \item This method and dataset showed a systematic approach to analyze the information contained in the dataset.
-    The idea was to try to explore the human mobility patterns, as captured by the phone call records.
-
-    \item Heatmap allowed discovery of anomalous communities with attributes from the data which were later confirmed to be relevant in helping detect long-term movement of users.
-
-    \item We compared the strengths and weaknesses of these methods.
-    The algorithms  were used to estimate the probability of each user's migrations.
-    Also, we showcased the method's results differences for the tasks defined in \cref{ch:machineLearning}.
-
-    \item Where possible, we exposed the best features of the dataset to solve the general problem.
-    These exposed the relationship between the attributes that characterize vulnerable user interactions, and the target variable of the task.
-    Other relevant features, such as the user's mobility size, were also found to provide relevant information for the classification task.
-
-    \item According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions. In some instances, we have achieved high values across all scoring measures. To summarize the work done we can say that:
-     % the algorithms detected that the characterization of the user's mobility provided relevant information to the task
-
-\end{itemize}
-
-
-
-In this work on CDRs, the Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
-Where cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
-
-
-Results show evidence indicating that a supervised classification predictor can be built to detect large patterns of human migrations over time.
-They also point to the idea that CDRs are particularly well suited for this task, where it is possible to explore this data as a mean to tag human mobility.
-These tests effectively helped understand how relevant the dataset is to the question, where the complexity and scale of the data can be, up to a certain degree, assimilated by probabilistic algorithms.
 % , using the models outlined before.
 
-Large at-scale and temporal user mobility were captured by the CDRs, allowing us to understand a variety of human movements throughout the country.
-
+% They also point to the idea that CDRs are particularly well suited for this task, where it is possible to explore this data as a mean to tag human mobility.
 
 % \section{In-depth discussion}
 % In this work we took advantage of the large user scale and temporal range of the CDRs allowed us to capture a variety of human movements throughout the country.
 
 
-Migration patterns can then be used to suggest actual epidemic spread of this disease into areas not deemed endemic.
+
+
 
 
 
 \section{Drawbacks from our methodology}
 
-There are several points can be stated to point to weak spots on the methodology used.
+There are several points that can be stated to point to weak spots on the methodology used.
 An important observation is that we can not directly jump from the human mobility insights found in this study, to conclusions from a model of disease spread.
-From this work, we were looking solely at human mobility to and from endemic regions, which does not imply disease spread or prevalence.
+Since we were looking solely at human mobility to and from endemic regions, we can not imply disease spread or prevalence in a direct way.
 However, on the advice of this topic's researchers, this work does bring valuable insights to the problem, reinforcing previous hypothesis that vulnerable users are not only to be found inside vector-infested regions.
 
 
-Added to this, we have stated numerous times before that this methods suffers on highly skewed target classes.
-The low $F1$ scores achieved on the problem of tagging user that migrated out of the endemic region, across all of the learners, pinpoint a shows a very significant negative outcome using this methodology and these attributes.
+Added to this, we have stated numerous times before that the methods shown suffer on datasets with high target class imbalance.
+We saw, across all of the learners, low $F1$ scores on the problem of tagging user that migrated out of the endemic region. This is a very significant negative outcome using this methodology and these attributes.
 
 Another issue with this work is the inherent biases in our dataset.
 As shown in \cref{tab:distribution_by_state}, there are significant differences in the percentage of population represented by our dataset vs.\ current state distribution estimates.
 Due to this, we have to interpret results with caution, since we do not hold any real-data comparisons.
-For this work we did not find any available georeferenced disease data outside of the endemic region, at municipal or regional levels.\footnote{As a matter of fact, we tried to contact health institutions and research organizations working on the matter with the purpose of enriching the original dataset.
+We did not find any available georeferenced disease data outside of the endemic region, at municipal or regional levels.\footnote{As a matter of fact, we tried to contact health institutions and research organizations working on the matter with the purpose of enriching the original dataset.
 This intent did not add any disease-related data of the kind.}
 
 Other interesting biases stemming from the data are related to international pattern migrations.
-For this work, we measured migrations only from phone owners within a single country.
-Yet we have seen in \cref{ch:descr-risk}, that  epidemic regions traverse political borders.
-The current dataset is limited to only capturing international migrations, and with this our analysis is limited to movements of national Telco users only.
+Here we measured migrations only from phone owners within a single country, yet we have seen in \cref{ch:descr-risk}, that  epidemic regions traverse political borders.
+The current dataset is limited to only capturing national migrations, and with this our analysis is limited to movements of Telco users interacting with national antennas only.
 A similar argument applies to the detection of mobility patterns for people with no cell-phone usage.
  % lack cell phone antennas.
 
-Our dataset also presents problems when processing a user's home antenna.
-To do this we had to define what we thought were the expected ``working hours'' for all users.
-In doing so, we also assumed that this could be generalized to all samples. %used in a generalized case.
+Our dataset also presents problems when processing users' home antennas.
+To do this we had to define what we thought were the expected ``working hours'' for all users and, in doing so, we assumed that this could be generalized to all samples. %used in a generalized case.
 Even though this decision was supported from past research we referenced, the definitions might not be easily translated for datasets across other geographical and cultural regions.
 % This was done by considering what we thought
 
@@ -153,7 +125,6 @@ Yet these were out of the scope of this work, due to the lack of ground truth in
 
 
 % discriminated in the construction of the features, yet there were no long-term time
-
 
 
 \section{ Lines of Future Work }
@@ -191,7 +162,7 @@ For the purpose of continuing this research line, the following is a list of pos
 
     \item [Test other classifiers] The probabilistic models introduced in this work are a brief list of the ones available in the literature and of these, we know that only Naive Bayes had an acceptable classification performance in \cref{target2}.
     It would be interesting to see how other well-established and known methods perform for this case and see if any of them can correct this.
-    Some examples of other algorithms not shown in this work are K-Nearest Neighbors, Support Vector Machines and Classification Neural Networks.   
+    Some examples of other algorithms not shown in this work are K-Nearest Neighbors, Support Vector Machines and Classification Neural Networks.
 
     \item [Test other pre-processing techniques] In line with the problem addressed by the previous point, there are multiple other data-based techniques to address the problem of learning with highly unbalanced classes.
     These tend to focus on undersampling the majority class, over-sampling the minority class, or a combination of both.
