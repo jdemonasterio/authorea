@@ -236,6 +236,10 @@ In both we compared the results with those previously obtained for the Decision 
 \todo{Add that random Forests improving decision tree overfitting. Gradient Boosting better in bias with a slight incrase in overfit}
 
 
+% The Random Forest model played an important role in having the highest scores across all tasks and in presenting the best features of the dataset.
+% This information was later availed by the boosting models trained on said set of features.
+
+
 
 \todo{ Fill in: Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.}
 
@@ -428,17 +432,14 @@ The resulting scores were more than satisfactory, building best-fit models which
  % with maximum test scores over 81\%.
 
 
-
-
-
 High discrepancies exist in the scores of the different machine learning models.
 Some are better at capturing the relevant information to predict human movements in the long-term.
 This is because not all social information is presented directly in the dataset, and feature interactions are helpful.
 
+All in all, we showed that it is possible to use the mobile phone records of users during a bounded period (of 5 months) in order to predict whether they have lived in the endemic zone $E_Z$ in a previous time frame (of 19 months).
+This task provided to be the easiest classification one, since it resulted in the highest scores across all learners.
 
-
-
-The implications of these results argue that CDRs can be extensively used for non business purposes and, specifically in this case, there is light evidence that they might capture well the fluxes of diseases among humans.
+The other effective tasks were the prediction of users that migrated in any direction to and from the endemic region, and the tagging of users migrating out of the endemic region, but only for those base of users which are currently non endemic.
 
 
 %   ___  _     ___         ___________ __ __ _____ _____
