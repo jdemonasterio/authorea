@@ -1,9 +1,10 @@
 # TODO PLAN
 
 ## Meeting 04/10
+    * Clean all TODOs.
     * Fix typos and grammar of last two chapters.
     * Ejemplo: dejar en terminos de los problemas migratorios: "no pudimos predecir las migraciones de este estilo". Destraducir de problema 1 a algo de las migraciones. Darle el hilo de la historia que estoy contando.
-    * Separar en Random Forests y Decision Tree vs. Gradient Boosting + Naive Bayes.
+    * Separar en Random Forests y Decision Tree vs. Gradient Boosting y Naive Bayes.
     * [DONE] El predictive error bounds de random forests pasar la demo a una apendice. Enunciarlo nomas. 
 
 ## Meeting 27/09
@@ -128,7 +129,7 @@
         - [DONE] section Technical Observations (python, jupyter, sklearn, pandas, sframes, graphlab, spark mllib, theano, tensor flow, xgboost)
 
 ## In general:
-    * Talk about general low F1 scores with very bad precision in algorithms and acceptable recalls.
+    * [DONE] Talk about general low F1 scores with very bad precision in algorithms and acceptable recalls.
     * [DONE] Figures appearing in sub/sections different from where they are spawned $\rightarrow $ just use `\begin{figure}[H]`.
     * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
     * [DONE] Check bad `\cref` references for appendix subsections.
