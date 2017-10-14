@@ -223,7 +223,12 @@ Where we look to tag users that migrated out of the endemic region, from time pe
 In this way se set a common ground to compare and evaluate the algorithms.
 % settled to compare and evaluate them on common ground.
 
-As we will see later in \cref{tab:master_table_results}, this task, \cref{target2}, happened to be the hardest ones, as it resulted in the lowest metric scores for all classifiers.
+As we will see later in \cref{tab:master_table_results}, this task, \cref{target2}, happened to be the hardest one, as it resulted in the lowest metric scores for all classifiers.
+
+When tested over with the Random Forest classifier, we saw better $F1$ scores than with the Decision Learner over a 10-fold cross-validation procedure.
+
+
+As a default configuration, we rebalanced all samples in the loss function
 
 The result of this for the
 
@@ -330,9 +335,9 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
     Measure & Problem 1 & Problem 2 & Problem 3 & Problem 4  \\
     \midrule
     Naive Bayes     & (0.84,0.82,0.75)  & (0.64,0.61,0.31)  &  (0.65,0.63,0.45)   & (0.85,0.76,0.62)   \\
-    Logistic Classifier   & (0.893,0.857,0.9)  & (0.71,0.72,0.058)  &  (0.705,0.754,0.107)   & (0.883,0.85,0.181)   \\
-    Random Forest   & (0.878,0.857,0.9)  & (0.79,0.776,0.088)  &  (0.792,0.845,0.156)   & (0.898,0.853,0.203)   \\
-    Gradient Boosting   & (0.974,0.978,0.952)  & (0.838,0.819,0.101)  &  (0.811,0.855,0.169)   & (0.885,0.873,0.194)   \\
+    Logistic Classifier   & (0.893,0.857,0.9)  & (0.71,0.72,0.248)  &  (0.705,0.754,0.307)   & (0.883,0.85,0.331)   \\
+    Random Forest   & (0.878,0.857,0.9)  & (0.79,0.776,0.278)  &  (0.792,0.845,0.346)   & (0.898,0.853,0.393)   \\
+    Gradient Boosting   & (0.974,0.978,0.952)  & (0.838,0.819,0.291)  &  (0.811,0.855,0.359)   & (0.885,0.873,0.384)   \\
 %$Naive Bayes$         & 0.84  & 0.82  & 0.75  & 2  && 0.64  & 0.61  & 0.31  & 2  && 0.65   & 0.63  & 0.45  & 1   && 0.85  & 0.76  & 0.62  & 1 \\
 %$Logistic \ Regression& 0.893 & 0.857 & 0.9   & 96 && 0.714 & 0.726 & 0.058 & 119 && 0.705 & 0.754 & 0.107 & 115 && 0.883 & 0.85  & 0.181 & 106 \\
 %$Random \ Forest$     & 0.878 & 0.903 & 0.77  & 33 && 0.79  & 0.776 & 0.088 & 45  && 0.792 & 0.845 & 0.156 & 21  && 0.898 & 0.853 & 0.203 & 19\\

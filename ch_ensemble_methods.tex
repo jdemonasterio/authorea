@@ -294,7 +294,7 @@ This proof can be found in \cref{appx:sec:rforest_margin_function_convergence}.
 
 \subsection{ Experimental comparison to Decision Trees}\label{subsection:random_forests_comparison_trees}
 
-From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Tree model, we ran two experiment setups on a Random Forest learner for the simple task in \cref{target2}, using an $F1$ score.
+From what is formulated in \cref{subsection:random_forests_formulation} and in order to compare how this model improves over the Decision Tree model, we ran two experiment setups on a Random Forest learner for the simple task in \cref{target2}, using an $Accuracy$ score.
 This was a cross validation procedure of 10 folds for each configuration, where each experiment optimized the score on a different hyperparameter.
 
 For the first, we evaluate the forest's scores on a maximum depth variation for the trees.
@@ -307,7 +307,7 @@ Finally, the impurity measure  we used was the is the Gini index for the splitti
 Cross validation procedures ran for 1412.8 and 2506.1 seconds respectively. In both of them we excluded any user attributes that informed their home state and current endemic condition, in the time period $T_1$.
 
 The experiment's scores outcomes across their hyperparameter values were graphed in \cref{fig:random_forest_validation_curves_depth_trees,fig:random_forest_validation_curves_num_trees}.
-For both, the cross-validated and training set scores were compared. In this way, for each hyperparameter value, the $1-ROC AUC$ score is shown.
+For both, the cross-validated and training set scores were compared. In this way, for each hyperparameter value, the $1-Accuracy$ score is shown.
 In this way, having a lower score in the graphic means a better model was reached.
 
 
@@ -315,7 +315,7 @@ In this way, having a lower score in the graphic means a better model was reache
 	\begin{center}
 	 \includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
 		\caption{ Validation curve on the tree-depth hyperparameter values for the Random Forest  learner.
-			The mean CV scores for the $1 - ROC AUC$ score is shown for a CV run experiment on \cref{target2}}
+			The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
 		\label{fig:random_forest_validation_curves_depth_trees}
 
 	\end{center}
@@ -325,7 +325,7 @@ In this way, having a lower score in the graphic means a better model was reache
 	\begin{center}
 		\includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
 			\caption{ Validation curve on the number of trees hyperparameter values, for the Random Forest  learner.
-				The mean CV scores for the $1 - ROC AUC$ score is shown for a CV run experiment on \cref{target2}}
+				The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
 		\label{fig:random_forest_validation_curves_num_trees}
 	\end{center}
 \end{figure}
@@ -346,11 +346,11 @@ For this case, there is virtually no change in model error by improving bias or 
 
 At their optimal configuration, both setups reached CV score averages of at least 0.75, with a maximum of 0.81 for the forest
 with trees of 16 levels.
-The optimal number of estimators for the CV and the training sets were not the same though, were 139 was the best configuration for the training score whilst 133 was the best average for the CV set.
-The relative difference in these best scores was of 3.3\%.
+The optimal number of estimators for the CV and the training sets were not the same though, where 139 was the best configuration for the training score whilst 133 was the best average for the CV set.
+The relative difference in these best scores was of $3.3\%$.
 
-At the same time, the relative difference of the best CV and training scores, for the maximum tree depth experiment was of 9.5\%.
-This percentage difference signals that the max depth hyperparameter is significantly more sensible to over-fitting than the number of trees parameter.
+At the same time, the relative difference of the best CV and training scores, for the maximum tree depth experiment was of $9.5\%$.
+This percentage difference signals that the max depth hyper-parameter is significantly more sensible to over-fitting than the number of trees used.
 
 
 \subsection{Predictive error bounds}\label{subsec:rforest_predictive_error_bounds}
@@ -488,9 +488,9 @@ The summary of these results is given in \cref{tab:random_forest_big_experiment_
 \toprule
 Result & Experiment 1 & Experiment 2 \\
 \midrule
-CV $F1$ score           & 0.273  &  0.196 \\
+CV $F1$ score           & 0.373  &  0.296 \\
 CV $Accuracy$ score     & 0.880 & 0.903   \\
-CV $Precision$ score    & 0.175 &  0.123 \\
+CV $Precision$ score    & 0.267 &  0.213 \\
 CV $Recall$ score       & 0.618 &  0.480 \\
 CV $Logloss$ score     &  0.337 & 0.391 \\
 CV $ROC AUC$ score    &  0.843 & 0.848 \\
@@ -515,7 +515,7 @@ There are no clear indications as to which configuration is better.
 And, whilst having a higher level of randomization in the growth of the trees hints to a less overfitting learner, this difference is not that notable in the CV scorings.
 
 For most of the metrics used to evaluate the cross validation procedure, the scores look very similar.
-It is notable that the second experiment is slightly better in the accuracy, precision, Logloss and ROC AUC scores, with a maximum difference of 5\% for all of them.
+It is interesting that the second experiment is slightly better in the $Accuracy$, $Logloss$ and $ROC AUC$ scores, with a maximum difference of $5\%$ for all of them.
 Yet at the same time the second experiment's performance drastically drops for the recall and precision.
 The same occurs accordingly for the $F1$ measure.
 We see the learner is losing performance in correctly tagging the user's who have migrated from the endemic region.
@@ -730,27 +730,30 @@ Then if samples are mislabeled, this will make the algorithm repetitively focus 
 
 In order to compare this learner to Random Forests, we ran the same setup as in \cref{subsection:random_forests_comparison_trees}
 with two experiments each varying a different hyperparameter.
-The Boosting models were built to classify on task \cref{target2} and the $ROC AUC$ score was used to evaluate their performance.
+The Boosting models were built to classify on task \cref{target2} and the $Accuracy$ score was used to evaluate their performance.
 The cross validation procedure set 10 folds for each hyperparameter
- configuration and both experiments individually tuned on: a) the maximum tree depth and b) the number of base learners.
+ configuration and both experiments individually tuned on: 
+\begin{enumerate*}[label={\alph*)},]
+\item the maximum tree depth and
+\item the number of base learners
+\end{enumerate*}
 
 For both, we vary the tested hyperparameter's values over a predefined range and then graph the change in score across these values.
 As a default configuration, 50 was the number of trees, and 6 were the trees' maximum depth and 0.1 was the fixed learning rate.
 Additionally, we used the Gini index as the impurity measure in the splitting criteria of each tree's node and the exponential loss function to grow the next estimator in line with the formulation given in \cref{eq:adaBoostThetaDecomposition}.
 % .\footnote{Other loss functions are available but these would not yield the AdaBoost formulation.}
 
-Cross validation procedures ran for 82150.8
- and 6076.3 seconds respectively and they both excluded attributes of the user's home state and their current endemic condition at $T_1$.
+Cross validation procedures ran for 82150.8 and 6076.3 seconds respectively and they both excluded attributes of the user's home state and their current endemic condition at $T_1$.
 
 The experiment's score outcomes across the different hyperparameter values were graphed in \cref{fig:boosting_validation_curves_depth_trees,fig:boosting_validation_curves_num_trees}.
-These compare the cross-validated and training set scores, where, for each hyperparameter value, the $1-ROC AUC$ score is graphed as a function of the hyperparameter's value.
+These compare the cross-validated and training set scores, where, for each hyperparameter value, the $1 - Accuracy$ score is graphed as a function of the hyperparameter's value.
 In this way, having a lower score in the graphic means a better model was reached.
 
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_depth_series_f1}
 		\caption{ Validation curve for the tree-depth hyperparameter of the Gradient Boosting learner.
-		The mean CV scores for the $1 - ROC AUC$ score is shown for a CV run experiment on \cref{target2}}
+		The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
 		\label{fig:boosting_validation_curves_depth_trees}
 
 	\end{center}
@@ -759,7 +762,7 @@ In this way, having a lower score in the graphic means a better model was reache
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
-			\caption{ Validation curve for the number of trees hyperparameter of the Gradient Boosting learner. The mean CV scores for the $1 - ROC AUC$ score is shown for a CV run experiment on \cref{target2}}
+			\caption{ Validation curve for the number of trees hyperparameter of the Gradient Boosting learner. The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
 			\label{fig:boosting_validation_curves_num_trees}
 	\end{center}
 \end{figure}
@@ -774,16 +777,16 @@ This acceleration is clear from the figure where the CV score is invariant while
 This model differs to the Random Forest classifier in that the trees are not uncorrelated, because the $t$-th tree improves on the error of the model at $t$.
 This is an effective difference in the models.
 
-For the second experiment, the overfitting difference in the CV score and the train score is smaller, relative to the CV score.
+For the second experiment, the overfit is smaller, given that the relative difference in the CV score and the train score is smaller.
 
 It is interesting to note that, for both cases, there is a very small gain in the CV error when varying the hyperparameters, as evidenced by the range of the scores.
 Yet the decrease in CV score is slightly better for the second experiment.
-This is different to the Random Forest experiment, where the scores had a stronger improvement in the cross validated score.
-The learner seems to better fit the data than the Random Forest model, since lower error rates are achieved, and it converges faster to a stable CV error where adding more trees or depth doesn't improve on the score.
+This is different to the case of the Random Forest learner, where the scores had a stronger improvement in the cross validated score.
+This model seems to better fit the data compared to the Random Forest, since lower error rates are achieved, and it converges faster to a stable CV error where adding more trees or depth doesn't improve on the score.
 
-At their optimal configuration, both setups reached CV score averages of at least 0.865, with a maximum of 0.8659 for the learner with trees of 12 levels.
-However, the optimal number of estimators for the CV and the training sets were different, were 105 was the best configuration for the training score and 95 was the best average for the CV set. The relative difference in these best scores was of 1.5\%.
-It is not surprising that the relative difference of the best CV and training scores, for the maximum tree depth experiment was much higher, with 11.5\%.
+At their optimal configuration, both setups reached CV score averages of at least $86.5\%$, with a maximum of $86.9\%$ for the learner with trees of 12 levels.
+However, the optimal number of estimators for the CV and the training sets were different, were 105 was the best configuration for the training score and 95 was the best average for the CV set. The relative difference in these best scores was of $1.5\%$.
+It is not surprising that the relative difference of the best CV and training scores, for the maximum tree depth experiment was much higher, with $11.5\%$.
 
 The outcomes here expose the drawbacks of this model which is more prone to overfitting and takes longer to fit when compared to the Random Forest algorithm.
 Yet it gives better overall performance on the CV error, when the model is correctly calibrated.
@@ -875,7 +878,7 @@ The \textit{boosting} optimization heuristic is explained in detail in \cref{app
 
 As a concluding remark on boosting algorithms, there are two additional heuristics used to improve their generalization performance.
 The arguments in favor of these methods are rather experimental and not much theoretical, although their benefits are intuitive.
-The authors in~\cite{hastie-elemstatslearn} and~\cite{bishop-patternRecognition} mention them because of their overall contribution to the generalization error.
+The authors in~\cite{hastie-elemstatslearn} and~\cite{bishop-patternecognition} mention them because of their overall contribution to the generalization error.
 
 The first idea to reduce the overall variance of the algorithm is to subsample the data.
 This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner.
@@ -908,7 +911,7 @@ We set two experiments similar to the ones before, where we run two procedures: 
 In this setup though, we had a minor difference where, as before, it was characterized by the attributes used by our training dataset.
 
 For the third experiment, we \textbf{only} used the best features extracted from the second Random Forest experiment.
-These were extracted from the best-fit learner used from that case.
+These were selected from the best-fit learner used from that case.
 With this third variant, we expected to see how good of a performance can the gradient boosting classifier achieve, using only the top 30 features, as selected by best-fit random forest learner for the previous experiments.
 % Even though
 Doing this has a hypothetical trade-off between accuracy and procedure run-time, where we can gain speed in our fitting process by compromising some of the predictive power of the algorithm.
@@ -945,10 +948,10 @@ Result & Experiment 1 & Experiment 2 & Experiment 3 \\
 Running time (s)        & 1172 &  6293 &  204 \\
 CV $Accuracy$ score    & 0.889 &  0.843 &  0.8327 \\
 CV $ROC AUC$ score     & 0.884 & 0.880  &  0.881 \\
-CV $F1$ score           & 0.264  &  0.259 &  0.294 \\
+CV $F1$ score           & 0.314  &  0.319 &  0.354 \\
 CV $Logloss$ score     & 0.524 &  0.337 &  0.399 \\
-CV $Precision$ score    & 0.629 &  0.601 &  0.607 \\
-CV $Recall$ score       & 0.167 &  0.165 &  0.194 \\
+CV $Recall$ score    & 0.629 &  0.601 &  0.607 \\
+CV $Precision$ score       & 0.209 &  0.217 &  0.249 \\
 balanced        & False & False  &  False \\
 % early\_stopping  & 5 &  5 & 5 \\
 max\_features (\%) & 80 & 75  &  10 \\
@@ -964,32 +967,33 @@ step\_size  & 0.01 &  0.1 &  1 \\
 
 The first notable fact from the results is how fast the last procedure is, compared to the two before.
 It trained much faster, with almost 3 minutes to complete the full procedure whilst the others had at minimum 15 minutes to do so.
-We see that the information from the top 30 features of the RF models was efficiently used in this boosting experiment.
-This run-time improvement then should not be surprising as we have limited the amount of available features to use, thus decreasing the necessary computer resources to compute the fit.
+We see that the information from the top 30 features of the RF models was efficiently used in this boosting experiment and that this considerably sped up the runtime.
+This improvement should not be surprising then, as we have limited the amount of available features to use, thus decreasing the necessary computer resources to compute the fit.
 % However, this conclusion might seem
 
 The second interesting fact from the outcome is that the model seems to be more overfit, when compared to the experiments of the random forest.
-Specially on the two experiments, where very complex models were chosen from the procedure, with a depth of 15 levels and at least 250 trees for both.
+Specially on the first two, where very complex models were chosen from the procedure, with a depth of 15 levels and at least 250 trees for both.
 This is not the case on the last model though, where a more simple model resulted with a depth of only two levels and 120 trees grown.
-The same applies for the max\_features and min\_leaf\_weight hyperparameters, for which lower complexity values resulted form the last CV procedure.
+The same applies for the $max\_features$ and $min\_leaf\_weight$ hyperparameters, for which lower complexity values resulted form the last CV procedure.
 There is difficulty though in establishing which of them had the most weight in an underweight model.
 
 This situation is not that different for the $F1$ score of the experiments.
-We have that the last procedure improved on the first two experiments in more than 10\%, using this score and in an almost 20\% increase in the recall score.
-A clear conclusion is that the first two models were overfitting the training set.
-Then byusing the top random forest features we improved on the $F1$ performance in a strong way.
-Finally, when compared with the experiments using the Random Forest, we see that most of the boosting models performed near to the top $F1$ value of 27\% achieved in the Random Forest experiments.
-Still, the top Random Forest $F1$ score was attained in the first experiment with Random Forests, where we included the highly correlated features.
+We have that the last procedure improved on the first two experiments in more than $10\%$, using this score and in an almost $20\%$ increase in the precision score.
+This hints the idea that the first two models were overfitting the training set and by using the top random forest features, we strongly improved on the $F1$ performance.
+Finally, when compared with the experiments using the Random Forest, we see that the boosting models performed near to the top $F1$ value of $37\%$ achieved in the Random Forest experiments. 
+The worst relative difference for all models, to this value, was of $17\%$ at most and $4.5\%$ at least.
+
+Still, the top Random Forest $F1$ score was attained in the first experiment with Random Forests, where we did use highly target-correlated features.
 This is then a remarkable performance for boosting learners which were not trained on this attributes and still achieved similar or higher scores.
 
 
 On the other hand, the third model lacked the same strength for the $ROC AUC$ score.
-Here, the first model reached a score of almost 90\%, whereas the third model had a poorer performance of 83\%.
+Here, the first model reached a score of almost $90\%$, whereas the third model had a poorer performance of $83\%$.
 Still, the lowest value for all experiments is more than satisfactory for the prediction task.
-With these results, and due to the difference in $ROC$ vs. $F1$ scores, there is no clear indication as to which configuration is better across all experiments.
+With these results, and due to the difference in $ROC AUC$ vs. $F1$ scores, there is no clear indication as to which configuration is better across all experiments.
 
 
-The model's selection of best features, but only for the experiments.
+Below we introduce this model model's selection of best features for each experiment.
 Note that the last selection will have a very similar configuration to the top Random Forest features, since it selects 10 features of the available 30 used to train the model.
 This outcome is presented in \cref{tab:boosting_big_experiment_best_features}, where the top 10 features for each experiment are shown.
 
