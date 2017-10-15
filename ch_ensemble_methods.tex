@@ -490,20 +490,19 @@ The summary of these results is given in \cref{tab:random_forest_big_experiment_
 \toprule
 Result & Experiment 1 & Experiment 2 \\
 \midrule
-Running time (s)        & 2030  & 1264 \\
+Running time (s)        & 2030  & 1264  \\
 CV $F1$ score           & 0.373 & 0.296 \\
-CV $Accuracy$ score     & 0.880 & 0.903   \\
+CV $Accuracy$ score     & 0.880 & 0.903 \\
 CV $Precision$ score    & 0.267 & 0.213 \\
 CV $Recall$ score       & 0.618 & 0.480 \\
-CV $Logloss$ score      & 0.337 & 0.391 \\
 CV $ROC AUC$ score      & 0.843 & 0.848 \\
-$max\_depth$            & 12    & 12 \\
-$num\_trees$            & 150   & 200 \\
+CV $Logloss$ score      & 0.337 & 0.391 \\
+$max\_depth$            & 12    & 12    \\
+$num\_trees$            & 150   & 200   \\
 $balanced$              & True  & True  \\
-$split\_criteria$       & Gini  & Gini \\
+$split\_criteria$       & Gini  & Gini  \\
 $min\_loss$  & 10 &  1 \\
 $max\_features$ (\%) & 50 & 80  \\
-
 \bottomrule
 \end{tabular*}
 \end{table}
@@ -948,16 +947,16 @@ A summary of the metrics and best hyperparameter values is given in \cref{tab:bo
 \toprule
 Result & Experiment 1 & Experiment 2 & Experiment 3 \\
 \midrule
-Running time (s)      & 2993  & 1972   &  204 \\
-CV $F1$ score         & 0.314 & 0.319  & 0.354 \\
+Running time (s)      & 2993  & 1972   &  204   \\
+CV $F1$ score         & 0.314 & 0.319  & 0.354  \\
 CV $Accuracy$ score   & 0.889 & 0.843  & 0.8327 \\
-CV $Precision$ score  & 0.209 & 0.217  & 0.249 \\
-CV $Recall$ score     & 0.629 & 0.601  & 0.607 \\
-CV $ROC AUC$ score    & 0.884 & 0.880  & 0.881 \\
-CV $Logloss$ score    & 0.524 & 0.337  & 0.399 \\
-$balanced$            & False & False  & False \\
+CV $Precision$ score  & 0.209 & 0.217  & 0.249  \\
+CV $Recall$ score     & 0.629 & 0.601  & 0.607  \\
+CV $ROC AUC$ score    & 0.884 & 0.880  & 0.881  \\
+CV $Logloss$ score    & 0.524 & 0.337  & 0.399  \\
+$balanced$            & False & False  & False  \\
 % early\_stopping  & 5 &  5 & 5 \\
-$max\_depth$          & 15    & 15     & 2 \\
+$max\_depth$          & 15    & 15     & 12 \\
 $num\_trees$          & 250   & 300    & 120 \\
 $min\_leaf\_weight$   & 2     & 5      & 10 \\
 $min\_loss$           & 10    & 1      & 0.01 \\
