@@ -237,45 +237,50 @@ In comparison to the previous model, the Forest also overfit the data when we de
 However it did so at higher depths, where the first deviation across the mean error rates for both the CV and training sets was at a depth of $9$, compared to the previous level of $7$.
 % It is also interesting to see that the de
 
-At the same time we had that the biggest differences between the average training and CV errors, across hyperparameter values, was at most of $10\%$.
+At the same time we had that for this model, the biggest differences between the average training and CV errors, across hyperparameter values, was at most of $10\%$.
 This result is expected in this learner which is designed to lower the base models' variance.
+The downside in this learner was that the optimizations run for longer, taking at least 20 minutes for both cases.
 
+These results for the Random Forest model were also compared to the Gradient Boosting model.
+The same two hyperparamters were validated across a range of values, and for each we looked at how the Training and CV scores varied.
+Similarly, we found that this model's score won't be greatly affected by the number of trees used in the ensemble, and that most of its predictive performance can be captured by using only $20$ trees.
+Still, we note that the best-fit CV value was of $95$.
 
-
-
-As expected,
-we saw how this model overfit the
-
-We compared both ensemble methods results in a cross-validation procedure that established how
-to the
-
-\todo{Add that random Forests improved the decision trees overfitting for Problem 2. Gradient Boosting better in bias with a slight incrase in overfit.}
-
+For this learner, we also found that it will rapidly overfit the data once the base learners get a maximum depth of $6$.
+What was interesting here was that the mean CV $Accuracy$ constantly hovered around $86\%$, whilst the score for the training graudally improved as the tree-depth grew, up to a score of $96\%$.
+This algorithm rapidly overfits users that migrated out of the endemic region, which is similar to what we saw with the Decision Tree Learner.
+Still, and compared to the Forest learner, we get a better CV error, at the expense of a runtime which at least $50\%$ slower.
 
 % By comparing this problem over the various tree methods we discuss on applications that these kind of datasets can provide.
 % to these kinds of tasks was elaborated.
 
+\todo{Finish experimentation results both for RF and GBT.}
 
-\todo{FILL in with experimentation from RF and GBT.}
+In a second stage of experiments, we performed extensive testing both on the Random Forest and Gradient Tree Boosting learners for the problem of tagging the same users that migrated out of the endemic region, but only considering the base of users which are currently living outside of it.
 
-We performed extensive experimentation both on the Random Forest and Gradient Tree Boosting learners.
-In both we compared the results with those previously obtained for the Decision Tree, where we pointed to the improvements brought by these ensemble learners.
+For both, we ran a full CV procedure in two feature versions, one with all the features and one in which target-correleated features were removed.
 
+As a general statement we can say that the Random Forests experiments have lower runtimes because take better advantage over the algorithm's parallelizability.
+Also, we can not say that one algorithms is better over the other because they both exceed each other across different metrics.
+It seems that the Random Forest is overall better at correctly classifying positive instances, while the Booster is slightly better over the recall.
 
-% The Random Forest model played an important role in having the highest scores across all tasks and in presenting the best features of the dataset.
-% This information was later availed by the boosting models trained on said set of features.
-
-
-
-\todo{ Fill in: Using best features from random forests in gradient boosting models incorporates some overfitting in the model since we use target information to select the best features. However, independent experiments confirm the performance of gradient tree boosting methods.}
-
+Added to this, we see that both algorithm's best fit values agree in that a large number of base learners are needed to perform better.
+The same with the tree's depth, where all best-fit values were, at least, over a depth of $12$.
 
 
-In summary, we can say that for the prediction tasks, the feature selection heuristics of ensemble algorithms did agree upon a group of features.
-These were highlighted over the rest for a number of times and they provide insight into what CDR information provided most
-predictive value.
+%%%%% LAST PART
 
-From the results we collected, the best features can be broken down into the following categories.
+
+
+
+
+Both the Random Forest and Gradient Boosting models played an important role in all of the prediction tasks we made.
+By construction, these two algorithms were the only ones that provided any information on the best-features that we can extract from the dataset, for this problem.
+
+From the process of calculating those best-features, we can say that for this prediction task of finding, of those currently non-endemic users, which are the migrants that moved out of the endemic region, the feature selection heuristics of ensemble algorithms agreed upon a group of features.
+These were highlighted, for a number of times, over the rest of the features and they provide insights into what CDR variables provided most predictive value.
+
+From the results we collected for these two learners, the best features can be broken down into the following categories.
 
 \begin{itemize}
 
@@ -296,24 +301,24 @@ From the results we collected, the best features can be broken down into the fol
 
 These groups identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
 Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
-A more thorough examination of these results can be seen in \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
+
+As a final remark that we must add here, the previous best-features list incorporate some of the model's feature-target correlations, because part of these best-features were selected from the experiments run with those same features.
+A similar argument can be made for the best-features calculated from the Gradient Boosting experiment that used only a filtered set of features, previously filterd by the Random Forest experiments.
+There is a strong feature-target correlation and there is a leakage of target information within this experiment.
+
+To look at a more thorough examination of these results and how they were selected, the reader can refer to \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
+
+% \section{Missing parts Plan to add to this section }
+% \begin{description}
+
+%     \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
+%     \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
+%     \item [DONE] What's the predictive performance of CDRs for the long-term migrations problem?
+% \end{description}
 
 
-\section{Missing parts Plan to add to this section }
 
-\begin{description}
-
-    \item [DONE] Feature importance. Mobility and phone usage were, surprisingly, relevant attributes in most of the experiments run.
-    \item [DONE] The map attributes were confirmed to be relevant by the best-feature ranker for random forests/ gradient tree boosting algorithms.
-
-    \item What's the predictive performance of CDRs for the long-term migrations problem?
-
-\end{description}
-
-
-
-
-From our findings, we can say that there is no absolute single method that can be single-handedly applied to all problems and evaluation performances.
+Given all of the previous findings we collected, we can say that there is no absolute single method that can be single-handedly applied to all problems and evaluation performances.
 However, our results outline that the Gradient Boosting methods were, in general, top performing for all tasks and classifiation metrics, except for the $F1$ score.
 
 Surprisingly enough, for some problems the Naive Bayes was outperforming in this $F1$ metric.
