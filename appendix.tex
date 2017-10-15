@@ -314,7 +314,7 @@ C_\alpha(T) = \sum_{j=1}^{|T|} N_j Q_j(T) + \alpha|T|
 \end{equation}\label{eq:decisionTreeCostComplexity}
 
 
-Here $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that values the trade-off between the tree complexity, as given by its depth, and the accuracy of the model as given by the measure we proposed in \cref{decisionTreeCostFunctions}. The idea is that given an $\alpha$ we find the subtree $T_{alpha} \subset T_0$ that minimizes \cref{eq:decisionTreeCostComplexity}.
+Here $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that values the trade-off between the tree complexity, as given by its depth, and the accuracy of the model as given by the measure we proposed in \cref{it:decisionTreeCostFunctions}. The idea is that given an $\alpha$ we find the subtree $T_{alpha} \subset T_0$ that minimizes \cref{eq:decisionTreeCostComplexity}.
 
 There are various methods we could use to find the optimal subtree. As an example, here we give an example of the \textit{weakest link pruning} algorithm which goes as follows:
 %must \textit{prune} the initially grown tree

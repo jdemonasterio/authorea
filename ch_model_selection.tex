@@ -722,11 +722,11 @@ $l1$ & 1e-5 & 0.81 & 0.76 & 15892.9 \\
 
 Another interesting result is that in both experiments, the best CV scores were achieved for highly regularized models.
 To further explore this, we looked at their CV mean scores for each hyperparameter setting.
-\cref{fig:rocauc_logreg_cv_l1_regularized_comparison, rocauc_logreg_cv_l2_regularized_comparison} shows both series to compare.
+\cref{fig:rocauc_logreg_cv_l1_regularized_comparison, fig:rocauc_logreg_cv_l2_regularized_comparison} shows both series to compare.
  
  From these it is clear that both models improve the more regularized they become.
  The full extent to which this regularization would keep improving the score is not explored because both experiments' $C$ parameter had a minimum at $10^{-5}$ which corresponds to the highest score for both.
- Also, there is a difference in the stability of the fitting, where the scores are more noisy for the $l2$ regularization at high $C$ values as can be seen in \cref{rocauc_logreg_cv_l2_regularized_comparison}.
+ Also, there is a difference in the stability of the fitting, where the scores are more noisy for the $l2$ regularization at high $C$ values as can be seen in \cref{fig:rocauc_logreg_cv_l2_regularized_comparison}.
 
  On the other hand, the $l1$ regularization has a more stable performance across $C$.
  This can be an indication that the $l1$ experiment required less iterations to fit and find an optimum.
