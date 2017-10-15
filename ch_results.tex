@@ -214,7 +214,6 @@ We hypothesize that this is a valuable hyperparameter that helps when facing pro
 % Experiments with the Decision Tree was used
 
 
-
 The rest of the \cref{ch:ensembleMethods} follows with the presentation of other learners.
 All of them are introduced with a brief explanation of their formulation and their distinctive characteristics.
 
@@ -225,14 +224,29 @@ In this way se set a common ground to compare and evaluate the algorithms.
 
 As we will see later in \cref{tab:master_table_results}, this task, \cref{target2}, happened to be the hardest one, as it resulted in the lowest metric scores for all classifiers.
 
-When tested over with the Random Forest classifier, we saw better $F1$ scores than with the Decision Learner over a 10-fold cross-validation procedure.
+When tested over with the Random Forest classifier, we saw better $Accuracy$ scores than with the Decision Learner over a 10-fold cross-validation procedure.
+This model improved the mean cross validated score to reach a high score of $81\%$, for trees of depth bigger than $15$.
+Note that in this experiment we reweighted samples in the loss function by default, following the improved results we obtained by doing this for the Decision Learner classifier.
+
+We also saw that there was barely no change in the average CV score when we increased the number of trees used in the ensemble.
+Having an ensemble of $20$ was enough to capture most of the predictive information we needed to correctly tag the unidirectional migrants of the endemic region.
+From this it seems that adding more trees would not improve the generalization error in great values.
+Still, the optimal number of trees was found to be around $130$ for the CV procedure, and this gives scores which are only $3\%$ better than the ones for an ensemble of $20$ trees.
+
+In comparison to the previous model, the Forest also overfit the data when we deepened the tree depth.
+However it did so at higher depths, where the first deviation across the mean error rates for both the CV and training sets was at a depth of $9$, compared to the previous level of $7$.
+% It is also interesting to see that the de
+
+At the same time we had that the biggest differences between the average training and CV errors, across hyperparameter values, was at most of $10\%$.
+This result is expected in this learner which is designed to lower the base models' variance.
 
 
-As a default configuration, we rebalanced all samples in the loss function
 
-The result of this for the
 
- We compared both ensemble methods results in a cross-validation procedure that established how
+As expected,
+we saw how this model overfit the
+
+We compared both ensemble methods results in a cross-validation procedure that established how
 to the
 
 \todo{Add that random Forests improved the decision trees overfitting for Problem 2. Gradient Boosting better in bias with a slight incrase in overfit.}
@@ -283,7 +297,6 @@ From the results we collected, the best features can be broken down into the fol
 These groups identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
 Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
 A more thorough examination of these results can be seen in \cref{tab:random_forest_big_experiment_best_features, tab:boosting_big_experiment_best_features}.
-
 
 
 \section{Missing parts Plan to add to this section }
