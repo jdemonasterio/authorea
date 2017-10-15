@@ -299,7 +299,7 @@ This was a cross validation procedure of 10 folds for each configuration, where 
 
 For the first, we evaluate the forest's scores on a maximum depth variation for the trees.
 And on the second one, we try to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing size.
-As a default configuration, we set bothe the trees' max depth and the number of trees to 10.
+As a default configuration, we set both the trees' max depth and the number of trees to 10.
 
 Also, we pre-configure a balanced weighting of positive and negative samples in the loss function, where the each sample is weighted by the reciprocal of the class's ratio to the whole dataset.
 Finally, the impurity measure  we used was the is the Gini index for the splitting criteria at each tree's node.
@@ -738,7 +738,8 @@ The cross validation procedure set 10 folds for each hyperparameter
 \item the number of base learners
 \end{enumerate*}
 
-For both, we vary the tested hyperparameter's values over a predefined range and then graph the change in score across these values.
+In each, we fixed a hyperparameter and we varied its values over a predefined range. 
+We then graphed the change in score across these values.
 As a default configuration, 50 was the number of trees, and 6 were the trees' maximum depth and 0.1 was the fixed learning rate.
 Additionally, we used the Gini index as the impurity measure in the splitting criteria of each tree's node and the exponential loss function to grow the next estimator in line with the formulation given in \cref{eq:adaBoostThetaDecomposition}.
 % .\footnote{Other loss functions are available but these would not yield the AdaBoost formulation.}
