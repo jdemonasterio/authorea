@@ -99,9 +99,9 @@ In addition, we have the misclassification measure.
 Following is listed formulation of the three most used impurity measures for classification trees:
 
 \begin{itemize}
-	\item Gini index: $ \displaystyle \sum_{k\neq k'} \hat{p}_{jk} \hat{p}_{jk'}  = \sum_{k=1}^{K} \hat{p}_{jk} (1 - \hat{p}_{jk}) $
-	\item Cross-entropy: $ \displaystyle \sum_{k=1}^{K} -\log(\hat{p}_{jk})\hat{p}_{jk} $
-	\item Misclassification error: $ \displaystyle \frac{1}{N_j} \sum_{x \in R_j} I(y\neq c_j) = 1 - c_j $
+    \item Gini index: $ \displaystyle \sum_{k\neq k'} \hat{p}_{jk} \hat{p}_{jk'}  = \sum_{k=1}^{K} \hat{p}_{jk} (1 - \hat{p}_{jk}) $
+    \item Cross-entropy: $ \displaystyle \sum_{k=1}^{K} -\log(\hat{p}_{jk})\hat{p}_{jk} $
+    \item Misclassification error: $ \displaystyle \frac{1}{N_j} \sum_{x \in R_j} I(y\neq c_j) = 1 - c_j $
 \end{itemize}
 
 In some cases, a reweighted Gini index can be performant.
@@ -176,12 +176,12 @@ This allows us to see how the algorithm selects better features at low-level nod
 \bigskip
 
 \begin{sidewaysfigure}[H]
-	\centering
-	\makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map.png}}
-	\caption{ Example of a final decision tree.
-		This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image.
-		For every node, the samples are split into sets given by the implicit indicator function defined in the condition.}
-	\label{fig:decision_tree_actual_problem}
+    \centering
+    \makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map.png}}
+    \caption{ Example of a final decision tree.
+        This model was made with a cross validated procedure on \cref{target3} and the resulting tree has been pruned to fit the image.
+        For every node, the samples are split into sets given by the implicit indicator function defined in the condition.}
+    \label{fig:decision_tree_actual_problem}
 \end{sidewaysfigure}
 
 
@@ -218,12 +218,12 @@ The figure for this model is shown below.
 \bigskip
 
 \begin{sidewaysfigure}[H]
-	\centering
-	\makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map2.png}}
-	\caption{ Second example of a decision tree.
-		This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset.
-		The resulting tree has been pruned to fit the image.}
-	\label{fig:decision_tree_actual_problem2}
+    \centering
+    \makebox[\textwidth]{\includegraphics[width=1.2\paperwidth]{figures/decision_tree/full_tree_map2.png}}
+    \caption{ Second example of a decision tree.
+        This model was made with a cross validated procedure on \cref{target3} from an artificially balanced dataset.
+        The resulting tree has been pruned to fit the image.}
+    \label{fig:decision_tree_actual_problem2}
 \end{sidewaysfigure}
 
 
@@ -312,22 +312,22 @@ In this way, having a lower score in the graphic means a better model was reache
 
 
 \begin{figure}[h!]
-	\begin{center}
-	 \includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
-		\caption{ Validation curve on the tree-depth hyperparameter values for the Random Forest  learner.
-			The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
-		\label{fig:random_forest_validation_curves_depth_trees}
+    \begin{center}
+     \includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_depth_series_f1}
+        \caption{ Validation curve on the tree-depth hyperparameter values for the Random Forest  learner.
+            The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
+        \label{fig:random_forest_validation_curves_depth_trees}
 
-	\end{center}
+    \end{center}
 \end{figure}
 
 \begin{figure}[h!]
-	\begin{center}
-		\includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
-			\caption{ Validation curve on the number of trees hyperparameter values, for the Random Forest  learner.
-				The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
-		\label{fig:random_forest_validation_curves_num_trees}
-	\end{center}
+    \begin{center}
+        \includegraphics[width=1\linewidth]{figures/random-forest/validation_curve_forest_num_trees_series_f1}
+            \caption{ Validation curve on the number of trees hyperparameter values, for the Random Forest  learner.
+                The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
+        \label{fig:random_forest_validation_curves_num_trees}
+    \end{center}
 \end{figure}
 
 Recall how this relates to \cref{figure:dtree_overfit_problem_2}, in which a tree's training error always improves as a result of an increase in the tree's depth.
@@ -379,7 +379,7 @@ s = \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right]
 
 Now define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$ of two learners, then we can have the mean value correlation for the ensemble as
 
-%	where we have conveniently defined as
+%   where we have conveniently defined as
 %Note that this is the mean value of the correlation.
 \begin{equation}
 \overline{\rho} = \frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
@@ -482,7 +482,7 @@ The summary of these results is given in \cref{tab:random_forest_big_experiment_
 
 \begin{table}[!htb]
 \caption{Table of best results comparing two 10-fold full grid cross validation procedures on a Random Forest Classifier fit for \cref{target4}.
-	The scores, best hyperparameter values and run-time are shown for both experiments.}
+    The scores, best hyperparameter values and run-time are shown for both experiments.}
 \label{tab:random_forest_big_experiment_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
@@ -490,17 +490,17 @@ The summary of these results is given in \cref{tab:random_forest_big_experiment_
 \toprule
 Result & Experiment 1 & Experiment 2 \\
 \midrule
-Running time (s)        & 2030 &  1264 \\
-CV $F1$ score           & 0.373  &  0.296 \\
+Running time (s)        & 2030  & 1264 \\
+CV $F1$ score           & 0.373 & 0.296 \\
 CV $Accuracy$ score     & 0.880 & 0.903   \\
-CV $Precision$ score    & 0.267 &  0.213 \\
-CV $Recall$ score       & 0.618 &  0.480 \\
-CV $Logloss$ score     &  0.337 & 0.391 \\
-CV $ROC AUC$ score    &  0.843 & 0.848 \\
-$max\_depth$     & 12 &  12 \\
-$max\_iterations$          & 150 &  200 \\
-$balanced$        & True & True  \\
-$split\_criteria$          & Gini &  Gini \\
+CV $Precision$ score    & 0.267 & 0.213 \\
+CV $Recall$ score       & 0.618 & 0.480 \\
+CV $Logloss$ score      & 0.337 & 0.391 \\
+CV $ROC AUC$ score      & 0.843 & 0.848 \\
+$max\_depth$            & 12    & 12 \\
+$num\_trees$            & 150   & 200 \\
+$balanced$              & True  & True  \\
+$split\_criteria$       & Gini  & Gini \\
 $min\_loss$  & 10 &  1 \\
 $max\_features$ (\%) & 50 & 80  \\
 
@@ -753,21 +753,21 @@ These compare the cross-validated and training set scores, where, for each hyper
 In this way, having a lower score in the graphic means a better model was reached.
 
 \begin{figure}[h!]
-	\begin{center}
-		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_depth_series_f1}
-		\caption{ Validation curve for the tree-depth hyperparameter of the Gradient Boosting learner.
-		The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
-		\label{fig:boosting_validation_curves_depth_trees}
+    \begin{center}
+        \includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_depth_series_f1}
+        \caption{ Validation curve for the tree-depth hyperparameter of the Gradient Boosting learner.
+        The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
+        \label{fig:boosting_validation_curves_depth_trees}
 
-	\end{center}
+    \end{center}
 \end{figure}
 
 \begin{figure}[h!]
-	\begin{center}
-		\includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
-			\caption{ Validation curve for the number of trees hyperparameter of the Gradient Boosting learner. The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
-			\label{fig:boosting_validation_curves_num_trees}
-	\end{center}
+    \begin{center}
+        \includegraphics[width=1\linewidth]{figures/gradient-boosting/validation_curve_boosting_num_trees_series_f1}
+            \caption{ Validation curve for the number of trees hyperparameter of the Gradient Boosting learner. The mean CV scores for the $1 - Accuracy$ score is shown for a CV run experiment on \cref{target2}}
+            \label{fig:boosting_validation_curves_num_trees}
+    \end{center}
 \end{figure}
 
 
@@ -948,22 +948,21 @@ A summary of the metrics and best hyperparameter values is given in \cref{tab:bo
 \toprule
 Result & Experiment 1 & Experiment 2 & Experiment 3 \\
 \midrule
-Running time (s)        & 2993 & 1972  &  204 \\
-CV $F1$ score           & 0.314  &  0.319 &  0.354 \\
-CV $Accuracy$ score    & 0.889 &  0.843 &  0.8327 \\
-CV $Precision$ score       & 0.209 &  0.217 &  0.249 \\
-CV $Recall$ score    & 0.629 &  0.601 &  0.607 \\
-CV $ROC AUC$ score     & 0.884 & 0.880  &  0.881 \\
-CV $Logloss$ score     & 0.524 &  0.337 &  0.399 \\
-$balanced$        & False & False  &  False \\
+Running time (s)      & 2993  & 1972   &  204 \\
+CV $F1$ score         & 0.314 & 0.319  & 0.354 \\
+CV $Accuracy$ score   & 0.889 & 0.843  & 0.8327 \\
+CV $Precision$ score  & 0.209 & 0.217  & 0.249 \\
+CV $Recall$ score     & 0.629 & 0.601  & 0.607 \\
+CV $ROC AUC$ score    & 0.884 & 0.880  & 0.881 \\
+CV $Logloss$ score    & 0.524 & 0.337  & 0.399 \\
+$balanced$            & False & False  & False \\
 % early\_stopping  & 5 &  5 & 5 \\
-$max\_features$ (\%) & 80 & 75  &  10 \\
-$max\_depth$     & 15 &  15 &  2 \\
-$max\_iterations$     & 250 &  300 &  120 \\
-$min\_leaf\_weight$  & 2 &  5 &  10 \\
-$min\_loss$  & 10 &  1 &  0.01 \\
-$step\_size$  & 0.01 &  0.1 &  1 \\
-
+$max\_depth$          & 15    & 15     & 2 \\
+$num\_trees$          & 250   & 300    & 120 \\
+$min\_leaf\_weight$   & 2     & 5      & 10 \\
+$min\_loss$           & 10    & 1      & 0.01 \\
+$step\_size$          & 0.01  & 0.1    & 1 \\
+$max\_features$ (\%)  & 80    & 75     & 10 \\
 \bottomrule
 \end{tabular*}
 \end{table}
