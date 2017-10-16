@@ -42,15 +42,17 @@ We compared the strengths and weaknesses of the learners that  were used to esti
 According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions.
 In some instances, we have achieved high values across all scoring measures where the best learners for the tasks were the Random Forests and Gradient Boosting models.
 Because of this, we focused our work on tuning the ensemble learners to achieve higher predictions.
-Still, we saw some differences in both ensemble methods, where the latter was generally better across all scores than the former.
+Still, we saw some slight differences in both ensemble methods, where the latter was found to be better across almost all scores than the former.
 
-\todo{Fill in the best features and rephrase some sentences.}
-
-The features most brought up in the experiments of ensemble learners where: (i) the area of influence of the users, where large mobilities were indicative of past movements; (ii) the
-
+We also found out which feature categories were most brought up in the experiments of ensemble learners as ``best-features'', as selected by this same heuristic. 
+Our findings showed that
+\begin{enumerate*}[label={\alph*)},]
+\item the area of influence of the users, where large mobilities were indicative of past migrants, 
+\item interactions and calling patterns with vulnerable users, and
+\item calls placed in the months nearest to $T_0$ and also, calls placed in December.
+\end{enumerate*}
 
 We find relevant to know that the ensemble learners realized the importance of attributes tagged with vulnerable behavior obtained from the CDR.\@
-
 
 % Combining social and geolocated information, the data at hand has been given an innovative use, different from its original billing purpose.
 % in the preceding chapters to our tasks.
@@ -58,7 +60,6 @@ We find relevant to know that the ensemble learners realized the importance of a
 
 
 Since we performed our analysis on two Latin-American countries and in one single endemic region, we expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities beyond Chagasic spread in Mexico or Argentina.
-
 
 In this work on CDRs, the Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
 Where cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
