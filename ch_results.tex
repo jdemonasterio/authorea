@@ -353,7 +353,7 @@ For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test
     \toprule
     Measure & Problem 1 & Problem 2 & Problem 3 & Problem 4  \\
     \midrule
-    Naive Bayes     & (0.84,0.82,0.75)  & (0.64,0.61,0.41)  &  (0.65,0.63,0.45)   & (0.85,0.76,0.62)   \\
+    Naive Bayes     & (0.84,0.82,0.75)  & (0.64,0.61,0.41)  &  (0.65,0.63,0.45)   & (0.75,0.76,0.62)   \\
     Logistic Classifier   & (0.893,0.857,0.9)  & (0.71,0.72,0.248)  &  (0.705,0.754,0.307)   & (0.883,0.85,0.331)   \\
     Random Forest   & (0.878,0.857,0.9)  & (0.79,0.776,0.278)  &  (0.792,0.845,0.346)   & (0.898,0.853,0.393)   \\
     Gradient Boosting   & (0.974,0.978,0.952)  & (0.838,0.819,0.291)  &  (0.811,0.855,0.359)   & (0.885,0.873,0.384)   \\
@@ -446,31 +446,30 @@ A similar situation was observed in other scores and across all problems.
 
 \subsection{Other Scores}\label{subsec:master_table_other_scores}
 
-For the $ROC AUC$ and $Accuracy$ test scores, we can say that, in general, the best performing learner for all problems were the Gradient Boosting Trees.\footnote{There is only one specific case where the Boosted learner does not achieve the highest score, and that is for the problem of tagging users that moved out of the endemic region, but only for those users that are currently not endemic.}
-
+For the $ROC AUC$ and $Accuracy$ test scores, we can say that, in general, the best performing learner for all problems were the Gradient Boosting Trees models.\footnote{There is only one specific case where the Boosted learner does not achieve the highest score, and that is for the problem of tagging users that moved out of the endemic region, but only for those users that are currently not endemic.}
 It scored high across all problems in the $ROC AUC$ metric, where values ranged from $81.9\%$ for the problem of tagging unidirectional migrants, up to $97\%$ for the task of predicting which users had lived in the endemic region in the past.
 
-We confirm there that this learner, being more complex than the others presented, effectively outputs higher scores for these metrics.
-The model can better predict those different user migrations with lower bias and with enough regularization that it does not overfit the training set.
+We confirm there that this learner, being more complex than the others presented, effectively outputs higher scores in these metrics and
+that the model can better predict those different user migrations with lower bias.
+We still had to be careful enough not to overfit the model on the training set by configuring shallow base learners or by using stronger regularization of the parameters.
 
-\todo{ Overall Naive Bayes has the lowest performance on roc and accuracy.}
-
-On the other end of the spectrum, we
-
-
-\todo{High and acceptable ROC AUC for RF as well.}
-
+A similar statement can be said for the Random Forest model. 
+For these metrics only, the results show that this model was in a $5\%$ relative score distance to the Gradient Boosting model, except for the first problem of predicting which users were from the endemic region in the past, where the model was outperformed for more than $10\%$.
+We still see that this model had extracted enough predictive information from the dataset to correctly classify users acording to these scores.
 
 Under this view we would say that with this dataset provides enough information to effectively predicted long-term migrations with the Random Forest and Gradient Tree Bossting learners.
-The resulting scores were more than satisfactory, building best-fit models which could accurately tag users under the $ROC AUC$ and $Accuracy$ metrics.
- % with maximum test scores over 81\%.
+The performance metrics were more than satisfactory, building best-fit models which could accurately tag users under the $ROC AUC$ and $Accuracy$ metrics.
+Also, when compared to the Logistic Classifier, in some cases we see that they both have notable gain in the metrics and for others, such as for the first problem, the Logistic model is on par.
 
+On the other end of the spectrum, we had that the Naive Bayes model had the worst $ROC AUC$ and $Accuracy$ scores for all problems where it reachead a maximum $Accuracy$ of $84\%$ for the problem of predicting users that were from the endemic region in $T_0$. 
+And the next best metric was a maximum $ROC AUC$ of $76\%$ for the case of tagging migrants that moved out of the endemic region, but only making predictions over users that are non-endemic in $T_1$.
+These results show that we also had acceptable rates for a model that is not expected to perform.  
 
-High discrepancies exist in the scores of the different machine learning models.
+Overall we found that there are discrepancie in the evaluation scores across the machine learning models here analyzed.
 Some are better at capturing the relevant information to predict human movements in the long-term.
 This is because not all social information is presented directly in the dataset, and feature interactions are helpful.
 
-All in all, we showed that it is possible to use the mobile phone records of users during a bounded period (of 5 months) in order to predict whether they have lived in the endemic zone $E_Z$ in a previous time frame (of 19 months).
+With this we showed that it is possible to use the mobile phone records of users during a bounded period (of 5 months) in order to predict whether they have lived in the endemic zone $E_Z$ in a previous time frame (of 19 months).
 This task provided to be the easiest classification one, since it resulted in the highest scores across all learners.
 
 The other effective tasks were the prediction of users that migrated in any direction to and from the endemic region, and the tagging of users migrating out of the endemic region, but only for those base of users which are currently non endemic.
