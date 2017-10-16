@@ -1,4 +1,3 @@
-
 %===============================================================================
 %     File: ch_results.tex
 %    Author: Juan de Monasterio
@@ -259,10 +258,10 @@ In a second stage of experiments, we performed extensive testing both on the Ran
 For both, we ran a full CV procedure in two feature versions, one with all the features and one in which target-correleated features were removed.
 
 As a general statement we can say that the Random Forests experiments have lower runtimes because take better advantage over the algorithm's parallelizability.
-Also, we can not affirm that one algorithms is strictly better over the other. 
+Also, we can not affirm that one algorithms is strictly better over the other.
 Both of them exceed each other across different metrics.
 It seems overall that the Random Forest is better at correctly classifying positive instances, while the Booster is slightly better over the $Recall$.
-These asymmetrical performances across $Precision$ and $Recall$ scores resulted in that no algorith outperformed the other when evaluated using the $F1$ score. 
+These asymmetrical performances across $Precision$ and $Recall$ scores resulted in that no algorith outperformed the other when evaluated using the $F1$ score.
 Due to the low $Precision$ rates, both achieved low $F1$ scores with similar outcomes, where the maximum of these values was $37\%$.
 
 On other scores such as the $Accuracy$ and $ROC AUC$ the experiments showed high classifier rates, where all of these ranged between percentages of $83\%$ and $90\%$.
@@ -346,8 +345,8 @@ The following table shows the best-fit classifier's performance across three sco
 
 %% OLD UGLY TABLE
 % \begin{table}
-% \caption{Master resutls table comparing results for all of the classifiers run in this work.
-% For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}
+% \caption{Master results table comparing results for all of the classifiers run in this work.
+% For each task and classifier, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}
 % \label{tab:master_table_results}
 % \centering
 %     \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
@@ -369,46 +368,46 @@ The following table shows the best-fit classifier's performance across three sco
 % \end{table}
 
 \begin{landscape}% Landscape page
-			% RAW NON TABLE SYNTHAXED VALUES
-%			$Naive Bayes$               & 0.84  & 0.82  & 0.75  & 2  && 0.64  & 0.61  & 0.31  & 2  && 0.65   & 0.63  & 0.45  & 1   && 0.85  & 0.76  & 0.62 & 1 \\
-			% $Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96 && 0.714 & 0.726 & 0.248 & 119 && 0.705 & 0.754 & 0.307 & 115 && 0.883 & 0.85  & 0.331 & 106 \\
-			% $Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 && 0.79  & 0.776 & 0.278 & 45  && 0.792 & 0.845 & 0.346 & 21  && 0.898 & 0.853 & 0.393 & 19\\
-			% $Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 & 0.291 & 54  && 0.811 & 0.855 & 0.359 & 33  && 0.885 & 0.873 & 0.384 & 47 \\
+            % RAW NON TABLE SYNTAX VALUES
+%            $Naive Bayes$               & 0.84  & 0.82  & 0.75  & 2  && 0.64  & 0.61  & 0.31  & 2  && 0.65   & 0.63  & 0.45  & 1   && 0.85  & 0.76  & 0.62 & 1 \\
+            % $Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96 && 0.714 & 0.726 & 0.248 & 119 && 0.705 & 0.754 & 0.307 & 115 && 0.883 & 0.85  & 0.331 & 106 \\
+            % $Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 && 0.79  & 0.776 & 0.278 & 45  && 0.792 & 0.845 & 0.346 & 21  && 0.898 & 0.853 & 0.393 & 19\\
+            % $Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 & 0.291 & 54  && 0.811 & 0.855 & 0.359 & 33  && 0.885 & 0.873 & 0.384 & 47 \\
 
-	\begin{table*}\centering
-	\hskip-4.0cm\caption{Master results table comparing results for all of the classifiers run in this work.
-			For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}\label{tab:master_table_results}
-		\ra{1.3}
-		\hskip-4.0cm\begin{tabular}{@{}rrrrrcrrrr@{}} \toprule	
-			&  \multicolumn{4}{c}{Problem 1} &  \phantom{abc} & \multicolumn{4}{c}{Problem 2} \\
-			\cmidrule{2-5} \cmidrule{7-10} 
-			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime$ $$ && $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime$ \\ \midrule
-			$Naive Bayes$               & 0.84  & 0.82  & 0.75  & 2  && 0.64  & 0.61  & 0.31  & 2   \\
-			$Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96 && 0.714 & 0.726 & 0.248 & 119 \\			
-			$Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 && 0.79  & 0.776 & 0.278 & 45  \\
-			$Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 & 0.291 & 54 \\
+    \begin{table*}\centering
+    \hskip-4.0cm\caption{Master results table comparing results for all of the classifiers run in this work.
+            For each task and classifier, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}\label{tab:master_table_results}
+        \ra{1.3}
+        \hskip-4.0cm\begin{tabular}{@{}rrrrrcrrrr@{}} \toprule    
+            &  \multicolumn{4}{c}{Problem 1} &  \phantom{abc} & \multicolumn{4}{c}{Problem 2} \\
+            \cmidrule{2-5} \cmidrule{7-10}
+            & $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime$ $$ && $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime$ \\ \midrule
+            $Naive Bayes$               & 0.84  & 0.82  & 0.75  & 2  && 0.64  & 0.61  & 0.31  & 2   \\
+            $Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96 && 0.714 & 0.726 & 0.248 & 119 \\            
+            $Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 && 0.79  & 0.776 & 0.278 & 45  \\
+            $Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 & 0.291 & 54 \\
 
-			\bottomrule
-		\end{tabular}
-	\end{table*}
-	\addtocounter{table}{-1} % This dirty hack will fake both tables as if they were the same one.
+            \bottomrule
+        \end{tabular}
+    \end{table*}
+    \addtocounter{table}{-1} % This dirty hack will fake both tables as if they were the same one.
 
-	\begin{table*}\centering
-      \hskip-4.0cm\caption{Master resutls table comparing results for all of the classifiers run in this work.
-			For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}
-		\ra{1.3}
-		\hskip-4.0cm\begin{tabular}{@{}rrrrrcrrrr@{}} \toprule	
-			&  \multicolumn{4}{c}{Problem 3} &  \phantom{abc} & \multicolumn{4}{c}{Problem 4} \\
-			\cmidrule{2-5} \cmidrule{7-10} %\cmidrule{10-12}
-			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime$ $$ && $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime$ \\ \midrule
-			$Naive Bayes$                & 0.65  & 0.63  & 0.45  & 1   && 0.85  & 0.76  & 0.62 & 1 \\
-			$Logistic \ Regression$      & 0.705 & 0.754 & 0.307 & 115 && 0.883 & 0.85  & 0.331 & 106 \\			
-			$Random \ Forest$            & 0.792 & 0.845 & 0.346 & 21  && 0.898 & 0.853 & 0.393 & 19\\
-			$Gradient \ Tree \ Boosting$ & 0.811 & 0.855 & 0.359 & 33  && 0.885 & 0.873 & 0.384 & 47 \\
-			\bottomrule
-		\end{tabular}
-	\end{table*}
-	
+    \begin{table*}\centering
+      \hskip-4.0cm\caption{Master results table comparing results for all of the classifiers run in this work.
+            For each task and classifier, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}
+        \ra{1.3}
+        \hskip-4.0cm\begin{tabular}{@{}rrrrrcrrrr@{}} \toprule    
+            &  \multicolumn{4}{c}{Problem 3} &  \phantom{abc} & \multicolumn{4}{c}{Problem 4} \\
+            \cmidrule{2-5} \cmidrule{7-10} %\cmidrule{10-12}
+            & $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime$ $$ && $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime$ \\ \midrule
+            $Naive Bayes$                & 0.65  & 0.63  & 0.45  & 1   && 0.85  & 0.76  & 0.62 & 1 \\
+            $Logistic \ Regression$      & 0.705 & 0.754 & 0.307 & 115 && 0.883 & 0.85  & 0.331 & 106 \\            
+            $Random \ Forest$            & 0.792 & 0.845 & 0.346 & 21  && 0.898 & 0.853 & 0.393 & 19\\
+            $Gradient \ Tree \ Boosting$ & 0.811 & 0.855 & 0.359 & 33  && 0.885 & 0.873 & 0.384 & 47 \\
+            \bottomrule
+        \end{tabular}
+    \end{table*}
+    
 \end{landscape}
 
 
@@ -433,14 +432,14 @@ On the contrary, the boosting procedure builds successive trees that improve on 
 This dependency limits the optimization routine parallelization opportunities.
 
 At this point it is worth to mention that the runtimes resulted from experiments that were not performed under controlled computing environments.
-For example, we can no assure that all cross-validation procedures were done in settings with equal available computational resources.
+For example, we cannot assure that all cross-validation procedures were done in settings with equal available computational resources.
 Even though results seemed consistent across all problems, we know that these results shouldn't be considered as benchmarks.
 
 
 \subsection{Low F1 Scores}\label{subsec:master_table_low_f1}
 
 Overall, we can say that, excepting the problem of predicting users that had lived in the endemic region in the past, no model had satisfactory $F1$ scores for any of the problems. The top two $F1$ scores for \cref{target2,target3,target4} and for any best-fit learners, were $0.62$ and $0.45$.
-Both these scores were attained by the Naive Bayes algorithm for the problems of currently non-endemic users that were living in the endemic region in the past, and for the problem of tagging useres tht had migrated in any direction.
+Both these scores were attained by the Naive Bayes algorithm for the problems of currently non-endemic users that were living in the endemic region in the past, and for the problem of tagging users that had migrated in any direction.
 
 Interestingly enough, these poor scores for the Naive Bayes algorithm were, in comparison, much higher than the ones reached by any other classifier, when compared in relative terms.
 All of the other classifiers had extremely poor $F1$ performances in all of \cref{target2,target3,target4}.
@@ -448,9 +447,9 @@ The best $F1$ score for the rest of the classifiers, across these problems, was 
 This was attained by the Random Forest learner when tagging people that had migrated out of the endemic region, from a userbase of those who are currently non-endemic.
 
 We mentioned this situation earlier for the experiments specifically performed on this same \cref{target4}.
-We saw that all of the learners output a very low $Precision$ score and this impacted the overall $F1$ score.
+We saw that all of the learner's output a very low $Precision$ score and this impacted the overall $F1$ score.
 
-The overconfidence shown by the models dervied a high misclassification rate for the samples in the positive class.
+The overconfidence shown by the models derived a high misclassification rate for the samples in the positive class.
 This error was so strong, that it drove the $F1$ scores to low values, even when they output acceptable $Recall$ scores.
 Still, the tradeoff in the the precision of their positive predictions was very strong.
 
@@ -477,19 +476,19 @@ We confirm there that this learner, being more complex than the others presented
 that the model can better predict those different user migrations with lower bias.
 We still had to be careful enough not to overfit the model on the training set by configuring shallow base learners or by using stronger regularization of the parameters.
 
-A similar statement can be said for the Random Forest model. 
+A similar statement can be said for the Random Forest model.
 For these metrics only, the results show that this model was in a $5\%$ relative score distance to the Gradient Boosting model, except for the first problem of predicting which users were from the endemic region in the past, where the model was outperformed for more than $10\%$.
-We still see that this model had extracted enough predictive information from the dataset to correctly classify users acording to these scores.
+We still see that this model had extracted enough predictive information from the dataset to correctly classify users according to these scores.
 
-Under this view we would say that with this dataset provides enough information to effectively predicted long-term migrations with the Random Forest and Gradient Tree Bossting learners.
+Under this view we would say that with this dataset provides enough information to effectively predicted long-term migrations with the Random Forest and Gradient Tree Boosting learners.
 The performance metrics were more than satisfactory, building best-fit models which could accurately tag users under the $ROC AUC$ and $Accuracy$ metrics.
 Also, when compared to the Logistic Classifier, in some cases we see that they both have notable gain in the metrics and for others, such as for the first problem, the Logistic model is on par.
 
-On the other end of the spectrum, we had that the Naive Bayes model had the worst $ROC AUC$ and $Accuracy$ scores for all problems where it reachead a maximum $Accuracy$ of $84\%$ for the problem of predicting users that were from the endemic region in $T_0$. 
+On the other end of the spectrum, we had that the Naive Bayes model had the worst $ROC AUC$ and $Accuracy$ scores for all problems where it reached a maximum $Accuracy$ of $84\%$ for the problem of predicting users that were from the endemic region in $T_0$.
 And the next best metric was a maximum $ROC AUC$ of $76\%$ for the case of tagging migrants that moved out of the endemic region, but only making predictions over users that are non-endemic in $T_1$.
 These results show that we also had acceptable rates for a model that is not expected to perform.  
 
-Overall we found that there are discrepancie in the evaluation scores across the machine learning models here analyzed.
+Overall we found that there are discrepancy in the evaluation scores across the machine learning models here analyzed.
 Some are better at capturing the relevant information to predict human movements in the long-term.
 This is because not all social information is presented directly in the dataset, and feature interactions are helpful.
 
@@ -536,7 +535,7 @@ The other effective tasks were the prediction of users that migrated in any dire
 % These results can be explained by the fact that
 % %Scores results become less surprising when looking closer at the dataset.
 %
-%Si del test\_set ahora me quedo con lo users que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron)s
+%Si del test\_set ahora me quedo con lo user's que Y\_target ==1 == EPIDEMIC\_gt pero que hoy en dia son epidemic ==0 (se mudaron)s
  % scores bajan mucho:
 %
 %+--------------+-----------------+-------+
@@ -548,4 +547,6 @@ The other effective tasks were the prediction of users that migrated in any dire
 %'f1\_score': 0.5244840145690004, ''accuracy': 0.3554580,, 'precision': 1.0, 'recall': 0.35545803,
 
 % \section{Key Results}
+
+
 
