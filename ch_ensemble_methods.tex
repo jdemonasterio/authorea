@@ -952,7 +952,7 @@ CV $F1$ score         & 0.314 & 0.319  & 0.354  \\
 CV $Accuracy$ score   & 0.889 & 0.843  & 0.8327 \\
 CV $Precision$ score  & 0.209 & 0.217  & 0.249  \\
 CV $Recall$ score     & 0.629 & 0.601  & 0.607  \\
-CV $ROC AUC$ score    & 0.884 & 0.880  & 0.881  \\
+CV $ROC AUC$ score    & 0.884 & 0.880  & 0.831  \\
 CV $Logloss$ score    & 0.524 & 0.337  & 0.399  \\
 $balanced$            & False & False  & False  \\
 % early\_stopping  & 5 &  5 & 5 \\
@@ -966,8 +966,8 @@ $max\_features$ (\%)  & 80    & 75     & 10 \\
 \end{tabular*}
 \end{table}
 
-The first notable fact from the results is how fast the last procedure is, compared to the two before.
-It trained much faster, with almost 3 minutes to complete the full procedure whilst the others had at minimum 20 minutes to do so.
+The first notable fact from the results is how fast the last procedure is, compared to the first two.
+The training was much faster, with almost 3 minutes to complete the full procedure whilst the others had at minimum 20 minutes to do so.
 We see that the information from the top 30 features of the RF models was efficiently used in this boosting experiment and that this considerably sped up the runtime.
 This improvement should not be surprising then, as we have limited the amount of available features to use, thus decreasing the necessary computer resources to compute the fit.
 % However, this conclusion might seem
@@ -991,8 +991,8 @@ This is then a remarkable performance for boosting learners which were not train
 On the other hand, the third model lacked the same strength for the $ROC AUC$ score.
 Here, the first model reached a score of almost $90\%$, whereas the third model had a poorer performance of $83\%$.
 Still, the lowest value for all experiments is more than satisfactory for the prediction task.
-With these results, and due to the difference in $ROC AUC$ vs. $F1$ scores, there is no clear indication as to which configuration is better across all experiments.
 
+With these results, and due to the difference in $ROC AUC$ vs. $F1$ scores, there is no clear indication as to which configuration is better across all experiments.
 
 Below we introduce this model model's selection of best features for each experiment.
 Note that the last selection will have a very similar configuration to the top Random Forest features, since it selects 10 features of the available 30 used to train the model.

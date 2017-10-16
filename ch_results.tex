@@ -254,33 +254,35 @@ Still, and compared to the Forest learner, we get a better CV error, at the expe
 % By comparing this problem over the various tree methods we discuss on applications that these kind of datasets can provide.
 % to these kinds of tasks was elaborated.
 
-\todo{Finish experimentation results both for RF and GBT.}
-
-In a second stage of experiments, we performed extensive testing both on the Random Forest and Gradient Tree Boosting learners for the problem of tagging the same users that migrated out of the endemic region, but only considering the base of users which are currently living outside of it.
+In a second stage of experiments, we performed extensive testing both on the Random Forest and Gradient Tree Boosting learners for the problem of tagging the same users that migrated out of the endemic region, but only considering as userbase, those users which are currently living outside of the endemic region.
 
 For both, we ran a full CV procedure in two feature versions, one with all the features and one in which target-correleated features were removed.
 
 As a general statement we can say that the Random Forests experiments have lower runtimes because take better advantage over the algorithm's parallelizability.
-Also, we can not say that one algorithms is better over the other because they both exceed each other across different metrics.
-It seems that the Random Forest is overall better at correctly classifying positive instances, while the Booster is slightly better over the recall.
+Also, we can not affirm that one algorithms is strictly better over the other. 
+Both of them exceed each other across different metrics.
+It seems overall that the Random Forest is better at correctly classifying positive instances, while the Booster is slightly better over the $Recall$.
+These asymmetrical performances across $Precision$ and $Recall$ scores resulted in that no algorith outperformed the other when evaluated using the $F1$ score. 
+Due to the low $Precision$ rates, both achieved low $F1$ scores with similar outcomes, where the maximum of these values was $37\%$.
 
-Added to this, we see that both algorithm's best fit values agree in that a large number of base learners are needed to perform better.
-The same with the tree's depth, where all best-fit values were, at least, over a depth of $12$.
+On other scores such as the $Accuracy$ and $ROC AUC$ the experiments showed high classifier rates, where all of these ranged between percentages of $83\%$ and $90\%$.
+These high scores show there is enough predictive capacity in using these algorithms for this problem of tagging migrants from the endemic region.
+
+On the best-fit hyperparameter values, we see that both algorithm's values agree in that a large number of base learners are needed to perform better.
+This is evidenced by the fact that, for all experiments, the optimal value was higher than $100$ trees, up to a maximum of $300$ base learners.
+A similar result is seen with the tree's depth, where all best-fit values were, at least, over a depth of $12$.
 
 
 %%%%% LAST PART
 
-
-
-
-
 Both the Random Forest and Gradient Boosting models played an important role in all of the prediction tasks we made.
-By construction, these two algorithms were the only ones that provided any information on the best-features that we can extract from the dataset, for this problem.
+The high scores that result in some of the metrics indicate that there is predictive information for the problems of long-term human migrations.
+Another advantage of these two algorithms, is that they provide heuristics on the best-features that we can use from the dataset.
 
 From the process of calculating those best-features, we can say that for this prediction task of finding, of those currently non-endemic users, which are the migrants that moved out of the endemic region, the feature selection heuristics of ensemble algorithms agreed upon a group of features.
 These were highlighted, for a number of times, over the rest of the features and they provide insights into what CDR variables provided most predictive value.
 
-From the results we collected for these two learners, the best features can be broken down into the following categories.
+Below we can find a descriptive collection of those features for these learners, where we have broken down all of this information into feature categories:
 
 \begin{itemize}
 
@@ -299,10 +301,10 @@ From the results we collected for these two learners, the best features can be b
 
 \end{itemize}
 
-These groups identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
+These factors identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
 Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
 
-As a final remark that we must add here, the previous best-features list incorporate some of the model's feature-target correlations, because part of these best-features were selected from the experiments run with those same features.
+As a final remark that we must add here, the previous best-features list carry some bias introduced by the model's feature-target correlations, because part of these best-features were selected from the experiments run with these same features.
 A similar argument can be made for the best-features calculated from the Gradient Boosting experiment that used only a filtered set of features, previously filterd by the Random Forest experiments.
 There is a strong feature-target correlation and there is a leakage of target information within this experiment.
 
