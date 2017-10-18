@@ -56,7 +56,7 @@ As a starting point we transformed the user-level data into a dataset at the ant
 This step aggregated information of call patterns to and from the endemic region.
 It allowed us to present geolocalized visualizations of these social interactions to the vulnerable areas.
 As an intermediate step in this process we had to introduce the definitions that we later used for the rest of this work.
-We technically set what we meant was a vulnerable interaction and what we find is a user's home antenna.
+We teachnically set what we meant was a vulnerable interaction and what we find is a user's home antenna.
 
 % For the latter we base
 
@@ -93,7 +93,7 @@ This helped us set our Chagas problem inside a systematic process to analyze lon
 
 To do this, we broke the problem of long-term human migrations down to four tasks which were later analyzed through different classifiers.
 In these two chapters, we introduced the machine learning theory necessary to structure our problem, along with its methods to solve them.
-These models were some of the most common techniques found in the literature for the task we were trying to solve.
+These models were some of the most common teachniques found in the literature for the task we were trying to solve.
 
 To start off we considered the Logistic Regression Classifier along with the logloss metric to evaluate model performance.
 Taking to our advantage the model's more tractable formulation, we showed how model regularization fits inside the machine learning frame.
@@ -147,7 +147,7 @@ Each were optimized separately in order to exemplify how the overall $ROC AUC$ v
 This outcome of better $ROC AUC$ scores, when compared with the experiments on migrations out of the endemic region, underscore the difference among the problems' difficulty.
 If we recall the highly unbalanced class relations for the problem of predicting unidirectional migrants in \cref{target2}, we confirm our hypothesis that these predictions characterize a problem which is very difficult.
 
-Overall, both procedures had best fits on the more regularized $C$values.
+Overall, both procedures had best fits on the more regularized $C$ values.
 A similar result can be found for regularization models and on procedures where hyperparameters were cross validated.
 Both optimizations improved improved the model's predictive power in varying degrees.
 
@@ -158,7 +158,7 @@ With this we tackled the task with the introduction of new algorithms in the fol
 
 
 
-In\cref{ch:ensembleMethods} we introduce four new classifiers along with their properties and characteristics. Three of these, \cref{section:decision_trees,section:random_forests,section:gradient_boosting}, were tree based methods whilst the last, \cref{section:naive_bayes}, was a Naive Bayes Classifier used for benchmarking purposes.
+In \cref{ch:ensembleMethods} we introduce four new classifiers along with their properties and characteristics. Three of these, \cref{section:decision_trees,section:random_forests,section:gradient_boosting}, were tree based methods whilst the last, \cref{section:naive_bayes}, was a Naive Bayes Classifier used for benchmarking purposes.
 For each, we presented an introductory review and pointed the reader to further literature references where applicable.
 
 All but the Decision Tree learners were put through a number of experiments to evaluate how they performed across all prediction problems.
@@ -338,10 +338,10 @@ These models can find complex interactions in the data whilst handling enough ca
 \section{Master Table of Results}\label{sec:master_table}
 
 \cref{tab:master_table_results} shows a compendium of the results obtained from the CDR dataset, using all classification models.
-For ech problem and model, we found the best performing learner with a cross validation procedure which searched over an extensive grid of hyperparameters.
+For each problem and model, we found the best performing learner with a cross validation procedure which searched over an extensive grid of hyperparameters.
 In all cases, the hyperparameter configuration with highest cross-validated $ROC AUC$ was selected as the \textit{best-fit}.
 %Due to time constraints limited by the use of full cross validation fitting procedures, not all models were run for all of the tasks.
-The following table shows the best-fit classifier's performance across three scores on the test set $\mathcal{T_s}$: $Accuracy$, $F1$ and $ROC AUC$.
+The table shows the best-fit classifier's performance across three scores on the test set $\mathcal{T_s}$: $Accuracy$, $F1$ and $ROC AUC$.
 
 
 %% OLD UGLY TABLE
@@ -375,48 +375,109 @@ The following table shows the best-fit classifier's performance across three sco
 			% $Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 && 0.79  & 0.776 & 0.278 & 45  && 0.792 & 0.845 & 0.346 & 21  && 0.898 & 0.853 & 0.393 & 19\\
 			% $Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 & 0.291 & 54  && 0.811 & 0.855 & 0.359 & 33  && 0.885 & 0.873 & 0.384 & 47 \\
 
+\todo{}
+
 	\begin{table*}\centering
-	%\hskip-4.0cm
-	\caption{Master results table comparing results for all of the classifiers run in this work.
+		%\hskip-4.0cm
+		\caption{Master results table comparing results for all of the classifiers run in this work.
 			For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}\label{tab:master_table_results}
 		\ra{1.3}
 		%\hskip-4.0cm
-		\begin{tabular}{@{}rrrrrcrrrr@{}} \toprule
-			&  \multicolumn{4}{c}{Problem 1} &  \phantom{abc} & \multicolumn{4}{c}{Problem 2} \\
-			\cmidrule{2-5} \cmidrule{7-10}
-			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ $$ && $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
-			$Naive Bayes$               & 0.84  & 0.82  & 0.75  & 2  && 0.64  & 0.61  & 0.31  & 2   \\
-			$Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96 && 0.714 & 0.726 & 0.248 & 119 \\
-			$Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 && 0.79  & 0.776 & 0.278 & 45  \\
-			$Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41 && 0.838 & 0.819 & 0.291 & 54 \\
-
+		\begin{tabular}{@{}rrrrrc@{}} \toprule
+			&  \multicolumn{4}{c}{Problem 1} \\
+			\cmidrule{2-5} 
+			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
+			$Naive Bayes$               & 0.84  & 0.82  & 0.75  & 2  \\
+			$Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96\\
+			$Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 \\
+			$Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41  \\
+			
 			\bottomrule
 		\end{tabular}
 	\end{table*}
+
 	%\addtocounter{table}{-1} % This dirty hack will fake both tables as if they were the same one.
 
 \medskip
 
 	\begin{table*}\centering
-      %\hskip-4.0cm
-     % \caption{Master resutls table comparing results for all of the classifiers run in this work. For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}
+		%\hskip-4.0cm
 		\ra{1.3}
 		%\hskip-4.0cm
-		\begin{tabular}{@{}rrrrrcrrrr@{}} \toprule
-			&  \multicolumn{4}{c}{Problem 3} &  \phantom{abc} & \multicolumn{4}{c}{Problem 4} \\
-			\cmidrule{2-5} \cmidrule{7-10} %\cmidrule{10-12}
-			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime (m)$ $$ && $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
-			$Naive Bayes$                & 0.65  & 0.63  & 0.45  & 1   && 0.85  & 0.76  & 0.62 & 1 \\
-			$Logistic \ Regression$      & 0.705 & 0.754 & 0.307 & 115 && 0.883 & 0.85  & 0.331 & 106 \\
-			$Random \ Forest$            & 0.792 & 0.845 & 0.346 & 21  && 0.898 & 0.853 & 0.393 & 19\\
-			$Gradient \ Tree \ Boosting$ & 0.811 & 0.855 & 0.359 & 33  && 0.885 & 0.873 & 0.384 & 47 \\
+		\begin{tabular}{@{}rrrrrc@{}} \toprule
+			&  \multicolumn{4}{c}{Problem 2} \\
+			\cmidrule{2-5} 
+			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
+			$Naive Bayes$               & 0.64  & 0.61  & 0.31  & 2   \\
+			$Logistic \ Regression$     & 0.714 & 0.726 & 0.248 & 119 \\
+			$Random \ Forest$            & 0.79  & 0.776 & 0.278 & 45  \\
+			$Gradient \ Tree \ Boosting$ & 0.838 & 0.819 & 0.291 & 54 \\
+			
 			\bottomrule
 		\end{tabular}
 	\end{table*}
 
-%\end{landscape}
 
 \medskip
+
+	\begin{table*}\centering
+		%\hskip-4.0cm
+		\ra{1.3}
+		%\hskip-4.0cm
+		\begin{tabular}{@{}rrrrrc@{}} \toprule
+			&  \multicolumn{4}{c}{Problem 3} \\
+			\cmidrule{2-5} 
+			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
+			$Naive Bayes$               & 0.65  & 0.63  & 0.45  & 1  \\
+			$Logistic \ Regression$     & 0.705 & 0.754 & 0.307 & 115 \\
+			$Random \ Forest$            &  0.792 & 0.845 & 0.346 & 21 \\
+			$Gradient \ Tree \ Boosting$ & 0.811 & 0.855 & 0.359 & 33 \\
+			
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+	
+
+
+	\begin{table*}\centering
+		%\hskip-4.0cm
+		\ra{1.3}
+		%\hskip-4.0cm
+		\begin{tabular}{@{}rrrrrc@{}} \toprule
+			&  \multicolumn{4}{c}{Problem 4} \\
+			\cmidrule{2-5} 
+			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
+			$Naive Bayes$               & 0.85  & 0.76  & 0.62 & 1 \\
+			$Logistic \ Regression$     & 0.883 & 0.85  & 0.331 & 106 \\
+			$Random \ Forest$            & 0.898 & 0.853 & 0.393 & 19 \\
+			$Gradient \ Tree \ Boosting$ & 0.885 & 0.873 & 0.384 & 47 \\
+			
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+	
+\medskip
+
+%\begin{table*}\centering
+%%\hskip-4.0cm
+%% \caption{Master resutls table comparing results for all of the classifiers run in this work. For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}
+%\ra{1.3}
+%%\hskip-4.0cm
+%\begin{tabular}{@{}rrrrrcrrrr@{}} \toprule
+%&  \multicolumn{4}{c}{Problem 3} &  \phantom{abc} & \multicolumn{4}{c}{Problem 4} \\
+%\cmidrule{2-5} \cmidrule{7-10} %\cmidrule{10-12}
+%& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime (m)$ $$ && $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
+%$Naive Bayes$                & 0.65  & 0.63  & 0.45  & 1   && 0.85  & 0.76  & 0.62 & 1 \\
+%$Logistic \ Regression$      & 0.705 & 0.754 & 0.307 & 115 && 0.883 & 0.85  & 0.331 & 106 \\
+%$Random \ Forest$            & 0.792 & 0.845 & 0.346 & 21  && 0.898 & 0.853 & 0.393 & 19\\
+%$Gradient \ Tree \ Boosting$ & 0.811 & 0.855 & 0.359 & 33  && 0.885 & 0.873 & 0.384 & 47 \\
+%\bottomrule
+%\end{tabular}
+%\end{table*}
+%
+%%\end{landscape}
+%
+%\medskip
 
 \cref{tab:master_table_results} exposes all combinations in model performance and runtime across the problems studied for this work.
 At a first glance there are some notable results exposed in this table.
