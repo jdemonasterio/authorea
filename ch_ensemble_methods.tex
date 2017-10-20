@@ -104,7 +104,7 @@ Following is listed formulation of the three most used impurity measures for cla
     \item Misclassification error: $ \displaystyle \frac{1}{N_j} \sum_{x \in R_j} I(y\neq c_j) = 1 - c_j $
 \end{itemize}
 
-In some cases, a reweighted Gini index can be performant.
+In some cases, a reweighted Gini index can be efficient.
 In this version a loss matrix is used to multiply each summands of the measure.
 By this, the matrix reassigns weights to different cases of misclassification and this become specifically practical when we have that a sample from class $k$ incorrectly assigned to class $k'$ is more valuable than other misclassifications.
 
@@ -156,7 +156,7 @@ This is due to the hierarchical nature of the splits, where errors randomly made
 This is because once a samples has been directed through a lower branch, it will continue down through this one without reconsideration of the past errors.
 
 For the reasons described, in this model it is important to control the depth of the trees built.
-To do this, the most common method to do this grows a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very unrestrictive.
+To do this, the most common method to do this grows a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very nonrestrictive.
 Then the tree will be pruned by removing branches and nodes to lower the model's complexity whilst at the same time trying not to compromise much of its accuracy.
 More details on this can be seen in \cref{appx:sec:tree_pruning}.
 For a broad characterization of decision trees and their construction in classification or regression problems, please refer to~\cite{breiman-cart84}.
@@ -202,7 +202,7 @@ The mobility diameter gives an idea of a user's influence area when using his mo
 
 Subsequently, the usage volume of a user's home antenna appears as the second most important features, both during the weeknight and during the whole day.
 
-The error score reached by this tree, howerver, yields a poor performance over all of the samples.
+The error score reached by this tree, however, yields a poor performance over all of the samples.
 Evaluated with the $Accuracy$ metric, we see a score of $43.2\%$ with this learner.
 Under these circumstances, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
 
@@ -246,7 +246,7 @@ So to tackle most of the disadvantages described by this technique, \textit{Rand
 \section{ Random Forests}\label{section:random_forests}
 
 Random Forests are estimators that extend from constructing a group of single decision trees and then combining them to produce a single output decision.
-This grouping of lots of classifieres is what is known as an \textit{ensemble}.
+This grouping of lots of classifiers is what is known as an \textit{ensemble}.
 The objective in this construction is to focus on decision tree's low bias whilst controlling their overfit as much as possible.
 For this, a forest of single trees will be constructed in such a way that correlations among each of the individual models is limited as much as possible.
 And this is because each individual model will learn on a random subset of features or samples and then, an average of the single outputs will be used as the forest's target output to preserve single estimator's interdependence as much as possible.
@@ -436,7 +436,7 @@ Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_J$, where e
 In practice, we must be careful with the size of these combinations since the full cross validation procedure is costly for the Random Forest algorithm.
 The learner has $J \geq 10$ and for each component $A_i$ it is normal to have more than 10 possible values.
 As such, the search space can grow exponentially big with the size of each hyperparamter's values.
-Moreover, each hyperparamter combination has to be cross validated on the number of folds we define, creating a very large amount of iterations for the complete search.
+Moreover, each hyperparameter combination has to be cross validated on the number of folds we define, creating a very large amount of iterations for the complete search.
 These fits will take computer resources such as memory and CPU time, so we have to limit ourselves to search over a limited amount of values.
 
 If we were to use commodity hardware and standard programming tools for this procedure, the experiment would take weeks and, given our dataset size, it would not fit into a standard computer's memory of less than 12GB of memory.
@@ -863,7 +863,7 @@ Obj(\Theta) = \sum_i^n l(y_i,\hat{y}_i) + \sum_t^K R(\theta^m_{q(x)})
 %\footnote{In the formula \cref{eq:boosting-objfunction} }
 
 At the outer level view of the model,$\Theta$ is a parameter encoding all of the base trees' model information.
-For each base tree $\theta^m$ is the parameter associated to it and $R{\cdot}$ is a regulating function on the trees's complexity.
+For each base tree $\theta^m$ is the parameter associated to it and $R{\cdot}$ is a regulating function on the trees' complexity.
 
 This means that
 
@@ -884,7 +884,7 @@ The authors in~\cite{hastie-elemstatslearn} and~\cite{bishop-patternecognition} 
 
 The first idea to reduce the overall variance of the algorithm is to subsample the data.
 This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner.
-Samples from $\mathcal{T}$ which are not part of the boostrapped sample are ignored when optimizing for the new learner at \cref{eq:boosting_iterative_minimization}.
+Samples from $\mathcal{T}$ which are not part of the bootstrapped sample are ignored when optimizing for the new learner at \cref{eq:boosting_iterative_minimization}.
 
 The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method.
 In practice, the rate of sampling will be supervised by a tuning parameter in the model.
