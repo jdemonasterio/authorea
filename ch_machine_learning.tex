@@ -11,8 +11,8 @@
 
 % \section{Preamble}\label{section-preamble}
 Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}.
-ome fundamental concepts and material were also used from\cite{scikit-learn}.
-ther texts were also used, and they have been duly cited in the thesis.
+Some fundamental concepts and material were also used from\cite{scikit-learn}.
+Other texts were also used, and they have been duly cited in the thesis.
 here not specified, the reader can assume that the proof is based from the above mentioned textbooks.
 
 
@@ -151,7 +151,7 @@ Recall from \cref{tab:changes} that we have at most 23 thousand users that satis
 This unbalance in the target class proves to be a much harder problem to solve than in \cref{target1} since these users become harder to find and the error over the small class would be dominated if not correctly taken into account.
 
 It is relevant to note here that we are ignoring any relevant information about the user's endemicity or current state of residence. 
-Otherwise we would have a perfect correlation between $Y_u=0$ and beign currently endemic, or living in an endemic state.
+Otherwise we would have a perfect correlation between $Y_u=0$ and being currently endemic, or living in an endemic state.
 
 % This is because we could use a dumb predictor to always output the value of the bigger class.
 
@@ -236,7 +236,7 @@ As an example, let's consider a reduced training dataset built from Call Detail 
 %\footnote{For more information on this set, a historic review is given at \url{https://en.wikipedia.org/wiki/Iris_flower_data_set}}.
 Five measurements were taken on all of the observations to account for the user's number of calls and total minute duration of calls.
 All data was extracted from a week of logging measurements.
-elow we print a short overview of this dataset:
+Below we print a short overview of this dataset:
 
 \begin{table}[ht]
 \caption{{Head of the raw CDR dataset.
@@ -486,7 +486,7 @@ Finally, using this $p_i$ representation and plugging it into the initial condit
 
 
 Maximum likelihood is the most common method employed to fit the model.
-with multinomial distributions modeling the features.
+with Multinomial distributions modeling the features.
 Given a parameter $\theta$, the probability of having a target vector $y$ is
 \begin{equation}
 P(Y =y \mid \theta ) = \prod_{i=1}^N {P(y_1 \in C_1 \mid x_i, \theta)}^{y_i} {(1 - P(y_1 \in C_1 \mid x_i, \theta) )}^{(1-y_i)}
