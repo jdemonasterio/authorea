@@ -1,10 +1,14 @@
 # TODO PLAN
 
-## Meeting 04/10
+## Meeting 18/10
+    * Do great review and read all. 
+    * Fix typos and grammar.
     * Clean all TODOs.
-    * Fix typos and grammar of last two chapters.
-    * Ejemplo: dejar en terminos de los problemas migratorios: "no pudimos predecir las migraciones de este estilo". Destraducir de problema 1 a algo de las migraciones. Darle el hilo de la historia que estoy contando.
-    * Separar en Random Forests y Decision Tree vs. Gradient Boosting y Naive Bayes.
+
+
+## Meeting 04/10
+    * [DONE] Ejemplo: dejar en terminos de los problemas migratorios: "no pudimos predecir las migraciones de este estilo". Destraducir de problema 1 a algo de las migraciones. Darle el hilo de la historia que estoy contando.
+    * [DONE] Separar en Random Forests y Decision Tree vs. Gradient Boosting y Naive Bayes.
     * [DONE] El predictive error bounds de random forests pasar la demo a una apendice. Enunciarlo nomas. 
 
 ## Meeting 27/09
@@ -12,7 +16,7 @@
 
 ## Meeting 20/09
     * [DONE] In table of contents, notify start of appendix somewehere. Correct the way it is presented.
-    * [WIP] Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion. Uno de resultados en resultados
+    * [DONE] Separar el 6 en dos, tal vez uno de resultados mas concretos y otro de conclusion. Uno de resultados en resultados
         numericos y key insights de lo que vimos con los datos, la compilacion de todos los resultados en terminos de numeros y metodos, etc. Los problmeas que tienen, los metodos usados.
         En conclusiones mas a nivel de cosas de que aprendiste, eleccion de metodos, que aprendi, que sirven los CDRs para esto, que limitaciones tienen en prediccion y otras cuestiones mas alto nivel.
 
@@ -29,13 +33,13 @@
     * [DONE] Revisar notacion de los problemas y fixear.
     * Cap. introduccion: alguien que solo lee el cap. 1, se queda con una buena idea de lo que se hizo en la tesis?
     * [DONE] Revisar el \cref{} con respecto a figures que aparecen con el tag de Secciones y con ecuaciones que tengan su name que diga "Equation". Fijarse de pasar todos los `$$` a un equation environment estilo `\begin{equation}`.
-    * Story telling un poco.
+    * [DONE] Story telling un poco.
 
 
 ## Meeting 16/08
     * [DONE] Cambiar las figuras 4.4.3 y 4.4.4 que usan data foranea y reemplazar alguna de ellas con una instancia de un problema nuestro.
     * [DONE] Revisar todas las figuras y especificar de que problemas vienen estos resultados.
-    * Sacarle jugo a los resultados. Presentar algo mas en los numeros concretos y como esos son los resultados. Que aprendi del dataset, que hay para contar del dataset.
+    * [DONE] Sacarle jugo a los resultados. Presentar algo mas en los numeros concretos y como esos son los resultados. Que aprendi del dataset, que hay para contar del dataset.
     * [DONE] Bajar a tierra los resultados de problemas 1 a 4 en los clasificadores con como esto se relaciona con los mapas.
 
 ## Meeting 12/07
@@ -67,7 +71,7 @@
     * [DONE] borrar defincion formal de overfit.
 
 ## Meeting 12/06
-    * Paginas en blanco, borrar, reordenar.
+    * [DONE] Paginas en blanco, borrar, reordenar.
     * [DONE] Bad \cref s pointing to sections other than equations. (ask pedrof) (Problem was with correctly running biber and bitex.)
     * [Done] Falta abstract en ingles & spanish. (no pasar una carilla). Se extiende una carilla pero por el titulo del asbtract que ocupa media pagina. Habria que arreglar.
     * [Done] Titulo en ingles & spanish.

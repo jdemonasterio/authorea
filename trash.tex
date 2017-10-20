@@ -283,4 +283,28 @@ eprint=false
 	
 \end{landscape}
 
+
+
+\bigskip
+
+
+	\begin{table*}\centering
+		%\hskip-4.0cm
+		\caption{Master results table comparing results for all of the classifiers run in this work.
+			For each task and classifer, we show the its $Accuracy$, $ROC AUC$ and $F1$ test-set scores, along with the runtimes of a full cross validation procedures on the learner.}\label{tab:master_table_results}
+		\ra{1.3}
+		%\hskip-4.0cm
+		\begin{tabular}{@{}rrrrrc@{}} \toprule
+			&  \multicolumn{4}{c}{Problem 1} \\
+			\cmidrule{2-5} 
+			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
+			$Naive Bayes$               & 0.84  & 0.82  & 0.75  & 2  \\
+			$Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96\\
+			$Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 \\
+			$Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41  \\
+			
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+
 \end{document}
