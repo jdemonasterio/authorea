@@ -8,8 +8,6 @@
 
 \chapter{Introduction}\label{ch:introduction}
 
-\section{Thesis Structure}
-
 \todo{Extend intro of all concepts in paper: what are we doing, what is chagas, migrations, CDRs, parasites, epidemics, machine learning, and a comment on what will be done on further chapters.}
 
 Chagas disease is a tropical parasitic epidemic of global reach, spread mostly across 21 Latin American countries. The World Health Organization (WHO) estimates more than six million infected people worldwide~\cite{who2016}. Caused by the \textit{Trypanosoma cruzi} parasite, its transmission occurs mostly in the American endemic regions via the \textit{Triatoma infestans} insect family (also called ``kissing bug'', and known by many local names such as ``vinchuca'' in Argentina, Bolivia, Chile and Paraguay, and ``chinche'' in Central America). In recent years and due to globalization and migrations, the disease has become an %health
@@ -18,7 +16,6 @@ particularly in countries that receive Latin American immigrants such as Spain~\
 making it a global health problem.
 
 
-\todo{move specific chagas info to its own chapter}
 A crucial characteristic of the infection is that it may last 10 to 30 years in an individual without being detected~\cite{rassi2012american}, which greatly complicates effective detection and treatment. About 30\% of individuals with chronic Chagas disease will develop life-threatening cardiomyopathies or gastrointestinal disorders, whereas
 the remaining individuals will never develop symptoms.
 Long-term human mobility (particularly seasonal and permanent rural-urban migration) thus plays a key role in the spread of the epidemic~\cite{briceno2009chagas}. Relevant routes of transmission also include blood transfusion, congenital contagion --with an estimated 14,000 newborns infected each year in the Americas~\cite{OPS2006chagas}--,
@@ -31,7 +28,11 @@ by laboratory accidents.
 The spatial dissemination of a congenitally transmitted disease sidesteps the available measures to control risk groups, and shows that individuals who have not been exposed to the disease vector should also be included in detection campaigns.
 To the best of our knowledge, current studies on human migration patterns in Latin America can provide only coarse and outdated information on user flows at specific municipal levels, and do not cover the whole national territory.
 
-In this work, we discuss the use of mobile phone records --also known as Call Detail Records (CDRs)-- for the analysis of mobility patterns and the detection of possible risk zones of Chagas disease in two Latin American countries. Key health expertise on the subject was provided by the \textit{Mundo Sano} Foundation. We will analyze and use  \textit{Machine Learning} tools for this.
+\section{Thesis Structure}
+
+In this work, we discuss and explore the use of mobile phone records --also known as Call Detail Records (CDRs)-- for the analysis of mobility patterns and the detection of possible risk zones of Chagas disease in two Latin American countries. 
+We rely on key health expertise on the subject, provided by the \textit{Mundo Sano} Foundation. 
+We will analyze and use different \textit{Machine Learning} tools to carry this out.
 
 This thesis is structured as follows: for the remaining of this chapter we will give some key aspects of Chagas disease, and introduce some particular aspects to the countries of our study: Argentina and Mexico. We will also give a very brief introduction to the field of \textit{Machine Learning}.
 
@@ -40,24 +41,29 @@ This thesis is structured as follows: for the remaining of this chapter we will 
 %\cref{{ch:modelSelection}
 %\cref{ch:ensembleMethods}
 
-\cref{ch:descr-risk} will present the data sources and give the main idea behind our data processing. It will also explore some basic descriptive aspects of what information can be found in the CDR logs.
-Finally, it will present the methodology to construct chagasic national disease risk maps.
-Examples will be shown to illustrate the results.
+\cref{ch:descr-risk} will present the data sources and give the main idea behind our data processing. 
+It will also show some basic data descriptive aspects of what information can be found in the CDR logs and how it compares to other data sources.
+Finally, it will develop the methodology used to construct chagasic national disease risk maps from these logs.
+Examples of maps will be shown to illustrate the results found.
 
 In \cref{ch:machineLearning} we will give a more in-depth introduction to Machine Learning theory, describing use cases, ideas and concepts of the field.
-Our long-term migration prediction task will be formulated in a way that can be converted to an probabilistic model.
-Added to this, we will use introduce the theory in hand with dataset used in this work, where examples will aid in the illustration of the main points.
+Our long-term migration prediction tasks will be formulated in a way that can be used in a binary classification problem to be solved by a statistical model.
+Added to this, we will use introduce the theory in hand with the dataset used along the rest of the work. 
+We will use various examples to aid in the illustration of theoretical and practical points.
 
-\cref{ch:modelSelection} will further expand the main concepts behind this field and give an overview in to different model selection strategies.
-Also, a brief mention on Vapnik-Chervonenkis Statistical Learning Theory will be made.
+\cref{ch:modelSelection} will further expand concepts from the field of Machine Learning.
+These will be those used throughout our experiments analysis.
+We will also give an overview of different strategies to select the best models.
+We will make a very brief mention on Vapnik-Chervonenkis Statistical Learning Theory.
 
 \cref{ch:ensembleMethods} will concentrate on specific tree-based algorithms for Supervised Machine Learning Classification tasks.
-We will introduce the necessary formulations for the models, as well as examples.
-Finally, we will show specific experiments on long-term human migrations using CDR data, in-line with the presentation of each method.
-For each case, we will show the results of these applications.
+We will introduce the minimal formulations for the models, as well as examples.
+For each of these, we will dive into their main benefits, drawbacks and we will compare all of them under one of the classification problems built for this thesis.
+Finally, along with the presentation of each method, we will show specific long-term human migration experiments on the CDR data,
+For each case we will show the results of these applications and the discoveries made.
 
-We close with a summary of results in \cref{ch:results} where key information from the output of this work is presented,
-and we give this work's conclusions in \cref{ch:conclusions}, along with drawbacks from the methodology used and we show possible lines of future work.
+We close this work with a summary of results in \cref{ch:results} where key information from the output of the previous chapters is recollected and presented,
+Then we give this work's conclusions in \cref{ch:conclusions}, along with drawbacks from the methodology used and possible lines of future work.
 
 
 \section{Mobile Phone Records, Mobility and Epidemiology}
@@ -72,25 +78,29 @@ found in these datasets a clear opportunity to bring their analyses to an unprec
 Thanks to the growing availability of datasets, collaborations between academic research groups and network operators based on the analysis of real-world mobile traffic have been flourishing. A significant example is the Data for Development Challenges by Orange (\cite{d4d}).
 
 One of the main research subject is mobility analysis.
-Call locations (recorded through cell tower usages) are a projection of users trajectories,
-showing a strong regularity in their movement patterns,
+Calls can be located by means of knowing cellphone tower geolocalization and by then matching calls to one of these points.
+This provides fine granularity projections of users trajectories, where they show a strong regularity in their movement patterns,
 both in space and time, as described in \cite{gonzalez2008understanding}.
+
 In another study, \cite{song2010limits} explore the limits of predictability in human dynamics by studying the mobility patterns of anonymized mobile phone users.
 By measuring the entropy of individuals trajectories, the authors found a 93\% potential predictability in user mobility across the whole user base.
 
 Human mobility is also influenced by social components: \cite{cho2011friendship} observe that social relationships
 can explain about 10\% to 30\% of all human movement, while periodic
-behavior explains 50\% to 70\%; whereas \cite{ponieman2016mobility} show how social ties can be used to improve mobility predictions, in the case of attendance to large social events.
+behavior explains 50\% to 70\%; whereas \cite{ponieman2016mobility} show how social ties can be used to improve mobility predictions, for the case of people attendance to large social events.
 
-Mobility analysis has applications in diverse areas such as urban planning (see \cite{wang2012understanding})  and disaster recovery (see \cite{lu2012predictability}).
+Mobility analysis has applications in diverse areas such as urban planning (see \cite{wang2012understanding}) and disaster recovery (see \cite{lu2012predictability}).
 In particular, mobile phone records contain information about the movements of large subsets of the population of a country, and make them very useful to understand the spreading dynamics of infectious diseases, while preserving the privacy of users.
 
 They have been used to understand the diffusion of malaria in Kenya by \cite{wesolowski2012quantifying} and in Ivory Coast by \cite{enns2013human}, including the refining of infection models performed by \cite{chunara2013large}. The cited works on Ivory Coast were performed using the Data for Development (\cite{d4d}) challenge datasets released in 2013. \cite{tizzoni2014use} compare different mobility models using theoretical approaches, available census data and models based on CDRs interactions to infer movements. They found that the models based on CDRs and mobility census data are highly correlated, illustrating their use as mobility proxies.
 
 Mobile phone data has also been used to predict the geographic spread and timing of Dengue epidemics by \cite{wesolowski2015impact}. This analysis was performed for the country of Pakistan, which is representative of many countries on the verge of countrywide endemic dengue transmission. Other works directly study CDRs to characterize human mobility and other sociodemographic information. A complete survey of mobile traffic analysis articles may be found in \cite{naboulsi2015mobile}, which also reviews additional studies based on the Ivory Coast dataset mentioned above.
 
+In this work we intend to show how these data points can help in the problem of Chagas disease, by means of accurately describing people migrations and movements at national level.
+We expect to add more relevant information to the problem of detecting foci of communities with high rates of prevalence, out of the endemic region.
 
-\todo{add more references to what is out of scope in this work}
+For this reason, specifically tagging disease-carriers is out of the scope fo this work. 
+We have no reason to believe that this dataset can provide such information with accuracy.
 
 \section{Brief Introduction to Machine Learning}
 
@@ -123,7 +133,7 @@ The ecoregion's low socio-demographic conditions further support the parasite's 
 % The ecoregion as of today is hyperendemic for the disease.
 This region is considered as the endemic zone $E_Z$ in the analysis described in \cref{ch:descr-risk} and \cref{ch:machineLearning}.
 
-\todo{add more references to examples of CDRs and chagas or other diseases}
+%\todo{add more references to examples of CDRs and chagas or other diseases}
 
 
 
