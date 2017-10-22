@@ -3,56 +3,74 @@
 \todo{Reorder paragraphs, reword sentences. Expand, correct and finish them in a cohesive structure.}
 
 The purpose of this work was to analyze and explore how CDR data could be used as a surrogate to other, more traditional, methods of disease control and surveillance.
-This was done starting from the hypothesis that long-term migrations are relevant to the spread of this disease out from the region source of vector-borne infections.
-From other works in the literature we understood that CDRs could be used for non business purposes.
-We took advantage of this by leveraging the georeferenced information contained in the CDR logs, and showing how the use of this data can help with the Chagas disease problem.
+This was done starting from the hypothesis that long-term migrations are relevant to the spread of the Chagas disease.
+We wanted to analyze people that moved from and to the regions of high vector-borne infections.
+From other works in the literature we understood that CDRs could be used for non business purposes and we took advantage of this by leveraging the georeferenced information contained in the CDR logs.
+In all, this work shows how the use of this data can help with the Chagas disease problem.
 
 
-The analysis we exposed allowed us to show that the Risk maps we developed are of interest to national health campaigns.
-These highlighted likely spots of high disease prevalence, associated with communities which had strong calling interactions with the endemic region at a cost to produce which was low.
-With this, the risk maps produced interesting insights as to how migrations might be occurring at a national level and they helped reinforce the hypothesis that these movements spread the disease out of the endemic region.
+This analysis allowed us to expose that the Risk maps we constructed are of interest to national health authorities.
+These highlighted spots are likely of high disease prevalence and they are associated with communities which had strong calling interactions with the endemic region.
+These anomalous communities were highlighted by means of data features which were later confirmed to be relevant in helping detect long-term movement of users.
+
+
+In this line, the risk maps produced interesting insights as to how migrations might be occurring at a national level at a low production cost.
+They also helped reinforce the hypothesis that these movements spread the disease out of the endemic region.
 % of specific antennas that have higher vulnerable interactions with the endemic region, where these are located outside of the endemic region.
 
-Heatmaps allowed discovery of anomalous communities with attributes from the data which were later confirmed to be relevant in helping detect long-term movement of users.
 
-Added to this, this work served to provide an example of how Machine Learning tools on CDR data can help authorities with disease-control strategies in way which is not intrusive to cellphone users.
-The data can be effectively reused for reasons other than logging a user's calling expenses is relevant to public health issues.
-Health-related measures can then be applied outside of the endemic region, and directed towards specific neighbourhoods and communities by using the recommendations output by the maps, or by the learner's predictions in the problem of detecting, from those users currently not endemic, which of them had migrated in the past from the endemic region.
+Added to the previous points, this work served to provide an example of how Machine Learning tools on CDR data can help authorities with disease-control strategies in way which is not intrusive to cellphone users.
+We showed how the data can be effectively reused for reasons other than logging a user's calling expenses in a way which is relevant to public health issues.
 
+Health-related measures can then be applied outside of the endemic region, and directed towards specific neighborhoods and communities.
+% by using the recommendations output by the maps, or by 
+ 
+We showed that it was possible to build strong classifiers to detect, from those users currently not endemic, which users had migrated in the past from the endemic region.
 
 Next to traditional health control actions, this research may provide a very insightful piece of information for decision-makers.
-The insights derived from the probabilistic models and the risk maps provide understanding disease spread in other similar contexts.
-There is evidence that they help capture the fluxes of diseases among humans.
-We think that capturing long-term human movements will also enable better simulations of disease spreads in different contexts.
+The insights derived from the probabilistic models provide insights into the disease spread and it might also provide a research line for  other diseases of similar characteristics.
+
+We carried expeirments which have shown there is evidence that Machine Learning helps in characterizing the fluxes of human migrations and disease spread.
+%We think that capturing long-term human movements will also enable better simulations of disease spreads in different contexts.
 
 % The implications of the results previously stated argue that
 %  and, specifically in this case,
 % We find acceptable to say at this point that  can be captured by the use of this data.
 % In this work, the impact our predictive capacity to disease prevalence is shown.
 
-In the supervised classification experiments we showed a systematic approach to analyze the problem with information contained in the dataset.
-These experiments effectively helped understand how relevant the dataset is to the question, where the complexity and scale of the data can be, up to a certain degree, assimilated by probabilistic algorithms.
-We saw that large at-scale and temporal user mobility were captured by the learners when using data from the CDRs, allowing us to understand a variety of human movements throughout the country.
+These experiments with supervised classification models showed a systematic approach to analyze the problem with the information contained in the data.
+They effectively helped understand how relevant the dataset is to the question, and we explored how the algorithms used could assimilate the complexity and scale of the data.
+%can be, up to a certain degree, assimilated by probabilistic algorithms.
+
+We saw that large, at-scale, and temporal user mobility was captured by the learners when using data from the CDRs, allowing us to understand a variety of human movements throughout the country.
 
 
-From the prediction experiments, we had results that highlighted the benefit of using this type of data to characterize long-term human dynamics in the form of migration patterns.
-Except for the problem of tagging migrants that moved out of the endemic region, out of all of the TelCo's user base, all of the tasks showed high prediction scores.
+From the prediction experiments, we had results that highlighted the benefit of using CDRs to characterize long-term human dynamics in the form of migration patterns.
+Most of the tasks showed high prediction scores across most of the metrics.
 
-We compared the strengths and weaknesses of the learners that  were used to estimate the probability of each user's migrations.
+On the other hand, we also outlined the difficulty in the specific problem of tagging migrants that moved out of the endemic region at a national level.
+The same happened when problems were measured with an $F1$ evaluation metric: except for the problem of locating past endemic users, the algorithms achieved low prediction scores across all tasks.
+%, out of all of the TelCo's user base, 
+
+
+In this work we did a thorough comparison in the strengths and weaknesses of the learners that were used to estimate the probability of each user's migrations.
 According to our results, there are algorithms which are reliable enough to detect users which have migrated from old regions.
-In some instances, we have achieved high values across all scoring measures where the best learners for the tasks were the Random Forests and Gradient Boosting models.
-Because of this, we focused our work on tuning the ensemble learners to achieve higher predictions.
-Still, we saw some slight differences in both ensemble methods, where the latter was found to be better across almost all scores than the former.
 
-We also found out which feature categories were most brought up in the experiments of ensemble learners as ``best-features'', as selected by this same heuristic. 
-Our findings showed that
+In some instances, we have achieved high values across all scoring measures and we saw that, in general, the best learners for the tasks were the Random Forests and Gradient Boosting models.
+
+Because of this, we focused our work on tuning the ensemble learners to achieve higher predictions.
+This allowed us to find slight performance differences in these ensemble methods, where the latter was found to be better across the former, for most scores.
+
+We also explored which feature categories were most relevant to the predictions in the ensemble algorithms, as selected by the ``best-features'' heuristic.
+
+Our findings slected the following feature categories as relevant:
 \begin{enumerate*}[label={\alph*)},]
 \item the area of influence of the users, where large mobilities were indicative of past migrants, 
 \item interactions and calling patterns with vulnerable users, and
 \item calls placed in the months nearest to $T_0$ and also, calls placed in December.
 \end{enumerate*}
 
-We find relevant to know that the ensemble learners realized the importance of attributes tagged with vulnerable behavior obtained from the CDR.\@
+%We find relevant to know that the ensemble learners realized the importance of attributes tagged with vulnerable behavior obtained from the CDR.\@
 
 % Combining social and geolocated information, the data at hand has been given an innovative use, different from its original billing purpose.
 % in the preceding chapters to our tasks.
@@ -61,20 +79,21 @@ We find relevant to know that the ensemble learners realized the importance of a
 
 Since we performed our analysis on two Latin-American countries and in one single endemic region, we expect that this CDR usage can be extended to other similar countries and diseases, with demographic, cultural and geographical similarities beyond Chagasic spread in Mexico or Argentina.
 
-In this work on CDRs, the Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
-Where cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
+The Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
+In all, cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
 
-Currently in Argentina, epidemic countermeasures include coordinating national surveillance systems with institutions and primary health care organizations, vector-centered policy interventions through fumigation of vector-infested regions and individual in-field screening of people.
+From our 
 
+At the moment, health experts from the Mundo Sano Foundation state that, in Argentina, epidemic countermeasures include coordinating national surveillance systems with institutions and primary health care organizations, vector-centered policy interventions through fumigation of vector-infested regions and individual in-field screening of people.
 These measures require costly infrastructures to set up and be run.
-On the other hand, this work shows built on top of existing mobile networks would demand lower costs, taking advantage of the already available infrastructure
+
+On the other hand, this work provides a different point of view to the disease spread problem and it is built only on top of existing mobile networks.
+We know then that this analysis demands lower costs and taks advantage of the already available infrastructure.
+
 The potential value these results could add to health research is hereby exposed.
 Finally, the results stand as a proof of concept which can be extended to other countries or to diseases with similar characteristics.
 
-
-
 % , using the models outlined before.
-
 % They also point to the idea that CDRs are particularly well suited for this task, where it is possible to explore this data as a mean to tag human mobility.
 
 % \section{In-depth discussion}
@@ -87,12 +106,14 @@ Finally, the results stand as a proof of concept which can be extended to other 
 \section{Discussion on the methodology}
 
 There are several points that can be stated to point to weak spots on the methodology used.
+
 An important observation is that we can not directly jump from the human mobility insights found in this study, to conclusions from a model of disease spread.
 Since we were looking solely at human mobility to and from endemic regions, we can not imply disease spread or prevalence in a direct way.
+
 However, on the advice of this topic's researchers, this work does bring valuable insights to the problem, reinforcing previous hypothesis that vulnerable users are not only to be found inside vector-infested regions.
 
 
-Added to this, we have stated numerous times before that the methods shown suffer on datasets with high target class imbalance.
+Added to the previous argument, we have stated numerous times before that the methods shown suffer on datasets with high target class imbalance.
 We saw, across all of the learners, low $F1$ scores on the problem of tagging user that migrated out of the endemic region. This is a very significant negative outcome using this methodology and these attributes.
 
 Another issue with this work is the inherent biases in our dataset.
@@ -120,15 +141,14 @@ However we understand that there could be other longer term time effect which wa
 There are possibilities of migration patterns being strongly related to seasonal factors such as, for example, in agricultural workers having seasonal migrations around different regions.% workforce.
 
 The importance of other user specific bias, such as demographics unbalance, was not thoroughly examined.
-Yet these were out of the scope of this work, due to the lack of ground truth in the data.
-
-
+Yet these were out of the scope of this work, due to the lack of ground truth data. 
+%in the data.
 % discriminated in the construction of the features, yet there were no long-term time
 
 
 \section{ Lines of Future Work }
 
-\todo{De-itemize this section.}
+%\todo{De-itemize this sectsion.}
 
 The mobility and social information extracted from CDRs analysis has been shown to be of practical use for long-term human migrations and for Chagas disease research.
 it adds value and information to help make data driven decisions which in turn is key to support epidemiological policy interventions in the region.
@@ -159,7 +179,7 @@ For the purpose of continuing this research line, the following is a list of pos
     It is of primary importance though to have a good dataset available.
     Since otherwise, it would not be possible to reach a generalizing classifier.
 
-    \item With the above, we could add a similar systematic process as the one defined in this work, to explore features and determine for the most relevant attributes that are associated with being Chagas infected.
+    \item [Feature importance] With the above, we could investigate into processes as the ones used in this work, to explore features and determine for the most relevant attributes that are associated with being Chagas infected.
 
     \item [Test other classifiers] The probabilistic models introduced in this work are a brief list of the ones available in the literature and of these, we know that only Naive Bayes had an acceptable classification performance in \cref{target2}.
     It would be interesting to see how other well-established and known methods perform for this case and see if any of them can correct this.
@@ -169,7 +189,7 @@ For the purpose of continuing this research line, the following is a list of pos
     These tend to focus on undersampling the majority class, over-sampling the minority class, or a combination of both.
 
 
-    \item [Domain Evaluation] The evaluation of Machine Learning algorithms needs to incorporate domain specific knowledge to reasses the errors accordingly. In this sense, we can say that Type I or Type II errors may not be the same at the eyes of a health researcher.
+    \item [Domain Evaluation] The evaluation of Machine Learning algorithms needs to incorporate domain specific knowledge to reassess the errors accordingly. In this sense, we can say that Type I or Type II errors may not be the same at the eyes of a health researcher.
     In a future iteration, it would be interesting to evaluate again the results with the opinion of other domain experts where the algorithm's performance could be seen differently.
 
 \end{description}
