@@ -11,16 +11,15 @@
 % Problem 3: Users that migrated to a different region (any direction movement)
 % Problem 4: Users that migrated from the endemic region, but conditional to users which are currently not endemic i.e. the base of users wich
 
+The idea of this chapter is to present a combined overview of the work done and the results encountered in
+\cref{ch:descr-risk,ch:machineLearning,ch:modelSelection,ch:ensembleMethods}.
+All in all, we intend to showcase most of the relevant information from the preceding sections.
+The overall picture of this work shows that there is evidence to confirm the hypothesis which stipulates that cell phone usage logs are rich in social interactions and in turn, these interactions are informative enough on long-term migrations and human mobility.
 
 \chapter{Summary of Results}\label{ch:results}
 
 % handling data, models and features with acumen
 % After extensive research of machine learning literature and CDR usage in health problems.
-
-The idea of this chapter is to present a combined overview of the work done and the results encountered in
-\cref{ch:descr-risk,ch:machineLearning,ch:modelSelection,ch:ensembleMethods}.
-All in all, we intend to showcase most of the relevant information from the preceding sections.
-The overall picture of this work shows that there is evidence to confirm the hypothesis which stipulates that cell phone usage logs are rich in social interactions and in turn, these interactions are informative enough on long-term migrations and human mobility.
 
 % A summary of the work done we can say we have discussed issues on the most of the following items:
 
@@ -385,13 +384,13 @@ The table shows the best-fit classifier's performance across three scores on the
 		%\hskip-4.0cm
 		\begin{tabular}{@{}rrrrrc@{}} \toprule
 			&  \multicolumn{4}{c}{Problem 1} \\
-			\cmidrule{2-5} 
+			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
 			$Naive Bayes$               & 0.84  & 0.82  & 0.75  & 2  \\
 			$Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96\\
 			$Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 \\
 			$Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41  \\
-			
+
 			\bottomrule
 		\end{tabular}
 	\end{table*}
@@ -406,13 +405,13 @@ The table shows the best-fit classifier's performance across three scores on the
 		%\hskip-4.0cm
 		\begin{tabular}{@{}rrrrrc@{}} \toprule
 			&  \multicolumn{4}{c}{Problem 2} \\
-			\cmidrule{2-5} 
+			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
 			$Naive Bayes$               & 0.64  & 0.61  & 0.31  & 2   \\
 			$Logistic \ Regression$     & 0.714 & 0.726 & 0.248 & 119 \\
 			$Random \ Forest$            & 0.79  & 0.776 & 0.278 & 45  \\
 			$Gradient \ Tree \ Boosting$ & 0.838 & 0.819 & 0.291 & 54 \\
-			
+
 			\bottomrule
 		\end{tabular}
 	\end{table*}
@@ -426,17 +425,17 @@ The table shows the best-fit classifier's performance across three scores on the
 		%\hskip-4.0cm
 		\begin{tabular}{@{}rrrrrc@{}} \toprule
 			&  \multicolumn{4}{c}{Problem 3} \\
-			\cmidrule{2-5} 
+			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
 			$Naive Bayes$               & 0.65  & 0.63  & 0.45  & 1  \\
 			$Logistic \ Regression$     & 0.705 & 0.754 & 0.307 & 115 \\
 			$Random \ Forest$            &  0.792 & 0.845 & 0.346 & 21 \\
 			$Gradient \ Tree \ Boosting$ & 0.811 & 0.855 & 0.359 & 33 \\
-			
+
 			\bottomrule
 		\end{tabular}
 	\end{table*}
-	
+
 
 	\begin{table*}\centering
 		%\hskip-4.0cm
@@ -444,17 +443,17 @@ The table shows the best-fit classifier's performance across three scores on the
 		%\hskip-4.0cm
 		\begin{tabular}{@{}rrrrrc@{}} \toprule
 			&  \multicolumn{4}{c}{Problem 4} \\
-			\cmidrule{2-5} 
+			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
 			$Naive Bayes$               & 0.85  & 0.76  & 0.62 & 1 \\
 			$Logistic \ Regression$     & 0.883 & 0.85  & 0.331 & 106 \\
 			$Random \ Forest$            & 0.898 & 0.853 & 0.393 & 19 \\
 			$Gradient \ Tree \ Boosting$ & 0.885 & 0.873 & 0.384 & 47 \\
-			
+
 			\bottomrule
 		\end{tabular}
 	\end{table*}
-	
+
 \medskip
 
 %\begin{table*}\centering

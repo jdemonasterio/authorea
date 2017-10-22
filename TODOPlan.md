@@ -1,18 +1,18 @@
 # TODO PLAN
 
 ## Meeting 18/10
-    * Do great review and read all. 
-    * Fix typos and grammar.
+    * Do great review of whole thesis in single read.
+    * [DONE] Fix typos and grammar.
     * Clean all TODOs.
 
 
 ## Meeting 04/10
     * [DONE] Ejemplo: dejar en terminos de los problemas migratorios: "no pudimos predecir las migraciones de este estilo". Destraducir de problema 1 a algo de las migraciones. Darle el hilo de la historia que estoy contando.
-    * [DONE] Separar en Random Forests y Decision Tree vs. Gradient Boosting y Naive Bayes.
+    * [WILL NOT] Separar en Random Forests y Decision Tree vs. Gradient Boosting y Naive Bayes.
     * [DONE] El predictive error bounds de random forests pasar la demo a una apendice. Enunciarlo nomas. 
 
 ## Meeting 27/09
-    * Fix master table presentation or chunk in two small tables.
+    * [DONE] Fix master table presentation or chunk in two small tables.
 
 ## Meeting 20/09
     * [DONE] In table of contents, notify start of appendix somewehere. Correct the way it is presented.
@@ -28,7 +28,7 @@
 ## Meeting 23/08
     * [DONE] Recortar teoria y pasar a un apendice. Todos los detours respecto del problema nuestro y que no se utilicen (demasiado desarrollo) que pasen al apendice y no se vayan tocando tambien
     * [DONE] Ninguna figura de afuera (o contadas excepciones). Que sean con datos propios directamente.
-    * Meter una introduccion de c/capitulo para ordenar bien el hilo de la tesis.
+    * [DONE] Meter una introduccion de c/capitulo para ordenar bien el hilo de la tesis.
     * [DONE] Documentar las cosas que vas probando y lo que te va pasando.
     * [DONE] Revisar notacion de los problemas y fixear.
     * [DONE] Cap. introduccion: alguien que solo lee el cap. 1, se queda con una buena idea de lo que se hizo en la tesis?

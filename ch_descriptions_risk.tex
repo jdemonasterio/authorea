@@ -9,6 +9,12 @@
 
 \chapter{Data Description and Risk Maps}\label{ch:descr-risk}
 
+This chapter will give a technical explanation on the raw Call Detail Records (CDR) used throughout this work.
+The preprocessing and manipulation of the data will be explained in depth, with all the details necessary to build the epidemic risk maps.
+All necessary vocabulary and definitions will be provided, along with the concepts behind the covariates that will be extracted from the CDRs at the user's level.
+Finally, some descriptive facts on both datasets will be given, concerning data size, volume of transactions, feature correlations and a comparison of  TelCo user distribution with national population distributions.
+
+
 \section{Mobile Phone Data Sources}
 
 Our data source is anonymized traffic information from two mobile operators, in Argentina and in Mexico.
@@ -333,7 +339,7 @@ With this, users were tagged as `endemic' if their home antenna is in the endemi
 \subsection{Mobility Diameter}\label{section:def_mobility_diameter}
 
 The user's logged antennas define a convex hull in space and the radius of the hull is taken to be the user's mobility diameter.
-This length is representative of the area of influence of that individual. 
+This length is representative of the area of influence of that individual.
 We expect this feature to be correlated with long-term migrations.
 
 We register the mobility diameter of each user, as the diameter in kilometers of the convex hull defined by his top 10 used antennas.
@@ -511,7 +517,7 @@ Again, this suggests data seasonality in the data, where December is a festive m
 		\midrule
 		Endemic in $T_0$        & 1.0 \\
 		Endemic in $T_1$        & 0.933801 \\
-		Call Count  OUT\ 08/2015  & 0.730294 \\ 
+		Call Count  OUT\ 08/2015  & 0.730294 \\
 		Vuln. calls  08 &0.732498 \\
 		Vuln. calls  09   &0.714566 \\
 		Vuln. calls 12  &0.715448 \\

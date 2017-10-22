@@ -9,12 +9,13 @@
 
 \chapter{Machine Learning}\label{ch:machineLearning}
 
-% \section{Preamble}\label{section-preamble}
-Most of the discussions in this chapter are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}.
-Some fundamental concepts and material were also used from\cite{scikit-learn}.
-Other texts were also used, and they have been duly cited in the thesis.
-here not specified, the reader can assume that the proof is based from the above mentioned textbooks.
+This chapter will present an elementary introduction to the theory behind Machine Learning.
+The concepts and ideas developed here will be exemplified on concrete applications of the processed CDR data, using a Logistic Regression classifier.
+Also, the chapter will formulate the tasks to solve in later chapters, as means of transforming the long-term human migrations into supervised machine learning problems.
 
+Most of the discussions here are based on information extracted from two distinguished textbooks: \textcite{bishop-patternRecognition} and \textcite{hastie-elemstatslearn}.
+Some fundamental concepts and material were also referrenced from\cite{scikit-learn}.
+When other texts were used, they have been cited correspondingly in the text, and, where not specified, the reader can assume that the proof is based from the textbooks above mentioned.
 
 \section{Overview of Supervised Classification Applications}\label{section-supervised-learning}
 
@@ -23,7 +24,7 @@ Machine Learning is divided into two main categories: Supervised and Unsupervise
 If we consider $Y \in \mathbb{R}^n$ be the outputs of the model and $X \in \mathbb{R}^{n \times p}$ be the inputs: supervised learning algorithms produce outputs from input data i.e.\ for each instance $n$, the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$.
 In this context, the algorithm is generally referred to as a \textit{learner}.
 
-The second class of problems is where the output $Y$ is missing altogether from the available data. 
+The second class of problems is where the output $Y$ is missing altogether from the available data.
 In this scenario the most common objectives are clustering samples, density estimation and data compression.
 Linear regression and K-means clustering are examples of algorithms in both categories respectively.
 
@@ -43,15 +44,15 @@ The idea is to use estimations and predictions on the most likely values for new
 These decisions will be based on the most probabilistic characterization of the data we have.
 For this work we will focus on the classification aspect of machine learning.
 
-We also note that when dealing with these problems, the theoretical and the computational aspects are both of interest. 
-The data taken as input limits the available solutions. 
+We also note that when dealing with these problems, the theoretical and the computational aspects are both of interest.
+The data taken as input limits the available solutions.
 The same goes for the algorithms used in the solution process.
-These need to take into consideration aspects such as the software and hardware available, as well as time or resource constraints imposed by the problem itself. 
+These need to take into consideration aspects such as the software and hardware available, as well as time or resource constraints imposed by the problem itself.
 As such, these are expected to be executed in a reasonable amount of time, required by the task's specification, and limited by the computing power available.\footnote{Here the word \textit{reasonable} is used in a broad sense.
 It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.} There can be problems which require that the algorithm output predictions in \textit{real-time}, to the resolution of milliseconds.
 
-For example, if we picture a system where credit-card transactions need to be approved or labeled as a fraud, we would expect the system needs to quickly respond if the transaction is approved or not. 
-Other use cases might require the system to process a big volume of data at once, not a single event, but a batch of these and output this answer. 
+For example, if we picture a system where credit-card transactions need to be approved or labeled as a fraud, we would expect the system needs to quickly respond if the transaction is approved or not.
+Other use cases might require the system to process a big volume of data at once, not a single event, but a batch of these and output this answer.
 The production system needs to be prepared to run \textit{lean} with a big inflow of data, without overloading the hardware capacity.
 
 These examples show that for a given problem, multiple algorithms are available to use but while all of them are theoretically doing the same task, we must also consider the practical advantages of these.
@@ -60,7 +61,7 @@ Even though we won't delve into these aspects in this work, it has an important 
 And these also influence the way research is conducted in this area.
 
 
-In its essence, a machine learning method is a probabilistic model built from data. 
+In its essence, a machine learning method is a probabilistic model built from data.
 In this way it is very similar to a statistical model.
 However, it differs specially in that its focus is generally on the models' predictive abilities more than in the model's parameters estimates~\textcite{breiman-statisticalmodeling}.
 The algorithms will be built and used for a given phenomena, to try and replicate it as best as possible without really identifying the true nature of the mechanisms behind this phenomena.
@@ -79,7 +80,7 @@ As a start, the \textit{dependent} $Y$ is called the target or label and the \te
 
 Starting from the two-year CDR dataset we have described in \cref{ch:descr-risk}, we present our set to find how to tackle the problem with supervised classification tools.
 
-It is convenient to do so given the nature of our problem. 
+It is convenient to do so given the nature of our problem.
 Here we intend to develop a set of machine learning methods that will aid us in further characterize and analyze the mobility of users between regions.
 
 These will help us establish to what extent the CDRs allow us to predict a user's past home and migration movement across both endemic and non-endemic regions.
@@ -97,7 +98,7 @@ To do so, we divide the users into distinct sets, marked by their attributes acr
 \end{definition}
 
 
-%We will have these can be differentiated for both periods by 
+%We will have these can be differentiated for both periods by
 
 
 Keeping the above in mind, we divide our task into four problems.
@@ -150,7 +151,7 @@ In this task, we have not excluded any attributes from the data since this probl
 Recall from \cref{tab:changes} that we have at most 23 thousand users that satisfy this condition from more than a million users.
 This unbalance in the target class proves to be a much harder problem to solve than in \cref{target1} since these users become harder to find and the error over the small class would be dominated if not correctly taken into account.
 
-It is relevant to note here that we are ignoring any relevant information about the user's endemicity or current state of residence. 
+It is relevant to note here that we are ignoring any relevant information about the user's endemicity or current state of residence.
 Otherwise we would have a perfect correlation between $Y_u=0$ and being currently endemic, or living in an endemic state.
 
 % This is because we could use a dumb predictor to always output the value of the bigger class.
@@ -187,7 +188,7 @@ This means that we will only consider users which $u \in EU_{1}^{\complement}$ a
 
 An important observation is that at this point we are looking at a reduced instance of our CDRs, because we are only considering currently non-endemic users other than the whole sample population.
 Still, we are observing more than a million users for this problem.
-  
+
 
 % \begin{problem}\label{target5}
 % As a \textbf{bonus} problem and for exemplary reasons, we considered tried to detect if a user has a high mobile footprint $M_u$, as defined in \cref{section:def_mobility_diameter}.
@@ -218,7 +219,7 @@ Throughout \cref{ch:modelSelection,ch:ensembleMethods,ch:results,ch:conclusions}
 
 In our work we take advantage of the volume of samples, where, as explained in \cref{ch:descr-risk}, almost 1.5 million users.
 This allows us to randomly split the dataset into training and test sets that do not overlap and which contain 70\% and 30\$ of all samples respectively.
-The test set will be a part of the model building process that will only be used at the end of it. 
+The test set will be a part of the model building process that will only be used at the end of it.
 We will note the training and the test sets by $\mathcal{T}$  and $\mathcal{T_s}$.
 Both $\mathcal{T}$ and $\mathcal{T_s}$ will take the form of a paired couple of datasets $(X,Y)$ where $X \in \mathbb{R}^{n \times p}$ and $Y \in \mathbb{R}^n $.
 
@@ -300,7 +301,7 @@ Given that for this work, we will be talking about supervised classification sce
 \section{A first approach with a Logistic Regression classifier}\label{section-logisticRegression}
 
 Let's suppose that we want to build a predictive model for \cref{target2}.
-A classification algorithm should then assign samples to their user condition. 
+A classification algorithm should then assign samples to their user condition.
 One in which the user was part of the endemic region and yet migrated in $T_1$.
 
 We let $\{C_1,..,C_k\}$ denote the set of possible target classes (in this simple case $k=1$).
@@ -328,17 +329,17 @@ The factor $p(x)$ is common to all integrals so we only need to maximize the pos
 And even when $p(x)$ might not be known or accurately estimated, the algorithm can only modify the decision regions $R_k$ which will have a direct effect on the probability of correctly classifying samples.
 Thus the goal of our algorithm will be to choose the best possible regions for the problem.
 
-In our example, we are in the binary classification problem since there are two possible output classes. 
+In our example, we are in the binary classification problem since there are two possible output classes.
 So a simple solution to predict the target variable, could be to build a learner $f$ from a transformed linear combination of the input features.
 
-% reduced problem instance would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces.This brings us to 
+% reduced problem instance would be to determine if a user belongs to the province of \textit{Cordoba} vs the rest of the provinces.This brings us to
 
 We hypothesize that for every sample
 \begin{equation}
 y \approx f(x) = h\left(\sum_{j}\theta^j x^j\right)  \label{formula:1}
 \end{equation}
 %where $\theta$ is unknown and generally referred to as the coefficient or parameter\footnote{In ~\cref{formula:1} we have omitted the intercept parameter, generally noted as $\theta_0$.
-%	
+%
 %The reason for this is that one can include this parameter implicitly if we allow for a synthetic feature $X^0$ in $X$ which is a vector with all its components equal to 1.}.
 %Here the model is said to be \textit{linear} because it is linear in the input space $X$.
 
@@ -503,13 +504,13 @@ In Machine Learning this is called a \emph{log loss function}.
 
 These functions are central to the theory.
 They are used as a metric or score of the quality of the model, in this case $\theta$, in correctly assigning estimated targets $ {\hat{p_i}} = P(y_i \mid x_i,\theta)$ for the input data $X$.
-They define the evaluation space of the learner. 
+They define the evaluation space of the learner.
 
 \begin{definition}{\textbf{Loss Function.}}
 The loss function of a model $l: \mathbb{R}^{ p} \rightarrow  \mathbb{R} $ maps the model's parameters to quantify a model's error when using parameter $\theta$.
 \end{definition}
 
-In all cases, the loss function will define the underlying optimization procedure behind the algorithmic procedure. 
+In all cases, the loss function will define the underlying optimization procedure behind the algorithmic procedure.
 By comparing for each sample the target predictions versus their actual values, loss functions give a measure of how strong classifiers are with respect to their predictions.
 These can be described as semi metrics on the target space i.e.\ functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
 
@@ -548,10 +549,10 @@ By doing so, we hope that only the most relevant features are selected in the fi
 As we will see in \cref{section-VcDimension}, a shorter model has the benefit of being more accurate in the estimation of the model's .
 In other cases, the benefit of a reduction in the number of features is that the overall variance of the predictions are reduced, only with a slight increase in error.
 
-In addition, a more \textit{heuristic} argument for model parsimony follows from Occam's razor principle.  
-Here it applies in that, any model can only approximate the true underlying process up to a certain level; and if two models have the same predictive power, the simpler model should be preferred. 
-Better examples on this point are illustrated in \cite{rasmussenGhahramani2001occamsRazor}. 
-The authors give argue of how this applies in different in Machine Learning settings. 
+In addition, a more \textit{heuristic} argument for model parsimony follows from Occam's razor principle.
+Here it applies in that, any model can only approximate the true underlying process up to a certain level; and if two models have the same predictive power, the simpler model should be preferred.
+Better examples on this point are illustrated in \cite{rasmussenGhahramani2001occamsRazor}.
+The authors give argue of how this applies in different in Machine Learning settings.
 
 %For regularization we can find a number of different functionals $R(\cdot)$ to impose conditions on the model in different ways.
 %The most common ones include introducing a penalty to the size of $\theta$ by as measured by a given norm $\| \cdot \|$.
@@ -635,7 +636,7 @@ They need to be instantiated before training the learner and as such, they can't
 We introduced some basic vocabulary on supervised machine learning settings, with references to other types of other non-supervised settings which are not relevant to our general task.
 Also, the human mobility problems of this thesis were presented using the aforementioned notation.
 
-A concrete machine learning example was used to construct a logistic classifier, where we derivated its loss function from basic theoretical assumptions. 
+A concrete machine learning example was used to construct a logistic classifier, where we derivated its loss function from basic theoretical assumptions.
 This led us to optimize the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$.
 Given that we now have a problem of $p$ degrees of freedom, we are left to find or fit the parameter $\theta$ by optimizing on certain criteria.
 The loss function will then shape our evaluation criteria of saying that one parameter is preferable to another.
