@@ -85,7 +85,7 @@ Here we intend to develop a set of machine learning methods that will aid us in 
 These will help us establish to what extent the CDRs allow us to predict a user's past home and migration movement across both endemic and non-endemic regions.
 More precisely, we would like to explore the relationship of the dataset attributes based on calling patterns across regions to the movement of humans.
 Where possible, we would like to establish which features are most relevant for our predictors.
-% In an ideal case, we would like to have a certain inisght into the causes of these movements, without being able to make any causal inferences.
+% In an ideal case, we would like to have a certain insight into the causes of these movements, without being able to make any causal inferences.
 
 To start off, we need to introduce some notation to describe sets of users.
 To do so, we divide the users into distinct sets, marked by their attributes across each time period:
@@ -226,7 +226,7 @@ Both $\mathcal{T}$ and $\mathcal{T_s}$ will take the form of a paired couple of 
 The difference will lie in the way each set is used to computationally build a probabilistic model.
 The idea is that the test set will not take part in building the machine learning model and will be used only to evaluate its performance, as a simulation of the algorithm's performance with \textit{new} samples.\footnote{
 	We make an important remark here that the user's privacy is ensured by not providing a direct identifier of the person.
-	All users are distinguished with their \textit{user\_id} which is information given by the Telco with a salted hash transformation.
+	All users are distinguished with their \textit{user\_id} which is information given by the TelCo with a salted hash transformation.
 	In this way, we are unable to use these identifiers in other data sources other than the specific one used for this work.}
 This makes sense knowing that the objective is to build a probabilistic model which has the capacity to correctly predict the class instances of new data objects, such as those from $\mathcal{T_s}$, based on having seen information of objects from $\mathcal{T}$.
 

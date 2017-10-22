@@ -213,26 +213,6 @@ Overfit models will fail to generalize on new data since the variance structure 
 
 
 % A learner with of this characteristic will only work very accurately on the train set with poor performance on new samples.
-%Pero entonces todos los modelos estan overfiteados? (tomar la union de train y test?)
-% This scenario is commonly known as ov \textcite{dworkFeldman-adaptiveDataAnalysis2015} defines that a learner overfits a training set $\mathcal{T}$ if it fits parameter $\hat{\theta}$ while there $\exists \theta^*$ and $\epsilon > 0 $ such that
-% \begin{equation}
-% Error_{train}(\hat{\theta}) < Error_{train}(\theta^*) \ and \ Error(\theta^*) + \epsilon < Error(\hat{\theta})
-% %\sum_{i=0}^{\infty} a_i x^i
-% \end{equation}\label{eq:overfitting}
-
-
-%\todo{remove figure or do with own data.}
-%
-%\begin{figure}[h!]
-%\begin{center}\label{figure:biasVariance}
-%\includegraphics[width=0.7\columnwidth]{figures/figure-biasVariance/figure-biasVariance}
-%\caption{ Figure borrowed from \protect\textcite{hastie-elemstatslearn} P.220.Curves are measures of the estimated prediction error for the different degrees of freedom in the model (number of features).
-%Blue curves correspond to the training error and red curves are for the test error.
-%The bold curves are calculated by averaging over all the colored curves.}
-%
-%\end{center}
-%\end{figure}
-
 
 
 To illustrate this point, in \cref{figure:dtree_overfit_problem_2} we show the results from fitting a learner on our own CDR dataset to illustrate the interaction between bias and variance.
