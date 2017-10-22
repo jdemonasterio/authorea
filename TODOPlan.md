@@ -31,7 +31,7 @@
     * Meter una introduccion de c/capitulo para ordenar bien el hilo de la tesis.
     * [DONE] Documentar las cosas que vas probando y lo que te va pasando.
     * [DONE] Revisar notacion de los problemas y fixear.
-    * Cap. introduccion: alguien que solo lee el cap. 1, se queda con una buena idea de lo que se hizo en la tesis?
+    * [DONE] Cap. introduccion: alguien que solo lee el cap. 1, se queda con una buena idea de lo que se hizo en la tesis?
     * [DONE] Revisar el \cref{} con respecto a figures que aparecen con el tag de Secciones y con ecuaciones que tengan su name que diga "Equation". Fijarse de pasar todos los `$$` a un equation environment estilo `\begin{equation}`.
     * [DONE] Story telling un poco.
 
