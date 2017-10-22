@@ -39,7 +39,7 @@ are clients of the mobile operator, the remaining nodes $\calN \setminus \calN_C
 users that communicated with users in $ \calN_C $ but themselves are not clients of
 the mobile operator.
 
-Since geolocation information is available only for users in $\calN_C$, in the analysis we considered the graph $\calG_C = \left< \calN_C, \calE_C \right>$ of communications between clients of the operator.
+Since geolocalization information is available only for users in $\calN_C$, in the analysis we considered the graph $\calG_C = \left< \calN_C, \calE_C \right>$ of communications between clients of the operator.
 
 % \paragraph{Argentina.}
 \paragraph{Datasets Information.}
@@ -55,11 +55,11 @@ In total, data amounts to almost 10 billion calls.
 The Mexican data source is an anonymized dataset from a national mobile phone operator.
 Data is available for every call made within a period of 24 consecutive months.
 The raw logs contain at least 11 and at most 47 million daily calls.
-Each day, up to 8 million users accessed the telecommunication company's (\textit{Telco}) network.
+Each day, up to 8 million users accessed the telecommunication company's (\textit{TelCo}) network.
 Note that users from other companies are logged, as long as one of the users registering the call is a client of the operator.
 In practice, we only considered CDRs between users in $\calN_C$ since geolocalization was only possible for this group.
 
-Information logged for each call included the duration and timestamp of the call, the users participating in the call and the antenna id that transmitted the call to the \emph{Telco} client.
+Information logged for each call included the duration and timestamp of the call, the users participating in the call and the antenna id that transmitted the call to the \emph{TelCo} client.
 Adding all data elements, the project involved working with more than 1 terabyte of data.
 The data was compressed using \emph{gzip}\footnote{For more information on this file format, please refer to Wikipedia's article on this subject: \url{https://en.wikipedia.org/wiki/Gzip}} format.
 The call logs, in this data format, were parsed, processed, transformed and loaded to create the datasets which were structured as needed by this project.
@@ -76,14 +76,6 @@ Also, not all user movements will be captured by the log records.
 However, these limitations are offset by the huge datasets' sizes, from which we can safely assume that the amount of users observed in each set is sufficient to correlate real mobility or social links between different areas.
 
 
-% Procedimiento:
-% Obtener la lista de antenas de GC
-% Determinar la casa de los usuarios
-% Determinar, para cada usuario, si se comunic\selectlanguage{ngerman}ó \selectlanguage{english}con un habitante de GC
-% Determinar las agregaciones por antena
-% Visualizar (agrego alfa, min_volume y zoom en regiones)
-
-
 \section{ Risk Maps Generation}\label{section:risk_maps}
 
 In this section we describe how the Chagas disease risk maps were built for the in Argentina and in Mexico and we give an overview of their uses.
@@ -93,7 +85,7 @@ Earlier versions of this research were presented by \cite{sarraute2015descubrien
 at \emph{Simposio Internacional sobre Enfermedades Desatendidas},
 and\cite{deMonasterio2016analyzing} at \emph{International Conference on Advances in Social Networks Analysis and Mining}.
 
-The generated maps display a geographical representation with the Telco's antennas situated on the map.
+The generated maps display a geographical representation with the TelCo's antennas situated on the map.
 And for each antenna, a circle is drawn which represents, graphically, the volume of usage of that antenna and the vulnerability of its users.
 We will expand on this last concept later by analyzing the importance of this variable in the detection of long-term migrations.
 
@@ -102,7 +94,7 @@ We will expand on this last concept later by analyzing the importance of this va
 The first step in order to build the risk maps is to infer the antenna in which each user lives.
 The antenna's neighborhood will define his area of influence and with this, his risk condition associated with being inside or outside the endemic region.
 
-Having the granularity of the geolocated data at the antenna level, we can match each user $u \in \calN_C$ with its \textit{home antenna} $H_u$.
+Having the granularity of the geolocalized data at the antenna level, we can match each user $u \in \calN_C$ with its \textit{home antenna} $H_u$.
 To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights.
 This, according to our categorization of days of the week's types, corresponds to Monday through Thursday nights, from 8pm to 6am of the following day.
 Note that this home antenna analysis will not precisely locate users but will define their area of influence.
@@ -143,12 +135,11 @@ These four numbers $\left< N_a, V_a, C_a, VC_a \right>$ are the properties we ex
 \subsection{Heatmap Generation}
 With the collected antenna properties, we generated heatmaps to visualize the mentioned antenna indicators, overlapping these heatmaps with political maps of the region taken for study.
 In them, a circle is generated for each cell, where:
-%	%Generamos un c\'irculo por cada celda donde:
+
 \begin{itemize}
-	\item the \textbf{area} depends on the number of Telco users living in the antenna $N_a$.
-	%el \textbf{\'area} depende de la cantidad de usuarios (habitantes),
+	\item the \textbf{area} depends on the number of TelCo users living in the antenna $N_a$.
+
 	\item the \textbf{color}, is related to the fraction ${V_a}/{N_a}$ of vulnerable users living there.
-	%		%el \textbf{color} corresponde al porcentaje de usuarios vulnerables que viven en esa antena.
 \end{itemize}
 
 %
@@ -163,7 +154,7 @@ We used two filtering parameters to control which antennas are plotted.
 \end{itemize}
 
 When displaying the maps, these parameters were helpful to identify special small antennas which were covered under the circles of other antennas.
-Having more than four thousand antennas for each plot means that high volume antennas would graphically overlap those small neighboring ones.
+Having more than four thousand antennas for each plot means that high volume of these would graphically overlap those small neighboring ones.
 This \textit{noise} is unhelpful to the detection of smaller, more vulnerable, antennas.
 
 These parameters were tuned differently when zooming into different regions.
@@ -215,9 +206,6 @@ where we can see a gradient from the regions closer to the endemic zone $E_Z$ to
 
 
 \subsection{Detection of Vulnerable Argentinean Communities}
-% Mapas
-% Histograma de porcentaje de vulnerabilidad por antena?
-% Cambios en los colores de los mapas (aclarar que el codigo de color cambia)
 
 As a result of inspecting the maps in \cref{fig:mapa_argentina}, we decided to
 focus visualizations in areas whose results were unexpected to the epidemiological experts.
@@ -389,7 +377,7 @@ Each attribute has its code name and a description of the codes used to construc
 		Feature name & Call/Time & Time Period & Direction of call & Endemicity & Month \\
 		% \midrule
 		\hline
-		Calls WeekEnd InVul08       & Count & Placed on WeekEnds & Incoming calls & Edges with endemic neighbours only & August\\
+		Calls WeekEnd InVul08       & Count & Placed on WeekEnds & Incoming calls & Edges with endemic neighbors only & August\\
 		% \midrule
 		\hline
 		Time WeekNight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing   & No endemic filtering   & December \\
@@ -408,11 +396,6 @@ In practice, this means grouping either by $j$ or $i$, and summing across all of
 We also label each edge $\left< n_i, n_j \right> \in \calE_C$ if one or both users is endemic and count each user's amount of neighbors in the communication graph, as well as the endemic neighbors.
 This labeling defines user $i$ as \textit{vulnerable} whenever he has any edge with another user $j$ who lives in the endemic region $E_Z$.
 
-%% el vulnerable NO es el edge, sino que es el usuario .
-%La idea es, parate en el nodo i, hace algun filtro - o ninguno - de weeknight, in/out, weekend, mes, etc. y ahora decime
-%% if $\exists j$ such that edge $ij$ existe en el grafo de llamados (con el filtro que hayamos usado en ese momento puesto).
-%%
-
 %Additionally, for each user, we extract the total
 
 \subsection{Antenna Distribution}\label{subsection:antenna_distribution}
@@ -428,16 +411,16 @@ To create our model's input data, by means of relational database operations and
 
 To compare how this sampled population compares to country-wide distribution estimates,
 \cref{tab:distribution_by_state} shows the percentage of antennas, the percentage of the population (according to INEGI census 2014) and
-the percentage of Telco users per state, for the top 10 Mexican states.
-% (wikipedia \url{https://en.wikipedia.org/wiki/Ranked_list_of_Mexican_states})
+the percentage of TelCo users per state, for the top 10 Mexican states.
+% (Wikipedia's \url{https://en.wikipedia.org/wiki/Ranked_list_of_Mexican_states})
 
 
 \begin{table}[ht]
-	\caption{Table showing the mexican distribution of antennas, total population and Telco users by state.}\label{tab:distribution_by_state}
+	\caption{Table showing the Mexican distribution of antennas, total population and TelCo users by state.}\label{tab:distribution_by_state}
 	\centering
 	\begin{tabular}{l r r r}
 		\toprule
-		State				& Number of antennas & Population 	& Telco users \\
+		State				& Number of antennas & Population 	& TelCo users \\
 		\midrule
 		Distrito Federal      & 28.2\% 	& 8.5\%		& 20.1\%   \\
 		Mexico                     & 21.2\%		&   13.9\% 	& 23.8\%   \\
@@ -453,7 +436,7 @@ the percentage of Telco users per state, for the top 10 Mexican states.
 	\end{tabular}
 \end{table}
 
-The table above describes the similarity between the population distribution of Mexico's population and the Telco's users.
+The table above describes the similarity between the population distribution of Mexico's population and the TelCo's users.
 This is shown to highlight possible sources of bias in the statistical model.
 
 Note that during this work we considered only postpaid users, i.e., users which have a monthly plan rate.
@@ -473,15 +456,6 @@ The number of people which maintain their home antenna between $T_0$ and $T_1$ i
 whereas 580,425 users had a change in their home antenna.
 In terms of endemic condition, we observed that 1,551,560 users maintained their endemic condition, whether it be positive or negative, between $T_0$ and $T_1$, whereas 41,281 had a change.
 
-
-%Dato de color:
-%Num de personas que mantiene su home antenna en los dos periodos: 1012416 cambio: 580425
-%
-%Num de personas que mantiene su $antenna_id_0$ (most used antenna, sin filtro de nada) en los dos periodos: 1052644 cambio: 540197
-%
-%Num de personas que mantiene su condicion de epidemicidad en los dos periodos: 1551560 cambio: 41281
-%
-%Refinando la epidemicidad:
 
 % Confusion matrix
 \cref{tab:changes}
@@ -537,7 +511,7 @@ Again, this suggests data seasonality in the data, where December is a festive m
 		\midrule
 		Endemic in $T_0$        & 1.0 \\
 		Endemic in $T_1$        & 0.933801 \\
-		Call Count  OUT\ 08/2015  & 0.730294 \\ %%outgoing significa outgoing calls
+		Call Count  OUT\ 08/2015  & 0.730294 \\ 
 		Vuln. calls  08 &0.732498 \\
 		Vuln. calls  09   &0.714566 \\
 		Vuln. calls 12  &0.715448 \\
