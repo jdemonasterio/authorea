@@ -107,9 +107,16 @@ Machine learning is a subfield of computer science with broad \textit{theoretica
 
 ``A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P if its performance at tasks in T, as measured by P, improves with experience E'' (definition given by \cite{Mitchell-MLearning}). For our purposes it is clear though that this definition\footnote{Other authors might reference machine learning as \textit{statistical learning}. See~\cite{hastie-elemstatslearn} as an example.} is not formally well-defined. However it serves to convey the idea of algorithms that automatically \textit{learn} to do a specific task better over time and with more data. Note that the ``goodness'' of their performance is inherently subjected to the evaluation criteria chosen for the task. Because of this, the concept of \textit{learning} within this context is less associated with the cognitive definition and is related to an optimization based approach.
 
- In this work we generate predictions of population movements between different regions, providing a proxy for the epidemic spread. Our objective is to show that geolocalized call records are rich in social and individual information, which can be used to determine whether an individual has lived in an epidemic area. We present two case studies, in Argentina and in Mexico, using data provided by mobile phone companies from each country. %A discussion of how mobile data was processed is included.
+ In this work we break our main question into different tasks to generate generate predictions of population movements between regions.
+ We give a broad presentation of tools that are necessary to carry out this task and present lots of vocabulary, theory and practical information on using Machine Learning for these kind of problems.
+ 
+We later solve the problems as we introduce a set of algorithms for supervised classification.
+The idea all along will be to exemplify the concepts as much as we can with actual work on the CDR data.
+Also, we will try to assess what are the best attributes that can be extracted from the data for the prediction tasks. 
+ 
+This problem of long-term human migrations will provide a proxy for the spread of this disease and its objective is to show that geolocalized call records are rich in social and individual information, which can in turn be used to determine whether an individual has lived in an epidemic area. 
+We present two case studies, in Argentina and in Mexico, using data provided by mobile phone companies from each country. %A discussion of how mobile data was processed is included.
 This is the first work that leverages mobile phone data to better understand the diffusion of the Chagas disease.
-
 
 
 
