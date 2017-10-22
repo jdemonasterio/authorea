@@ -49,12 +49,12 @@
     * [DONE] captions con texto mas cargado. Para mirar el caption y entender de que se trata.
     * [DONE] agregar con que problema fitie la grafica. Y agregar los detalles de "que" otros parametros se estan usando como fijos.
     * [DONE] meter 2 imagenes de ejemplos de arboles con 2 corridas distintas a ver como van variando y hablar acerca de lo que se ve en los resultados.
-    * Cap. 6 Results & Conclusion responder estas preguntas:
-        - hacer explicita la respuesta a esta pregunta: ?Que tanto se puede predecir long term migrations usando datos de CDRs?
-        - cuales fueron las mejores tecnicas? Que tuvieron a favor y en contra?
+    * [DONE] Cap. 6 Results & Conclusion responder estas preguntas:
+        - [DONE] hacer explicita la respuesta a esta pregunta: ?Que tanto se puede predecir long term migrations usando datos de CDRs?
+        - [DONE] cuales fueron las mejores tecnicas? Que tuvieron a favor y en contra?
         - [DONE] Enganchar los resultados con lo que se vio en los mapas. Hablar de como los features del algoritmo estan relacionados con el armado del mapa y como se "valida" la hipotesis.
-        - Agregar cuadro de doble entrada comparando los resultados con distintas metricas y algunos graficos mas comparativos. Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
-        - Repasar los 4 problemas y resumir los mejores resultados de c/ algoritmo.
+        - [DONE] Agregar cuadro de doble entrada comparando los resultados con distintas metricas y algunos graficos mas comparativos. Mostrar problema 1,2,3,4 para c/clasificador. f1, roc_uac. precision, recall. tiempos de corrida.
+        - [DONE] Repasar los 4 problemas y resumir los mejores resultados de c/ algoritmo.
 
 ## Meeting 28/06
     * [DONE] Juntar Cap. 6 y 7.
@@ -76,14 +76,14 @@
     * [Done] Falta abstract en ingles & spanish. (no pasar una carilla). Se extiende una carilla pero por el titulo del asbtract que ocupa media pagina. Habria que arreglar.
     * [Done] Titulo en ingles & spanish.
 
-    * Cap 1. : Tiene que ser algo introductorio y que sea un extended abstract. Intro de la tesis. Que se hace.
+    * [DONE] Cap 1. : Tiene que ser algo introductorio y que sea un extended abstract. Intro de la tesis. Que se hace.
         Porque sirve. Intro de chagas, el marco teorico, marco del proyecto, hablar CDRs y diseaseas (epidemiology), Machine Learning. Intro to _rest of thesis_: "En el Cap2 hacemos esto, en el 3 tal otra,
         en el 4".
         - ejemplo de intro: https://www.iro.umontreal.ca/~lecuyer/myftp/papers/pagerank.pdf
         - Menos copy-pasteo y mas integrado con la tesis actual.
         - dar resumen de lo que serian los "out of scopes" en la intro.
 
-    * Chagas/epidemiologia en su propio capitulo (o en la intro ) y con comentarios sobre lo que hicieron otros. (trabajos recientes).
+    * [WONT DO] Chagas/epidemiologia en su propio capitulo (o en la intro ) y con comentarios sobre lo que hicieron otros. (trabajos recientes).
         - agregar referencia al paper de ASONAM donde presentamos parte de los resultados. (deMonasterio2016)
 
     * [Done] Parte de Machine Learning grande vs. el resto. Refactor para integrar evaluacion c/ tecnicas en estos siguientes capitulos:
@@ -135,7 +135,7 @@
 ## In general:
     * [DONE] Talk about general low F1 scores with very bad precision in algorithms and acceptable recalls.
     * [DONE] Figures appearing in sub/sections different from where they are spawned $\rightarrow $ just use `\begin{figure}[H]`.
-    * Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
+    * [DONE] Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
     * [DONE] Check bad `\cref` references for appendix subsections.
-    * Better word wrapping for presented tables' header row. Words appear somewhat cluttered.
+    * [DONE] Better word wrapping for presented tables' header row. Words appear somewhat cluttered.
     * Iterar con la gente del DM las correcciones. (Patu, Mathieu, Lean).
