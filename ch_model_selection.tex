@@ -325,11 +325,13 @@ As an example, in logistic regression, $theta$ can be indexed by the values of e
 The class $F$ will then represent the set of all possible functions from which to select the optimal model.
 %In applications, a learner is fit from a class of functions.
 
-As it was seen before in \cref{ch:machineLearning}, a common problem in supervised learning when a particular learner is fit and then used to predict new values is overfitting.
-In practice, this is common when $n$ is \textit{small} or when the number of features is \textit{large}.
+As it was seen before in \cref{ch:machineLearning}, a common problem in supervised learning happens when a particular learner overfits the data.
+In practice, we find that this is common when $n$ is \textit{small} or when the number of features is \textit{large}.
+%is fit and then used to predict new values is 
 
-Incorporating the loss functions directly into the model, SLT looks at functions of the form $Q(t,\theta) \ = \ L(f_\theta(x,y))$.
-Seen as a two variable function where $t=(x,y)$ represents a sample of input and output data expressed as a random variable.%, and $theta$ the class index.
+Incorporating the loss functions directly into the model, SLT looks at functions of the form $$Q(t,\theta) \ = \ L(f_\theta(x,y))$$.
+
+$Q{\cdot,\cdot}$ is seen as a two variable function where $t=(x,y)$ represents a sample of input and output data expressed as a random variable.%, and $theta$ the class index.
 
 In this way, the $EPE(\theta)$ for any model takes the functional form
 
@@ -368,7 +370,7 @@ On the other hand, the unknown true underlying distribution $p(t)$ will not be e
 As a principal characteristic of SLT, we have that if we increase the sample size, we would still want to have the training error converge and to be consistent with the prediction error of the models.
 
 More specifically, let $\{\mathcal {T}_1, \mathcal {T}_2, \ldots, \mathcal {T}_n, \ldots \}$ be a set of training samples such that $\forall n \ |T_n|=n$.
-Given a training sample of size $n$ and a class of learners $\Theta$, let $\theta^{*}_n$ be the argument minimizing the training error and let $\theta_0$ be the minimizing argument for the prediction error over the class of functions i.e.\ over all the models of this class.
+Given a training sample of size $n$ and a class of learners $\Theta$, let $\theta^{*}_n$ be the argument minimizing the training error and let $\theta_0$ be the minimizing argument for the prediction error over the class of functions $F$ i.e.\ over all the models of this class.
 
 Then, the training error is said to be consistent if
 
@@ -378,13 +380,14 @@ Then, the training error is said to be consistent if
 
 \end{definition}
 
-The property of asymptotic convergence in the training and prediction errors is expected for any learning algorithm.
+The property of asymptotic convergence in the training and prediction errors is what is expected for any learning algorithm.
 In SLT, the consistency requires that the training and prediction errors' sequences not only converge to the same values, but that the sequence of minimal training errors also converge, to the minimizing value of the prediction error.
 %At the same time, the sequence of prediction errors must converge to this same point.
 
-In reality, it is reasonable to think that the approximation of the prediction error with the training error introduces a strong overestimation.
-The training error will also be biased by the sample used whilst the prediction error, which is given for the whole class, is not dependent on the sample.
-This is very important, since the minimization of the training error when using bounded loss functions is consistent if and only if:
+In reality, it is reasonable to think that the  prediction error approximation using the training error introduces a strong overestimation.
+As we know, the training error will be biased by the sample used whilst the prediction error, which is given for the whole class, is not dependent on the sample used.
+
+This is a very important condition, because by it the training error minimization when using bounded loss functions will be consistent if and only if:
 
 %\begin{definition}{Uniform Consistency of the Training Error}
 
@@ -393,8 +396,8 @@ This is very important, since the minimization of the training error when using 
 \forall \epsilon > 0 \ , \ \lim_{n\to\infty} P\left[ \sup_{\theta \in \Theta} \mid Err^{n}_{train}(\theta) - EPE(\theta) \mid  > \epsilon  \right] = 0
 \end{equation}
 
-Here the training error $Err^{n}_{train}(\theta)$ is the value of this error when using a sample of size $n$.
-In this sense, the training error is said to be consistent if it converges uniformly in probability over the whole class of functions\footnote{Remember that approximating functions in the SLT setting are indexed by the $\theta$ parameter.}.
+Here the training error $Err^{n}_{train}(\theta)$ is the error's value when using a sample of size $n$.
+In this sense, the training error is said to be consistent if it converges uniformly in probability over the whole class of functions\footnote{Remember that in SLT the approximating functions $f \in F$ are indexed by the $\theta$ parameter.}.
 This implies that the capacity of the learner will be captured in the set of functions $Q(t,\theta)$ used to approximate the data.
 
 %will be important in finding an appropriate model. SLT theory then introduces
@@ -404,7 +407,8 @@ This implies that the capacity of the learner will be captured in the set of fun
 P\Bigg(  \left|  Err^n_{train}(\theta^*) - EPE(\theta_0) \right| > \epsilon \Bigg)  \leq 8 poly(\Theta,n) \exp{\large \left( {\frac{-n\epsilon^2}{32}} \right)  }
 \end{equation}\label{eq:vapnik-binaryBoundProbability}
 
-where $poly(\Theta,n)$ is a polynomial on $n$ whose coefficients depend only on the class of functions $\Theta$, through the VC dimension value. For a longer list of results of the VC theory concerning prediction error bounds for binary classifiers, see \cref{appx:sec:vcDimension}.
+where $poly(\Theta,n)$ is a polynomial on $n$ whose coefficients depend only on VC dimension of the class of functions $F$. 
+For a longer list of results of the VC theory concerning prediction error bounds for binary classifiers, see \cref{appx:sec:vcDimension}.
 
 For practical applications though, use of these bound estimates might be limited to the determination of the VC value. This becomes increasingly difficult in algorithms which are more complex and expressive, such as neural networks.
 Due to this limitation, we show in the next section a practiced approach which is an easier and direct heuristic used to estimate the $PE$.
@@ -413,50 +417,59 @@ Due to this limitation, we show in the next section a practiced approach which i
 
 \section{Cross Validation (CV)}\label{section:crossValidation}
 
-Classification models are algorithms which build approximating functions to a stochastic process, by means of algorithms. Due to the searching nature of this process, in the generally large space of hyper-parameters, we have that when models are fitted, we end producing different learners.
+Classification models are algorithms which intend to build approximating functions to a stochastic process, by means of algorithms. 
+Due to the searching nature of this process, in the generally large space of hyper-parameters, we have that when models are fitted, we end producing different learners.
 
 These differences between learners are controlled by the \textit{parameters} or configuration of the algorithm.
-And each parameter's nature can appear either from computational or statistical variations to the algorithm.
-An example of this, which was introduced in \cref{section-hyperParametersRegularization}, is the $\lambda$ penalization parameter in logistic regressions.
-Here, $\lambda$ controls the amount of weight to be placed on the regularization term of the minimized function.
+And the nature of each parameter can be due to reasons such as computational or statistical  algorithmic variants.
+An example of this, which was introduced in \cref{section-hyperParametersRegularization}, is the $\lambda$ penalization parameter in a Logistic Regression.
+In this case we have that $\lambda$ controls the amount of weight to be placed on the regularization term of the minimized function.
 
-To help in this process by means of better estimating the $EPE$, Cross Validation is a technique introduced to systematically explore tuning parameters values and decide which learner is better for the task at hand.
-By comparing the generalization error of each model, where models vary accordingly with the values of the hyper-parameters, an evaluation value is produced and used to select the \textit{best} model in the class.
 
-This technique is considered one of the most widespread to evaluate the generalization performance in a set of learners.
+Under this setting Cross Validation (CV) is a technique introduced to systematically explore tuning parameters values and decide which learner is better for the task at hand.
+It intends to help in provide a better way of estimating the $EPE$ during the process of finding the best hyperparameters.
+
+By comparing the generalization error of each model, where models vary accordingly with the hyper-parameters' values, the model's evaluation score is used to select the \textit{best} model in the class.
+
+The technique is considered one of the most widespread to evaluate the generalization performance in a set of learners.
 Given a number of possible configurations or values for the tuning (hyper) parameters of an algorithm, we would want to decide which selection of these fit the best estimator $\hat{f}$, as measured by the generalization error.
 
 %
 %In terms of the concepts introduced before, the quality of an estimated model  from a family of algorithms is evaluated in the Cross Validation procedure.
 %Where quality refers to the rate of generalization error.
 
-In most problems we will have that data is scarce.
-At the same time, the prediction error estimates are based on asymptotic or analytical results which are hardly computable in practice.
-Thus CV intends to prevent over-fitting by iteratively holding out a random part of the dataset and by measuring the predictive accuracy of the learner fit of data \textit{in-sample} against values from the \textit{hold-out} part of the dataset.
-In a sense, hold-out samples are ``new'' to the learner.
+In most problems we will have that data is scarce whilst at the same time we have that prediction error estimates are hardly computable in practice, because they are based on asymptotic or analytical results.
+
+To cope with this, CV intends to prevent over-fitting problems and improve the $EPE$ estimation procedure by iteratively holding out a random part of the dataset.
+With this, the procedure will measure the predictive accuracy of the learner fit of data \textit{in-sample} against values from the \textit{hold-out} part of the dataset.
+In a sense, hold-out samples are acting as ``test''  to the learner fit with in-sample data.
 As usual, the evaluation measure here is given by the loss function, which we must select beforehand.
 
-\subsection{Cross Validation (CV) Procedure}\label{subsection:crossValidationProcedure}
+\subsection{Formulation of the Cross Validation (CV) Procedure}\label{subsection:crossValidationProcedure}
 
-In this method, a partition of the samples is called a \textit{fold}.
+In this method, we will denote a partition of the samples as a \textit{fold}.
 CV will then partition the data into $K$ random separate \textit{folds}, where the number $K$ has been preset\footnote{ We assume here that we are selecting samples from the training set $\mathcal{T}$ and not from the test set $\mathcal{T_s}$.}.
 
 Let $\gamma : \{1,..,N\} \mapsto \{1, .., K\}$ be a function mapping samples to folds.
-Without loss of generality, let $\alpha$ be an index of the model's hyper-parameters configurations, where each distinct value combination of the tuning parameters is identified by this index\footnote{ Note that the domain of $\alpha$ will vary with each model, which defines the type of algorithm used to learn.}.
+Without loss of generality, let $\alpha$ be an index of the model's hyper-parameters configurations, where each distinct value combinations for all tuning parameters is identified by this index\footnote{ Note that the domain of $\alpha$ will vary with each model, which defines the type of algorithm used to learn.}.
 
-The CV algorithm now runs iterations over all the folds, and takes one fold $\gamma^{-1}(\{k\})$ to be the validation set, where $k \in [1,\ldots,K]$ is the iteration indexer.
-We also have that $\hat{f}^{-k}$ denotes the fitted estimator on the training set, with the $k$-fold hold out.
-Its classification performance will be tested against this \textit{out of sample} estimates.
-So we will have that for every sample in this $k$-fold, we measure the loss $L(y_i, \hat{f}^{-\gamma(i)}(x_i))$ of the model's prediction against the true target's value.
+The idea behind the CV algorithm is to run an iteration over all the folds, denoting $k \in [1,\ldots,K]$ the iteration indexer.
+It will then take one fold $\gamma^{-1}(\{k\})$ to be the validation set and if we let $\hat{f}^{-k}$ be the fitted estimator on the training set and $k$-fold hold out, the classification performance will be tested against these \textit{out of sample} estimates.
 
-Cross validation intends to estimate the expected \textit{out-of-sample} error $\Expect \left[ L(Y, \hat{f}(X)) \right]$, when the model is tested against \textbf{independent} samples from the true distribution.
-For this reason, it is fundamental to ensure independence of the training set and the test set.
+Finally we will have that for every sample in this $k$-fold, we will measure the loss $L(y_i, \hat{f}^{-\gamma(i)}(x_i))$ of the in-sample model's prediction, against the true target's value.
+
+We see that Cross Validation intends to estimate the expected \textit{out-of-sample} error $\Expect \left[ L(Y, \hat{f}(X)) \right]$, when the model is tested against \textbf{independent} samples from the true distribution.
+To do this it is fundamental to ensure independence of the training set and the test set.
 Any data transformations that must be done on the input data $X$ that jointly uses the output samples $Y$ in the process, must be done or ``learned'' only on the training set.
-This is because we must not introduce information from our test set into the final estimator.
-The model has to be agnostic to any information contained in $\mathcal{T_s}$.
+It is important that no information from our test set is introduced into the final estimator output from the CV procedure.
+
+Models have to be agnostic to any information contained in $\mathcal{T_s}$.
 In a sense this means that the learner never ``sees'' any test data until we use it to evaluate our learner's performance.
 
+
 \subsection{Selection of tuning-parameters (hyper-parameters) }\label{subsection:selection_hyper_params}
+
+The CV procedure provides a reliabel $EPE$ estimate to select the best values for the algorithm's tuning parameters.
 
  Let $\mathcal{A} = [\alpha_0, \alpha_1,\ldots, \alpha_l  ]$ be a list of hyperparameter settings and $\mathcal{K} =[1,..,K]$ a list of folds.
 A full K-Fold Cross Validation pseudo algorithm takes the following form.
@@ -482,22 +495,24 @@ A full K-Fold Cross Validation pseudo algorithm takes the following form.
 
 Note that during the loop for $\alpha$, each sample's prediction is tested on the model which was fitted without using that same sample.
 This is central to the idea of cross-validation in which training samples are used \textit{as if} they were testing samples.
-Samples that are not used to train the model in the CV procedure are called validation samples.
+%Samples that are not used to train the model in the CV procedure are called validation samples.
 
-With this method, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ value among all possible hyper-parameters.
+With this method, it makes sense to choose a final model $\hat{f}_\alpha$ with the lowest $CV(\alpha)$ score among all possible hyper-parameters.
 However, following ideas detailed in \cref{section-VcDimension}, importance should also be given to the \textit{complexity} of the approximating function.
-A common rule of thumb is to favor models in which we use a lower number of hyper parameters or number of features.
+A common rule of thumb is to favor models in which we use a lower number of hyper parameters or features.
 In practice however, a class of approximating functions might have a defined complexity which is not analytically computable.
 Thus in some cases, crude heuristic estimates or common sense is used to estimate model complexity, without making use of theoretical arguments.
 
 
 \subsection{CV run on CDR data}\label{subsection:cvExperiment}
 
-As an example, we consider here a cross validation procedure over a logistic regression model, using \cref{target2} for the benchmark.
-The hyperparameter we decide to optimize is the regularization of the model as $C = \frac{1}{\lambda}$.
-We are trying to find those users that used to live in the endemic area and migrated.
-Recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, where a smaller value in $C$ meant a stronger regularization.
-We perform this experiment and consider the difference in scores between  $\mathcal{T}$ and $\mathcal{T_s}$ along each value.
+As an example, we consider here a cross validation procedure over a Logistic Regression model, using \cref{target2} as a benchmark to compare.
+In this problem we are trying to find those users that used to live in the endemic area and migrated.
+
+The hyperparameter we decide to optimize is the model's regularization strength. 
+This was captured in the parameter $C = \frac{1}{\lambda}$ and recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, where a smaller value in $C$ meant a stronger regularization.
+
+We perform this experiment and consider the difference in scores between  $\mathcal{T}$ and $\mathcal{T_s}$ for each possible $C$ value.
 It is important to note that all test scores were performed on models built only from $\mathcal{T}$.
 
 
@@ -509,15 +524,17 @@ It is important to note that all test scores were performed on models built only
 \end{center}
 \end{figure}
 
-In \cref{fig:cv_vs_test_score} the x-axis carries the parameter $C$'s values on a log scale.
-The score used is the negative log loss function on a twelve fold cross validation set, as well as a test set.
+In \cref{fig:cv_vs_test_score} the x-axis represents the parameter $C$'s values over a log scale.
+The score used is the negative log loss function on a twelve fold cross validation set.
+In parallel to this we have scores over the test set.
+
 It is interesting to see that for low $C$ values, the test and CV scores are very similar.
-This is probably due to the fact that being on a log scale, the regularization dominates the optimization routine.
+This is probably due to the fact that being on a log scale, the algorithm's regularization dominates the optimization routine.
+
 However, at some point near $\exp^{-4}$, both lines separate differ in a notorious way.
 This continues to be notorious in the direction of increasing $C$ values.
 Here it can be seen that the test score is barely in the one standard deviation band of the average CV score.
 This image serves as an example of how different the CV and test scores can be.
-
 
 With this we have come to show an example of how Cross Validation approximates the test error of a model.
 The method required only minimal information from the data to do this, yet we have to preset a value for the number of $K$ folds to use.
@@ -528,18 +545,21 @@ For more information on this please refer to \cref{appx:sec:optimalKfoldNumber}.
 
 \subsection{CV Scores in Classification Learning}\label{section:scoring_functions}
 
-In binary classification, the contingency table summarizes all the learner's training performance for all samples in $\mathcal{T}$.
-We have that for each sample, there can only be four possibilities when comparing the model's prediction and that sample's observed target value.
-The contingency table then shows the count of the amount of samples that fall into one of the these four groups.
+In binary classification, the contingency table is a good tool to summariz a learner's training performance over samples in $\mathcal{T}$.
+
+To construct this table we note that for each sample, there can only be four possibilities when comparing the model's prediction and that sample's observed target value.
+The contingency table then shows the count of samples that fall into one of the these four groups.
 
 Let $\hat{f}$ be our model learned from the data after a CV procedure.
 Every sample has a target value $y$ and a predicted outcome $\hat{y}$ and there are only four possible interactions of these two variables, for two binary outcomes each.
+
 We can express the models' target value $\hat{y}$ into the positive ($\hat{P}$) or negative ($\hat{N}$) categories.
 At the same time we can set actual target data into the positive ($P$) or negative ($N$) categories.
 
 To assess the performance of the classification algorithm and pick the \textit{best} model we must decide on how the CV procedure will value two different models.
-We must evaluate the mismatch between the target and the predicted value in a quantifiable way.
-Here loss functions are also known as \textit{scores} or \textit{measures} and are built by looking at how many times an algorithm misclassified instances, and where is the misclassification happening.
+For this we must evaluate the mismatch between the target and the predicted value in a quantifiable way.
+
+In this context these evaluating functions are also known as \textit{scores} or \textit{measures} and they are built by looking at how many times an algorithm misclassified instances, and in which situations do the misclassification happen.
 To visualize this, the \textit{confusion} table presents these results in the following draft:
 
 \noindent
@@ -554,9 +574,11 @@ To visualize this, the \textit{confusion} table presents these results in the fo
 %& total & P \ $(0)$ & &
 \end{tabular}
 
+\medskip
+
 These cell values count the amount of instances that fall into each of the four possible outcomes.
 Building from this, we have metrics scores constructed to provide values on the algorithm's performance.
-These counts are combined in different transformations in order to measure varied aspects of an algorithm's classification performance.
+These counts are combined in different transformationsthat measure different aspects of an algorithm's classification performance.
 
 Some of the most common metrics include the following:
 
@@ -581,7 +603,7 @@ Its values range in the ${[0,1 ]}$ domain and are ordered in the sense that perf
 \end{itemize}
 
 
-To illustrate the difference in these metrics we ran an experiment on \cref{target2}.
+To illustrate the difference in these metrics we ran an experiment on \cref{target2} where we intend to correctly classify users that moved out of the endemic region from the past to the current time period.
 We took one logistic classifier with common settings and we ran a cross validation procedure over values of the regularization strength $C$.
 
 In this run, we considered four metrics to cross-validate our models: $Accuracy$, $Precision$, $Recall$ and $F1$.
@@ -610,28 +632,27 @@ Metric & Best $C$ value & Mean CV score & Test score & Full CV time (s)  \\
 $Accuracy$ & 0.316 & 0.685 & 0.695 & 4628.3  \\
 $Recall$ & 0.107 & 0.637 & 0.612 & 4638.2 \\
 $Precision$ & 0.0006 & 0.038 & 0.035 & 4667.5 \\
-$F1$ & 0.0015 & 0.071 & 0.005 & 4612.1 \\
+$F1$ & 0.0015 & 0.0071 & 0.005 & 4612.1 \\
 \bottomrule
 \end{tabular*}
 \end{table}
 
 It is clear from these results that all metrics favor stronger regularized models, except for the $Accuracy$ metric which favored the least regularized models of all CV procedures.
-
+As expected, calculating each score is straightforward from the contingency matrix and there are no significant runtime differences among them. 
+CV procedures all take nearly the same times to compute.
 %that there are no significant time differences in choosing one metric over another.
-Added to this,
 
-The biggest difference between the test and average CV scores among all models was of 4\% yet still the algorithm very poor performance when finding samples of the positive class.
+Among all best-fit models, the biggest difference in test and average CV scores was of $4\%$, yet the algorithm had very poor performance when finding samples of the positive class.
 This is evidenced in the extremely low value for the $Precision$ scores where only a handful of positive classes can be correctly captured by the model.
-The effect of the low precision is also evident in the $F1$ score which drags this metric to extremely poor levels, even when the $Recall$ has an acceptable rate of 0.65.
+The effect of the low precision is also evident in the $F1$ score which drags this metric to extremely poor levels, even when the $Recall$ had an acceptable rate of 0.65.
 This is a strong indicator of a very ill-condition problem, where the class imbalance strongly affects the detection of positive cases over all positive predictions made.
 
-Keeping all of the above in mind, in practice the experimenter would chose the metric which would be most appropriate for the task at hand.
-Then, the quality of solutions vary in the way they are evaluated and this evaluation will depend on the task itself.
-
+Keeping all of the above in mind, in practice an experimenter would chose a metric which is domain specific and appropriate for the task at hand.
+The quality of solutions will then vary with the way they are evaluated, and this evaluation will depend on the task itself.
 
 \subsection{ROC Curve}\label{sub:roc_curve}
 
-One last important metric commonly used in classification tasks is the \textbf{Area under ROC curve (ROC AUC)}.
+One last important metric that is generally used in classification tasks is the \textbf{Area under ROC curve ($ROC AUC$)}.
 This metric applies only to algorithms which output for each sample the probability of belonging to the positive class.
 
 With these algorithms we would have that the output label will be defined as
@@ -646,7 +667,6 @@ With these algorithms we would have that the output label will be defined as
 
 where $\pi$ is a threshold value which will separate positive from negative samples.
 
-
 If we consider different values for $\pi$, we will see that the recall $R$ and the fall-out $FPR$ of the algorithm will vary accordingly.
 With this, we can define the ROC curve to be
 
@@ -654,18 +674,17 @@ With this, we can define the ROC curve to be
 \sigma(\pi) = (R_\pi, FPR_\pi)
 \end{equation}
 
-As expected, there exists an inverse relationship between these two as the threshold is varied.
+As expected, there exists a functional relationship between these two as the threshold is varied.
 The image of $\sigma(\cdot)$ is a curve defined in $[0,1]\times[0,1]$ which is referred to as the \textit{ROC space}.
 
-To find a balance between these two rates, the ROC AUC metric measures the integral of this curve in ROC space.
+To find a balance between these two rates, the $ROC AUC$ metric measures the integral of this curve in ROC space.
 The score calculated is thus known as \textit{Area Under the ROC Curve}.
 
-This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$.\footnote{As a side note, the ROC AUC measure is proportional to the statistic of the Mann-Whitney U-test, where the means of the classifier's output positive and negative classes are compared.
+This metric follows the same properties as the ones mentioned before, where the best classifiers have values nearer to $1$.\footnote{As a side note, the $ROC AUC$ measure is proportional to the statistic of the Mann-Whitney U-test, where the classifier's mean output positive and negative classes are compared.
 More information on this can be found in \textcite{mason-rocAucRelationship}.}
 
 The following figures are example ROC curves for two of the problems defined from our dataset.
 
-\todo{Erase title from figure and move info to caption.}
 
 \begin{figure}[h!]
 \begin{center}
@@ -675,22 +694,21 @@ The following figures are example ROC curves for two of the problems defined fro
 \end{center}
 \end{figure}
 
-Notice the algorithm's poor prediction performance where the ROC AUC is near to the `luck' line.
+Notice the algorithm's poor prediction performance where the $ROC AUC$ output is near to the `luck' line.
 This line constitutes the performance of a \textit{random} classifier which arbitrarily labels samples as being to each possible class.
 It is expected to see good learners have better ROC AUC scores than the \textit{random classifier}.
 To do this fit, we configured a very limited search over the Tree's hyper-parameters.
-This, as shown, output a model which did not optimize the generalization error.
+This, as shown, outputs a model which did not optimize the generalization error.
 
 
 As a counter example, another algorithm was run on the same data as in \cref{fg:lowROCAUC}, yet on a different problem.
-In this case the result is that the algorithm has a considerable better score by the ROC AUC metric.
-No data transformation has been applied to the set between runs.
+In this case the result is that the algorithm has a considerable better score by the $ROC AUC$ metric.
+No data transformation has been applied to the dataset between runs.
 The difference in the two scores is notable and corresponds entirely to the problem chosen.
 
-\todo{Erase title from figure and move info to caption.}
 \begin{figure}[h!]
 \begin{center}
-\includegraphics[width=1.2\columnwidth]{figures/figure-highROCAUC/figure-highROCAUC}
+\includegraphics[width=1\columnwidth]{figures/figure-highROCAUC/figure-highROCAUC}
 \caption{Example of a ROC curve from a Decision Tree classifier used on \cref{target1}. An 8-fold CV procedure is fit and then the best learner's performance is evaluated on $\mathcal{T_s}$ which gives score of $0.76$.}
 \label{fg:highROCAUC}
 \end{center}
@@ -699,17 +717,17 @@ The difference in the two scores is notable and corresponds entirely to the prob
 
 \subsection{Final experiments on model selection}\label{sub:final_model_selection}
 
-As a last remark for this chapter, we show here a brief experiment with a Logistic Regression Classifier. Where we explore different hyperparameter configurations over a full CV procedure.
-
-To do this, we set up to find users that lived in endemic regions in the past, namely \cref{target1}, yet excluding the feature that indicates in which state is the user currently living.
+As a last remark for this chapter, we show here a brief experiment with a Logistic Regression Classifier. 
+In this, we explore different hyperparameter configurations over a full CV procedure.
+The idea is to find users that lived in endemic regions in the past, namely \cref{target1}, yet excluding the feature that indicates in which state is the user currently living.
 We also set the ``ROC AUC'' metric to compare the $l1$ vs the $l2$ regularization of the model on more than a hundred values for the regularization parameter $C$.
 
-For both regularization types, we set a value for $C$ that ranged from $\exp^{-2}$ to $\exp^{5}$. Over all, we implement a cross validation routine was done on a training set with 8-folds.
-.
+For both regularization types, we set a value for $C$ that ranged from $\exp^{-2}$ to $\exp^{5}$. 
+Over all, we implement a cross validation routine of 8-folds.
+
 \cref{tab:roc_auc_logreg_target1_results} shows a summary of results.
 In these, our experiments resulted in higher values for $l1$ regularized models.
-This gap is even widened when comparing test scores for both and the same happens to the time taken to fit the cross validation algorithm for all of the $C$ values.
-
+This gap is gets wider when comparing test scores for both and the same happens to the time taken to fit the cross validation algorithm for all of the $C$ values.
 
 \begin{table}[!htb]
 \caption{Table of results comparing an 8 fold cross validation fit for a Logistic Classifier with varying regularization $C$ values.
@@ -723,7 +741,6 @@ Regularization type & Best CV $C$ value & Mean CV score & Test score & Full CV t
 \midrule
 $l2$ & 1e-5 & 0.805 & 0.744 & 17579.7  \\
 $l1$ & 1e-5 & 0.81 & 0.76 & 15892.9 \\
-
 \bottomrule
 \end{tabular*}
 \end{table}
@@ -731,9 +748,9 @@ $l1$ & 1e-5 & 0.81 & 0.76 & 15892.9 \\
 
 Another interesting result is that in both experiments, the best CV scores were achieved for highly regularized models.
 To further explore this, we looked at their CV mean scores for each hyperparameter setting.
-\cref{fig:rocauc_logreg_cv_l1_regularized_comparison, fig:rocauc_logreg_cv_l2_regularized_comparison} shows both series to compare.
+\cref{fig:rocauc_logreg_cv_l1_regularized_comparison, fig:rocauc_logreg_cv_l2_regularized_comparison} both show a series resulting from each type of regularization fit.
 
- From these it is clear that both models improve the more regularized they become.
+ From these figures it is clear that both models improve the more regularized they become.
  The full extent to which this regularization would keep improving the score is not explored because both experiments' $C$ parameter had a minimum at $10^{-5}$ which corresponds to the highest score for both.
  Also, there is a difference in the stability of the fitting, where the scores are more noisy for the $l2$ regularization at high $C$ values as can be seen in \cref{fig:rocauc_logreg_cv_l2_regularized_comparison}.
 
@@ -761,4 +778,5 @@ To further explore this, we looked at their CV mean scores for each hyperparamet
 \end{figure}
 
 
-With these experiments we can have an extended overview of how a complete model selection pipeline works. Where we have to iterate and evaluate different hyper-parameter configurations by scoring the cross-validated learners.
+With these experiments we give an extended overview of how a complete model-selection pipeline is defined. 
+Where we have to iterate and evaluate different hyper-parameter configurations by scoring the cross-validated learners.
