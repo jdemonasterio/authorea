@@ -1,9 +1,9 @@
 # TODO PLAN
 
 ## Meeting 18/10
-    * Do great review of whole thesis in single read.
+    * [DONE] Do great review of whole thesis in single read.
     * [DONE] Fix typos and grammar.
-    * Clean all TODOs.
+    * [DONE] Clean all TODOs.
 
 
 ## Meeting 04/10
