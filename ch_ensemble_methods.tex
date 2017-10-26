@@ -945,7 +945,7 @@ Yet it gives better overall performance on the CV error, when the model is corre
 %If an optimization routine were to collectively fit all the parameters in $\Theta$ to learn this model, we would have a very computational complex model.
 %In practice this would result in an prohibitive cost.
 %Instead, we rely on optimization heuristics which rely on first and second order approximations of the loss function at step $m$ to build on the next tree $m+1$.
-%Smooth loss functions are then fundamental for this procedure to work such as in the adaboost formulation.
+%Smooth loss functions are then fundamental for this procedure to work such as in the Adaboost formulation.
 %The \textit{boosting} optimization heuristic is explained in detail in \cref{appx:sec:boosting_optimization_heuristic}.
 %
 %
@@ -982,7 +982,7 @@ In this subsection, we explore on the task described in \cref{target4}, using Gr
 We set two experiments similar to the ones before, where we run two procedures: one with all available features and another without the top target-correlated ones.
 In this setup though, we had a minor difference where, as before, it was characterized by the attributes used by our training dataset.
 
-For the third experiment, we traing \textbf{only} with the best features extracted from the Random Forest's second experiment.
+For the third experiment, we trained \textbf{only} with the best features extracted from the Random Forest's second experiment.
 These were selected from the best-fit learner used from that case.
 
 With this third variant, we expected to see how good of a performance can the gradient boosting classifier achieve, using only the top 30 features, as selected by best-fit random forest learner for the previous experiments.
@@ -1004,7 +1004,7 @@ For our CV procedure, we will be searching the best learner over a grid combinat
 \end{itemize}
 
 
-Using the same setup as before, we recorded the outcome of the three experiments's cross validation procedures.
+Using the same setup as before, we recorded the outcome of the three experiments' cross validation procedures.
 The results were tabulated in terms of different metrics' scores, runtime, best resulting hyperparameters values and the top ten best features as selected by the best models.
 
 A summary of the metrics and best hyperparameter values is given in \cref{tab:boosting_big_experiment_results}.
