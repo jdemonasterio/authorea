@@ -761,16 +761,17 @@ Note that if an optimization routine were to collectively fit all the parameters
 
 Instead, applications of boosters rely on optimization heuristics which use first and second order approximations of the loss function at step $m$ to build on the next tree $m+1$.
 
-To work with this in the adaboost formulation , smooth loss functions become very convenient for this procedure.
+To work with this in the Adaboost formulation , smooth loss functions become very convenient for this procedure.
 As an example, we explain in detail a \textit{boosting} optimization heuristic at \cref{appx:sec:boosting_optimization_heuristic}.
 
 There are two additional heuristics commonly used to improve the booster's generalization performance.
 And for these, the arguments in favor of their use are rather experimental than theoretical. 
 The authors in~\cite{hastie-elemstatslearn} and~\cite{bishop-patternecognition} mention them because of their overall contribution to the generalization error and because although they are intuitive to the idea of variance reduction.
 
-The first idea to reduce the boosters's variance is to subsample the data.
+The first idea to reduce the booster's variance is to subsample the data.
 This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner.
-Samples from $\mathcal{T}$ which are not part of the bootstrapped sample are ignored when optimizing for the new learner at \cref{eq:boosting_iterative_minimization}.
+
+Samples from $\mathcal{T}$ which are not part of the bootstrapped sample are ignored when optimizing for the new learner at \cref{eq:adaBoostIteration}.
 
 The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method.
 In practice, the rate of sampling will be supervised by a tuning parameter in the model.
