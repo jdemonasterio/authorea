@@ -1,5 +1,8 @@
 # TODO PLAN
 
+## Meeting 13/11
+    * Review Ch. 2 Feature Description Lists.
+
 ## Meeting 18/10
     * [DONE] Do great review of whole thesis in single read.
     * [DONE] Fix typos and grammar.
