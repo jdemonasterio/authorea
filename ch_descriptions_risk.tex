@@ -31,7 +31,7 @@ This ensures we leave out outlying users such as call-centers or dead phones and
 
 We then aggregate the call records for a five month period into an edge list $(n_i, n_j, w_{i,j})$ where nodes $n_i$ and $n_j$
 represent users $i$ and $j$ respectively and $w_{i,j}$ is a boolean value indicating whether these two users have communicated at least once within the five month period.
-This edge list will represent our mobile graph 
+This edge list will represent our mobile graph
 $\calG = \left< \calN, \calE \right> $ where $\calN$ denotes the set of nodes (users) and $\calE$ the set of communication links.
 We note that only a subset $\calN_C$ nodes in $\calN$ are clients of the mobile operator, the remaining nodes $\calN \setminus \calN_C$ are users that communicated with users in $ \calN_C $ but themselves are not clients of the mobile operator.
 
@@ -53,7 +53,7 @@ Each day, up to 8 million users accessed the telecommunication company's (\texti
 Note that users from other companies are logged, as long as one of the users registering the call is a client of the operator.
 Again, we only considered CDRs between users in $\calN_C$ since geolocalization was only possible for this group.
 
-Information logged for each call included other aspects of the interaction. 
+Information logged for each call included other aspects of the interaction.
 We had data for the duration and timestamp of the call, the users participating in the call and the antenna id that transmitted the call to the \emph{TelCo} client.
 
 Adding all data elements, the project involved working with more than 1.5 terabytes of data.
@@ -71,7 +71,7 @@ However, these limitations are offset by the huge datasets' sizes, from which we
 In this section we describe how the Chagas disease risk maps were built for the in Argentina and Mexico, and we give an overview of their uses.
 As an overview, the risk maps hypothesize on the possibility of locating specific communities of higher disease prevalence outside of the endemic regions.
 They are based on the assumption that when we have stronger communication ties from one community to the endemic region, we will find a higher chance of disease risk.
-Earlier versions of this project were presented by \cite{sarraute2015descubriendo} at \emph{Simposio Internacional sobre Enfermedades Desatendidas}, and\cite{deMonasterio2016analyzing} at \emph{International Conference on Advances in Social Networks Analysis and Mining}.
+Earlier versions of this project were presented by \citep{sarraute2015descubriendo} at \emph{Simposio Internacional sobre Enfermedades Desatendidas}, and\citep{deMonasterio2016analyzing} at \emph{International Conference on Advances in Social Networks Analysis and Mining}.
 These were based on the results contained in this chapter.
 
 The generated heatmaps display a geographical representation with the TelCo's antennas situated on the map.
@@ -90,7 +90,7 @@ Note that this home antenna analysis will not precisely locate users yet it will
 This will enable us later to detect long range migrations by looking at changes in these home antennas.
 
 This \textit{home} characterization is based on the assumption that on any given day, users will be located at home during night time.
-The implications of this assumption for CDRs are explored by\cite{sarraute2015socialevents} and by\cite{csaji2012exploring}.
+The implications of this assumption for CDRs are explored by\citep{sarraute2015socialevents} and by\citep{csaji2012exploring}.
 There, the authors explain that given the large user base, this assumption proves helpful when trying to predict migration patterns at large scale.
 For our case we need not detect specific agent movements but are more interested in movement of large amount of people.
 
@@ -109,7 +109,7 @@ For each resident of the endemic zone, we tag all his graph neighbors as potenti
 We also tag the calls to (from) a certain antenna from (to) residents of the endemic area $E_Z$ as \textit{vulnerable calls}.
 With our definition, a user with at least one call from (to) the endemic area is enough to qualify as vulnerable.
 
-The next step is to aggregate this data for every antenna. 
+The next step is to aggregate this data for every antenna.
 Given an antenna $a$, we will have:
 \begin{itemize}
 	\item The total number of residents $N_a$ (this is, the number of people for which that is their home antenna).

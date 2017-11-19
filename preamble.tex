@@ -115,7 +115,7 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 % Further modifications of float layout
 \usepackage[captionskip=5pt]{floatrow}  % We set caption skip here
 \floatsetup[table]{style=Plaintop,font=small,footnoterule=none,footskip=2.5pt}
- 
+
 % Add ability to show rotated figures in horizontal or vertical alignment - sidewaysfigure
 \usepackage{rotating}
 
@@ -171,18 +171,11 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 \usepackage[titletoc,page]{appendix}
 % this might insert blank pages here and there but now compilation works correctly with biber
 \usepackage[style=american]{csquotes}  % Language sensitive quotation facilities
-\usepackage[style=authoryear-comp,backref=true,refsection=chapter,backend=biber]{biblatex}
+%\usepackage[style=authoryear-comp,backref=true,refsection=chapter,backend=biber]{biblatex}
+\usepackage[backend=biber,sortlocale=us_EN,natbib=true,style=authoryear-comp,backref=true,refsection=chapter,url=false]{biblatex}
 
-
-% \usepackage[
-% 	backend=biber,
-% 	sortlocale=us_EN,
-% 	natbib=true,
-% 	style=authoryear-comp,backref=true,refsection=chapter,
-% 	url=false,
-% 	doi=true,
-% 	eprint=false
-% 	]{biblatex}
+%doi=true,
+%eprint=false
 
 \addbibresource{biblio.bib}
 
@@ -297,13 +290,22 @@ pdfkeywords={machine learning}
 \crefname{problem}{Problem}{Problems}
 
 % Uncommenting this brings problems when referrencing equations.
-
 %\crefname{equation}{}{}
 %\crefformat{equation}{#2(#1)#3}
 %\crefrangeformat{equation}{#3(#1)#4 to #5(#2)#6}
 %\crefmultiformat{equation}{#2(#1)#3}{ and #2(#1)#3}{, #2(#1)#3}{ and #2(#1)#3}
 %\crefrangemultiformat{equation}{#3(#1)#4 to #5(#2)#6}{ and #3(#1)#4 to #5(#2)#6}%
 %{, #3(#1)#4 to #5(#2)#6}{ and #3(#1)#4 to #5(#2)#6}
+
+
+%-----------------------------------------------+
+% Citation settings (natbib settings)           |
+%-----------------------------------------------+
+%\usepackage[sort, numbers]{natbib}
+%% Set citation style
+%\setcitestyle{square}
+
+
 
 %----------------------------------------------+
 % Half-title, titlepage and copyright settings |
