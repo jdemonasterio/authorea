@@ -12,14 +12,14 @@
 This chapter will give a technical explanation of what raw Call Detail Records (CDR) are and how they will be used throughout this work.
 The preprocessing and manipulation of the data will be explained in depth, with all the details necessary to build the epidemic risk maps that are presented in this chapter.
 All necessary vocabulary and definitions will be introduced, along with the ideas used to build the user-level covariates from the CDRs.
-Finally, some descriptive facts on both datasets will be given, concerning data size, volume of transactions, feature correlations and a comparison of tele-communication (TelCo) user distribution with national population distributions.
+Finally, some descriptive facts on both datasets will be given, concerning data size, volume of transactions, feature correlations and a comparison of telecommunication (TelCo) user distribution with national population distributions.
 
 
 \section{Mobile Phone Data Sources}
 
 Our data source is anonymized traffic information from two mobile operators, in Argentina and Mexico.
 Both companies service phone calls at the national level and to a number of customers that amounts to a user base that sizes in the order of millions.
-All of this information is contained in two different CDR datsets.
+All of this information is contained in two different CDR datasets.
 % With these we are provided with two different CDR datasets.
 
 For our purposes, each record is represented as a tuple $\left < i, j, t, d, l \right >$, where user $i$ is the caller, user $j$ is the callee, $t$ is the date and time of the call, $d$ is the call direction (incoming or outgoing, with respect to the mobile operator client), and $l$ is the location of the tower that routed the communication.
@@ -64,7 +64,7 @@ The call logs, in this data format, were parsed, processed, transformed and load
 \paragraph{Data Limitations.}
 Although a lot of information is available in the CDR datasets, there may be limitations in their representations of the whole national population.
 In both cases, the data sources from a single mobile phone operator, and no information is given on the spatial distribution of its users, relative to the national average.
-In principle, we do not know if TelCo's users are over- and under-represented across national jurisdictions, in comprison to the nation's national population distribution.
+In principle, we do not know if TelCo's users are over- and under-represented across national jurisdictions, in comparison to the nation's national population distribution.
 Therefore, calls might not accurately represent social interactions and movements between two given jurisdictions, given that we are provided with a biased sample of users.
 
 The same argument can be used to note that not all \textit{real} population movements will be captured by the logs.
@@ -298,7 +298,7 @@ We also register the most used antennas considering only calls made during the \
 As explained before, a user's home antenna is defined by the most used antenna during weeknights and, with this, users were tagged as `endemic' if their home antenna is in the endemic zone $E_Z$ and `exposed' if any of the ten antennas logged is in the risk area.
 % For our algorithms we considered two versions for this antenna: the most used antenna in all of $T_0$, and the most used antenna during the \textit{week night} for these same months.
 
-Finally, we added the user's province by referring to their home antenna's pertenence.
+Finally, we added the user's province by referring to their home antenna's membership.
 \item \textbf{Mobility Diameter:} The user's logged antennas define a convex hull in space and the radius of this hull is taken to be the user's mobility diameter.
 This length is representative of the area of influence of that individual.
 We expect this feature to be correlated with long-term migrations.
@@ -325,12 +325,16 @@ In this sense, two users $u_i, u_j \in \calN_C, u_i \neq uj$ are \textbf{neighbo
 Since the samples in our dataset are users, we have to aggregate all of these variables, by grouping interactions at the user level.
 Combinations of all of these different variables amount to more than 150 features per user.
 
-To illustrate the point, we show a small example of how two calling features could look like.
-Groupings and filters are applied only on the user's calls:
+To illustrate the point, in \cref{tab:data_example} we show a small example of how two calling features could look like, where we apply groupings and filters only on the user's calls.
+From here we extract the calling features by aggregating these variables up to the user's level.
+In practice, this means grouping either by $j$ or $i$, and aggregating across all of the different components.
+% summing over all columns when grouping by users.
+
 
 \begin{table}[ht]
 	\caption{An example list of features that were built from the social graph dataset.
-Each attribute has its code name and a description of the codes used to construct its name.}\label{tab:data_example}
+Each attribute has its code name and a description of the codes used to construct its name.}
+\label{tab:data_example}
 	\footnotesize
 	\centering
 	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
@@ -341,10 +345,10 @@ Each attribute has its code name and a description of the codes used to construc
 		Feature name & Call/Time & Time Period & Direction of call & Endemicity & Month \\
 		% \midrule
 		\hline
-		Calls WeekEnd InVul08    & Count & Placed on WeekEnds & Incoming calls & Edges with endemic neighbors only & August\\
+		Calls Weekend InVul08    & Count & Placed on Weekends & Incoming & Edges with endemic neighbors only & August\\
 		% \midrule
 		\hline
-		Time WeekNight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing   & No endemic filtering   & December \\
+		Time Weeknight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing   & No endemic filtering   & December \\
 		\hline
 		% \bottomrule
 	\end{tabular}
@@ -354,8 +358,7 @@ Each attribute has its code name and a description of the codes used to construc
 %TimeWeekNight_OUT_12
 %CallsWeekEnd_IN_12
 
-Finally we aggregate all these variables up to a user's level, summing over all columns when grouping by users.
-In practice, this means grouping either by $j$ or $i$, and summing across all of the different components shown above.
+% Finally
 
 We also label each edge $\left< n_i, n_j \right> \in \calE_C$ if one or both users is endemic and count each user's amount of neighbors in the communication graph, as well as the endemic neighbors.
 This labeling defines user $i$ as \textit{vulnerable} whenever they have any edge with another user $j$ who lives in the endemic region $E_Z$.
@@ -367,11 +370,12 @@ As described before, the training data belongs to period $T_1$, from August 2015
 whereas the ground truth that we use to validate the predictions belongs to $T_0$, from January 2014 to August 2015.
 Raw data logs contain between 11 million and 30 million calls per day and the volume of calls increases over the months, where most recent months have higher rates.
 After preprocessing and cleaning the dataset, we obtained a dataset with 1.6 million users.
-To create our model's input data, by means of relational database operations and algorithms that scrap the whole dataset, we transform raw CDRs into a dataset where indviduals correspond to a single rows in the dataset.
+To create our model's input data, by means of relational database operations and algorithms that scrap the whole dataset, we transform raw CDRs into a dataset where individuals correspond to a single rows in the dataset.
 
 To compare how this sampled population compares to country-wide distribution estimates,
 \cref{tab:distribution_by_state} shows the percentage of antennas, the population (according to INEGI census 2014) and
 of TelCo users per state, for the top 10 Mexican states.
+This table describes the similarity between the population distribution of Mexico versus the TelCo's users to highlight possible sources of bias in the statistical model.
 % (Wikipedia's \url{https://en.wikipedia.org/wiki/Ranked_list_of_Mexican_states})
 
 
@@ -396,8 +400,8 @@ of TelCo users per state, for the top 10 Mexican states.
 	\end{tabular}
 \end{table}
 
-The table above describes the similarity between the population distribution of Mexico versus the TelCo's users.
-This is shown to highlight possible sources of bias in the statistical model.
+As we see in \cref{tab:distribution_by_state}, there are differences in the state distribution of TelCo users in comparison with the population distribution from census data.
+This unbalance is remarkably high for both the states of Mexico and the ``Distrito Federal'' where the TelCo has a better coverage than in other states.
 
 Note that during this work we considered only postpaid users, i.e., users which have a monthly plan rate.
 This filtering was done because prepaid users have a higher churn rate, thus meaning that phone lines are not necessarily associated with one single person during the two years of analysis, making them less suitable for the purpose of this study.
