@@ -9,24 +9,22 @@
 
 \chapter{Machine Learning}\label{ch:machineLearning}
 
-This chapter will present an elementary introduction to the theory behind Machine Learning.
-The concepts and ideas developed here will be exemplified on concrete applications of the processed CDR data, using a Logistic Regression classifier.
-Also, the chapter will formulate the tasks that will be solved in later chapters, as means of transforming the long-term human migrations into a supervised classification problem.
+This chapter will present an elementary introduction to Machine Learning where the concepts and ideas developed here will be exemplified on concrete applications of the processed CDR data, using a Logistic Regression classifier.
+Also, the chapter will formulate the tasks that will be solved in later chapters, as means of casting the prediction of the long-term human migrations as a supervised classification problem.
 
 Most of the discussions here are based on information extracted from two distinguished textbooks: \citep{bishop-patternRecognition} and \citep{hastie-elemstatslearn}.
-Some fundamental concepts and material were also referrenced from\citep{scikit-learn}.
-When other texts were used, they have been cited correspondingly in the text, and, where not specified, the reader can assume that the proof is based from the textbooks above mentioned.
+Some fundamental concepts and material were also referrenced from \citep{scikit-learn}.
+When other texts were used, they have been cited correspondingly in the text, and, where not specified, the reader can assume that the proof is given in the textbooks above mentioned.
 
 \section{Overview of Supervised Classification Applications}\label{section-supervised-learning}
 
 
-Machine Learning is divided into two main categories: Supervised and Unsupervised Learning.
-If we consider $Y \in \mathbb{R}^n$ be the output vector of the model and $X \in \mathbb{R}^{n \times p}$ be the input matrix: supervised learning algorithms produce outputs from input data i.e.\ for each instance $x \in X$, the computer has access to examples of outputs and tries to reproduce them based on information contained in $X$.
+Machine Learning is divided in two main categories: Supervised and Unsupervised Learning.
+If we consider $Y \in \mathbb{R}^n$ be the output vector of a model and $X \in \mathbb{R}^{n \times p}$ to be the input matrix, supervised learning algorithms produce outputs from input data i.e.\ for each instance $x \in X$, the computer has access to examples of outputs, $y \in Y$, and tries to reproduce them based on information contained in $X$.
 In this context, the algorithm is generally referred to as a \textit{learner}.
-
 The second class of problems is where there is no output $Y$ in the data.
-In this scenario the most common objectives are clustering samples, density estimation and data compression.
-A linear regression and K-means clustering are examples of algorithms in both categories respectively.
+For this scenario the most common objectives are clustering samples, estimating densities and compressing data.
+% A linear regression and K-means clustering are examples of algorithms in both categories respectively.
 
 In supervised learning, tasks are sub-categorized by the nature of the problem.
 If the type of the output variable $Y$ takes a (generally \textit{small}) discrete set of values, then it is said that it is a supervised \textit{classification} problem.
@@ -41,27 +39,27 @@ In both cases, the joint probability distribution $p(X, Y)$, called the \textit{
 Yet the characterization of this probability is most often unknown.
 
 Noting this, the idea is to use estimations and predictions on the \textit{most likely} values for new samples and take decisions based on past information.
-These decisions will be based on the most probabilistic characterization of the problem, from the data we have.
-For this work we will focus on the classification aspect of machine learning.
+These decisions will be based on a probabilistic characterization of the problem, from the data we have.
+In this work we will focus on the classification aspect of machine learning.
 
 We also note that when dealing with these problems, the theoretical and the computational aspects are both of interest.
 It is reasonable to say that the data, taken as an input to the problem, limits the available solutions and the same goes for the algorithms used in the solution process.
-These need to take into consideration aspects such as the software and hardware available, as well as time or resource constraints imposed by the problem itself.
-As such, these are expected to be executed in a reasonable amount of time, required by the task's specification, and limited by the computing power available.\footnote{Here the word \textit{reasonable} is used in a broad sense.
-It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.} There can be problems which require that the algorithm output predictions in \textit{real-time}, to the resolution of milliseconds.
+These methods need to take into consideration aspects such as the software and hardware available, as well as time or resource constraints imposed by the problem itself.
+As such, these are expected to be executed in a reasonable amount of time, as established by the task's specification, and limited by the computing power available.\footnote{Here the word \textit{reasonable} is used in a broad sense.
+It will depend entirely on time constraints, computational capacity, usage and other aspects of each learning application.} There can be problems which require that the algorithm outputs predictions in \textit{real-time}, to the resolution of milliseconds.
 
 For example, if we picture a system where credit-card transactions need to be approved or labeled as a fraud, we would expect the system needs to quickly respond if the transaction is approved or not.
-Other use cases might require the system to process a big volume of data at once, not a single event, but a batch of these and produce and output answer.
+Other use cases might require the system to process a big volume of data at once, not a single event but a batch, and produce an answer.
 The production system needs to be prepared to run \textit{lean} with a big inflow of data, without exceeding the hardware capacity.
 
-These examples show that for a given problem, there are multiple algorithms available for use, but while all of them are theoretically doing the same task, we must also consider the practical advantages of them.
-Computational efficiency and \textit{scalability} are relevant when working in these kind of problems.
-Even though we won't delve into these aspects in this work, it has an important consideration in Machine Learning applications.
-And these also influence the way research is conducted in this area.
+These examples show that for a given problem, there are multiple algorithms available for use, but while all of them are theoretically doing the same task, we must also consider the practical advantages.
+Computational efficiency and \textit{scalability} are relevant when working in this kind of problems.
+Even though we won't delve into these aspects in this work, they are important in Machine Learning applications.
+These aspects will also drive the way research is conducted in this area.
 
 
 In its essence, a machine learning method is a probabilistic model built from data and in this way it is very similar to a statistical model.
-However, it differs specially in that its focus is generally on the models' predictive abilities more than in the model's parameters estimates~\citep{breiman-statisticalmodeling}.
+However, it differs in that its focus is generally on the models' predictive abilities more than in the model's parameter estimates~\citep{breiman-statisticalmodeling}.
 The algorithms will be built and used for a given phenomena, to try and replicate it as best as possible without really identifying the true nature of the mechanisms behind this phenomena.
 As such, most applications will try to \textit{imitate} the task's behavior rather than try to identify the real system behind it.
 %on this matter It also puts a great amount of weight on efficiency and computational scalability.
@@ -69,16 +67,14 @@ As such, most applications will try to \textit{imitate} the task's behavior rath
 %At this point it is important to start noting
 
 These subtle differences in the machine learning approach of a problem is also reflected in the terminology used by the field.
-For the methods introduced here, we know that other disciplines often speak about them in different terms and this difference is certainly notable with classic statistics.
-
-Where we can, we will be identifying these differences along the text.
-As a start, the \textit{dependent} $Y$ is called the target or label and the \textit{independent} variables, \textit{covariates} or \textit{input variables} are named \textit{features} in this case.
+For the methods introduced here, we know that other disciplines often speak about them in different terms and this difference is certainly notable in classical statistics.
+We will be identifying these differences along the text and, as a start, the \textit{dependent} $Y$ is called the target or label and the \textit{independent} variables, \textit{covariates} or \textit{input variables} are named \textit{features} in this case.
 %Labels that are representing categorical or discrete variables are also named factors or \textit{qualitative} variables.
 
 \section{Long-term Human Migrations Classification}\label{long_term}
 
-Starting from the two-year CDR dataset we have described in \cref{ch:descr-risk}, we introduce our set of tasks defined to find how to tackle the long-term human migrations problem under a supervised classification framework.
-This is convenient to do so given the nature of our problem.
+Starting from the two-year CDR dataset we have described in \cref{ch:descr-risk}, we introduce our set of tasks defined to predict the long-term human migrations problem under a supervised classification framework.
+% This is convenient to do so given the nature of our problem.
 
 We intend to develop a set of machine learning methods that will aid us in further characterize and analyze the mobility of users between regions.
 These will help us establish to what extent the CDRs allow us to predict a user's past home and migration movement across both endemic and non-endemic regions.
@@ -510,7 +506,7 @@ The loss function of a model $l: \mathbb{R}^{ p} \rightarrow  \mathbb{R} $ maps 
 
 In all cases, the loss function will define the underlying optimization procedure behind the model that is fit.
 By comparing, for each sample, the target predictions versus their actual values, loss functions give a measure of how near classifiers are with respect to their predictions.
-These can be described as semi metrics on the target space i.e.\ functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
+These can be described as semi metrics on the target space, i.e.,\ functions that are symmetric, non-negative and equal to zero only if both arguments are equal.
 
 Loss functions are used to find the optimum $\theta*$ as the $\argmin_{\theta} l(\theta) $.
 Thus we say that loss or scoring functions give us a way to find the best parameters for our model.
