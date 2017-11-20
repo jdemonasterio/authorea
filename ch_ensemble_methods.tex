@@ -268,7 +268,7 @@ Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the par
 As we have mentioned before, there are various variants to the model and these variants will define the type of encoding for the $\Theta_k, k \in {1,\ldots,K}$  parameters.
 For the following part, we will not specify the specific ensembly type constructed since the formulation is common to all of them.
 
-To start, we define
+To begin, we define
 $$h(\textbf{x},\Theta_k)$$ as the corresponding individual classifier and we let $N$ be the number of samples in the training set $\mathcal{T}$.
 The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution as $\Theta_j, \ j<k$, yet it is built in a way that is independent of the previous parameters $\{\Theta_1, \ \ldots, \ \Theta_{k-1} \}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
