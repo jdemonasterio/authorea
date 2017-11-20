@@ -40,7 +40,7 @@ Yet the characterization of this probability is most often unknown.
 
 Noting this, the idea is to use estimations and predictions on the \textit{most likely} values for new samples and take decisions based on past information.
 These decisions will be based on a probabilistic characterization of the problem, from the data we have.
-In this work we will focus on the classification aspect of machine learning.
+In this work we will focus on the classification aspect of Machine Learning.
 
 We also note that when dealing with these problems, the theoretical and the computational aspects are both of interest.
 It is reasonable to say that the data, taken as an input to the problem, limits the available solutions and the same goes for the algorithms used in the solution process.
@@ -58,7 +58,7 @@ Even though we won't delve into these aspects in this work, they are important i
 These aspects will also drive the way research is conducted in this area.
 
 
-In its essence, a machine learning method is a probabilistic model built from data and in this way it is very similar to a statistical model.
+In its essence, a Machine Learning method is a probabilistic model built from data and in this way it is very similar to a statistical model.
 However, it differs in that its focus is generally on the models' predictive abilities more than in the model's parameter estimates~\citep{breiman-statisticalmodeling}.
 The algorithms will be built and used for a given phenomena, to try and replicate it as best as possible without really identifying the true nature of the mechanisms behind this phenomena.
 As such, most applications will try to \textit{imitate} the task's behavior rather than try to identify the real system behind it.
@@ -66,7 +66,7 @@ As such, most applications will try to \textit{imitate} the task's behavior rath
 
 %At this point it is important to start noting
 
-These subtle differences in the machine learning approach of a problem is also reflected in the terminology used by the field.
+These subtle differences in the Machine Learning approach of a problem is also reflected in the terminology used by the field.
 For the methods introduced here, we know that other disciplines often speak about them in different terms and this difference is certainly notable in classical statistics.
 We will be identifying these differences along the text and, as a start, the \textit{dependent} $Y$ is called the target or label and the \textit{independent} variables, \textit{covariates} or \textit{input variables} are named \textit{features} in this case.
 %Labels that are representing categorical or discrete variables are also named factors or \textit{qualitative} variables.
@@ -76,7 +76,7 @@ We will be identifying these differences along the text and, as a start, the \te
 Starting from the two-year CDR dataset we have described in \cref{ch:descr-risk}, we introduce our set of tasks defined to predict the long-term human migrations problem under a supervised classification framework.
 % This is convenient to do so given the nature of our problem.
 
-We intend to develop a set of machine learning methods that will aid us in further characterize and analyze the mobility of users between regions.
+We intend to develop a set of Machine Learning methods that will aid us in further characterize and analyze the mobility of users between regions.
 These will help us establish to what extent the CDRs allow us to predict a user's past home and migration movement across both endemic and non-endemic regions.
 More precisely, we would like to explore the relationship of the dataset attributes based on calling patterns across regions to the movement of humans.
 Where possible, we would like to establish which features are most relevant for our predictors.
@@ -222,7 +222,7 @@ Both $\mathcal{T}$ and $\mathcal{T_s}$ will take the form of a paired couple of 
 
 
 The difference will lie in the way each set is used to computationally build a probabilistic model.
-The idea is that the test set will not take part in building the machine learning model and will be used only to evaluate its performance.
+The idea is that the test set will not take part in building the Machine Learning model and will be used only to evaluate its performance.
 In this way it is acting as a simulation of the algorithm's performance, by evaluating over \textit{new} samples.\footnote{
 	We make an important remark here that the user's privacy is ensured by not providing a direct identifier of the person.
 	All users are distinguished with their \textit{user\_id} which is information given by the TelCo with a salted hash transformation.
@@ -256,7 +256,7 @@ EA23AD & 12 & 43 & 5 & 154 & \textit{Buenos Aires} \\
 
 In $X$ a row is representing the available data processed for each user, and the columns represent the features which are the different types of measurements or information on that user.
 In other settings the features would be known as covariates or independent variables.
-%In general, most machine learning problems will be associated with a training set $\mathcal{T}$ of similar form as the one shown before.
+%In general, most Machine Learning problems will be associated with a training set $\mathcal{T}$ of similar form as the one shown before.
 It is not uncommon to represent data in with rows as observations or \textit{samples} and columns are measurements or \textit{features} of our samples.
 
 More specifically, the $jth$ column of $X$, or equivalently the $jth$ feature of the dataset, is denoted by $X^j$.
@@ -269,7 +269,7 @@ In this particular example, even though the last column of the dataset in \cref{
 With this we can map users to \textit{classes} which conform the partition of the set of provinces.
 
 Hereon, there are various questions one could try to answer using this dataset.
-Examples of problems that a machine learning algorithm could tackle could be:
+Examples of problems that a Machine Learning algorithm could tackle could be:
 \begin{itemize}
 \item Predict a user's province when given information on only the first four features.
 \item Predict a user's number of calls made on weekends when given information on the last four features.
@@ -284,7 +284,7 @@ Even more, the first problem is a classification one since users are to be categ
 The labels in classification problems are usually numerically encoded with a finite range of numbers where $\{0,1\}$ or $\{-1,1\}$ are usually used in the binary class problem.
 
 Note that we are not making any assumptions on the data which we take as given to us in this way.
-This is common in machine learning applications and because of this, algorithms tend to be designed to account for this lack of structure among variables.
+This is common in Machine Learning applications and because of this, algorithms tend to be designed to account for this lack of structure among variables.
 The type of problems and questions that could be done, then depend entirely on the available data.
 
 The last example problem belongs to the unsupervised learning category where there is no need to have a label on the data.
@@ -627,10 +627,10 @@ They need to be instantiated before training the learner and, as such, they can'
 
 \section{Chapter Summary}\label{section-ch_machine_learning_summary}
 
-We introduced some basic vocabulary on supervised machine learning settings, with references to other types of other non-supervised settings which are not relevant to our general task.
+We introduced some basic vocabulary on supervised Machine Learning settings, with references to other types of other non-supervised settings which are not relevant to our general task.
 Also, the human mobility problems of this thesis were presented using the aforementioned notation.
 
-A concrete machine learning example was introduced in which we constructed a logistic classifier, where we derivated its loss function from basic theoretical assumptions.
+A concrete Machine Learning example was introduced in which we constructed a logistic classifier, where we derivated its loss function from basic theoretical assumptions.
 This led us to optimize the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$.
 Given that we now have a problem of $p$ degrees of freedom, we are left to find or fit the parameter $\theta$ by optimizing on certain criteria.
 The loss function will then shape our evaluation criteria of saying that one parameter is preferable to another.
@@ -641,7 +641,7 @@ Finally, we expanded on the concepts of hyper-parameters and regularization meth
 %As we know, a learner will approximate the target with $y \approx \hat{y} = h\left(\sum_{j}\theta_j x^j\right)$.
 %
 %For example the choice of $0.5$ as a threshold in \cref{formula:logitThreshold} is ad-hoc and certainly one which we could try to fit in the optimization process.
-%In the context of machine learning, loss functions give a quantitative measure of a parameter's performance.
+%In the context of Machine Learning, loss functions give a quantitative measure of a parameter's performance.
 %An in binary classification, these are also known as scoring functions.
 %the criteria used to choose the best parameters
 

@@ -41,7 +41,7 @@ Later in \cref{subsection:decision_trees_impurity_measures} we give specific exa
 %them according, in order to optimize a loss metric.
 
 %at each node
-Most variations for this machine learning model build rules (tree nodes) in a sequential, greedy, fashion, where node impurity measures are locally optimized at each node to decide on which is the best splitting value.
+Most variations for this Machine Learning model build rules (tree nodes) in a sequential, greedy, fashion, where node impurity measures are locally optimized at each node to decide on which is the best splitting value.
 The reason for doing this is because the construction of optimal binary decision trees is NP-Complete~\citep{decisionTreesNP}.
 Doing otherwise would result in an algorithm whose computational complexity is infeasible.
 
@@ -458,7 +458,7 @@ Training the forests can be computationally intensive in computer memory and CPU
 If we were to use commodity hardware and standard programming tools for this procedure, the experiment would take weeks and, given our dataset size, it would not fit into a standard computer's memory of less than 12GB of memory.
 For these reasons, we preform the task with a specialized server with a 16 core CPU and 72 gigabytes of available RAM.\@
 The system runs a UNIX based OS and our algorithms were scripted in~\citep{python3.5}.
-We used~\citep{graphlab}, a specialized machine learning Python package, to handle the parallelization and the distribution of system resources.\footnote{We can't stress enough how convenient this package is for our purposes.
+We used~\citep{graphlab}, a specialized Machine Learning Python package, to handle the parallelization and the distribution of system resources.\footnote{We can't stress enough how convenient this package is for our purposes.
 It handles most of the complex task of maxing out the system resources to perform as fast as possible in the cross validation procedure and in the construction of the main $X$ dataset.
 Also, it has an \textit{out-of-the-box} memory management for large datasets.
 With this, we can natively handle data that is larger than the amount of memory used by the server, requiring minimal user knowledge to tune.}
