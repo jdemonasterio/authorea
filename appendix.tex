@@ -33,7 +33,8 @@ Different $p_i$ input values are displayed with their output log loss score.}
 \end{center}
 \end{figure}
 
-From what is shown, the function is heavier for small probability values near zero than it is positive for large values near one.
+We have that it is a negative, concave, monotone increasing function with the estimated probability output by the classifier.
+Also, the function is heavier for small probability values near zero than it is positive for large values near one.
 This means that it penalizes strongly on wrong predictions; samples where the algorithm has a strong confidence in the prediction yet has misclassified.
 This properties can be taken into advantage during the optimization procedure, which will always converge to a global optima.
 
@@ -200,9 +201,9 @@ f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)
 
 This class of approximating functions can shatter up to $d+1$ samples, but no bigger sample.
 Thus the VC dimension is exactly $d+1$.
-The proof relies can be given on induction on the number of dimensions. 
+The proof relies can be given on induction on the number of dimensions.
 Still we omit it and refer the reader to the bibliography \textcite{cherkassky-learning2007} Pg.
-113 for the details. 
+113 for the details.
 Other examples are given, both for finite and infinite VC classes.
 
 %if a class of binary classifiers is of finite VC dimension, accurate bounds can be given to estimate train and predictive errors.
@@ -214,7 +215,7 @@ i.e.\ $\Delta_n(\mathcal {F}) \leq O(n^{h})$,\footnote{$O(\cdot)$ corresponds to
  %% EZECORRECTION: citar a algun lado que la den sobre esto.
  %% EZECORRECTION: explicar mejor la relacion entre eta, que es algo que se elije, y n para la cota + grado de confianza que vos necesitas para saber cual es el intervalo de confianza, etc.
 
-Also, if we have a uniformly bounded class of risk functions such as 
+Also, if we have a uniformly bounded class of risk functions such as
 
 \begin{equation}
 Q(t,\theta) \leq A,  \ \forall t \in \mathcal {T}, \theta \in \Theta
@@ -253,7 +254,7 @@ Err^n_{train}(\theta^*) - EPE(\theta_0) \leq A \sqrt{\frac{-\ln(\eta)}{2n} } + \
 
 These results prove that effective approximations of the prediction error can be given for most algorithms of finite VC dimensions.
 They also give a distinct characterization of how model complexity is related to the prediction error estimation.
-All of them are explained in detail in \textcite{vapnik-nature2000}, Ch. 3. 
+All of them are explained in detail in \textcite{vapnik-nature2000}, Ch. 3.
 
 
 
@@ -306,7 +307,7 @@ c_j & = argmax_{k} \ \hat{p}_{jk} \\
 \end{split}
 \end{equation}\label{eq:decisionTreePruneParameters}
 
-As we have mentioned before, at each split we use the node impurity measure to quantify this action. Here, we will denote $Q_j(T)$ to be the impurity measure for region $j$. 
+As we have mentioned before, at each split we use the node impurity measure to quantify this action. Here, we will denote $Q_j(T)$ to be the impurity measure for region $j$.
 With this we will have an impurity measure for each region $R_j$ and the algorithm will then aggregate all of them into a single measure called the \textit{cost complexity criterion}. The idea is that this loss function, as a function of a tree, will control the whole optimization procedure through the tree's parameters. The criterion will be managed to control the final model's bias and variance. We define it in the following way
 
 \begin{equation}
@@ -345,7 +346,7 @@ Let the strength of the set of weak classifiers in the forest be defined as
 s = \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right]
 \end{equation}
 
-Define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$ of two weak learners, then we can have the mean value correlation for the ensemble as 
+Define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x},\textbf{y})$ and $rmg(\Theta',\textbf{x},\textbf{y})$ of two weak learners, then we can have the mean value correlation for the ensemble as
 
 %	where we have conveniently defined as
 %Note that this is the mean value of the correlation.
@@ -364,15 +365,15 @@ With these definitions we can then see that,
 
 
 \begin{proof}
-	
-	
+
+
 	It is straight to see that
 	%\[%\]
 	\begin{equation}
 	{mr( \textbf{x},\textbf{y} )}^2 = \Expect_{\Theta, \Theta'} \left[ rmg( \Theta,\textbf{x},\textbf{y} ) \ rmg(\Theta',\textbf{x},\textbf{y} ) \right]
 	\end{equation}
-	
-	
+
+
 	This in turn implies that
 	\begin{equation}\label{eq:rf-marginFunVar}
 	\begin{split}
@@ -387,42 +388,42 @@ With these definitions we can then see that,
 	\right]
 	\end{split}
 	\end{equation}
-	
+
 	where $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$.
 	In both cases, $\Theta$ and $\Theta'$ are given.% to be fixed.
-	
+
 	Equation \cref{eq:rf-marginFunVar} in turn implies that
-	
+
 	\begin{equation}\label{eq:rf-varianceBound}
 	\begin{split}
 	var(mr) & = \overline{\rho} {(\Expect_{\Theta}\left[ \sigma(\Theta)\right] )}^2 \\
 	& \leq \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right]
 	\end{split}
 	\end{equation}
-	
-	
+
+
 	Assuming that $s \geq 0$ we have that the prediction error is bounded by
 	\begin{equation}\label{eq:rf-predictiveErrorBound1}
 	PE^* \leq var(mr)/s^2
 	\end{equation}
 	by Chebyshev's inequality.
 	On the other we also have that
-	
+
 	\begin{equation}\label{eq:rf-expectedVarBound}
 	\begin{split}
 	\Expect_{\Theta} \left[ var(\Theta) \right] & \leq \Expect_{\Theta} {\left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})  \right] \right]}^2 -s^2 \\
 	& \leq 1-s^2
 	\end{split}
 	\end{equation}
-	
-	
-	
+
+
+
 	We can use \cref{eq:rf-varianceBound}, \cref{eq:rf-predictiveErrorBound1} and \cref{eq:rf-expectedVarBound} to establish the upper bound for the prediction error we are looking for
-	
+
 	\begin{equation}
 	PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
 	\end{equation}
-	
+
 \end{proof}
 
 \subsection{Binary Class Bounds}\label{appx:subsec:random_forests_binary_class}
@@ -485,10 +486,10 @@ If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will 
 
 \section{Gradient Boosting heuristic optimization}\label{appx:sec:boosting_optimization_heuristic}
 
-The first take on this optimization problem goes using a greedy optimization routine. 
+The first take on this optimization problem goes using a greedy optimization routine.
 One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
 
-Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Theta)$ be the objective function and $\hat{y}^t$ be the target variable respectively. 
+Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Theta)$ be the objective function and $\hat{y}^t$ be the target variable respectively.
 Then the $i$-eth target's value at each step would iterate in the following way:
 
 \begin{equation}\label{eq:gb-targetSteps}
@@ -506,8 +507,8 @@ Obj^t(\theta) = \sum_i^n L(y_i, \hat{y}^{t-1}_i + f_t(x_i) ) + c(t) + R(f)
 \end{equation}
 
 
-Note that we have included here a regularization term (see section \cref{section-hyperParametersRegularization}) $R$ on all of the weak learners. 
-For most cases, this term will be in the form of a Tikhonov regularization. 
+Note that we have included here a regularization term (see section \cref{section-hyperParametersRegularization}) $R$ on all of the weak learners.
+For most cases, this term will be in the form of a Tikhonov regularization.
 This will add another complexity tuning parameter to control the length of the overall procedure $c(t)$ which is variable only in $t$.
 
 If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
@@ -525,7 +526,7 @@ h_i = & \frac{\partial^2 L(y_i, \hat{y}^{t-1}_i)}{\partial {(\hat{y}^{t-1}_i)}^2
 \end{split}
 \end{equation}
 
-Still, the \cref{eq:gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$. 
+Still, the \cref{eq:gradientBoostingTaylor} can be simplified by taking only the terms that are dependent on $\theta$.
 This also means replacing the actual tree's predictions for each sample as $\theta_{q(x_i)}$, where $q(\cdot): X \rightarrow leaf$ is the function that maps samples to the tree's leaves. Then,
 
 %for that tree's evaluation.
@@ -545,11 +546,11 @@ Obj^t(\theta) \approx & \sum_{j=1}^{t-1} \left( \sum_{i \in \{q(x_i)=j\}} (g_i )
 \end{split}
 \end{equation}
 
-which, as a function of $\theta$ is a quadratic equation if we assume $\gamma$ to be fixed. 
-This results in a convenient and closed-form analytical formulation to select the value at step $t$. 
+which, as a function of $\theta$ is a quadratic equation if we assume $\gamma$ to be fixed.
+This results in a convenient and closed-form analytical formulation to select the value at step $t$.
 In this sense, a greedy direct optimization approach, such as gradient descent, can be used to find the tree $f_t(\theta)$ minimizing the previous expression.
 
-As we have stated before the approach assumes that we have met enough smoothness conditions on the loss function with respect to the prediction variable and that these values are actually computable. 
+As we have stated before the approach assumes that we have met enough smoothness conditions on the loss function with respect to the prediction variable and that these values are actually computable.
 This is why smooth loss functions play an important part here in providing a feasible method.
 
 %\begin{equation}
