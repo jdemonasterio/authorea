@@ -20,7 +20,10 @@ Finally, some descriptive facts on both datasets will be given, concerning data 
 Our data source is anonymized traffic information from two mobile operators, in Argentina and Mexico.
 Both companies service phone calls at the national level and to a number of customers that amounts to a user base that sizes in the order of millions.
 All of this information is contained in two different CDR datasets.
-% With these we are provided with two different CDR datasets.
+
+We make an important remark here that in the data the users' privacy is ensured by not providing a direct identifier of the persons.
+All users are distinguished with their \textit{user\_id} which is information given by the TelCo with a salted hash transformation.
+In this way, we are unable to use these identifiers in other data sources other than the specific one used for this work.
 
 For our purposes, each record is represented as a tuple $\left < i, j, t, d, l \right >$, where user $i$ is the caller, user $j$ is the callee, $t$ is the date and time of the call, $d$ is the call direction (incoming or outgoing, with respect to the mobile operator client), and $l$ is the location of the tower that routed the communication.
 
