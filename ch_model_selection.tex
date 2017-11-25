@@ -5,7 +5,7 @@
 
 In this chapter we will extend some of the Machine Learning concepts introduced in the previous chapter and dive into the different tools that will help us evaluate which are the best models for our task.
 These tools will be based on the idea of the generalization error minimization with its descomposition into its bias and variance components.
-For our applications, we will settle around model's hyperparameter Cross Validation.
+For our applications, we will settle around model hyperparameter's Cross Validation.
 % We will also give a brief mention to the Vapnik-Chervonenkis dimension, as an example of other relevant tools for the discussion.
 
 
@@ -30,13 +30,13 @@ RSS(\theta_0,..,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
 
 % The equation reflects our goal to correctly match a training sample with their targets (also known as labels).
 
-We know that the objective is to have  good model in the generlization sense: one which can make a \textit{good} prediction on any sample, even new ones from the true distribution of the data.
-This generalization concept is lacking in the preceding \cref{eq:rss} because it is built to fit the actual dataset as best as possible.
-Given that $\mathcal{T}$ is a sample of the population, it is not straightforward from this that the model will perform well with any other given sample of the \textit{true} distribution of the data.
+We know that the objective is to have a good model in the generlization sense: one which can make a \textit{good} prediction on any sample, even new ones from the true data distribution.
+This generalization concept is lacking in the preceding \cref{eq:rss} because it is built to fit the actual dataset in the best possible way.
+Given that the training set ($\mathcal{T}$) is a sample of the population, it is not straightforward that the model will perform well accurately any other given sample of the \textit{true} distribution of the data.
 %for $\mathcal{T}$.
 
 We need a way of measuring and comparing the generalization power between models to select the best supervised estimator.
-For our test data, it means to have a model that can correctly label new samples which were not used in the training phase, such as those from $\mathrm{T_s}$.
+For our test data, it means to have a model that can correctly label new samples which were not used in the training phase, such as those from the test set $\mathrm{T_s}$.
 
 % We'll see why it is a bad attempt to generalize the classification model constructed from the data.
 % Given that in supervised learning settings, the goal is to build a learner with low predictive error, the algorithm's generalization power will then lie on its ability to
@@ -44,8 +44,8 @@ For our test data, it means to have a model that can correctly label new samples
 For now, let us assume that $f: X \rightarrow Y$ is a function which represents a true existent relationship in the data such as
 $$Y = f(X) + \epsilon$$.
 
-In this mapping from feature to target space we assume $\epsilon$ to be the noise, with a null mean and fixed $\sigma^2$ variance i.e.\ $\epsilon \sim \calN(0,1)$.
-With this the equation in \cref{eq:rss} can be read as an approximation of the expected prediction error given the training set $\mathcal{T}$.
+In this mapping from feature to target space we assume $\epsilon$ to be the noise, with a null mean and fixed $\sigma^2$ variance i.e.\ $\epsilon \sim \calN(0,\sigma^2)$.
+With this, \cref{eq:rss} can be read as an approximation of the expected prediction error given the training set $\mathcal{T}$.
 
 
 \begin{definition}{Prediction Error:}
@@ -56,7 +56,7 @@ With this the equation in \cref{eq:rss} can be read as an approximation of the e
 \end{definition}
 
 This is the error between our model's output and the target labels, as quantified by the loss function.
- In our specific example, with the parameters $\theta$ encoding the structure of $f$ as $f_\theta(x) = h(x \cdot \theta)$ we would that that:
+ In our specific example, with the parameters $\theta$ encoding the structure of $f$ as $f_\theta(x) = h(x \cdot \theta)$ we would have that:
 
 \begin{definition}{Squared Loss Prediction Error:}
 	Given a value for parameter $\theta$ and the \textit{squared error loss}, we say that the \textbf{prediction error} for the resulting classifier $f_\theta$ under the squared loss is
@@ -68,7 +68,7 @@ This is the error between our model's output and the target labels, as quantifie
 
 \end{definition}
 
-Our interest is now in minimizing this error for all possible values and not only those in the dataset.
+Our interest is now in minimizing this error for all possible values from the true distribution, and not only for those in the dataset.
 We would like to quantify the expected error over occurrences of $\textbf{X}$ and $\textbf{Y}$ that are independent of $\mathcal{T}$ which is the data used to fit the model.
 
 
@@ -80,8 +80,12 @@ Err = \Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f(X))  | \mathcal{T_s} \righ
 \end{equation}
 \end{definition}
 
-The problem appears when considering that any model is always built on a fixed\footnote{In some special scenarios we might have that the data is just constantly incoming and in this way we would definitely have that the data is dynamic. However these are the lesser amount of cases in real applications.} dataset, we are required to estimate the generalization error using only the model's error over the training data that is available.
+The problem appears when considering that in this scenario, the models' fit is done on a fixed dataset
+and these in turn are a fixed sampled representation of the data. 
+Thus we are required to estimate the generalization error using only the model's error over the training data that is available.
 At the same time we have to ensure that the training and test sets are independent.
+%\footnote{In some special scenarios we might have that the data is just constantly incoming and in this way we would definitely have that the data is dynamic. However these are the lesser amount of cases in real applications.} 
+
 % $\mathcal{T_s}$:
 
 The generalization error intends to compare the performance of our algorithm trained on a training dataset, with the loss that this model would have had on the true data distribution.
@@ -96,6 +100,8 @@ If we consider the case of the squared loss function, we will have that this err
 	%  Err_{true}(\theta) = \Expect[(\textbf{y} - h(\textbf{x} \cdot \theta) )^2] \\
 	%  = \int (y - h(x \cdot \theta) )^2 P(x,y)dxdy
 	%\end{equation}
+
+\todo{Fix notation mess of $\textbf{X},\textbf{Y}$ vs $X,Y$ and generalization, prediction, EPE, etcs}
 
 Note that in this definition the expectation is taken conditional on the test set and also from which the model is built.
 
@@ -136,7 +142,7 @@ EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert Y - \hat{f}(X) \right\Vert_2^2 \
 \end{equation}
 
 It is not difficult to see that the model that minimizes this error is
-$$\hat{f}(x) = \Expect \left[ Y | X=x \right] $$.
+$$\hat{f}(x) = \Expect \left[ Y | X=x \right] $$
 We say that our model $\hat{f}$ is an estimate of the true relation in the data, and takes the form above, with the form structure from the data.
 
 With the squared loss, the expected prediction error
@@ -154,10 +160,9 @@ EPE( \hat{f} ) = & {\Expect_X \left[  f(X) - \hat{f}(X) \right]}^2 + \Expect_X \
 
 
  \cref{squaredBiasDecomposition} is hereby refered to as the \textit{bias-variance decomposition for the squared loss} where the first term is called the square of the estimator's bias.
-This measures how well off are our estimator's predictions compared to the true relational function.
-
-On the other hand, the second and third terms are the estimator's variance.
-This will measure how this random variable varies along its most expected non-random value.
+This measures how good are our estimator's predictions compared to the true relational function.
+The second and third terms are the estimator's variance.
+This will measure how this random variable varies along its most expected value.
 The noise's variance term is that part of the prediction error which is irreducible.
 Note that we have already taken the expectation over the target and that is why we are left with the target's inherent noise.
 This part of the error we cannot reduce or control with our learner model since it is caused by the problem's random nature.
@@ -169,6 +174,7 @@ We must assume then that calculating this integral is not possible for any $\the
 For example, we could try and sample $M$ i.i.d.\ points from $P(x,y)$ to approximate the integral by a Monte Carlo scheme.
 With the squared loss function this would look as
 
+\todo{Confusing notation with epe, prediction, err_true, etc}
 \begin{equation}\label{eq:mcarlo-approx}
 Err_{true}(\theta) \approx \frac{1}{M} \sum_i^M {( y - h(x \cdot \theta) )}^2
 \end{equation}
@@ -176,13 +182,10 @@ Err_{true}(\theta) \approx \frac{1}{M} \sum_i^M {( y - h(x \cdot \theta) )}^2
 Yet this would be unfeasible as well for all of our possible $f( \theta)$ models since the sampling process should be done for each specific $\theta$.
 %Notice however the close resemblance of the \cref{eq:mcarlo-approx} to the form in \cref{eq:rss}.
 
-Historically the concepts of bias and variance where associated directly with the squared loss function and in the literature it is said that algorithms harbor these two main sources of error.
+Historically, the concepts of bias and variance where associated directly with the squared loss function and in the literature it is said that algorithms have ways of attacking these two sources of error.
 They are key elements in the expected prediction error and they point to different weak spots in the algorithms.
 At the same time, different methods are used to improve each of them, where ultimately our having control over both errors is central to our prediction task.
-Authors point that in practice it is usual that the improvement of one generally leads to a hinder on the other.
-
-For the case of classification problems though, it is uncommon to use the residual sum of squares to fit the model's parameters.
-Instead, they rely on other \textit{loss} functions that we will introduce later.
+Authors point that in practice it is usual that the improvement of one generally leads to a decrease in the other.
 
 %For this, we use a simple series approximation
 %
@@ -195,10 +198,10 @@ Instead, they rely on other \textit{loss} functions that we will introduce later
 
 Conceptually the bias error represents the model's accuracy in labeling predictions correctly.
 It is the model's best attempt to capture the functional relationship among the feature and target variables.
-This could either mean it is correctly assigning the sample to its correct class in classification settings, or by predicting correctly the sample's target value in a regression setting.
+This could either mean it is correctly assigning the sample to its correct class in classification settings, or, in a regression setting, by estimating a value for that sample which is \textit{near} to the target value.
 
 The bias is lower when models correctly learn the underlying structures of the data.
-However, as bias decreases, the model complexity increases and more data is needed to train it correctly because the model becomes very fit to the training set i.e.\ it loses the ability to extend this predictive accuracy to new samples because they it learns too much from the available samples only.
+However, as bias decreases, the model complexity increases and more data is needed to train it correctly because the model becomes very fit to the training set i.e.\ it loses the ability to extend this predictive accuracy to new samples because the model learns too much from the available samples only.
 In this situation, we have another type of error which is when we have an increase in variance.
 
 %In the generalization error, the loss function determines how \textit{good} the model's prediction are by quantifying these errors.
@@ -207,7 +210,8 @@ In this situation, we have another type of error which is when we have an increa
 
 
 %We will denote $K = |\calG|$ as the number of classes.
-For the binary classification context, a common loss function used is
+In classification problems it is uncommon to use the residual sum of squares to fit the model's parameters and there are other \textit{loss} functions to rely on.
+Specifically in the binary classification context, a common loss function used is
 
 \begin{equation}
 L(Y, \hat{f}(X)) = I(Y \neq \hat{f}(X))
@@ -217,47 +221,46 @@ where $Y$ will be taking any of value of the class set $\calG$.
 %$$.
 % In multi-class supervised problem setting,
 
-With this, the classification prediction error can be decomposed in
+With this loss function, the classification prediction error can be decomposed in
 
+\todo{Reinterpret formula as before}
 \begin{equation}
-Var(Y) + P(Y=\argmax_{1\leq i \leq K} P(Y=i)) - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)
+EPE( \hat{f} ) = Var(Y) + P(Y=\argmax_{1\leq i \leq K} P(Y=i)) - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)
 \end{equation}
 
 A more detailed explanation based on the works of~\citep{james-biasVarianceGeneral} is given in \cref{appx:sec:biasVarianceExtensionLoss}.
 
-\subsection{Case of overfitting}\label{subsection-overfitting}
+\subsection{Overfitting}\label{subsection-overfitting}
 
 For any given Machine Learning learner, we can have different combinations of high or low variance and biases.
-With these four possible model performances cases, we will need to work out the data and tune the model to lower both errors.
-
+Naturally that makes three cases out of four model performance scenarios that need to be improved, where we have low bias and/or low variance.
 For each combination of bias and variance stages, there are different strategies to improve a model.
-For example, in one of the most common scenarios we might have model that has a high overall variance and low bias.
-If we also have that the model has a good performance on the $\mathrm{T}$, whilst having a poor performance on $\mathrm{Ts}$, it is said in the literature that the model is \textit{overfitting} the data.
-
-
+For example, in one of the most common scenarios we might have a model that has a high overall variance and low bias.
+If we also have that the model has a good performance on $\mathcal{T}$, whilst having a poor performance on $\mathcal{Ts}$, it is said in the literature that the model is \textit{overfitting} the data.
 The reasons behind this scenario can be various and most of them are related to learners which are overly-complex or situations in which there is insufficient training data.
-This results in learners which are only suited for $\mathrm{T}$.
+This results in learners which are only suited for the training set.
 
-Overfit models will fail to generalize on new data since the variance structure of the training set is such that the number of training samples is not enough to lower the overall variance of this model.
+% For each case there are distinct strategies we can apply to improve the model. 
+% We will have to work the data better and find ways to tune the model itself in order to improve one or another type of error.
+ % we will need to determine how to improve our model
+ % to work out the data and tune the model to lower both errors.
 
-
-% A learner with of this characteristic will only work very accurately on the train set with poor performance on new samples.
-
-
+Overfit models will also fail to generalize on new data since the variance structure of the training set is such that the number of training samples is not enough to lower the overall variance of this model.
 To illustrate this point, in \cref{figure:dtree_overfit_problem_2} we show the results from fitting a learner on our own CDR dataset.
 We fit a Decision Tree classifier on \cref{target2} which has a high imbalance between the positive and negative target classes to illustrate the interaction between bias and variance.
-
-%Here we use , to try and produce a model which overfits $\mathcal{T}$.
-
 A discussion of this model's formulation is presented in \cref{ch:ensembleMethods}.
 This is a tree based model which increases its complexity by growing the tree's depth.
 In turn, this increases the number of features used in by the leaner to decide on the predicted target.
+
+% A learner with of this characteristic will only work very accurately on the train set with poor performance on new samples.
+%Here we use , to try and produce a model which overfits $\mathcal{T}$.
+
 %It is clear here that higher depth implies increasing model complexity\footnote{A detailed explanation of this technique can be found later in \cref{section:decision_trees}.}.
 
-To evalute the fit learner, we take a monotonically increasing scoring function in which
-higher values means better scores.
-With this, we graph how the different model performs at each level of complexity.
-Where the test and training errors are given as a function of the tree's depth to produce the following figure.
+To measure the performance of the fit learner, we take a scoring function for the model's performance which outputs a value in the range of $(0,1)$. With this functino we have that higher values means better scores.
+We will introduce later specific formulations for scores generally used.
+In this way, \cref{figure:dtree_overfit_problem_2} graphs how the model performs at different levels of model complexity.
+In the image, the test and training errors are given as a function of the tree's depth.
 
 %This is because Curing the optimization procedure, the algorithm has to fit more parameters.
 %In this sense, the model increases in complexity, as measured in its degrees of freedom.
