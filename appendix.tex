@@ -55,7 +55,7 @@ With this formulation, we can take any optimization procedure that benefits from
 
 
 
-\chapter{- Model Selection}
+\chapter{Model Selection}
 
 \section{Extension of bias and variance to other loss functions}\label{appx:sec:biasVarianceExtensionLoss}
 
@@ -144,13 +144,129 @@ EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right] =
 \end{equation}\label{eq:classificationEPE}
 
 
-\section{Vapnik-Chervonenkis (VC) Dimension }\label{appx:sec:vcDimension}
+\section{Using the Vapnik-Chervonenkis (VC) Dimension for prediction error estimation }\label{appx:sec:vcDimension}
 
-The next results will be focused on a binary supervised machine learning setting.
-Yet the extension to other forms of supervised learning can be found in \textcite{cherkassky-learning2007}.
+In Vapnik and Chervonenkis' work, the focus is put on the estimation of the prediction error through the convergence and consistency of the training error.
+To do this, the authors build a measure, the Vapnik-Chervonenkis (VC) dimension, as an important value in determining convergence speeds for different Machine Learning algorithms.
+All of this theory is given in the context of functional spaces.
+
+The VC Dimension is a number based on what is called \textit{Statistical Learning Theory} (SLT).
+The theory is used to bound estimates the true expected prediction error from finite i.i.d.\ samples.
+Its advantage is that it requires weak assumptions from the data and the structure of the model, and the results are distribution independent.
+
+Here we provide only a mention of VC dimension for the purpose of showing a theoretical approach to error estimation in Machine Learning methods.
+Most of the results and reasoning follows the works in \citep{cherkassky-learning2007}.
+For a more broad development of this work, \citep{vapnik-nature2000} is recommended too.
+Here we present a brief comment on the consistency of the training error with respect to the prediction error and give example bounds for classification learners.
 
 
-To start off, we need to define what we mean by the shattering coefficient of a functional space.
+Vapnik-Chervonenkis discuss a theoretical framework based on the dimensions in a way which effectively lets it be constructed.
+Analytic bounds given to estimate the distance between the empirical and generalization errors.
+This is done for a number of known Machine Learning algorithms and the theory also provides methods to calculate these dimensions in a constructive way and for a broad class of functions.
+For cases in VC dimensions can not be calculated, authors propose sampling or experimental methods to bound it.
+
+%since it effectively provides a tractable method to
+%In a supervised learning context, we use the empirical training ($\overline{err}$) or test errors ($\overline{err}_{test}$) to estimate the $EPE$.
+
+Let $\mathcal {F} = \big \{ f(x,\theta) \mid x \in X, \theta \in \Theta \big \}$ be a class of classifiers where $f_\theta: X \rightarrow Y \, \forall f \in \mathcal {F}$.
+This is a class of functions with domain over the input dataset $X$ and which are indexed by a parameter $theta$.
+%This parameter will represent the index over the functions in $F$ and it will vary over all possible models attainable by our algorithm.
+
+As an example, in logistic regression, $theta$ can be indexed by the values of each feature's weights $x^p$.
+The class $F$ will then represent the set of all possible functions from which to select the optimal model.
+%In applications, a learner is fit from a class of functions.
+
+As it was seen before in \cref{ch:machineLearning}, a common problem in supervised learning happens when a particular learner overfits the data.
+In practice, we find that this is common when $n$ is \textit{small} or when the number of features is \textit{large}.
+%is fit and then used to predict new values is
+
+Incorporating the loss functions directly into the model, SLT looks at functions of the form $$Q(t,\theta) \ = \ L(f_\theta(x,y))$$.
+
+$Q{\cdot,\cdot}$ is seen as a two variable function where $t=(x,y)$ represents a sample of input and output data expressed as a random variable.%, and $theta$ the class index.
+
+In this way, the $EPE(\theta)$ for any model takes the functional form
+
+
+\begin{equation}
+\begin{split}
+EPE(\theta) = & \ \Expect_{\textbf{t}} \left[ Q(t,\theta) \right]\\
+= & \int Q(t,\theta) p(t) dt \\
+= & \int L(f_\theta(x),y) p(x,y) dx dy
+\end{split}
+\end{equation}\label{eq:vapnik-risk}
+
+where we let $p(t)$ be the \textbf{true} underlying probability function of the data.
+For simplicity, in this analysis we will assume the functions $Q$ in the class to be bounded.
+
+%SLT theory then focuses on functions which seek to minimize a certain functional characterized by the form of the loss function.
+Knowing that we only have access to restricted data, we would like to estimate the risk functional for that functional space, only with the available information given by training and test errors.
+In this framework, this is called the empirical risk:
+
+\begin{equation}\label{vapnik-empiricalRisk}
+Err_{train}(\theta) = \sum_{i=1}^n Q(t_i,\theta)
+\end{equation}
+
+Note that the learner is estimated directly through the risk functional, which in turn is shaped by the loss function.
+%The loss function is placed together with the approximating function and takes a strong part in the minimization procedure.
+On the other hand, the unknown true underlying distribution $p(t)$ will not be estimated to minimize the functional and SLT puts focus in using the training error as a \textit{good} substitute for the prediction error.
+
+
+%We know that the training error depends on the model learned from the data and in turn, this depends on the sample.
+%Due to this non-deterministic aspect of the problem, we will have different output models for varying input samples, and even sometimes for the same sample.
+%and $\theta^{*}_n$
+
+
+\begin{definition}{Consistency of the Training error}
+
+As a principal characteristic of SLT, we have that if we increase the sample size, we would still want to have the training error converge and to be consistent with the prediction error of the models.
+
+More specifically, let $\{\mathcal {T}_1, \mathcal {T}_2, \ldots, \mathcal {T}_n, \ldots \}$ be a set of training samples such that $\forall n \ |T_n|=n$.
+Given a training sample of size $n$ and a class of learners $\Theta$, let $\theta^{*}_n$ be the argument minimizing the training error and let $\theta_0$ be the minimizing argument for the prediction error over the class of functions $F$ i.e.\ over all the models of this class.
+
+Then, the training error is said to be consistent if
+
+\begin{equation}
+\lim_{n\to\infty} Err_{train}(\theta^{*}_n) \ = \lim_{n\to\infty} EPE(\theta^{*}_n) \ = EPE(\theta_0)
+\end{equation}
+
+\end{definition}
+
+The property of asymptotic convergence in the training and prediction errors is what is expected for any learning algorithm.
+In SLT, the consistency requires that the training and prediction errors' sequences not only converge to the same values, but that the sequence of minimal training errors also converge, to the minimizing value of the prediction error.
+%At the same time, the sequence of prediction errors must converge to this same point.
+
+In reality, it is reasonable to think that the  prediction error approximation using the training error introduces a strong overestimation.
+As we know, the training error will be biased by the sample used whilst the prediction error, which is given for the whole class, is not dependent on the sample used.
+
+This is a very important condition, because by it the training error minimization when using bounded loss functions will be consistent if and only if:
+
+%\begin{definition}{Uniform Consistency of the Training Error}
+
+%\end{definition}
+\begin{equation}
+\forall \epsilon > 0 \ , \ \lim_{n\to\infty} P\left[ \sup_{\theta \in \Theta} \mid Err^{n}_{train}(\theta) - EPE(\theta) \mid  > \epsilon  \right] = 0
+\end{equation}
+
+Here the training error $Err^{n}_{train}(\theta)$ is the error's value when using a sample of size $n$.
+In this sense, the training error is said to be consistent if it converges uniformly in probability over the whole class of functions\footnote{Remember that in SLT the approximating functions $f \in F$ are indexed by the $\theta$ parameter.}.
+This implies that the capacity of the learner will be captured in the set of functions $Q(t,\theta)$ used to approximate the data.
+
+%will be important in finding an appropriate model. SLT theory then introduces
+
+	Four our work in binary classification, the main results of the VC theory establish that, for any given $\epsilon > 0$
+\begin{equation}
+P\Bigg(  \left|  Err^n_{train}(\theta^*) - EPE(\theta_0) \right| > \epsilon \Bigg)  \leq 8 poly(\Theta,n) \exp{\large \left( {\frac{-n\epsilon^2}{32}} \right)  }
+\end{equation}\label{eq:vapnik-binaryBoundProbability}
+
+where $poly(\Theta,n)$ is a polynomial on $n$ whose coefficients depend only on VC dimension of the class of functions $F$.
+For practical applications though, use of these bound estimates might be limited to the determination of the VC value. This becomes increasingly difficult in algorithms which are more complex and expressive, such as neural networks.
+Due to this limitation, we show in the next section a practiced approach which is an easier and direct heuristic used to estimate the $PE$.
+
+\subsection{VC for Prediction Error Bounds }\label{appx:sec:vcErrroBounds}
+
+The next results will be focused on a binary supervised machine learning classifieres. Yet if the reader would like to explore a more general list of results on prediction error bounds for binary classifiers, these can be found in \textcite{cherkassky-learning2007}.
+
+To begin, we need to define what we mean by the shattering coefficient of a functional space.
 
 \begin{definition}{Shattering}
 
