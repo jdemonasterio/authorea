@@ -1,7 +1,6 @@
 # TODO PLAN
 
 ## Meeting 13/11
-    * Review Ch. 2 Feature Description Lists.
     * Do not use he/her his antenna and swap to its, their ,etc
 
 ## Meeting 18/10
