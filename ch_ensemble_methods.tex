@@ -218,20 +218,18 @@ This allows us to see how the algorithm selects better features at low-level nod
 From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the Gini splitting criteria.
 Given that in \cref{target2} we are looking for people that migrated out of the endemic region, the choice of the tree's root feature seems appropriate.
 The mobility diameter gives an idea of a user's influence area when using their mobile phone and as such, this attribute might indicative of past migrations.
-
 Subsequently, the usage volume of a user's home antenna appears as the second most important features, both during weeknights and for the whole day.
 
-The error score reached by this tree, however, yields a poor performance over all of the samples.
-Evaluated with the $Accuracy$ metric, we see a score of $43.2\%$ with this learner.
-Under these circumstances, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
-
-We decide to iterate once again on this model, but now slightly changing some hyperparameter values.
-In this iteration the balance of $\mathcal{T}$ is controlled and this is because in this task, the positive and negative classes have a disproportionate balance of samples and this is reflected in the overall model's poor performance.
-For this reason, we modified the tree's loss function's setup to weigh more samples from the under-represented class over the samples from the abundant group.
-We will have that for each sample, it's loss weight was adjusted by it's class representation ratio.
-With this, the new run scored a $57.9\%$ $Accuracy$ error score which is more than a $15\%$ increase over the previous score.
-Still, this is considered a very poor model for supervised learning.
+The error score reached by this tree, however, yields a low performance over all of the samples because if we evaluate the learner with the $Accuracy$ metric, we see a classification score of $43.2\%$.
+Under these circumstances, noting which features were selected near the root leaves of the tree can be misleading if we do not recheck these results.
+In this way we decide to iterate this model one more time, but now choosing to change some hyperparameter values.
+For this time, we set control the target class imbalance in the training set $\mathcal{T}$.
+As we have noted beofre, the positive and negative classes have a disproportionate balance of samples and this has direct impact in the overall model's poor performance.
+To help tackle this imbalance, we modify the tree's loss function's setup to assign higher weight to samples of the under-represented class and underweight the samples from the abundant group.
+We will have that for each sample, its loss weight was adjusted by its class representation ratio and, with this, the new run scored a $57.9\%$ $Accuracy$  which is more than a $15\%$ increase over the previous score.
 The figure for this model is shown in \cref{fig:decision_tree_actual_problem2}.
+% Still, this is considered a very poor model for supervised learning.
+
 
 % \bigskip
 \clearpage
@@ -254,12 +252,11 @@ Recall that by the stochastic nature of the algorithm constructing the tree, two
 In this case however, it is notable that the final tree still uses the mobility feature in the first split in the data, even with balanced samples.
 And the same can be said of the feature representing the count of calls made from the home antenna.
 
-This tree also performs poorly in its prediction of which users have migrated in the past.
+This tree has a better performance than before yet it has an average performance in its prediction of which users have migrated in the past.
 At some point, it is reasonable to assume that balancing classes leads to a better predictive outcome yet there are still various misclassifications in the predicted target classes.
 If we let the tree grow deeper though, we might increase the performance of the training error as shown in \cref{figure:dtree_overfit_problem_2}.
 But again, this won't help our generalization error.
 So to tackle most of the disadvantages described by this technique, \textit{Random Forests} are what follow as a natural extension to this classifier.
-
 
 \section{ Random Forests}\label{section:random_forests}
 
