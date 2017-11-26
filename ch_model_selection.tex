@@ -15,7 +15,7 @@ Historically, a convenient loss function used to optimize the model's parameters
 This measures the performance of our model $f(\cdot)$'s predictions on input samples $x$ with respect to the data's known output classes $y$ as
 
 \begin{equation}
-RSS(\theta_0,..,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
+RSS(\theta_0,\cdots ,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
 = \sum_{i=1}^n  {[y_i - h( \theta \cdot x_i)] }^2
 \label{eq:rss}
 \end{equation}
@@ -330,7 +330,7 @@ As usual, the evaluation measure here is given by the loss function, which we mu
 In this method, we will denote a partition of the samples as a \textit{fold}.
 CV will then partition the data into $K$ random separate \textit{folds}, where the number $K$ is preset\footnote{ We assume here that we are selecting samples from the training set $\mathcal{T}$ and not from the test set $\mathcal{T_s}$.}.
 
-Let $\gamma : \{1,..,N\} \mapsto \{1, .., K\}$ be a function mapping samples to folds.
+Let $\gamma : \{1,\cdots ,N\} \mapsto \{1, \cdots , K\}$ be a function mapping samples to folds.
 Without loss of generality, let $\alpha$ be an index of the model's hyper-parameters configurations, where each distinct value combinations for all tuning parameters is identified by this index\footnote{ Note that the domain of $\alpha$ will vary with each model, which defines the type of algorithm used to learn.}.
 
 The idea behind the CV algorithm is to run an iteration over all the folds, denoting $k \in [1,\ldots,K]$ the iteration indexer.
@@ -351,7 +351,7 @@ In a sense this means that the learner never ``sees'' any test data until we use
 
 The CV procedure provides a reliable $EPE$ estimate to select the best values for the algorithm's tuning parameters.
 These hyperparameter configuration will be \textit{best} in the measure provided by the loss funciton.
-Let $\mathcal{A} = [\alpha_0, \alpha_1,\ldots, \alpha_l  ]$ be a list of hyperparameter settings and $\mathcal{K} =[1,..,K]$ a list of folds.
+Let $\mathcal{A} = [\alpha_0, \alpha_1,\ldots, \alpha_l  ]$ be a list of hyperparameter settings and $\mathcal{K} =[1,\cdots ,K]$ a list of folds.
 To clearly depict how a full K-Fold Cross Validation procedure runs, we outline its pseudo-code.
 
  \begin{algorithm}[H]
