@@ -565,8 +565,8 @@ Other variants include the \textit{elastic-net} penalty which is a weighted aver
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
 \begin{equation}
 \begin{split}
-\theta^* & =  \min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
-		& = \min_{\theta} & \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
+\theta^* & =  \min_{\theta} \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
+		& = \min_{\theta} \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
 \end{split}
 \label{eq:logitRegularization}
 \end{equation}
