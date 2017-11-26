@@ -1,29 +1,35 @@
 \chapter{Ensemble Methods and the Naive Bayes Classifier}\label{ch:ensembleMethods}
 
-This chapter will begin with formulations and introductory discussiones of the most common tree-based classifiers, to finish with the formulation of the Naive Bayes learner.
-For all of these models,we will present the model's advantages and disadvantages as predictors, along with a comparison of the model's performance.
-This assessment will compare models benefits and drawbacks in a specific long-term migration experiment using processed CDR data.
+This chapter begins with formulations and introductory discussions of the most common tree-based classifiers, and finishes with the formulation of the Naive Bayes learner.
+For all of these models, we will present their advantages and disadvantages as predictors, along with a comparison of the model's performance.
+This assessment will compare models' benefits and drawbacks in a specific long-term migration experiment using processed CDR data.
 
 \section{Classifier: Decision Trees}\label{section:decision_trees}
 
 
 % The models builds a
-Decision trees are models that can be understood as a tree-like graph, where each node in the tree is acting as a binary decision rule to which any input data sample can comply or not.
-The rules are built as linear (or similar) partitions over feature space and, in the implementation, each rule will be defined over a single feature threshold, for every sample.
+Decision trees are models that can be understood as a tree-like graph structures in which each node of the tree contains a conditional statement. 
+These conditional statemnts act as a rules which split input samples in a binary relationshipo of two disjoint sets.
+In this way, we have that at each node samples split in two possible branches which recursively continue to further nodes which again split the samples.
+ % any input data sample can comply or not.
+The rules are propositions or statements that are eigher true or false and they are built as a linear (or similar) binary partition over feature space. 
+In the algorithmic implementation each rule will be defined by assigning a threshold for a given feature which splits samples over those above and below this threshold.
+In this way, at each node the model evaluates each input sample $x$ with the proposition by checking if $x^j \in U$, where $x^j$ is the feature used for that node's rule and $U$ is a subset of the feature's domain.
+After the split, the algorithm recursively partitions each of the resulting splits with another rule. 
+ % decision forwards it to one of the possible remaining partitions 
+ % to create a binary partition of the data.
+% over a single feature threshold for every sample.
 %properties of the values for each feature.
 
-We have then that at any node, the model creates a binary partition of the data by evaluating a sample $x$ in the rule.
-This decision forwards it to one of the possible remaining partitions by checking if $x_i \in U$, where $x_i$ is the feature used for that node's rule and $U$ is a subset of the feature's domain.
 
-For numerical features, the input space $X$ will be partitioned into $L$ and $R$ , namely left and right, where $L$ takes the form $(-\infty,d]$. The value $d \in \mathbb{R}$ is a number predefined by the rule itself.
-In the same way, for categorical features $L$ will be a subset of the possible categories of that feature.
+For numerical features, the input space $X$ will be partitioned into $L$ and $R$, namely left and right, where $L$ takes the form $(-\infty,d]$. The value $d \in \mathbb{R}$ is a number predefined by the rule itself and is actually computed by the algorithm during the optimization procedure.
+In the same way, for categorical features $L$ will be a subset of the possible category values for that feature.
 
 By iterating this process over more nodes, a tree defines a partition of feature space in multiple regions $A_1,\ldots,A_K$.
 Here the number of iterations $K \in \mathbb{N}$ is a hyperparameter which is dependent on the algorithm's convergence criterion.
 Each region will have an associated value $c_k$ in such a way that the tree's predicted output $\hat{y}$, for a sample $x$, is $c_k$, when the sample belongs to $A_k$.
-
 Here $c_k$ will be one of the possible values taken by the target variable $y$ in the training set.
-And by the way trees were built, we will have that each $A_k$ is a hyper-rectangle in feature space.
+If we take into consideration the way trees are built, we will have that each $A_k$ is a hyper-rectangle in feature space.
 
 \subsection{Decision Trees Formulation}\label{subsection:decision_trees_formulation}
 In short, the learner can be characterized by the following formula:
@@ -45,13 +51,14 @@ Most variations for this Machine Learning model build rules (tree nodes) in a se
 The reason for doing this is because the construction of optimal binary decision trees is NP-Complete~\citep{decisionTreesNP}.
 Doing otherwise would result in an algorithm whose computational complexity is infeasible.
 
-At any splitting node we have to find the \textit{best} feature $X^j \ / i \in [1,\cdot,p] $ and value split $d$ for which to partition the data in
-$$A_L = \{x \in \mathcal{T} \ / \ x_i \leq t \} $$
+At any splitting node we have to find the \textit{best} feature $X^j \ / j \in \ [1, \ldots, p] $ and value split $d$ for which to partition the data in
+$$A_L(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \} $$
 and
-$$A_R = \{x \in \mathcal{T}\ / \ x_i> t \} $$.
-Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$
- respectively.
- Then, to quantify the \textit{best} feature for this split the algorithm minimizes:
+$$A_R(d,j) = \{x \in \mathcal{T}\ / \ x^j> d \} $$
+
+Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$ respectively and note that we have taken $(p,j)$ as given. 
+However, the Decision Tree algorithm will find both in an optimization routine.
+To quantify the \textit{best} feature $j \in \ [1, \ldots, p]$ for this split, the algorithm will minimize:
 
 %\frac{1}{N_{left}}
 %\frac{1}{N_{right}}
@@ -59,22 +66,24 @@ Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$
 \begin{equation}
 \label{eq:decisionTreeGreedyOptimization}
 %\begin{split}
-\min_{p,t} \big[ \min_{c_L }  \frac{1}{N_l}\sum_{x \in A_L(p,t) } L(y,c_L)    \ +  \min_{c_R}  \frac{1}{N_r}\sum_{x \in A_R(p,t) } L(y,c_R) \big]
+\min_{j,d} \big[ \min_{c_L }  \frac{1}{N_l}\sum_{x \in A_L(d,j) } L(y,c_L)    \ +  \min_{c_R}  \frac{1}{N_r}\sum_{x \in A_R(d,j) } L(y,c_R) \big]
 %\end{split}
 \end{equation}
 
-where $y$ is the target associated to our sample $x$ and $L(\cdot)$ is the loss function we have used to measure the quality of our split.
+where $y$ is the target associated to the samples $x$ that are part of that node's split. 
+Also, $L(\cdot)$ is the loss function used by the algorithm to measure the quality of the split in this optimization.
 Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently.
 
 A tree is then grown in an iterative way from the top down\footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each rule split.
-All of the training set's samples would start at the top (the root node) and then travel down through the trees branches, where at each step the node's rul will decide to what branch below does the sample move to.
+All of the training set's samples would start at the top (the root node) and then travel down through the tree's branches, where at each step the node's rul will decide to what branch below does the sample move to.
 A branch of the tree would stop growing once the samples at a node have reached a certain \textit{purity} i.e. when samples belong to the same class.
-Other stopping criterias include halting when a minimum number of samples has been reached.
+Other stopping criteria include halting when a minimum number of samples has been reached.
 
 We would finally have that the tree's leafs are the partition subsets over the input data and, once a tree is built, predicting targets for new samples is straightforward: the prediction of their target class will be the value given after traveling the sample down to its corresponding leaf node.
 
-To illustrate this method, an instance is show in \cref{fg:rf-treeFigure}.
-This classification tree example is built from a dummy gender prediction problem, using CDRs as input data:
+To illustrate a constructed tree using this method, an instance of a grown tree is shown in \cref{fg:rf-treeFigure}.
+This classification tree example is built from a dummy gender prediction problem, using CDRs as input data. 
+We must note here that there is not much interpretability in this toy example:
 %[.{\textit{Woman}}]
 \smallskip
 \begin{figure}[h]
@@ -99,7 +108,7 @@ The most used metrics to build each rule are the \textit{Gini impurity measure} 
 The former minimizes the misclassification error in the output sets that result from the partition.
 It optimizes the model's accuracy as the resulting score of tagging all the leaf's samples with the majority label in that partition.
 
-The latter measure optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Leibler divergence} of the resulting sets with respect to the original set previous to the split.
+The latter measure optimizes for information entropy, which is analogous to minimizing \textit{Kullback-Leibler divergence} of the resulting sets with respect to the original set prior to the split.
 
 In addition, we have the misclassification measure.
 Following is listed formulation of the these three impurity measures for classification trees:
@@ -110,15 +119,14 @@ Following is listed formulation of the these three impurity measures for classif
     \item Misclassification error: $ \displaystyle \frac{1}{N_j} \sum_{x \in R_j} I(y\neq c_j) = 1 - c_j $
 \end{itemize}
 
-In some cases, a reweighted Gini index can be efficient where in this version a loss matrix is used to multiply each summands of the measure.
-By this, the matrix reassigns weights to different cases of misclassification.
-This practice become specifically reevant when we have that a sample from class $k$ incorrectly assigned to class $k'$ is more valuable than other misclassifications.
+% In some cases, a reweighted Gini index can be efficient where in this version a loss matrix is used to multiply each summand of the measure.
+% By this, the matrix reassigns weights to different cases of misclassification.
+% This practice become specifically relevant when we have that a sample from class $k$ incorrectly assigned to class $k'$ is more valuable than other misclassifications.
+% Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $L_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$.
+% Naturally we will have $L$ as a null diagonal matrix.
+% As such, the Gini index's summands will take the reweighed form $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
 
-Let $L \in \mathbb R_{\ge 0}^{K \times K}$ where $L_{(k,k')}$ is the cost of misclassifying a class $k$ sample into $k'$.
-Naturally we will have $L$ as a null diagonal matrix.
-As such, the Gini index's summands will take the reweighed form $L_{kk'} \hat{p}_{jk} \hat{p}_{jk'}$.
-
-For the binary (two class) case, these measures can be expressed in simpler terms.
+For the case of binary (two class) classification, these measures can be expressed in simpler terms.
 If we consider $p$ to be the probability of success, then we have
 
 \begin{itemize}
@@ -164,14 +172,14 @@ This is due to the hierarchical nature of the splits, where errors randomly made
 Once a sample has been directed through a lower branch, it will continue down through this one without reconsideration of the past errors.
 
 For the reasons described, in this model it is important to control the depth of the trees built.
-To do this, the most common method to do this grows a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very nonrestrictive.
+To do this, the most common method for doing this grows a very large tree $T_0$ that will continue until it reaches a depth limit threshold that is very nonrestrictive.
 Then the tree will be pruned by removing branches and nodes to lower the model's complexity whilst at the same time trying not to compromise much of its accuracy.
 More details on this can be seen in \cref{appx:sec:tree_pruning}.
 For a broad characterization of decision trees and their construction in classification or regression problems, please refer to~\citep{breiman-cart84}.
 
 \subsection{Experiment}\label{subsection:decision_trees_experiment}
 
-We present here a run of the a decision tree over $\mathcal{T}$.
+We present here a run of a decision tree over $\mathcal{T}$.
 Again, the case the \cref{target2} was used as an example, where we intend to correctly tag those TelCo users which were living in the endemic region in $T_0$ and then migrated to $T_1$.
 
 The tree was built using a standard configuration with a low depth of 5 and a Gini splitting criteria.
@@ -193,7 +201,7 @@ This allows us to see how the algorithm selects better features at low-level nod
     \label{fig:decision_tree_actual_problem}
 \end{sidewaysfigure}
 
-
+\clearpage
 
 %\begin{figure*}[tb]
 %\centering
@@ -202,7 +210,7 @@ This allows us to see how the algorithm selects better features at low-level nod
 %\label{fig:decision_tree_actual_problem}
 %\end{figure*}
 
-\smallskip
+% \smallskip
 
 
 From \cref{fig:decision_tree_actual_problem} we can approximate which features are most important to the algorithm when deciding a node split, given by the Gini splitting criteria.
@@ -221,10 +229,9 @@ For this reason, we modified the tree's loss function's setup to weigh more samp
 We will have that for each sample, it's loss weight was adjusted by it's class representation ratio.
 With this, the new run scored a $57.9\%$ $Accuracy$ error score which is more than a $15\%$ increase over the previous score.
 Still, this is considered a very poor model for supervised learning.
+The figure for this model is shown in \cref{fig:decision_tree_actual_problem2}.
 
-The figure for this model is shown below.
-
-\bigskip
+% \bigskip
 
 \begin{sidewaysfigure}[H]
     \centering
@@ -236,11 +243,11 @@ The figure for this model is shown below.
 \end{sidewaysfigure}
 
 
-\smallskip
+\clearpage
 
 The importance of the mobility diameter becomes clearer in \cref{fig:decision_tree_actual_problem2}.
 Once again the learner selects this attribute as the first split in the data, and this time with balanced samples.
-Recall that by the stochastic nature of the algorithm constructing the tree, two runs with the same hyperparameter settings and data, need not output the same trees.
+Recall that by the stochastic nature of the algorithm constructing the tree, two runs with the same hyperparameter settings and data need not output the same trees.
 In this case however, it is notable that the final tree still uses the mobility feature in the first split in the data, even with balanced samples.
 And the same can be said of the feature representing the count of calls made from the home antenna.
 
