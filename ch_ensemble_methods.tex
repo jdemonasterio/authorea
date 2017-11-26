@@ -224,7 +224,7 @@ Evaluated with the $Accuracy$ metric, we see a score of $43.2\%$ with this learn
 Under these circumstances, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
 
 We decide to iterate once again on this model, but now slightly changing some hyperparameter values.
-In this iteration the the balance of $\mathcal{T}$ is controlled and this is because in this task, the positive and negative classes have a disproportionate balance of samples and this is reflected in the overall model's poor performance.
+In this iteration the balance of $\mathcal{T}$ is controlled and this is because in this task, the positive and negative classes have a disproportionate balance of samples and this is reflected in the overall model's poor performance.
 For this reason, we modified the tree's loss function's setup to weigh more samples from the under-represented class over the samples from the abundant group.
 We will have that for each sample, it's loss weight was adjusted by it's class representation ratio.
 With this, the new run scored a $57.9\%$ $Accuracy$ error score which is more than a $15\%$ increase over the previous score.

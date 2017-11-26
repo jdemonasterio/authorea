@@ -487,7 +487,7 @@ We took one logistic classifier with common settings and we ran a cross validati
 
 In this run, we considered four metrics to cross-validate our models: $Accuracy$, $Precision$, $Recall$ and $F1$.
 We compared all of them in a procedure which had fixed hyper parameters for all models.
-The number of folds, $K$, was set to eight and the the lasso regularization ($l1$) configuration was optimized.
+The number of folds, $K$, was set to eight and the lasso regularization ($l1$) configuration was optimized.
 At the same time, we fixed to $100$ the maximum gradient descent iterations for every configuration tested.
 We also balanced the contribution of the positive and negative samples to the loss function, where samples of the , under-represented, positive class had a higher contribution to the loss.
 This was done by reweighting each individual sample's loss, where the weight was equivalent to the reciprocal of that sample's class percentage with respect to the total number of samples.

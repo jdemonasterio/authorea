@@ -113,7 +113,7 @@ Here we used the same classifier as before but on the whole dataset in what defi
 
 The runtime for this experiment had a lower bound of one and a half hours.
 This was for all of the cross-validated fits and for the whole set.
-Also since we limited the number of iterations to at most one hundred steps, this runtime is actually smaller than the the real optimization time for this algorithm,
+Also since we limited the number of iterations to at most one hundred steps, this runtime is actually smaller than the real optimization time for this algorithm,
 Another issue found with this algorithm was its extremely poor $F1$ performance on the prediction of these users that migrated out of the endemic region.
 We found that it had a test score lower than $17\%$.
 As we will see later in other statistical learners, we had that the overall precision of the classifier was very poor due to not being able to accurately predict positive samples.
@@ -491,7 +491,7 @@ We saw that all of the learner's output a very low $Precision$ score and this im
 
 The overconfidence shown by the models derived a high misclassification rate for the samples in the positive class.
 This error was so strong, that it drove the $F1$ scores to low values, even when they output acceptable $Recall$ scores.
-Still, the trade-off in the the precision of their positive predictions was very strong.
+Still, the trade-off in the precision of their positive predictions was very strong.
 
 We mentioned that this situation might appear in highly unbalanced classification problems, such as the ones we are working with here.
 The overconfidence effect in learners is affected by the unbalanced target class.
