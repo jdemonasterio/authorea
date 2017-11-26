@@ -1,7 +1,9 @@
 # TODO PLAN
 
 ## Meeting 13/11
-    * Do not use he/her his antenna and swap to its, their ,etc
+    * ASPELL all individual files.
+    * [DONE] Recheck appendix \cref tags.
+    * [DONE] Do not use he/her his antenna and swap to its, their ,etc
 
 ## Meeting 18/10
     * [DONE] Do great review of whole thesis in single read.
