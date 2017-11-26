@@ -13,35 +13,32 @@
 
 The idea of this chapter is to present a combined overview of the work done and the results encountered in
 \cref{ch:descr-risk,ch:machineLearning,ch:modelSelection,ch:ensembleMethods}.
-All in all, we intend to showcase most of the relevant information from the preceding sections.
-The overall picture of this work shows that there is evidence to confirm the hypothesis which stipulates that cell phone usage logs are rich in social interactions and in turn, these interactions are informative enough on long-term migrations and human mobility.
+All in all, we intend to showcase what relevant information were found in the preceding chapters. 
+Most importantly we found in this work that there is evidence to confirm the hypothesis which stipulates that cell phone usage logs are rich in social interactions and, in turn, we show that these interactions are informative enough to predict long-term migrations and human mobility.
 
 \chapter{Summary of Results}\label{ch:results}
 
 % handling data, models and features with acumen
 % After extensive research of Machine Learning literature and CDR usage in health problems.
-
 % A summary of the work done we can say we have discussed issues on the most of the following items:
 
-In \cref{ch:descr-risk} we presented the CDR dataset and how it was relevant to the problem.
-We showed how the data contained dynamic georeferenced data at the user level.
-
-With a minuscule sample of the CDRs we showed that the dataset is rich in social interactions between users.
+In \cref{ch:descr-risk} we presented the CDR dataset and how it contained information relevant to the problem of long-term human migrations.
+With a minuscule sample of the CDRs we showed that the dataset is rich in social interactions between users and that the data contained dynamic georeferenced information at the user level.
 This gave us an idea of how this type of data could be leveraged to the general problem.
-We then framed our problem in the context of long-term human migrations and gave an idea of the importance of them, in relation to the epidemic nature of the disease.
+We then framed the problem of long-term human migrations in this context and gave an idea of their importance, in relation to the epidemic nature of the disease.
 
-We noted that the dataset posed a very unbalanced classification problem as most Telco users did not show any migration pattern to or from the endemic region, in the time of analysis.
+We noted that the dataset, as it was presented, posed an unbalanced classification problem as most TelCo users did not show any migration pattern to or from the endemic region, in the time frame of analysis.
 This also implied that we had a very correlated problem, where most users did not change their past and present endemic conditions.
 This information, combined with the local calling nature, meant that we had correlations with the target feature.
 This was noted by seeing that users living in the endemic region will most probably have lived there in the past as well.
 
 In later sections we also noted that this strong past-to-present correlation in user's homes was relevant to the prediction problems.
-This is because for tree based learners, knowing where the user lived in the present, was a strong indicator of where the user would be living in the past.
+This is because for tree based learners, knowing where the user lived in the present, was a strong indicator of where the user's past residence.
 This information provided the algorithms with features that were highly informative.
 Yet we decided to exclude this attribute for the problem of predicting a user's past home endemic condition because we wanted to evaluate the information present in other, less trivial, features.
 
 More so, we found other variables having mild interactions with the condition of being a past endemic user.
-As expected, people with high mobile interactions with the endemic region, in the form of calls duration and calls counts, also resulted in attributes which were related to users having past endemic homes.
+As expected, people with high mobile interactions with the endemic region, in the form of call durations and call counts, also resulted in attributes which were related to users having past endemic homes.
 This is most probably due to the locality effect in calling patterns, where most interactions between Telco users occur in local regions.
 Thus users living in endemic regions would call other users nearby.
 
@@ -49,35 +46,31 @@ Thus users living in endemic regions would call other users nearby.
 % in which there are few positive cases over all of the possible.
  % an exploratory We compared the relative sample of users
 
-In this stage we also set to explore the data with feature transformations and visualizations to further discover available in it. % information contained in the data.
-As a starting point we transformed the user-level data into a dataset at the antennas level.
+In this stage we also set to explore the data with feature transformations and visualizations to further discover insights relevant tot he problem of long-term human migrations. % information contained in the data.
+As a starting point we transformed the user-level data into a dataset at the antenna level.
 This step aggregated information of call patterns to and from the endemic region.
 It allowed us to present geolocalized visualizations of these social interactions to the vulnerable areas.
 As an intermediate step in this process we had to introduce the definitions that we later used for the rest of this work.
-We technically set what we meant was a vulnerable interaction and what we find is a user's home antenna.
-
-% For the latter we base
-
-The antenna level information was finally aggregated into heat maps.
-In these, georeferenced call interactions and colored cellphone antennas according to their level of vulnerable interactions, as defined previously.
+We defined what a vulnerable interaction meant and what is a user's home antenna.
+To finish with the data exploration and produce the heatmaps, we aggregated the data at the antenna level.
+In these visualizations, call interactions were georeferenced and antennas were colored according to their level of vulnerable interactions..
 % We did this with the help of
 
-The visualizations exposed a `temperature' descent from the core regions outwards.
+The heatmap visualizations exposed a `temperature' descent from the core regions outwards.
 As expected, the heat was noted to be concentrated in the ecoregion.
 We also found out that the level of vulnerable interactions per antenna gradually descends as we move further away.
 We say this is expected behavior because it is consistent with findings in the literature in which most calls are done to other local antennas. %in general of a local nature.
 Given this period and Telco of analysis, we saw that ninety percent of the users limited usage to at most four Telco antennas.
 
 We also discovered some unexpected findings that were highlighted by the risk maps.
-Interactions from non-endemic antennas towards those in the endemic region were seen to be non-homogeneous in some areas.
+Interactions from non-endemic antennas with those in the endemic region were seen to be non-homogeneous in some areas.
 As an example, \cref{fig:amba_map} outlines various antennas with higher vulnerability.
 We suspect this non-uniformity in the vulnerable interactions can help detect communities with higher probability of disease prevalence.
 
-Health experts agree that these anomalies can be a great starting point to start.
-Where potential communities atypical in their neighboring region could be worthy of a latent endemic foci.
+Health experts agree that these anomalies can be a great starting point to start as communities atypical in their neighboring region carry potential of being a latent endemic foci.  
 These antennas stood out for their strong communication ties with the regions studied, showed significantly higher links of vulnerable communication.
 
-In these images presented, the differences in the vulnerable interactions were clear.
+In the images presented, the differences in the vulnerable interactions were clear.
 When talking to the ``Mundo Sano Foundation'' researchers participating in this project, they pointed to the fact that the detection of these antennas through the visualizations was of great value to their goals.
 
  % to the health Mundo Sano Foundation researchers participating in this project.
@@ -86,10 +79,10 @@ At the national level, the results evidenced by the maps were coherent with the 
 
 
 
-In \cref{ch:machineLearning,ch:modelSelection} we gave a practical introduction to Machine Learning in general, and of Supervised Classification problems in specific.
+In \cref{ch:machineLearning,ch:modelSelection} we gave a practical introduction to Machine Learning in general, and of Supervised Classification problems in particular.
 This helped us set our Chagas problem inside a systematic process to analyze long-term migrations with the CDR dataset.
 
-To do this, we broke the problem of long-term human migrations down to four tasks which were later analyzed through different classifiers.
+To do this, we broke the problem of long-term human migrations down in four tasks which were later analyzed through different classifiers.
 In these two chapters, we introduced the Machine Learning theory necessary to structure our problem, along with its methods to solve them.
 These models were some of the most common techniques found in the literature for the task we were trying to solve.
 
@@ -101,7 +94,7 @@ There we showed that there is importance in model regularization by fitting a Lo
 This affected both the training and test set performance in a similar way.
 
 
-At the same time we introduced other relevant concepts in the Machine Learning and we exemplified them from the our long-term prediction problem.
+At the same time we introduced other relevant concepts in the Machine Learning and we illustrated them with examples from the long-term human migration problems.
 As is common in the literature, in \cref{figure:dtree_overfit_problem_2} we saw that increasing a decision tree's complexity leads to a clear case of overfitting the training data when trying to approximate the generalization error.
 
 The same procedure was used to illustrate the concept of ``Cross Validation'' in \cref{fig:cv_vs_test_score}.
@@ -109,9 +102,10 @@ We found that when making predictions on which users were endemic in the past, t
 These findings are consistent with lots of other experiments found in the literature where by cross validating the search of optimal hyperparameters, we can have a fair estimation of the test error.
 
 
-Towards the end of \cref{ch:modelSelection} we performed a deeper experimentation with this same problem and also on users that moved out of the endemic region.,
- % which characterized unidirectional migrants, from the endemic region.
+Towards the end of \cref{ch:modelSelection} we performed a deeper experimentation with this same problem and also on unidirectional users: those that moved out of the endemic region from the past to the present time frame.
 Here we used the same classifier as before but on the whole dataset in what defined our systematic approach of analyzing classifiers performance.
+ % which characterized unidirectional migrants, from the endemic region.
+
 % through cross validation, hyperparameter error assessment, feature selections through iterations and visualization of validation curves.
 
  % and found we did this on the whole dataset in an approach which defined systematic procedure.
@@ -120,50 +114,45 @@ Here we used the same classifier as before but on the whole dataset in what defi
 The runtime for this experiment had a lower bound of one and a half hours.
 This was for all of the cross-validated fits and for the whole set.
 Also since we limited the number of iterations to at most one hundred steps, this runtime is actually smaller than the the real optimization time for this algorithm,
-
-Another issue found with this algorithm was its extremely poor $F1$ performance for unidirectional migrants.
-We found that it had a test score lower than $1\%$.
-As we will see later in other statistical learners, we had that
-the overall precision of the classifier was very poor due to not being able to accurately predict positive samples.
+Another issue found with this algorithm was its extremely poor $F1$ performance on the prediction of these users that migrated out of the endemic region.
+We found that it had a test score lower than $17\%$.
+As we will see later in other statistical learners, we had that the overall precision of the classifier was very poor due to not being able to accurately predict positive samples.
 The algorithm was very inefficient in this aspect of overestimating users that migrated out of the endemic region, and this misclassification had a direct impact in the observed $F1$.
-
-
-However this low score was not repeated in the rest of the metrics we evaluated.
+However, this low score was not repeated in the rest of the metrics we evaluated.
 For this same problem, both the best $Recall$ and $Accuracy$ test and CV rates were over $61\%$.
 
 Another relevant observation was that best-fit $C$ values were not consistent along all fits, because these resulting values were seen to differ by orders of magnitude.
-Solutions for $C$ ranged from to $1E-3$ to $1E-1$ on different fits.
+	Solutions for $C$ ranged from to $10^{-3}$ to $10^{-1}$ on different fits.
 With this we can still positively affirm that the best-fit models for this experiment were those which penalized the loss function with strong regularization terms.
 
 
 In contrast, when using this classifier to predict past endemic users residents, we found that we could get a $ROC AUC$ score of $76\%$.
-Moreover this score is achieved when cross validating solely on the $l1$ regularization parameter.
-
+Moreover, this score is achieved when cross validating solely on the $l1$ regularization parameter.
 A similar test score of $74.4\%$ was reached when optimizing for the $l2$ hyperparameter of regularization.
 Each were optimized separately in order to exemplify how the overall $ROC AUC$ varied along different regularization thresholds.
 
 This outcome of better $ROC AUC$ scores, when compared with the experiments on migrations out of the endemic region, underscore the difference among the problems' difficulty.
-If we recall the highly unbalanced class relations for the problem of predicting unidirectional migrants in \cref{target2}, we confirm our hypothesis that these predictions characterize a problem which is very difficult.
+If we recall the highly unbalanced class relations for \cref{target2}, we confirm our hypothesis that these predictions characterize a problem which is very difficult to precisely attack.
+This problem sought to predicting those users that had migrated in one direction, out of the endemic region from the past to the present time. 
+% unidirectional migrants in ,
 
 Overall, both procedures had best fits on the more regularized $C$ values.
 A similar result can be found for regularization models and on procedures where hyperparameters were cross validated.
-Both optimizations improved improved the model's predictive power in varying degrees.
+Both optimizations improved the model's predictive power in varying degrees.
 
 
 The previous results outline a complete systematical Machine Learning approach and tool set used to evaluate the long-term migrations prediction problem.
-In this way we provide a methodical way to analyze classifiers performing on this problem.
+In this way, we provide a methodical way to analyze classifiers performing on this problem.
 With this we tackled the task with the introduction of new algorithms in the following chapters.
 
 
 
-In \cref{ch:ensembleMethods} we introduce four new classifiers along with their properties and characteristics. Three of these, \cref{section:decision_trees,section:random_forests,section:gradient_boosting}, were tree based methods whilst the last, \cref{section:naive_bayes}, was a Naive Bayes Classifier used for benchmarking purposes.
+In \cref{ch:ensembleMethods} we introduced four new classifiers along with their properties and characteristics. Three of these, \cref{section:decision_trees,section:random_forests,section:gradient_boosting}, were tree based methods whilst the last, \cref{section:naive_bayes}, was a Naive Bayes Classifier used for benchmarking purposes.
 For each, we presented an introductory review and pointed the reader to further literature references where applicable.
 
 All but the Decision Tree learners were put through a number of experiments to evaluate how they performed across all prediction problems.
 For each model, we tried to draw the greatest prediction performance from the features extracted from the dataset.
-
-Random Forest and Gradient Boosting models were evaluated in further detail however.
-And even though Decision Trees were not systematically analyzed, they were added as a departure point for the following ones.
+However, Random Forest and Gradient Boosting models were evaluated in further detail whilst Decision Trees were not systematically analyzed. This base learner still served as common ground from which the following, more complex, learners were built upon.
 
 As a start, we showed through a validation curve that, for the problem of users moving out of the endemic regions, the learners would become overfit if we let the trees grow in depth.
 We had that the cross-validated scores and the test scores diverged rapidly after a tree-depth of $7$ and this is plotted in \cref{figure:dtree_overfit_problem_2}.
@@ -175,8 +164,8 @@ This is not surprising as Decision Trees are known to become highly complex afte
 % Ideally it serves as an example of what aspects of this greedy algorithm are enhanced by Random Forests.
 
 We also fit two Decision Tree instances for the same problem to evaluate the model with an $Accuracy$ score.
-The first of two fits was ran over a smaller hyperparameter configuration and, in particular, this configuration did not consider a rebalancing of the samples when computing the value of the loss function over the whole set.
-The second fit was done with this balancing to account on how this difference affects the algorithm's outcome.
+The first of two fits run over a smaller hyperparameter space and, in particular, this configuration did not consider a rebalancing of the samples when computing the value of the loss function over the whole set.
+Then in the second fit we performed sample balancing in the loss function to quantify the algorithm's outcome with and without this configuration.
 
 To aid our understanding of this model's outcome we also decided to create visualizations for both fitted trees.
 Each tree is plotted in a graph which shows up to five levels of splits.
@@ -200,27 +189,26 @@ These split values were characterizing segments of heavy users, that is users th
 
 Here we must note however, that both best-fit trees result in a low $Accuracy$ scores of $43.2\%$,and $57.9\%$ respectively.
 Under these circumstances we find that these top features selected when building the trees could not be very informative of the overall problem in users that migrated out of the endemic region.
-This means that, due to the low performance of these learners, the interpretations we build from this output can be based from the wrong assumptions.
+This means that, due to the low performance of these learners, the interpretations we build from this output can be based on the wrong assumptions.
 
 
 % we could be tempted to interpret the
 
 Interestingly enough, in these experiments we found that for this learner, rebalancing the set helped us increase the learner's score by a great amount.
-We hypothesize that this is a valuable hyperparameter that helps when facing problems with target classes are unbalanced.
+We hypothesize that the hyperparameter is a valuable in helping face problems where target classes are heavily unbalanced.
 
 % With this score, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
 % Experiments with the Decision Tree was used
 
 
-The rest of the \cref{ch:ensembleMethods} follows with the presentation of other learners.
-All of them are introduced with a brief explanation of their formulation and their distinctive characteristics.
+The rest of the \cref{ch:ensembleMethods} continues with the introduction of other learners.
+All of them are presented with a brief explanation of their formulation and their distinctive characteristics.
 
 For each of these, we successively experiment the same difficult predictive task.
 Where we look to tag users that migrated out of the endemic region, from time periods $T_0$ to $T_1$.
-In this way   set a common ground to compare and evaluate the algorithms.
-% settled to compare and evaluate them on common ground.
-
+In this way, we set a common ground to compare and evaluate the algorithms.
 As we will see later in \cref{tab:master_table_results}, this task, \cref{target2}, happened to be the hardest one, as it resulted in the lowest metric scores for all classifiers.
+% settled to compare and evaluate them on common ground.
 
 When tested over with the Random Forest classifier, we saw better $Accuracy$ scores than with the Decision Learner over a 10-fold cross-validation procedure.
 This model improved the mean cross validated score to reach a high score of $81\%$, for trees of depth bigger than $15$.
@@ -246,7 +234,7 @@ Still, we note that the best-fit CV value was of $95$.
 
 For this learner, we also found that it will rapidly overfit the data once the base learners get a maximum depth of $6$.
 What was interesting here was that the mean CV $Accuracy$ constantly hovered around $86\%$, whilst the score for the training gradually improved as the tree-depth grew, up to a score of $96\%$.
-This algorithm rapidly over fits users that migrated out of the endemic region, which is similar to what we saw with the Decision Tree Learner.
+This algorithm rapidly overfits users that migrated out of the endemic region, which is similar to what we saw with the Decision Tree Learner.
 Still, and compared to the Forest learner, we get a better CV error, at the expense of a runtime which at least $50\%$ slower.
 
 % By comparing this problem over the various tree methods we discuss on applications that these kind of datasets can provide.
@@ -257,13 +245,13 @@ In a second stage of experiments, we performed extensive testing both on the Ran
 For both, we ran a full CV procedure in two feature versions, one with all the features and one in which target-correlated features were removed.
 
 As a general statement we can say that the Random Forests experiments have lower runtimes because take better advantage over the algorithm's parallelizability.
-Also, we can not affirm that one algorithms is strictly better over the other.
+Also, we can not affirm that one algorithm is strictly better than the other.
 Both of them exceed each other across different metrics.
 It seems overall that the Random Forest is better at correctly classifying positive instances, while the Booster is slightly better over the $Recall$.
 These asymmetrical performances across $Precision$ and $Recall$ scores resulted in that no algorithm outperformed the other when evaluated using the $F1$ score.
 Due to the low $Precision$ rates, both achieved low $F1$ scores with similar outcomes, where the maximum of these values was $37\%$.
 
-On other scores such as the $Accuracy$ and $ROC AUC$ the experiments showed high classifier rates, where all of these ranged between percentages of $83\%$ and $90\%$.
+On other scores such as $Accuracy$ and $ROC AUC$ the experiments showed high classifier rates, where all of these ranged between percentages of $83\%$ and $90\%$.
 These high scores show there is enough predictive capacity in using these algorithms for this problem of tagging migrants from the endemic region.
 
 On the best-fit hyperparameter values, we see that both algorithm's values agree in that a large number of base learners are needed to perform better.
@@ -279,9 +267,10 @@ Another advantage of these two algorithms, is that they provide heuristics on th
 
 From the process of calculating those best-features, we can say that for this prediction task of finding, of those currently non-endemic users, which are the migrants that moved out of the endemic region, the feature selection heuristics of ensemble algorithms agreed upon a group of features.
 These were highlighted, for a number of times, over the rest of the features and they provide insights into what CDR variables provided most predictive value.
-
+Note though that this heuristic does not provide any information into how the feature favors the prediction, be it in a positive or negative way.
 Below we can find a descriptive collection of those features for these learners, where we have broken down all of this information into feature categories:
 
+\todo{Polish and extend all of the following items.}
 \begin{itemize}
 
     \item Calls made in older months and in December: Interactions of different type, that occurred closer to the split month between both periods $T_0$ and $T_1$ (July), were also distinguished.
@@ -289,12 +278,10 @@ Below we can find a descriptive collection of those features for these learners,
     We conjecture that this last result can be due to the fact that December is a month where user's increase their mobile activity with their families.
 
     \item Vulnerable calling patterns: As we first suspected in \cref{ch:descr-risk}, the vulnerability of the mobile interaction between users was relevant.
-    Measurements such as the duration and volume of calls at different time periods where selected.
-    We make the reminder here that these measurements were the basis of our construction of the heatmaps in that same chapter.
-    Where the antennas plotted concentrated users with vulnerable calls by calling volume or time, for a given month.
+    Measurements such as the duration and volume of calls at different time periods selected.
+    We make the reminder here that these measurements were the basis of our construction of the heatmaps in that same chapter, where the antennas plotted concentrated users with vulnerable calls by calling volume or time, for a given month.
 
-    \item Mobility size: Finally, different measures of the distance in human mobility were determined to be important by the model. Both general mobility diameters and weekday or weeknight specific mobility endemic were relevant and on various occasions.
-    We can informally add that Decision Tree Learners also selected this features in the higher nodes.
+    \item Mobility size: Finally, different measures of the distance in human mobility were determined to be important by the model. Both general mobility diameters and weekday or weeknight specific mobility were relevant. The importance of this feature was highlighted on numerous occasions and we can informally add that Decision Tree Learners also selected this features in the higher nodes.
     This result can be seen in detail at \cref{subsection:decision_trees_experiment}.
 
 \end{itemize}
@@ -302,8 +289,8 @@ Below we can find a descriptive collection of those features for these learners,
 These factors identify strong predictors in long-term human mobility and provide additional insights into our original hypothesis of which predictors were most valuable for the task.
 Understanding these factors can further provide information into the problem of chagasic disease spread in the long run.
 
-As a final remark that we must add here, the previous best-features list carry some bias introduced by the model's feature-target correlations, because part of these best-features were selected from the experiments run with these same features.
-A similar argument can be made for the best-features calculated from the Gradient Boosting experiment that used only a filtered set of features, previously filtered by the Random Forest experiments.
+As a final remark that we must add here, the previous best-features list carries some bias introduced by the model's feature-target correlations.
+A similar argument can be made for the best-features calculated from the Gradient Boosting experiment that used only a filtered set of features, previously selected by the Random Forest experiment's best-features result.
 There is a strong feature-target correlation and there is a leakage of target information within this experiment.
 
 To look at a more thorough examination of these results and how they were selected, the reader can refer to \cref{tab:random_forest_big_experiment_best_features,tab:boosting_big_experiment_best_features}.
@@ -320,11 +307,10 @@ To look at a more thorough examination of these results and how they were select
 
 Given all of the previous findings we collected, we can say that there is no absolute single method that can be single-handedly applied to all problems and evaluation performances.
 However, our results outline that the Gradient Boosting methods were, in general, top performing for all tasks and classification metrics, except for the $F1$ score.
-
-Surprisingly enough, for some problems the Naive Bayes was outperforming in this $F1$ metric.
+Surprisingly enough, for some problems the Naive Bayes was outperforming all learners in the $F1$ metric.
 The algorithm was more conservative in its positive predictions and this difference saw a trade off in its performance across other metrics.
 
-However we can say that results show that the performance of Gradient Boosting models is best over other models such as Logistic Regression or Naive Bayes algorithms for most tasks, and slightly better over the Random Forests.
+However we can say that results show that the performance of Gradient Boosting models is best than other models such as Logistic Regression or Naive Bayes algorithms for most tasks, and slightly better than the Random Forests.
 These models can find complex interactions in the data whilst handling enough care not to lose generalization power.
 
 
@@ -467,7 +453,7 @@ The table shows the best-fit classifier's performance across three scores on the
 %\medskip
 
 \cref{tab:master_table_results} exposes all combinations in model performance and runtime across the problems studied for this work.
-At a first glance there are some notable results exposed in this table.
+At first glance there are some notable results exposed in this table.
 
 \subsection{Runtime Performance}\label{subsec:master_table_runtime}
 
@@ -476,16 +462,16 @@ The algorithm's worst performance for all problems is of two minutes whilst the 
 
 The Naive Bayes algorithm's runtime shows a strong difference with the Logistic Regression which was the slowest method overall, with the fastest runtime for all problems being greater than an hour and a half.
 Having the Logistic Regression as the slowest performing algorithm may be surprising to the reader.
-Consider that in the runtimes measure timings on the cross validation procedures and that, the logistic classifier, has a short list of hyperparameters combinations to optimize, when compared to tree based methods.
+Consider that in the runtimes measure timings on the cross validation procedures and that the logistic classifier has a short list of hyperparameters combinations to optimize, when compared to tree based methods.
 Still, we suspect that the time bottleneck in this algorithm comes in the slow optimization procedure where, for every iteration, the whole dataset needs to be reused to build the direction of steepest descent.
 
-Another result here is that the Gradient Boosting algorithm had a worst runtime than the Random Forest, in cases that almost doubled the runtime.
+Another result here is that the Gradient Boosting algorithm had a higher runtime than the Random Forest and, in certain cases, the results showed almost the double time taken to fit the model.
 Even though the boosting algorithms implement several heuristics to speed up the algorithms with local gradient approximations, we also have that when building the Random Forest ensemble, the weak learners need not be dependent, so the optimization routine can create them in parallel computations.
 Thus this algorithm benefits strongly from parallelization procedures.
 On the contrary, the boosting procedure builds successive trees that improve on the most current model.
 This dependency limits the optimization routine parallelization opportunities.
 
-At this point it is worth to mention that the runtimes resulted from experiments that were not performed under controlled computing environments.
+At this point it is worth mentioning that the runtimes resulted from experiments that were not performed under controlled computing environments.
 For example, we cannot assure that all cross-validation procedures were done in settings with equal available computational resources.
 Even though results seemed consistent across all problems, we know that these results shouldn't be considered as benchmarks.
 
@@ -515,7 +501,7 @@ It was surprising to discover that a very modest and fast model could, under thi
 We suspect that the Naive Bayes's formulation helps limit the overconfidence of the final model, allowing it to still reach acceptable $Recall$ scores.
 In all, we saw that this was the best model for all problems of migrant users, and when evaluated on the $F1$ score.
 
-In contrast, the problem of predicting users that lived in the past, by only knowing their information from the present, is a task that does not present this ill-conditioned class imbalance.
+In contrast, the problem of predicting users who, in the past, had homes in the endemic region, by only taking into account their information from the present, is a task that does not present this ill-conditioned class imbalance.
 Results show that the Gradient Tree Boosting learner reaches very high $F1$ scores of $95\%$ whilst both the Logistic Regression and Random Forests reach values of $90\%$.
 
 A similar situation was observed in other scores and across all problems.
@@ -528,7 +514,7 @@ It scored high across all problems in the $ROC AUC$ metric, where values ranged 
 
 We confirm there that this learner, being more complex than the others presented, effectively outputs higher scores in these metrics and
 that the model can better predict those different user migrations with lower bias.
-We still had to be careful enough not to overfit the model on the training set by configuring shallow base learners or by using stronger regularization of the parameters.
+We still had to be careful not to overfit the model on the training set by configuring shallow base learners or by using stronger regularization of the parameters.
 
 A similar statement can be said for the Random Forest model.
 For these metrics only, the results show that this model was in a $5\%$ relative score distance to the Gradient Boosting model, except for the first problem of predicting which users were from the endemic region in the past, where the model was outperformed for more than $10\%$.
