@@ -291,7 +291,6 @@ To begin building attributes from the data, each week is divided into time perio
 The model consists of the following features, which can be grouped into 4 categories:
 % The data is aggregated by user and by link.0
 
-\todo{review these lists display}
 \begin{enumerate*}[label={\alph*)},]
 \item \textbf{Used and Home Antennas:} For each user $u \in \calN_C$, we register the top ten most used antennas, during each month of the training period,
 together with the number of calls made through each antenna.
@@ -300,14 +299,19 @@ In our dataset user antennas are ordered with $0$ being the most used antenna an
 We ignore those users for which we don't have ten used antennas and discard users that have no calls on weeknights\footnote{This is because we wouldn't be able to detect $H1_u$.}.
 We also register the most used antennas considering only calls made during the \textit{weeknight} period, as defined in \cref{def:week-periods}.
 As explained before, a user's home antenna is defined by the most used antenna during weeknights and, with this, users were tagged as `endemic' if their home antenna is in the endemic zone $E_Z$ and `exposed' if any of the ten antennas logged is in the risk area.
+Finally, we added the user's province by referring to their home antenna's membership.
 % For our algorithms we considered two versions for this antenna: the most used antenna in all of $T_0$, and the most used antenna during the \textit{week night} for these same months.
 
-Finally, we added the user's province by referring to their home antenna's membership.
+\\
+
 \item \textbf{Mobility Diameter:} The user's logged antennas define a convex hull in space and the radius of this hull is taken to be the user's mobility diameter.
 This length is representative of the area of influence of that individual.
 We expect this feature to be correlated with long-term migrations.
 We registered the mobility diameter of each user, as the diameter in kilometers of the convex hull defined by their top 10 used antennas.
 Again, we generate two values for this attribute, considering (i) all antennas used and (ii) only those used during \textit{weeknights}.
+
+\\
+
 \item \textbf{Graph Data and Communications:} We look at the social graph $\calG_C$ built from the CDRs, and the communications between nodes in $\calN_C$.
 For each edge $\left< n_i, n_j \right> \in \calE_C$, we dive into each of their interactions, segmenting call data with different criteria.
 For each month and pair of users $\left< i,j \right>$, we gather the tuple $\left< time_{ij}, calls_{ij}, direction, period \right>$ where $time$ is the sum of all calls (in seconds), $calls$ is the number of calls exchanged, $direction$ is a boolean variable indicating whether the calls were incoming or outgoing (from user $i$'s point of view) and $period$ corresponds to a segmentation of the week into the periods \textit{weekday}, \textit{weeknight}, and \textit{weekend}.
