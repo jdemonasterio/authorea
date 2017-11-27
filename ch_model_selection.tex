@@ -223,12 +223,35 @@ where $Y$ will be taking any of value of the class set $\calG$.
 
 With this loss function, the classification prediction error can be decomposed in
 
-\todo{Reinterpret formula as before}
-\begin{equation}
-EPE( \hat{f} ) = Var(Y) + P(Y=\argmax_{1\leq i \leq K} P(Y=i)) - \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i)
-\end{equation}
+% \begin{equation}
 
-A more detailed explanation based on the works of~\citep{james-biasVarianceGeneral} is given in \cref{appx:sec:biasVarianceExtensionLoss}.
+%$$
+%EPE( \hat{f} ) = P\left( \hat{Y} \neq Y \right) = Var(Y) + P\left(Y=\argmax_{1\leq i \leq K} P(\hat{f}(X) =i )\right) -
+%\sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i) $$
+
+% \end{equation}
+% \begin{split}
+
+%EPE( \hat{f} ) =
+% using equation numbers from James'  paper (N)
+$$
+P\left( \hat{f}(X) \neq Y \right) =
+Var(Y) + % (19)
+P\left( Y =  \argmax_{1\leq i \leq K} P(\hat Y = i ) \right) % (22)
+%P\left( Y = \argmax_{1\leq i \leq K} P(\hat{f}(X) = i ) \right)  % part of AE (21)
+-  \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i) %  AE (21)
+$$
+
+where in this formula we have, once again, that the error is decomposed by using the classifier's variance. 
+Here, the classifier's bias is not clearly defined as with the squared error.
+Yet the decomposition quantifies how similar is the learner's class probabilities with the true distribution in the data, and how this interaction differs from the most probable output value, which is the Bayes classifier.
+
+Note that in this definition we do not have the bias of the model as a term of the error.
+This quantity is rather taking effect as part of the second and third summands in the equation and it tries to capture how close is the classifier's distribution with respect to this distribution in the data.
+Another relevant difference is that in this definition there are no noise terms 
+For more detailed information on bias and variance decomposition in classifiers, one can refer to \cref{appx:sec:biasVarianceExtensionLoss} which is based on the survey work of~\citep{james-biasVarianceGeneral}.
+
+%What is also interesting to note with this formula is that it might be that due to the interaction in between target and model probabilities, we have that in some cases we might have in
 
 \subsection{Overfitting}\label{subsection-overfitting}
 
