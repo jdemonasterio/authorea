@@ -8,15 +8,15 @@ This assessment will compare models' benefits and drawbacks in a specific long-t
 
 
 % The models builds a
-Decision trees are models that can be understood as a tree-like graph structures in which each node of the tree contains a conditional statement. 
-These conditional statemnts act as a rules which split input samples in a binary relationshipo of two disjoint sets.
+Decision trees are models that can be understood as a tree-like graph structures in which each node of the tree contains a conditional statement.
+These conditional statemnts act as a rules which split input samples in a binary relationship of two disjoint sets.
 In this way, we have that at each node samples split in two possible branches which recursively continue to further nodes which again split the samples.
  % any input data sample can comply or not.
-The rules are propositions or statements that are eigher true or false and they are built as a linear (or similar) binary partition over feature space. 
+The rules are propositions or statements that are eigher true or false and they are built as a linear (or similar) binary partition over feature space.
 In the algorithmic implementation each rule will be defined by assigning a threshold for a given feature which splits samples over those above and below this threshold.
 In this way, at each node the model evaluates each input sample $x$ with the proposition by checking if $x^j \in U$, where $x^j$ is the feature used for that node's rule and $U$ is a subset of the feature's domain.
-After the split, the algorithm recursively partitions each of the resulting splits with another rule. 
- % decision forwards it to one of the possible remaining partitions 
+After the split, the algorithm recursively partitions each of the resulting splits with another rule.
+ % decision forwards it to one of the possible remaining partitions
  % to create a binary partition of the data.
 % over a single feature threshold for every sample.
 %properties of the values for each feature.
@@ -56,7 +56,7 @@ $$A_L(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \} $$
 and
 $$A_R(d,j) = \{x \in \mathcal{T}\ / \ x^j> d \} $$
 
-Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$ respectively and note that we have taken $(p,j)$ as given. 
+Let $N_l$ and $N_r$ be $|A_L|$ and $|A_R|$ respectively and note that we have taken $(p,j)$ as given.
 However, the Decision Tree algorithm will find both in an optimization routine.
 To quantify the \textit{best} feature $j \in \ [1, \ldots, p]$ for this split, the algorithm will minimize:
 
@@ -70,7 +70,7 @@ To quantify the \textit{best} feature $j \in \ [1, \ldots, p]$ for this split, t
 %\end{split}
 \end{equation}
 
-where $y$ is the target associated to the samples $x$ that are part of that node's split. 
+where $y$ is the target associated to the samples $x$ that are part of that node's split.
 Also, $L(\cdot)$ is the loss function used by the algorithm to measure the quality of the split in this optimization.
 Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently.
 
@@ -82,7 +82,7 @@ Other stopping criteria include halting when a minimum number of samples has bee
 We would finally have that the tree's leafs are the partition subsets over the input data and, once a tree is built, predicting targets for new samples is straightforward: the prediction of their target class will be the value given after traveling the sample down to its corresponding leaf node.
 
 To illustrate a constructed tree using this method, an instance of a grown tree is shown in \cref{fg:rf-treeFigure}.
-This classification tree example is built from a dummy gender prediction problem, using CDRs as input data. 
+This classification tree example is built from a dummy gender prediction problem, using CDRs as input data.
 We must note here that there is not much interpretability in this toy example:
 %[.{\textit{Woman}}]
 \smallskip
@@ -273,10 +273,11 @@ There are other different techniques that intent to construct uncorrelated trees
 
 Let $K$ be the number of trees in the ensemble and let $\Theta_k$ encode the parameters for the $k$-th tree.
 As we have mentioned before, there are various variants to the model and these variants will define the type of encoding for the $\Theta_k, k \in {1,\ldots,K}$  parameters.
-For the following part, we will not specify the specific ensembly type constructed since the formulation is common to all of them.
+For the following part, we will not specify the specific ensemble type constructed since the formulation is common to all of them.
 
-To begin, we define
-$$h(\textbf{x},\Theta_k)$$ as the corresponding individual classifier and we let $N$ be the number of samples in the training set $\mathcal{T}$.
+To begin, we define:
+$$h(\textbf{x},\Theta_k)$$
+as the corresponding individual classifier and we let $N$ be the number of samples in the training set $\mathcal{T}$.
 The creation of a random forest involves an iterative procedure where at the $k$-th step, the parameter $\Theta_k$ is fit from the same distribution as $\Theta_j, \ j<k$, yet it is built in a way that is independent of the previous parameters $\{\Theta_1, \ \ldots, \ \Theta_{k-1} \}$. %$\Theta$ will be encoded by a vector of randomly drawn integers from 1 to $M$ which is part of the model's hyperparameters.
 
 
@@ -295,13 +296,13 @@ This function measures, in average, how much do the trees vote for the correct c
 Here the generalization error is denoted as $PE*$ and is equal to
 
 \begin{equation}
-P_{\textbf{x}, \textbf{y} }(mg(\textbf{x},\textbf{y}) <0)
+P_{\textbf{x}, \textbf{y} }\left(mg(\textbf{x},\textbf{y}) <0\right)
 \end{equation}
 
  It can be shown that, for $K$ sufficiently large, the generalization error under the misclassification loss converges to
 
 \begin{equation}
- P_{\textbf{x}, \textbf{y} } ( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{y}) - \max_{j \neq \textbf{y}} P_{\Theta} (h(\textbf{x}, \Theta) = j) < 0)
+ P_{\textbf{x}, \textbf{y} } \left( P_{\Theta} (h(\textbf{x}, \Theta) = \textbf{y}) - \max_{j \neq \textbf{y}} P_{\Theta} (h(\textbf{x}, \Theta) = j) < 0\right)
  \end{equation}
 
 almost surely for all sequences of parameters $\Theta_1,\Theta_2, \ldots, \Theta_k,\ldots$
@@ -316,7 +317,7 @@ We selected the $Accuracy$ score to measure the learner's performance.
 The model was trained in a cross validation procedure of 10 folds for each configuration, and in each experiment we optimized the score for a different model hyperparameter.
 
 For the first experiment, we evaluated the forest's scores on a maximum depth variation for the trees.
-And on the second one, we tried to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing size.
+On the second one, we tried to illustrate the point of \cref{subsection:random_forests_formulation} by considering forests of increasing size.
 As a default configuration, we set both the trees' max depth and the number of trees to 10.
 
 Also, we pre-configure a balanced weighting of positive and negative samples in the loss function, where each sample is weighted by the reciprocal of the class's ratio to the whole dataset.
@@ -352,8 +353,8 @@ Recall how this relates to \cref{figure:dtree_overfit_problem_2}, in which a tre
 Yet we saw how the tree's generalization error starts to suffer and deteriorate at one point.
 
 From what we can see in \cref{fig:random_forest_validation_curves_depth_trees}, the cross validated error is always decreasing for increasing tree depth.
-A very slight deceleration in the decrease of the cross validated error can be seen for tree depth bigger than 9.
-However scores keeps improving and don't worsen.
+A very slight deceleration in the decrease of the cross validated error can be seen for tree depth greater than 9.
+However, scores keeps improving and don't worsen.
 This is different to \cref{figure:dtree_overfit_problem_2} where if we let the tree grow deeper, at one point we only worsen the performance of the test error.
 Here, we are possibly improving the generalization error, as indicated by the CV estimation.
 
@@ -375,9 +376,9 @@ This percentage difference signals that the max depth hyper-parameter is signifi
 
 \subsection{Predictive error bounds}\label{subsec:rforest_predictive_error_bounds}
 
-Random Forests are built upon a bag of weaker classifier, of which each individual estimator has a different prediction error.
+Random Forests are built upon a bag of weaker classifiers, of which each individual estimator has a different prediction error.
 To build an estimate of the generalization error on the ensemble classifier, these individual scores and the relationship between them must be measured.
-In this sense, the \textit{strength} and \textit{correlation}of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
+In this sense, the \textit{strength} and \textit{correlation} of a Random Forest must be analyzed to arrive on an estimate of the generalization error.
 
 Define $$\hat{\jmath}( \textbf{x},\textbf{y}) = \argmax_{j \neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$$
 
@@ -453,8 +454,8 @@ In this subsection, we explore on the task described on \cref{target4} by fittin
 The idea was to look for those same users that had migrated out of the endemic region from  $T_0$ to  $T_1$, but only focusing on those users that are not endemic in the present.
 
 Here, our cross validation procedure explored multiple combinations of hyperparameters that we predefined.
-Let $\alpha_i $ be the list of our $J$ hyperparameters, $\forall i \in {1,\ldots,J}$ .
-Denote all possible combinations by $A_1 \times A_2 \ldots \times  A_J$, where each hyperparameter $\alpha_i$ will take all possible values in the predefined sets $A_i$ $ \forall i \in {1,\ldots,J}$.
+Let $\alpha_i $ be the value of a the hyperparameter $i$, where $i$ is one of the $J$ possible hyperparameters for this model.
+Denote all possible hyperparameters combinations by $A_1 \times A_2 \ldots \times  A_J$, where each $\alpha_i$ will take a value from the predefined set $A_i \  \forall i \in {1,\ldots,J}$.
 
 In practice, we must be careful with the size of these combinations since the full cross validation procedure is costly for the Random Forest algorithm.
 The learner has $J \geq 10$ and for each component $A_i$ it is normal to have more than 10 possible values.
@@ -464,10 +465,11 @@ Training the forests can be computationally intensive in computer memory and CPU
 
 If we were to use commodity hardware and standard programming tools for this procedure, the experiment would take weeks and, given our dataset size, it would not fit into a standard computer's memory of less than 12GB of memory.
 For these reasons, we preform the task with a specialized server with a 16 core CPU and 72 gigabytes of available RAM.\@
-The system runs a UNIX based OS and our algorithms were scripted in~\citep{python3.5}.
-We used~\citep{graphlab}, a specialized Machine Learning Python package, to handle the parallelization and the distribution of system resources.\footnote{We can't stress enough how convenient this package is for our purposes.
-It handles most of the complex task of maxing out the system resources to perform as fast as possible in the cross validation procedure and in the construction of the main $X$ dataset.
-Also, it has an \textit{out-of-the-box} memory management for large datasets.
+The system runs a UNIX based OS and our algorithms were scripted in Python 3.5~\citep{python3.5}.
+We used Graphlab, \citep{graphlab}, and Sckit-Learn, \citep{scikit-learn}, two specialized Machine Learning Python packages, to handle the parallelization and the distribution of system resources.\footnote{We can't stress enough how convenient these packages are to our purposes.
+Graphlab comes specially relevant when handling most of the complex tasks of maxing out the system resources to perform the the cross validation procedures as fast as possible.
+It also helps boost productivity by improving the time it takes to construct the main $X$ dataset.
+This package has an \textit{out-of-the-box} memory management for large datasets.
 With this, we can natively handle data that is larger than the amount of memory used by the server, requiring minimal user knowledge to tune.}
 
 This package has allowed us to conveniently run these long experiments without risk of failure due to lack of memory and without any prior expert domain knowledge in multi-threading or parallel computing.
@@ -530,11 +532,11 @@ $max\_features$ (\%) & 50 & 80  \\
 
 
 From the result's table, it is relevant to note that both optimal learners chose the Gini splitting criterion as best, with tree's of a relatively high depth with 12 levels.
-A similar situation happened with the number of trees grown; best configurations had more than 100 trees with the second experiment having an optimal number of 200.
+A similar situation arose with the number of trees grown; best configurations had more than 100 trees with the second experiment having an optimal number of 200.
 
 Higher differences appear in the choice of the minimum loss reduction and the features sampled per split.
 There are no clear indications as to which configuration is better.
-And, whilst having a higher level of alleatorization during tree growth seems to produce learners which are less overfitting, this difference is not that notable in the CV scorings.
+And, whilst having a higher level of randomization during tree growth seems to produce learners which are less overfitting, this difference is not that notable in the CV scorings.
 
 For most of the metrics used to evaluate the CV procedure, the scores look very similar.
 It is interesting that the second experiment is slightly better in the $Accuracy$, $Logloss$ and $ROC AUC$ scores, with a maximum difference of $5\%$ for all of them.
@@ -544,10 +546,10 @@ We see the learner is losing performance in correctly tagging the user's who hav
 This high relative difference hints to how much of an impact is characterized by removing the features in the second experiment.
 We can suspect that there's enough missing information in those features to reduce the predictive power of the learner.
 
-In both experiments, its important to note though that the elected hyperparameters are not optimal in any strict sense.
+In both experiments, it is important to note though that the elected hyperparameters are not optimal in any strict sense.
 At most, they can hint to the best possible configuration.
 Given the large combinatorial nature of this process, there is no guarantee of optimality in this search.
-To a greater degree were only covering as much space as our time and our computational systems allow.
+To a greater degree we are only covering as much space as our time and our computational systems allow.
 
 
 We also recorded the model's selection of best features, following the heuristic described in \cref{subsection:random_forests_other_notes}.
@@ -573,8 +575,7 @@ This outcome is presented in \cref{tab:random_forest_big_experiment_best_feature
 \end{table}
 
 
-The top features list shows us the importance of mobility diameter for both cases.
-Where for weeknights and also for the whole week, the mobility is relevant to detect a past endemic condition.
+The top features list shows us the importance of mobility diameter for both cases, where we found that the user mobility is relevant to detect a past endemic condition, both for mobility specific to weeknights and, also, for mobility during the whole week.
 
 As expected, in both cases we see that there are a number of features logging vulnerable interactions of users living in non-endemic regions.
 This is in line with what we hypothesized in the construction of the risk maps in \cref{section:riskmaps}.
