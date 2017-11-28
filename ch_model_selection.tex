@@ -54,7 +54,7 @@ With this, \cref{eq:rss} can be read as an approximation of the expected predict
 % foo
 % foo
 % EPE is the expected loss function for our classifier, and taking expectation over any randomness in (\hat{f}(X),Y)
-% and the expecatation is take  with respect to the joint distribution Pr(Y,X).
+% and the expectation is take  with respect to the joint distribution Pr(Y,X).
 
 
 \begin{definition}{Prediction Error:}
@@ -139,7 +139,7 @@ Err_{\mathcal{T_s}} = \frac{1}{N} \sum_{i=1 \ \ x \in \mathcal{T_s} }^N L(y_i, \
 \label{eq:generalizationErrorCalculation}
 \end{equation}
 
-Both of these formulas will be thoroughly used throughout this work, and it is with the generalization errar that we will estimte the $EPE$.
+Both of these formulas will be thoroughly used throughout this work, and it is with the generalization error that we will estimate the $EPE$.
 Doing this will let us find the best model for our task, where we will turn to rank different learners according to their errors $\mathcal{T}$ and $\mathcal{T_s}$.
 Combinations of high or low values for these, across training and test data, will be used as model evaluation and by this we will start to find aspects of the algorithm which need improvement.
 %Let \textbf{x} $\in \mathbb{R}^{p}$ denote a random input variable and \textbf{y} $\in \mathbb{R}$ denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
@@ -188,7 +188,7 @@ We must assume then that calculating this integral is not possible for any $\the
 % \begin{equation}\label{eq:mcarlo-approx}
 % Err_{true}(\theta) \approx \frac{1}{M} \sum_i^M {( y - h(x \cdot \theta) )}^2
 % \end{equation}
-% Yet this would be unfeasible as well for all of our possible $f( \theta)$ models since the sampling process should be done for each specific $\theta$.
+% Yet this would be infeasible as well for all of our possible $f( \theta)$ models since the sampling process should be done for each specific $\theta$.
 %Notice however the close resemblance of the \cref{eq:mcarlo-approx} to the form in \cref{eq:rss}.
 
 Historically, the concepts of bias and variance where associated directly with the squared loss function and in the literature it is said that algorithms have ways of attacking these two sources of error.
@@ -205,7 +205,7 @@ Authors point that in practice it is usual that the improvement of one generally
 %, and can be decomposed into two types of errors
 
 
-Conceptually the bias error represents the model's accuracy in labeling predictions correctly.
+Conceptually the bias error represents the model's accuracy in labelling predictions correctly.
 It is the model's best attempt to capture the functional relationship among the feature and target variables.
 This could either mean it is correctly assigning the sample to its correct class in classification settings, or, in a regression setting, by estimating a value for that sample which is \textit{near} to the target value.
 
