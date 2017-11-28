@@ -1,7 +1,11 @@
 # TODO PLAN
 
+## Delivery 28/11
+    * Clean last todos.
+
 ## Meeting 13/11
-    * ASPELL all individual files.
+    * Clean last todos.
+    * [DONE] ASPELL all individual files.
     * [DONE] Recheck appendix \cref tags.
     * [DONE] Do not use he/her his antenna and swap to its, their ,etc
 
