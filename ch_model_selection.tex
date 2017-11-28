@@ -47,11 +47,22 @@ $$Y = f(X) + \epsilon$$.
 In this mapping from feature to target space we assume $\epsilon$ to be the noise, with a null mean and fixed $\sigma^2$ variance i.e.\ $\epsilon \sim \calN(0,\sigma^2)$.
 With this, \cref{eq:rss} can be read as an approximation of the expected prediction error given the training set $\mathcal{T}$.
 
+\todo{Fix notation mess of $\textbf{X},\textbf{Y}$ vs $X,Y$ and generalization, prediction, EPE, etcs}
+
+% Use Hastie tibshirani to debug this part
+% train error is average prediction error (loss function) of \hat{f} over train data
+%
+% test or generalization errors are the EPE but only conditional to a limited set of new samples from the population distribution.
+% foo
+% foo
+% EPE is the expected loss function for our classifier, and taking expectation over any randomness in (\hat{f}(X),Y)
+% and the expecatation is take  with respect to the joint distribution Pr(Y,X).
+
 
 \begin{definition}{Prediction Error:}
-	Given a loss function $L(\cdot,\cdot)$ and a function $f$, we say that the \textbf{prediction error} for the resulting classifier $f$ is
+	Given a loss function $L(\cdot,\cdot)$ and a function $f$, we say that the \textbf{prediction error} for the resulting classifier $f$ for (Y,X)is
 	\[
-	PE(f_\theta)= \left[ L(\textbf{Y},f(\textbf{X}))\right]
+	PE(f_\theta)= \left[ L(Y,f(X))\right]
 	\]
 \end{definition}
 
@@ -62,31 +73,30 @@ This is the error between our model's output and the target labels, as quantifie
 	Given a value for parameter $\theta$ and the \textit{squared error loss}, we say that the \textbf{prediction error} for the resulting classifier $f_\theta$ under the squared loss is
 
 	\begin{equation}
-	PE_{true}(\theta) =L(\textbf{y} - h(\textbf{x} \cdot \theta) )  \\
-	=  {(\textbf{y} - h(\textbf{x} \cdot \theta) )}^2
+	PE(\theta) =L(Y - h(X \cdot \theta) )  \\
+	=  {(Y - h(X \cdot \theta) )}^2
 	\end{equation}
 
 \end{definition}
 
-Our interest is now in minimizing this error for all possible values from the true distribution, and not only for those in the dataset.
-We would like to quantify the expected error over occurrences of $\textbf{X}$ and $\textbf{Y}$ that are independent of $\mathcal{T}$ which is the data used to fit the model.
-
-
+Our interest is now in minimizing this error, or loss, for all possible values from the true distribution, and not only for those in the dataset.
+We would like to quantify the expected error over occurrences of $\textbf{X}$ and $\textbf{Y}$.
+This means we need to account for the variables randomness and that we need to think of a way to consider measuring this error independently of the current sample $\mathcal{T}$, which is the data used to fit the model.
+The Generalization or \textit{Test} error capture this idea
 %This is known as the generalization error and is very related to the prediction error as it is its expectation.
 
 \begin{definition}{Generalization Error}
 \begin{equation}
-Err = \Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f(X))  | \mathcal{T_s} \right]
+Err_{\mathcal{T_s}} = \Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f(X))  |  \mathcal{T_s} \right]
 \end{equation}
 \end{definition}
 
 The problem appears when considering that in this scenario, the models' fit is done on a fixed dataset
-and these in turn are a fixed sampled representation of the data.
-Thus we are required to estimate the generalization error using only the model's error over the training data that is available.
-At the same time we have to ensure that the training and test sets are independent.
+and, in turn, the dataset is a fixed sample representation of the true distribution.
+Thus the generalization error is using only the model's error conditional to the test data that is available.
+This means that in practice we have to ensure that training (($\mathcal{T}$)) and test sets ($\mathcal{T_s}$) independence.
 %\footnote{In some special scenarios we might have that the data is just constantly incoming and in this way we would definitely have that the data is dynamic. However these are the lesser amount of cases in real applications.}
 
-% $\mathcal{T_s}$:
 
 The generalization error intends to compare the performance of our algorithm trained on a training dataset, with the loss that this model would have had on the true data distribution.
 If we consider the case of the squared loss function, we will have that this error now becomes
@@ -101,17 +111,15 @@ If we consider the case of the squared loss function, we will have that this err
 	%  = \int (y - h(x \cdot \theta) )^2 P(x,y)dxdy
 	%\end{equation}
 
-\todo{Fix notation mess of $\textbf{X},\textbf{Y}$ vs $X,Y$ and generalization, prediction, EPE, etcs}
-
-Note that in this definition the expectation is taken conditional on the test set and also from which the model is built.
-
+% Note that in this definition the expectation is taken conditional on the test set and also from which the model is built.
 Overall, we are ultimately wanting to know how the learner performs over the true distribution, or what is the average prediction error's for any sample of data.
 Note here that we also want to average out any specific influence of the training set on our fit model $\hat{f}$ which was trained from a specific dataset, but also on the $\hat{f^*}$ that would have resulted from training on the true distribution of the data.
 With this we can introduce a last definition:
 \begin{definition}{Expected Prediction Error}
 	\begin{equation}
 %	Err = \Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f(X))  | \mathcal{T_s} \right]
-	 EPE = \Expect_{X,Y} \left[ L(Y,\hat{f}(X))\right] = \Expect_X \left[  \Expect_{Y | X} \left[   L(Y,f(X))  \right]  \right]
+	 EPE = \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X))\right] =
+	 \Expect_{\textbf{X} \left[  \Expect_{{\textbf{Y}} | \textbf{X}} \left[   L(Y,f(X))  \right]  \right]
 	\end{equation}
 \end{definition}
 
@@ -121,24 +129,30 @@ With this we can introduce a last definition:
 In practice we have finite access to samples, so we have to estimate the expected prediction error by means of the generalization error.
 From the data, we will build or \textit{train} our model and from this reduced sample we will extract a training error to determine how well the model is performing.
 
-This will be our approximated $EPE$ through the
 
 \begin{definition}{Training Error:}
 	is the average loss over the sample prediction errors:
 	$$ \overline{err}_{\mathcal{T}} = \frac{1}{N} \sum_{i=1}^N L(y_i, \hat{f}(x_i) )$$
 \end{definition}\label{def:trainingError}
 
+and with this same way we are going to calculate the generalization error
+\begin{equation}
+Err_{\mathcal{T_s}} = \frac{1}{N} \sum_{i=1 \ \ x \in \mathcal{T_s} }^N L(y_i, \hat{f}(x_i) )
+\label{eq:generalizationErrorCalculation}
+\end{equation}
+
+Both of these formulas will be thoroughly used throughout this work, and it is with the generalization errar that we will estimte the $EPE$.
+Doing this will let us find the best model for our task, where we will turn to rank different learners according to their errors $\mathcal{T}$ and $\mathcal{T_s}$.
+Combinations of high or low values for these, across training and test data, will be used as model evaluation and by this we will start to find aspects of the algorithm which need improvement.
 %Let \textbf{x} $\in \mathbb{R}^{p}$ denote a random input variable and \textbf{y} $\in \mathbb{R}$ denote a random output variable with joint distribution $P\left(\textbf{x},\textbf{y}\right)$.
 
-In order to find the best model for our task, we will turn to rank different ones according to their training errors over $\mathcal{T}$ and $\mathcal{T_s}$.
-Combinations of high or low values for these, across training and test data, will be used as model evaluation and by this we will start to find aspects of the algorithm which need improvement.
 
 \section{Bias and Variance}\label{section-biasVariance}
 
 If we look closer at the $EPE$ for the specific case of the squared loss function with
 
 \begin{equation}\label{squaredPE}
-EPE = \Expect_X \Expect_{Y|X} \left[ \left\Vert Y - \hat{f}(X) \right\Vert_2^2 \right]
+EPE = \Expect_X \Expect_{\textbf{Y}|\textbf{X}} \left[ \left\Vert Y - \hat{f}(X) \right\Vert_2^2 \right]
 \end{equation}
 
 It is not difficult to see that the model that minimizes this error is
@@ -151,8 +165,8 @@ of the model can be decomposed in the following way:
 
 \begin{equation}\label{squaredBiasDecomposition}
 \begin{split}
-EPE( \hat{f} ) = & {\Expect_X \left[  f(X) - \hat{f}(X) \right]}^2 + \Expect_X \left[ {\hat{f}(X)}^2 \right] \\
-& - {\Expect_X \left[ \hat{f}(X) \right] }^2 + \sigma^2 \\
+EPE( \hat{f} ) = & {\Expect_{\textbf{X}} \left[  f(X) - \hat{f}(X) \right]}^2 + \Expect_{\textbf{X}} \left[ {\hat{f}(X)}^2 \right] \\
+& - {\Expect_{\textbf{X}} \left[ \hat{f}(X) \right] }^2 + \sigma^2 \\
 = & {Bias(\hat{f})}^2 + Var(\hat{f}) + \sigma^2
 \end{split}
 %= Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
@@ -171,15 +185,13 @@ In the $EPE$'s decomposition we are integrating over the joint distribution of i
 As we've mentioned before, we have incomplete information on $P(x,y)$ given the limited amount of information in $\mathcal{T}$.
 We must assume then that calculating this integral is not possible for any $\theta$ so we must rely on estimation procedures.
 
-For example, we could try and sample $M$ i.i.d.\ points from $P(x,y)$ to approximate the integral by a Monte Carlo scheme.
-With the squared loss function this would look as
-
-\todo{Confusing notation with epe, prediction, err_true, etc}
-\begin{equation}\label{eq:mcarlo-approx}
-Err_{true}(\theta) \approx \frac{1}{M} \sum_i^M {( y - h(x \cdot \theta) )}^2
-\end{equation}
-
-Yet this would be unfeasible as well for all of our possible $f( \theta)$ models since the sampling process should be done for each specific $\theta$.
+% For example, we could try and sample $M$ i.i.d.\ points from $P(X,Y)$ to approximate the integral by a Monte Carlo scheme.
+% With the squared loss function this would look as
+% \todo{Confusing notation with epe, prediction, err_true, etc}
+% \begin{equation}\label{eq:mcarlo-approx}
+% Err_{true}(\theta) \approx \frac{1}{M} \sum_i^M {( y - h(x \cdot \theta) )}^2
+% \end{equation}
+% Yet this would be unfeasible as well for all of our possible $f( \theta)$ models since the sampling process should be done for each specific $\theta$.
 %Notice however the close resemblance of the \cref{eq:mcarlo-approx} to the form in \cref{eq:rss}.
 
 Historically, the concepts of bias and variance where associated directly with the squared loss function and in the literature it is said that algorithms have ways of attacking these two sources of error.
