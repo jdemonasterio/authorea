@@ -9,10 +9,10 @@ This assessment will compare models' benefits and drawbacks in a specific long-t
 
 % The models builds a
 Decision trees are models that can be understood as a tree-like graph structures in which each node of the tree contains a conditional statement.
-These conditional statemnts act as a rules which split input samples in a binary relationship of two disjoint sets.
+These conditional statements act as a rules which split input samples in a binary relationship of two disjoint sets.
 In this way, we have that at each node samples split in two possible branches which recursively continue to further nodes which again split the samples.
  % any input data sample can comply or not.
-The rules are propositions or statements that are eigher true or false and they are built as a linear (or similar) binary partition over feature space.
+The rules are propositions or statements that are either true or false and they are built as a linear (or similar) binary partition over feature space.
 In the algorithmic implementation each rule will be defined by assigning a threshold for a given feature which splits samples over those above and below this threshold.
 In this way, at each node the model evaluates each input sample $x$ with the proposition by checking if $x^j \in U$, where $x^j$ is the feature used for that node's rule and $U$ is a subset of the feature's domain.
 After the split, the algorithm recursively partitions each of the resulting splits with another rule.
@@ -75,7 +75,7 @@ Also, $L(\cdot)$ is the loss function used by the algorithm to measure the quali
 Note that this can be done efficiently for a wide range of loss functions since the minimization can be done for each feature independently.
 
 A tree is then grown in an iterative way from the top down\footnote{In this context the \textit{top} of a tree refers to the root of the tree.}, estimating the appropriate parameters at each rule split.
-All of the training set's samples would start at the top (the root node) and then travel down through the tree's branches, where at each step the node's rul will decide to what branch below does the sample move to.
+All of the training set's samples would start at the top (the root node) and then travel down through the tree's branches, where at each step the node's rule will decide to what branch below does the sample move to.
 A branch of the tree would stop growing once the samples at a node have reached a certain \textit{purity} i.e. when samples belong to the same class.
 Other stopping criteria include halting when a minimum number of samples has been reached.
 
@@ -224,7 +224,7 @@ The error score reached by this tree, however, yields a low performance over all
 Under these circumstances, noting which features were selected near the root leaves of the tree can be misleading if we do not recheck these results.
 In this way we decide to iterate this model one more time, but now choosing to change some hyperparameter values.
 For this time, we set control the target class imbalance in the training set $\mathcal{T}$.
-As we have noted beofre, the positive and negative classes have a disproportionate balance of samples and this has direct impact in the overall model's poor performance.
+As we have noted before, the positive and negative classes have a disproportionate balance of samples and this has direct impact in the overall model's poor performance.
 To help tackle this imbalance, we modify the tree's loss function's setup to assign higher weight to samples of the under-represented class and underweight the samples from the abundant group.
 We will have that for each sample, its loss weight was adjusted by its class representation ratio and, with this, the new run scored a $57.9\%$ $Accuracy$  which is more than a $15\%$ increase over the previous score.
 The figure for this model is shown in \cref{fig:decision_tree_actual_problem2}.
@@ -477,7 +477,7 @@ This package has allowed us to conveniently run these long experiments without r
 %For this experiment, we only considered migrant people that are non-endemic at $T_1$, but have been during $T_0$, and we only train the learner over those users which are currently non-endemic.
 
 The cross validation was done over the same hyperparameter configurations that we will later use for the general experiments procedure.
-The following list describes the hyperparamters used:
+The following list describes the hyperparameters used:
 
 \begin{itemize}\label{list:random_forest_grid_search_params}
 
@@ -607,7 +607,7 @@ Weights are used by the algorithm to rank the samples by misclassification impor
 The algorithm's name is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
 
 Tuning parameters in this algorithm are a superset of those used to build the base learners.
-As an addition this model adds other hyperparamters, such as the number of steps that the ensemble is \textit{boosted}.
+As an addition this model adds other hyperparameters, such as the number of steps that the ensemble is \textit{boosted}.
 
 This chained construction of weak learners has implications on the computational complexity of the optimization.
 Base learners are not constructed independently and as such, the parallelization of this algorithm becomes limited.
@@ -739,7 +739,7 @@ The final form of the model is
 %This particular property is what gives rise
 
 At first the choice of the exponential loss function can seem arbitrary, but in the context of statistical learning this measure presents an important property.
-Here we have that, with this loss function, the optimal classifier from alll learners with is the log-odds ratio of the two output classes for the trained dataset:
+Here we have that, with this loss function, the optimal classifier from all learners with is the log-odds ratio of the two output classes for the trained dataset:
 \begin{equation}
 f^*(X) = \underset{f}{\mathrm{argmin}} \ \Expect_{Y | f(X)}\big[ \exp(-Yf(X)) \big] = \frac{1}{2}\log \left( \frac{ P(Y=1 \mid X) }{ P(Y=-1 \mid X) } \right)
 \end{equation}
@@ -769,7 +769,7 @@ to be the general parameter of the whole learner.
 Note that if an optimization routine were to collectively fit all the parameters in $\Gamma$ to fit this model, we would computationally have a highly difficult model to train.
 Instead, applications of boosters rely on optimization heuristics which use first and second order approximations of the loss function at step $m$ to build on the next learner $m+1$.
 
-To work with this in the Adaboost formulation , smooth loss functions become very convenient for this procedure.
+To work with this in the AdaBoost formulation , smooth loss functions become very convenient for this procedure.
 As an example, we explain in detail a \textit{Gradient Tree Boosting} optimization heuristic in \cref{appx:sec:boosting_optimization_heuristic}.
 
 There are two additional heuristics commonly used to improve the booster's generalization performance.
@@ -1186,7 +1186,7 @@ Without going in to depth on the specifics of the experiments, we ran the classi
 We took advantage of this method's fast training runtime to rapidly evaluate all tasks on this algorithm.
 % The speed small time needed to fit this classifier on a large dataset.
 The results were composed into \cref{tab:naive_bays_experiment_results} and summarize two aspects of the method: its lower performance when compared to other previous methods, and the algorithm's fast run-time.
-Given that this algorithm was introduced for benchmarking purposes, we will not expand in this section any further results for this learner as thes will be made in \cref{ch:results}, along with specific comparisons to other learner's results.
+Given that this algorithm was introduced for bench marking purposes, we will not expand in this section any further results for this learner as these will be made in \cref{ch:results}, along with specific comparisons to other learner's results.
 %the given thoroughly  For further analysis of them, please refer to as
 
 \begin{table}[!htb]

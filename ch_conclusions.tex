@@ -22,7 +22,7 @@ They also helped reinforce the hypothesis that these movements spread the diseas
 Added to the previous points, this work served to provide an example of how Machine Learning tools on CDR data can help authorities with disease-control strategies in a way which is not intrusive to cellphone users.
 We showed how the data can be effectively reused for reasons other than logging a user's calling expenses in a way which is relevant to public health issues.
 
-% by using the recommendations output by the maps, or by 
+% by using the recommendations output by the maps, or by
 Health-related measures can then be applied outside of the endemic region, and directed towards specific neighborhoods and communities.
 Next to traditional health control actions, this research may provide a very insightful piece of information for decision-makers.
 The insights derived from the probabilistic models provide insights into the disease spread and it might also provide a research line for  other diseases of similar characteristics.
@@ -45,7 +45,7 @@ Most of the tasks showed high prediction scores across most of the metrics.
 
 On the other hand, we also outlined the difficulty in the specific problem of tagging migrants that moved out of the endemic region at a national level.
 The same happened when problems were measured with an $F1$ evaluation metric: except for the problem of locating past endemic users, the algorithms achieved low prediction scores across all tasks.
-%, out of all of the TelCo's user base, 
+%, out of all of the TelCo's user base,
 
 
 In this work we did a thorough comparison in the strengths and weaknesses of the learners that were used to estimate the probability of each user's migrations.
@@ -58,7 +58,7 @@ This allowed us to find slight performance differences in these ensemble methods
 We also explored which feature categories were most relevant to the predictions in the ensemble algorithms, as selected by the ``best-features'' heuristic.
 Our findings selected the following feature categories as relevant:
 \begin{enumerate*}[label={\alph*)},]
-\item the area of influence of the users, where large mobilities were indicative of past migrants, 
+\item the area of influence of the users, where large mobility was indicative of past migrants,
 \item interactions and calling patterns with vulnerable users, and
 \item calls placed in the months nearest to $T_0$ and also, calls placed in December.
 \end{enumerate*}
@@ -75,7 +75,7 @@ Since we performed our analysis on two Latin-American countries and in one singl
 The Argentinean and Mexican case studies allow us to find that it is possible to characterize human movements of long duration.
 In all, cellphone datasets are rich enough in information to detect detailed patterns of users moving to and from a particular area, at a national level.
 
-% From our 
+% From our
 
 At the moment, health experts from the Mundo Sano Foundation state that, in Argentina, epidemic countermeasures include coordinating national surveillance systems with institutions and primary health care organizations, vector-centered policy interventions through fumigation of vector-infested regions and individual in-field screening of people.
 These measures require costly infrastructures to set up and be run.
@@ -133,7 +133,7 @@ However we understand that there could be other longer term time effect which wa
 There are possibilities of migration patterns being strongly related to seasonal factors such as, for example, in agricultural workers having seasonal migrations around different regions.% workforce.
 
 The importance of other user specific biases, such as demographics unbalance, was not thoroughly examined.
-Yet these were out of the scope of this work, due to the lack of ground truth data. 
+Yet these were out of the scope of this work, due to the lack of ground truth data.
 %in the data.
 % discriminated in the construction of the features, yet there were no long-term time
 
@@ -167,7 +167,7 @@ For the purpose of continuing this research line, the following is a list of pos
     If we can split the endemic region according to the infection rate in different areas, or considering particular infections we can then attempt to build a model complex enough to detect infected users nationwide. % With the use of a high-quality epidemic dataset, we assume that a
     For this to happen, it is of primary importance to have a reliable dataset available, otherwise it would not be possible to reach a classifier with good generalization performance.
 
-    \item [Feature importance] From the best-features results shown in \cref{ch:results}, we can think of further exploring Machine Learning methods that focus solely on exploring features' predictive power to determine how attributes are associated with a user's long-term migration. 
+    \item [Feature importance] From the best-features results shown in \cref{ch:results}, we can think of further exploring Machine Learning methods that focus solely on exploring features' predictive power to determine how attributes are associated with a user's long-term migration.
     Also, from these same results, we find that it will be relevant to explore specific calling patterns on annual holidays during the last week of the year, from the 24 to the 31 of December.
 
     \item [Test other classifiers] The probabilistic models introduced in this work are a brief list of the ones available in the literature and of these, we know that only Naive Bayes had an acceptable classification performance in \cref{target2}.
