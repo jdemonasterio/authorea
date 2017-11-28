@@ -242,13 +242,13 @@ P\left( Y =  \argmax_{1\leq i \leq K} P(\hat Y = i ) \right) % (22)
 -  \sum_{i=1}^K P(\hat{f}(X) =i)P(Y=i) %  AE (21)
 $$
 
-where in this formula we have, once again, that the error is decomposed by using the classifier's variance. 
+where in this formula we have, once again, that the error is decomposed by using the classifier's variance.
 Here, the classifier's bias is not clearly defined as with the squared error.
 Yet the decomposition quantifies how similar is the learner's class probabilities with the true distribution in the data, and how this interaction differs from the most probable output value, which is the Bayes classifier.
 
 Note that in this definition we do not have the bias of the model as a term of the error.
 This quantity is rather taking effect as part of the second and third summands in the equation and it tries to capture how close is the classifier's distribution with respect to this distribution in the data.
-Another relevant difference is that in this definition there are no noise terms 
+Another relevant difference is that in this definition there are no noise terms
 For more detailed information on bias and variance decomposition in classifiers, one can refer to \cref{appx:sec:biasVarianceExtensionLoss} which is based on the survey work of~\citep{james-biasVarianceGeneral}.
 
 %What is also interesting to note with this formula is that it might be that due to the interaction in between target and model probabilities, we have that in some cases we might have in
