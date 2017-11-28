@@ -1,15 +1,8 @@
-%===============================================================================
-%     File: ch_results.tex
-%    Author: Juan de Monasterio
-%    Created: 1 Oct 2017
-%  Description: Chapter Results
-%===============================================================================
 
-
-% Problem1: We want to infer which users lived in the endemic region in the past.
+% Problem 1: We want to infer which users lived in the endemic region in the past.
 % Problem 2: We want to infer which users lived in $E_Z$ in the past and then migrated.
 % Problem 3: Users that migrated to a different region (any direction movement)
-% Problem 4: Users that migrated from the endemic region, but conditional to users which are currently not endemic i.e. the base of users wich
+% Problem 4: Users that migrated from the endemic region, but conditional to users which are currently not endemic i.e. the base of users which
 
 The idea of this chapter is to present a combined overview of the work done and the results encountered in
 \cref{ch:descr-risk,ch:machineLearning,ch:modelSelection,ch:ensembleMethods}.
@@ -39,7 +32,7 @@ Yet we decided to exclude this attribute for the problem of predicting a user's 
 
 More so, we found other variables having mild interactions with the condition of being a past endemic user.
 As expected, people with high mobile interactions with the endemic region, in the form of call durations and call counts, also resulted in attributes which were related to users having past endemic homes.
-This is most probably due to the locality effect in calling patterns, where most interactions between Telco users occur in local regions.
+This is most probably due to the locality effect in calling patterns, where most interactions between TelCo users occur in local regions.
 Thus users living in endemic regions would call other users nearby.
 
 
@@ -60,7 +53,7 @@ The heatmap visualizations exposed a `temperature' descent from the core regions
 As expected, the heat was noted to be concentrated in the ecoregion.
 We also found out that the level of vulnerable interactions per antenna gradually descends as we move further away.
 We say this is expected behavior because it is consistent with findings in the literature in which most calls are done to other local antennas. %in general of a local nature.
-Given this period and Telco of analysis, we saw that ninety percent of the users limited usage to at most four Telco antennas.
+Given this period and TelCo of analysis, we saw that ninety percent of the users limited usage to at most four TelCo antennas.
 
 We also discovered some unexpected findings that were highlighted by the risk maps.
 Interactions from non-endemic antennas with those in the endemic region were seen to be non-homogeneous in some areas.
@@ -164,7 +157,7 @@ This is not surprising as Decision Trees are known to become highly complex afte
 % Ideally it serves as an example of what aspects of this greedy algorithm are enhanced by Random Forests.
 
 We also fit two Decision Tree instances for the same problem to evaluate the model with an $Accuracy$ score.
-The first of two fits run over a smaller hyperparameter space and, in particular, this configuration did not consider a rebalancing of the samples when computing the value of the loss function over the whole set.
+The first of two fits run over a smaller hyperparameter space and, in particular, this configuration did not consider a re-balancing of the samples when computing the value of the loss function over the whole set.
 Then in the second fit we performed sample balancing in the loss function to quantify the algorithm's outcome with and without this configuration.
 
 To aid our understanding of this model's outcome we also decided to create visualizations for both fitted trees.
@@ -172,7 +165,7 @@ Each tree is plotted in a graph which shows up to five levels of splits.
 With this we showed, for each node, the attribute used in that splitting decision and the actual split value.
 
 These plots provided some insights into what features were initially being used by the algorithm to separate samples, according to their split index performance.
-For instance, in both fits the root split was based on the user's mobility diameter, with split values near to $47.5$ kilometres in both cases.
+For instance, in both fits the root split was based on the user's mobility diameter, with split values near to $47.5$ kilometers in both cases.
 This means that a mobility diameter of $47.5$ was the best split decision the algorithm could take in order to improve the Gini index of the sub groups.
 Recall here that the mobility diameter quantifies the user's area of influence given by their mobile connections.
 
@@ -194,7 +187,7 @@ This means that, due to the low performance of these learners, the interpretatio
 
 % we could be tempted to interpret the
 
-Interestingly enough, in these experiments we found that for this learner, rebalancing the set helped us increase the learner's score by a great amount.
+Interestingly enough, in these experiments we found that for this learner, re-balancing the set helped us increase the learner's score by a great amount.
 We hypothesize that the hyperparameter is a valuable in helping face problems where target classes are heavily unbalanced.
 
 % With this score, noting which features were selected near the root leaves of the tree would not be very informative to the overall problem.
@@ -212,7 +205,7 @@ As we will see later in \cref{tab:master_table_results}, this task, \cref{target
 
 When tested over with the Random Forest classifier, we saw better $Accuracy$ scores than with the Decision Learner over a 10-fold cross-validation procedure.
 This model improved the mean cross validated score to reach a high score of $81\%$, for trees of depth bigger than $15$.
-Note that in this experiment we reweighted samples in the loss function by default, following the improved results we obtained by doing this for the Decision Learner classifier.
+Note that in this experiment we reweighed samples in the loss function by default, following the improved results we obtained by doing this for the Decision Learner classifier.
 
 We also saw that there was barely no change in the average CV score when we increased the number of trees used in the ensemble.
 Having an ensemble of $20$ was enough to capture most of the predictive information we needed to correctly tag the unidirectional migrants of the endemic region.

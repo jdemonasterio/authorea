@@ -1,11 +1,3 @@
-%!TEX root = main.tex
-
-%===============================================================================
-%               File: ch2_introduction.tex
-%            Author: Juan de Monasterio
-%          Created: 15 Feb 2017
-%    Description: Chapter 2: Data descriptions, exploration and risk maps
-%===============================================================================
 
 \chapter{Data Description and Risk Maps}\label{ch:descr-risk}
 
@@ -92,7 +84,7 @@ The antenna's neighborhood will define their home area of influence and with thi
 
 Having the geolocalized data granular at the antenna level, we can match each user $u \in \calN_C$ with their \textit{home antenna} $H_u$.
 To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights.
-This, according to our categorization of weekday's types, corresponds to Monday through Thursday nights, from 8pm to 6am of the following day.
+This, according to our categorization of weekday's types, corresponds to Monday through Thursday nights, from 8 pm to 6 am of the following day.
 Note that this home antenna analysis will not precisely locate users yet it will define their area of influence.
 This will enable us later to detect long range migrations by looking at changes in these home antennas.
 
@@ -127,7 +119,7 @@ Given an antenna $a$, we will have:
 These four numbers $\left< N_a, V_a, C_a, VC_a \right>$ are the properties we extracted for each antenna in the studied countries.
 
 \subsection{Heatmap Generation}
-With the collected antenna properties, we generated heatmaps to visualize the mentioned antenna indicators, overlayed with political maps of the corresponding region.
+With the collected antenna properties, we generated heatmaps to visualize the mentioned antenna indicators, overlapped with political maps of the corresponding region.
 In them, a circle is generated for each cell, where:
 
 \begin{itemize}
@@ -204,7 +196,7 @@ In some cases, antennas stood out for having a significantly higher link to the 
 Our objective here was to enhance the visualization in areas outside of Gran Chaco looking for possible host communities of migrants from the ecoregion, inferred by the social links shown in the CDRs.
 Our assumptions were that if, in average, there was a higher percentage of vulnerable users in that non-epidemic antenna, this would mean that there's a high possibility of having more infected users in that community.
 
-As an outcome of analyzing these visualizations, we were able to locate special antennas which stand out over their neighbouring ones.
+As an outcome of analyzing these visualizations, we were able to locate special antennas which stand out over their neighboring ones.
 These high risk antennas were then located and separated for manual inspection along with the \textit{Mundo Sano} Foundation collaborators.
 They used this information it as an aid for their campaign planning and as education for community health workers.
 

@@ -4,7 +4,7 @@
 %\section{ Model Selection}\label{section-modelSelection}
 
 In this chapter we will extend some of the Machine Learning concepts introduced in the previous chapter and dive into the different tools that will help us evaluate which are the best models for our task.
-These tools will be based on the idea of the generalization error minimization with its descomposition into its bias and variance components.
+These tools will be based on the idea of the generalization error minimization with its decomposition into its bias and variance components.
 For our applications, we will settle around model hyperparameter's Cross Validation.
 % We will also give a brief mention to the Vapnik-Chervonenkis dimension, as an example of other relevant tools for the discussion.
 
@@ -30,7 +30,7 @@ RSS(\theta_0,\cdots ,\theta_p) = \sum_{i=1}^n {[y_i - \hat{y}_i ] }^2 \\
 
 % The equation reflects our goal to correctly match a training sample with their targets (also known as labels).
 
-We know that the objective is to have a good model in the generlization sense: one which can make a \textit{good} prediction on any sample, even new ones from the true data distribution.
+We know that the objective is to have a good model in the generalization sense: one which can make a \textit{good} prediction on any sample, even new ones from the true data distribution.
 This generalization concept is lacking in the preceding \cref{eq:rss} because it is built to fit the actual dataset in the best possible way.
 Given that the training set ($\mathcal{T}$) is a sample of the population, it is not straightforward that the model will perform well accurately any other given sample of the \textit{true} distribution of the data.
 %for $\mathcal{T}$.
@@ -159,7 +159,7 @@ EPE( \hat{f} ) = & {\Expect_X \left[  f(X) - \hat{f}(X) \right]}^2 + \Expect_X \
 \end{equation}
 
 
- \cref{squaredBiasDecomposition} is hereby refered to as the \textit{bias-variance decomposition for the squared loss} where the first term is called the square of the estimator's bias.
+ \cref{squaredBiasDecomposition} is hereby referred to as the \textit{bias-variance decomposition for the squared loss} where the first term is called the square of the estimator's bias.
 This measures how good are our estimator's predictions compared to the true relational function.
 The second and third terms are the estimator's variance.
 This will measure how this random variable varies along its most expected value.
@@ -280,7 +280,7 @@ In turn, this increases the number of features used in by the leaner to decide o
 
 %It is clear here that higher depth implies increasing model complexity\footnote{A detailed explanation of this technique can be found later in \cref{section:decision_trees}.}.
 
-To measure the performance of the fit learner, we take a scoring function for the model's performance which outputs a value in the range of $(0,1)$. With this functino we have that higher values means better scores.
+To measure the performance of the fit learner, we take a scoring function for the model's performance which outputs a value in the range of $(0,1)$. With this function we have that higher values means better scores.
 We will introduce later specific formulations for scores generally used.
 In this way, \cref{figure:dtree_overfit_problem_2} graphs how the model performs at different levels of model complexity.
 In the image, the test and training errors are given as a function of the tree's depth.
@@ -373,7 +373,7 @@ In a sense this means that the learner never ``sees'' any test data until we use
 \subsection{Selection of tuning-parameters (hyper-parameters) }\label{subsection:selection_hyper_params}
 
 The CV procedure provides a reliable $EPE$ estimate to select the best values for the algorithm's tuning parameters.
-These hyperparameter configuration will be \textit{best} in the measure provided by the loss funciton.
+These hyperparameter configuration will be \textit{best} in the measure provided by the loss function.
 Let $\mathcal{A} = [\alpha_0, \alpha_1,\ldots, \alpha_l  ]$ be a list of hyperparameter settings and $\mathcal{K} =[1,\cdots ,K]$ a list of folds.
 To clearly depict how a full K-Fold Cross Validation procedure runs, we outline its pseudo-code.
 
@@ -413,7 +413,7 @@ As an example, we consider here a cross validation procedure over a Logistic Reg
 Here we are using \cref{target2} which is defined to find those users that used to live in the endemic area and eventually migrated out of it, becoming non-endemic during the training phase.
 This procedure serves as a benchmark to compare different hyperparameter configurations.
 
-In this case we decide to optimize the model's regularization strengt which is captured in the parameter $C = \frac{1}{\lambda}$.
+In this case we decide to optimize the model's regularization strength which is captured in the parameter $C = \frac{1}{\lambda}$.
 Recall from \cref{eq:logitRegularization} that this is the regularization strength of the model, and note that a smaller value in $C$ is a stronger regularization.
 We perform this experiment and consider the difference in scores between  $\mathcal{T}$ and $\mathcal{T_s}$ for each possible $C$ value.
 It is important to note that all test scores were performed on models built only from $\mathcal{T}$.
@@ -513,7 +513,7 @@ We compared all of them in a procedure which had fixed hyper parameters for all 
 The number of folds, $K$, was set to eight and the lasso regularization ($l1$) configuration was optimized.
 At the same time, we fixed to $100$ the maximum gradient descent iterations for every configuration tested.
 We also balanced the contribution of the positive and negative samples to the loss function, where samples of the , under-represented, positive class had a higher contribution to the loss.
-This was done by reweighting each individual sample's loss, where the weight was equivalent to the reciprocal of that sample's class percentage with respect to the total number of samples.
+This was done by reweighing each individual sample's loss, where the weight was equivalent to the reciprocal of that sample's class percentage with respect to the total number of samples.
 
 For each metric, the best model output from the CV procedure which was selected based on the score.
 All winning models were then evaluated against $\mathcal{T_s}$ to give a final evaluation metric on the model's performance.
@@ -599,13 +599,13 @@ The following figures are example ROC curves for two of the problems defined fro
 
 Notice the algorithm's poor prediction performance where the $ROC AUC$ output is near to the `random' line.
 This line constitutes the performance of a \textit{random} classifier which arbitrarily labels samples as being to each possible class.
-Under normal cirumstances we expect to construct learners that have better $ROC AUC$ scores than a \textit{random classifier}.
+Under normal circumstances we expect to construct learners that have better $ROC AUC$ scores than a \textit{random classifier}.
 To do this fit, we configured the Tree's hyperparameters with a bad nature and, in effect, this outputs a learner which has a poor performance in the training error.
 % a very limited search over the Tree's hyper-parameters.
 
 
 As another example, the same algorithm was run but on \cref{target1} and using the same available data as in \cref{fg:lowROCAUC}.
-For this problem we are looking for those useres that had lived in the endemic region in the past regardless of their current endemic situation.
+For this problem we are looking for those users that had lived in the endemic region in the past regardless of their current endemic situation.
 This problem does not suffer from class imbalance, where the positive class constitutes $30\%$ of all samples.
 In \cref{fg:highROCAUC} we show a similar figure as in \cref{fg:lowROCAUC} to illustrate the difference ``ROC'' curves that result from this optimization.
 

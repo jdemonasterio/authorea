@@ -1,11 +1,3 @@
-%!TEX root = main.tex
-
-%===============================================================================
-%     File: ch_machine_learning.tex
-%    Author: Juan de Monasterio
-%    Created: 08 Feb 2017
-%  Description: Chapter : Machine Learning
-%===============================================================================
 
 \chapter{Machine Learning}\label{ch:machineLearning}
 
@@ -13,7 +5,7 @@ This chapter will present an elementary introduction to Machine Learning where t
 Also, the chapter will formulate the tasks that will be solved in later chapters, as means of casting the prediction of the long-term human migrations as a supervised classification problem.
 
 Most of the discussions here are based on information extracted from two distinguished textbooks: \citep{bishop-patternRecognition} and \citep{hastie-elemstatslearn}.
-Some fundamental concepts and material were also referrenced from \citep{scikit-learn}.
+Some fundamental concepts and material were also referenced from \citep{scikit-learn}.
 When other texts were used, they have been cited correspondingly in the text, and, where not specified, the reader can assume that the proof is given in the textbooks above mentioned.
 
 \section{Overview of Supervised Classification Applications}\label{section-supervised-learning}
@@ -119,7 +111,7 @@ We want to infer which users lived in the endemic region in the past:
 \end{problem}
 
 With this definition and using the description of the features extracted from the data in \cref{ch:descr-risk}, we observe that here the information of a user's endemicity $EU_{1}$ is used to predict their membership to $EU_{0}$.
-It is not surpsising that knowing about a user's present endemicity is indeed highly correlate with his past endemicity, as these two variables have a 91\% correlation value.
+It is not surprising that knowing about a user's present endemicity is indeed highly correlate with his past endemicity, as these two variables have a 91\% correlation value.
 This means that, overall, the present endemicity feature is a very good predictor of the target variable, causing algorithms to be heavily weighted towards this attribute.
 We could use in fact use this single feature as a basic algorithm to build a simple predictor.
 To prevent this from happening and to capture the change in endemicity for a small groups of users, we decided then to hide this feature when solving \cref{target1}.
@@ -579,7 +571,7 @@ The following example shows the logistic regression's model loss function with a
 
 The value $\lambda$ acts here as the weight that our optimization procedure will put to the regularization part of the minimization function and $P$ is the number of features used in the model.
 Note that in an abuse of notation, the functional takes the form $R(l) = \lambda { \| \theta \|_{2}}^2$ where the model is identified by its $\theta$ parameter.
-In this work, we will only consideri model regularization with lasso, ridge, or elastic-net regularizations.
+In this work, we will only consider model regularization with lasso, ridge, or elastic-net regularizations.
 As an example we show here how regularization affects an instance of a Logistic Classifier on \cref{target1}.
 
 % figures/regularization/figure-log_loss_error_validation_curve.png
@@ -602,7 +594,7 @@ In detail, we have that each logistic model was built from a specific $C$ in  $[
 Then, the function of scores $1-NLL(C)$ is graphed as curves over the $C$ value.
 
 As we can see, there is a clear tendency to have better performance across smaller values of $C$ which is equivalent to having stronger regularization of the scoring function.
-This illustration serves to examplify why regularization can help models' predictions as we see that in this case the $1-NLL(C)$ score will output higher values for better classifiers.
+This illustration serves to exemplify why regularization can help models' predictions as we see that in this case the $1-NLL(C)$ score will output higher values for better classifiers.
 Thus we find that, as a simple case and with no other manipulation of the data, a regularized model helps in having a better performance across the test and training sets error.
 
 
@@ -629,7 +621,7 @@ They need to be instantiated before training the learner and, as such, they can'
 We introduced some basic vocabulary on supervised Machine Learning settings, with references to other types of other non-supervised settings which are not relevant to our general task.
 Also, the human mobility problems of this thesis were presented using the aforementioned notation.
 
-A concrete Machine Learning example was introduced in which we constructed a logistic classifier, where we derivated its loss function from basic theoretical assumptions.
+A concrete Machine Learning example was introduced in which we constructed a logistic classifier, where we derivate its loss function from basic theoretical assumptions.
 This led us to optimize the hyperplane that best separates the two classes by estimating parameter $\hat{\theta}$.
 Given that we now have a problem of $p$ degrees of freedom, we are left to find or fit the parameter $\theta$ by optimizing on certain criteria.
 The loss function will then shape our evaluation criteria to determine whether one parameter is preferable to another.
