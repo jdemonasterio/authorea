@@ -164,11 +164,11 @@ height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
 %----------------------------------+
 % Appendix, bibliography and index |
 %----------------------------------+
+% titletoc will prefix the word `Appendix` for each appx chapter.
+\usepackage[titletoc,page]{appendix}
 % Solve bad interaction between titlesec and \
 \preto{\appendix}{\cleardoublepage}
 
-% titletoc will prefix the word `Appendix` for each appx chapter.
-\usepackage[titletoc,page]{appendix}
 % this might insert blank pages here and there but now compilation works correctly with biber
 \usepackage[style=american]{csquotes}  % Language sensitive quotation facilities
 %\usepackage[style=authoryear-comp,backref=true,refsection=chapter,backend=biber]{biblatex}
@@ -199,7 +199,6 @@ pdfauthor={Juan Mateo De Monasterio},
 pdfkeywords={machine learning}
 }
 \usepackage[numbered,open,openlevel=1]{bookmark}
-
 \usepackage{amsthm,amsmath}        % We load theorem environments here to avoid warnings
 
 \usepackage[noabbrev,capitalise]{cleveref}
@@ -305,8 +304,6 @@ pdfkeywords={machine learning}
 %\usepackage[sort, numbers]{natbib}
 %% Set citation style
 %\setcitestyle{square}
-
-
 
 %----------------------------------------------+
 % Half-title, titlepage and copyright settings |
