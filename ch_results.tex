@@ -263,19 +263,23 @@ These were highlighted, for a number of times, over the rest of the features and
 Note though that this heuristic does not provide any information into how the feature favors the prediction, be it in a positive or negative way.
 Below we can find a descriptive collection of those features for these learners, where we have broken down all of this information into feature categories:
 
-\todo{Polish and extend all of the following items.}
 \begin{itemize}
 
     \item Calls made in older months and in December: Interactions of different type, that occurred closer to the split month between both periods $T_0$ and $T_1$ (July), were also distinguished.
     The model frequently used interactions from the months of August and September, as well as December.
     We conjecture that this last result can be due to the fact that December is a month where user's increase their mobile activity with their families.
 
-    \item Vulnerable calling patterns: As we first suspected in \cref{ch:descr-risk}, the vulnerability of the mobile interaction between users was relevant.
-    Measurements such as the duration and volume of calls at different time periods selected.
-    We make the reminder here that these measurements were the basis of our construction of the heatmaps in that same chapter, where the antennas plotted concentrated users with vulnerable calls by calling volume or time, for a given month.
+    \item Vulnerable calling patterns: As we first suspected in \cref{ch:descr-risk}, the vulnerability in the mobile interaction between users was relevant.
+    The duration and volume of and volume of calls, at different time periods, were highlighted for their importance and in a number of occassions the interactions to and from vulnerable users was relevant to the algorithm.
+    We make the reminder here that these measurements were the basis of our construction of the heatmaps in \cref{ch:descr-risk}, where for a given visualization we were showing how a month worth of communications was aggregated at the antenna level.
+    These plots aggregated calling patterns for all users with vulnerable calls.
 
-    \item Mobility size: Finally, different measures of the distance in human mobility were determined to be important by the model. Both general mobility diameters and weekday or weeknight specific mobility were relevant. The importance of this feature was highlighted on numerous occasions and we can informally add that Decision Tree Learners also selected this features in the higher nodes.
-    This result can be seen in detail at \cref{subsection:decision_trees_experiment}.
+    \item Mobility size: Finally, different measures of the distance in human mobility were determined to be important by the model.
+    Both mobility diamater attributes were highlighted, where in one considered the mobility of users during weekdays and for the other, only specific mobility during weeknights.
+     general mobility diameters and weekday or weeknight specific mobility were relevant.
+     The importance of these features were highlighted on a number of occasions by the ensemble learners.
+     We can also note that in \cref{subsection:decision_trees_experiment} the Decision Tree Learners selected this features for the higher nodes.
+
 
 \end{itemize}
 
