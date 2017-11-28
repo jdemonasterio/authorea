@@ -505,7 +505,7 @@ A summary of these results is given in \cref{tab:random_forest_big_experiment_re
 
 \begin{table}[!htb]
 \caption{Table of best results comparing two 10-fold full grid cross validation procedures on a Random Forest Classifier fit for \cref{target4}.
-    The scores, best hyperparameter values and run-time are shown for both experiments.}
+    The scores, best hyperparameter values and run-time are shown for all experiments.}
 \label{tab:random_forest_big_experiment_results}
 \centering
 \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill} }  l l l l l }
@@ -575,7 +575,7 @@ This outcome is presented in \cref{tab:random_forest_big_experiment_best_feature
 \end{table}
 
 
-The top features list shows us the importance of mobility diameter for both cases, where we found that the user mobility is relevant to detect a past endemic condition, both for mobility specific to weeknights and, also, for mobility during the whole week.
+The top features list shows us the importance of mobility diameter for all cases, where we found that the user mobility is relevant to detect a past endemic condition, both for mobility specific to weeknights and, also, for mobility during the whole week.
 
 As expected, in both cases we see that there are a number of features logging vulnerable interactions of users living in non-endemic regions.
 This is in line with what we hypothesized in the construction of the risk maps in \cref{section:riskmaps}.
@@ -585,14 +585,14 @@ Given that this best feature methodology is an heuristic, there doesn't seem to 
 Yet there is a preference for interactions logged in the earlier months, August and September,
 This might be the case where the algorithm is picking up on the most recent migrations, given that our time period of analysis $T_1$ starts in August.
 
-The analysis here presented is relevant in answering the question of long-term migrations.
-High scores for these experiments show that there is value in CDR data to predict long-term migrations between two regions.
+The analysis here presented is relevant to answer the question of long-term migrations.
+High scores for these experiments show that there is value in CDR data for predicting long-term migrations between two regions.
 We also see that the resulting top features from these models are in line with the assumptions on which the risk maps were constructed.
 
 
 \section{Boosting Models}\label{section:gradient_boosting}
 
-Boosting models are similar to additive methods such as in Random Forests, because they combine the predictions of weak learners to output the combined model's prediction.
+Boosting models are similar to additive methods such as Random Forests, because they combine the predictions of weak learners to output their combined prediction.
 The full learner is grown sequentially from base estimators such as decision trees, but the difference is that each new iteration tries to reduce the overall bias of the combined estimator.
 This provides greater predictive power when the base model's accuracy is weak.
 However, care must be taken to control the increase in variance.
@@ -607,7 +607,7 @@ Weights are used by the algorithm to rank the samples by misclassification impor
 The algorithm's name is derived from the term \textit{adaptive boosting}, where sample weights are updated at each iteration.
 
 Tuning parameters in this algorithm are a superset of those used to build the base learners.
-As an addition this model adds other hyperparamters, such as the number of steps tha the ensemble is \textit{boosted}.
+As an addition this model adds other hyperparamters, such as the number of steps that the ensemble is \textit{boosted}.
 
 This chained construction of weak learners has implications on the computational complexity of the optimization.
 Base learners are not constructed independently and as such, the parallelization of this algorithm becomes limited.
@@ -639,15 +639,16 @@ Let $h(x,\theta)$ denote a weak learner.
 With this notation, we assume the loss function to have a domain in the input feature space and in the parameters defining the learner.
 Naturally these will depend on the problem structure and on the base learner.
 
-Then Ada Boost's model takes the following form:
+Then a fully grown Ada Boost's classifier takes the following form:
 \begin{equation}\label{eq:adaBoostModel}
-\hat{y}(x) = \sum_{m=1}^{M} \gamma_m h(x,\theta_m)
+\hat{y}^{(M)}(x) = sgn\big(\sum_{m=1}^{M} \gamma_m h(x,\theta_m)\big)
 \end{equation}
 
 where $M$ is the model's hyperparameter indicating the amount of weak learners and thus the amount of iterations.
 Here, each $\theta_m$ will encode the base learner's parameters and $\gamma_m$ will denote the weight of that weak learner in the overall model.
 
-The algorithm's iteration will build $\hat{y}$ starting from $\hat{y_i}^{(0)}= 0 \forall i$ and at each stage we will minimize a function that tries to correct the performance of the last model.
+The algorithm's iteration will build $\hat{y}^{(M)}$ starting from $\hat{y_i}^{(0)}= 0 \  \forall i$ in such a way that $\hat{y}^{(m+1)}$ will improve the loss of the previous iteration  $\hat{y}^{(m)}$. 
+This is because at each stage, we will minimize a function that tries to correct the performance of the previous model.
 At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
 
 \begin{equation}\label{eq:adaBoostIteration}
@@ -660,7 +661,7 @@ At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
 The greedy nature of the algorithm becomes explicit in the procedure above, where we have fixed all the previous optimized values for $\gamma_j$ and $\theta_j$.
 
 Ada Boost was first derived in~\citep{schapire-adaBoost} and it was introduced with a specific minimizing function.
-The general version here presented allows the use of a broad range of base learners which need not to be from the same algorithmic family.
+The general version here presented allows the use of a broad range of base learners which need not come from the same algorithmic family.
 In the first version introduced, the loss function used was the exponential loss which is $L(y,z) = e^{-yz}$ and the target variable took the values $1$ or $-1$.
 
 This particular case yields a similar equation as in \cref{eq:adaBoostIteration}, but where
@@ -679,7 +680,7 @@ This weight strongly depends on the past steps of the algorithm.
 The equation now becomes
 
 %We can also take the $\gamma$ factor out of the sum, since it is fixed for all samples.
-*
+
 \begin{equation}\label{eq:adaBoostExponentialIteration2}
 (\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \  \sum_{i=1}^{N} w_i^{(m)} \exp \big(-\gamma h(x_i,\theta)y_i \big)
 \end{equation}
@@ -723,7 +724,7 @@ w_i^{(m+1)} =  w_i^{(m+1)} e^{\gamma_m(-y_i h_m(x_i))} \\
 \end{equation}
 
 In this way, we have that the weights are updated for those samples which have a higher misclassification rate.
-This is a relevant aspect of the algorithm.
+This is a crucial aspect of the algorithm.
 At each step, more importance is given to misclassified samples over correctly classified ones.
 
 %$-y_i h_m(x_i) = 2I \big( y_i = h_m(x_i)  \big) -1$ which means that $\gamma_m(-y_i h_m(x_i))$
@@ -734,31 +735,31 @@ The final form of the model is
  \hat{y}(x) = sgn\big( \sum_{m=1}^{M} \gamma_m h_m(x) \big)
 \end{equation}
   which outputs the most frequent prediction given by all of the weak learners.
-  This is because all the correct predictions will be greater than zero and negative values for the incorrect predictions\footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}.
+  This is because all the correct predictions will be greater than zero and negative for the incorrect predictions\footnote{This is when we consider the binary class case where $Y$ can take only $1$ or $-1$ values.}.
 %This particular property is what gives rise
 
-At first the choice of the exponential loss function can seem arbitrary, but in the context of statistical learning this measure presents an important property where its minimizing function is the log-odds ratio of the two output classes:
+At first the choice of the exponential loss function can seem arbitrary, but in the context of statistical learning this measure presents an important property.
+Here we have that, with this loss function, the optimal classifier from alll learners with is the log-odds ratio of the two output classes for the trained dataset:
 \begin{equation}
-f^*(X) = \underset{f}{\mathrm{argmin}} \ \Expect_{Y | f(X)}\big[ \exp(-Yf(X)) \big] = \frac{1}{2}\log\big( \frac{ P(Y=1 \mid X) }{ P(Y=-1 \mid X) } \big)
+f^*(X) = \underset{f}{\mathrm{argmin}} \ \Expect_{Y | f(X)}\big[ \exp(-Yf(X)) \big] = \frac{1}{2}\log \left( \frac{ P(Y=1 \mid X) }{ P(Y=-1 \mid X) } \right)
 \end{equation}
 
 
-The use of the exponential loss function $\exp(-Yf(X))$ is also desirable in this context since significantly more weight is put on misclassifications rather than on correct classifications.
-This is because the function is not symmetric in $Yf(X)$ and that having a correct classification will mean a factor of only $e^{-1}$, whilst on the other hand a misclassification will mean a factor of $e$.
+The use of an exponential loss function $\exp(-Yf(X))$ is also desirable in this context since significantly more weight is put on misclassifications rather than on correct classifications.
+This is because the function is not symmetric in the negative or positive predictions $\hat{Y}$ because we have that a correct classification will result in a weighting factor of only $e^{-1}$, whilst on the other hand, a misclassification will result in a factor of $e$.
 
 A drawback of this loss though, is that it is not robust to outliers or to noisy data.
 During run-time weights are constantly shifting towards misclassified samples.
-Then if samples are mislabeled, this will make the algorithm repetitively focus on classifying incorrectly the data.
-
+Then if samples are mislabeled, the added noise this will make the algorithm repetitively focus on fitting to data which is incorrect.
 
 As explained before, the boosting methods build an ensemble model learned from other \textit{weaker} learners.
-If we consider decision trees as our base models, we are specifically looking at the case of \textit{Gradient Tree Boosting}, which is a minor variant to the model above described.
+If we consider decision trees as our base models, we are specifically looking at the case of \textit{Gradient Tree Boosting}, which is a specific variant of the model above described.
 For the rest of this work we will focus on this specific variant.
 
-This booster was first introduced by Friedman, J., and the full details of the work can be found in Full details of this model can be found in \citep{friedman-gradientBoosting2001}.
+This booster was first introduced by Friedman, J., and the full details of the work can be found in \citep{friedman-gradientBoosting2001}.
 
 
-\subsection{Notes on Gradient Tree Boosting}\label{subsection:boosting_other_notes}
+\subsection{Notes on Gradient Boosting Optimization}\label{subsection:boosting_other_notes}
 
 Given that each base learner has its own parameter $\theta$  and its weight $\gamma$ in the booster's loss function, take
 
@@ -766,33 +767,29 @@ $$\Gamma = \{ (\gamma_m\,\theta_m) \}_{m=1}^M$$
 
 to be the general parameter of the whole learner.
 Note that if an optimization routine were to collectively fit all the parameters in $\Gamma$ to fit this model, we would computationally have a highly difficult model to train.
-
-Instead, applications of boosters rely on optimization heuristics which use first and second order approximations of the loss function at step $m$ to build on the next tree $m+1$.
+Instead, applications of boosters rely on optimization heuristics which use first and second order approximations of the loss function at step $m$ to build on the next learner $m+1$.
 
 To work with this in the Adaboost formulation , smooth loss functions become very convenient for this procedure.
-As an example, we explain in detail a \textit{boosting} optimization heuristic at \cref{appx:sec:boosting_optimization_heuristic}.
+As an example, we explain in detail a \textit{Gradient Tree Boosting} optimization heuristic in \cref{appx:sec:boosting_optimization_heuristic}.
 
 There are two additional heuristics commonly used to improve the booster's generalization performance.
 And for these, the arguments in favor of their use are rather experimental than theoretical.
-The authors in~\citep{hastie-elemstatslearn} and~\citep{bishop-patternecognition} mention them because of their overall contribution to the generalization error and because although they are intuitive to the idea of variance reduction.
+The authors in~\citep{hastie-elemstatslearn} and~\citep{bishop-patternRecognition} mention them because of their overall contribution to the generalization error and because although they are intuitive to the idea of variance reduction.
 
 The first idea to reduce the booster's variance is to subsample the data.
-This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build the new weak learner.
-
+This means that at each iteration, only a bootstrapped sample of the dataset will be selected to build a new weak learner.
 Samples from $\mathcal{T}$ which are not part of the bootstrapped sample are ignored when optimizing for the new learner at \cref{eq:adaBoostIteration}.
-
-The motivation behind this is the same that as in Random Forest, where reducing the overall of available data to fit the new weak learner will most likely reduce the variance of the method.
+The motivation behind this is the same that as in Random Forests, where reducing the overall available data to fit the new weak learner will most likely reduce the variance of the method.
 In practice, the rate of sampling will be supervised by a tuning parameter in the model.
 
 The other heuristic, which was found to be more experimentally important by~\citep{hastie-elemstatslearn}, is to successively apply a \textit{shrinkage} factor $v \in (0,1)$ to the new model.
-
 At step $m$, instead of letting the overall model be
 
 \begin{equation}
 \hat{y_i}^{(m)} = \hat{y_i}^{(m-1)} + \gamma_m h_m(x_i)
 \end{equation}
 
- we multiply the shrinkage factor $v$ to the new learners before adding them to the overall model.
+ we multiply the shrinkage factor $v$ with the new learners before adding them to the overall model.
 In the literature this shrinkage factor is also called the \textit{learning rate} of the algorithm.
 
 Note that $v$ is reducing the movement of the algorithm in the direction of optimization provided by $\gamma_t$ and $h_t$.
@@ -805,8 +802,7 @@ However, when this factor is combined with sub sampling, experiments have shown 
 In order to compare this learner to Random Forests, we ran the same setup as in \cref{subsection:random_forests_comparison_trees}
 with two experiments each varying a different hyperparameter.
 Again, models were built to classify on task \cref{target2} and the $Accuracy$ score was used to evaluate their performance.
-The cross validation procedure set 10 folds for each hyperparameter configuration and both experiments individually tuned on:
-
+The cross validation procedure set 10 folds for each hyperparameter configuration and both experiments individually tuned on
 \begin{enumerate*}[label={\alph*)},]
 \item the maximum tree depth and
 \item the number of base learners
@@ -814,7 +810,7 @@ The cross validation procedure set 10 folds for each hyperparameter configuratio
 
 For each experiment, we chose one hyperparameter and varied its values over a predefined range.
 The results were then graphed the change in score across these values.
-As a default configuration, 50 was the number of trees, and 6 were the trees' maximum depth, whilst 0.1 was the fixed learning rate.
+As a default configuration, 50 was the number of trees, and 6 was the trees' maximum depth, whilst 0.1 was the fixed learning rate.
 
 Additionally, we used the Gini index as the impurity measure in the splitting criteria of each tree's node and the exponential loss function to grow the next estimator in line with the formulation given in \cref{eq:adaBoostThetaDecomposition}.
 % .\footnote{Other loss functions are available but these would not yield the AdaBoost formulation.}
@@ -849,7 +845,7 @@ in which a tree's training error always improves as a result of an increase in t
 
 Here, we see that the estimator is prone to overfitting when using a high $max depth$ value because the training deviates faster from the CV error when the depth is higher.
 This acceleration is clear from the figure when we see that the CV score is invariant while the training error decreases.
-At the same time the model differs to the Random Forest classifier in that the trees are not uncorrelated, because the $t$-th tree improves on the error of the model at $t$.
+At the same time the model differs from the Random Forest classifier in that the trees are not uncorrelated, because the $t$-th tree improves on the error of the model at $t$.
 This is an effective difference in the models.
 
 For the second experiment, the overfit is smaller, given that the relative difference in the CV score and the train score is smaller.
@@ -870,7 +866,7 @@ Yet it gives better overall performance on the CV error, when the model is corre
 
 %\subsection{Gradient Tree Boosting}
 %
-%%\todo{Move to appendix all necessary parts.}
+
 %
 %As explained before, the boosting methods build an ensemble model learned from other \textit{weaker} learners where decision trees are the most commonly used base models.
 %
@@ -986,24 +982,20 @@ Yet it gives better overall performance on the CV error, when the model is corre
 \subsection{Experiments}\label{subsection:boosting_experiments}
 
 
-In this subsection, we explore on the task described in \cref{target4}, using Gradient Boosting classifiers and we compare the outcomes with the results outlined in \cref{subsection:random_forests_experiments}.
+In this subsection, we explore the task described in \cref{target4} using Gradient Boosting classifiers and we compare the outcomes with the results outlined in \cref{subsection:random_forests_experiments}.
+This task is set to predict those users that migrated from the endemic region, but only allowing users which are currently not endemic as the base set which implies that we are excluding all users that are currently endemic.
+
 We set two experiments similar to the ones before, where we run two procedures: one with all available features and another without the top target-correlated ones.
-In this setup though, we had a minor difference where, as before, it was characterized by the attributes used by our training dataset.
-
-For the third experiment, we trained \textbf{only} with the best features extracted from the Random Forest's second experiment.
-These were selected from the best-fit learner used from that case.
-
-With this third variant, we expected to see how good of a performance can the gradient boosting classifier achieve, using only the top 30 features, as selected by best-fit random forest learner for the previous experiments.
-% Even though
+For the third experiment, we trained \textbf{only} with the best features extracted in the Random Forest's second experiment.
+These were selected from the best-fit learner used from that case and, with this third variant, we expected to see how good of a performance can the gradient boosting classifier achieve, using only the top 30 features, as selected by best-fit random forest learner for the previous experiments.
 Doing this has a hypothetical trade-off between accuracy and procedure run-time, where we can gain speed in our fitting process by compromising some of the predictive power of the algorithm.
 
-Once again, here we performed a cross validation procedure over the available hyperparameters of this classifier.
-For the most part, these hyperparameters are the same as for the Random Forests learner.
-Still, this model has some additional ones, which we outline in \cref{list:boosting_grid_search_params}.
-For our CV procedure, we will be searching the best learner over a grid combination of all parameters.
+%In this setup though, we had a minor difference where, as before, it was characterized by the attributes used by our training dataset.
+% Even though
 
+Once again, in these experiments we performed a cross validation procedure over the available hyperparameters of this classifier and in our CV procedure, we will be searching the best learner over a grid combination of all parameters.
+For the most part, these hyperparameters are the same as for the Random Forests learner, yet the ``Boosting'' model has some additional ones, which we outline in the following list:
 \begin{itemize}
-
   \item The gradient descent's defined step size  --- [$step\_size$]
   % \item The number of rounds without loss function improvement required to early stop the fit  --- [early\_stopping]
   \item Minimum threshold for the sum of samples' Hessians at a given node.
@@ -1014,7 +1006,6 @@ For our CV procedure, we will be searching the best learner over a grid combinat
 
 Using the same setup as before, we recorded the outcome of the three experiments' cross validation procedures.
 The results were tabulated in terms of different metrics' scores, runtime, best resulting hyperparameters values and the top ten best features as selected by the best models.
-
 A summary of the metrics and best hyperparameter values is given in \cref{tab:boosting_big_experiment_results}.
 
 \begin{table}[!htb]
@@ -1052,8 +1043,8 @@ This improvement should not be surprising then, as we have limited the amount of
 % However, this conclusion might seem
 
 The second interesting fact from the outcome is that the model seems to be more overfit, when compared to Random Forest experiments.
-This is specially significant in the first two, where very complex models were chosen from the procedure, with a depth of 15 levels and at least 250 trees for both.
-However, this is not the last model's case though, where a more simple model resulted with a depth of only two levels and 120 trees grown.
+This is specially significant in the first two experiments, where very complex models were chosen from the procedure, with a depth of 15 levels and at least 250 trees for both.
+However, this is not the last model's case though, where a simpler model resulted in a depth of only two levels and 120 trees grown.
 
 The same applies for the $max\_features$ and $min\_leaf\_weight$ hyperparameters, for which lower complexity values resulted form the last CV procedure.
 There is difficulty though in establishing which of them had the most weight in an underweight model.
@@ -1061,17 +1052,19 @@ There is difficulty though in establishing which of them had the most weight in 
 When analyzing the $F1$ score of the experiments, we find ourselves with a scenario which is not that different.
 We see that the last procedure improved on the first two experiments in more than $10\%$, using this score and in an almost $20\%$ increase in the precision score.
 This suggests that the first two models were overfitting the training set and by using the top random forest features, we strongly improved on the $F1$ performance.
-Finally, when compared to the Random Forest's experiments, we see that the boosting models performed near to the top $F1$ value of $37\%$ achieved in the Random Forest experiments.
-The worst relative difference for all models, to this value, was of $17\%$ at most and $4.5\%$ at least.
+Finally, when compared to the Random Forest's experiments, we see that the boosting models performed near the top $F1$ value of $37\%$ achieved in the Random Forest experiments.
+From all model $F1$ scores, the lowest and highest output scores were $31.4\%$ and $35.4\%$ respectively. 
+This means that, at most, the worst model was $17\%$ less performant in this score.
+%The rest of worst relative difference for all models, to this value, was of $17\%$ at most and $4.5\%$ at least.
 
 Still, for that case, the top Random Forest's $F1$ score was attained in the first experiment, where we made use of the highly target-correlated features.
 This is then a remarkable performance for boosting learners which were not trained on this attributes and still achieved similar or higher scores.
 
-We also notice that the third model lacked the same strength for the $ROC AUC$ score.
+We also notice that the third model is slightly worse in  the $ROC AUC$ score, when compared to the first two.
 Here, the first model reached a score of almost $90\%$, whereas the third model had a poorer performance of $83\%$.
-Still, the lowest value for all experiments is more than satisfactory for the prediction task.
+Still, the lowest value for all experiments is more than satisfactory to predict the which of the currently non-endemic users have migrated out of the endemic region.
 
-With these results, and due to the difference in $ROC AUC$ vs. $F1$ scores, there is no clear indication as to which configuration is better across all experiments.
+All in all, with these results and due to the difference in $ROC AUC$ vs. $F1$ scores, there is no clear indication as to which configuration is better across all experiments.
 
 Below we introduce the learner's selection of best features for each experiment.
 Note that the last selection will have a very similar configuration to the top Random Forest features, since it selects 10 features of the available 30 used to train the model.
@@ -1106,11 +1099,11 @@ This outcome is presented in \cref{tab:boosting_big_experiment_best_features}, w
 
 The top features list shows us the importance of mobility diameter in both cases.
 We see that both weeknight and all-week user's mobility, are deemed relevant to detect their past endemic condition.
-This outcome confirms what was seen in \cref{tab:random_forest_big_experiment_best_features} where these attributes were, in general, performing.
+This outcome confirms what was seen in \cref{tab:random_forest_big_experiment_best_features} where these attributes were, in general, highlighted.
 
 As expected, in all cases we see that there are a number of features logging vulnerable interactions of users living in non-endemic regions.
 The same can be said about the call volume features, which are selected as important, both in the number and times of calls.
-Unluckily, we can't determine its relationship to the target variable in the sense that it might equally affect in both a positive and negative way.
+Unfortunately, we cannot determine their relationship to the target variable in the sense that it might equally affects in both a positive and negative way.
 % Phone behavior might differ along
 % Where user phone behavior
 
@@ -1121,7 +1114,7 @@ Once again, we see there are more features of earlier month interactions, such a
 At the same time, the only other month appearing is December.
 This could be indicative of familiar relations as it is a month which coincides with festivities and family reunions.
 
-However, we understand that this best-features methodology is constructed over a heuristic, so there doesn't seem to be any clear indication over which type of CDR interaction has better predictive power.
+%However, we understand that this best-features methodology is constructed over a heuristic, so there doesn't seem to be any clear indication over which type of CDR interaction has better predictive power.
 
 The analysis here confirms the relevance of CDR information in tagging long-term migrations.
 Experimental results show satisfactory scores across different metrics and for a highly imbalanced class.
@@ -1135,10 +1128,10 @@ The Naive Bayes model encompasses a group of simple and computationally efficien
 Even though this belief is in practice wrong, the model still achieves acceptable classification rates for some problems.
 In addition, it does not suffer in problems of high-dimensionality, where $p >> n$ i.e.\ there are more attributes than samples in the data.
 
-It is presented in this work for the purpose of providing a benchmark algorithm.
+The method is presented in this work for the purpose of providing a benchmark algorithm.
 In practice it is expected that the classification rate achieved by this model serves as a baseline for other, more complex, learners.
 
-The benefits of the algorithm include having linear complexity in the number of features and samples $O(d+n)$, so it can be easily extended to \textit{large} problem implementations.
+The benefits of the algorithm include having linear complexity in the number of features and samples, $O(d+n)$, so it can be easily extended to \textit{large} problem implementations.
 Furthermore, its maximum-likelihood estimation of the parameters has a closed form solution which is faster to compute over other iterative methods such as techniques using gradient descent or other similar iterative optimization routines.
 
 Let $x = (x_1,\ldots,x_p)$ be any given data sample and $C_k$ be one of $K$ possible output classes of a classification problem.
@@ -1158,7 +1151,7 @@ Here we can approximate the posterior as
 
 \begin{equation}
 \label{eq:posteriorProbabilityDecomposition1}
-P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j \mid \bigcap_{k=j+1}^{p} x_k \cap C_k)
+P(C_k \mid x) \propto p(C_k) * \prod_{j=1}^{p}  P(xˆj \mid \bigcap_{l=j+1}^{p} x^k \cap C_k)
 \end{equation}
 
 
@@ -1167,15 +1160,15 @@ We now impose a strong independence assumption among features, given the target 
 This yields a posterior probability which depends only on the prior probability and on the individual likelihood of each feature.
 
 \begin{equation}\label{eq:posteriorProbabilityDecomposition2}
-P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
+P(C_k \mid x) \approx p(C_k) * \prod_{j=1}^{p}  P({p} x^j \cap C_k)
 \end{equation}
 As we have said before, the parameters of the model can only reweigh the likelihood factors, so if we look to maximize the posterior probability, our final estimate of the posterior will take the following form.
 
 \begin{equation}\label{eq:posteriorProbabilityDecomposition3}
-P(C_k \mid x) = \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}  P(x_j | C_k)
+P(C_k \mid x) \approx \frac{1}{Z} p(C_k) * \prod_{j=1}^{p}  P(x^j | C_k)
 \end{equation}
 
-where in the equation $Z = p(x)$ is a scaling factor and is fixed to the dataset.
+where in the equation $Z = p(x)$ is a scaling factor and is calculated from the dataset.
 
 In practice, the model will stem into different algorithms where each variant will have a different probabilistic assumption on the likelihoods $p(x_j \mid C_k)$ of the model and on the priors $p(C_k)$.
 It is common to choose among these by  using non-parametric density estimations from the training data or by setting parametric assumptions on the data distribution, such as being distributed from an exponential distribution family such as a Gaussian, Bernoulli or Multinomial distribution.
@@ -1184,7 +1177,7 @@ Different choices will certainly lead to different cross validation scores among
 Altogether, these choices can be treated as part our model's hyperparameters and the best one can be selected with our CV procedure.
 %Indeed,
 
-Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability $P(C_k' \mid x)$.
+Finally, the output class for a given sample will be given by taking the class $k'$ which maximizes the probability $P(C_{k'} \mid x)$.
 
 \subsection{Experiments}\label{subsection:naive_bayes_experiments}
 
@@ -1192,8 +1185,9 @@ Here we present a very brief outline of this algorithm's performance on our gene
 Without going in to depth on the specifics of the experiments, we ran the classifier in a cross validation procedure against all of the four tasks outlined in \cref{long_term}, and using the same $Accuracy$, $F1$ and $ROC AUC$ classifier scores as in other method's experiment runs.
 We took advantage of this method's fast training runtime to rapidly evaluate all tasks on this algorithm.
 % The speed small time needed to fit this classifier on a large dataset.
-The results were composed into \cref{tab:naive_bays_experiment_results} and are shown to highlight two aspects of the method: its lower performance when compared to other previous methods, and the algorithm's fast run-time.
-
+The results were composed into \cref{tab:naive_bays_experiment_results} and summarise two aspects of the method: its lower performance when compared to other previous methods, and the algorithm's fast run-time.
+Given that this algorithm was introduced for benchmarking purposes, we will not expand in this section any further results for this learner as thes will be made in \cref{ch:results}, along with specific comparisons to other learner's results.
+%the given thoroughly  For further analysis of them, please refer to as 
 
 \begin{table}[!htb]
 \caption{Table comparing cross validated results
