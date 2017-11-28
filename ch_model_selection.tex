@@ -47,8 +47,6 @@ $$Y = f(X) + \epsilon$$.
 In this mapping from feature to target space we assume $\epsilon$ to be the noise, with a null mean and fixed $\sigma^2$ variance i.e.\ $\epsilon \sim \calN(0,\sigma^2)$.
 With this, \cref{eq:rss} can be read as an approximation of the expected prediction error given the training set $\mathcal{T}$.
 
-\todo{Fix notation mess of $\textbf{X},\textbf{Y}$ vs $X,Y$ and generalization, prediction, EPE, etcs}
-
 % Use Hastie tibshirani to debug this part
 % train error is average prediction error (loss function) of \hat{f} over train data
 %
@@ -187,7 +185,6 @@ We must assume then that calculating this integral is not possible for any $\the
 
 % For example, we could try and sample $M$ i.i.d.\ points from $P(X,Y)$ to approximate the integral by a Monte Carlo scheme.
 % With the squared loss function this would look as
-% \todo{Confusing notation with epe, prediction, err_true, etc}
 % \begin{equation}\label{eq:mcarlo-approx}
 % Err_{true}(\theta) \approx \frac{1}{M} \sum_i^M {( y - h(x \cdot \theta) )}^2
 % \end{equation}
