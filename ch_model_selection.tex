@@ -114,10 +114,9 @@ Overall, we are ultimately wanting to know how the learner performs over the tru
 Note here that we also want to average out any specific influence of the training set on our fit model $\hat{f}$ which was trained from a specific dataset, but also on the $\hat{f^*}$ that would have resulted from training on the true distribution of the data.
 With this we can introduce a last definition:
 \begin{definition}{Expected Prediction Error}
-	\begin{equation}
-%	Err = \Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f(X))  | \mathcal{T_s} \right]
-	 EPE = \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X))\right] =
-	 \Expect_{\textbf{X} \left[  \Expect_{{\textbf{Y}} | \textbf{X}} \left[   L(Y,f(X))  \right]  \right]
+\begin{equation}
+	 EPE = \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,\hat{f}(X))\right] = \Expect_{\textbf{X}} \left[  \Expect_{{\textbf{Y}} | \textbf{X}} \left[   L(Y,f(X)) 	\right]  \right]
+% % $$
 	\end{equation}
 \end{definition}
 
