@@ -519,7 +519,7 @@ CV $Accuracy$ score     & 0.880 & 0.903 \\
 CV $Precision$ score    & 0.267 & 0.213 \\
 CV $Recall$ score       & 0.618 & 0.480 \\
 CV $ROC AUC$ score      & 0.843 & 0.848 \\
-CV $Logloss$ score      & 0.337 & 0.391 \\
+CV $Log-loss$ score      & 0.337 & 0.391 \\
 $max\_depth$            & 12    & 12    \\
 $num\_trees$            & 150   & 200   \\
 $balanced$              & True  & True  \\
@@ -539,7 +539,7 @@ There are no clear indications as to which configuration is better.
 And, whilst having a higher level of randomization during tree growth seems to produce learners which are less overfitting, this difference is not that notable in the CV scorings.
 
 For most of the metrics used to evaluate the CV procedure, the scores look very similar.
-It is interesting that the second experiment is slightly better in the $Accuracy$, $Logloss$ and $ROC AUC$ scores, with a maximum difference of $5\%$ for all of them.
+It is interesting that the second experiment is slightly better in the $Accuracy$, $Log-loss$ and $ROC AUC$ scores, with a maximum difference of $5\%$ for all of them.
 Yet simultaneously the second experiment's performance drastically drops for the recall and precision.
 The same occurs accordingly for the $F1$ measure.
 We see the learner is losing performance in correctly tagging the user's who have migrated from the endemic region.
@@ -647,7 +647,7 @@ Then a fully grown Ada Boost's classifier takes the following form:
 where $M$ is the model's hyperparameter indicating the amount of weak learners and thus the amount of iterations.
 Here, each $\theta_m$ will encode the base learner's parameters and $\gamma_m$ will denote the weight of that weak learner in the overall model.
 
-The algorithm's iteration will build $\hat{y}^{(M)}$ starting from $\hat{y_i}^{(0)}= 0 \  \forall i$ in such a way that $\hat{y}^{(m+1)}$ will improve the loss of the previous iteration  $\hat{y}^{(m)}$. 
+The algorithm's iteration will build $\hat{y}^{(M)}$ starting from $\hat{y_i}^{(0)}= 0 \  \forall i$ in such a way that $\hat{y}^{(m+1)}$ will improve the loss of the previous iteration  $\hat{y}^{(m)}$.
 This is because at each stage, we will minimize a function that tries to correct the performance of the previous model.
 At step $m$ we will search for $(\gamma_{m}, \theta_{m})$ where
 
@@ -949,7 +949,7 @@ Yet it gives better overall performance on the CV error, when the model is corre
 %If an optimization routine were to collectively fit all the parameters in $\Theta$ to learn this model, we would have a very computational complex model.
 %In practice this would result in an prohibitive cost.
 %Instead, we rely on optimization heuristics which rely on first and second order approximations of the loss function at step $m$ to build on the next tree $m+1$.
-%Smooth loss functions are then fundamental for this procedure to work such as in the Adaboost formulation.
+%Smooth loss functions are then fundamental for this procedure to work such as in the Ada-boost formulation.
 %The \textit{boosting} optimization heuristic is explained in detail in \cref{appx:sec:boosting_optimization_heuristic}.
 %
 %
@@ -1023,7 +1023,7 @@ CV $Accuracy$ score   & 0.889 & 0.843  & 0.8327 \\
 CV $Precision$ score  & 0.209 & 0.217  & 0.249  \\
 CV $Recall$ score     & 0.629 & 0.601  & 0.607  \\
 CV $ROC AUC$ score    & 0.884 & 0.880  & 0.831  \\
-CV $Logloss$ score    & 0.524 & 0.337  & 0.399  \\
+CV $Log-loss$ score    & 0.524 & 0.337  & 0.399  \\
 $balanced$            & False & False  & False  \\
 % early\_stopping  & 5 &  5 & 5 \\
 $max\_depth$          & 15    & 15     & 12 \\
@@ -1053,7 +1053,7 @@ When analyzing the $F1$ score of the experiments, we find ourselves with a scena
 We see that the last procedure improved on the first two experiments in more than $10\%$, using this score and in an almost $20\%$ increase in the precision score.
 This suggests that the first two models were overfitting the training set and by using the top random forest features, we strongly improved on the $F1$ performance.
 Finally, when compared to the Random Forest's experiments, we see that the boosting models performed near the top $F1$ value of $37\%$ achieved in the Random Forest experiments.
-From all model $F1$ scores, the lowest and highest output scores were $31.4\%$ and $35.4\%$ respectively. 
+From all model $F1$ scores, the lowest and highest output scores were $31.4\%$ and $35.4\%$ respectively.
 This means that, at most, the worst model was $17\%$ less performant in this score.
 %The rest of worst relative difference for all models, to this value, was of $17\%$ at most and $4.5\%$ at least.
 
@@ -1187,7 +1187,7 @@ We took advantage of this method's fast training runtime to rapidly evaluate all
 % The speed small time needed to fit this classifier on a large dataset.
 The results were composed into \cref{tab:naive_bays_experiment_results} and summarise two aspects of the method: its lower performance when compared to other previous methods, and the algorithm's fast run-time.
 Given that this algorithm was introduced for benchmarking purposes, we will not expand in this section any further results for this learner as thes will be made in \cref{ch:results}, along with specific comparisons to other learner's results.
-%the given thoroughly  For further analysis of them, please refer to as 
+%the given thoroughly  For further analysis of them, please refer to as
 
 \begin{table}[!htb]
 \caption{Table comparing cross validated results
