@@ -1,12 +1,13 @@
-\begin{appendices}
-\crefalias{section}{appsec}
+% \begin{appendices}
+% \crefalias{section}{appsec}
+\setcounter{secnumdepth}{2} % number until subsections
+\chapter{Introduction to Machine Learning}
+\label{appx:introMachineLearning}
 
-\chapter{- Introduction to Machine Learning}\label[appsec]{appx:introMachineLearning}
-
-\section{Heaviside Function}\label[appsec]{appx:sec:heaviside}
+\section{Heaviside Function}\label{appx:sec:heaviside}
 
 The Heaviside step function is defined as
-\begin{equation}\label[appsec]{eq:heavisideDefintion}
+\begin{equation}\label{eq:heavisideDefintion}
 h(z) =
 \begin{cases}
 &0 \ \mbox{if} \ z<0 \\
@@ -22,7 +23,7 @@ and the relation between the logistic function and the heaviside function is
 
 Note in this sense that for a binary classification problem, the heaviside function \cref{eq:heavisideDefintion} is more appealing to the task, although its singularity at $z=0$ is problematic for optimization routines.
 
-\section{Details of the log loss functions}\label[appsec]{appx:sec:loglossDetails}
+\section{Details of the log loss functions}\label{appx:sec:loglossDetails}
 
 In \cref{figure-logLossValues} we display the values of the log loss function for different input probabilities:
 
@@ -31,7 +32,7 @@ In \cref{figure-logLossValues} we display the values of the log loss function fo
 \includegraphics[width=0.7\columnwidth]{figures/logloss/figure-logLossValues.png}
 \caption{ Error score series plot for the log loss function.
 Different $p_i$ input values are displayed with their output log loss score.}
-\label[appsec]{figure-logLossValues}
+\label{figure-logLossValues}
 \end{center}
 \end{figure}
 
@@ -45,12 +46,12 @@ Also, explicit forms can be given for the gradient and the Hessian of the loss f
 The negative gradient can be analytically expressed in the following way: %can thus be analytically expressed
 \begin{equation}
 - \nabla l(\theta) = \sum_{i=1}^N (y_i - P(y_i \mid x_i,\theta))\cdot x_i = \textbf{X}^{\intercal}(\textbf{y}-\textbf{p})
-\label[appsec]{eq:logitHessian1}
+\label{eq:logitHessian1}
 \end{equation}
 whilst the Hessian takes the following form:
 \begin{equation}
 \frac{\partial^2 l(\theta)}{\partial \theta \partial \theta^\intercal} = \sum_{i=1}^N x_i \cdot x_i^\intercal P(y_i \mid x_i,\theta)(1 -P(y_i \mid x_i,\theta))
-\label[appsec]{eq:logitHessian2}
+\label{eq:logitHessian2}
 \end{equation}
 
 With this formulation, we can take any optimization procedure that benefits from the closed-form representations of the first and second derivatives of the loss function.
@@ -59,7 +60,7 @@ With this formulation, we can take any optimization procedure that benefits from
 
 \chapter{Model Selection}
 
-\section{Bias and variance errors in other loss functions}\label[appsec]{appx:sec:biasVarianceExtensionLoss}
+\section{Bias and variance errors in other loss functions}\label{appx:sec:biasVarianceExtensionLoss}
 
 The work in~\cite{james-biasVarianceGeneral} defines what properties should be displayed by the bias and variance of an estimator in the general case.
 
@@ -107,7 +108,7 @@ That is, the expected bias between the systematic values of $Y$ and $\hat{f}(X)$
 The last term is the variance effect which is the expected variability between $Y$ and $\hat{f}(X)$.
 % $\Expect_{Y} \left[ L(SY,Y )\right]$
 
-%\begin{equation}\label[appsec]{squaredBiasDecomposition}
+%\begin{equation}\label{squaredBiasDecomposition}
 %PE( \hat{f} ) = \Expect_X \left[  f(X) - \hat{f}(X) \right]^2 + \Expect_X \left[ \hat{f}(X)^2 %\right] - \Expect_X \left[ \hat{f}(X) \right]^2 + \sigma^2
 %= Bias(\hat{f})^2 + Var(\hat{f}) + \sigma^2
 %\end{equation}
@@ -143,10 +144,10 @@ Summarizing all of the above we have that the classification prediction error wi
 \begin{equation}
 EPE = \Expect_X\left[ \sum_{k=1}^{K} L( Y_K , \hat{f}(X) ) P(Y_k|X) \right] =
 \Expect_X\left[ \sum_{k=1}^{K} I(Y _K\neq \hat{f}(X)) P(Y_k|X) \right]
-\end{equation}\label[appsec]{eq:classificationEPE}
+\end{equation}\label{eq:classificationEPE}
 
 
-\section{The Vapnik-Chervonenkis (VC) Dimension }\label[appsec]{appx:sec:vcDimension}
+\section{The Vapnik-Chervonenkis (VC) Dimension }\label{appx:sec:vcDimension}
 
 In Vapnik and Chervonenkis' work, the focus is put on the estimation of the prediction error through the convergence and consistency of the training error.
 To do this, the authors build a measure, the Vapnik-Chervonenkis (VC) dimension, as an important value in determining convergence speeds for different Machine Learning algorithms.
@@ -194,7 +195,7 @@ EPE(\theta) = & \ \Expect_{\textbf{t}} \left[ Q(t,\theta) \right]\\
 = & \int Q(t,\theta) p(t) dt \\
 = & \int L(f_\theta(x),y) p(x,y) dx dy
 \end{split}
-\end{equation}\label[appsec]{eq:vapnik-risk}
+\end{equation}\label{eq:vapnik-risk}
 
 where we let $p(t)$ be the \textbf{true} underlying probability function of the data.
 For simplicity, in this analysis we will assume the functions $Q$ in the class to be bounded.
@@ -203,7 +204,7 @@ For simplicity, in this analysis we will assume the functions $Q$ in the class t
 Knowing that we only have access to restricted data, we would like to estimate the risk functional for that functional space, only with the available information given by training and test errors.
 In this framework, this is called the empirical risk:
 
-\begin{equation}\label[appsec]{vapnik-empiricalRisk}
+\begin{equation}\label{vapnik-empiricalRisk}
 Err_{train}(\theta) = \sum_{i=1}^n Q(t_i,\theta)
 \end{equation}
 
@@ -257,7 +258,7 @@ This implies that the capacity of the learner will be captured in the set of fun
 	Four our work in binary classification, the main results of the VC theory establish that, for any given $\epsilon > 0$
 \begin{equation}
 P\Bigg(  \left|  Err^n_{train}(\theta^*) - EPE(\theta_0) \right| > \epsilon \Bigg)  \leq 8 poly(\Theta,n) \exp{\large \left( {\frac{-n\epsilon^2}{32}} \right)  }
-\end{equation}\label[appsec]{eq:vapnik-binaryBoundProbability}
+\end{equation}\label{eq:vapnik-binaryBoundProbability}
 
 where $poly(\Theta,n)$ is a polynomial on $n$ whose coefficients depend only on VC dimension of the class of functions $F$.
 For practical applications though, use of these bound estimates is limited by the calculation of the VC value.
@@ -265,7 +266,7 @@ This becomes increasingly difficult in algorithms which are more complex and exp
 Due to this limitation, we show in \cref{section:crossValidation} an approach which is, in comparison, widely practiced.
 It has the advantage of being easier and a simple heuristic that estimates the $EPE$.
 
-\subsection{VC for Prediction Error Bounds }{appx:sec:vcErrroBounds}
+\subsection{VC for Prediction Error Bounds }\label{appx:sec:vcErrroBounds}
 
 The next results will be focused on a binary supervised machine learning classifieres. Yet if the reader would like to explore a more general list of results on prediction error bounds for binary classifiers, these can be found in \textcite{cherkassky-learning2007}.
 
@@ -344,19 +345,19 @@ we can then define $\eta \in (0,1)$ to have that with probability at least $1 - 
 
 \begin{equation}
 EPE(\theta) \leq Err^n_{train}(\theta) + \frac{A \epsilon}{2} \left(1 + \sqrt{1 + \frac{4 Err^n_{train}(\theta) }{A \epsilon}} \right)
-\end{equation}\label[appsec]{eq:vapnik-classificationBound}
+\end{equation}\label{eq:vapnik-classificationBound}
 
 
 
 \begin{equation}
 \epsilon = a_1 \frac{h \left( \ln(\frac{a_2 n}{h} ) - \ln(\frac{\eta}{4} ) \right)}{n}
-\end{equation}\label[appsec]{eq:vapnik-epsilonBound}
+\end{equation}\label{eq:vapnik-epsilonBound}
 
 , and when the approximating class $F$ is finite of size $d$:
 
 \begin{equation}
 \epsilon = 2 \frac{ \ln(d) - \ln(\eta)}{n}
-\end{equation}\label[appsec]{eq:vapnik-epsilonBoundSimple}
+\end{equation}\label{eq:vapnik-epsilonBoundSimple}
 
 
 which is a simpler relation for $\epsilon$.
@@ -369,7 +370,7 @@ They show that with probability $1 - 2\eta$
 
 \begin{equation}
 Err^n_{train}(\theta^*) - EPE(\theta_0) \leq A \sqrt{\frac{-\ln(\eta)}{2n} } + \frac{A \epsilon}{2}\left( 1+ \sqrt{1 + \frac{4}{\epsilon} } \right)
-\end{equation}\label[appsec]{eq:vapnik-classificationBoundPrecise}
+\end{equation}\label{eq:vapnik-classificationBoundPrecise}
 
 These results prove that effective approximations of the prediction error can be given for most algorithms of finite VC dimensions.
 They also give a distinct characterization of how model complexity is related to the prediction error estimation.
@@ -377,7 +378,7 @@ All of them are explained in detail in \textcite{vapnik-nature2000}, Ch. 3.
 
 
 
-\section{Choice of \texorpdfstring{$K$ parameter}{Lg} }\label[appsec]{appx:sec:optimalKfoldNumber}
+\section{Choice of \texorpdfstring{$K$ parameter}{Lg} }\label{appx:sec:optimalKfoldNumber}
 
 In synthetic and actual dataset~\textcite{hastie-elemstatslearn} P.
 243, have found that using a \textit{higher} value of $K$, relative to the size of the dataset, means having a bigger training fold since each left-out partition is only $\frac{N}{K}$ in size.
@@ -411,9 +412,9 @@ Consensus\footnote{\textcite{hastie-elemstatslearn} P.
 
 
 
-\chapter{- Ensemble Methods \& Naive Bayes Classifier}\label[appsec]{appx:ensembleBayes}
+\chapter{Ensemble Methods \& Naive Bayes Classifier}\label{appx:ensembleBayes}
 
-\section{Decision Tree Pruning}\label[appsec]{appx:sec:tree_pruning}
+\section{Decision Tree Pruning}\label{appx:sec:tree_pruning}
 
 Let $T \subset T_0$ be a subtree of the first tree, where $T$ is obtained by pruning $T_0$. Here the partition regions $R_j$ will be associated to $T$'s terminal nodes or leafs, indexed by $j$, which $j \in \{1,\ldots,|T| \}$.
 
@@ -424,14 +425,14 @@ N_j & = \mid \{x \in R_j \}\mid \\
 \hat{p}_{jk} & = \frac{1}{N_j} \sum_{x \in R_j} I(y=k)\\
 c_j & = argmax_{k} \ \hat{p}_{jk} \\
 \end{split}
-\end{equation}\label[appsec]{eq:decisionTreePruneParameters}
+\end{equation}\label{eq:decisionTreePruneParameters}
 
 As we have mentioned before, at each split we use the node impurity measure to quantify this action. Here, we will denote $Q_j(T)$ to be the impurity measure for region $j$.
 With this we will have an impurity measure for each region $R_j$ and the algorithm will then aggregate all of them into a single measure called the \textit{cost complexity criterion}. The idea is that this loss function, as a function of a tree, will control the whole optimization procedure through the tree's parameters. The criterion will be managed to control the final model's bias and variance. We define it in the following way
 
 \begin{equation}
 C_\alpha(T) = \sum_{j=1}^{|T|} N_j Q_j(T) + \alpha|T|
-\end{equation}\label[appsec]{eq:decisionTreeCostComplexity}
+\end{equation}\label{eq:decisionTreeCostComplexity}
 
 
 Here $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that values the trade-off between the tree complexity, as given by its depth, and the accuracy of the model as given by the measure we proposed in \cref{it:decisionTreeCostFunctions}. The idea is that given an $\alpha$ we find the subtree $T_{alpha} \subset T_0$ that minimizes \cref{eq:decisionTreeCostComplexity}.
@@ -445,23 +446,23 @@ Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complex
 In this way, we'll have a sequence of trees $T_0,T_1,\ldots,T_l$ and a sequence of nodes $j_0, j_1,\ldots,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),\ldots,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
 
 
-\section{Random Forests' Predictive Error Bounds}\label[appsec]{appx:sec:rforest_predictive_error_bounds}
+\section{Random Forests' Predictive Error Bounds}\label{appx:sec:rforest_predictive_error_bounds}
 
 
 Define $$\hat{\jmath}( \textbf{x},\textbf{y}) = \argmax_{j \neq \textbf{y}} P_{\Theta}(h(\textbf{x}) = j)$$ and let the margin function for a random forest (not a group of classifiers) be defined as
 
-\[\label[appsec]{eq:rf-marginFunRf}
+\[\label{eq:rf-marginFunRf}
 mr(\textbf{x},\textbf{y}) = P_{\Theta}(h(\textbf{x}) = \textbf{y}) - P_{\Theta}(h(\textbf{x}) = \hat{\jmath})
 \\
 = \Expect_{\Theta} \left[ I(h(\textbf{x},\Theta ) = y ) - I( h( \textbf{x},\Theta ) = \hat{\jmath} ) \right]
 \]
 
-This characterizes the expectation taken over another function which is called the \textbf{raw margin function}\label[appsec]{eq:rf-rawMarginFun}.
+This characterizes the expectation taken over another function which is called the \textbf{raw margin function}\label{eq:rf-rawMarginFun}.
 Intuitively, the raw margin function takes each sample to be $1$ or $-1$ according to whether the ensemble classifier can correctly classify or not the sample's label, given $\Theta$.
 
 Let the strength of the set of weak classifiers in the forest be defined as
 
-\begin{equation}\label[appsec]{eq:rf-strength}
+\begin{equation}\label{eq:rf-strength}
 s = \Expect_{\textbf{x},\textbf{y}} \left[ mr(\textbf{x},\textbf{y} ) \right]
 \end{equation}
 
@@ -469,7 +470,7 @@ Define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x
 
 %	where we have conveniently defined as
 %Note that this is the mean value of the correlation.
-\begin{equation}\label[appsec]{eq:rf-meanCorrelation}
+\begin{equation}\label{eq:rf-meanCorrelation}
 \overline{\rho} = \frac{\Expect_{\Theta, \Theta'} \left[ \rho(\Theta, \Theta') \sigma(\Theta) \sigma(\Theta')\right]}
 {\Expect_{\Theta, \Theta'} \left[ \sigma(\Theta) \sigma(\Theta')\right]}
 \end{equation}
@@ -477,7 +478,7 @@ Define $ \rho(\Theta, \Theta')$ as the correlation between $rmg(\Theta,\textbf{x
 With these definitions we can then see that,
 
 \begin{theorem}
-	There exists an upper bound for the generalization error of a Random Forest which is    \begin{equation}\label[appsec]{eq:rf-PEBound}
+	There exists an upper bound for the generalization error of a Random Forest which is    \begin{equation}\label{eq:rf-PEBound}
 	PE^* \leq \overline{\rho}\frac{(1-s^2)}{s^2}
 	\end{equation}
 \end{theorem}
@@ -494,7 +495,7 @@ With these definitions we can then see that,
 
 
 	This in turn implies that
-	\begin{equation}\label[appsec]{eq:rf-marginFunVar}
+	\begin{equation}\label{eq:rf-marginFunVar}
 	\begin{split}
 	var(mr) & = \Expect_{\Theta, \Theta'}
 	\left[
@@ -511,9 +512,9 @@ With these definitions we can then see that,
 	where $\sigma(\Theta)$ is the standard deviation of $rmg(\Theta,\textbf{x},\textbf{y})$.
 	In both cases, $\Theta$ and $\Theta'$ are given.% to be fixed.
 
-	Equation \cref{eq:rf-marginFunVar} in turn implies that
+	\cref{eq:rf-marginFunVar} in turn implies that
 
-	\begin{equation}\label[appsec]{eq:rf-varianceBound}
+	\begin{equation}\label{eq:rf-varianceBound}
 	\begin{split}
 	var(mr) & = \overline{\rho} {(\Expect_{\Theta}\left[ \sigma(\Theta)\right] )}^2 \\
 	& \leq \overline{\rho} \Expect_{\Theta} \left[ var(\Theta) \right]
@@ -522,13 +523,13 @@ With these definitions we can then see that,
 
 
 	Assuming that $s \geq 0$ we have that the prediction error is bounded by
-	\begin{equation}\label[appsec]{eq:rf-predictiveErrorBound1}
+	\begin{equation}\label{eq:rf-predictiveErrorBound1}
 	PE^* \leq var(mr)/s^2
 	\end{equation}
 	by Chebyshev's inequality.
 	On the other we also have that
 
-	\begin{equation}\label[appsec]{eq:rf-expectedVarBound}
+	\begin{equation}\label{eq:rf-expectedVarBound}
 	\begin{split}
 	\Expect_{\Theta} \left[ var(\Theta) \right] & \leq \Expect_{\Theta} {\left[ \Expect_{\textbf{x},\textbf{y}}\left[ rmg(\Theta,\textbf{x},\textbf{y})  \right] \right]}^2 -s^2 \\
 	& \leq 1-s^2
@@ -545,7 +546,7 @@ With these definitions we can then see that,
 
 \end{proof}
 
-\subsection{Binary Class Bounds}\label[appsec]{appx:subsec:random_forests_binary_class}
+\subsection{Binary Class Bounds}\label{appx:subsec:random_forests_binary_class}
 
 In the context of a binary class problem, where the target variable can only take two values, there are simplifications to the formula \cref{eq:rf-PEBound}.
 In this case, the margin function takes the form of $2 P_{\Theta}(h(\textbf{x}) = \textbf{y}) -1$ and similarly the raw margin function results in $2 I(h(\textbf{x}, \Theta) = \textbf{y}) -1$.
@@ -567,7 +568,7 @@ Also, the correlation between $I(h(\textbf{x}, \Theta) = \textbf{y})$ and \ $I(h
 
 
 
-\section{Random Forests' Margin Function Convergence}\label[appsec]{appx:sec:rforest_margin_function_convergence}
+\section{Random Forests' Margin Function Convergence}\label{appx:sec:rforest_margin_function_convergence}
 
 
 \subsection{Proof}
@@ -589,10 +590,10 @@ It is immediate that
 
 \begin{equation}
 \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x},\Theta) = j) \ = \ \frac{1}{L} \sum_{m=1}^M L_m I(\textbf{x} \in S_m)
-\end{equation}\label[appsec]{eq:rf-PEconvergence1}
+\end{equation}\label{eq:rf-PEconvergence1}
 
 and that following the law of large numbers, there is a convergence almost everywhere of
-\begin{equation}\label[appsec]{rf-PEconvergence2}
+\begin{equation}\label{rf-PEconvergence2}
 \frac{L_m}{L} = \frac{1}{L} \sum_{l=1}^L I(\phi(\Theta_l) = m) \xrightarrow[L \to \infty]{}  P_{\Theta}(\phi(\Theta)= m).
 \end{equation}
 
@@ -603,7 +604,7 @@ If we combine \cref{eq:rf-PEconvergence1} and \cref{rf-PEconvergence2}, we will 
 \frac{1}{L} \sum_{l=1}^L I(h_l(\textbf{x}) = j) \xrightarrow[L \to \infty]{} \sum_m^M  P_{\Theta}(\phi(\Theta)= m) I(\textbf{x} =j ) \ = \ P_{\Theta}(h(\textbf{x}, \Theta) = j)
 \end{equation}
 
-\section{Gradient Boosting heuristic optimization}\label[appsec]{appx:sec:boosting_optimization_heuristic}
+\section{Gradient Boosting heuristic optimization}\label{appx:sec:boosting_optimization_heuristic}
 
 The first take on this optimization problem goes using a greedy optimization routine.
 One tree is fit at a time and new trees are then successively added in later steps to improve on previous trees' errors.
@@ -611,7 +612,7 @@ One tree is fit at a time and new trees are then successively added in later ste
 Let $t$ be the step indexer of the algorithm, where $t \in {0,..,K}$, $Obj_t(\Theta)$ be the objective function and $\hat{y}^t$ be the target variable respectively.
 Then the $i$-eth target's value at each step would iterate in the following way:
 
-\begin{equation}\label[appsec]{eq:gb-targetSteps}
+\begin{equation}\label{eq:gb-targetSteps}
 \begin{split}
 \hat{y}_i^0 = & 0 \\
 \ldots \\
@@ -632,7 +633,7 @@ This will add another complexity tuning parameter to control the length of the o
 
 If we assume we have sufficient conditions to approximate the objective function with second order Taylor approximation around $f_t(x_i)$,we would have
 
-\begin{equation}\label[appsec]{eq:gradientBoostingTaylor}
+\begin{equation}\label{eq:gradientBoostingTaylor}
 Obj^t(\theta) \approx \sum_i^n {L(y_i, \hat{y}^{t-1}_i) + g_i f_t(x_i,\theta_t) + \frac{1}{2} h_i {f_t(x_i,\theta_t)}^2 } + R(f(\Theta)) + c(t)
 \end{equation}
 
@@ -650,7 +651,7 @@ This also means replacing the actual tree's predictions for each sample as $\the
 
 %for that tree's evaluation.
 
-\begin{equation}\label[appsec]{eq:gb-objSteps1}
+\begin{equation}\label{eq:gb-objSteps1}
 Obj^t(\theta) \approx \sum_i^n {g_i \theta_{q(x_i)} + \frac{1}{2} h_i \theta_{q(x_i)}^2 } + \gamma ({t-1}) + \frac{1}{2}\lambda \sum_{j=1}^{t-1} \theta_j^2 \\
 \end{equation}
 
@@ -658,7 +659,7 @@ As an example, we have already replaced the regularization terms $c(t)$ and $R(f
 
 If we rearrange the equation above we get
 
-\begin{equation}\label[appsec]{eq:gb-objSteps2}
+\begin{equation}\label{eq:gb-objSteps2}
 \begin{split}
 Obj^t(\theta) \approx & \sum_{j=1}^{t-1} \left( \sum_{i \in \{q(x_i)=j\}} (g_i )\theta_{j} + \frac{1}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \theta_{j}^2 \right) + \gamma ({t-1}) \\
 \approx & \sum_{j=1}^{t-1} \left( \theta_{j}\sum_{i \in \{q(x_i)=j\}} (g_i ) + \frac{\theta_{j}^2}{2} \sum_{i \in \{q(x_i)=j\}} (h_i + \lambda ) \right) + \gamma ({t-1})
@@ -681,6 +682,6 @@ This is why smooth loss functions play an important part here in providing a fea
 %$\sum_i^n { g_i f_t(x_i) + \frac{1}{2} h_i f_t(x_i)^2 } + R(f_t)$ at the $t$-th step.
 
 
-%\section{Foo }\label[appsec]{Bar}
+%\section{Foo }\label{Bar}
 
-\end{appendices}
+% \end{appendices}
