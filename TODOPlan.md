@@ -1,7 +1,7 @@
 # TODO PLAN
 
 ## Delivery 28/11
-    * Clean last todos.
+    * [DONE] Clean last todos.
 
 ## Meeting 13/11
     * Clean last todos.

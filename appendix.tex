@@ -62,7 +62,7 @@ With this formulation, we can take any optimization procedure that benefits from
 
 \section{Bias and variance errors in other loss functions}\label{appx:sec:biasVarianceExtensionLoss}
 
-The work in~\cite{james-biasVarianceGeneral} defines what properties should be displayed by the bias and variance of an estimator in the general case.
+The work in~\citep{james-biasVarianceGeneral} defines what properties should be displayed by the bias and variance of an estimator in the general case.
 
 For this, they define the systematic value of a random variable with respect to a loss function.
 
@@ -268,7 +268,7 @@ It has the advantage of being easier and a simple heuristic that estimates the $
 
 \subsection{VC for Prediction Error Bounds }\label{appx:sec:vcErrroBounds}
 
-The next results will be focused on a binary supervised machine learning classifieres. Yet if the reader would like to explore a more general list of results on prediction error bounds for binary classifiers, these can be found in \textcite{cherkassky-learning2007}.
+The next results will be focused on a binary supervised machine learning classifieres. Yet if the reader would like to explore a more general list of results on prediction error bounds for binary classifiers, these can be found in \citep{cherkassky-learning2007}.
 
 To begin, we need to define what we mean by the shattering coefficient of a functional space.
 
@@ -322,7 +322,7 @@ f_{\theta} = I(\sum_{i=1}^d x_i \theta_i + \theta_0 > 0)
 This class of approximating functions can shatter up to $d+1$ samples, but no bigger sample.
 Thus the VC dimension is exactly $d+1$.
 The proof relies can be given on induction on the number of dimensions.
-Still we omit it and refer the reader to the bibliography \textcite{cherkassky-learning2007} Pg.
+Still we omit it and refer the reader to the bibliography \citep{cherkassky-learning2007} Pg.
 113 for the details.
 Other examples are given, both for finite and infinite VC classes.
 
@@ -374,13 +374,13 @@ Err^n_{train}(\theta^*) - EPE(\theta_0) \leq A \sqrt{\frac{-\ln(\eta)}{2n} } + \
 
 These results prove that effective approximations of the prediction error can be given for most algorithms of finite VC dimensions.
 They also give a distinct characterization of how model complexity is related to the prediction error estimation.
-All of them are explained in detail in \textcite{vapnik-nature2000}, Ch. 3.
+All of them are explained in detail in \citep{vapnik-nature2000}, Ch. 3.
 
 
 
 \section{Choice of \texorpdfstring{$K$ parameter}{Lg} }\label{appx:sec:optimalKfoldNumber}
 
-In synthetic and actual dataset~\textcite{hastie-elemstatslearn} P.
+In synthetic and actual dataset~\citep{hastie-elemstatslearn} P.
 243, have found that using a \textit{higher} value of $K$, relative to the size of the dataset, means having a bigger training fold since each left-out partition is only $\frac{N}{K}$ in size.
 The results show models with good bias but high variance, which is in conformity with the small size of the validation set.
 Note that having a higher value for $K$ will effect to a higher computational burden since $K$ estimators need to be fitted.
@@ -396,7 +396,7 @@ Here, samples of the training set $t_i = ( \boldsymbol{x_i} , \boldsymbol{y_i} )
 For these cases model evaluations are made against the new sample and the training set is updated with every arrival.\footnote{Note that here we must assume samples to be \textit{exchangeable}.
 	This means that the training set distribution is not altered by a permutation of samples $F(x_1,\ldots,x_n ) = F(x_\sigma{1},\ldots,x_\sigma{n})$ for any random permutation $\sigma$.}
 
-A valuable survey and explanation of the drawbacks of the $K$-Fold CV estimator can be found in \textcite{bengio-unbiasedCvEstimator}.
+A valuable survey and explanation of the drawbacks of the $K$-Fold CV estimator can be found in \citep{bengio-unbiasedCvEstimator}.
 The authors prove that there is no distribution-free estimator unbiased estimator of the $K$-Fold cross validation estimator's variance.
 The theoretical arguments focus on the idea that error correlations between the training and validation sets are not taken into account by the CV procedure.
 These correlations are known and understood for the general case, but their estimation is not possible.
@@ -407,7 +407,7 @@ Some exceptions appear though, specifically where distribution-free bounds can b
 But these cases are specific only for this class.
 In general, these bounds are not known, so using an unknown deviation of the CV estimator will affect the evaluation of different models.
 
-Consensus\footnote{\textcite{hastie-elemstatslearn} P.
+Consensus\footnote{\citep{hastie-elemstatslearn} P.
 	260} is that in general CV is a good procedure to estimate the expected prediction error with the training set fixed, but not good for the prediction error, conditional on the training set $\mathcal{T}$ fixed.
 
 
@@ -440,7 +440,7 @@ Here $\alpha \in \mathbb{R}_{\geq 0}$ is a tuning parameter that values the trad
 There are various methods we could use to find the optimal subtree. As an example, here we give an example of the \textit{weakest link pruning} algorithm which goes as follows:
 %must \textit{prune} the initially grown tree
 
-Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added.~\cite{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees built for this. This sequence is constructed by iteratively pruning the node $j$ that, when removed from the tree, creates the smallest increase in $B(T)$.
+Let $B(T) = \sum_{j} N_j Q_j(T) $ be our pure loss function, without any complexity cost added.~\citep{breiman-cart84} shows that we can find $T_{alpha}$ included in a sequence of trees built for this. This sequence is constructed by iteratively pruning the node $j$ that, when removed from the tree, creates the smallest increase in $B(T)$.
 
 
 In this way, we'll have a sequence of trees $T_0,T_1,\ldots,T_l$ and a sequence of nodes $j_0, j_1,\ldots,j_l$ respectively the ones minimizing the increase in $B(T_0),B(T_1),\ldots,B(T_l)$ at each step. The algorithm will stop when have reached the root node and we will find our tree $T_{alpha}$ by comparing all the $C_\alpha(T)$ for all of the trees built in the sequence. In practice, it is common to have this procedure done within a $K$-fold cross validation routine to reach to an estimated $\hat{\alpha}$.
