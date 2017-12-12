@@ -1,10 +1,20 @@
 # TODO PLAN
 
+## Plan Slides
+    * Iterate and get feedback with DM professors (Lean, Matthieu, Patu).
+    * How introductory should I be on Machine Learning?
+        - Don't mention unsupervised learning nor supervised regression, go stratight to binary classification? Present problems after or before?
+        - Notation on dataset X_{i,j}, features, loss functions and regularization.
+        - Prediction, generalization, Test/train set, train error, bias, variance,
+        - Cross Validation.
+    * Add slides for previous works or plainly mention them.
+    * Add funny section separators for non-technical audience?
+    * [DONE] Fork from agranda2016 a working .tex
+
 ## Delivery 28/11
     * [DONE] Clean last todos.
 
 ## Meeting 13/11
-    * Clean last todos.
     * [DONE] ASPELL all individual files.
     * [DONE] Recheck appendix \cref tags.
     * [DONE] Do not use he/her his antenna and swap to its, their ,etc
@@ -147,4 +157,3 @@
     * [DONE] Minor spell check with computer spell checkers in sublime or `sudo apt-get install aspell-en`.
     * [DONE] Check bad `\cref` references for appendix subsections.
     * [DONE] Better word wrapping for presented tables' header row. Words appear somewhat cluttered.
-    * Iterar con la gente del DM las correcciones. (Patu, Mathieu, Lean).
