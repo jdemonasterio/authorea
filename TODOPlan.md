@@ -2,13 +2,19 @@
 
 ## Plan Slides
     * Iterate and get feedback with DM professors (Lean, Matthieu, Patu).
+    * Data source
+        - Communications graph to abstract the dataset.
+        - Example of features constructed.
+    * Add reminders across the ppt to put pieces together.
     * How introductory should I be on Machine Learning?
         - Don't mention unsupervised learning nor supervised regression, go stratight to binary classification? Present problems after or before?
         - Notation on dataset X_{i,j}, features, loss functions and regularization.
         - Prediction, generalization, Test/train set, train error, bias, variance,
         - Cross Validation.
-    * Add slides for previous works or plainly mention them.
-    * Add funny section separators for non-technical audience?
+        - 
+    * Max 45 slides?
+    * Add slides for previous works or plainly mention them?
+    * Add funny section separators for non-technical audience.
     * [DONE] Fork from agranda2016 a working .tex
 
 ## Delivery 28/11
