@@ -59,11 +59,11 @@
 
   }
 
-  \date{ FCEyN \\ Diciembre , 2017}
+  \date{ FCEyN \\ Diciembre, 2017}
 
 
 %\setbeamertemplate{footline}[text line]{\bf \insertshortauthor \hfill \insertshorttitle \hfill \insertframenumber/29}
-\setbeamertemplate{footline}[text line]{\hfill \insertframenumber / 35}
+\setbeamertemplate{footline}[text line]{\hfill \insertframenumber/ 35}
 
 \AtBeginSection[]
 {
@@ -645,32 +645,54 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Conclusiones:
-% Los mapas de calor reflejean los esperado respecto al "gradiente" de calor.
-% Re-utilizacion de logs para otro uso, uso novedoso. Barato y simple, agarrar datos que existen y se reinterpretan.
-% Posible herramienta para buscar infectados en otras enfermedades donde tambien existen zonas endemicas y prevalencia en el tiempo de la enfermedad.
-\begin{frame}{Conclusiones}
-	\begin{block}{Esperadas}
-		Heat maps show \textit{temperature} falling from \textbf{Gran Chaco} outwards; heat that descents rapidly as we move away from the area.
 
-		\medskip
-		The assumption used to build the heatmaps were confirmed on the mexican dataset, with high feature correlation to past residence.
 
-	\end{block}
+\begin{frame}{Conclusiones Esperadas}
 
-	\pause
+Los mapas de calor muestran que la temperatura desciende rápidamente desde el ``Gran Chaco'' hacia afuera, indicando que las antenas descienden su porcentaje d usuarios \textit{vulnerables}
 
-	\begin{block}{Inesperadas}
-		Las interacciones telefónicas con la ecoregión  nos permitieron encontrar usuarios y comunidades que se destacan por tener un alto grado de comunicación con el Gran Chaco
+\medskip
+Los atributos de llamados desde y hacia la región endémica son relevantes para predecir migraciones, lo cual confirma nuestra hipótesis utilizada para construir los mapas de calor
 
-		\medskip
-		Los mapas sirvieron a la Fundación para priorizar campañas de salud
+\medskip
+Fue posible construir clasificadores de alta performance para detectar cuáles usuarios migraron desde la región endémica, sobre todos los usuarios actualmente no endémico
 
-		\medskip
-		Clasificadores de alta performance para todos salvo el problema 2
 
-		\medskip
-		Bajo nivel para la métrica $F1$ en el problema 2, salvo para el clasificador de ``Naive Bayes''
-	\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Conclusiones Inesperadas}
+
+Las interacciones telefónicas con la ecoregión nos permitieron encontrar usuarios y comunidades que se destacan por tener un alto grado de comunicación con el Gran Chaco
+
+\medskip
+Con experimentos de Aprendizaje Supervisado trabajando sobre CDRs dimos un ejemplo de métodos que pueden ayudar a las autoridades de salud en estrategias que no son intrusivas a las personas
+
+\medskip
+Salvo el clasificador de ``Naive Bayes'', la performance fue muy baja en $F1$ cuando buscabamos usuarios que migraron fuera de la zona endémica, sobre toda la base de usuarios
+
+
+\medskip
+Los tres tipos de features más relevantes para la clasificaición de los migrantes estaban relacionadas con:
+
+\begin{enumerate*}[label={\alph*)},]
+\item la mobilidad del usuario
+\item las interacciones y patrones de llamados con vecinos vulnerables, y
+\item actividad celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
+\end{enumerate*}
+
+a) la mobilidad del usuario, b)
+
+
+a) the area of influence of the
+users, where large mobility was indicative of past migrants, b) interactions and calling
+patterns with vulnerable users, and c) calls placed in the months nearest to T0 and
+also, calls placed in December.
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
