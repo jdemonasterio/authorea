@@ -2,6 +2,7 @@
 
 ## Plan Slides
     * Iterate and get feedback with DM professors (Lean, Matthieu, Patu).
+    * Aspell in spanish
     * Data source
         - Communications graph to abstract the dataset.
         - Example of features constructed.
