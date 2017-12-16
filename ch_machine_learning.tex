@@ -480,16 +480,14 @@ Given a parameter $\theta$, the probability of having a target vector $y$ is
 P(Y =y \mid \theta ) = \prod_{i=1}^N {P(y_1 \in C_1 \mid x_i, \theta)}^{y_i} {(1 - P(y_1 \in C_1 \mid x_i, \theta) )}^{(1-y_i)}
 \end{equation}
 
-If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ and the logistic function's derivative form \cref{eq:logitFunction}, then the estimation of $\theta$ for $N$ samples gives the following form
-loss function
+If we take into account that $P(y=1 \mid x,\theta) = 1 - P(y=0 \mid x,\theta)$ and the logistic function's derivative form \cref{eq:logitFunction}, then the estimation of $\theta$ for $N$ samples is equivalent to minimizing the following form
+
 \begin{equation}
 l(\theta) = \sum_{i=1}^N \big(y_i \log(P(y_i \mid x_i,\theta)) + (1-y_i)\log(1 - P(y_i \mid x_i,\theta) ) \big)
 \label{eq:logLossFunction}
 \end{equation}
 
-In Machine Learning this is called a \emph{log loss function}.
-
-This function is central to the theory because it is used as a metric or score of the quality of the model, in this case $\theta$, in correctly assigning estimated targets $ {\hat{p_i}} = P(y_i \mid x_i,\theta)$ for the input data $X$.
+In Machine Learning this is called a \emph{log loss function} and it is central to the theory because it is used as a metric or score of the quality of the model, in this case $\theta$, in correctly assigning estimated targets $ {\hat{p_i}} = P(y_i \mid x_i,\theta)$ for the input data $X$.
 It defines the space over which the learner will be evaluated.
 
 \begin{definition}{\textbf{Loss Function.}}
@@ -556,8 +554,8 @@ Other variants include the \textit{elastic-net} penalty which is a weighted aver
 The following example shows the logistic regression's model loss function with an $l2$ regularization term on $\theta$:
 \begin{equation}
 \begin{split}
-\theta^* & =  \min_{\theta} \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
-		& = \min_{\theta} \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + (1- y_i)\log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
+\theta^* & =  \min_{\theta} \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + \log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda { \| \theta \|_{2}}^2 \\
+		& = \min_{\theta} \sum_{i=1}^N \big(y_i ( \theta \cdot x_i ) + \log(1 + e^{1- \theta \cdot x_i} ) \big) + \lambda \sum_{j=1}^P \theta_j^2
 \end{split}
 \label{eq:logitRegularization}
 \end{equation}
