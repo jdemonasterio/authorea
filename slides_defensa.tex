@@ -4,15 +4,17 @@
     \usetheme{Frankfurt}
   }
 
-% \usepackage{times}
+\usepackage{times}
 \usepackage{amsmath,amssymb}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 % \usepackage[latin1]{inputenc}
+\usepackage{array}
+% \input{preamble.tex}
 
 \usepackage{fancybox}
 \usefonttheme[onlymath]{serif}
-\boldmath\
+\boldmath
 
 
 \usepackage{scalefnt}
@@ -25,7 +27,7 @@
 \usepackage[authoryear,round]{natbib}
 
 \graphicspath{ {./figures/} }
-% \input{preamble.tex}
+
 
 \def\calE{\mathcal{E}}
 \def\calF{\mathcal{F}}
@@ -35,8 +37,6 @@
 \def\calR{\mathcal{R}}
 \def\calW{\mathcal{W}}
 
-
-\usepackage{array}
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -44,13 +44,14 @@
 \beamertemplatenavigationsymbolsempty%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \title[Chagas \& Big Data]{Explorando migraciones y difusión del mal de Chagas en América Latina con aprendizaje automático}
-
+  \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automático}
+% \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automatico}
+  
   \author[Sarraute,Salles,de Monasterio]{Juan de Monasterio\inst{1}
   \and Carlos Sarraute\inst{3}
   \and Alejo Salles\inst{1} \\
-
   }
+
   \institute[]{
   \and \inst{1} Universidad de Buenos Aires
   \and \inst{3} GranData Labs
@@ -76,29 +77,27 @@
 \begin{document}
 
 
-\begin{frame}
-\titlepage\
-\end{frame}
+% \begin{frame}
+% \titlepage\
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introducción}
+\section{Introduccion}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Presentación  del proyecto}
-\begin{definition*}
-asdf
-\end{definition*}
+\begin{frame}{Presentacion  del proyecto}
+% \begin{definition*}
+% asdf
+% \end{definition*}
 
 	\begin{block}{Contexto}
 		\begin{itemize}
-			\item Comienzo en agosto 2015
+			\item Comenzado en agosto 2015
 			\item Investigación sobre la enfermedad del Chagas.
 			\item Trabajo multidisciplinario de biología, computación, estadística
-			\begin{itemize}
-				\item ``Big Data'' + Aprendizaje Automático integrando datos de telefonía celular
-				\item  Buscamos caracterizar y predecir migraciones de usuarios
-			\end{itemize}
+			\item ``Big Data'' + Aprendizaje Automático integrando datos de telefonía celular
+			\item Buscamos caracterizar y predecir migraciones de usuarios
 		\end{itemize}
 	\end{block}
 
@@ -106,7 +105,7 @@ asdf
 
 	\begin{block}{ Trabajo colaborativo}
 		\begin{itemize}
-			\item Alejo Salles (Instituto de Cálculo - UBA)
+			\item Alejo Salles (Instituto de Cálculo-UBA)
 			\item Carlos Sarraute (GranData Labs)
 			\item Carolina Lang (UBA, GranData Labs)
 			\item Diego Weinberg (Fundación Mundo Sano)
@@ -115,46 +114,21 @@ asdf
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Problemática}
-
-	\begin{block}{Idea del proyecto}
-		\begin{itemize}
-
-			\item Comienzo en agosto 2015
-			\item Colaboración entre Fundación Mundo Sano, GranData Labs y UBA
-			\item Investigación sobre la enfermedad del Chagas.
-			\item Trabajo multidisciplinario de biología, computación, estadística
-			\begin{itemize}
-				\item ``Big Data'' + Aprendizaje Automático integrando datos de telefonía celular
-				\item  Buscamos caracterizar y predecir migraciones de usuarios
-			\end{itemize}
-		\end{itemize}
-	\end{block}
-
-	\pause\
-
-	\begin{block}{ Colaboración}
-		\begin{itemize}
-			\item Diego Weinberg (Fundación Mundo Sano)
-			\item Carlos Sarraute, Carolina Lang (GranData Labs)
-			\item Alejo Salles (Instituto de Cálculo, UBA)
-		\end{itemize}
-	\end{block}
-
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{ Epidemiología del Chagas}
+\begin{frame}{Problematica}
 
-			El Chagas es una enfermedad causada por el \textit{trypanozoma cruzi}, un parásito que se extiende por todo el continente Americano.
+			El Chagas es una enfermedad causada por el \textit{trypanozoma cruzi}, un parásito que se extiende por todo el continente americano
 			% y tambi\'en predominante en algunas comunidades que han migrado de esta zona. .
 
-			\medskip  La Organización Mundial de la Salud (OMS) estima 65 millones de personas expuestas a esta enfermedad que es endémica en más de 21 países latino americanos.
+			\medskip  El insecto \textit{triatoma infestans} es el mayor vector de esta enfermedad
+
+			\medskip  La Organización Mundial de la Salud (OMS) estima 65 millones de personas expuestas a esta enfermedad que es endémica en más de 21 países latino americanos
 			%Esta zona comprende el norte y noroeste de la Argentina
 			%así como varios países limítrofes (Brasil, Bolivia, Paraguay, Perú).
+
+			\medskip El acceso a tratamientos es extremadamente limitado para las personas infectdas
 
 \end{frame}
 
@@ -191,7 +165,7 @@ asdf
 	\begin{columns}
 		\begin{column}{0.3\textwidth}
 
-			La enfermedad es endémica en algunas regiones y estados particulares particulares
+			La enfermedad es endémica en algunas regiones y estados particulares
 			 % is endemic in some particular states of the country, shown in the map.
 			%The disease is endemic in the states of Jalisco, Oaxaca, Veracruz, Guerrero, Morelos, Puebla, Hidalgo and Tabasco.
 			%This selection was based on the top 25\% prevalance states.
@@ -223,7 +197,7 @@ asdf
 		\item \ldots que es epidémica y desatendida
 		% \item ... which is epidemic and unattended.
 	\end{itemize}
-	En particular, la Fundación busca encontrar chagásicos en zonas no tradicionalmente endémicas
+	En particular, la fundación busca encontrar chagásicos en zonas no tradicionalmente endémicas
 	%Es decir, gente de fuera de Gran Chaco infectada con \textit{Trypanosoma Cruzi} (el parásito que causa el Chagas).
 \end{frame}
 
@@ -779,6 +753,8 @@ also, calls placed in December.
 % ==============================================
 
 \vfill
+
+
 
 \end{document}
 
