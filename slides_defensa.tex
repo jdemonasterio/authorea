@@ -16,7 +16,6 @@
 \usefonttheme[onlymath]{serif}
 \boldmath
 
-
 \usepackage{scalefnt}
 \usepackage{ragged2e}
 \usepackage{graphics}
@@ -26,8 +25,20 @@
 \usepackage{amsfonts}
 \usepackage[authoryear,round]{natbib}
 
-\graphicspath{ {./figures/} }
 
+%---------------------------------------------------------+
+% Paquetes misceláneos de listas, set space, notas, etc   |
+%---------------------------------------------------------+
+\usepackage[shortlabels,inline]{enumitem}   % customiza liastas lists
+\setlist[itemize,1]{label=$\bullet$}
+\setlist[itemize,2]{label=\footnotesize{$\blacktriangleright$}}
+\setlist[itemize,3]{label=\tiny{$\blacksquare$}}
+\setlist[itemize,4]{label=\bfseries{\large{--}}}
+% \setlist[enumerate,2]{label=\emph{\alph*})}
+\newlist{steps}{enumerate}{1}               % Lista de pasos para usar en demostraciones
+\setlist[steps,1]{leftmargin=*,label=\textit{Step \arabic*.},ref=\arabic*}
+
+\graphicspath{ {./figures/} }
 
 \def\calE{\mathcal{E}}
 \def\calF{\mathcal{F}}
@@ -45,7 +56,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automático}
-% \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automatico}
+% \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automático}
   
   \author[Sarraute,Salles,de Monasterio]{Juan de Monasterio\inst{1}
   \and Carlos Sarraute\inst{3}
@@ -83,13 +94,10 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduccion}
+\section{Introducción}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Presentacion  del proyecto}
-% \begin{definition*}
-% asdf
-% \end{definition*}
+\begin{frame}{Presentación  del proyecto}
 
 	\begin{block}{Contexto}
 		\begin{itemize}
@@ -117,9 +125,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Problematica}
+\begin{frame}{Problemática}
 
-			El Chagas es una enfermedad causada por el \textit{trypanozoma cruzi}, un parásito que se extiende por todo el continente americano
+			El Chagas es una enfermedad causada por el \textit{tripanosoma cruzi}, un parásito que se extiende por todo el continente americano
 			% y tambi\'en predominante en algunas comunidades que han migrado de esta zona. .
 
 			\medskip  El insecto \textit{triatoma infestans} es el mayor vector de esta enfermedad
@@ -128,7 +136,7 @@
 			%Esta zona comprende el norte y noroeste de la Argentina
 			%así como varios países limítrofes (Brasil, Bolivia, Paraguay, Perú).
 
-			\medskip El acceso a tratamientos es extremadamente limitado para las personas infectdas
+			\medskip El acceso a tratamientos es extremadamente limitado para las personas infectadas
 
 \end{frame}
 
@@ -607,7 +615,7 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusion}
+\section{Conclusiones}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -616,13 +624,16 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 
 \begin{frame}{Conclusiones Esperadas}
 
-Los mapas de calor muestran que la temperatura desciende rápidamente desde el ``Gran Chaco'' hacia afuera, indicando que las antenas descienden su porcentaje d usuarios \textit{vulnerables}
+Los mapas de calor muestran un descenso de temperatura desde el ``Gran Chaco'' hacia afuera
+% , indicando que las antenas descienden su porcentaje de usuarios \textit{vulnerables}
 
 \medskip
-Los atributos de llamados desde y hacia la región endémica son relevantes para predecir migraciones, lo cual confirma nuestra hipótesis utilizada para construir los mapas de calor
+Los atributos de llamados desde y hacia la región endémica son relevantes para predecir migraciones
+% , lo cual confirma nuestra hipótesis utilizada para construir los mapas de calor
 
 \medskip
-Fue posible construir clasificadores de alta performance para detectar cuáles usuarios migraron desde la región endémica, sobre todos los usuarios actualmente no endémico
+Fue posible construir clasificadores de alta performance para detectar cuáles usuarios migraron desde la región endémica
+% , sobre todos los usuarios actualmente no endémico
 
 
 
@@ -634,95 +645,88 @@ Fue posible construir clasificadores de alta performance para detectar cuáles u
 
 \begin{frame}{Conclusiones Inesperadas}
 
-Las interacciones telefónicas con la ecoregión nos permitieron encontrar usuarios y comunidades que se destacan por tener un alto grado de comunicación con el Gran Chaco
+Los mapas ayudaron a detectar comunidades con alta interaccion vulnerable fuera de la zona endemica
 
 \medskip
-Con experimentos de Aprendizaje Supervisado trabajando sobre CDRs dimos un ejemplo de métodos que pueden ayudar a las autoridades de salud en estrategias que no son intrusivas a las personas
+Los mejores clasificadores fueron los de ensamble
+% en estrategias que no son intrusivas a las personas
 
 \medskip
-Salvo el clasificador de ``Naive Bayes'', la performance fue muy baja en $F1$ cuando buscabamos usuarios que migraron fuera de la zona endémica, sobre toda la base de usuarios
-
+Salvo el clasificador de ``Naive Bayes'', la performance fue muy baja para la metrica $F1$ en el problema 2
 
 \medskip
-Los tres tipos de features más relevantes para la clasificaición de los migrantes estaban relacionadas con:
+Los tres tipos de atributos más relevantes para la clasificaición de los migrantes estaban relacionadas con:
 
-% \begin{enumerate*}[label={\alph*)},]
-% \item la mobilidad del usuario
-% \item las interacciones y patrones de llamados con vecinos vulnerables, y
-% \item actividad celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
-% \end{enumerate*}
-1 la mobilidad del usuario,
-2 the area of influence of the
-users, A where large mobility was indicative of past migrants, B interactions and calling
-patterns with vulnerable users, and C calls placed in the months nearest to T0 and
-also, calls placed in December.
+\begin{enumerate*}[label={\alph*)},]
+\item la mobilidad del usuario
+\item las interacciones y patrones de llamados con vecinos vulnerables, y
+\item uso celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
+\end{enumerate*}
+
+% 1 la mobilidad del usuario,
+% 2 the area of influence of the
+% users, A where large mobility was indicative of past migrants, B interactions and calling
+% patterns with vulnerable users, and C calls placed in the months nearest to T0 and
+% also, calls placed in December.
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
 
-\begin{frame}{Conclusiones}
-	\begin{block}{Reciclado de CDRs }
-		\begin{itemize}
-			\item Presentamos una utilizaci\'on novedosa de los CDRs, datos que inicialmente se utilizan para fines de facturación
-			\item El análisis puede ser extendido hacia otras regiones y otras epidemias de características similares
-%			\item Can be extended to other regions or diseases and epidemics of similar characteristics.
-			%Prueba de concepto que se puede extender a enfermedades y epidemias de caracter\'isticas similares.
-		\end{itemize}
-	\end{block}
-
-	\begin{block}{Foo}
-		\begin{itemize}
-			\item Presentamos una utilizaci\'on novedosa de los CDRs (Call Detail Records), datos que inicialmente se utilizan para fines de facturación
-			\item El análisis puede ser extendido hacia otras regiones y otras epidemias de características similares
-			%			\item Can be extended to other regions or diseases and epidemics of similar characteristics.
-			%Prueba de concepto que se puede extender a enfermedades y epidemias de caracter\'isticas similares.
-		\end{itemize}
-	\end{block}
-
+\begin{frame}{Reciclaje de CDRs}
+	    
+	    Presentamos una utilizaci\'on novedosa de los CDRs, datos que inicialmente se utilizan para fines de facturación
+		\medskip
+		Se puede extender hacia otras regiones y otras epidemias de características similares
+		\medskip
+		
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
 
-%\begin{frame}{Future Work - RETOCAR}
-%
-%		\begin{block}{Enhance the Communications Model}
-%			\begin{itemize}
-%			\item Current vulnerability characterization relies exclusively on mobile communications of users with antennas in the ecoregion.
-%			%La caracterizaci\'on actual de la vulnerabilidad viene dada por contacto telefónicos con usuarios de antenas del Gran Chaco.
-%
-%			\item We look forward to extracting long-term mobility information by looking at communication patterns between two areas.
-%			% %SAY ORALLY: Focus the communications analysis on communities where Mundo Sano is currently working
-%			\end{itemize}
-%  	 	\end{block}
-% \end{frame}
-%
+\begin{frame}{Inconvenientes}
+
+		\begin{block}{Sesgos en los datos}
+			\begin{itemize}
+			\item Basados únicamente en datos de una sola TelCo por país 
+			%La caracterizaci\'on actual de la vulnerabilidad viene dada por contacto telefónicos con usuarios de antenas del Gran Chaco.
+			\item Concentración geoespacial de usuarios
+			
+			\item Mobilidad no implica prevalencia
+			\
+			\item Estacionaridades temporales
+
+			\end{itemize}
+ 	 	\end{block}
+\end{frame}
+
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%   \begin{frame}{Future Work}
-%
-%\begin{block}{New Data Sources (if available)}
-%	 With Mundo Sano we aim to incorporate epidemiological data to the analysis:
-%\begin{itemize}
-%\item tenement bug infestation
-%\item infected rates by municipality
-%\item infected newborns
-%\item acute Chagas cases.
-%\item serological data per community, amongst others.
-%\end{itemize}
-%
-%\end{block}
-%
-%\begin{block}{2010 Census}
-%	Socio-economic information aggregated by department from the national census website \footnote{ http://censo2010.indec.gov.ar/} has already been preprocessed for every municipality in Argentina.
-%
-%
-%
-%\end{block}
-%   \end{frame}
+ \begin{frame}{Lineas Futuras de Trabajo}
+
+
+	\begin{block}{Extensiones}
+		Probar otros clasificadores y metodos para hallar los atributos mas relevantes en terminos de migraciones. Tambien se podria mejorar el analisis pudiendo mejorar el preprocesamiento de los datos con cuestioens de estacionaridad o de tecnicas de ``Feature Engineering''.
+	\end{block}
+
+	\medskip
+
+	\begin{block}{Nuevas fuentes de datos}
+		Agreagar informacion para mayores analisis:
+		\begin{itemize}
+			\item Comparacion de resultados de movilidad con serologia por region
+			\item Categorizacion de antenas por ambiente de ruralidad
+			\item infected newborns
+			\item acute Chagas cases.
+			\item serological data per community, amongst others.
+		\end{itemize}
+	\end{block}
+
+
+ \end{frame}
 %
 
 
@@ -746,15 +750,12 @@ also, calls placed in December.
 \justifying%
 \scalefont{0.7}
 \bibliographystyle{unsrtnat}
-\bibliography{../mobility}
+\bibliography{./}
 
 % \end{columns}
-
 % ==============================================
 
 \vfill
-
-
 
 \end{document}
 
