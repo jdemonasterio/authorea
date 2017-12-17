@@ -240,7 +240,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{Social visualización: The Comunicacional Grafo}
+\begin{frame}{Visualización Social: El grafo de comuniaciones}
 
 	\center\
 	\includegraphics[width = 1.0 \textwidth, trim = 0 0 0 0cm, clip = true]
@@ -249,27 +249,28 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Mobile Phone Data}
+\begin{frame}{Datos de Telefonia Celular (CDRs)}
 
 % \begin{block}{Los datos: CDRs}
 
-The argentinian and mexican datasets consist of \textbf{anonymized} call detail records (CDRs), each from one national telco. The former ranges 5 months of data whilst the latter 24.
+Los conjuntos de datos consisten de registros detallados de llamados (CDRs) para Mexico y Argentina con una TelCo distinta por pais. El primero tiene 24 meses de datos mientras que el segundo 5 meses.
 
 %Nuestro conjunto de datos consiste en 5 meses de registros de llamados (CDRs) \textbf{anonimizados} de una compañía telefónica en la \textbf{Rep\'ublica Argentina}.
 
 \medskip
-Each call record consists of:
-%Cada registro contiene:
+Podemos representar cada registro en una tupla $\left < i, j, t, d, l \right >$ que contiene :
 \begin{itemize}
-	\item Origin and destination users.
+	\item Usuarioss $i$ y $j$ en esa llamada
 	%Usuarios anonimizados de origen y destino de la llamada.
-	\item ID of origin antenna.
-	%ID de la antena telefónica usada por el remitente para la comunicación.
-	\item Start time and duration in seconds.
-	%Tiempo de inicio y duración de la llamada.
+	\item Tiempo de inicio y duración de la llamada $t$
+	\item Direccion $d$ de la llamada (entrante o saliente, con respecto a $i$)
+	\item $l$ es el ID de la antena telefónica usada por $i$ en esa comunicación
 \end{itemize}
 
 \medskip
+
+Cada dataset tiene mas de 9 mil millones de registros de llamadas geolocalizadas. La 
+
 In all, each dataset has more than 9 billion geolocalized calls in each dataset. The population coverage of each telco is of 8 million and 2 million mobile lines for the argentinean and mexican datasets respectively.
 %En total son m\'as de 9,000,000,000 llamados geolocalizados de 40,000,000 millones de l\'ineas celulares. % a las cuales analizaremos sus patrones de comunicaciones.
 
@@ -481,19 +482,18 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Argentine Communities Detected}
-	After filtering the maps, we are left with few antennas that stick out for their risk level. Using their location, we assign them to Argentinian communities or cities.
-
+\begin{frame}{Comunidades resaltadas}
+	Luego de filtrar los mapas y explorar con distintas visualizaciones, encontramos antentas especificas que se resaltan por su nivel de vulnerabilidad
 	%Como resultado del filtrado en cada zona, nos hemos quedado con las antenas destacadas por su nivel de riesgo y, utilizando su ubicaci\'on, las emparejamos con localidades o comunidades argentinas.
 
 	\bigskip
 
-	\begin{block}{Some communities outside the big cities}
+	\begin{block}{Ejemplos de comunidades en Argentina}
 		\begin{itemize}
 			\item Cordoba: Freyre, La Tordilla, Balnearia
 			%hay muchas mas pero no se si esta bien poner esto
 			\item AMBA: Avellaneda, Parque Patricios, San Isidro
-			\item Provincia de Bs As: Lima, San Nicolas
+			\item Provincia de Buenos Aires: Lima, San Nicolas
 			\item La Rioja: Chamical y Malanz\'an
 			\item Salta: Tartagal
 		\end{itemize}
@@ -501,20 +501,53 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 	\end{block}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}{Ongoing Tasks}
-
-%	{\Large Enrich antenna data with epidemic risk factors and segmenting for:}
-	% %SAY ORALLY: filter communications for non working schedules. Try to see if any pattern occurs at a smaller scale since which would add insight to the analysis or become an interesting feature.
-%	\begin{itemize}
-%		\item Rural locations. % etc. %hay muchas mas pero no se si esta bien poner esto
-%		\item Housing conditions. % etc.
-%	\end{itemize}
-	% %SAY ORALLY: Focus the communications analysis on communities where Mundo Sano is currently working
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Prediction of Long-term Mobility}
+\section{Clasificacion Supervisada}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Notacion}
+%	\begin{columns}
+%		\begin{column}{0.20 \textwidth}
+			\begin{block}{Target Variable}
+			Let $T_0$ and $T_1$ be time periods corresponding to $($01/01/14, 31/07/15 $)$ and $($01/08/15, 31/12/15$)$ respectively.
+
+			Consider $U_0$ to be the set of users that lived in the \textbf{mexican} endemic region $E_Z$ during period $T_0$. Then our target variable $Y$ for every user $u$ is:
+			\[
+			%\begin{equation}
+			Y_u =
+			\begin{cases}
+			&1 \ \mbox{if} \ u \in U_0  \\
+			&0 \ \mbox{in other cases}.
+			\end{cases}
+			%\end{equation}
+			\]
+			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
+			\end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Definiciones}
+%	\begin{columns}
+%		\begin{column}{0.20 \textwidth}
+			\begin{block}{Foo}
+			Bar 
+			\[
+			%\begin{equation}
+			Y_u =
+			\begin{cases}
+			&1 \ \mbox{si} \ u \in U_0  \\
+			&0 \ \mbox{en otros casos}.
+			\end{cases}
+			%\end{equation}
+			\]
+			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
+			\end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Mobility Classifier}
 %	\begin{columns}
 %		\begin{column}{0.20 \textwidth}
@@ -624,18 +657,16 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 
 \begin{frame}{Conclusiones Esperadas}
 
-Los mapas de calor muestran un descenso de temperatura desde el ``Gran Chaco'' hacia afuera
-% , indicando que las antenas descienden su porcentaje de usuarios \textit{vulnerables}
+	Los mapas de calor muestran un descenso de temperatura desde el ``Gran Chaco'' hacia afuera
+	% , indicando que las antenas descienden su porcentaje de usuarios \textit{vulnerables}
 
-\medskip
-Los atributos de llamados desde y hacia la región endémica son relevantes para predecir migraciones
-% , lo cual confirma nuestra hipótesis utilizada para construir los mapas de calor
+	\medskip
+	Los atributos de llamados desde y hacia la región endémica son relevantes para predecir migraciones
+	% , lo cual confirma nuestra hipótesis utilizada para construir los mapas de calor
 
-\medskip
-Fue posible construir clasificadores de alta performance para detectar cuáles usuarios migraron desde la región endémica
-% , sobre todos los usuarios actualmente no endémico
-
-
+	\medskip
+	Fue posible construir clasificadores de alta performance para detectar cuáles usuarios migraron desde la región endémica
+	% , sobre todos los usuarios actualmente no endémico
 
 \end{frame}
 
@@ -645,29 +676,23 @@ Fue posible construir clasificadores de alta performance para detectar cuáles u
 
 \begin{frame}{Conclusiones Inesperadas}
 
-Los mapas ayudaron a detectar comunidades con alta interaccion vulnerable fuera de la zona endemica
+	Los mapas ayudaron a detectar comunidades con alta interaccion vulnerable fuera de la zona endemica
 
-\medskip
-Los mejores clasificadores fueron los de ensamble
-% en estrategias que no son intrusivas a las personas
+	\medskip
+	Los mejores clasificadores fueron los de ensamble
+	% en estrategias que no son intrusivas a las personas
 
-\medskip
-Salvo el clasificador de ``Naive Bayes'', la performance fue muy baja para la metrica $F1$ en el problema 2
+	\medskip
+	Salvo el clasificador de ``Naive Bayes'', la performance fue muy baja para la metrica $F1$ en el problema 2
 
-\medskip
-Los tres tipos de atributos más relevantes para la clasificaición de los migrantes estaban relacionadas con:
+	\medskip
+	Los tres tipos de atributos más relevantes para la clasificaición de los migrantes estaban relacionadas con:
 
-\begin{enumerate*}[label={\alph*)},]
-\item la mobilidad del usuario
-\item las interacciones y patrones de llamados con vecinos vulnerables, y
-\item uso celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
-\end{enumerate*}
-
-% 1 la mobilidad del usuario,
-% 2 the area of influence of the
-% users, A where large mobility was indicative of past migrants, B interactions and calling
-% patterns with vulnerable users, and C calls placed in the months nearest to T0 and
-% also, calls placed in December.
+	\begin{enumerate*}[label={\alph*)},]
+		\item la mobilidad del usuario
+		\item las interacciones y patrones de llamados con vecinos vulnerables, y
+		\item uso celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
+	\end{enumerate*}
 
 \end{frame}
 
@@ -690,13 +715,13 @@ Los tres tipos de atributos más relevantes para la clasificaición de los migra
 
 		\begin{block}{Sesgos en los datos}
 			\begin{itemize}
-			\item Basados únicamente en datos de una sola TelCo por país 
+			\item Basados únicamente en datos de una sola TelCo por país que no capturan migraciones internacionales 
 			%La caracterizaci\'on actual de la vulnerabilidad viene dada por contacto telefónicos con usuarios de antenas del Gran Chaco.
 			\item Concentración geoespacial de usuarios
 			
 			\item Mobilidad no implica prevalencia
-			\
-			\item Estacionaridades temporales
+			
+			\item Estacionalidades en las migraciones
 
 			\end{itemize}
  	 	\end{block}
@@ -718,7 +743,7 @@ Los tres tipos de atributos más relevantes para la clasificaición de los migra
 		Agreagar informacion para mayores analisis:
 		\begin{itemize}
 			\item Comparacion de resultados de movilidad con serologia por region
-			\item Categorizacion de antenas por ambiente de ruralidad
+			\item Categorizacion de antenas por grado de ruralidad del ambiente
 			\item infected newborns
 			\item acute Chagas cases.
 			\item serological data per community, amongst others.
