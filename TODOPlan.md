@@ -13,7 +13,22 @@
         - Prediction, generalization, Test/train set, train error, bias, variance,
         - Cross Validation.
         - 
-    * Max 45 slides?
+    * Max 25 slides. Calculo 2 min per slide. 
+    * Arreglar las slides cortas + imagenes caidas.
+    * Bajar la cantidad de texto a la mitad en c/slide.
+    * Las definiciones van habladas, solo dejar la notacion. Poner la notacion en el mismo slide y no es tan necesario introducir notacion.
+    * Problema matematico bien precisamente explicado y puesto en un contexto.
+    * Que quede claro cual es la loss function y cuales son los problemas a optimizar.
+    * Definir los problemas matematicamente. Definir un problema de aprendizaje automatico abstractamente. Definir la f y las loss functions para c/uno de los algoritmos y contar como se mapean uno a uno.
+    * Contar F1, accuracy y roc hasta cierto punto, poner las formulas en lo posible.
+    * Problemas de minimos locales en c/algoritmo
+    * CV contar como elegir los hiperparametros 
+    * Poner la master table resumida marcando que es lo que quiero que vea, o comentando por arriba que es lo mas importante.
+    * ~ 10 de intro problematica mas datos. 10 de supervised learning, 5 de conclusion y resultados.
+    * Resultados.
+    
+
+    * Sacar mapa de mejico y de insectos.
     * Add slides for previous works or plainly mention them?
     * Add funny section separators for non-technical audience.
     * [DONE] Fork from agranda2016 a working .tex
