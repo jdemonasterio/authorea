@@ -1,7 +1,6 @@
-
-\documentclass{beamer}
+\documentclass[xcolor=x11names]{beamer}
   \mode<presentation> {
-    \usetheme{Frankfurt}
+    \usetheme{Copenhagen}
   }
 
 \usepackage{times}
@@ -11,6 +10,7 @@
 % \usepackage[latin1]{inputenc}
 \usepackage{array}
 % \input{preamble.tex}
+
 
 \usepackage{fancybox}
 \usefonttheme[onlymath]{serif}
@@ -24,7 +24,9 @@
 \usepackage{mathrsfs}
 \usepackage{amsfonts}
 \usepackage[authoryear,round]{natbib}
-
+\usepackage{epigraph}
+\setlength\epigraphwidth{8cm}
+\setlength\epigraphrule{0pt}
 
 %---------------------------------------------------------+
 % Paquetes misceláneos de listas, set space, notas, etc   |
@@ -48,6 +50,17 @@
 \def\calR{\mathcal{R}}
 \def\calW{\mathcal{W}}
 
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{definicion}[teorema]{Definición}
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{proposicion}[teorema]{Proposición}
+\newtheorem{corolario}[teorema]{Corolario}
+\newtheorem{observacion}[teorema]{Observación}
+% \newtheorem{ejercicio}[teorema]{Ejercicio}
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+% \newtheorem{conjetura}[teorema]{Conjetura}
+
+
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -57,10 +70,10 @@
 
   \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automático}
 % \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automático}
-  
+
   \author[Sarraute,Salles,de Monasterio]{Juan de Monasterio\inst{1}
   \and Carlos Sarraute\inst{3}
-  \and Alejo Salles\inst{1} \\
+  \and Alejo Salles\inst{1}
   }
 
   \institute[]{
@@ -109,7 +122,7 @@
 		\end{itemize}
 	\end{block}
 
-	\pause\
+	%\pause \
 
 	\begin{block}{ Trabajo colaborativo}
 		\begin{itemize}
@@ -130,7 +143,7 @@
 			El Chagas es una enfermedad causada por el \textit{tripanosoma cruzi}, un parásito que se extiende por todo el continente americano
 			% y tambi\'en predominante en algunas comunidades que han migrado de esta zona. .
 
-			\medskip  El insecto \textit{triatoma infestans} es el mayor vector de esta enfermedad
+			\medskip  El insecto \textit{triatoma infestans} es el mayor transmisor de esta enfermedad
 
 			\medskip  La Organización Mundial de la Salud (OMS) estima 65 millones de personas expuestas a esta enfermedad que es endémica en más de 21 países latino americanos
 			%Esta zona comprende el norte y noroeste de la Argentina
@@ -230,61 +243,88 @@
 	\end{block}
 \end{frame}
 
-
 %% HABLAR de pre trabajos en vih y malaria en el D4D? .
 %
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Fuentes de Datos}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}{Visualización Social: El grafo de comuniaciones}
-
-	\center\
-	\includegraphics[width = 1.0 \textwidth, trim = 0 0 0 0cm, clip = true]
-	{slides/Graph-screenshot.jpg}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Datos de Telefonia Celular (CDRs)}
-
-% \begin{block}{Los datos: CDRs}
-
-Los conjuntos de datos consisten de registros detallados de llamados (CDRs) para Mexico y Argentina con una TelCo distinta por pais. El primero tiene 24 meses de datos mientras que el segundo 5 meses.
-
-%Nuestro conjunto de datos consiste en 5 meses de registros de llamados (CDRs) \textbf{anonimizados} de una compañía telefónica en la \textbf{Rep\'ublica Argentina}.
-
-\medskip
-Podemos representar cada registro en una tupla $\left < i, j, t, d, l \right >$ que contiene :
-\begin{itemize}
-	\item Usuarioss $i$ y $j$ en esa llamada
-	%Usuarios anonimizados de origen y destino de la llamada.
-	\item Tiempo de inicio y duración de la llamada $t$
-	\item Direccion $d$ de la llamada (entrante o saliente, con respecto a $i$)
-	\item $l$ es el ID de la antena telefónica usada por $i$ en esa comunicación
-\end{itemize}
-
-\medskip
-
-Cada dataset tiene mas de 9 mil millones de registros de llamadas geolocalizadas. La 
-
-In all, each dataset has more than 9 billion geolocalized calls in each dataset. The population coverage of each telco is of 8 million and 2 million mobile lines for the argentinean and mexican datasets respectively.
-%En total son m\'as de 9,000,000,000 llamados geolocalizados de 40,000,000 millones de l\'ineas celulares. % a las cuales analizaremos sus patrones de comunicaciones.
-
-\medskip
-The antenna datasets consists of more than five thousand geolocalized antennas.
-%Contamos además con la lista de antenas celulares, con su correspondiente geolocalización (latitud y longitud).
-
-% \end{block}
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{ Descripción de los datos}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}{Visualización Social: El grafo de comuniaciones}
+
+	% \begin{columns}
+	% 	\begin{column}{0.3\textwidth}
+	% 		Los conjuntos de datos consisten de registros detallados de llamados (CDRs) para Mexico y Argentina provistos por una compañía de telecomunicaciones (TelCo) de cada país. El primero tiene 24 meses de datos mientras que el segundo es de 5 meses.
+	% 	\end{column}
+
+	% 	\begin{column}{0.7\textwidth}
+	% 		\center\
+	% 		\includegraphics[width = 1.0 \textwidth, trim = 0 0 0 0cm, clip = true]{slides/Graph-screenshot.jpg}
+	% 	\end{column}
+	% \end{columns}
+
+		\center\
+		\includegraphics[width = 1.0 \textwidth, trim = 0 0 0 0cm, clip = true]{slides/Graph-screenshot.jpg}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Registros de Llamados Celulares (CDRs)}
+
+Los conjuntos de datos consisten de registros detallados de llamados (CDRs) para Mexico y Argentina provistos por una compañía de telecomunicaciones (TelCo) de cada país. El primero tiene 24 meses de datos mientras que el segundo es de 5 meses.
+
+\medskip
+
+En total, cada dataset tiene mas de 10 mil millones de registros realizados por 8 millones y 2 millones de usuarios, respectivamente para Argentina y México\footnote{No tenemso ninguna información personal de los usuarios como nombre, dirección, teléfono y su privacidad está asegurada mediante criptografía.}
+
+\medskip
+Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
+
+% \end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Definiciones 1}
+
+	Podemos representar cada registro en una tupla $r =\left < u, w, t, d, a \right >$ que contiene:
+	\begin{itemize}
+		\item Usuarios anonimizados $u$ y $w$ en esa llamada
+		\item Tiempo de inicio y duración de la llamada $t$
+		\item Direccion $d$ de la llamada (entrante o saliente, con respecto a $u$)
+		\item $a$ es el ID de la antena telefónica usada por $u$ en esa comunicación
+	\end{itemize}
+
+	\medskip
+	$\forall u \  \exists \  H_u$ el lugar de residencia de un usuario que es determinado como la antena $a$ más utilizada de lunes a viernes y fuera del horario laboral. La endemicidiad de un usuario está determinado por la condición $H_u \in E_Z$
+
+	\medskip
+
+	El conjunto de antenas puede ser particionado a partir de su pertenencia a la zona endémica $A \ = E_Z \cup {E_Z}^{\complement} $
+
+\end{frame}
+
+
+
+\begin{frame}{Definiciones 2}
+	Los registros definen el grafo de comunicaciones
+	$\calG = \left< \calN, \calE \right> $ donde $\calN$ es el conjunto de nodos (usuarios) y $\calE$ el de interacciones
+
+	\medskip
+	Los 24 meses del dataset mexicano es dividido en dos períodos:
+	\begin{enumerate*}[label={\alph*)},]
+			\item $T_0$ desde Enero 2014 hasta Julio 2015 es el \textit{pasado} y
+			\item $T_1$ desde Agosto 2015 hasta Diciembre 2015, considerado el \textit{presente}
+			% . Este va a ser nuestro dataset principal a procesar.
+	\end{enumerate*}
+
+	\medskip
+	Definimos $EU_{1}$ y $EU_{0}$ como los conjuntos de usuarios que vivieron en la región endémica durante $T_1$ y $T_0$ respectivamente así como también $H^0_u$ y $H^1_u$ para referirnos al hogar de $u$ a través de los períodos
+
+	\medskip
+	Diremos que un usuario $u$ es vulnerable en un mes dado si $\exists \ r = \ \left < u, w, t, d, a \right > $ tal que $H_w \in E_z$ para ese mes
+
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -297,109 +337,43 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 	% Determinar las agregaciones por antena
 	% Visualizar(agrego alfa, min_volume y zoom en regiones)
 
-\begin{frame}{Methodology (1)}
+\begin{frame}{Agregación a nivel de antenas}
 
-	\begin{block}{Home Prediction}
+	%\pause\
+	\begin{block}{Usuarios  o llamados vulnerables}
+	Para un mes dado y una antena $a$ tendremos la tupla $\left< N_a, V_a, C_a, VC_a \right>$ donde
 		\begin{itemize}
-			\item As a first step, we determined each user's residence antenna. This was chosen to be the most used frequently used antenna during week evenings.
-			%Como primer paso, determinamos para cada usuario, su lugar de residencia.
-
-			%La antena elegida como hogar es la más frecuentemente usada,
-			%considerando llamados nocturnos en días de semana.
-
-			%\item The hypothesis:
-			%La hipótesis: la mayoría de los días, las personas se encuentran en sus casas durante la noche.
-
-			%\bigskip
-			%Así, cada antena queda asociada a un conjunto de usuarios: sus \textit{habitantes}.
-			\item Users for which the inferred home antenna is located in an \textit{endemic area} will
-			be considered the set of \textit{endemic users}.
-			%Nota: Los usuarios cuya antena inferida pertenece al Gran Chaco (la zona de riesgo)
-			%se consideran el conjunto de \textit{habitantes de Gran Chaco}.
-
+			\item El numero total de usuarios residentes $N_a$
+			\item El numero total de residentes vulnerables $V_a$
+			\item El volumen total de llamados salientes $C_a$
+			\item El volumen de llamados salientes en una interacción \textit{vulnerable} $VC_a$
 		\end{itemize}
-	\end{block}
-	\pause\
-	\begin{block}{Aggregation of vulnerable users}
-		\begin{itemize}
-			%\item For every user, we listed all of his call receivers in a given month.
-			%Para cada usuario, obtuvimos la lista de todos los usuarios con los que se comunicó. %ojo que esto podria cambiar en versiones posteriores cuando cambie la definicion de 'vulnerable'
-
-			\item If a given user communicated with the \textit{endemic area} in the selected period of time, we tagged him as potentially \textit{vulnerable}.
-
-			%Si un usuario tuvo comunicaciones con la zona endémica (Gran Chaco), se considera que tiene mayor riesgo de tener Mal de Chagas, y lo marcamos como potentialmente \textit{vulnerable}.
-
-			\item  We aggregated vulnerable users and total users (residents) per antenna.
-			%Agregamos usuarios vulnerables y usuarios totales (habitantes) para cada antena.
-
-			%\item We also aggregated the total volume of outgoing calls from every antenna and from these we extracted every call that had a user whose home is in the \textit{endemic area} as a receiver (\textit{vulnerable calls}).
-			%Tambien agregamos el volumen total de llamados salientes de cada antena,
-			%y de estos, los que tenían un habitante de Gran Chaco como destinatario (\textit{llamados vulnerables}).
-
-			%\bigskip
-			%Por lo tanto se obtuvieron, para cada antena, cuatro indicadores:
-			%\begin{itemize}
-			%	\item Cantidad de usuarios habitantes
-			%	\item Cantidad de usuarios vulnerables entre los habitantes.
-			%	\item Volumen de llamados salientes
-			%	\item Volumen de llamados vulnerables salientes.
-			%\end{itemize}
-		\end{itemize}
+	% Esta  definen las propiedas are the properties we extracted for each antenna in the studied countries.
 	\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Methodology (2)}
+\begin{frame}{Exploración con mapas de calor }
+		Generamos mapas de calor, graficando un círculo por antena sobre un mapa geopolítico
+
+		\medskip
+		El color del círculo considera o la tasa de llamados vulnerables $\frac{V_a}{N_a}$ o la de llamados vulnerables $\frac{C_a}{VC_a}$
+
+		\medskip
+		El \textbf{\'area} del círculo depende de la cantidad de usuarios o llamados de $a$
 
 
-	\begin{block}{Mapas de calor}
+	\begin{block}{Filtros de antenas}
+		Definimos a $\beta$ como nuestro parámetro de cota inferior para que una antena sea graficada
 
-
-		We generated heat maps from these results, plotting a colored circle around each antenna, which encodes its \textit{vulnerable} communication patterns.
-		%A partir de los datos obtenidos, generamos mapas de calor que representan las comunicaciones de la celda con el Gran Chaco.
-
-		% DECIR: en este trabajo encnotramos areas de alta interaccion con lazona endemica a traves de analizar los mapas de calor entre ls residentes de una zona con otra.
-
-		%Generamos un c\'irculo por cada celda donde:
-		\begin{itemize}
-			\item the \textbf{area} depends on the on the volume of use.
-			%el \textbf{\'area} depende de la cantidad de usuarios (habitantes),
-			\item the \textbf{color} corresponds to the percentage of vulnerable use in that antenna (whether calls or users).
-			%el \textbf{color} corresponde al porcentaje de usuarios vulnerables que viven en esa antena.
-		\end{itemize}
-
-	\end{block}
-
-	\begin{block}{Antenna Filter}
-		$\beta$ will be our parameter to filter antennas by minimum vulnerable interaction rates.
-%		We added two filtering thresholds $\beta$ and $min\_volumen$ which will control the antennas to be plotted if the percentage and volume of vulnerable interactions for that cell are higher than their respective thresholds.
-		%Every antenna will be plotted if:
-		% Notar que en ningún lado antes de esto dijimos que íbamos a pintar un mapa de Argentina con las antenas.
-		%Dos par\'ametros $\beta$ y $min\_volumen$  filtran la lista de antenas a ser visualizadas.
-		%Cada antena se grafica si:
-		%\begin{itemize}
-		%	\item the percentage of vulnerable users/calls is bigger than  $\beta$.
-			%el porcentaje de usuarios vulnerables es mayor que $\beta$,
-		%	\item the volume of vulnerable users/calls is bigger than $min\_volumen$.
-			%el volumen de uso vulnerable es mayor que $min\_volumen$ de llamados o usuarios.
-		%\end{itemize}
-
-		%
-		%\bigskip
-		%Por lo tanto, el modelo permitiría ver las antenas donde existen mayores lazos familiares con el Gran Chaco.	% Creo que 'familiares' es muy fuerte
-
-		%\bigskip
-		%A\'un con los par\'ametros anteriores, fue necesario separar el filtrado por distintas regiones:
-		%
-		%\smallskip
-		%Una antena de baja proporción a nivel nacional ($\beta=10\%$) puede ser llamativa, por ejemplo, en Tierra del Fuego.
-		%%aca se inserta imagen x ejemplo?? %No, la imagen es demasiado grande me parece. Lo podemos discutir.
+		\medskip
+		% Buscamos poder encontrar aquellas antenas donde existen mayores interacciones con las zonas endémicas
 
 	\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Exploración de los datos}
+% \section{Exploración de los datos}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -480,8 +454,8 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 	\includegraphics[height=.9\textheight,width = .9\columnwidth,keepaspectratio]
 	{slides/201112_hi_res_amba_usuarios_proporcion_circulos_beta28.png}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Comunidades resaltadas}
 	Luego de filtrar los mapas y explorar con distintas visualizaciones, encontramos antentas especificas que se resaltan por su nivel de vulnerabilidad
 	%Como resultado del filtrado en cada zona, nos hemos quedado con las antenas destacadas por su nivel de riesgo y, utilizando su ubicaci\'on, las emparejamos con localidades o comunidades argentinas.
@@ -499,6 +473,61 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 		\end{itemize}
 
 	\end{block}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Atributos en los datos}
+	Procesamos los CDRs de $T_1$ para generar un conjunto de entrenamiento $(X,Y)$ donde $X \in \mathbb{R}^{n \times p}$ es una matriz con un usuario por fila e $Y \in \mathbb{R}^n$ es el vector de respuesta para la mobilidad endémica de este usuario
+
+	\bigskip
+
+	\begin{block}{Diámetro de Movilidad}
+		Tomamos el diametro en kilómetros de la cápsula convexa generada por todas las antenas que un usuario utiliza en $T_1$. Hicimos la distinción para los registros de horarios no laborales.
+	\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Atributos en los datos 2}
+	Procesamos los CDRs de $T_1$ para generar un conjunto de entrenamiento $(X,Y)$ donde $X \in \mathbb{R}^{n \times p}$ es una matriz con un usuario por fila e $Y \in \mathbb{R}^n$ es el vector de respuesta para la mobilidad endémica de este usuario
+
+	\bigskip
+
+	\begin{block}{Atributos del grafo $\calG$ y de comunicaciones}
+		En cada arista $\left< u, w \right> \in \calE$, desagregamos la interacción en base a múltiples criterios. Para cada mes generamos atributos a partir de la tupla  $\left< tiempo_{uw}, q\_llamados_{uw}, direcci on, vulnerabilidad, momento \right>$ donde $tiempo$ es el tiempo total en todos los llamados, $q\_llamados$ es la cantidad de llamados, $direccion$ es una variable booleana que indica si el llamado es entrante o saliente para $u$, $vulnerabilidad$ depende de si $w \in E_Z$ y $momento$ corresponde a una partición de la semana entre los días laborales, los fines de semana y los horarios no laborales
+	\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Tabla de atributos ejemplo}
+Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicaciones
+	\begin{table}[ht]
+		\label{tab:data_example}
+		\footnotesize
+		\centering
+		\resizebox{\textwidth}{!}{
+			\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
+			% \begin{tabular} {|p{1.5cm} p{1.5cm} p{2cm} p{1.5cm} p{2cm} p{1.5cm} p{1cm}}
+				%{l r r r r r r }
+				% \toprule
+				\hline
+				\textbf{Nombre del atributo} & \textbf{Q\_llamados / Tiempo} & \textbf{Momento} & \textbf{Direccion} &
+				\textbf{Vulnerabilidad} & \textbf{Mes} \\
+				% \midrule
+				\hline
+				LLamados Fds EntrVul08    & Conteo & Final de Semana & Entrante & Interacciones vulnerables únicamente & August\\
+				% \midrule
+				\hline
+				Tiempo LuVierNoche Sal12 & Tiempo de duración (s) & Durante la semana fuera de horario laboral & Saliente & Sin filtro endémico   & Diciembre \\
+				\hline
+				% \bottomrule
+			\end{tabular}
+		}
+	\end{table}
+
 \end{frame}
 
 
@@ -532,7 +561,7 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 %	\begin{columns}
 %		\begin{column}{0.20 \textwidth}
 			\begin{block}{Foo}
-			Bar 
+			Bar
 			\[
 			%\begin{equation}
 			Y_u =
@@ -613,7 +642,7 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Resultados}
+\section{Resultados y Conclusiones}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -630,7 +659,7 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 		foo
 	\end{block}
 
-	\pause\
+	%\pause \
 
 	\begin{block}{foo}
 		varrr
@@ -646,9 +675,6 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 	\end{block}
 \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusiones}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -700,12 +726,12 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 %%%%%%%%%%%%%%%%%
 
 \begin{frame}{Reciclaje de CDRs}
-	    
+
 	    Presentamos una utilizaci\'on novedosa de los CDRs, datos que inicialmente se utilizan para fines de facturación
 		\medskip
 		Se puede extender hacia otras regiones y otras epidemias de características similares
 		\medskip
-		
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -715,12 +741,12 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 
 		\begin{block}{Sesgos en los datos}
 			\begin{itemize}
-			\item Basados únicamente en datos de una sola TelCo por país que no capturan migraciones internacionales 
+			\item Basados únicamente en datos de una sola TelCo por país que no capturan migraciones internacionales
 			%La caracterizaci\'on actual de la vulnerabilidad viene dada por contacto telefónicos con usuarios de antenas del Gran Chaco.
 			\item Concentración geoespacial de usuarios
-			
+
 			\item Mobilidad no implica prevalencia
-			
+
 			\item Estacionalidades en las migraciones
 
 			\end{itemize}
@@ -774,8 +800,8 @@ The antenna datasets consists of more than five thousand geolocalized antennas.
 
 \justifying%
 \scalefont{0.7}
-\bibliographystyle{unsrtnat}
-\bibliography{./}
+% \bibliographystyle{unsrtnat}
+% \bibliography{./}
 
 % \end{columns}
 % ==============================================
