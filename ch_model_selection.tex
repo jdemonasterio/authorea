@@ -382,7 +382,7 @@ In a sense this means that the learner never ``sees'' any test data until we use
 
 The CV procedure provides a reliable $EPE$ estimate to select the best values for the algorithm's tuning parameters.
 These hyperparameter configuration will be \textit{best} in the measure provided by the loss function.
-Let $\mathcal{A} = [\alpha_0, \alpha_1,\ldots, \alpha_l  ]$ be a list of hyperparameter settings and $\mathcal{K} =[1,\cdots ,K]$ a list of folds.
+Let $\mathcal{A} = [\alpha_0, \alpha_1,\ldots, \alpha_l  ]$ be a list of hyperparameter settings and $\mathcal{K} =[1,\cdots ,K]$ a list of folds with $\gamma(\cdot)$ a function which maps samples to their corresponding fold.
 To clearly depict how a full K-Fold Cross Validation procedure runs, we outline its pseudo-code.
 
  \begin{algorithm}[H]
@@ -399,7 +399,7 @@ To clearly depict how a full K-Fold Cross Validation procedure runs, we outline 
  	 }
  fit $\hat{f}^{-k}(\cdot, \alpha)$\;
 										}
- compute $CV(\alpha) = \frac{1}{N} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
+ compute $CV(\alpha) = \frac{1}{n} \sum^n_{i=1} L\left( y_i, \hat{f}^{-\gamma(i)}(x_i, \alpha) \right)$\;
 												}
  \caption{Pseudo-code for K-Fold Cross Validation Estimation for an index of $\alpha$ hyper parameters.}
  \end{algorithm}
@@ -582,7 +582,7 @@ If we consider different values for $\pi$, we will see that the true-positive ra
 With this, we can define the ROC curve to be
 
 \begin{equation}
-\sigma(\pi) = (R_\pi, FPR_\pi)
+\sigma(\pi) = (TPR(\pi), FPR(\pi))
 \end{equation}
 
 As expected, there exists a functional relationship between these two as the threshold is varied.
