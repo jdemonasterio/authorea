@@ -49,6 +49,7 @@
 \def\calP{\mathcal{P}}
 \def\calR{\mathcal{R}}
 \def\calW{\mathcal{W}}
+\DeclareMathOperator{\Expect}{\mathbb{E}}
 
 \newtheorem{teorema}{Teorema}[section]
 \newtheorem{definicion}[teorema]{Definición}
@@ -476,6 +477,85 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 \end{frame}
 
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Clasificacion Binaria Supervisada}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Denominaciones}
+		\centering
+
+		Sea $X \in \mathbb{R}^{n \times p}$ matriz aleatoria compuesta por muestras $\textbf{X}_i \in \mathbb{R}^{1 \times p}$ y un vector aleatorio de salida $\textbf{Y} \in \{0,1\}^n$
+
+	\begin{equation}%\label{expectedPredictionError}
+		\begin{split}
+		EPE(\theta) = & \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f_\theta(X))\right]  \\
+			= & \int L(y,f_\theta (x)) p(x,y) dx dy
+		\end{split}
+	\end{equation}
+
+		% 	EPE( \hat{f} ) = & {\Expect_{\textbf{X}} \left[  f(X) - \hat{f}(X) \right]}^2 + \Expect_{\textbf{X}} \left[ {\hat{f}(X)}^2 \right] \\
+		% & - {\Expect_{\textbf{X}} \left[ \hat{f}(X) \right] }^2 + \sigma^2 \\
+		% = & {Bias(\hat{f})}^2 + Var(\hat{f}) + \sigma^2
+
+
+	% = \Expect_{\textbf{X}} \left[  \Expect_{{\textbf{Y}} | \textbf{X}} \left[   L(Y,f(X)) 	\right]  \right]
+
+	% \smallskip
+	% Covariables o atributos $X^j$ tal que $j \in \{1,\ldots,p\}$
+
+	\smallskip
+	$f_\theta: \mathbb{R}^{p} \rightarrow  \mathbb{R} $ es un clasificador o algoritmo indexado por parámetros $\theta \in \Theta$
+
+	\smallskip
+	$L: \mathbb{R}^{2} \rightarrow  \mathbb{R}_{\geq 0} $ es la función de pérdida
+
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Objetivo}
+
+	\begin{block}{Objetivo}
+
+			Let $T_0$ and $T_1$ be time periods corresponding to $($01/01/14, 31/07/15 $)$ and $($01/08/15, 31/12/15$)$ respectively.
+
+			Consider $U_0$ to be the set of users that lived in the \textbf{mexican} endemic region $E_Z$ during period $T_0$. Then our target variable $Y$ for every user $u$ is:
+			\[
+			%\begin{equation}
+			Y_u =
+			\begin{cases}
+			&1 \ \mbox{if} \ u \in U_0  \\
+			&0 \ \mbox{in other cases}.
+			\end{cases}
+			%\end{equation}
+			\]
+			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
+			\end{block}
+
+
+
+
+\begin{frame}{Definiciones}
+%	\begin{columns}
+%		\begin{column}{0.20 \textwidth}
+			\begin{block}{Foo}
+			Bar
+			\[
+			%\begin{equation}
+			Y_u =
+			\begin{cases}
+			&1 \ \mbox{si} \ u \in U_0  \\
+			&0 \ \mbox{en otros casos}.
+			\end{cases}
+			%\end{equation}
+			\]
+			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
+			\end{block}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Atributos en los datos}
 	Procesamos los CDRs de $T_1$ para generar un conjunto de entrenamiento $(X,Y)$ donde $X \in \mathbb{R}^{n \times p}$ es una matriz con un usuario por fila e $Y \in \mathbb{R}^n$ es el vector de respuesta para la mobilidad endémica de este usuario
@@ -527,52 +607,6 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 			\end{tabular}
 		}
 	\end{table}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Clasificacion Supervisada}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Notacion}
-%	\begin{columns}
-%		\begin{column}{0.20 \textwidth}
-			\begin{block}{Target Variable}
-			Let $T_0$ and $T_1$ be time periods corresponding to $($01/01/14, 31/07/15 $)$ and $($01/08/15, 31/12/15$)$ respectively.
-
-			Consider $U_0$ to be the set of users that lived in the \textbf{mexican} endemic region $E_Z$ during period $T_0$. Then our target variable $Y$ for every user $u$ is:
-			\[
-			%\begin{equation}
-			Y_u =
-			\begin{cases}
-			&1 \ \mbox{if} \ u \in U_0  \\
-			&0 \ \mbox{in other cases}.
-			\end{cases}
-			%\end{equation}
-			\]
-			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
-			\end{block}
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Definiciones}
-%	\begin{columns}
-%		\begin{column}{0.20 \textwidth}
-			\begin{block}{Foo}
-			Bar
-			\[
-			%\begin{equation}
-			Y_u =
-			\begin{cases}
-			&1 \ \mbox{si} \ u \in U_0  \\
-			&0 \ \mbox{en otros casos}.
-			\end{cases}
-			%\end{equation}
-			\]
-			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
-			\end{block}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
