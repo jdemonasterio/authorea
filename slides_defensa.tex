@@ -59,8 +59,6 @@
 \newtheorem{observacion}[teorema]{Observación}
 % \newtheorem{ejercicio}[teorema]{Ejercicio}
 \newtheorem{ejemplo}[teorema]{Ejemplo}
-% \newtheorem{conjetura}[teorema]{Conjetura}
-
 
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -123,16 +121,7 @@
 		\end{itemize}
 	\end{block}
 
-	%\pause \
-
-	\begin{block}{ Trabajo colaborativo}
-		\begin{itemize}
-			\item Alejo Salles (Instituto de Cálculo-UBA)
-			\item Carlos Sarraute (GranData Labs)
-			\item Carolina Lang (UBA, GranData Labs)
-			\item Diego Weinberg (Fundación Mundo Sano)
-		\end{itemize}
-	\end{block}
+	%\pause
 
 \end{frame}
 
@@ -312,7 +301,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	$\calG = \left< \calN, \calE \right> $ donde $\calN$ es el conjunto de nodos (usuarios) y $\calE$ el de interacciones
 
 	\medskip
-	Los 24 meses del dataset mexicano es dividido en dos períodos:
+	Dividimos los 24 meses del dataset mexicano dos períodos:
 	\begin{enumerate*}[label={\alph*)},]
 			\item $T_0$ desde Enero 2014 hasta Julio 2015 es el \textit{pasado} y
 			\item $T_1$ desde Agosto 2015 hasta Diciembre 2015, considerado el \textit{presente}
@@ -483,14 +472,15 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 \section{Clasificacion Binaria Supervisada}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Denominaciones}
+\begin{frame}{Objetivo Principal}
 		\centering
 
-		Sea $X \in \mathbb{R}^{n \times p}$ matriz aleatoria compuesta por muestras $\textbf{X}_i \in \mathbb{R}^{1 \times p}$ y un vector aleatorio de salida $\textbf{Y} \in \{0,1\}^n$
+		Sea $\textbf{X} \in \mathbb{R}^{n \times p}$ matriz aleatoria compuesta por muestras $\textbf{X}_i \in \mathbb{R}^{p}$\\
+		$\textbf{Y} \in \mathbb{R}^n$ es el vector aleatorio de salida 
 
 	\begin{equation}%\label{expectedPredictionError}
 		\begin{split}
-		EPE(\theta) = & \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f_\theta(X))\right]  \\
+		argmin_{\theta} EPE(\theta) = & \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f_\theta(X))\right]  \\
 			= & \int L(y,f_\theta (x)) p(x,y) dx dy
 		\end{split}
 	\end{equation}
@@ -509,15 +499,15 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	$f_\theta: \mathbb{R}^{p} \rightarrow  \mathbb{R} $ es un clasificador o algoritmo indexado por parámetros $\theta \in \Theta$
 
 	\smallskip
-	$L: \mathbb{R}^{2} \rightarrow  \mathbb{R}_{\geq 0} $ es la función de pérdida
+	$L: \mathbb{R}^{2} \rightarrow  \mathbb{R}_{\geq 0} $ se denomina la función de pérdida
 
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Objetivo}
+\begin{frame}{Algunas aproximaciones}
 
-	\begin{block}{Objetivo}
+	\begin{block}{Estimacion del $EPE$}
 
 			Let $T_0$ and $T_1$ be time periods corresponding to $($01/01/14, 31/07/15 $)$ and $($01/08/15, 31/12/15$)$ respectively.
 
@@ -533,11 +523,11 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 			\]
 			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
 			\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
-\begin{frame}{Definiciones}
+\begin{frame}{Definicion de problemas de migracion A}
 %	\begin{columns}
 %		\begin{column}{0.20 \textwidth}
 			\begin{block}{Foo}
@@ -557,6 +547,28 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Definicion de problemas de migracion B}
+%	\begin{columns}
+%		\begin{column}{0.20 \textwidth}
+			\begin{block}{Foo}
+			Bar
+			\[
+			%\begin{equation}
+			Y_u =
+			\begin{cases}
+			&1 \ \mbox{si} \ u \in U_0  \\
+			&0 \ \mbox{en otros casos}.
+			\end{cases}
+			%\end{equation}
+			\]
+			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
+			\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Atributos en los datos}
 	Procesamos los CDRs de $T_1$ para generar un conjunto de entrenamiento $(X,Y)$ donde $X \in \mathbb{R}^{n \times p}$ es una matriz con un usuario por fila e $Y \in \mathbb{R}^n$ es el vector de respuesta para la mobilidad endémica de este usuario
 
@@ -609,64 +621,92 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 	\end{table}
 
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Mobility Classifier}
+\begin{frame}{Regresion Logistica}
 %	\begin{columns}
 %		\begin{column}{0.20 \textwidth}
-			\begin{block}{Target Variable}
-			Let $T_0$ and $T_1$ be time periods corresponding to $($01/01/14, 31/07/15 $)$ and $($01/08/15, 31/12/15$)$ respectively.
+			\begin{block}{Idea}
+				Foo
+			\end{block}
 
-			Consider $U_0$ to be the set of users that lived in the \textbf{mexican} endemic region $E_Z$ during period $T_0$. Then our target variable $Y$ for every user $u$ is:
-			\[
-			%\begin{equation}
-			Y_u =
-			\begin{cases}
-			&1 \ \mbox{if} \ u \in U_0  \\
-			&0 \ \mbox{in other cases}.
-			\end{cases}
-			%\end{equation}
-			\]
-			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
+			\begin{block}{Formulacion}
+				bar
+			\end{block}
+
+			\begin{block}{Propiedades}
+				
+			\end{block}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Arboles de Decision}
+%	\begin{columns}
+%		\begin{column}{0.20 \textwidth}
+			\begin{block}{Idea}
+				Foo
+			\end{block}
+
+			\begin{block}{Formulacion}
+				bar
+			\end{block}
+
+			\begin{block}{Propiedades}
+				
 			\end{block}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Feature Matrix Description}
-	The features were constructed using data during the period $T_0$ and amount to a total of 130 variables per user.
 
-	\begin{itemize}
-		\item Volume of ten most used antennas.
-		\item Mobility diameter.
-		%Presentamos una utilizaci\'on novedosa de los CDRs (Call Detail Records), datos que
-		%fueron recogidos para otro fin (facturación).
-		\item Graph data and communications, segmented accordingly:
-		\begin{itemize}
-			\item Month of interaction.
-			\item Time of the week.
-			\item Vulnerability of the interactions.
-			\item Duration, volume and direction of the interactions.
-		\end{itemize}
-	\end{itemize}
+\begin{frame}{Ensambles: Bosques Aleatorios y ``Gradient Tree Boosting'' }
+%	\begin{columns}
+%		\begin{column}{0.20 \textwidth}
+			\begin{block}{Idea}
+				Foo
+			\end{block}
 
-	\begin{block}{Correlaciones entre atributos y targets}
+			\begin{block}{Formulacion}
+				bar
+			\end{block}
 
-	As expected, there was a high Pearson correlation between $Y$ and calling patterns with the endemic region.
-	%All of them being above \($0.7$\).
-	\end{block}
+			\begin{block}{Propiedades}
+				
+			\end{block}
 
 \end{frame}
 
+
+\begin{frame}{``Naive Bayes'' }
+%	\begin{columns}
+%		\begin{column}{0.20 \textwidth}
+			\begin{block}{Idea}
+				Foo
+			\end{block}
+
+			\begin{block}{Formulacion}
+				bar
+			\end{block}
+
+			\begin{block}{Propiedades}
+				
+			\end{block}
+
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{ ML setup}
-			Standard industry classifiers were fit with
-			and 5-Fold cross validation and a 10\% hold out set for scoring.
-
+\begin{frame}{Resumen de Experimentos}
+			
+			abd
 			\medskip
 
-			All standard metrics used rated higher than $0.96$. The lowest of them being the weighted F1 score with $0.964$.
+			defgb
 
 %		\end{block}
 %		\begin{block}{Scores}
@@ -681,12 +721,34 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Resultados:
-%
-%
-%
-%
 
-\begin{frame}{Foo}
+
+\begin{frame}{Resultados 1}
+	\begin{block}{Bar}
+		Baz
+		\medskip
+		foo
+	\end{block}
+
+	%\pause \
+
+	\begin{block}{foo}
+		varrr
+
+		\medskip
+			asdf
+
+		\medskip
+		alala
+
+		\medskip
+		foo
+	\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Resultados 2}
 	\begin{block}{Bar}
 		Baz
 		\medskip
@@ -728,6 +790,10 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 	Fue posible construir clasificadores de alta performance para detectar cuáles usuarios migraron desde la región endémica
 	% , sobre todos los usuarios actualmente no endémico
 
+	\medskip
+
+	Esta utilizaci\'on de los CDRs es novedosa de los CDRs y se puede extender hacia otras epidemias
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -737,8 +803,9 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 \begin{frame}{Conclusiones Inesperadas}
 
 	Los mapas ayudaron a detectar comunidades con alta interaccion vulnerable fuera de la zona endemica
-
+	
 	\medskip
+
 	Los mejores clasificadores fueron los de ensamble
 	% en estrategias que no son intrusivas a las personas
 
@@ -753,18 +820,6 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 		\item las interacciones y patrones de llamados con vecinos vulnerables, y
 		\item uso celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
 	\end{enumerate*}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Reciclaje de CDRs}
-
-	    Presentamos una utilizaci\'on novedosa de los CDRs, datos que inicialmente se utilizan para fines de facturación
-		\medskip
-		Se puede extender hacia otras regiones y otras epidemias de características similares
-		\medskip
 
 \end{frame}
 
@@ -790,45 +845,53 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- \begin{frame}{Lineas Futuras de Trabajo}
+%  \begin{frame}{Lineas Futuras de Trabajo}
 
 
-	\begin{block}{Extensiones}
-		Probar otros clasificadores y metodos para hallar los atributos mas relevantes en terminos de migraciones. Tambien se podria mejorar el analisis pudiendo mejorar el preprocesamiento de los datos con cuestioens de estacionaridad o de tecnicas de ``Feature Engineering''.
-	\end{block}
+% 	\begin{block}{Extensiones}
+% 		Probar otros clasificadores y metodos para hallar los atributos mas relevantes en terminos de migraciones. Tambien se podria mejorar el analisis pudiendo mejorar el preprocesamiento de los datos con cuestioens de estacionaridad o de tecnicas de ``Feature Engineering''.
+% 	\end{block}
 
-	\medskip
+% 	\medskip
 
-	\begin{block}{Nuevas fuentes de datos}
-		Agreagar informacion para mayores analisis:
-		\begin{itemize}
-			\item Comparacion de resultados de movilidad con serologia por region
-			\item Categorizacion de antenas por grado de ruralidad del ambiente
-			\item infected newborns
-			\item acute Chagas cases.
-			\item serological data per community, amongst others.
-		\end{itemize}
-	\end{block}
+% 	\begin{block}{Nuevas fuentes de datos}
+% 		Agreagar informacion para mayores analisis:
+% 		\begin{itemize}
+% 			\item Comparacion de resultados de movilidad con serologia por region
+% 			\item Categorizacion de antenas por grado de ruralidad del ambiente
+% 			\item infected newborns
+% 			\item acute Chagas cases.
+% 			\item serological data per community, amongst others.
+% 		\end{itemize}
+% 	\end{block}
 
 
- \end{frame}
-%
+%  \end{frame}
+% %
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ==============================================
 
 \begin{frame}{Gracias! }
-	\begin{columns}
-		\begin{column}{0.20 \textwidth}
-		\end{column}
-		\begin{column}{0.55 \textwidth}
+			\begin{block}{Companeros de proyecto}
+					\center\
+					Alejo Salles (Instituto de Cálculo-UBA) \\
+					Carlos Sarraute (GranData Labs) \\
+					Carolina Lang (UBA, GranData Labs) \\
+					 Diego Weinberg (Fundación Mundo Sano) \\
+	\end{block}
+		
+		% \begin{column}{0.55 \textwidth}
 				\center\
 				Juan Mateo de Monasterio \\
 				\textit{laterio@gmail.com} \\
-		\end{column}
-	\end{columns}
+				Preguntas? \\
+		% \end{column}
+
 \end{frame}
+
+
 
 % ==============================================
 
