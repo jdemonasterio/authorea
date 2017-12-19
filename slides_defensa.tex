@@ -40,6 +40,14 @@
 \newlist{steps}{enumerate}{1}               % Lista de pasos para usar en demostraciones
 \setlist[steps,1]{leftmargin=*,label=\textit{Step \arabic*.},ref=\arabic*}
 
+%----------------+
+% Table packages |
+%----------------+
+\usepackage{array}          % Flexible column formatting
+% \usepackage{spreadtab}  % Spreadsheet features
+\usepackage{multirow}       % Allows table cells that span more than one row
+\usepackage{booktabs}       % Enhance quality of tables
+
 \graphicspath{ {./figures/} }
 
 \def\calE{\mathcal{E}}
@@ -64,7 +72,16 @@
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-\beamertemplatenavigationsymbolsempty%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\beamertemplatenavigationsymbolsempty
+
+\newcommand\MyBox[2]{
+	\fbox{\lower0.75cm
+		\vbox to 1.7cm{\vfil
+			\hbox to 1.7cm{\hfil\parbox{1.4cm}{#1\\#2}\hfil}
+			\vfil}%
+	}%
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automático}
@@ -476,7 +493,8 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 		\centering
 
 		Sea $\textbf{X} \in \mathbb{R}^{n \times p}$ matriz aleatoria compuesta por muestras $\textbf{X}_i \in \mathbb{R}^{p}$\\
-		$\textbf{Y} \in \mathbb{R}^n$ es el vector aleatorio de salida 
+		$\textbf{Y} \in \mathbb{R}^n$ es el vector aleatorio de salida \\
+		Se busca optimizar/aprender 
 
 	\begin{equation}%\label{expectedPredictionError}
 		\begin{split}
@@ -485,51 +503,105 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 		\end{split}
 	\end{equation}
 
-		% 	EPE( \hat{f} ) = & {\Expect_{\textbf{X}} \left[  f(X) - \hat{f}(X) \right]}^2 + \Expect_{\textbf{X}} \left[ {\hat{f}(X)}^2 \right] \\
-		% & - {\Expect_{\textbf{X}} \left[ \hat{f}(X) \right] }^2 + \sigma^2 \\
-		% = & {Bias(\hat{f})}^2 + Var(\hat{f}) + \sigma^2
-
-
-	% = \Expect_{\textbf{X}} \left[  \Expect_{{\textbf{Y}} | \textbf{X}} \left[   L(Y,f(X)) 	\right]  \right]
-
-	% \smallskip
-	% Covariables o atributos $X^j$ tal que $j \in \{1,\ldots,p\}$
+	para generar \textit{predicciones} para cualquier muestra
 
 	\smallskip
 	$f_\theta: \mathbb{R}^{p} \rightarrow  \mathbb{R} $ es un clasificador o algoritmo indexado por parámetros $\theta \in \Theta$
 
 	\smallskip
-	$L: \mathbb{R}^{2} \rightarrow  \mathbb{R}_{\geq 0} $ se denomina la función de pérdida
+	$L: \mathbb{R}^{2} \rightarrow  \mathbb{R}_{\geq 0}$ se denomina la función de pérdida
 
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Algunas aproximaciones}
+\begin{frame}{Consideraciones}
 
-	\begin{block}{Estimacion del $EPE$}
+	$f_\theta^*$ intenta aproximar la relacion desconocida entre los $\textbf{X}$ y $\textbf{Y})$ 
 
-			Let $T_0$ and $T_1$ be time periods corresponding to $($01/01/14, 31/07/15 $)$ and $($01/08/15, 31/12/15$)$ respectively.
+	\bigskip
 
-			Consider $U_0$ to be the set of users that lived in the \textbf{mexican} endemic region $E_Z$ during period $T_0$. Then our target variable $Y$ for every user $u$ is:
-			\[
-			%\begin{equation}
-			Y_u =
-			\begin{cases}
-			&1 \ \mbox{if} \ u \in U_0  \\
-			&0 \ \mbox{in other cases}.
-			\end{cases}
-			%\end{equation}
-			\]
-			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
-			\end{block}
+	$f(\cdot)$, $L(\cdot)$ y el espacio de busqueda $\Theta$ de los \textit{aproximantes} son predeterminados
+
+	\bigskip\
+	Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos observados
+
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Aproximaciones de $EPE$}
+
+	\begin{block}{Errores de entrenamiento}
+
+			Overfit, complejidad
+	\end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Validación $K$ cruzada}
+
+Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion del $EPE$
+
+	\begin{block}{Idea}
+		Dado un $\alpha \in \mathcal{A}$, particionar las muestras en $K$ conjuntos al azar  
+		\\
+		Entrenar $\hat{f}_{\alpha}^{-k}, \ k \in \{1, \ldots, K\}$
+		\\
+		donde cada clasificador que aprende sin usar las muestras de la particion $k$
+		\\
+		Computar $CV(\alpha) = \frac{1}{n} \sum^n_{i=1} L\left( y_i, \hat{f}_{\alpha}^{-k_i}(x_i) \right)$
+	\end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Metricas de clasificadores binarios}
+
+	\center
+	Conteo de las combinaciones de $\hat{Y}$ y $Y$
+
+		\begin{columns}
+			\begin{column}{0.6 \textwidth}
+
+				\noindent
+				\renewcommand\arraystretch{1}
+				\setlength\tabcolsep{0pt}
+				\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
+				\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft\ Valor\\ real $y$}} &
+				& \multicolumn{2}{c}{\bfseries Valor predicho $\hat{y}$} & \\
+				& & \bfseries \^{P} \ $(0)$ & \bfseries \^{N} \ $(1)$  \\
+				& P \ $(0)$ & \MyBox{Verdadero}{Positivo (TP)} & \MyBox{Falso}{Negativo (FN)} & \\[2.4em]
+				& N \ $(1)$ & \MyBox{Falso}{Positivo (FP)} & \MyBox{Verdadero}{Negativo (TN)} & \\
+				%& total & P \ $(0)$ & &
+				\end{tabular}
+
+			\end{column}
+
+			\begin{column}{0.4 \textwidth}
+				\begin{equation}
+					\begin{split}
+						& Accuracy \ =\ \frac{ TP + TN }{ TP + TN + FP + FN }\\
+						% & Precision \ =\ \frac{ TP }{TP + FN}\\
+						 & Recall \  =\ \frac{TP }{TP + FP}\\
+					  	& F1  = \frac {2  {TP}} {2  {TP} + {FP} + {FN}}\\
+					  	& Curva \ ROC: \\
+					  	& \sigma(\pi) = (Recall(\pi), FPR(\pi)) \ t.q. \ \pi \in (0,1)
+					\end{split}
+				\end{equation}
+			\end{column}
+		\end{columns}
+
+	% \end{block}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{frame}{Definicion de problemas de migracion A}
-%	\begin{columns}
-%		\begin{column}{0.20 \textwidth}
+
 			\begin{block}{Foo}
 			Bar
 			\[
@@ -549,8 +621,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Definicion de problemas de migracion B}
-%	\begin{columns}
-%		\begin{column}{0.20 \textwidth}
+
 			\begin{block}{Foo}
 			Bar
 			\[
@@ -619,82 +690,6 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 			\end{tabular}
 		}
 	\end{table}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Regresion Logistica}
-%	\begin{columns}
-%		\begin{column}{0.20 \textwidth}
-			\begin{block}{Idea}
-				Foo
-			\end{block}
-
-			\begin{block}{Formulacion}
-				bar
-			\end{block}
-
-			\begin{block}{Propiedades}
-				
-			\end{block}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Arboles de Decision}
-%	\begin{columns}
-%		\begin{column}{0.20 \textwidth}
-			\begin{block}{Idea}
-				Foo
-			\end{block}
-
-			\begin{block}{Formulacion}
-				bar
-			\end{block}
-
-			\begin{block}{Propiedades}
-				
-			\end{block}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Ensambles: Bosques Aleatorios y ``Gradient Tree Boosting'' }
-%	\begin{columns}
-%		\begin{column}{0.20 \textwidth}
-			\begin{block}{Idea}
-				Foo
-			\end{block}
-
-			\begin{block}{Formulacion}
-				bar
-			\end{block}
-
-			\begin{block}{Propiedades}
-				
-			\end{block}
-
-\end{frame}
-
-
-\begin{frame}{``Naive Bayes'' }
-%	\begin{columns}
-%		\begin{column}{0.20 \textwidth}
-			\begin{block}{Idea}
-				Foo
-			\end{block}
-
-			\begin{block}{Formulacion}
-				bar
-			\end{block}
-
-			\begin{block}{Propiedades}
-				
-			\end{block}
 
 \end{frame}
 
