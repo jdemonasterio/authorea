@@ -562,9 +562,8 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Bajo ciertas condiciones sobre $\Theta$ tenemos
 \begin{frame}{Convergencia a $EPE$ en clasificadores binarios}
-
+Bajo ciertas condiciones sobre $\Theta$ tenemos
 	\begin{block}{Desigualdad de Vapnik–Chervonenkis}
 
 		\begin{equation}
@@ -580,6 +579,7 @@ Bajo ciertas condiciones sobre $\Theta$ tenemos
 
 El coeficiente de ``shattering'' $S(\Theta)$ de la clase está muy relacionado con su complejidad
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Clasificador Regresion Logistica}
@@ -587,27 +587,24 @@ El coeficiente de ``shattering'' $S(\Theta)$ de la clase está muy relacionado c
 Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ P(C_1 \mid x)}{P(C_0 \mid x ) } \right)$
 	\begin{block}{Idea}
 	\footnotesize
-		\begin{equation}
-			% \begin{split}
-			  P(C_1| X_i)  = \frac{1}{1 + \exp \left(- \log \left(  \frac{ P(X_i|C_1)p(C_1)}{P(X_i|C_0)p(C_0)} \right) \right)} = \sigma\left(logodds)			
-			% \end{split}
-		\end{equation}
-					% tenemos $ \logistic() =  \frac{1}{1 + e^{-z}} $
-			% \sigma ( \log \left(  \frac{ P(C_1 \mid x)}{P(C_0 \mid x ) } \right)) 
-			% 	 = \sigma(\sum_{j=1}^p \theta^j \ x^j)
+	\begin{equation}
+	% 	% \begin{split}
+		% $$
+		P(C_1| X_i)  = \frac{1}{1 + \exp \left(- \log \left(  \frac{ P(X_i|C_1)p(C_1)}{P(X_i|C_0)p(C_0)} \right) \right)} = \sigma\left(logodds(X_i)\right)
+		% $$			
+	% 	% \end{split}
+	\end{equation}
 
-			El modelo propone 
-			$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$ 
-			$$Y_i \mid X_i \ \sim & \operatorname{Bernoulli}(p_i)$$
+	El modelo propone $\exists \theta \ t.q.$
+	$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$ 
+	$$Y_i \mid X_i \ \sim \operatorname{Bernoulli}(p_i)$$
 
 	\end{block}
 
 	\begin{block}{Funcion de perdida (MLL)}
-	$$argmin_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
+		$$argmin_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
 	\end{block}
-
 	% $\gamma$ es un hiperparametro para la regularizacion del modelo
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
