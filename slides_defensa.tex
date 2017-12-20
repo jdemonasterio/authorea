@@ -19,6 +19,7 @@
 \usepackage{scalefnt}
 \usepackage{ragged2e}
 \usepackage{graphics}
+\usepackage{bbm}
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{mathrsfs}
@@ -494,11 +495,11 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 		Sea $\textbf{X} \in \mathbb{R}^{n \times p}$ matriz aleatoria compuesta por muestras $\textbf{X}_i \in \mathbb{R}^{p}$\\
 		$\textbf{Y} \in \mathbb{R}^n$ es el vector aleatorio de salida \\
-		Se busca optimizar/aprender 
+		Se busca una función $f_\theta: \mathbb{R}^{p} \rightarrow  \mathbb{R}$ que optimice u ``aprenda''
 
 	\begin{equation}%\label{expectedPredictionError}
 		\begin{split}
-		argmin_{\theta} EPE(\theta) = & \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f_\theta(X))\right]  \\
+		argmin_{\theta} \  EPE(\theta) = & \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f_\theta(X))\right]  \\
 			= & \int L(y,f_\theta (x)) p(x,y) dx dy
 		\end{split}
 	\end{equation}
@@ -506,7 +507,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	para generar \textit{predicciones} para cualquier muestra
 
 	\smallskip
-	$f_\theta: \mathbb{R}^{p} \rightarrow  \mathbb{R} $ es un clasificador o algoritmo indexado por parámetros $\theta \in \Theta$
+	$f_\theta$ es un clasificador o algoritmo indexado por $\theta \in \Theta$
 
 	\smallskip
 	$L: \mathbb{R}^{2} \rightarrow  \mathbb{R}_{\geq 0}$ se denomina la función de pérdida
@@ -517,7 +518,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 \begin{frame}{Consideraciones}
 
-	$f_\theta^*$ intenta aproximar la relacion desconocida entre los $\textbf{X}$ y $\textbf{Y})$ 
+	$f_\theta^*$ intenta aproximar la relacion desconocida entre $\textbf{X}$ y $\textbf{Y}$
 
 	\bigskip
 
@@ -526,26 +527,73 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	\bigskip\
 	Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos observados
 
+	\bigskip\
+	En Clasificación: $y_i \in \{0,1\} \ \forall  i$ y $L(z,w) =  \mathbb{I}(z \neq w ) $
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Aproximaciones de $EPE$}
+	\centering
+	Desconocemos $P(\textbf{X},\textbf{Y})$ pues nos basamos en datos finitos\\
 
-	\begin{block}{Errores de entrenamiento}
+	$X = \mathcal{T} \sqcup \mathcal{T_s}$
 
-			Overfit, complejidad
+	\begin{block}{Error de generalización}
+
+		$$  Err_{\mathcal{T}}(\theta) =
+		\Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f_{\theta}(X))  |  \mathcal{T} \right] \approx
+		\dfrac{1}{n} \sum_{i=1}^{n} \mathbb{I} \left(f_\theta (X_{i})\neq Y_{i} \right)  $$
+
+		$$Err_{\mathcal{T_s}}(\theta) \approx
+		\dfrac{1}{n} \sum_{i=1}^{n} \mathbb{I} \left(f_\theta (\tilde{X_{i}})\neq \tilde{Y_{i}} \right)  $$
+
 	\end{block}
+
+	Un modelo se dice sobreajustado (``overfit'') cuando $\mid Err_{\mathcal{T}}(\theta) - Err_{\mathcal{T_s}}(\theta)  \mid \ >> 0$
+
+	Es importante controlar la \textbf{complejidad} del modelo
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Convergencia a $EPE$}
+
+	\begin{block}{Desigualdad de Vapnik–Chervonenkis}
+
+	ASDF
+
+	\end{block}
+
+	FOOO BAR BAZ
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+
+
+
+
+\begin{frame}{Complejidad de los modelos}
+
+	\centering
+
+	\begin{block}{FOO}
+
+	\end{block}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Validación $K$ cruzada}
 
 Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion del $EPE$
 
 	\begin{block}{Idea}
-		Dado un $\alpha \in \mathcal{A}$, particionar las muestras en $K$ conjuntos al azar  
+		Dado un $\alpha \in \mathcal{A}$, particionar las muestras en $K$ conjuntos al azar
 		\\
 		Entrenar $\hat{f}_{\alpha}^{-k}, \ k \in \{1, \ldots, K\}$
 		\\
@@ -697,7 +745,7 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Resumen de Experimentos}
-			
+
 			abd
 			\medskip
 
@@ -798,7 +846,7 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 \begin{frame}{Conclusiones Inesperadas}
 
 	Los mapas ayudaron a detectar comunidades con alta interaccion vulnerable fuera de la zona endemica
-	
+
 	\medskip
 
 	Los mejores clasificadores fueron los de ensamble
@@ -876,7 +924,7 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 					Carolina Lang (UBA, GranData Labs) \\
 					 Diego Weinberg (Fundación Mundo Sano) \\
 	\end{block}
-		
+
 		% \begin{column}{0.55 \textwidth}
 				\center\
 				Juan Mateo de Monasterio \\
