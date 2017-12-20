@@ -1,6 +1,6 @@
 \documentclass[xcolor=x11names]{beamer}
   \mode<presentation> {
-    \usetheme{Copenhagen}
+    \usetheme{Frankfurt}
   }
 
 \usepackage{times}
@@ -20,7 +20,6 @@
 \usepackage{ragged2e}
 \usepackage{graphics}
 \usepackage{bbm}
-\usepackage{url}
 \usepackage{graphicx}
 \usepackage{mathrsfs}
 \usepackage{amsfonts}
@@ -562,6 +561,8 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Bajo ciertas condiciones sobre $\Theta$ tenemos
 \begin{frame}{Convergencia a $EPE$ en clasificadores binarios}
 
 	\begin{block}{Desigualdad de Vapnik–Chervonenkis}
@@ -581,13 +582,31 @@ El coeficiente de ``shattering'' $S(\Theta)$ de la clase está muy relacionado c
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Complejidad de los modelos}
+\begin{frame}{Clasificador Regresion Logistica}
+% = \frac{P(x|C_1)p(C_1) }{P(x|C_1)p(C_1) + P(x|C_0)p(C_0)} 
+Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ P(C_1 \mid x)}{P(C_0 \mid x ) } \right)$
+	\begin{block}{Idea}
+	\footnotesize
+		\begin{equation}
+			% \begin{split}
+			  P(C_1| X_i)  = \frac{1}{1 + \exp \left(- \log \left(  \frac{ P(X_i|C_1)p(C_1)}{P(X_i|C_0)p(C_0)} \right) \right)} = \sigma\left(logodds)			
+			% \end{split}
+		\end{equation}
+					% tenemos $ \logistic() =  \frac{1}{1 + e^{-z}} $
+			% \sigma ( \log \left(  \frac{ P(C_1 \mid x)}{P(C_0 \mid x ) } \right)) 
+			% 	 = \sigma(\sum_{j=1}^p \theta^j \ x^j)
 
-	\centering
-
-	\begin{block}{FOO}
+			El modelo propone 
+			$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$ 
+			$$Y_i \mid X_i \ \sim & \operatorname{Bernoulli}(p_i)$$
 
 	\end{block}
+
+	\begin{block}{Funcion de perdida (MLL)}
+	$$argmin_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
+	\end{block}
+
+	% $\gamma$ es un hiperparametro para la regularizacion del modelo
 
 \end{frame}
 
