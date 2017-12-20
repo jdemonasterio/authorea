@@ -59,6 +59,10 @@
 \def\calR{\mathcal{R}}
 \def\calW{\mathcal{W}}
 \DeclareMathOperator{\Expect}{\mathbb{E}}
+\DeclareMathOperator{\trainsetn}{\mathcal{T}^{(n)}}
+\DeclareMathOperator{\trainset}{\mathcal{T}}
+\DeclareMathOperator{\testsetn}{\mathcal{T_s}^{(n)}}
+\DeclareMathOperator{\testset}{\mathcal{T_s}}
 
 \newtheorem{teorema}{Teorema}[section]
 \newtheorem{definicion}[teorema]{Definición}
@@ -538,44 +542,44 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	\centering
 	Desconocemos $P(\textbf{X},\textbf{Y})$ pues nos basamos en datos finitos\\
 
-	$X = \mathcal{T} \sqcup \mathcal{T_s}$
+	$X = \trainsetn \sqcup \testsetn$
 
-	\begin{block}{Error de generalización}
+    \begin{block}{Error de entrenamiento y de generalización}
 
-		$$  Err_{\mathcal{T}}(\theta) =
-		\Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f_{\theta}(X))  |  \mathcal{T} \right] \approx
-		\dfrac{1}{n} \sum_{i=1}^{n} \mathbb{I} \left(f_\theta (X_{i})\neq Y_{i} \right)  $$
+        $$  Err_{\trainsetn}(\theta) =
+        \Expect_{ \textbf{X}, \textbf{Y} } \left[ L(Y,f_{\theta}(X))  |  \trainsetn \right] \approx
+        \dfrac{1}{n} \sum_{i=1}^{n} \mathbb{I} \left(f_\theta (X_{i})\neq Y_{i} \right)  $$
 
-		$$Err_{\mathcal{T_s}}(\theta) \approx
-		\dfrac{1}{n} \sum_{i=1}^{n} \mathbb{I} \left(f_\theta (\tilde{X_{i}})\neq \tilde{Y_{i}} \right)  $$
+        $$Err_{\testsetn}(\theta) \approx
+        \dfrac{1}{n} \sum_{i=1}^{n} \mathbb{I} \left(f_\theta (\tilde{X_{i}})\neq \tilde{Y_{i}} \right)  $$
 
 	\end{block}
 
-	Un modelo se dice sobreajustado (``overfit'') cuando $\mid Err_{\mathcal{T}}(\theta) - Err_{\mathcal{T_s}}(\theta)  \mid \ >> 0$
+	Un modelo se dice sobreajustado (``overfit'') cuando $\mid Err_{\testset}(\theta) - Err_{\trainset}(\theta)  \mid \ >> 0$
 
-	Es importante controlar la \textbf{complejidad} del modelo
+	Para esto es importante controlar la \textbf{complejidad} del modelo
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Convergencia a $EPE$}
+\begin{frame}{Convergencia a $EPE$ en clasificadores binarios}
 
 	\begin{block}{Desigualdad de Vapnik–Chervonenkis}
 
-	ASDF
+		\begin{equation}
+			\begin{split}
+				P\left(\sup_{\theta\in \Theta}\left|\trainsetn(\theta)-EPE (\theta)\right|>\varepsilon \right) & \leq
+				8S (\Theta,n) e^{{-n \varepsilon^{2}/32}}\\
+				\Expect\left[\sup_{\theta \in \Theta}\left| \trainsetn(\theta)-EPE (\theta)\right|\right] &
+				\leq 2\sqrt{\dfrac{\log S(\Theta,n)+\log2}{n}}
+			\end{split}
+		\end{equation}
 
 	\end{block}
 
-	FOOO BAR BAZ
-
+El coeficiente de ``shattering'' $S(\Theta)$ de la clase está muy relacionado con su complejidad
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
-
-
 
 \begin{frame}{Complejidad de los modelos}
 
@@ -586,6 +590,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	\end{block}
 
 \end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Validación $K$ cruzada}
@@ -683,6 +688,23 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 			\]
 			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
 			\end{block}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{ Proceso de experimentación }
+
+Dado $(X,Y)$ y un clasificador $f_\theta \ t.q. \ \theta \in \Theta$
+	\begin{enumerate}[I]
+		% \item a
+		% \item b
+		\item Preprocesar $X$ y separar en $\trainset$ + $\testset$ 
+		\item Cross validar hiperparametros de $f$ c/ $\trainset$
+		\item Aprender $f_\theta^*$ c/ $\trainset$
+		\item Comparar  $Err_{\testset}(\theta^*)$ y  $Err_{\trainset}(\theta^*)$ en las métricas
+		\item Evaluar mejoras en complejidad, varianza e iterar en (I)
+	\end{enumerate}
 
 \end{frame}
 
