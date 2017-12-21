@@ -525,7 +525,12 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	$f(\cdot)$, $L(\cdot)$ y el espacio de busqueda $\Theta$ de los \textit{aproximantes} son predeterminados
 
 	\bigskip\
-	Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos observados
+	
+	Desconocemos $P(\textbf{X},\textbf{Y})$ pues nos basamos en datos finitos\\
+
+	$X = \trainsetn  \sqcup \testsetn $ con $\trainsetn$ conjunto de aprendizaje/entrenamiento
+
+	$$\testsetn$$ conjunto de aprendizaje
 
 	\bigskip\
 	En Clasificación: $y_i \in \{0,1\} \ \forall  i$ y $L(z,w) =  \mathbb{I}(z \neq w ) $
@@ -535,11 +540,8 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Aproximaciones de $EPE$}
-	\centering
-	Desconocemos $P(\textbf{X},\textbf{Y})$ pues nos basamos en datos finitos\\
 
-	$X = \trainsetn \sqcup \testsetn$
-
+Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos observados
     \begin{block}{Error de entrenamiento y de generalización}
 
         $$  Err_{\trainsetn}(\theta) =
@@ -575,6 +577,17 @@ Bajo ciertas condiciones sobre $\Theta$ tenemos
 	\end{block}
 
 	Donde $S(\Theta)$ es el coeficiente de ``shattering'' de la clase
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{ Poly fit vs. fit lineal en shattering }
+
+	\begin{block}{FOO}
+		BARR
+	\end{block}
 
 \end{frame}
 
@@ -623,11 +636,9 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 	\begin{block}{Funcion de perdida }
 
 		\begin{equation}
-	\hat{y}=\underset{k\in\{1,\ldots,K\}}{\operatorname{argmax}}
-
-	\ p (C_{1}) \  \prod_{i=1}^{n} p (x_{i}\mid C_{1})  \ > \ \frac{1}{2}
+	\hat{Y} \ = \ \mathbb{I}\left[ p(C_{1}) \  \prod_{i=1}^{n} p (X_{i}\mid C_{1})   \ >= \ \frac{1}{2} \right]
 		\end{equation}
-
+%	\underset{k\in\{1,\ldots,K\}}{\operatorname{argmax}}
 	\end{block}
 	% $\gamma$ es un hiperparametro para la regularizacion del modelo
 \end{frame}
