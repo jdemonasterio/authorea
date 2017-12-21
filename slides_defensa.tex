@@ -645,7 +645,7 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Validación $K$ cruzada}
+\begin{frame}{$K$ - Validación cruzada}
 
 Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion del $EPE$
 
@@ -654,7 +654,7 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 		\\
 		Entrenar $\hat{f}_{\alpha}^{-k}, \ k \in \{1, \ldots, K\}$
 		\\
-		donde cada clasificador que aprende sin usar las muestras de la particion $k$
+		donde cada clasificador $\hat{f}^{-k}$ aprende sin usar las muestras de la particion $k$
 		\\
 		Computar $CV(\alpha) = \frac{1}{n} \sum^n_{i=1} L\left( y_i, \hat{f}_{\alpha}^{-k_i}(x_i) \right)$
 	\end{block}
@@ -669,13 +669,13 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 	Conteo de las combinaciones de $\hat{Y}$ y $Y$
 
 		\begin{columns}
-			\begin{column}{0.6 \textwidth}
-
+			\begin{column}{0.55 \textwidth}
+			\small
 				\noindent
 				\renewcommand\arraystretch{1}
 				\setlength\tabcolsep{0pt}
 				\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
-				\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft\ Valor\\ real $y$}} &
+				\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft\ Valor real $y$}} &
 				& \multicolumn{2}{c}{\bfseries Valor predicho $\hat{y}$} & \\
 				& & \bfseries \^{P} \ $(0)$ & \bfseries \^{N} \ $(1)$  \\
 				& P \ $(0)$ & \MyBox{Verdadero}{Positivo (TP)} & \MyBox{Falso}{Negativo (FN)} & \\[2.4em]
@@ -685,13 +685,14 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 
 			\end{column}
 
-			\begin{column}{0.4 \textwidth}
+			\begin{column}{0.45 \textwidth}
+			\small
 				\begin{equation}
 					\begin{split}
 						& Accuracy \ =\ \frac{ TP + TN }{ TP + TN + FP + FN }\\
-						% & Precision \ =\ \frac{ TP }{TP + FN}\\
+						& Precision \ =\ \frac{ TP }{TP + FN}\\
 						 & Recall \  =\ \frac{TP }{TP + FP}\\
-					  	& F1  = \frac {2  {TP}} {2  {TP} + {FP} + {FN}}\\
+					  	& F1 = \mbox{media armónica de} Precision \mbox{y} Recall \\
 					  	& Curva \ ROC: \\
 					  	& \sigma(\pi) = (Recall(\pi), FPR(\pi)) \ t.q. \ \pi \in (0,1)
 					\end{split}
@@ -709,33 +710,35 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 
 	Sean $EU_{1}$ y $EU_{0}$ los conjuntos de usuarios que vivieron en la región endémica durante $T_1$ y $T_0$ respectivamente
 	% así como también $H^0_u$ y $H^1_u$ para referirnos al hogar de $u$ a través de los períodos
-			\begin{block}{Problemas 1 y 2}
-			Cuales usuarios vivían en la región endémica en el pasado:
-				\begin{align*}
-				Y^{(1)}_u =
-				\begin{cases}
-				&1 \ \mbox{if} \ u \in EU_{0} \\
+	\begin{block}{Problema 1}
+	Cuales usuarios vivían en la región endémica en el pasado:
+		\begin{align*}
+		Y^{(1)}_u =
+		\begin{cases}
+		&1 \ \mbox{if} \ u \in EU_{0} \\
+		&0 \ \mbox{if not}.
+		\end{cases}
+		\end{align*}
+	\end{block}
+
+
+	\begin{block}{Problema 2}
+		Cuales vivían en la región endémica y luego migraron:
+		\begin{align*}
+			Y^{(2)}_u =
+			\begin{cases}
+				&1 \ \mbox{if} \ u \in EU_{0} \cap { EU_{1} }^{\complement}  \\
 				&0 \ \mbox{if not}.
-				\end{cases}
-				\end{align*}
-
-				Cuales vivían en la región endémica y luego migraron:
-				\begin{align*}
-					Y^{(2)}_u =
-					\begin{cases}
-						&1 \ \mbox{if} \ u \in EU_{0} \cap { EU_{1} }^{\complement}  \\
-						&0 \ \mbox{if not}.
-					\end{cases}
-				\end{align*}
-
-			\end{block}
+			\end{cases}
+		\end{align*}
+	\end{block}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Definición de problemas de migracion B}
-	\begin{block}{Problemas 3 y 4}
+	\begin{block}{Problemas 3}
 
 		Predecir aquellos usuarios que migraron entre regiones, en cualquier dirección
 		\begin{align*}
@@ -745,7 +748,9 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 				&0 \ \mbox{if not}.
 			\end{cases}
 		\end{align*}
+	\end{block}
 
+	\begin{block}{Problema 4}
 		Determinar, de todos los usuarios actualmente no endémicos, cuales migraron fuera de la región endémica
 		\begin{align*}
 			Y^{(4)}_u =
