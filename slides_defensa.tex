@@ -499,7 +499,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 	\begin{equation}%\label{expectedPredictionError}
 		\begin{split}
-		argmin_{\theta} \  EPE(\theta) = & \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f_\theta(X))\right]  \\
+		\operatorname{argmin}_{\theta} \  EPE(\theta) = & \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f_\theta(X))\right]  \\
 			= & \int L(y,f_\theta (x)) p(x,y) dx dy
 		\end{split}
 	\end{equation}
@@ -600,7 +600,7 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 	\end{block}
 
 	\begin{block}{Funcion de perdida (MLL)}
-		$$argmin_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
+		$$\operatorname{argmin}_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
 	\end{block}
 	% $\gamma$ es un hiperparametro para la regularizacion del modelo
 \end{frame}
@@ -614,7 +614,7 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 
 	\begin{block}{Idea}
 		Asumimos \textit{inocentemente} que
-		$$p(X^j |X^1,\cdots,\hat{X^j},\cdots,X^p , C_k) \ = \ p(X^j | C_k) \ \forall k \in \{0,1\}$$
+		$$p(X^j |X^1,\ldots,\hat{X^j},\ldots,X^p, C_k) \ = \ p(X^j | C_k) \ \forall k \in \{0,1\}$$
 		% \begin{equation}
 		% asdf
 		% \end{equation}
@@ -623,7 +623,9 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 	\begin{block}{Funcion de perdida }
 
 		\begin{equation}
-	\hat{y}={\underset{k\in\{1,\dots,K\}}{\operatorname{argmax}}}\ p (C_{k}) \  \prod_{i=1}^{n} p (x_{i}\mid C_{k})
+	\hat{y}=\underset{k\in\{1,\ldots,K\}}{\operatorname{argmax}}
+
+	\ p (C_{1}) \  \prod_{i=1}^{n} p (x_{i}\mid C_{1})  \ > \ \frac{1}{2}
 		\end{equation}
 
 	\end{block}
