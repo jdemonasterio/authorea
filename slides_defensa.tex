@@ -107,7 +107,7 @@
 
 
 %\setbeamertemplate{footline}[text line]{\bf \insertshortauthor \hfill \insertshorttitle \hfill \insertframenumber/29}
-\setbeamertemplate{footline}[text line]{\hfill \insertframenumber/ 35}
+\setbeamertemplate{footline}{\hspace*{0.95\textwidth}\vspace{0.1cm} \insertframenumber/\inserttotalframenumber\null}
 
 \AtBeginSection[]
 {
@@ -122,9 +122,9 @@
 \begin{document}
 
 
-% \begin{frame}
-% \titlepage\
-% \end{frame}
+\begin{frame}[plain]
+\titlepage
+\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,7 +262,7 @@
 \section{ Descripción de los datos}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Visualización Social: El grafo de comuniaciones}
+\begin{frame}{Visualización Social: El grafo de comunicaciones}
 
 	% \begin{columns}
 	% 	\begin{column}{0.3\textwidth}
@@ -276,7 +276,8 @@
 	% \end{columns}
 
 		\center\
-		\includegraphics[width = 1.0 \textwidth, trim = 0 0 0 0cm, clip = true]{slides/Graph-screenshot.jpg}
+		% \includegraphics[width = 1.0 \textwidth, trim = 0 0 0 0cm, clip = true]{slides/Graph-screenshot.jpg}
+		\includegraphics[scale=0.24]{slides/Graph-screenshot.jpg}
 
 \end{frame}
 
@@ -287,7 +288,9 @@ Los conjuntos de datos consisten de registros detallados de llamados (CDRs) para
 
 \medskip
 
-En total, cada dataset tiene mas de 10 mil millones de registros realizados por 8 millones y 2 millones de usuarios, respectivamente para Argentina y México\footnote{No tenemso ninguna información personal de los usuarios como nombre, dirección, teléfono y su privacidad está asegurada mediante criptografía.}
+En total, cada dataset tiene mas de 10 mil millones de registros realizados por
+  8 millones y 2 millones de usuarios, respectivamente para Argentina y
+  México\footnote{No tenemos ninguna información personal de los usuarios como nombre, dirección, teléfono y su privacidad está asegurada mediante criptografía.}
 
 \medskip
 Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
@@ -303,12 +306,12 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	\begin{itemize}
 		\item Usuarios anonimizados $u$ y $w$ en esa llamada
 		\item Tiempo de inicio y duración de la llamada $t$
-		\item Direccion $d$ de la llamada (entrante o saliente, con respecto a $u$)
+		\item Dirección $d$ de la llamada (entrante o saliente, con respecto a $u$)
 		\item $a$ es el ID de la antena telefónica usada por $u$ en esa comunicación
 	\end{itemize}
 
 	\medskip
-	$\forall u \  \exists \  H_u$ el lugar de residencia de un usuario que es determinado como la antena $a$ más utilizada de lunes a viernes y fuera del horario laboral. La endemicidiad de un usuario está determinado por la condición $H_u \in E_Z$
+	$\forall u \  \exists \  H_u$ el lugar de residencia de un usuario que es determinado como la antena $a$ más utilizada de lunes a viernes y fuera del horario laboral. La endemicidad de un usuario está determinado por la condición $H_u \in E_Z$
 
 	\medskip
 
@@ -352,8 +355,8 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	\begin{block}{Usuarios  o llamados vulnerables}
 	Para un mes dado y una antena $a$ tendremos la tupla $\left< N_a, V_a, C_a, VC_a \right>$ donde
 		\begin{itemize}
-			\item El numero total de usuarios residentes $N_a$
-			\item El numero total de residentes vulnerables $V_a$
+			\item El número total de usuarios residentes $N_a$
+			\item El número total de residentes vulnerables $V_a$
 			\item El volumen total de llamados salientes $C_a$
 			\item El volumen de llamados salientes en una interacción \textit{vulnerable} $VC_a$
 		\end{itemize}
@@ -430,7 +433,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 			\item Tierra del Fuego
 			\item Este de Río Negro
 			\item Buenos Aires
-			\item Capital Federal, South and North CABA, and AMBA
+			\item Capital Federal, Sur y Norte CABA y AMBA
 			\item Córdoba Central
 		\end{itemize}
 \end{frame}
@@ -466,7 +469,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Comunidades resaltadas}
-	Luego de filtrar los mapas y explorar con distintas visualizaciones, encontramos antentas especificas que se resaltan por su nivel de vulnerabilidad
+	Luego de filtrar los mapas y explorar con distintas visualizaciones, encontramos antenas especificas que se resaltan por su nivel de vulnerabilidad
 	%Como resultado del filtrado en cada zona, nos hemos quedado con las antenas destacadas por su nivel de riesgo y, utilizando su ubicaci\'on, las emparejamos con localidades o comunidades argentinas.
 
 	\bigskip
@@ -488,7 +491,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Clasificacion Binaria Supervisada}
+\section{Clasificación Binaria Supervisada}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Objetivo Principal}
@@ -519,14 +522,14 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 \begin{frame}{Consideraciones}
 
-	$f_\theta^*$ intenta aproximar la relacion desconocida entre $\textbf{X}$ y $\textbf{Y}$
+	$f_\theta^*$ intenta aproximar la relación desconocida entre $\textbf{X}$ y $\textbf{Y}$
 
 	\bigskip
 
-	$f(\cdot)$, $L(\cdot)$ y el espacio de busqueda $\Theta$ de los \textit{aproximantes} son predeterminados
+	$f(\cdot)$, $L(\cdot)$ y el espacio de búsqueda $\Theta$ de los \textit{aproximantes} son predeterminados
 
 	\bigskip\
-	
+
 	Desconocemos $P(\textbf{X},\textbf{Y})$ pues nos basamos en datos finitos\\
 
 	$X = \trainsetn  \sqcup \testsetn $ con $\trainsetn$ conjunto de aprendizaje/entrenamiento
@@ -562,7 +565,7 @@ Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{ Ajust Poly-M vs Ajuste Poly-2 }
+\begin{frame}{ Ajuste Poly-M vs Ajuste Poly-2 }
 \center
 \includegraphics[width=0.9\textheight]{slides/wiki_overfit_complex_classifier_demo.png}
 \end{frame}
@@ -572,6 +575,7 @@ Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Sobreajuste}
+\center
 \includegraphics[width=1\textheight]{figure-biasVariance/dtree_overfit_problem_2.png}
 \end{frame}
 
@@ -597,7 +601,7 @@ Bajo ciertas condiciones sobre $\Theta$ tenemos
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Regresión Logística}
+\begin{frame}[shrink=5]{Regresión Logística}
 % = \frac{P(x|C_1)p(C_1) }{P(x|C_1)p(C_1) + P(x|C_0)p(C_0)}
 Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ P(C_1 \mid x)}{P(C_0 \mid x ) } \right)$
 	\begin{block}{Idea}
@@ -624,16 +628,16 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Árbol de decisión}
+\begin{frame}[shrink=2]{Árbol de decisión}
 
 Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria:
 
 	\begin{block}{Idea}
 		$$\mathcal{T}_{iz}(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \}$$
-		$$\mathcal{T}_{de}(d,j) = \mathcal{T} \setminus  \mathcal{T}_I(d,j)$$		
-		A partir de una funcion de impureza $Imp$
+		$$\mathcal{T}_{de}(d,j) = \mathcal{T} \setminus  \mathcal{T}_I(d,j)$$
+		A partir de una función de impureza $Imp$
 		\begin{align*}
-			\min_{d, j} \big[ \min_{c_{iz} }  \frac{1}{N_{iz}}\sum_{x \in \mathcal{T}_{iz}(d,j) } Imp(y,c_{iz}) \ 
+			\min_{d, j} \big[ \min_{c_{iz} }  \frac{1}{N_{iz}}\sum_{x \in \mathcal{T}_{iz}(d,j) } Imp(y,c_{iz}) \
 			+  \min_{c_{de}}  \frac{1}{N_{de}}\sum_{x \in \mathcal{T}_{de}(d,j) } Imp(y,c_{de}) \big]
 		\end{align*}
 		% \begin{align*}
@@ -646,14 +650,14 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria:
 		\begin{align*}
 				h(X_i) = \sum_{k=1}^K c_k I(X_i \in \mathcal{T}_k)
 		\end{align*}
- 	con $K$ el numero de regiones de la particion final
+ 	con $K$ el número de regiones de la partición final
 	\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Árbol de ejemplo}
-		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight, 
+		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight,
 										trim = 0.2 80 0.2 0.2cm, left, clip = true]{decision_tree/full_tree_map.png}
 \end{frame}
 
@@ -661,9 +665,9 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria:
 
 \begin{frame}{Bosques Aleatorios y ``Gradient Tree Boosting''}
 	Ensambles de pequeño clasificadores
-	
+
 	\begin{block}{Idea}
-		Introducir aleatoriedad y disminuir la varianza 
+		Introducir aleatoriedad y disminuir la varianza
 	\end{block}
 
 
@@ -675,16 +679,16 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria:
 
 \begin{frame}{``Naive Bayes''}
 
-Suponemos una distribucion conocida para $p(\cdot)$
+Suponemos una distribución conocida para $p(\cdot)$
 	\begin{block}{Idea}
 		Asumir \textit{inocentemente}
 		$$p(X^j |X^1,\ldots,\overline{X^j},\ldots,X^p, C_k) \ = \ p(X^j | C_k) \ \forall k \in \{0,1\}$$
 	\end{block}
 
-	\begin{block}{Funcion de decision }
+	\begin{block}{función de decision }
 
 		\begin{align*}
-			p(C_1) \propto f(X) = \hat{p}(C_{1}) \  \prod_{i=1}^{n} \hat{p}(X_{i}\mid C_{1}) 
+			p(C_1) \propto f(X) = \hat{p}(C_{1}) \  \prod_{i=1}^{n} \hat{p}(X_{i}\mid C_{1})
 		\end{align*}
 
 		\begin{align*}
@@ -697,8 +701,8 @@ Suponemos una distribucion conocida para $p(\cdot)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Comparacion de Fronteras de Decision}
-		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight, 
+\begin{frame}{Comparación de Fronteras de Decision}
+		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight,
 										trim = 0.2 0.2 0.2 0.2cm, left, clip = true]{slides/plot_classifier_comparison.png}
 \end{frame}
 
@@ -706,14 +710,14 @@ Suponemos una distribucion conocida para $p(\cdot)$
 
 \begin{frame}{$K$ - Validación cruzada}
 
-Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion del $EPE$
+Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimación del $EPE$
 
 	\begin{block}{Idea}
 		Dado un $\alpha \in \mathcal{A}$, particionar las muestras en $K$ conjuntos al azar
 		\\
 		Entrenar $\hat{f}_{\alpha}^{-k}, \ k \in \{1, \ldots, K\}$
 		\\
-		donde cada clasificador $\hat{f}^{-k}$ aprende sin usar las muestras de la particion $k$
+		donde cada clasificador $\hat{f}^{-k}$ aprende sin usar las muestras de la partición $k$
 		\\
 		Computar $CV(\alpha) = \frac{1}{n} \sum^n_{i=1} L\left( y_i, \hat{f}_{\alpha}^{-k_i}(x_i) \right)$
 	\end{block}
@@ -722,14 +726,14 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{Metricas de clasificadores binarios}
+\begin{frame}{Métricas de clasificadores binarios}
 
-	\center
 	Conteo de las combinaciones de $\hat{Y}$ y $Y$
+  \medskip
 
 		\begin{columns}
 			\begin{column}{0.55 \textwidth}
-			\small
+			\scriptsize
 				\noindent
 				\renewcommand\arraystretch{1}
 				\setlength\tabcolsep{0pt}
@@ -744,19 +748,19 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 
 			\end{column}
 
-			\begin{column}{0.45 \textwidth}
-			\small
-				\begin{align*}
-					\begin{split}
-						& Accuracy \ =\ \frac{ TP + TN }{ TP + TN + FP + FN }\\
-						& Precision \ =\ \frac{ TP }{TP + FN}\\
-						 & Recall \  =\ \frac{TP }{TP + FP}\\
-					  	& F1 = \mbox{media armónica de} Precision \mbox{y} Recall \\
-					  	& Curva \ ROC: \\
-					  	& \sigma(\pi) = (Recall(\pi), FPR(\pi)) \ t.q. \ \pi \in (0,1)
-					\end{split}
-				\end{align*}
-			\end{column}
+      \begin{column}{0.45 \textwidth}
+      \scriptsize
+        \begin{align*}
+          \begin{split}
+            & Accuracy \ =\ \frac{ TP + TN }{ TP + TN + FP + FN }\\
+            & Precision \ =\ \frac{ TP }{TP + FN}\\
+             & Recall \  =\ \frac{TP }{TP + FP}\\
+              & F1 = \mbox{media armónica de} Precision \mbox{y} Recall \\
+              & Curva \ ROC: \\
+              & \sigma(\pi) = (Recall(\pi), FPR(\pi)) \ t.q. \ \pi \in (0,1)
+          \end{split}
+        \end{align*}
+      \end{column}
 		\end{columns}
 
 	% \end{block}
@@ -764,7 +768,7 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Definición de problemas de migracion A}
+\begin{frame}{Definición de problemas de migración A}
 
 	Sean $EU_{1}$ y $EU_{0}$ los conjuntos de usuarios que vivieron en la región endémica durante $T_1$ y $T_0$ respectivamente
 	% así como también $H^0_u$ y $H^1_u$ para referirnos al hogar de $u$ a través de los períodos
@@ -795,7 +799,7 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Definición de problemas de migracion B}
+\begin{frame}{Definición de problemas de migración B}
 	\begin{block}{Problemas 3}
 
 		Predecir aquellos usuarios que migraron entre regiones, en cualquier dirección
@@ -827,11 +831,11 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 \begin{frame}{ Proceso de experimentación }
 
 Dado $(X,Y)$ y un clasificador $f_\theta \ t.q. \ \theta \in \Theta$
-	\begin{enumerate}[I]
+	\begin{enumerate}[I.]
 		% \item a
 		% \item b
 		\item Preprocesar $X$ y separar en $\trainset$ + $\testset$
-		\item Cross validar hiperparametros de $f$ c/ $\trainset$
+		\item Cross validar hiper parámetros de $f$ c/ $\trainset$
 		\item Aprender $f_\theta^*$ c/ $\trainset$
 		\item Comparar  $Err_{\testset}(\theta^*)$ y  $Err_{\trainset}(\theta^*)$ en las métricas
 		\item Evaluar mejoras en complejidad, varianza e iterar en (I)
@@ -878,7 +882,7 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 				%{l r r r r r r }
 				% \toprule
 				\hline
-				\textbf{Nombre del atributo} & \textbf{Q\_llamados / Tiempo} & \textbf{Momento} & \textbf{Direccion} &
+				\textbf{Nombre del atributo} & \textbf{Q\_llamados / Tiempo} & \textbf{Momento} & \textbf{Dirección} &
 				\textbf{Vulnerabilidad} & \textbf{Mes} \\
 				% \midrule
 				\hline
@@ -1053,7 +1057,7 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 % 	\begin{block}{Nuevas fuentes de datos}
 % 		Agreagar informacion para mayores analisis:
 % 		\begin{itemize}
-% 			\item Comparacion de resultados de movilidad con serologia por region
+% 			\item Comparación de resultados de movilidad con serologia por region
 % 			\item Categorizacion de antenas por grado de ruralidad del ambiente
 % 			\item infected newborns
 % 			\item acute Chagas cases.
