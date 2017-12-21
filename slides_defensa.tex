@@ -623,25 +623,34 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 
 \begin{frame}{Clasificador: ``Naive Bayes''}
 
-
-
-
+Suponemos una distribucion conocida para $p(\cdot)$
 	\begin{block}{Idea}
-		Asumimos \textit{inocentemente} que
-		$$p(X^j |X^1,\ldots,\hat{X^j},\ldots,X^p, C_k) \ = \ p(X^j | C_k) \ \forall k \in \{0,1\}$$
+		Asumir \textit{inocentemente}
+		$$p(X^j |X^1,\ldots,\overline{X^j},\ldots,X^p, C_k) \ = \ p(X^j | C_k) \ \forall k \in \{0,1\}$$
 		% \begin{equation}
 		% asdf
 		% \end{equation}
 	\end{block}
 
-	\begin{block}{Funcion de perdida }
+	\begin{block}{Funcion de decision }
 
 		\begin{equation}
-	\hat{Y} \ = \ \mathbb{I}\left[ p(C_{1}) \  \prod_{i=1}^{n} p (X_{i}\mid C_{1})   \ >= \ \frac{1}{2} \right]
+			p(C_1) \propto f(X) = \hat{p}(C_{1}) \  \prod_{i=1}^{n} \hat{p}(X_{i}\mid C_{1}) 
 		\end{equation}
-%	\underset{k\in\{1,\ldots,K\}}{\operatorname{argmax}}
+
+		\begin{equation}
+			\hat{Y} \ = \ \mathbb{I}\left[  f(X)  >= \ \frac{1}{2} \right]
+		\end{equation}
+
 	\end{block}
 	% $\gamma$ es un hiperparametro para la regularizacion del modelo
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Comparacion de Fronteras de Decision}
+		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight, 
+										trim = 0.2 0.2 0.2 0.2cm, left, clip = true]{slides/plot_classifier_comparison.png}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -702,13 +711,6 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 		\end{columns}
 
 	% \end{block}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Comparacion de Fronteras de Decision}
-		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight, 
-										trim = 0.2 0.2 0.2 0.2cm, left, clip = true]{slides/plot_classifier_comparison.png}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
