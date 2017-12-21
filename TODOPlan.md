@@ -12,6 +12,7 @@
         - Prediction, generalization, Test/train set, train error. 
         - Bias, variance ??
         - Cross Validation.
+    * Agregar el dibujo de los multiplots multifits.
 
     * Reunion Patu Matt:
         - Max 25 slides. Calculo 2 min per slide. 
