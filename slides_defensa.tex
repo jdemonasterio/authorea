@@ -609,7 +609,7 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 
 	\end{block}
 
-	\begin{block}{Función de perdida (MLL)}
+	\begin{block}{Función de pérdida (MLL)}
 		$$\operatorname{argmin}_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
 	\end{block}
 	% $\gamma$ es un hiperparametro para la regularizacion del modelo
@@ -619,27 +619,32 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 
 \begin{frame}{Árbol de decisión}
 
-Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria:
+Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mathcal{T}_{iz}(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \}$ y $\mathcal{T}_{de}(d,j)$
 
 	\begin{block}{Idea}
-		$$\mathcal{T}_{iz}(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \}$$
-		$$\mathcal{T}_{de}(d,j) = \mathcal{T} \setminus  \mathcal{T}_I(d,j)$$		
-		A partir de una funcion de impureza $Imp$
+		% $$$		
 		\begin{align*}
 			\min_{d, j} \big[ \min_{c_{iz} }  \frac{1}{N_{iz}}\sum_{x \in \mathcal{T}_{iz}(d,j) } Imp(y,c_{iz}) \ 
 			+  \min_{c_{de}}  \frac{1}{N_{de}}\sum_{x \in \mathcal{T}_{de}(d,j) } Imp(y,c_{de}) \big]
 		\end{align*}
+			donde $Imp$ es una funcion de \textit{impureza} 
 		% \begin{align*}
 		% asdf
 		% \end{align*}
 	\end{block}
 
-	\begin{block}{Función de perdida}
+	\begin{block}{Función de pérdida}
+	\small
+	{
+	\center
+	$h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)$ \\
+	}
+ 	con $L$ el numero de regiones. Aqui $\theta = \bigcup\limits_{l=1}^{L} (d_l,j_l)$
 
-		\begin{align*}
-				h(X_i) = \sum_{k=1}^K c_k I(X_i \in \mathcal{T}_k)
-		\end{align*}
- 	con $K$ el numero de regiones de la particion final
+	% \begin{align*}			
+	% 			% h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)
+	% 	\end{align*}
+
 	\end{block}
 \end{frame}
 
@@ -658,11 +663,36 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Bosques Aleatorios y ``Gradient Tree Boosting''}
-	Ensambles de pequeño clasificadores
+\begin{frame}{Clasificadores de Ensamble }
 	
-	\begin{block}{Idea}
-		Introducir aleatoriedad y disminuir la varianza 
+	Conjunto de pequeños arboles $ \bigcup\limits_{m=1}^{M} h_{\theta_m}$) 
+	
+	\begin{block}{Bosques Aleatorios} 
+		\begin{align*}
+			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta_m}(X_i) 
+		\end{align*}
+	\end{block}
+
+	\begin{block}{``Gradient Tree Boosting''}
+	Mejora iterativa de la pérdida 
+		\begin{align*}
+			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta_m}(X_i) 
+		\end{align*}
+	\end{block}
+
+
+\end{frame}
+
+
+
+\begin{frame}{}
+	Mejora iterativa de arboles $h_{\theta}$
+
+	\begin{block}{Idea} 
+		\begin{align*}
+			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta}(X_i) 
+		\end{align*}
+
 	\end{block}
 
 
