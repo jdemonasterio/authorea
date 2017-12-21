@@ -130,9 +130,9 @@ For the case of binary (two class) classification, these measures can be express
 If we consider $p$ to be the probability of success, then we have
 
 \begin{itemize}
-\item Misclassification binary error: $1 - max(p, 1-p)$ \label{it:decisionTreeCostFunctions}
-\item Gini binary index: $ 2p(1-p) $
-\item Binary cross-entropy: $ -\log(p)p - \log(1- p)(1-p) $
+	\item Misclassification binary error: $1 - max(p, 1-p)$ \label{it:decisionTreeCostFunctions}
+	\item Gini binary index: $ 2p(1-p) $
+	\item Binary cross-entropy: $ -\log(p)p - \log(1- p)(1-p) $
 \end{itemize}
 
 
@@ -144,11 +144,11 @@ The hyper-parameters for this model includes the length of the tree, the splitti
 From the descriptions previously given, we can list these directly:
 
 \begin{itemize}
-\item Max depth of the tree, or the allowed levels of splits.
-\item The criteria or measure used to select the best split feature at each node.
-\item The leaf size or the total number of minimum samples allowed per leaf.
-Note that this is a related to limit on branch depth.
-\item Number of features selected to decide on the best split feature at each node.
+	\item Max depth of the tree, or the allowed levels of splits.
+	\item The criteria or measure used to select the best split feature at each node.
+	\item The leaf size or the total number of minimum samples allowed per leaf.
+	Note that this is a related to limit on branch depth.
+	\item Number of features selected to decide on the best split feature at each node.
 \end{itemize}
 
 

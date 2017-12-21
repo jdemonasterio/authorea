@@ -498,12 +498,12 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 		$\textbf{Y} \in \mathbb{R}^n$ es el vector aleatorio de salida \\
 		Se busca una función $f_\theta: \mathbb{R}^{p} \rightarrow  \mathbb{R}$ que optimice u ``aprenda''
 
-	\begin{equation}%\label{expectedPredictionError}
+	\begin{align*}%\label{expectedPredictionError}
 		\begin{split}
 		\operatorname{argmin}_{\theta} \  EPE(\theta) = & \Expect_{\textbf{X},\textbf{Y}} \left[ L(Y,f_\theta(X))\right]  \\
 			= & \int L(y,f_\theta (x)) p(x,y) dx dy
 		\end{split}
-	\end{equation}
+	\end{align*}
 
 	para generar \textit{predicciones} para cualquier muestra
 
@@ -562,50 +562,53 @@ Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}{ Ajust Poly-M vs Ajuste Poly-2 }
+\center
+\includegraphics[width=0.9\textheight]{slides/wiki_overfit_complex_classifier_demo.png}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Sobreajuste}
+\includegraphics[width=1\textheight]{figure-biasVariance/dtree_overfit_problem_2.png}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Convergencia a $EPE$ en clasificadores binarios}
 Bajo ciertas condiciones sobre $\Theta$ tenemos
 	\begin{block}{Desigualdad de Vapnik–Chervonenkis}
 
-		\begin{equation}
+		\begin{align*}
 			\begin{split}
 				P\left(\sup_{\theta\in \Theta}\left|Err_{\trainsetn}(\theta)-EPE (\theta)\right|>\varepsilon \right) & \leq
 				8S (\Theta,n) e^{{-n \varepsilon^{2}/32}}\\
 				\Expect\left[\sup_{\theta \in \Theta}\left| Err_{\trainsetn}(\theta)-EPE (\theta)\right|\right] &
 				\leq 2\sqrt{\dfrac{\log S(\Theta,n)+\log2}{n}}
 			\end{split}
-		\end{equation}
+		\end{align*}
 
 	\end{block}
 
 	Donde $S(\Theta)$ es el coeficiente de ``shattering'' de la clase
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-\begin{frame}{ Poly fit vs. fit lineal en shattering }
-
-	\begin{block}{FOO}
-		BARR
-	\end{block}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Clasificador: Regresion Logistica}
+\begin{frame}{Regresión Logística}
 % = \frac{P(x|C_1)p(C_1) }{P(x|C_1)p(C_1) + P(x|C_0)p(C_0)}
 Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ P(C_1 \mid x)}{P(C_0 \mid x ) } \right)$
 	\begin{block}{Idea}
 	\footnotesize
-	\begin{equation}
+	\begin{align*}
 	% 	% \begin{split}
 		% $$
 		P(C_1| X_i)  = \frac{1}{1 + \exp \left(- \log \left(  \frac{ P(X_i|C_1)p(C_1)}{P(X_i|C_0)p(C_0)} \right) \right)} = \sigma\left(logodds(X_i)\right)
 		% $$
 	% 	% \end{split}
-	\end{equation}
+	\end{align*}
 
 	El modelo propone $\exists \theta \ t.q.$
 	$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$
@@ -613,7 +616,7 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 
 	\end{block}
 
-	\begin{block}{Funcion de perdida (MLL)}
+	\begin{block}{Función de perdida (MLL)}
 		$$\operatorname{argmin}_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
 	\end{block}
 	% $\gamma$ es un hiperparametro para la regularizacion del modelo
@@ -621,26 +624,72 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Clasificador: ``Naive Bayes''}
+\begin{frame}{Árbol de decisión}
+
+Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria:
+
+	\begin{block}{Idea}
+		$$\mathcal{T}_{iz}(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \}$$
+		$$\mathcal{T}_{de}(d,j) = \mathcal{T} \setminus  \mathcal{T}_I(d,j)$$		
+		A partir de una funcion de impureza $Imp$
+		\begin{align*}
+			\min_{d, j} \big[ \min_{c_{iz} }  \frac{1}{N_{iz}}\sum_{x \in \mathcal{T}_{iz}(d,j) } Imp(y,c_{iz}) \ 
+			+  \min_{c_{de}}  \frac{1}{N_{de}}\sum_{x \in \mathcal{T}_{de}(d,j) } Imp(y,c_{de}) \big]
+		\end{align*}
+		% \begin{align*}
+		% asdf
+		% \end{align*}
+	\end{block}
+
+	\begin{block}{Función de perdida}
+
+		\begin{align*}
+				h(X_i) = \sum_{k=1}^K c_k I(X_i \in \mathcal{T}_k)
+		\end{align*}
+ 	con $K$ el numero de regiones de la particion final
+	\end{block}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Árbol de ejemplo}
+		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight, 
+										trim = 0.2 80 0.2 0.2cm, left, clip = true]{decision_tree/full_tree_map.png}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Bosques Aleatorios y ``Gradient Tree Boosting''}
+	Ensambles de pequeño clasificadores
+	
+	\begin{block}{Idea}
+		Introducir aleatoriedad y disminuir la varianza 
+	\end{block}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{``Naive Bayes''}
 
 Suponemos una distribucion conocida para $p(\cdot)$
 	\begin{block}{Idea}
 		Asumir \textit{inocentemente}
 		$$p(X^j |X^1,\ldots,\overline{X^j},\ldots,X^p, C_k) \ = \ p(X^j | C_k) \ \forall k \in \{0,1\}$$
-		% \begin{equation}
-		% asdf
-		% \end{equation}
 	\end{block}
 
 	\begin{block}{Funcion de decision }
 
-		\begin{equation}
+		\begin{align*}
 			p(C_1) \propto f(X) = \hat{p}(C_{1}) \  \prod_{i=1}^{n} \hat{p}(X_{i}\mid C_{1}) 
-		\end{equation}
+		\end{align*}
 
-		\begin{equation}
+		\begin{align*}
 			\hat{Y} \ = \ \mathbb{I}\left[  f(X)  >= \ \frac{1}{2} \right]
-		\end{equation}
+		\end{align*}
 
 	\end{block}
 	% $\gamma$ es un hiperparametro para la regularizacion del modelo
@@ -697,7 +746,7 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 
 			\begin{column}{0.45 \textwidth}
 			\small
-				\begin{equation}
+				\begin{align*}
 					\begin{split}
 						& Accuracy \ =\ \frac{ TP + TN }{ TP + TN + FP + FN }\\
 						& Precision \ =\ \frac{ TP }{TP + FN}\\
@@ -706,7 +755,7 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 					  	& Curva \ ROC: \\
 					  	& \sigma(\pi) = (Recall(\pi), FPR(\pi)) \ t.q. \ \pi \in (0,1)
 					\end{split}
-				\end{equation}
+				\end{align*}
 			\end{column}
 		\end{columns}
 
