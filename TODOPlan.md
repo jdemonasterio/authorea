@@ -1,16 +1,16 @@
 # TODO PLAN
 
 ## Plan Slides
-    * Iterate and get feedback with DM professors (Lean, Matthieu, Patu).
     * Aspell in spanish
     * Data source
-        - Communications graph to abstract the dataset.
-        - Example of features constructed.
+        - [DONE] Communications graph to abstract the dataset.
+        - [DONE] Example of features constructed.
     * Add reminders across the ppt to put pieces together.
     * How introductory should I be on Machine Learning?
         - Don't mention unsupervised learning nor supervised regression, go stratight to binary classification? Present problems after or before?
         - Notation on dataset X_{i,j}, features, loss functions and regularization.
-        - Prediction, generalization, Test/train set, train error, bias, variance,
+        - Prediction, generalization, Test/train set, train error. 
+        - Bias, variance ??
         - Cross Validation.
         - 
     * Max 25 slides. Calculo 2 min per slide. 
@@ -29,9 +29,11 @@
     
 
     * Sacar mapa de mejico y de insectos.
-    * Add slides for previous works or plainly mention them?
+    * Add slides for previous works or plainly mention them? No hacer.
     * Add funny section separators for non-technical audience.
     * [DONE] Fork from agranda2016 a working .tex
+    * [DONE] Iterate and get feedback with DM professors (Lean, Matthieu, Patu).
+
 
 ## Delivery 28/11
     * [DONE] Clean last todos.
