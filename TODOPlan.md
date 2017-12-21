@@ -2,29 +2,34 @@
 
 ## Plan Slides
     * Aspell in spanish
+    * [DONE] Rotar descripcion de los datos con Machine Learning.
     * Data source
         - [DONE] Communications graph to abstract the dataset.
         - [DONE] Example of features constructed.
     * Add reminders across the ppt to put pieces together.
-    * How introductory should I be on Machine Learning?
-        - Don't mention unsupervised learning nor supervised regression, go stratight to binary classification? Present problems after or before?
-        - Notation on dataset X_{i,j}, features, loss functions and regularization.
-        - Prediction, generalization, Test/train set, train error. 
-        - Bias, variance ??
-        - Cross Validation.
-    * Agregar el dibujo de los multiplots multifits.
+    * [DONE] How introductory should I be on Machine Learning?
+        - [DONE] Go straight to binary classification
+        - [DONE] Present problems after or before? After
+        - [DONE] Notation on dataset X_{i,j}, features, loss functions and regularization.
+        - [DONE] Prediction, generalization, Test/train set, train error. 
+        - [DONE] Bias, variance ?? NO.
+        - [DONE] Cross Validation.
+    * Introducir master table 
+    * 2 slides de resultados.
+    * Finish 
+    * [DONE] Agregar el dibujo de los multiplots multifits.
 
     * Reunion Patu Matt:
         - Max 25 slides. Calculo 2 min per slide. 
         - Arreglar las slides cortas + imagenes caidas.
         - Bajar la cantidad de texto a la mitad en c/slide.
         - Las definiciones van habladas, solo dejar la notacion. Poner la notacion en el mismo slide y no es tan necesario introducir notacion.
-        - Problema matematico bien precisamente explicado y puesto en un contexto.
-        - Que quede claro cual es la loss function y cuales son los problemas a optimizar.
-        - Definir los problemas matematicamente. Definir un problema de aprendizaje automatico abstractamente. Definir la f y las loss functions para c/uno de los algoritmos y contar como se mapean uno a uno.
-        - Contar F1, accuracy y roc hasta cierto punto, poner las formulas en lo posible.
-        - Problemas de minimos locales en c/algoritmo
-        - CV contar como elegir los hiperparametros 
+        - [DONE] Problema matematico bien precisamente explicado y puesto en un contexto.
+        - [DONE] Que quede claro cual es la loss function y cuales son los problemas a optimizar.
+        - [DONE] Definir los problemas matematicamente. Definir un problema de aprendizaje automatico abstractamente. Definir la f y las loss functions para c/uno de los algoritmos y contar como se mapean uno a uno.
+        - [DONE] Contar F1, accuracy y roc hasta cierto punto, poner las formulas en lo posible.
+        - [DONE] CV contar como elegir los hiperparametros 
+        - Problemas de minimos locales en c/algoritmo?
         - Poner la master table resumida marcando que es lo que quiero que vea, o comentando por arriba que es lo mas importante.
         - ~ 10 de intro problematica mas datos. 10 de supervised learning, 5 de conclusion y resultados.
         - Resultados.
