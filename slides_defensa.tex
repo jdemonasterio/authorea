@@ -249,7 +249,7 @@
 	% , donde, idealmente, se vea que una fluida comunicación con el lugar de orígen es indicador
 
 	\bigskip
-	Idealmente podremos encontrar aquellos indicadores de usuarios que mejor determinen las zonas del país tradicionalmente no-endémicas, donde exista más intercambio migratorio con la zona del Gran Chaco
+	Idealmente podremos encontrar aquellos indicadores de usuarios que mejor determinen las zonas del país tradicionalmente no-endémicas, donde exista más intercambio migratorio con la zona endémica del país
 	% We strongly assume that long-term migrations are related to fluid communications with the past area of residence.
 	\end{block}
 \end{frame}
@@ -328,9 +328,6 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 			\item $T_1$ desde Agosto 2015 hasta Diciembre 2015, considerado el \textit{presente}
 			% . Este va a ser nuestro dataset principal a procesar.
 	\end{enumerate*}
-
-	\medskip
-	Definimos $EU_{1}$ y $EU_{0}$ como los conjuntos de usuarios que vivieron en la región endémica durante $T_1$ y $T_0$ respectivamente así como también $H^0_u$ y $H^1_u$ para referirnos al hogar de $u$ a través de los períodos
 
 	\medskip
 	Diremos que un usuario $u$ es vulnerable en un mes dado si $\exists \ r = \ \left < u, w, t, d, a \right > $ tal que $H_w \in E_z$ para ese mes
@@ -568,22 +565,23 @@ Bajo ciertas condiciones sobre $\Theta$ tenemos
 
 		\begin{equation}
 			\begin{split}
-				P\left(\sup_{\theta\in \Theta}\left|\trainsetn(\theta)-EPE (\theta)\right|>\varepsilon \right) & \leq
+				P\left(\sup_{\theta\in \Theta}\left|Err_{\trainsetn}(\theta)-EPE (\theta)\right|>\varepsilon \right) & \leq
 				8S (\Theta,n) e^{{-n \varepsilon^{2}/32}}\\
-				\Expect\left[\sup_{\theta \in \Theta}\left| \trainsetn(\theta)-EPE (\theta)\right|\right] &
+				\Expect\left[\sup_{\theta \in \Theta}\left| Err_{\trainsetn}(\theta)-EPE (\theta)\right|\right] &
 				\leq 2\sqrt{\dfrac{\log S(\Theta,n)+\log2}{n}}
 			\end{split}
 		\end{equation}
 
 	\end{block}
 
-El coeficiente de ``shattering'' $S(\Theta)$ de la clase está muy relacionado con su complejidad
+	Donde $S(\Theta)$ es el coeficiente de ``shattering'' de la clase
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Clasificador Regresion Logistica}
-% = \frac{P(x|C_1)p(C_1) }{P(x|C_1)p(C_1) + P(x|C_0)p(C_0)} 
+\begin{frame}{Clasificador: Regresion Logistica}
+% = \frac{P(x|C_1)p(C_1) }{P(x|C_1)p(C_1) + P(x|C_0)p(C_0)}
 Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ P(C_1 \mid x)}{P(C_0 \mid x ) } \right)$
 	\begin{block}{Idea}
 	\footnotesize
@@ -591,18 +589,43 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 	% 	% \begin{split}
 		% $$
 		P(C_1| X_i)  = \frac{1}{1 + \exp \left(- \log \left(  \frac{ P(X_i|C_1)p(C_1)}{P(X_i|C_0)p(C_0)} \right) \right)} = \sigma\left(logodds(X_i)\right)
-		% $$			
+		% $$
 	% 	% \end{split}
 	\end{equation}
 
 	El modelo propone $\exists \theta \ t.q.$
-	$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$ 
+	$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$
 	$$Y_i \mid X_i \ \sim \operatorname{Bernoulli}(p_i)$$
 
 	\end{block}
 
 	\begin{block}{Funcion de perdida (MLL)}
 		$$argmin_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
+	\end{block}
+	% $\gamma$ es un hiperparametro para la regularizacion del modelo
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Clasificador: ``Naive Bayes''}
+
+
+
+
+	\begin{block}{Idea}
+		Asumimos \textit{inocentemente} que
+		$$p(X^j |X^1,\cdots,\hat{X^j},\cdots,X^p , C_k) \ = \ p(X^j | C_k) \ \forall k \in \{0,1\}$$
+		% \begin{equation}
+		% asdf
+		% \end{equation}
+	\end{block}
+
+	\begin{block}{Funcion de perdida }
+
+		\begin{equation}
+	\hat{y}={\underset{k\in\{1,\dots,K\}}{\operatorname{argmax}}}\ p (C_{k}) \  \prod_{i=1}^{n} p (x_{i}\mid C_{k})
+		\end{equation}
+
 	\end{block}
 	% $\gamma$ es un hiperparametro para la regularizacion del modelo
 \end{frame}
@@ -669,41 +692,57 @@ Optimizacion de configuraciones de hiperparametros $\mathcal{A}$ via estimacion 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{Definicion de problemas de migracion A}
+\begin{frame}{Definición de problemas de migracion A}
 
-			\begin{block}{Foo}
-			Bar
-			\[
-			%\begin{equation}
-			Y_u =
-			\begin{cases}
-			&1 \ \mbox{si} \ u \in U_0  \\
-			&0 \ \mbox{en otros casos}.
-			\end{cases}
-			%\end{equation}
-			\]
-			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
+	Sean $EU_{1}$ y $EU_{0}$ los conjuntos de usuarios que vivieron en la región endémica durante $T_1$ y $T_0$ respectivamente
+	% así como también $H^0_u$ y $H^1_u$ para referirnos al hogar de $u$ a través de los períodos
+			\begin{block}{Problemas 1 y 2}
+			Cuales usuarios vivían en la región endémica en el pasado:
+				\begin{align*}
+				Y^{(1)}_u =
+				\begin{cases}
+				&1 \ \mbox{if} \ u \in EU_{0} \\
+				&0 \ \mbox{if not}.
+				\end{cases}
+				\end{align*}
+
+				Cuales vivían en la región endémica y luego migraron:
+				\begin{align*}
+					Y^{(2)}_u =
+					\begin{cases}
+						&1 \ \mbox{if} \ u \in EU_{0} \cap { EU_{1} }^{\complement}  \\
+						&0 \ \mbox{if not}.
+					\end{cases}
+				\end{align*}
+
 			\end{block}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Definicion de problemas de migracion B}
+\begin{frame}{Definición de problemas de migracion B}
+	\begin{block}{Problemas 3 y 4}
 
-			\begin{block}{Foo}
-			Bar
-			\[
-			%\begin{equation}
-			Y_u =
+		Predecir aquellos usuarios que migraron entre regiones, en cualquier dirección
+		\begin{align*}
+			Y^{(3)}_u =
 			\begin{cases}
-			&1 \ \mbox{si} \ u \in U_0  \\
-			&0 \ \mbox{en otros casos}.
+				&1 \ \mbox{if} \ u \in (EU_{0} \cap { EU_{1} }^{\complement}) \cup (EU_{1} \cap { EU_{0} }^{\complement}) \\
+				&0 \ \mbox{if not}.
 			\end{cases}
-			%\end{equation}
-			\]
-			where $\ u \in U_0$ iff the user's home antenna is in $E_Z$ during $T_0$.
-			\end{block}
+		\end{align*}
+
+		Determinar, de todos los usuarios actualmente no endémicos, cuales migraron fuera de la región endémica
+		\begin{align*}
+			Y^{(4)}_u =
+			\begin{cases}
+				& 1 \ \mbox{if} \ u \in ( EU_{0} \cap { EU_{1} }^{\complement})    \\
+				& 0 \ \mbox{if} \ u \in ( { EU_{1} }^{\complement} / EU_{0}).
+			\end{cases}
+		\end{align*}
+
+	\end{block}
 
 \end{frame}
 
@@ -715,7 +754,7 @@ Dado $(X,Y)$ y un clasificador $f_\theta \ t.q. \ \theta \in \Theta$
 	\begin{enumerate}[I]
 		% \item a
 		% \item b
-		\item Preprocesar $X$ y separar en $\trainset$ + $\testset$ 
+		\item Preprocesar $X$ y separar en $\trainset$ + $\testset$
 		\item Cross validar hiperparametros de $f$ c/ $\trainset$
 		\item Aprender $f_\theta^*$ c/ $\trainset$
 		\item Comparar  $Err_{\testset}(\theta^*)$ y  $Err_{\trainset}(\theta^*)$ en las métricas
@@ -751,7 +790,7 @@ Dado $(X,Y)$ y un clasificador $f_\theta \ t.q. \ \theta \in \Theta$
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Tabla de atributos ejemplo}
+\begin{frame}{Ejemplo de atributos}
 Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicaciones
 	\begin{table}[ht]
 		\label{tab:data_example}
