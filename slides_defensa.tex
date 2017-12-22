@@ -122,12 +122,12 @@
 	% \insertframenumber/\inserttotalframenumber\null
 }
 
-\AtBeginSection[]
-{
-  \begin{frame}<beamer>{Agenda}
-    \tableofcontents[currentsection]
-  \end{frame}
-}
+% \AtBeginSection[]
+% {
+%   \begin{frame}<beamer>{Agenda}
+%     \tableofcontents[currentsection]
+%   \end{frame}
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -139,6 +139,9 @@
 \titlepage
 \end{frame}
 
+\begin{frame}<beamer>{Agenda}
+\tableofcontents
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introducción}
@@ -229,7 +232,7 @@
 		\item \ldots utilizando datos de telefonía celular
 		% for which a low proportion of the infected population knows that they have the disease.
 
-		\item \ldots idealmente encontrando en fase asintomática
+		\item \ldots idealmente encontrando personas en fase asintomática
 		% % ORALLY SAY: 30 years of vector mitigation activities in GC.
 		% \item \ldots que es epidémica y desatendida
 		% \item ... which is epidemic and unattended.
@@ -470,7 +473,7 @@ Suponemos una distribución conocida para $p(\cdot)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Estimación de Fronteras de Decisión}
+\begin{frame}{Fronteras de Decisión}
 		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight,
 										trim = 0.2 0.2 0.2 0.2cm, left, clip = true]{slides/plot_classifier_comparison.png}
 \end{frame}
@@ -686,8 +689,8 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 		\begin{align*}
 		Y^{(1)}_u =
 		\begin{cases}
-		&1 \ \mbox{if} \ u \in EU_{0} \\
-		&0 \ \mbox{if not}.
+		&1 \ \mbox{si} \ u \in EU_{0} \\
+		&0 \ \mbox{si no}.
 		\end{cases}
 		\end{align*}
 	\end{block}
@@ -698,8 +701,8 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 		\begin{align*}
 			Y^{(2)}_u =
 			\begin{cases}
-				&1 \ \mbox{if} \ u \in EU_{0} \cap { EU_{1} }^{\complement}  \\
-				&0 \ \mbox{if not}.
+				&1 \ \mbox{si} \ u \in EU_{0} \cap { EU_{1} }^{\complement}  \\
+				&0 \ \mbox{si no}.
 			\end{cases}
 		\end{align*}
 	\end{block}
@@ -715,8 +718,8 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 		\begin{align*}
 			Y^{(3)}_u =
 			\begin{cases}
-				&1 \ \mbox{if} \ u \in (EU_{0} \cap { EU_{1} }^{\complement}) \cup (EU_{1} \cap { EU_{0} }^{\complement}) \\
-				&0 \ \mbox{if not}.
+				&1 \ \mbox{si} \ u \in (EU_{0} \cap { EU_{1} }^{\complement}) \cup (EU_{1} \cap { EU_{0} }^{\complement}) \\
+				&0 \ \mbox{si no}.
 			\end{cases}
 		\end{align*}
 	\end{block}
@@ -726,8 +729,8 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 		\begin{align*}
 			Y^{(4)}_u =
 			\begin{cases}
-				& 1 \ \mbox{if} \ u \in ( EU_{0} \cap { EU_{1} }^{\complement})    \\
-				& 0 \ \mbox{if} \ u \in ( { EU_{1} }^{\complement} / EU_{0}).
+				& 1 \ \mbox{si} \ u \in ( EU_{0} \cap { EU_{1} }^{\complement})    \\
+				& 0 \ \mbox{si} \ u \in ( { EU_{1} }^{\complement} / EU_{0}).
 			\end{cases}
 		\end{align*}
 
@@ -742,7 +745,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 %	\bigskip
 
 	\begin{block}{Diámetro de Movilidad}
-		en kilómetros de la cápsula convexa generada por todas las antenas que un usuario utiliza en $T_1$. Hicimos la distinción para los registros de horarios no laborales.
+		en kilómetros de la cápsula convexa generada por todas las antenas que un usuario utiliza en $T_1$. Hicimos la distinción para distintos momentos en la semana.
 	\end{block}
 
 	\begin{block}{Región de residencia}
@@ -904,7 +907,7 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 		\begin{itemize}[]
 			\item Desbalance de clases deriva en sobre-confianza
 			\item Precision y ``Recall'' asimétricos
-			\item Sorpresa en ``Naive Bayes'' para ser hasta $50\%$ mejor en el Problema 4
+			\item Sorpresa en ``Naive Bayes'' que resulta hasta $50\%$ mejor en el Problema 4
 			\item El Problema 2 es de mayor desbalance
 		\end{itemize}
 	\end{block}
