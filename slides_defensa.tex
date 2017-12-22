@@ -161,15 +161,11 @@
 
 % 			% El Chagas es una enfermedad causada por el parásito \textit{tripanosoma cruzi}
 % 			% % y tambi\'en predominante en algunas comunidades que han migrado de esta zona. .
-
 % 			% \medskip  El insecto \textit{triatoma infestans} es el mayor transmisor de esta enfermedad
-
 % 			% \medskip  La Organización Mundial de la Salud (OMS) estima 65 millones de personas expuestas a esta enfermedad que es endémica en más de 21 países latino americanos
 % 			% %Esta zona comprende el norte y noroeste de la Argentina
 % 			% %así como varios países limítrofes (Brasil, Bolivia, Paraguay, Perú).
-
 % 			% \medskip El acceso a tratamientos es extremadamente limitado para las personas infectadas
-
 % \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -224,7 +220,6 @@
 
 	\begin{itemize}
 		\item \ldots detectando \textbf{migraciones de largo plazo}
-		%explicar vertical, congenita y transfusion/transplante
 		\item \ldots utilizando datos de telefonía celular
 		% for which a low proportion of the infected population knows that they have the disease.
 
@@ -233,7 +228,6 @@
 		% \item \ldots que es epidémica y desatendida
 		% \item ... which is epidemic and unattended.
 	\end{itemize}
-
 	% Este trabajo propone un modelo que utiliza información de registros (logs) de llamados telefónicos
 	% como forma de observar en qué regiones del país se espera encontrar una alta proporción de personas chagásicas
 
@@ -241,15 +235,8 @@
 	% Sabiendo que las migraciones humanas tienen un rol crucial en la diseminación de la enfermedad, el modelo busca
 	% detectar migraciones a partir de los patrones de uso celular
 	% % , donde, idealmente, se vea que una fluida comunicación con el lugar de orígen es indicador
-
-	% \bigskip
-	% Idealmente podremos encontrar aquellos indicadores de usuarios que mejor determinen las zonas del país tradicionalmente no-endémicas, donde exista más intercambio migratorio con la zona endémica del país
-	% % We strongly assume that long-term migrations are related to fluid communications with the past area of residence.
 	\end{block}
 \end{frame}
-
-% HABLAR de pre trabajos en vih y malaria en el D4D? .
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Clasificación Binaria Supervisada}
@@ -329,7 +316,6 @@ Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos
 \includegraphics[width=0.9\textheight]{slides/wiki_overfit_complex_classifier_demo.png}
 \end{frame}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Convergencia a $EPE$ en clasificadores binarios}
@@ -344,37 +330,32 @@ Bajo ciertas condiciones sobre $\Theta$ tenemos
 				\leq 2\sqrt{\dfrac{\log S(\Theta,n)+\log2}{n}}
 			\end{split}
 		\end{align*}
-
+		
 	\end{block}
-
-	Donde $S(\Theta)$ es el coeficiente de ``shattering'' de la clase
+	donde $S(\Theta)$ es el coeficiente de ``shattering'' de la clase
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[shrink=5]{Regresión Logística}
-% = \frac{P(x|C_1)p(C_1) }{P(x|C_1)p(C_1) + P(x|C_0)p(C_0)}
-Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ P(C_1 \mid x)}{P(C_0 \mid x ) } \right)$
+
+Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(X_i)$ como $\log \left(  \frac{ P(C_1 \mid X_i)}{P(C_0 \mid X_i ) } \right)$
 	\begin{block}{Idea}
 	\footnotesize
-	\begin{align*}
-	% 	% \begin{split}
-		% $$
-		P(C_1| X_i)  = \frac{1}{1 + \exp \left(- \log \left(  \frac{ P(X_i|C_1)p(C_1)}{P(X_i|C_0)p(C_0)} \right) \right)} = \sigma\left(logodds(X_i)\right)
-		% $$
-	% 	% \end{split}
-	\end{align*}
-
-	El modelo propone $\exists \theta \ tq$
-	$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$
-	$$Y_i \mid X_i \ \sim \operatorname{Bernoulli}(p_i)$$
+		\begin{align*}
+			P(C_1| X_i)  = \frac{1}{1 + \exp \left(- \log \left(  \frac{ P(X_i|C_1)p(C_1)}{P(X_i|C_0)p(C_0)} \right) \right)} = \sigma\left(logodds(X_i)\right)
+		\end{align*}
+	
+		El modelo supone
+		$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$
+		$$Y_i \mid X_i \ \sim \operatorname{Bernoulli}(p_i)$$
 
 	\end{block}
 
 	\begin{block}{Función de pérdida (MLL)}
 		$$\operatorname{argmin}_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
 	\end{block}
-	% $\gamma$ es un hiperparámetro para la regularización del modelo
+	% $lambda$ es un hiperparámetro para la regularización del modelo
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -382,31 +363,26 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 \begin{frame}[shrink=2]{Árbol de decisión}
 
 Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mathcal{T}_{iz}(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \}$ y $\mathcal{T}_{de}(d,j)$
+		\begin{block}{Idea}
+			% $$$
+			\begin{align*}
+				\min_{d, j} \big[ \min_{c_{iz} }  \frac{1}{N_{iz}}\sum_{x \in \mathcal{T}_{iz}(d,j) } Imp(y,c_{iz}) \
+				+  \min_{c_{de}}  \frac{1}{N_{de}}\sum_{x \in \mathcal{T}_{de}(d,j) } Imp(y,c_{de}) \big]
+			\end{align*}
+				donde $Imp$ es una función de \textit{impureza}
+			% \begin{align*}
+			% \end{align*}
+		\end{block}
 
-	\begin{block}{Idea}
-		% $$$
-		\begin{align*}
-			\min_{d, j} \big[ \min_{c_{iz} }  \frac{1}{N_{iz}}\sum_{x \in \mathcal{T}_{iz}(d,j) } Imp(y,c_{iz}) \
-			+  \min_{c_{de}}  \frac{1}{N_{de}}\sum_{x \in \mathcal{T}_{de}(d,j) } Imp(y,c_{de}) \big]
-		\end{align*}
-			donde $Imp$ es una función de \textit{impureza}
-		% \begin{align*}
-		% \end{align*}
-	\end{block}
-
-	\begin{block}{Función de pérdida}
-	\small
-	{
-	\center\
-	$h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)$ \\
-	}
- 	con $L$ el número de regiones. Aquí $\theta = \bigcup\limits_{l=1}^{L} (d_l,j_l)$
-
-	% \begin{align*}
-	% 			% h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)
-	% 	\end{align*}
-
-	\end{block}
+		\begin{block}{Función de pérdida}
+		\small
+		{
+		\center\
+		$h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)$ \\
+		}
+	 	con $L$ el número de regiones. Aquí $\theta = \bigcup\limits_{l=1}^{L} (d_l,j_l)$
+	
+		\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -418,7 +394,7 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Sobreajuste}
+\begin{frame}{Sobreajuste con }
 \center\
 \includegraphics[width=1\textheight]{figure-biasVariance/dtree_overfit_problem_2.png}
 \end{frame}
@@ -437,14 +413,14 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 	\end{block}
 
 	\begin{block}{``Gradient Tree Boosting''}
-	Mejora iterativa de la pérdida con pesos $\gamma$
+		Mejora iterativa de la pérdida con pesos $\gamma$
 		\begin{align*}
 			f^{(M)}(X_i) = sgn \left(\sum_{m=1}^{M} \gamma_m h(X_i,\theta_m) \right)
 		\end{align*}
 
 		\begin{align*}
 %			\begin{split}
-				(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & L\big( Y_i,  f^{m}(x_i) + \gamma h(X_i,\theta) \big)
+				(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & L\big( Y_i,  f^{m}(X_i) + \gamma h(X_i,\theta) \big)
 %			\end{split}
 		\end{align*}
 		con \  $\theta^*_{m} = \underset{ \theta}{\mathrm{argmin}} \sum_{i=1}^{N}e^{-Y_i f^{m}(X_i)}
@@ -455,20 +431,6 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 
 
 \end{frame}
-
-
-
-%\begin{frame}{FOOOO}
-%	Mejora iterativa de arboles $h_{\theta}$
-%
-%	\begin{block}{Idea}
-%		\begin{align*}
-%			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta}(X_i)
-%		\end{align*}
-%
-%	\end{block}
-%
-%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -485,7 +447,7 @@ Suponemos una distribución conocida para $p(\cdot)$
 	\begin{block}{Función de decisión }
 
 		\begin{align*}
-			p(C_1) \propto f(X) = \hat{p}(C_{1}) \  \prod_{i=1}^{n} \hat{p}(X_{i}\mid C_{1})
+			p(C_1 \mid X) \propto f(X) = \hat{p}(C_{1}) \  \prod_{i=1}^{n} \hat{p}(X_{i}\mid C_{1})
 		\end{align*}
 
 		\begin{align*}
@@ -493,7 +455,6 @@ Suponemos una distribución conocida para $p(\cdot)$
 		\end{align*}
 
 	\end{block}
-	% $\gamma$ es un hiperparámetro para la regularización del modelo
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -516,8 +477,13 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 		\\
 		donde cada clasificador $\hat{f}^{-k}$ se aprende sin las muestras de la partición $k$
 		\\
-		Computar $CV(\alpha) = \frac{1}{n} \sum^n_{i=1} L\left( y_i, \hat{f}_{\alpha}^{-k_i}(x_i) \right)$
+		Computar $CV(\alpha) = \frac{1}{n} \sum^n_{i=1} L\left( y_i, \hat{f}_{\alpha}^{-k_i}(X_i) \right)$
 	\end{block}
+
+% un estimador insesgado del EPE, specially when K is high
+% simple, convenient, analitico
+% Similar a akaike IC (1 + 2x)
+% no existe estimador insesgado de la varianza del K-CV
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -594,7 +560,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 
 % \end{block}
 
-	$H_u$ el lugar de residencia de un usuario y $E_z$ la zona endémica
+	$H_u$ el lugar de residencia de un usuario y $E_z$ es el conjunto de antenas de la zona endémica
 	\smallskip
 
 	Tomamos dos períodos:
@@ -613,31 +579,6 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \begin{frame}{Definiciones 1}
-
-% 	\medskip
-
-% 	El conjunto de antenas puede ser particionado a partir de su pertenencia a la zona endémica $A \ = E_Z \cup {E_Z}^{\complement} $
-
-% \end{frame}
-
-% \begin{frame}{Definiciones 2}
-% 	% Los registros definen el grafo de comunicaciones
-% 	% $\calG = \left< \calN, \calE \right> $ donde $\calN$ es el conjunto de nodos (usuarios) y $\calE$ el de interacciones
-
-% \end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Procedimiento:
-	% Obtener la lista de antenas de GC
-	% Determinar la casa de los usuarios
-	% Determinar, para cada usuario, si se comunicó con un habitante de GC
-	% Determinar las agregaciones por antena
-	% Visualizar(agrego alfa, min_volume y zoom en regiones)
 
 % \begin{frame}{Agregación a nivel de antenas}
 
@@ -701,32 +642,32 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Comunidades vulnerables resaltadas}
-
-%	Luego de filtrar los mapas y explorar con distintas visualizaciones, encontramos antenas especificas que se resaltan por su nivel de vulnerabilidad
-	%Como resultado del filtrado en cada zona, nos hemos quedado con las antenas destacadas por su nivel de riesgo y, utilizando su ubicaci\'on, las emparejamos con localidades o comunidades argentinas.
-
-	\bigskip
-
-	\begin{block}{Comunidades relevantes en Argentina}
-		\begin{itemize}
-			\item Córdoba: Freyre, La Tordilla, Balnearia
-			%hay muchas mas pero no se si esta bien poner esto
-			\item AMBA:\@ Avellaneda, Parque Patricios, San Isidro
-			\item Provincia de Buenos Aires: Lima, San Nicolás
-			\item La Rioja: Chamical y Malanzan
-			\item Salta: Tartagal
-		\end{itemize}
-
-	\end{block}
-\end{frame}
+%\begin{frame}{Comunidades vulnerables resaltadas}
+%
+%%	Luego de filtrar los mapas y explorar con distintas visualizaciones, encontramos antenas especificas que se resaltan por su nivel de vulnerabilidad
+%	%Como resultado del filtrado en cada zona, nos hemos quedado con las antenas destacadas por su nivel de riesgo y, utilizando su ubicaci\'on, las emparejamos con localidades o comunidades argentinas.
+%
+%	\bigskip
+%
+%	\begin{block}{Comunidades relevantes en Argentina}
+%		\begin{itemize}
+%			\item Córdoba: Freyre, La Tordilla, Balnearia
+%			%hay muchas mas pero no se si esta bien poner esto
+%%			\item AMBA:\@ Avellaneda, Parque Patricios, San Isidro
+%			\item Provincia de Buenos Aires: Lima, San Nicolás
+%			\item La Rioja: Chamical y Malanzan
+%			\item Salta: Tartagal
+%		\end{itemize}
+%
+%	\end{block}
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Definición de problemas de migración A}
 
-	Sean $EU_{1}$ y $EU_{0}$ los conjuntos de usuarios que vivieron en la región endémica durante $T_1$ y $T_0$ respectivamente
+	$EU_{1}$ y $EU_{0}$ los conjuntos de usuarios que vivieron en la región endémica durante $T_1$ y $T_0$ respectivamente
 	% así como también $H^0_u$ y $H^1_u$ para referirnos al hogar de $u$ a través de los períodos
 	\begin{block}{Problema 1}
 	Cuales usuarios vivían en la región endémica en el pasado:
@@ -808,14 +749,6 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}{Atributos en los datos 2}
-%
-%	\bigskip
-%
-%\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Ejemplo de atributos}
 Un ejemplo de dos atributos de $X$ procesados a partir del grafo de comunicaciones
 	\begin{table}[ht]
@@ -855,12 +788,11 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 		\item Cross validar hiperparámetros de $f$ c/ $\trainset$
 		\item Aprender $f_\theta^*$ con $\trainset$
 		\item Comparar  $Err_{\testset}(\theta^*)$ y  $Err_{\trainset}(\theta^*)$ en las métricas
-		\item Evaluar mejoras en complejidad, varianza e iterar en (I)
+		\item Evaluar ``best features'', mejoras en complejidad, e iterar en (I)
 	\end{enumerate}
 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Resultados y Conclusiones}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -973,10 +905,6 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 
 \begin{frame}{Mejores Atributos}
 
-	% \begin{block}{Facil Problema 1}
-	% 	Todas las metricas $\geq 75\%$ con la mejor en $97\%$
-	% \end{block}
-	% \begin{block}{Muy bajo $F1$}
 		Heurística para algoritmos de ensamble
 
 		\begin{itemize}
@@ -985,19 +913,9 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 			\item Diámetro de Movilidad
 		\end{itemize}
 
-% 	\end{block}
-% \begin{block}{}
-% 	\begin{enumerate}[I]
-% 	\end{enumerate}
-% \end{block}
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Conclusiones:
-
 
 \begin{frame}{Conclusiones Esperadas}
 
@@ -1033,17 +951,6 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 		\item Los meses también fueron atributos relevantes
 
 	\end{itemize}
-
-	% en estrategias que no son intrusivas a las personas
-
-
-	% tres tipos de atributos más relevantes para la clasificaición de los migrantes estaban relaciónadas con:
-	% \begin{enumerate}[I]
-	% 	\item la movilidad del usuario
-	% 	\item las interacciones y patrones de llamados con vecinos vulnerables, y
-	% 	\item uso celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
-	% \end{enumerate}
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1131,48 +1038,3 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 \vfill
 
 \end{document}
-
-
-
-
-%   ___  _     ___         ___________ __ __ _____ _____
-%  /   \| |   |   \       / ___/      |  |  |     |     |
-% |     | |   |    \     (   \_|      |  |  |   __|   __|
-% |  O  | |___|  D  |     \__  |_|  |_|  |  |  |_ |  |_
-% |     |     |     |     /  \ | |  | |  :  |   _]|   _]
-% |     |     |     |     \    | |  | |     |  |  |  |
-%  \___/|_____|_____|      \___| |__|  \__,_|__|  |__|
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%\begin{frame}{Objective: Chagas and Migrations}
-%	Our goal is to find those traditionally non-endemic places which have most of the migratory exchange with the ecoregion.
-%	El objetivo es encontrar las zonas del país donde exista más intercambio migratorio con la zona del Gran Chaco.
-%
-%	\bigskip
-%	We aim to find infected people living in areas which are traditionally non-endemic.
-%	Living outside \textit{Gran Chaco} and carrying the disease parasite \textit{trypanosoma cruzi} that causes Chagas.
-%
-%	\medskip
-%	Having a disease with long asymptomatic phases imply that long-term migrations are relevant to analyze.
-%
-%	El período durante el cual se puede estar enfermo sin síntomas es tan alto
-%	que se consideraron interesantes las migraciones largas.
-%
-%	\medskip
-%
-%	\begin{block}{The goal is to find...}
-%		\begin{itemize}
-%			\item individuals which have been infected in endemic areas and have later migrated.
-%			gente que haya contraído la enfermedad en zonas endémicas y luego haya migrado.
-%					\item ...personas que hayan nacido con ella (cuyos familiares/contactos pueden haber sido migrantes).	% Polémico? %naa
-%			\item seasonal workers whose residence varies during the year.
-%			trabajadores golondrina, que cambien su residencia\\ de acuerdo a la estación del año.
-%			\item outlying communities with probability of having a higher risk of Chagas prevalence.
-%			comunidades destacadas donde posiblemente exista una alta prevalencia de Chagas.
-%		\end{itemize}
-%	\end{block}
-%
-%\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
