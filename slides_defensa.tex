@@ -1,6 +1,7 @@
 \documentclass[xcolor=x11names]{beamer}
   \mode<presentation> {
-    \usetheme{Frankfurt}
+       \usetheme[secheader]{Boadilla}
+%    \usetheme{Antibes}
   }
 
 \usepackage{times}
@@ -114,7 +115,11 @@
 	}
 
 %\setbeamertemplate{footline}[text line]{\bf \insertshortauthor \hfill \insertshorttitle \hfill \insertframenumber/29}
-\setbeamertemplate{footline}{\hspace*{0.95\textwidth}\vspace{0.1cm} \insertframenumber/\inserttotalframenumber\null}
+\setbeamertemplate{footline}{
+	\hspace*{0.95\textwidth}
+	\vspace{0.1cm}
+	% \insertframenumber/\inserttotalframenumber\null
+}
 
 \AtBeginSection[]
 {
