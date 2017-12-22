@@ -92,8 +92,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automático}
-% \title[Chagas \& Big Data]{Explorando migraciones y difusi\'on del mal de Chagas en América Latina con aprendizaje automático}
+  \title[Chagas \& Big Data]{Explorando migraciones y difusión del mal de Chagas en América Latina con aprendizaje automático}
 
   \author[Sarraute,Salles,de Monasterio]{Juan de Monasterio\inst{1}
   \and Carlos Sarraute\inst{3}
@@ -220,13 +219,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Objetivo}
-	\begin{block}{\ldots atacar problemáticas de América Latina relaciónadas con el Chagas}
+	\begin{block}{\ldots atacar problemáticas de América Latina relacionadas con el Chagas}
 
 
 	\begin{itemize}
 		\item \ldots detectar \textbf{migraciones de largo plazo} 
 		%explicar vertical, congenita y transfusion/transplante
-		\item \ldots utilizar datos de telefonia celular
+		\item \ldots utilizar datos de telefonía celular
 		% for which a low proportion of the infected population knows that they have the disease.
 		
 		\item \ldots idealmente encontrar personas infectados y con fase asintomática
@@ -256,7 +255,7 @@
 \section{Clasificación Binaria Supervisada}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Error de Prediccion Esperado}
+\begin{frame}{Error de Predicción Esperado}
 		\centering
 
 		Sea $\textbf{X} \in \mathbb{R}^{n \times p}$ matriz aleatoria compuesta por muestras $\textbf{X}_i \in \mathbb{R}^{p}$\\
@@ -288,7 +287,7 @@
 
 	\bigskip
 
-	$f(\cdot)$, $L(\cdot)$ y el espacio de busqueda $\Theta$ de los \textit{aproximantes} son predeterminados
+	$f(\cdot)$, $L(\cdot)$ y el espacio de búsqueda $\Theta$ de los \textit{aproximantes} son predeterminados
 
 	\bigskip\
 	
@@ -375,14 +374,14 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 	\begin{block}{Función de pérdida (MLL)}
 		$$\operatorname{argmin}_{\theta} \ \sum_{i=1}^N \big(Y_i ( \theta \cdot X_i ) + \log(1 + e^{1- \theta \cdot X_i} ) \big) + \lambda { \| \theta \|_{2}}^2$$
 	\end{block}
-	% $\gamma$ es un hiperparámetro para la regularizacion del modelo
+	% $\gamma$ es un hiperparámetro para la regularización del modelo
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[shrink=2]{Árbol de decisión}
 
-Algoritmo recursivo y aleatorio que particióna el espacio en forma binaria $\mathcal{T}_{iz}(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \}$ y $\mathcal{T}_{de}(d,j)$
+Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mathcal{T}_{iz}(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \}$ y $\mathcal{T}_{de}(d,j)$
 
 	\begin{block}{Idea}
 		% $$$		
@@ -392,7 +391,6 @@ Algoritmo recursivo y aleatorio que particióna el espacio en forma binaria $\ma
 		\end{align*}
 			donde $Imp$ es una función de \textit{impureza} 
 		% \begin{align*}
-		% asdf
 		% \end{align*}
 	\end{block}
 
@@ -402,7 +400,7 @@ Algoritmo recursivo y aleatorio que particióna el espacio en forma binaria $\ma
 	\center\
 	$h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)$ \\
 	}
- 	con $L$ el número de regiones. Aqui $\theta = \bigcup\limits_{l=1}^{L} (d_l,j_l)$
+ 	con $L$ el número de regiones. Aquí $\theta = \bigcup\limits_{l=1}^{L} (d_l,j_l)$
 
 	% \begin{align*}			
 	% 			% h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)
@@ -486,12 +484,12 @@ Suponemos una distribución conocida para $p(\cdot)$
 		\end{align*}
 
 	\end{block}
-	% $\gamma$ es un hiperparámetro para la regularizacion del modelo
+	% $\gamma$ es un hiperparámetro para la regularización del modelo
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{estimación de Fronteras de Decision}
+\begin{frame}{estimación de Fronteras de Decisión}
 		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight, 
 										trim = 0.2 0.2 0.2 0.2cm, left, clip = true]{slides/plot_classifier_comparison.png}
 \end{frame}
@@ -500,10 +498,10 @@ Suponemos una distribución conocida para $p(\cdot)$
 
 \begin{frame}{$K$-Validación cruzada}
 
-Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacion del $EPE$
+Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimación del $EPE$
 
 	\begin{block}{Idea}
-		Dado un $\alpha \in \mathcal{A}$, particiónar las muestras en $K$ conjuntos al azar
+		Dado un $\alpha \in \mathcal{A}$, particionar las muestras en $K$ conjuntos al azar
 		\\
 		Entrenar $\hat{f}_{\alpha}^{-k}, \ k \in \{1, \ldots, K\}$
 		\\
@@ -568,7 +566,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Registros de Llamados Celulares (CDRs)}
 
-	$\approx$ 10 mil millones de registros detallados de llamados (CDRs) para Mexico y Argentina con 24 y 5 meses de datos respectivamente.
+	$\approx$ 10 mil millones de registros detallados de llamados (CDRs) para México y Argentina con 24 y 5 meses de datos respectivamente.
 
 	$$r =\left < u, w, t, d, a \right >$$ 
 %	con
@@ -703,11 +701,11 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacio
 
 	\begin{block}{Comunidades relevantes en Argentina}
 		\begin{itemize}
-			\item Cordoba: Freyre, La Tordilla, Balnearia
+			\item Córdoba: Freyre, La Tordilla, Balnearia
 			%hay muchas mas pero no se si esta bien poner esto
 			\item AMBA:\@ Avellaneda, Parque Patricios, San Isidro
-			\item Provincia de Buenos Aires: Lima, San Nicolas
-			\item La Rioja: Chamical y Malanz\'an
+			\item Provincia de Buenos Aires: Lima, San Nicolás
+			\item La Rioja: Chamical y Malanzan
 			\item Salta: Tartagal
 		\end{itemize}
 
@@ -785,14 +783,14 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacio
 		en kilómetros de la cápsula convexa generada por todas las antenas que un usuario utiliza en $T_1$. Hicimos la distinción para los registros de horarios no laborales.
 	\end{block}
 
-	\begin{block}{Region de residencia}
-	Un usuario es asignado a una region a partir de $H_u$
+	\begin{block}{Región de residencia}
+	Un usuario es asignado a una región a partir de $H_u$
 \end{block}
 
 
 	\begin{block}{Atributos del grafo de comunicaciones}
 		En cada arista $\left< u, w \right>$ del grafo se desagrega la interacción en base a distintos criterios
-		$\left< tiempo_{uw}, q\_llamados_{uw}, direccion, vulnerabilidad, momento, mes \right>$ 
+		$\left< tiempo_{uw}, q\_llamados_{uw}, dirección, vulnerabilidad, momento, mes \right>$ 
 %		donde $tiempo$ es el tiempo total en todos los llamados, $q\_llamados$ es la cantidad de llamados, $direccion$ es una variable booleana que indica si el llamado es entrante o saliente para $u$, $vulnerabilidad$ depende de si $w \in E_Z$ y $momento$ corresponde a una partición de la semana entre los días laborales, los fines de semana y los horarios no laborales
 %	
 \end{block}
@@ -810,7 +808,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacio
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Ejemplo de atributos}
-Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicaciones
+Un ejemplo de dos atributos de $X$ procesados a partir del grafo de comunicaciones
 	\begin{table}[ht]
 		\small
 		\centering
@@ -824,7 +822,7 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 				\textbf{Vulnerabilidad} & \textbf{Mes} \\
 				% \midrule
 				\midrule
-				LLamados Fds EntrVul08    & Conteo & Final de Semana & Entrante & Interacciones vulnerables únicamente & August\\
+				Llamados Fds EntrVul08    & Conteo & Final de Semana & Entrante & Interacciones vulnerables únicamente & Agosto\\
 				% \midrule
 				\midrule
 				Tiempo LuVierNoche Sal12 & Tiempo de duración (s) & Durante la semana fuera de horario laboral & Saliente & Sin filtro endémico   & Diciembre \\
@@ -870,8 +868,8 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 			&  \multicolumn{4}{c}{Problema 1} \\
 			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
-			$Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96\\
-			$Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 \\
+			$Regresión \ Logística$     & 0.893 & 0.857 & 0.9   & 96\\
+			$Bosques \ Aleatorios$            & 0.878 & 0.857 & 0.9  & 33 \\
 			$GTB$ & 0.974 & 0.978 & 0.952 & 41  \\
 			$Naive \ Bayes$               & 0.84  & 0.82  & 0.75  & 2  \\
 
@@ -888,8 +886,8 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 			&  \multicolumn{4}{c}{Problema 2} \\
 			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
-			$Logistic \ Regression$     & 0.714 & 0.726 & 0.248 & 119 \\
-			$Random \ Forest$            & 0.79  & 0.776 & 0.278 & 45  \\
+			$Regresión \ Logística$     & 0.714 & 0.726 & 0.248 & 119 \\
+			$Bosques \ Aleatorios$            & 0.79  & 0.776 & 0.278 & 45  \\
 			$GTB$ & 0.838 & 0.819 & 0.291 & 54 \\
 			$Naive \ Bayes$               & 0.64  & 0.61  & 0.31  & 2   \\
 
@@ -910,8 +908,8 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 			&  \multicolumn{4}{c}{Problema 3} \\
 			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
-			$Logistic \ Regression$     & 0.705 & 0.754 & 0.307 & 115 \\
-			$Random \ Forest$            &  0.792 & 0.845 & 0.346 & 21 \\
+			$Regresión \ Logística$     & 0.705 & 0.754 & 0.307 & 115 \\
+			$Bosques \ Aleatorios$            &  0.792 & 0.845 & 0.346 & 21 \\
 			$GTB$ & 0.811 & 0.855 & 0.359 & 33 \\
 			$Naive \ Bayes$               & 0.65  & 0.63  & 0.45  & 1  \\
 
@@ -925,8 +923,8 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 			&  \multicolumn{4}{c}{Problema 4} \\
 			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
-			$Logistic \ Regression$     & 0.883 & 0.85  & 0.331 & 106 \\
-			$Random \ Forest$            & 0.898 & 0.853 & 0.393 & 19 \\
+			$Regresión \ Logística$     & 0.883 & 0.85  & 0.331 & 106 \\
+			$Bosques \ Aleatorios$            & 0.898 & 0.853 & 0.393 & 19 \\
 			$GTB$ & 0.885 & 0.873 & 0.384 & 47 \\
 			$Naive \ Bayes$               & 0.85  & 0.76  & 0.62 & 1 \\
 
@@ -941,13 +939,13 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 \begin{frame}{Resultados}
 	
 	\begin{block}{Simple Problema 1}
-		Todas las metricas $\geq 75\%$ con la mejor en $97\%$
+		Todas las métricas $\geq 75\%$ con la mejor en $97\%$
 	\end{block}
 
 	\begin{block}{Muy bajo $F1$}
 		\begin{itemize}[]
-			\item Desbalance de clases deriva en sobreconfianza
-			\item Precision y ``recall'' asimetricos
+			\item Desbalance de clases deriva en sobre-confianza
+			\item Precision y ``Recall'' asimétricos
 			\item Sorpresa en ``Naive Bayes'' para ser hasta $50\%$ mejor en el Problema 4
 			\item El Problema 2 es de mayor desbalance
 		\end{itemize}
@@ -970,12 +968,12 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 	% 	Todas las metricas $\geq 75\%$ con la mejor en $97\%$
 	% \end{block}
 	% \begin{block}{Muy bajo $F1$}
-		Heuristica para algoritmos de ensamble
+		Heurística para algoritmos de ensamble
 
 		\begin{itemize}
 			\item Interacciones en el mes de Diciembre o en Agosto
 			\item Interacciones vulnerables
-			\item Diametro de Mobilidad
+			\item Diámetro de Movilidad
 		\end{itemize}
 
 % 	\end{block}
@@ -1010,7 +1008,7 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 
 	\medskip
 
-	Utilizaci\'on novedosa de los CDRs 
+	Utilización novedosa de los CDRs 
 	% es novedosa de los CDRs y se puede extender hacia otras epidemias
 
 \end{frame}
@@ -1094,7 +1092,7 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 
 \begin{frame}{Gracias! }
 	
-	\begin{block}{Companeros de proyecto}
+	\begin{block}{Compañeros de proyecto}
 					\center\
 					Carolina Lang (UBA, GranData Labs) \\
 					 Diego Weinberg (Fundación Mundo Sano) \\
