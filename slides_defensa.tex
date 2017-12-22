@@ -80,7 +80,7 @@
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-\beamertemplatenavigationsymbolsempty
+% \beamertemplatenavigationsymbolsempty\
 
 \newcommand\MyBox[2]{
 	\fbox{\lower0.75cm
@@ -108,6 +108,11 @@
 
   \date{ FCEyN \\ Diciembre, 2017}
 
+  % logo of my university
+	\titlegraphic{
+	% \includegraphics[width=1.5cm]{slides/250px-UBA.png}\hspace*{0.01cm}~%
+   			\includegraphics[width=1.3cm]{slides/250px-UBA.png}
+	}
 
 %\setbeamertemplate{footline}[text line]{\bf \insertshortauthor \hfill \insertshorttitle \hfill \insertframenumber/29}
 \setbeamertemplate{footline}{\hspace*{0.95\textwidth}\vspace{0.1cm} \insertframenumber/\inserttotalframenumber\null}
@@ -134,138 +139,124 @@
 \section{Introducción}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Presentación  del proyecto}
+% \begin{frame}{Presentación  del proyecto}
 
-	\begin{block}{Contexto}
-		\begin{itemize}
-			\item Comenzado en agosto 2015
-			\item Investigación sobre la enfermedad del Chagas.
-			\item Trabajo multidisciplinario de biología, computación, estadística
-			\item ``Big Data'' + Aprendizaje Automático integrando datos de telefonía celular
-			\item Buscamos caracterizar y predecir migraciones de usuarios
-		\end{itemize}
-	\end{block}
+% 	\begin{block}{Contexto}
+% 		\begin{itemize}
+% 			\item Comenzado en agosto 2015
+% 			\item Investigación sobre la enfermedad del Chagas.
+% 			\item Trabajo multidisciplinario de biología, computación, estadística
+% 			\item ``Big Data'' + Aprendizaje Automático integrando datos de telefonía celular
+% 			\item Buscamos caracterizar y predecir migraciones de usuarios
+% 		\end{itemize}
+% 	\end{block}
 
-	%\pause
+% 	%\pause
 
-\end{frame}
+% \end{frame}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Problemática}
-
-			El Chagas es una enfermedad causada por el \textit{tripanosoma cruzi}, un parásito que se extiende por todo el continente americano
-			% y tambi\'en predominante en algunas comunidades que han migrado de esta zona. .
-
-			\medskip  El insecto \textit{triatoma infestans} es el mayor transmisor de esta enfermedad
-
-			\medskip  La Organización Mundial de la Salud (OMS) estima 65 millones de personas expuestas a esta enfermedad que es endémica en más de 21 países latino americanos
-			%Esta zona comprende el norte y noroeste de la Argentina
-			%así como varios países limítrofes (Brasil, Bolivia, Paraguay, Perú).
-
-			\medskip El acceso a tratamientos es extremadamente limitado para las personas infectadas
-
-\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Epidemiología del Chagas}
-			\includegraphics[height=.9\textheight]{slides/triatomine-map.jpg}
+% \begin{frame}{Problemática}
+
+% 			% El Chagas es una enfermedad causada por el parásito \textit{tripanosoma cruzi}
+% 			% % y tambi\'en predominante en algunas comunidades que han migrado de esta zona. .
+
+% 			% \medskip  El insecto \textit{triatoma infestans} es el mayor transmisor de esta enfermedad
+
+% 			% \medskip  La Organización Mundial de la Salud (OMS) estima 65 millones de personas expuestas a esta enfermedad que es endémica en más de 21 países latino americanos
+% 			% %Esta zona comprende el norte y noroeste de la Argentina
+% 			% %así como varios países limítrofes (Brasil, Bolivia, Paraguay, Perú).
+
+% 			% \medskip El acceso a tratamientos es extremadamente limitado para las personas infectadas
+
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Problemática del Chagas}
+			\includegraphics[scale=0.75]{slides/triatomine-map.jpg}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Chagas en Argentina}
+\begin{frame}{Chagas en Argentina y México}
 	\begin{columns}
+
 		\begin{column}{0.45\textwidth}
-			% In Argentina, the disease is endemic in the \textit{Gran Chaco} region and
-			% also predominant in communities with migrations from this area.
-			La enfermedad es endémica de la zona del Gran Chaco
-			% y tambi\'en predominante en algunas comunidades que han migrado de esta zona.
-
-			\medskip Las estimaciones de usuarios infectados oscilan alrededor de 1.5 millones de personas con solo 1 a 2 mil tratamientos realizados por año. En 2009 los tests de seroprevalencia en embarazadas alcanzaba el 4.2\% de casos.
-
-			\medskip
-			 % infected users and only 1 to 2 thousand treatments done yearly, where 30\% of all infected will develop a cardiopathy.
-			% % % %DECIR ORAL: Seroprevalence tests in pregnant women reached 4.2% in 2009 which predicted 1.300 infected newborns that year.
-
+			\centering
+				\includegraphics[height=.7\textheight]{slides/GranChaco_TNC-Argentina.jpeg}
 		\end{column}
+		% 	\medskip Las estimaciones de usuarios infectados oscilan alrededor de 1.5 millones de personas con solo 1 a 2 mil tratamientos realizados por año. En 2009 los tests de seroprevalencia en embarazadas alcanzaba el 4.2\% de casos.
+
+
 		\begin{column}{0.45\textwidth}
-			\includegraphics[height=.7\textheight]{slides/Ambientes_GranChaco_TNC-Argentina.png}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Chagas en México}
-	\begin{columns}
-		\begin{column}{0.3\textwidth}
-
-			La enfermedad es endémica en algunas regiones y estados particulares
-			 % is endemic in some particular states of the country, shown in the map.
-			%The disease is endemic in the states of Jalisco, Oaxaca, Veracruz, Guerrero, Morelos, Puebla, Hidalgo and Tabasco.
-			%This selection was based on the top 25\% prevalance states.
-
-			% \medskip Non official reports estimate 5.5 million of potentially affected people and studies indicate that less than 0.5\% of infected have access to treatments.
-
-			\medskip No oficialmente, los reportes estiman 5.5 millones de personas potencialmente afectados y donde menos del 0.5\% de los infectados tienen acceso a tratamientos
-			 % official reports estimate 5.5 million of potentially affected people and studies indicate that less than 0.5\% of infected have access to treatments.
-
-
-		\end{column}
-		\begin{column}{0.7\textwidth}
+			\centering
 			\includegraphics[width=\textwidth]{slides/Ambientes_Gran_Chaco-Mexico_original.png}
 		\end{column}
+
+% 			\medskip No oficialmente, los reportes estiman 5.5 millones de personas potencialmente afectados y donde menos del 0.5\% de los infectados tienen acceso a tratamientos
+
 	\end{columns}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Puntos claves}
-	% Chagas is a disease:
-	El Chagas es una enfermedad:
-	\begin{itemize}
-		\item \ldots con diferentes vías de transmisión y donde las \textbf{migraciones de largo plazo} juegan un papel clave
-		%explicar vertical, congenita y transfusion/transplante
-		\item \ldots donde un pequeño número de la población infectada sabe que la está padeciendo
-		% for which a low proportion of the infected population knows that they have the disease.
-		\item \ldots con una fase asintomática que puede extenderse más de 10 años
-		% % ORALLY SAY: 30 years of vector mitigation activities in GC.
-		\item \ldots que es epidémica y desatendida
-		% \item ... which is epidemic and unattended.
-	\end{itemize}
-	En particular, la fundación busca encontrar chagásicos en zonas no tradicionalmente endémicas
-	%Es decir, gente de fuera de Gran Chaco infectada con \textit{Trypanosoma Cruzi} (el parásito que causa el Chagas).
-\end{frame}
+% \begin{frame}{Puntos claves}
+% 	% Chagas is a disease:
+% 	El Chagas es una enfermedad:
+% 	\begin{itemize}
+% 		\item \ldots con diferentes vías de transmisión y donde las \textbf{migraciones de largo plazo} juegan un papel clave
+% 		%explicar vertical, congenita y transfusion/transplante
+% 		\item \ldots donde un pequeño número de la población infectada sabe que la está padeciendo
+% 		% for which a low proportion of the infected population knows that they have the disease.
+% 		\item \ldots con una fase asintomática que puede extenderse más de 10 años
+% 		% % ORALLY SAY: 30 years of vector mitigation activities in GC.
+% 		\item \ldots que es epidémica y desatendida
+% 		% \item ... which is epidemic and unattended.
+% 	\end{itemize}
+% 	En particular, la fundación busca encontrar chagásicos en zonas no tradicionalmente endémicas
+% 	%Es decir, gente de fuera de Gran Chaco infectada con \textit{Trypanosoma Cruzi} (el parásito que causa el Chagas).
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Objetivo}
 	\begin{block}{\ldots atacar problemáticas de América Latina relaciónadas con el Chagas}
 
-	% The purpose of this work is to support ongoing national health campaigns
-	% by analyzing mobility information contained in Call Detail Records.
-	Este trabajo propone un modelo que utiliza información de registros (logs) de llamados telefónicos
-	como forma de observar en qué regiones del país se espera encontrar una alta proporción de personas chagásicas
 
-	\bigskip
-	Sabiendo que las migraciones humanas tienen un rol crucial en la diseminación de la enfermedad, el modelo busca
-	detectar migraciones a partir de los patrones de uso celular
-	% , donde, idealmente, se vea que una fluida comunicación con el lugar de orígen es indicador
+	\begin{itemize}
+		\item \ldots detectar \textbf{migraciones de largo plazo} 
+		%explicar vertical, congenita y transfusion/transplante
+		\item \ldots utilizar datos de telefonia celular
+		% for which a low proportion of the infected population knows that they have the disease.
+		
+		\item \ldots idealmente encontrar personas infectados y con fase asintomática
+		% % ORALLY SAY: 30 years of vector mitigation activities in GC.
+		% \item \ldots que es epidémica y desatendida
+		% \item ... which is epidemic and unattended.
+	\end{itemize}
 
-	\bigskip
-	Idealmente podremos encontrar aquellos indicadores de usuarios que mejor determinen las zonas del país tradicionalmente no-endémicas, donde exista más intercambio migratorio con la zona endémica del país
-	% We strongly assume that long-term migrations are related to fluid communications with the past area of residence.
+	% Este trabajo propone un modelo que utiliza información de registros (logs) de llamados telefónicos
+	% como forma de observar en qué regiones del país se espera encontrar una alta proporción de personas chagásicas
+
+	% \bigskip
+	% Sabiendo que las migraciones humanas tienen un rol crucial en la diseminación de la enfermedad, el modelo busca
+	% detectar migraciones a partir de los patrones de uso celular
+	% % , donde, idealmente, se vea que una fluida comunicación con el lugar de orígen es indicador
+
+	% \bigskip
+	% Idealmente podremos encontrar aquellos indicadores de usuarios que mejor determinen las zonas del país tradicionalmente no-endémicas, donde exista más intercambio migratorio con la zona endémica del país
+	% % We strongly assume that long-term migrations are related to fluid communications with the past area of residence.
 	\end{block}
 \end{frame}
 
-%% HABLAR de pre trabajos en vih y malaria en el D4D? .
-%
+% HABLAR de pre trabajos en vih y malaria en el D4D? .
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Clasificación Binaria Supervisada}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Objetivo Principal}
+\begin{frame}{Error de Prediccion Esperado}
 		\centering
 
 		Sea $\textbf{X} \in \mathbb{R}^{n \times p}$ matriz aleatoria compuesta por muestras $\textbf{X}_i \in \mathbb{R}^{p}$\\
@@ -303,12 +294,10 @@
 	
 	Desconocemos $P(\textbf{X},\textbf{Y})$ pues nos basamos en datos finitos\\
 
-	$X = \trainsetn  \sqcup \testsetn $ con $\trainsetn$ conjunto de aprendizaje/entrenamiento
-
-	$$\testsetn$$ conjunto de aprendizaje
+	$X = \trainsetn  \sqcup \testsetn $
 
 	\bigskip\
-	En Clasificación: $y_i \in \{0,1\} \ \forall  i$ y $L(z,w) =  \mathbb{I}(z \neq w ) $
+	En Clasificación: $y_i \in \{0,1\} \ \forall  i$ \ y \ $L(z,w) =  \mathbb{I}(z \neq w ) $
 
 \end{frame}
 
@@ -337,7 +326,7 @@ Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{ Ajuste Poly-M vs Ajuste Poly-2 }
-\center
+\center\
 \includegraphics[width=0.9\textheight]{slides/wiki_overfit_complex_classifier_demo.png}
 \end{frame}
 
@@ -377,7 +366,7 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 	% 	% \end{split}
 	\end{align*}
 
-	El modelo propone $\exists \theta \ t.q.$
+	El modelo propone $\exists \theta \ tq$
 	$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$
 	$$Y_i \mid X_i \ \sim \operatorname{Bernoulli}(p_i)$$
 
@@ -410,7 +399,7 @@ Algoritmo recursivo y aleatorio que particióna el espacio en forma binaria $\ma
 	\begin{block}{Función de pérdida}
 	\small
 	{
-	\center
+	\center\
 	$h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)$ \\
 	}
  	con $L$ el número de regiones. Aqui $\theta = \bigcup\limits_{l=1}^{L} (d_l,j_l)$
@@ -509,7 +498,7 @@ Suponemos una distribución conocida para $p(\cdot)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{$K$ - Validación cruzada}
+\begin{frame}{$K$-Validación cruzada}
 
 Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacion del $EPE$
 
@@ -518,7 +507,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacio
 		\\
 		Entrenar $\hat{f}_{\alpha}^{-k}, \ k \in \{1, \ldots, K\}$
 		\\
-		donde cada clasificador $\hat{f}^{-k}$ aprende sin usar las muestras de la partición $k$
+		donde cada clasificador $\hat{f}^{-k}$ se aprende sin las muestras de la partición $k$
 		\\
 		Computar $CV(\alpha) = \frac{1}{n} \sum^n_{i=1} L\left( y_i, \hat{f}_{\alpha}^{-k_i}(x_i) \right)$
 	\end{block}
@@ -527,8 +516,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Métricas de clasificadores binarios}
-
-	\center
+	\center\
 	Conteo de las combinaciones de $\hat{Y}$ y $Y$
 
 		\begin{columns}
@@ -580,57 +568,58 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ via estimacio
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Registros de Llamados Celulares (CDRs)}
 
-Los conjuntos de datos consisten de registros detallados de llamados (CDRs) para Mexico y Argentina provistos por una compañía de telecomunicaciones (TelCo) de cada país. El primero tiene 24 meses de datos mientras que el segundo es de 5 meses.
+	$\approx$ 10 mil millones de registros detallados de llamados (CDRs) para Mexico y Argentina con 24 y 5 meses de datos respectivamente.
 
-\medskip
+	$$r =\left < u, w, t, d, a \right >$$ 
+%	con
+%	\begin{itemize}
+%		\item Usuarios anonimizados $u$ y $w$ en esa llamada
+%		\item Tiempo de inicio y duración de la llamada $t$
+%		\item Dirección $d$ de la llamada (entrante o saliente, con respecto a $u$)
+%		\item $a$ es el ID de la antena telefónica usada por $u$ en esa comunicación
+%	\end{itemize}
 
-En total, cada dataset tiene mas de 10 mil millones de registros realizados por 8 millones y 2 millones de usuarios, respectivamente para Argentina y México\footnote{No tenemos ninguna información personal de los usuarios como nombre, dirección, teléfono y su privacidad está asegurada mediante criptografía.}
+	\medskip
 
-\medskip
-Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
+ % realizados por 8 millones y 2 millones de usuarios, respectivamente para Argentina y México\footnote{No tenemos ninguna información personal de los usuarios como nombre, dirección, teléfono y su privacidad está asegurada mediante criptografía.}
+% \medskip
+% Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 % \end{block}
-\end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Definiciones 1}
-
-	Podemos representar cada registro en una tupla $r =\left < u, w, t, d, a \right >$ que contiene:
-	\begin{itemize}
-		\item Usuarios anonimizados $u$ y $w$ en esa llamada
-		\item Tiempo de inicio y duración de la llamada $t$
-		\item Dirección $d$ de la llamada (entrante o saliente, con respecto a $u$)
-		\item $a$ es el ID de la antena telefónica usada por $u$ en esa comunicación
-	\end{itemize}
-
-	\medskip
-	$\forall u \  \exists \  H_u$ el lugar de residencia de un usuario que es determinado como la antena $a$ más utilizada de lunes a viernes y fuera del horario laboral. La endemicidad de un usuario está determinado por la condición $H_u \in E_Z$
-
-	\medskip
-
-	El conjunto de antenas puede ser particiónado a partir de su pertenencia a la zona endémica $A \ = E_Z \cup {E_Z}^{\complement} $
-
-\end{frame}
-
-
-
-\begin{frame}{Definiciones 2}
-	Los registros definen el grafo de comunicaciones
-	$\calG = \left< \calN, \calE \right> $ donde $\calN$ es el conjunto de nodos (usuarios) y $\calE$ el de interacciones
-
-	\medskip
-	Dividimos los 24 meses del dataset mexicano dos períodos:
+	$H_u$ el lugar de residencia de un usuario y $E_z$ la zona endémica 
+	\smallskip
+	
+	Tomamos dos períodos:
+	\smallskip
 	\begin{enumerate*}[label={\alph*)},]
-			\item $T_0$ desde Enero 2014 hasta Julio 2015 es el \textit{pasado} y
-			\item $T_1$ desde Agosto 2015 hasta Diciembre 2015, considerado el \textit{presente}
+			\item $T_0$ desde Enero 2014 hasta Julio 2015 
+			\item $T_1$ desde Agosto 2015 hasta Diciembre 2015
 			% . Este va a ser nuestro dataset principal a procesar.
 	\end{enumerate*}
 
 	\medskip
-	Diremos que un usuario $u$ es vulnerable en un mes dado si $\exists \ r = \ \left < u, w, t, d, a \right > $ tal que $H_w \in E_z$ para ese mes
+	 $u$ es vulnerable si $\exists \ r = \ \left < u, w, t, d, a \right > $ tal que $H_w \in E_z$ para ese mes
+
+	% que es determinado como la antena $a$ más utilizada de lunes a viernes y fuera del horario laboral. La endemicidad de un usuario está determinado por la condición $H_u \in E_Z$
 
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \begin{frame}{Definiciones 1}
+
+% 	\medskip
+
+% 	El conjunto de antenas puede ser particionado a partir de su pertenencia a la zona endémica $A \ = E_Z \cup {E_Z}^{\complement} $
+
+% \end{frame}
+
+% \begin{frame}{Definiciones 2}
+% 	% Los registros definen el grafo de comunicaciones
+% 	% $\calG = \left< \calN, \calE \right> $ donde $\calN$ es el conjunto de nodos (usuarios) y $\calE$ el de interacciones
+
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -643,50 +632,24 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 	% Determinar las agregaciones por antena
 	% Visualizar(agrego alfa, min_volume y zoom en regiones)
 
-\begin{frame}{Agregación a nivel de antenas}
+% \begin{frame}{Agregación a nivel de antenas}
 
-	%\pause\
-	\begin{block}{Usuarios o llamados vulnerables}
-	Para un mes dado y una antena $a$ tendremos la tupla $\left< N_a, V_a, C_a, VC_a \right>$ donde
-		\begin{itemize}
-			\item El número total de usuarios residentes $N_a$
-			\item El número total de residentes vulnerables $V_a$
-			\item El volumen total de llamados salientes $C_a$
-			\item El volumen de llamados salientes en una interacción \textit{vulnerable} $VC_a$
-		\end{itemize}
-	% Esta  definen las propiedas are the properties we extracted for each antenna in the studied countries.
-	\end{block}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Exploración con mapas de calor }
-		Generamos mapas de calor, graficando un círculo por antena sobre un mapa geopolítico
-
-		\medskip
-		El color del círculo considera o la tasa de llamados vulnerables $\frac{V_a}{N_a}$ o la de llamados vulnerables $\frac{C_a}{VC_a}$
-
-		\medskip
-		El \textbf{\'area} del círculo depende de la cantidad de usuarios o llamados de $a$
-
-
-	\begin{block}{Filtros de antenas}
-		Definimos a $\beta$ como nuestro parámetro de cota inferior para que una antena sea graficada
-
-		\medskip
-		% Buscamos poder encontrar aquellas antenas donde existen mayores interacciones con las zonas endémicas
-
-	\end{block}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Exploración de los datos}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
+% 	%\pause\
+% 	\begin{block}{Usuarios o llamados vulnerables}
+% 	Para un mes dado y una antena $a$ tendremos la tupla $\left< N_a, V_a, C_a, VC_a \right>$ donde
+% 		\begin{itemize}
+% 			\item El número total de usuarios residentes $N_a$
+% 			\item El número total de residentes vulnerables $V_a$
+% 			\item El volumen total de llamados salientes $C_a$
+% 			\item El volumen de llamados salientes en una interacción \textit{vulnerable} $VC_a$
+% 		\end{itemize}
+% 	% Esta  definen las propiedas are the properties we extracted for each antenna in the studied countries.
+% 	\end{block}
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Mapa de calor: Argentina, $\beta$ = 1 \%}
+	\frametitle{Exploración con mapas de calor: Argentina $\geq$ = 1 \%}
 	\center\
 	\includegraphics[height=.9\textheight,width = .9\columnwidth, keepaspectratio]
 	{slides/201112_hi_res_argentina_usuarios_proporcion_circulos_beta1.png}
@@ -694,7 +657,7 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Mapa de calor: Argentina, $\beta$ = 15 \%}
+	\frametitle{Exploración con mapas de calor: Argentina, $\geq$ = 15 \%}
 	\center\
 	\includegraphics[height=.9\textheight,width = .9\columnwidth, keepaspectratio]
 	{slides/201112_hi_res_argentina_usuarios_proporcion_circulos_beta15.png}
@@ -702,77 +665,47 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Mapa de calor: Argentina, $\beta$ = 30 \%}
-	\center\
-	\includegraphics[height=.9\textheight,width = .9\columnwidth, keepaspectratio]
-	{slides/201112_hi_res_argentina_usuarios_proporcion_circulos_beta30.png}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-	\frametitle{Mapa de calor: Argentina, $\beta$ = 50 \%}
+	\frametitle{Exploración con mapas de calor: Argentina, $\geq$ = 50 \%}
 	\center\
 	\includegraphics[height=.9\textheight,width = .9\columnwidth, keepaspectratio]
 	{slides/201112_hi_res_argentina_usuarios_proporcion_circulos_beta50.png}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\setbeamercolor{background canvas}{bg=white}
-
-\begin{frame}{Regiones focalizadas}
-	A partir de estas primeras visualizaciones, con la gente de la fundación decidimos focalizar la granularidad en regiones específicas y fuera del Gran Chaco.
-	%A partir de estos primeros mapas se decidi\'o enfocar la visualizaci\'on y mejorar la precisi\'on en ciertas regiones fuera del Gran Chaco.
-		\begin{itemize}
-			\item Tierra del Fuego
-			\item Este de Río Negro
-			\item Buenos Aires
-			\item Capital Federal, Sur y Norte de CABA y AMBA
-			\item Córdoba Central
-		\end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Mapa de calor: AMBA, $\beta$ = 2 \%}
-	\centering
-	\includegraphics[height=.9\textheight,width = .9\columnwidth,keepaspectratio]
-	{slides/201112_hi_res_amba_usuarios_proporcion_circulos_beta2.png}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-	\frametitle{Mapa de calor: AMBA, $\beta$ = 10 \%}
+	\frametitle{Exploración con mapas de calor: AMBA, $\geq$ = 10 \%}
 	\centering
 	\includegraphics[height=.9\textheight,width = .9\columnwidth,keepaspectratio]
 	{slides/201112_hi_res_amba_usuarios_proporcion_circulos_beta10.png}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Mapa de calor: AMBA, $\beta$ = 20 \%}
+	\frametitle{Exploración con mapas de calor: AMBA, $\geq$ = 20 \%}
 	\centering
 	\includegraphics[height=.9\textheight,width = .9\columnwidth,keepaspectratio]
 	{slides/201112_hi_res_amba_usuarios_proporcion_circulos_beta20.png}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-	\frametitle{Heat Map AMBA, $\beta$ = 28 \%}
+	\frametitle{Exploración con mapas de calor, $\geq$ = 28 \%}
 	\centering
 	\includegraphics[height=.9\textheight,width = .9\columnwidth,keepaspectratio]
 	{slides/201112_hi_res_amba_usuarios_proporcion_circulos_beta28.png}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Comunidades resaltadas}
-	Luego de filtrar los mapas y explorar con distintas visualizaciones, encontramos antenas especificas que se resaltan por su nivel de vulnerabilidad
+\begin{frame}{Comunidades vulnerables resaltadas}
+
+%	Luego de filtrar los mapas y explorar con distintas visualizaciones, encontramos antenas especificas que se resaltan por su nivel de vulnerabilidad
 	%Como resultado del filtrado en cada zona, nos hemos quedado con las antenas destacadas por su nivel de riesgo y, utilizando su ubicaci\'on, las emparejamos con localidades o comunidades argentinas.
 
 	\bigskip
 
-	\begin{block}{Ejemplos de comunidades en Argentina}
+	\begin{block}{Comunidades relevantes en Argentina}
 		\begin{itemize}
 			\item Cordoba: Freyre, La Tordilla, Balnearia
 			%hay muchas mas pero no se si esta bien poner esto
-			\item AMBA: Avellaneda, Parque Patricios, San Isidro
+			\item AMBA:\@ Avellaneda, Parque Patricios, San Isidro
 			\item Provincia de Buenos Aires: Lima, San Nicolas
 			\item La Rioja: Chamical y Malanz\'an
 			\item Salta: Tartagal
@@ -844,9 +777,70 @@ Para los dos países tenemos más de cuatro mil antenas celulares geolocalizadas
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}{Atributos en los datos}
+%	Solamente procesamos los CDRs de $T_1$ 
+%	\bigskip
+
+	\begin{block}{Diámetro de Movilidad}
+		en kilómetros de la cápsula convexa generada por todas las antenas que un usuario utiliza en $T_1$. Hicimos la distinción para los registros de horarios no laborales.
+	\end{block}
+
+	\begin{block}{Region de residencia}
+	Un usuario es asignado a una region a partir de $H_u$
+\end{block}
+
+
+	\begin{block}{Atributos del grafo de comunicaciones}
+		En cada arista $\left< u, w \right>$ del grafo se desagrega la interacción en base a distintos criterios
+		$\left< tiempo_{uw}, q\_llamados_{uw}, direccion, vulnerabilidad, momento, mes \right>$ 
+%		donde $tiempo$ es el tiempo total en todos los llamados, $q\_llamados$ es la cantidad de llamados, $direccion$ es una variable booleana que indica si el llamado es entrante o saliente para $u$, $vulnerabilidad$ depende de si $w \in E_Z$ y $momento$ corresponde a una partición de la semana entre los días laborales, los fines de semana y los horarios no laborales
+%	
+\end{block}
+
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{frame}{Atributos en los datos 2}
+%
+%	\bigskip
+%
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ejemplo de atributos}
+Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicaciones
+	\begin{table}[ht]
+		\small
+		\centering
+		\resizebox{\textwidth}{!}{
+			\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
+			% \begin{tabular} {|p{1.5cm} p{1.5cm} p{2cm} p{1.5cm} p{2cm} p{1.5cm} p{1cm}}
+				%{l r r r r r r }
+				% \toprule
+				\toprule
+				\textbf{Nombre del atributo} & \textbf{Q\_llamados / Tiempo} & \textbf{Momento} & \textbf{Dirección} &
+				\textbf{Vulnerabilidad} & \textbf{Mes} \\
+				% \midrule
+				\midrule
+				LLamados Fds EntrVul08    & Conteo & Final de Semana & Entrante & Interacciones vulnerables únicamente & August\\
+				% \midrule
+				\midrule
+				Tiempo LuVierNoche Sal12 & Tiempo de duración (s) & Durante la semana fuera de horario laboral & Saliente & Sin filtro endémico   & Diciembre \\
+				% \hline
+				\bottomrule
+			\end{tabular}
+		}
+	\end{table}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{ Proceso de experimentación }
 
-Dado $(X,Y)$ y un clasificador $f_\theta \ t.q. \ \theta \in \Theta$
+Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 	\begin{enumerate}[I]
 		% \item a
 		% \item b
@@ -858,64 +852,6 @@ Dado $(X,Y)$ y un clasificador $f_\theta \ t.q. \ \theta \in \Theta$
 	\end{enumerate}
 
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Atributos en los datos}
-	Procesamos los CDRs de $T_1$ para generar un conjunto de entrenamiento $(X,Y)$ donde $X \in \mathbb{R}^{n \times p}$ es una matriz con un usuario por fila e $Y \in \mathbb{R}^n$ es el vector de respuesta para la movilidad endémica de este usuario
-
-	\bigskip
-
-	\begin{block}{Diámetro de Movilidad}
-		Tomamos el diametro en kilómetros de la cápsula convexa generada por todas las antenas que un usuario utiliza en $T_1$. Hicimos la distinción para los registros de horarios no laborales.
-	\end{block}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Atributos en los datos 2}
-	Procesamos los CDRs de $T_1$ para generar un conjunto de entrenamiento $(X,Y)$ donde $X \in \mathbb{R}^{n \times p}$ es una matriz con un usuario por fila e $Y \in \mathbb{R}^n$ es el vector de respuesta para la movilidad endémica de este usuario
-
-	\bigskip
-
-	\begin{block}{Atributos del grafo $\calG$ y de comunicaciones}
-		En cada arista $\left< u, w \right> \in \calE$, desagregamos la interacción en base a múltiples criterios. Para cada mes generamos atributos a partir de la tupla  $\left< tiempo_{uw}, q\_llamados_{uw}, direcci on, vulnerabilidad, momento \right>$ donde $tiempo$ es el tiempo total en todos los llamados, $q\_llamados$ es la cantidad de llamados, $direccion$ es una variable booleana que indica si el llamado es entrante o saliente para $u$, $vulnerabilidad$ depende de si $w \in E_Z$ y $momento$ corresponde a una partición de la semana entre los días laborales, los fines de semana y los horarios no laborales
-	\end{block}
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Ejemplo de atributos}
-Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicaciones
-	\begin{table}[ht]
-		\label{tab:data_example}
-		\footnotesize
-		\centering
-		\resizebox{\textwidth}{!}{
-			\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
-			% \begin{tabular} {|p{1.5cm} p{1.5cm} p{2cm} p{1.5cm} p{2cm} p{1.5cm} p{1cm}}
-				%{l r r r r r r }
-				% \toprule
-				\hline
-				\textbf{Nombre del atributo} & \textbf{Q\_llamados / Tiempo} & \textbf{Momento} & \textbf{Dirección} &
-				\textbf{Vulnerabilidad} & \textbf{Mes} \\
-				% \midrule
-				\hline
-				LLamados Fds EntrVul08    & Conteo & Final de Semana & Entrante & Interacciones vulnerables únicamente & August\\
-				% \midrule
-				\hline
-				Tiempo LuVierNoche Sal12 & Tiempo de duración (s) & Durante la semana fuera de horario laboral & Saliente & Sin filtro endémico   & Diciembre \\
-				\hline
-				% \bottomrule
-			\end{tabular}
-		}
-	\end{table}
-
-\end{frame}
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Resultados y Conclusiones}
@@ -1004,48 +940,48 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 
 \begin{frame}{Resultados}
 	
-	\begin{block}{Facil Problema 1}
+	\begin{block}{Simple Problema 1}
 		Todas las metricas $\geq 75\%$ con la mejor en $97\%$
 	\end{block}
 
 	\begin{block}{Muy bajo $F1$}
-		\begin{enumerate*}[label={\alph*)},]
+		\begin{itemize}[]
 			\item Desbalance de clases deriva en sobreconfianza
 			\item Precision y ``recall'' asimetricos
 			\item Sorpresa en ``Naive Bayes'' para ser hasta $50\%$ mejor en el Problema 4
 			\item El Problema 2 es de mayor desbalance
-		\end{enumerate*}
+		\end{itemize}
 	\end{block}
 
 \begin{block}{Inconvenientes en la ``Regresión Logística''}
-	\begin{enumerate*}[label={\alph*)},]
+	\begin{enumerate}[I]
 		\item Lento: 110 min promedio frente a 1 min para ``Naive Bayes''
 		\item Hasta un $12\%$ peor que $GBT$ 
-	\end{enumerate*}
+	\end{enumerate}
 \end{block}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Mejores Atribuos}
+\begin{frame}{Mejores Atributos}
 	
 	% \begin{block}{Facil Problema 1}
 	% 	Todas las metricas $\geq 75\%$ con la mejor en $97\%$
 	% \end{block}
 	% \begin{block}{Muy bajo $F1$}
 		Heuristica para algoritmos de ensamble
-		
-		\begin{enumerate*}[label={\alph*)},]
+
+		\begin{itemize}
 			\item Interacciones en el mes de Diciembre o en Agosto
 			\item Interacciones vulnerables
 			\item Diametro de Mobilidad
-		\end{enumerate*}
-% 	\end{block}
+		\end{itemize}
 
+% 	\end{block}
 % \begin{block}{}
-% 	\begin{enumerate*}[label={\alph*)},]
-% 	\end{enumerate*}
+% 	\begin{enumerate}[I]
+% 	\end{enumerate}
 % \end{block}
 
 \end{frame}
@@ -1068,7 +1004,7 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 
 	\medskip
 	% Fue posible construir clasificadores de 
-	Alta performance en $Accuracy$ y $ROC AUC$ 
+	Alta performance en $Accuracy$ y $ROC AUC$ 	++ ensamble
 	% para detectar cuáles usuarios migraron desde la región endémica
 	% , sobre todos los usuarios actualmente no endémico
 
@@ -1084,21 +1020,22 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 
 \begin{frame}{Conclusiones Inesperadas}
 
-	Mapas correlacionan con migraciones 
-	\medskip
-	++ ensamble
+	\begin{itemize}[]
+		\item Mapas correlacionan con migraciones 
+		\item $--$ precisión y $F1$ en general
+		\item Los meses también fueron atributos relevantes	
+		
+	\end{itemize}
+	
 	% en estrategias que no son intrusivas a las personas
-	\medskip
-	-- precision y $F1$ en general
-	\medskip
-	Los meses tambien fueron atributos relevantes
+	
 
 	% tres tipos de atributos más relevantes para la clasificaición de los migrantes estaban relaciónadas con:
-	% \begin{enumerate*}[label={\alph*)},]
+	% \begin{enumerate}[I]
 	% 	\item la movilidad del usuario
 	% 	\item las interacciones y patrones de llamados con vecinos vulnerables, y
 	% 	\item uso celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
-	% \end{enumerate*}
+	% \end{enumerate}
 
 \end{frame}
 
@@ -1124,42 +1061,41 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%  \begin{frame}{Lineas Futuras de Trabajo}
-
-	\begin{block}{Extensiones}
-		
-		\begin{enumerate*}[label={\alph*)},]
-			\item + clasificadores 
-			\item Metodos para desbalance
-			\item + ``best features'' 
-			\item Feature Engineering
-			\item Estacionaridad
-			\item datos de serologia u ruralidad
-		\end{enumerate*}
-
-	\end{block}
-% 	\medskip
-% 	\begin{block}{Nuevas fuentes de datos}
-% 		Agreagar informacion para mayores analisis:
-% 		\begin{itemize}
-% 			\item estimación de resultados de movilidad con serologia por region
-% 			\item Categorizacion de antenas por grado de ruralidad del ambiente
-% 			\item infected newborns
-% 			\item acute Chagas cases.
-% 			\item serological data per community, amongst others.
-% 		\end{itemize}
-% 	\end{block}
-
- \end{frame}
+% \begin{frame}{Lineas Futuras de Trabajo}
+%
+%	\begin{block}{Extensiones}
+%		
+%		\begin{enumerate}[I]
+%			\item + clasificadores 
+%			\item Metodos para desbalance
+%			\item + ``best features'' 
+%			\item Feature Engineering
+%			\item Estacionaridad
+%			\item datos de serologia u ruralidad
+%		\end{enumerate}
+%
+%	\end{block}
+%% 	\medskip
+%% 	\begin{block}{Nuevas fuentes de datos}
+%% 		Agreagar informacion para mayores analisis:
+%% 		\begin{itemize}
+%% 			\item estimación de resultados de movilidad con serologia por region
+%% 			\item Categorizacion de antenas por grado de ruralidad del ambiente
+%% 			\item infected newborns
+%% 			\item acute Chagas cases.
+%% 			\item serological data per community, amongst others.
+%% 		\end{itemize}
+%% 	\end{block}
+%
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ==============================================
 
 \begin{frame}{Gracias! }
-			\begin{block}{Companeros de proyecto}
+	
+	\begin{block}{Companeros de proyecto}
 					\center\
-					Alejo Salles (Instituto de Cálculo-UBA) \\
-					Carlos Sarraute (GranData Labs) \\
 					Carolina Lang (UBA, GranData Labs) \\
 					 Diego Weinberg (Fundación Mundo Sano) \\
 	\end{block}
