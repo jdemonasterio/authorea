@@ -1,12 +1,14 @@
 # TODO PLAN
 
 ## Plan Slides
+    * Finish gradient boosting and best features
+    * Add reminders across the ppt to put pieces together.
+    * Add funny section separators for non-technical audience.
     * Aspell in spanish
     * [DONE] Rotar descripcion de los datos con Machine Learning.
-    * Data source
+    * [DONE] Data source
         - [DONE] Communications graph to abstract the dataset.
         - [DONE] Example of features constructed.
-    * Add reminders across the ppt to put pieces together.
     * [DONE] How introductory should I be on Machine Learning?
         - [DONE] Go straight to binary classification
         - [DONE] Present problems after or before? After
@@ -14,29 +16,26 @@
         - [DONE] Prediction, generalization, Test/train set, train error. 
         - [DONE] Bias, variance ?? NO.
         - [DONE] Cross Validation.
-    * Introducir master table 
-    * 2 slides de resultados.
-    * Finish 
+    * [DONE] Introducir master table 
+    * [DONE] 2 slides de resultados.
     * [DONE] Agregar el dibujo de los multiplots multifits.
 
     * Reunion Patu Matt:
         - Max 25 slides. Calculo 2 min per slide. 
-        - Arreglar las slides cortas + imagenes caidas.
-        - Bajar la cantidad de texto a la mitad en c/slide.
-        - Las definiciones van habladas, solo dejar la notacion. Poner la notacion en el mismo slide y no es tan necesario introducir notacion.
+        - [DONE] Arreglar las slides cortas + imagenes caidas.
+        - [DONE] Bajar la cantidad de texto a la mitad en c/slide.
+        - [DONE] Las definiciones van habladas, solo dejar la notacion. Poner la notacion en el mismo slide y no es tan necesario introducir notacion.
         - [DONE] Problema matematico bien precisamente explicado y puesto en un contexto.
         - [DONE] Que quede claro cual es la loss function y cuales son los problemas a optimizar.
         - [DONE] Definir los problemas matematicamente. Definir un problema de aprendizaje automatico abstractamente. Definir la f y las loss functions para c/uno de los algoritmos y contar como se mapean uno a uno.
         - [DONE] Contar F1, accuracy y roc hasta cierto punto, poner las formulas en lo posible.
         - [DONE] CV contar como elegir los hiperparametros 
         - Problemas de minimos locales en c/algoritmo?
-        - Poner la master table resumida marcando que es lo que quiero que vea, o comentando por arriba que es lo mas importante.
+        - [DONE] Poner la master table resumida marcando que es lo que quiero que vea, o comentando por arriba que es lo mas importante.
         - ~ 10 de intro problematica mas datos. 10 de supervised learning, 5 de conclusion y resultados.
-        - Resultados.
         - Sacar mapa de mejico y de insectos.
     
-    * Add slides for previous works or plainly mention them? No hacer.
-    * Add funny section separators for non-technical audience.
+    * [DONE] Add slides for previous works or plainly mention them? No hacer.
     * [DONE] Fork from agranda2016 a working .tex
     * [DONE] Iterate and get feedback with DM professors (Lean, Matthieu, Patu).
 
