@@ -864,7 +864,7 @@ Dado $(X,Y)$ y un clasificador $f_\theta \ t.q. \ \theta \in \Theta$
 		% \item b
 		\item Preprocesar $X$ y separar en $\trainset$ + $\testset$
 		\item Cross validar hiperparámetros de $f$ c/ $\trainset$
-		\item Aprender $f_\theta^*$ c/ $\trainset$
+		\item Aprender $f_\theta^*$ con $\trainset$
 		\item Comparar  $Err_{\testset}(\theta^*)$ y  $Err_{\trainset}(\theta^*)$ en las métricas
 		\item Evaluar mejoras en complejidad, varianza e iterar en (I)
 	\end{enumerate}
@@ -943,12 +943,12 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 		\ra{1.3}
 		%\hskip-4.0cm
 		\begin{tabular}{@{}rr@{\hskip 0.3cm}r@{\hskip 0.3cm}r@{\hskip 0.3cm}rc@{}} \toprule
-			&  \multicolumn{4}{c}{Problem 1} \\
+			&  \multicolumn{4}{c}{Problema 1} \\
 			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
 			$Logistic \ Regression$     & 0.893 & 0.857 & 0.9   & 96\\
 			$Random \ Forest$            & 0.878 & 0.857 & 0.9  & 33 \\
-			$Gradient \ Tree \ Boosting$ & 0.974 & 0.978 & 0.952 & 41  \\
+			$GTB$ & 0.974 & 0.978 & 0.952 & 41  \\
 			$Naive \ Bayes$               & 0.84  & 0.82  & 0.75  & 2  \\
 
 			\bottomrule
@@ -961,12 +961,12 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 		\ra{1.3}
 		%\hskip-4.0cm
 		\begin{tabular}{@{}rr@{\hskip 0.3cm}r@{\hskip 0.3cm}r@{\hskip 0.3cm}rc@{}} \toprule
-			&  \multicolumn{4}{c}{Problem 2} \\
+			&  \multicolumn{4}{c}{Problema 2} \\
 			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
 			$Logistic \ Regression$     & 0.714 & 0.726 & 0.248 & 119 \\
 			$Random \ Forest$            & 0.79  & 0.776 & 0.278 & 45  \\
-			$Gradient \ Tree \ Boosting$ & 0.838 & 0.819 & 0.291 & 54 \\
+			$GTB$ & 0.838 & 0.819 & 0.291 & 54 \\
 			$Naive \ Bayes$               & 0.64  & 0.61  & 0.31  & 2   \\
 
 			\bottomrule
@@ -976,8 +976,6 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 \end{frame}
 
 
-
-
 \begin{frame}{Tabla de Experimentos B}
 
 	\begin{table}[htp]\centering
@@ -985,12 +983,12 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 		\ra{1.3}
 		%\hskip-4.0cm
 		\begin{tabular}{@{}rr@{\hskip 0.3cm}r@{\hskip 0.3cm}r@{\hskip 0.3cm}rc@{}} \toprule
-			&  \multicolumn{4}{c}{Problem 3} \\
+			&  \multicolumn{4}{c}{Problema 3} \\
 			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
 			$Logistic \ Regression$     & 0.705 & 0.754 & 0.307 & 115 \\
 			$Random \ Forest$            &  0.792 & 0.845 & 0.346 & 21 \\
-			$Gradient \ Tree \ Boosting$ & 0.811 & 0.855 & 0.359 & 33 \\
+			$GTB$ & 0.811 & 0.855 & 0.359 & 33 \\
 			$Naive \ Bayes$               & 0.65  & 0.63  & 0.45  & 1  \\
 
 			\bottomrule
@@ -1000,12 +998,12 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 		\ra{1.3}
 		%\hskip-4.0cm
 		\begin{tabular}{@{}rr@{\hskip 0.3cm}r@{\hskip 0.3cm}r@{\hskip 0.3cm}rc@{}} \toprule
-			&  \multicolumn{4}{c}{Problem 4} \\
+			&  \multicolumn{4}{c}{Problema 4} \\
 			\cmidrule{2-5}
 			& $Accuracy$ & $ROC AUC$ & $F1$ & $Runtime  (m)$ \\ \midrule
 			$Logistic \ Regression$     & 0.883 & 0.85  & 0.331 & 106 \\
 			$Random \ Forest$            & 0.898 & 0.853 & 0.393 & 19 \\
-			$Gradient \ Tree \ Boosting$ & 0.885 & 0.873 & 0.384 & 47 \\
+			$GTB$ & 0.885 & 0.873 & 0.384 & 47 \\
 			$Naive \ Bayes$               & 0.85  & 0.76  & 0.62 & 1 \\
 
 			\bottomrule
@@ -1016,52 +1014,51 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 
 
 
-\begin{frame}{Resultados 1}
-	\begin{block}{Bar}
-		Baz
-		\medskip
-		foo
+\begin{frame}{Resultados}
+	
+	\begin{block}{Facil Problema 1}
+		Todas las metricas $\geq 75\%$ con la mejor en $97\%$
 	\end{block}
 
-	%\pause \
-
-	\begin{block}{foo}
-		varrr
-
-		\medskip
-			asdf
-
-		\medskip
-		alala
-
-		\medskip
-		foo
+	\begin{block}{Muy bajo $F1$}
+		\begin{enumerate*}[label={\alph*)},]
+			\item Desbalance de clases deriva en sobreconfianza
+			\item Precision y ``recall'' asimetricos
+			\item Sorpresa en ``Naive Bayes'' para ser hasta $50\%$ mejor en el Problema 4
+			\item El Problema 2 es de mayor desbalance
+		\end{enumerate*}
 	\end{block}
+
+\begin{block}{Inconvenientes en la ``Regresión Logística''}
+	\begin{enumerate*}[label={\alph*)},]
+		\item Lento: 110 min promedio
+		\item Hasta un $12\%$ peor que $GBT$ 
+	\end{enumerate*}
+\end{block}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Resultados 2}
-	\begin{block}{Bar}
-		Baz
-		\medskip
-		foo
-	\end{block}
+\begin{frame}{Mejores Atribuos}
+	
+	% \begin{block}{Facil Problema 1}
+	% 	Todas las metricas $\geq 75\%$ con la mejor en $97\%$
+	% \end{block}
+	% \begin{block}{Muy bajo $F1$}
+Heuristica para algoritmos de ensamble
+		\begin{enumerate*}[label={\alph*)},]
+			\item Interacciones en el mes de Diciembre o en Agosto
+			\item Interacciones vulnerables
+			\item Diametro de Mobilidad
+		\end{enumerate*}
+% 	\end{block}
 
-	%\pause \
+% \begin{block}{}
+% 	\begin{enumerate*}[label={\alph*)},]
+% 	\end{enumerate*}
+% \end{block}
 
-	\begin{block}{foo}
-		varrr
-
-		\medskip
-			asdf
-
-		\medskip
-		alala
-
-		\medskip
-		foo
-	\end{block}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
