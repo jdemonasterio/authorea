@@ -219,16 +219,16 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Objetivo}
-	\begin{block}{\ldots atacar problemáticas de América Latina relacionadas con el Chagas}
+	\begin{block}{\ldots atacar esta problemática en América Latina}
 
 
 	\begin{itemize}
-		\item \ldots detectar \textbf{migraciones de largo plazo} 
+		\item \ldots detectando \textbf{migraciones de largo plazo}
 		%explicar vertical, congenita y transfusion/transplante
-		\item \ldots utilizar datos de telefonía celular
+		\item \ldots utilizando datos de telefonía celular
 		% for which a low proportion of the infected population knows that they have the disease.
-		
-		\item \ldots idealmente encontrar personas infectados y con fase asintomática
+
+		\item \ldots idealmente encontrando en fase asintomática
 		% % ORALLY SAY: 30 years of vector mitigation activities in GC.
 		% \item \ldots que es epidémica y desatendida
 		% \item ... which is epidemic and unattended.
@@ -269,7 +269,7 @@
 		\end{split}
 	\end{align*}
 
-	para generar \textit{predicciones} para cualquier muestra
+	para generar predicciones de \textit{cualquier} muestra
 
 	\smallskip
 	$f_\theta$ es un clasificador o algoritmo indexado por $\theta \in \Theta$
@@ -290,7 +290,7 @@
 	$f(\cdot)$, $L(\cdot)$ y el espacio de búsqueda $\Theta$ de los \textit{aproximantes} son predeterminados
 
 	\bigskip\
-	
+
 	Desconocemos $P(\textbf{X},\textbf{Y})$ pues nos basamos en datos finitos\\
 
 	$X = \trainsetn  \sqcup \testsetn $
@@ -384,12 +384,12 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(x)$ como $\log \left(  \frac{ 
 Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mathcal{T}_{iz}(d,j) = \{x \in \mathcal{T} \ / \ x^j \leq d \}$ y $\mathcal{T}_{de}(d,j)$
 
 	\begin{block}{Idea}
-		% $$$		
+		% $$$
 		\begin{align*}
 			\min_{d, j} \big[ \min_{c_{iz} }  \frac{1}{N_{iz}}\sum_{x \in \mathcal{T}_{iz}(d,j) } Imp(y,c_{iz}) \
 			+  \min_{c_{de}}  \frac{1}{N_{de}}\sum_{x \in \mathcal{T}_{de}(d,j) } Imp(y,c_{de}) \big]
 		\end{align*}
-			donde $Imp$ es una función de \textit{impureza} 
+			donde $Imp$ es una función de \textit{impureza}
 		% \begin{align*}
 		% \end{align*}
 	\end{block}
@@ -402,7 +402,7 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 	}
  	con $L$ el número de regiones. Aquí $\theta = \bigcup\limits_{l=1}^{L} (d_l,j_l)$
 
-	% \begin{align*}			
+	% \begin{align*}
 	% 			% h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)
 	% 	\end{align*}
 
@@ -425,23 +425,32 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Clasificadores de Ensamble }
-	
-	Sea $\bigcup\limits_{m=1}^{M} h_{\theta_m}$ un conjunto de pequeños arboles
-	
-	\begin{block}{Bosques Aleatorios} 
+\begin{frame}[shrink=2]{Clasificadores de Ensamble }
+
+%	Sea $\bigcup\limits_{m=1}^{M} \{ h_{\theta_m} \}$ un conjunto de pequeños arboles
+
+	\begin{block}{Bosques Aleatorios}
 		\begin{align*}
-			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta_m}(X_i) 
+			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta_m}(X_i)
 		\end{align*}
 
 	\end{block}
-	$ h_{\theta_m}$
 
 	\begin{block}{``Gradient Tree Boosting''}
-	Mejora iterativa de la pérdida 
+	Mejora iterativa de la pérdida con pesos $\gamma$
 		\begin{align*}
-			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta_m}(X_i) 
+			f^{(M)}(X_i) = sgn \left(\sum_{m=1}^{M} \gamma_m h(X_i,\theta_m) \right)
 		\end{align*}
+
+		\begin{align*}
+%			\begin{split}
+				(\gamma_{m}, \theta_{m}) = \underset{\gamma, \theta}{\mathrm{argmin}} \sum_{i=1}^{N} & L\big( Y_i,  f^{m}(x_i) + \gamma h(X_i,\theta) \big)
+%			\end{split}
+		\end{align*}
+		con \  $\theta^*_{m} = \underset{ \theta}{\mathrm{argmin}} \sum_{i=1}^{N}e^{-Y_i f^{m}(X_i)}
+		\mathbb{I}\left[ Y_i \neq h(X_i,\theta)  \right]$ \ y \
+		$\gamma^*_{m} = \frac{1}{2} \log\left( \frac{1 - Err(\theta^*) }{ Err(\theta^*) } \right)$
+
 	\end{block}
 
 
@@ -449,17 +458,17 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 
 
 
-\begin{frame}{FOOOO}
-	Mejora iterativa de arboles $h_{\theta}$
-
-	\begin{block}{Idea} 
-		\begin{align*}
-			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta}(X_i) 
-		\end{align*}
-
-	\end{block}
-
-\end{frame}
+%\begin{frame}{FOOOO}
+%	Mejora iterativa de arboles $h_{\theta}$
+%
+%	\begin{block}{Idea}
+%		\begin{align*}
+%			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta}(X_i)
+%		\end{align*}
+%
+%	\end{block}
+%
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -489,8 +498,8 @@ Suponemos una distribución conocida para $p(\cdot)$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{estimación de Fronteras de Decisión}
-		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight, 
+\begin{frame}{Estimación de Fronteras de Decisión}
+		\includegraphics[width = 0.9 \paperwidth, height = 0.7 \paperheight,
 										trim = 0.2 0.2 0.2 0.2cm, left, clip = true]{slides/plot_classifier_comparison.png}
 \end{frame}
 
@@ -568,7 +577,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 
 	$\approx$ 10 mil millones de registros detallados de llamados (CDRs) para México y Argentina con 24 y 5 meses de datos respectivamente.
 
-	$$r =\left < u, w, t, d, a \right >$$ 
+	$$r =\left < u, w, t, d, a \right >$$
 %	con
 %	\begin{itemize}
 %		\item Usuarios anonimizados $u$ y $w$ en esa llamada
@@ -585,13 +594,13 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 
 % \end{block}
 
-	$H_u$ el lugar de residencia de un usuario y $E_z$ la zona endémica 
+	$H_u$ el lugar de residencia de un usuario y $E_z$ la zona endémica
 	\smallskip
-	
+
 	Tomamos dos períodos:
 	\smallskip
 	\begin{enumerate*}[label={\alph*)},]
-			\item $T_0$ desde Enero 2014 hasta Julio 2015 
+			\item $T_0$ desde Enero 2014 hasta Julio 2015
 			\item $T_1$ desde Agosto 2015 hasta Diciembre 2015
 			% . Este va a ser nuestro dataset principal a procesar.
 	\end{enumerate*}
@@ -776,7 +785,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Atributos en los datos}
-%	Solamente procesamos los CDRs de $T_1$ 
+%	Solamente procesamos los CDRs de $T_1$
 %	\bigskip
 
 	\begin{block}{Diámetro de Movilidad}
@@ -790,9 +799,9 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 
 	\begin{block}{Atributos del grafo de comunicaciones}
 		En cada arista $\left< u, w \right>$ del grafo se desagrega la interacción en base a distintos criterios
-		$\left< tiempo_{uw}, q\_llamados_{uw}, direccion, vulnerabilidad, momento, mes \right>$ 
+		$\left< tiempo_{uw}, q\_llamados_{uw}, direccion, vulnerabilidad, momento, mes \right>$
 %		donde $tiempo$ es el tiempo total en todos los llamados, $q\_llamados$ es la cantidad de llamados, $direccion$ es una variable booleana que indica si el llamado es entrante o saliente para $u$, $vulnerabilidad$ depende de si $w \in E_Z$ y $momento$ corresponde a una partición de la semana entre los días laborales, los fines de semana y los horarios no laborales
-%	
+%
 \end{block}
 
 
@@ -937,8 +946,8 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 
 
 \begin{frame}{Resultados}
-	
-	\begin{block}{Simple Problema 1}
+
+	\begin{block}{ Problema 1 Correlacionado}
 		Todas las métricas $\geq 75\%$ con la mejor en $97\%$
 	\end{block}
 
@@ -954,7 +963,7 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 \begin{block}{Inconvenientes en la ``Regresión Logística''}
 	\begin{enumerate}[I]
 		\item Lento: 110 min promedio frente a 1 min para ``Naive Bayes''
-		\item Hasta un $12\%$ peor que $GBT$ 
+		\item Hasta un $12\%$ peor que $GBT$
 	\end{enumerate}
 \end{block}
 
@@ -963,7 +972,7 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Mejores Atributos}
-	
+
 	% \begin{block}{Facil Problema 1}
 	% 	Todas las metricas $\geq 75\%$ con la mejor en $97\%$
 	% \end{block}
@@ -996,19 +1005,19 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 	% , indicando que las antenas descienden su porcentaje de usuarios \textit{vulnerables}
 
 	\medskip
-	Las interacciones vulnerables eran atributos relevantes 
+	Las interacciones vulnerables eran atributos relevantes
 	% de llamados desde y hacia la región endémica son relevantes para predecir migraciones
 	% , lo cual confirma nuestra hipótesis utilizada para construir los mapas de calor
 
 	\medskip
-	% Fue posible construir clasificadores de 
+	% Fue posible construir clasificadores de
 	Alta performance en $Accuracy$ y $ROC AUC$ 	++ ensamble
 	% para detectar cuáles usuarios migraron desde la región endémica
 	% , sobre todos los usuarios actualmente no endémico
 
 	\medskip
 
-	Utilización novedosa de los CDRs 
+	Utilización novedosa de los CDRs
 	% es novedosa de los CDRs y se puede extender hacia otras epidemias
 
 \end{frame}
@@ -1019,14 +1028,14 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 \begin{frame}{Conclusiones Inesperadas}
 
 	\begin{itemize}[]
-		\item Mapas correlacionan con migraciones 
+		\item Mapas correlacionan con migraciones
 		\item $--$ precisión y $F1$ en general
-		\item Los meses también fueron atributos relevantes	
-		
+		\item Los meses también fueron atributos relevantes
+
 	\end{itemize}
-	
+
 	% en estrategias que no son intrusivas a las personas
-	
+
 
 	% tres tipos de atributos más relevantes para la clasificaición de los migrantes estaban relaciónadas con:
 	% \begin{enumerate}[I]
@@ -1062,11 +1071,11 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 % \begin{frame}{Lineas Futuras de Trabajo}
 %
 %	\begin{block}{Extensiones}
-%		
+%
 %		\begin{enumerate}[I]
-%			\item + clasificadores 
+%			\item + clasificadores
 %			\item Metodos para desbalance
-%			\item + ``best features'' 
+%			\item + ``best features''
 %			\item Feature Engineering
 %			\item Estacionaridad
 %			\item datos de serologia u ruralidad
@@ -1091,7 +1100,7 @@ Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
 % ==============================================
 
 \begin{frame}{Gracias! }
-	
+
 	\begin{block}{Compañeros de proyecto}
 					\center\
 					Carolina Lang (UBA, GranData Labs) \\
