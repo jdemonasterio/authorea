@@ -36,6 +36,7 @@
 %---------------------------------------------------------+
 % Paquetes misceláneos de listas, set space, notas, etc   |
 %---------------------------------------------------------+
+\useinnertheme{circles}
 \usepackage[shortlabels,inline]{enumitem}   % customiza liastas lists
 \setlist[itemize,1]{label=$\bullet$}
 \setlist[itemize,2]{label=\footnotesize{$\blacktriangleright$}}
@@ -81,7 +82,7 @@
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 
-% \beamertemplatenavigationsymbolsempty\
+\beamertemplatenavigationsymbolsempty
 
 \newcommand\MyBox[2]{
 	\fbox{\lower0.75cm
@@ -111,7 +112,7 @@
   % logo of my university
 	\titlegraphic{
 	% \includegraphics[width=1.5cm]{slides/250px-UBA.png}\hspace*{0.01cm}~%
-   			\includegraphics[width=1.3cm]{slides/250px-UBA.png}
+   			\includegraphics[scale=0.18]{slides/250px-UBA.png}
 	}
 
 %\setbeamertemplate{footline}[text line]{\bf \insertshortauthor \hfill \insertshorttitle \hfill \insertframenumber/29}
@@ -134,8 +135,8 @@
 \begin{document}
 
 
-\begin{frame}
-\titlepage\
+\begin{frame}[plain]
+\titlepage
 \end{frame}
 
 
@@ -176,7 +177,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Problemática del Chagas}
-			\includegraphics[scale=0.75]{slides/triatomine-map.jpg}
+			\includegraphics[scale=0.7]{slides/triatomine-map.jpg}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -308,7 +309,10 @@ Varios tipos de errores a minimizar en el aprendizaje con \textbf{finitos} datos
 
 	\end{block}
 
-	Un modelo se dice sobreajustado (``overfit'') cuando $\mid Err_{\testset}(\theta) - Err_{\trainset}(\theta)  \mid \ >> 0$
+	Un modelo se dice sobreajustado (``overfit'') cuando
+  \begin{equation*}
+  \mid Err_{\testset}(\theta) - Err_{\trainset}(\theta)  \mid \ >> 0
+  \end{equation*}
 
 	Para esto es importante controlar la \textbf{complejidad} del modelo
 
@@ -335,7 +339,7 @@ Bajo ciertas condiciones sobre $\Theta$ tenemos
 				\leq 2\sqrt{\dfrac{\log S(\Theta,n)+\log2}{n}}
 			\end{split}
 		\end{align*}
-		
+
 	\end{block}
 	donde $S(\Theta)$ es el coeficiente de ``shattering'' de la clase
 \end{frame}
@@ -350,7 +354,7 @@ Con $\sigma(z) = \frac{1}{1 + e^{-z}}$ y $logodds(X_i)$ como $\log \left(  \frac
 		\begin{align*}
 			P(C_1| X_i)  = \frac{1}{1 + \exp \left(- \log \left(  \frac{ P(X_i|C_1)p(C_1)}{P(X_i|C_0)p(C_0)} \right) \right)} = \sigma\left(logodds(X_i)\right)
 		\end{align*}
-	
+
 		El modelo supone
 		$$logodds(X_i) = \sum_{j=1}^p \theta^j \ X_i^j  \ , \forall X_i \in X $$
 		$$Y_i \mid X_i \ \sim \operatorname{Bernoulli}(p_i)$$
@@ -386,7 +390,7 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 		$h_{\theta}(X_i) = \sum_{l=1}^L c_l I(X_i \in \mathcal{T}_l)$ \\
 		}
 	 	con $L$ el número de regiones. Aquí $\theta = \bigcup\limits_{l=1}^{L} (d_l,j_l)$
-	
+
 		\end{block}
 \end{frame}
 
@@ -406,10 +410,11 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}[shrink=2]{Clasificadores de Ensamble }
+\begingroup
+\footnotesize%
+\begin{frame}{Clasificadores de Ensamble }
 
 %	Sea $\bigcup\limits_{m=1}^{M} \{ h_{\theta_m} \}$ un conjunto de pequeños arboles
-
 	\begin{block}{Bosques Aleatorios}
 		\begin{align*}
 			Y_i \approx f_{\theta}(X_i) = \dfrac{1}{M}\sum_{m=1}^M h_{\theta_m}(X_i)
@@ -436,6 +441,7 @@ Algoritmo recursivo y aleatorio que particiona el espacio en forma binaria $\mat
 
 
 \end{frame}
+\endgroup
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -496,6 +502,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 \begin{frame}{Métricas de clasificadores binarios}
 	\center\
 	Conteo de las combinaciones de $\hat{Y}$ y $Y$
+  \bigskip
 
 		\begin{columns}
 			\begin{column}{0.55 \textwidth}
@@ -504,7 +511,7 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 				\renewcommand\arraystretch{1}
 				\setlength\tabcolsep{0pt}
 				\begin{tabular}{c >{\bfseries}r @{\hspace{0.7em}}c @{\hspace{0.4em}}c @{\hspace{0.7em}}l}
-				\multirow{10}{*}{\parbox{1.1cm}{\bfseries\raggedleft\ Valor real $y$}} &
+				\multirow{14}{*}{\parbox{1.1cm}{\bfseries Valor real $y$}} &
 				& \multicolumn{2}{c}{\bfseries Valor predicho $\hat{y}$} & \\
 				& & \bfseries \^{P} \ $(0)$ & \bfseries \^{N} \ $(1)$  \\
 				& P \ $(0)$ & \MyBox{Verdadero}{Positivo (TP)} & \MyBox{Falso}{Negativo (FN)} & \\[2.4em]
@@ -535,12 +542,12 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{ Descripción de los datos}
+\section{Descripción de los datos}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Visualización Social: El grafo de comunicaciones}
 		\center\
-		\includegraphics[scale=0.24]{slides/Graph-screenshot.jpg}
+		\includegraphics[scale=0.22]{slides/Graph-screenshot.jpg}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -756,28 +763,31 @@ Optimización de configuraciones de hiperparámetros $\mathcal{A}$ vía estimaci
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Ejemplo de atributos}
 Un ejemplo de dos atributos de $X$ procesados a partir del grafo de comunicaciones
-	\begin{table}[ht]
-		\small
-		\centering
-		\resizebox{\textwidth}{!}{
-			\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
-			% \begin{tabular} {|p{1.5cm} p{1.5cm} p{2cm} p{1.5cm} p{2cm} p{1.5cm} p{1cm}}
-				%{l r r r r r r }
+  \begin{center}
+    \includegraphics[scale=0.65]{slides/tabla_atributos.pdf}
+  \end{center}
+	% \begin{table}[ht]
+		% \small
+		% \centering
+		% \resizebox{\textwidth}{!}{
+			% \begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
+			% % \begin{tabular} {|p{1.5cm} p{1.5cm} p{2cm} p{1.5cm} p{2cm} p{1.5cm} p{1cm}}
+				% %{l r r r r r r }
+				% % \toprule
 				% \toprule
-				\toprule
-				\textbf{Nombre del atributo} & \textbf{Q\_llamados / Tiempo} & \textbf{Momento} & \textbf{Dirección} &
-				\textbf{Vulnerabilidad} & \textbf{Mes} \\
+				% \textbf{Nombre del atributo} & \textbf{Q\_llamados / Tiempo} & \textbf{Momento} & \textbf{Dirección} &
+				% \textbf{Vulnerabilidad} & \textbf{Mes} \\
+				% % \midrule
 				% \midrule
-				\midrule
-				Llamados Fds EntrVul08    & Conteo & Final de Semana & Entrante & Interacciones vulnerables únicamente & Agosto\\
+				% Llamados Fds EntrVul08    & Conteo & Final de Semana & Entrante & Interacciones vulnerables únicamente & Agosto\\
+				% % \midrule
 				% \midrule
-				\midrule
-				Tiempo LuVierNoche Sal12 & Tiempo de duración (s) & Durante la semana fuera de horario laboral & Saliente & Sin filtro endémico   & Diciembre \\
-				% \hline
-				\bottomrule
-			\end{tabular}
-		}
-	\end{table}
+				% Tiempo LuVierNoche Sal12 & Tiempo de duración (s) & Durante la semana fuera de horario laboral & Saliente & Sin filtro endémico   & Diciembre \\
+				% % \hline
+				% \bottomrule
+			% \end{tabular}
+		% }
+	% \end{table}
 \end{frame}
 
 
@@ -786,7 +796,7 @@ Un ejemplo de dos atributos de $X$ procesados a partir del grafo de comunicacion
 \begin{frame}{ Proceso de experimentación }
 
 Dado $(X,Y)$ y un algoritmo $\left( f, \Theta \right)  $
-	\begin{enumerate}[I]
+	\begin{enumerate}[I.]
 		% \item a
 		% \item b
 		\item Preprocesar $X$ y separar en $\trainset$ + $\testset$
