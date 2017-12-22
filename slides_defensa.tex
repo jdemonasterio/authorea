@@ -1019,7 +1019,7 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 
 \begin{block}{Inconvenientes en la ``Regresión Logística''}
 	\begin{enumerate*}[label={\alph*)},]
-		\item Lento: 110 min promedio
+		\item Lento: 110 min promedio frente a 1 min para ``Naive Bayes''
 		\item Hasta un $12\%$ peor que $GBT$ 
 	\end{enumerate*}
 \end{block}
@@ -1034,7 +1034,8 @@ Un ejemplo de dos atributos de $X$ procesdos a partir del grafo de comunicacione
 	% 	Todas las metricas $\geq 75\%$ con la mejor en $97\%$
 	% \end{block}
 	% \begin{block}{Muy bajo $F1$}
-Heuristica para algoritmos de ensamble
+		Heuristica para algoritmos de ensamble
+		
 		\begin{enumerate*}[label={\alph*)},]
 			\item Interacciones en el mes de Diciembre o en Agosto
 			\item Interacciones vulnerables
@@ -1057,81 +1058,87 @@ Heuristica para algoritmos de ensamble
 
 \begin{frame}{Conclusiones Esperadas}
 
-	Los mapas de calor muestran un descenso de temperatura desde el ``Gran Chaco'' hacia afuera
+	Descenso de temperatura desde el ``Gran Chaco'' hacia afuera
 	% , indicando que las antenas descienden su porcentaje de usuarios \textit{vulnerables}
 
 	\medskip
-	Los atributos de llamados desde y hacia la región endémica son relevantes para predecir migraciones
+	Las interacciones vulnerables eran atributos relevantes 
+	% de llamados desde y hacia la región endémica son relevantes para predecir migraciones
 	% , lo cual confirma nuestra hipótesis utilizada para construir los mapas de calor
 
 	\medskip
-	Fue posible construir clasificadores de alta performance para detectar cuáles usuarios migraron desde la región endémica
+	% Fue posible construir clasificadores de 
+	Alta performance en $Accuracy$ y $ROC AUC$ 
+	% para detectar cuáles usuarios migraron desde la región endémica
 	% , sobre todos los usuarios actualmente no endémico
 
 	\medskip
 
-	Esta utilizaci\'on de los CDRs es novedosa de los CDRs y se puede extender hacia otras epidemias
+	Utilizaci\'on novedosa de los CDRs 
+	% es novedosa de los CDRs y se puede extender hacia otras epidemias
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
-
 
 \begin{frame}{Conclusiones Inesperadas}
 
-	Los mapas ayudaron a detectar comunidades con alta interaccion vulnerable fuera de la zona endemica
-
+	Mapas correlacionan con migraciones 
 	\medskip
-
-	Los mejores clasificadores fueron los de ensamble
+	++ ensamble
 	% en estrategias que no son intrusivas a las personas
-
 	\medskip
-	Salvo el clasificador de ``Naive Bayes'', la performance fue muy baja para la metrica $F1$ en el problema 2
-
+	-- precision y $F1$ en general
 	\medskip
-	Los tres tipos de atributos más relevantes para la clasificaición de los migrantes estaban relaciónadas con:
+	Los meses tambien fueron atributos relevantes
 
-	\begin{enumerate*}[label={\alph*)},]
-		\item la movilidad del usuario
-		\item las interacciones y patrones de llamados con vecinos vulnerables, y
-		\item uso celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
-	\end{enumerate*}
+	% tres tipos de atributos más relevantes para la clasificaición de los migrantes estaban relaciónadas con:
+	% \begin{enumerate*}[label={\alph*)},]
+	% 	\item la movilidad del usuario
+	% 	\item las interacciones y patrones de llamados con vecinos vulnerables, y
+	% 	\item uso celular en los meses más cercanos a $T_0$, así como también la actividad en el mes de Diciembre.
+	% \end{enumerate*}
 
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
 
-\begin{frame}{Inconvenientes}
+% \begin{frame}{Inconvenientes}
 
-		\begin{block}{Sesgos en los datos}
-			\begin{itemize}
-			\item Basados únicamente en datos de una sola TelCo por país que no capturan migraciones internacionales
-			%La caracterizaci\'on actual de la vulnerabilidad viene dada por contacto telefónicos con usuarios de antenas del Gran Chaco.
-			\item Concentración geoespacial de usuarios
+% 		\begin{block}{Sesgos en los datos}
+% 			\begin{itemize}
+% 			\item Basados únicamente en datos de una sola TelCo por país que no capturan migraciones internacionales
+% 			%La caracterizaci\'on actual de la vulnerabilidad viene dada por contacto telefónicos con usuarios de antenas del Gran Chaco.
+% 			\item Concentración geoespacial de usuarios
 
-			\item Mobilidad no implica prevalencia
+% 			\item Mobilidad no implica prevalencia
 
-			\item Estacionalidades en las migraciones
+% 			\item Estacionalidades en las migraciones
 
-			\end{itemize}
- 	 	\end{block}
-\end{frame}
+% 			\end{itemize}
+%  	 	\end{block}
+% \end{frame}
 
 
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %  \begin{frame}{Lineas Futuras de Trabajo}
 
+	\begin{block}{Extensiones}
+		
+		\begin{enumerate*}[label={\alph*)},]
+			\item + clasificadores 
+			\item Metodos para desbalance
+			\item + ``best features'' 
+			\item Feature Engineering
+			\item Estacionaridad
+			\item datos de serologia u ruralidad
+		\end{enumerate*}
 
-% 	\begin{block}{Extensiones}
-% 		Probar otros clasificadores y metodos para hallar los atributos mas relevantes en terminos de migraciones. Tambien se podria mejorar el analisis pudiendo mejorar el preprocesamiento de los datos con cuestioens de estacionaridad o de tecnicas de ``Feature Engineering''.
-% 	\end{block}
-
+	\end{block}
 % 	\medskip
-
 % 	\begin{block}{Nuevas fuentes de datos}
 % 		Agreagar informacion para mayores analisis:
 % 		\begin{itemize}
@@ -1143,10 +1150,7 @@ Heuristica para algoritmos de ensamble
 % 		\end{itemize}
 % 	\end{block}
 
-
-%  \end{frame}
-% %
-
+ \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ==============================================
