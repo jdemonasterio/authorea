@@ -1,0 +1,483 @@
+
+\chapter{Data Description and Risk Maps}\label{ch:descr-risk}
+
+This chapter will give a technical explanation of what raw Call Detail Records (CDR) are and how they will be used throughout this work.
+The preprocessing and manipulation of the data will be explained in depth, with all the details necessary to build the epidemic risk maps that are presented in this chapter.
+All necessary vocabulary and definitions will be introduced, along with the ideas used to build the user-level covariates from the CDRs.
+Finally, some descriptive facts on both datasets will be given, concerning data size, volume of transactions, feature correlations and a comparison of telecommunication (TelCo) user distribution with national population distributions.
+
+
+\section{Mobile Phone Data Sources}
+
+Our data source is anonymized traffic information from two mobile operators, in Argentina and Mexico.
+Both companies service phone calls at the national level and to a number of customers that amounts to a user base that sizes in the order of millions.
+All of this information is contained in two different CDR datasets.
+
+We make an important remark here that in the data the users' privacy is ensured by not providing a direct identifier of the persons.
+All users are distinguished with their \textit{user\_id} which is information given by the TelCo with a salted hash transformation.
+In this way, we are unable to use these identifiers in other data sources other than the specific one used for this work.
+
+For our purposes, each record is represented as a tuple $\left < i, j, t, d, l \right >$, where user $i$ is the caller, user $j$ is the callee, $t$ is the date and time of the call, $d$ is the call direction (incoming or outgoing, with respect to the mobile operator client), and $l$ is the location of the tower that routed the communication.
+
+The dataset does not include personal information from the users, such as name, phone number, home address, etc.
+The users privacy is assured by differentiating users by their salted and hashed ID, where encryption keys were managed exclusively by the telephone company.
+
+All of the data was preprocessed excluding users whose monthly cellphone use either did not surpass a minimal number of calls $\mu$ or exceeded a maximal number $M$.
+This ensures we leave out outlying users such as call-centers or dead phones and, for both datasets, we used $\mu = 5$ and $M = 400$.
+
+We then aggregate the call records for a five month period into an edge list $(n_i, n_j, w_{i,j})$ where nodes $n_i$ and $n_j$
+represent users $i$ and $j$ respectively and $w_{i,j}$ is a boolean value indicating whether these two users have communicated at least once within the five month period.
+This edge list will represent our mobile graph
+$\calG = \left< \calN, \calE \right> $ where $\calN$ denotes the set of nodes (users) and $\calE$ the set of communication links.
+We note that only a subset $\calN_C$ nodes in $\calN$ are clients of the mobile operator, the remaining nodes $\calN \setminus \calN_C$ are users that communicated with users in $ \calN_C $ but themselves are not clients of the mobile operator.
+
+Since geolocalization information is available only for users in $\calN_C$, in the analysis we considered the graph $\calG_C = \left< \calN_C, \calE_C \right>$ which results to communications only between clients of the operator.
+
+\paragraph{Datasets Information.}
+
+The Argentinian dataset contains CDRs collected over a period of 5 consecutive months.
+The raw data logs contain, in average, more than 65 million calls per day.
+% The minimum number of logs were registered on the 26th of January whilst the day with most calls was on the 7th of December.
+% The user base amounts to more than 21 million lines of \textit{active} clients.
+The calls were placed through a network of over 4000 geolocalized antennas.
+In total, data amounts to almost 10 billion calls.
+% \paragraph{Mexico.}
+
+The Mexican data source is an anonymized dataset from a national mobile phone operator.
+Data is available for every call made within a period of 24 consecutive months and the raw logs contain at least 11 and at most 47 million daily calls.
+Each day, up to 8 million users accessed the telecommunication company's (\textit{TelCo}) network.
+Note that users from other companies are logged, as long as one of the users registering the call is a client of the operator.
+Again, we only considered CDRs between users in $\calN_C$ since geolocalization was only possible for this group.
+
+Information logged for each call included other aspects of the interaction.
+We had data for the duration and timestamp of the call, the users participating in the call and the antenna id that transmitted the call to the \emph{TelCo} client.
+
+Adding all data elements, the project involved working with more than 1.5 terabytes of data.
+The data was compressed using \emph{gzip} format.
+The call logs, in this data format, were parsed, processed, transformed and loaded to create the datasets which were built as needed by this project.
+
+\paragraph{Data Limitations.}
+Although a lot of information is available in the CDR datasets, there may be limitations in their representations of the whole national population.
+In both cases, the data sources from a single mobile phone operator, and no information is given on the spatial distribution of its users, relative to the national average.
+In principle, we do not know if TelCo's users are over- and under-represented across national jurisdictions, in comparison to the nation's national population distribution.
+Therefore, calls might not accurately represent social interactions and movements between two given jurisdictions, given that we are provided with a biased sample of users.
+
+The same argument can be used to note that not all \textit{real} population movements will be captured by the logs.
+However, these limitations are offset by the huge datasets' sizes, from which we think we can safely assume that the amount of users observed in each set is sufficient to correlate CDR usage with human mobility or social links between different areas.
+
+\section{ Risk Maps Generation}\label{section:risk_maps}
+
+In this section we describe how the Chagas disease risk maps were built for Argentina and Mexico, and we give an overview of their uses.
+As an overview, we use the risk maps to hypothesize on the possibility of locating specific communities of higher disease prevalence outside of the endemic regions.
+They are based on the assumption that when we have stronger communication ties from one community to the endemic region, we will find a higher chance of disease risk.
+Earlier versions of this project were presented by \citep{sarraute2015descubriendo} at \emph{Simposio Internacional sobre Enfermedades Desatendidas}, and\citep{deMonasterio2016analyzing} at \emph{International Conference on Advances in Social Networks Analysis and Mining}.
+These were based on the results contained in this chapter.
+
+The generated heatmaps display a geographical representation with the TelCo's antennas situated on the map.
+For each antenna, a circle is drawn which represents, graphically, the volume of usage of that antenna and the vulnerability of its users.
+We will expand on this last concept later by analyzing the importance of this variable in the detection of long-term migrations.
+
+\subsection{Home Detection}\label{subsection:home_detection}
+
+In order to build the risk maps, the first step is to infer the antenna in which each user lives.
+The antenna's neighborhood will define their home area of influence and with this, their risk condition associated with being inside or outside the endemic region.
+
+Having the geolocalized data granular at the antenna level, we can match each user $u \in \calN_C$ with their \textit{home antenna} $H_u$.
+To do so, we assume $H_u$ as the antenna in which user $u$ spends most of the time during weekday nights.
+This, according to our categorization of weekday's types, corresponds to Monday through Thursday nights, from 8 pm to 6 am of the following day.
+Note that this home antenna analysis will not precisely locate users yet it will define their area of influence.
+This will enable us later to detect long range migrations by looking at changes in these home antennas.
+
+This \textit{home} characterization is based on the assumption that on any given day, users will be located at home during night time.
+The implications of this assumption for CDRs are explored by \citep{sarraute2015socialevents} and by\citep{csaji2012exploring}.
+There, the authors explain that given the large user base, this assumption proves helpful when trying to predict migration patterns at large scale.
+For our case we need not detect specific agent movements but are more interested in movement of large amount of people.
+
+Given a user's $H_u$,they will be considered endemic if their inferred home antenna is located in the endemic zone $E_Z$.
+These tagged users are considered to be the set of \textit{residents of $E_Z$}.
+In the case of Argentina, the risk area is the \textit{Gran Chaco} ecoregion, as described in \cref{endemic_zone_argentina};
+whereas in the case of Mexico, we used the region described in \cref{endemic_zone_mexico}.
+
+
+\subsection{Detection of Vulnerable Users}\label{subsection:vulnerable_users_detection}
+
+Given the set of inhabitants of the risk area, we want to find those with a high communication pattern with residents of the endemic zone $E_Z$.
+To do this, we get the list of calls for each user and then determine the set of their neighbors in the social graph $\calG_C$.
+For each resident of the endemic zone, we tag all their graph neighbors as potentially vulnerable.
+We also tag the calls to (from) a certain antenna, or \textit{cell}, from (to) residents of the endemic area $E_Z$ as \textit{vulnerable calls}.
+With our definition, a user with at least one call from (to) the endemic area is enough to qualify as vulnerable.
+
+The next step is to aggregate this data for every antenna.
+Given an antenna $a$, we will have:
+\begin{itemize}
+	\item The total number of residents $N_a$ (this is, the number of people for which $a$ is their home antenna).
+	\item The total number of residents which are vulnerable $V_a$.
+	\item The total volume of outgoing calls $C_a$ from every antenna.
+	\item From the outgoing calls, we extracted every call that had a user whose home is in the endemic area $E_Z$ as a receiver $VC_a$ (\textit{vulnerable calls}).
+\end{itemize}
+
+These four numbers $\left< N_a, V_a, C_a, VC_a \right>$ are the properties we extracted for each antenna in the studied countries.
+
+\subsection{Heatmap Generation}
+With the collected antenna properties, we generated heatmaps to visualize the mentioned antenna indicators, overlapped with political maps of the corresponding region.
+In them, a circle is generated for each cell, where:
+
+\begin{itemize}
+	\item the \textbf{area} depends on the number of TelCo users living in the antenna $N_a$.
+
+	\item the \textbf{color}, is related to the fraction ${V_a}/{N_a}$ of vulnerable users living there.
+\end{itemize}
+
+
+We used two filtering parameters to control which antennas are plotted.
+\begin{itemize}
+	\item $\beta$: The antenna is plotted if its fraction of vulnerable users is higher than $\beta$.
+	\item $m_v$: The antenna is plotted if its population is bigger than $m_v$.
+\end{itemize}
+
+When displaying the maps, these parameters were helpful to identify special small antenna's circles which were covered under the circles of larger volume antennas.
+Having more than four thousand antennas for each plot means that a high number of these would graphically overlap with small neighboring ones.
+This \textit{noise} is unhelpful for the detection of smaller, more vulnerable, antennas.
+
+These parameters were tuned differently when zooming into different regions.
+For example: an antenna whose vulnerable percentage would be considered low at the national level can be locally high when zooming in at a more local level.
+The filtering parameters helped us explore these cases in more detail, and provided great insight to the Mundo Sano Foundation.
+The following section presents these maps.
+
+\section{Risk Maps Visualizations}\label{section:riskmaps}
+
+\subsection{Risk Maps for Argentina}
+
+
+\begin{figure}[ht]
+	\caption{Risk maps for Argentina, filtered according to the value of $\beta$.}\label{fig:mapa_argentina}
+	\begin{minipage}{.495\linewidth}
+		\centering
+		\includegraphics[width=0.90\linewidth]
+		{figures/201112_hi_res_argentina_usuarios_proporcion_circulos_beta1/201112_hi_res_argentina_usuarios_proporcion_circulos_beta1}
+
+		(a) $\beta = 0.01$
+	\end{minipage}
+	\begin{minipage}{.495\linewidth}
+		\centering
+		\includegraphics[width=0.90\linewidth]
+		{figures/201112_hi_res_argentina_usuarios_proporcion_circulos_beta15/201112_hi_res_argentina_usuarios_proporcion_circulos_beta15}
+
+		(b) $\beta = 0.15$
+	\end{minipage}
+\end{figure}
+
+As a first visualization, maps were drawn using a provincial or national scale.
+Advised by \textit{Mundo Sano} Foundation's experts, we then focused on areas of specific epidemic interest.
+
+\cref{fig:mapa_argentina} shows the risk maps for Argentina, generated with
+two values for the $\beta$ filtering parameter, and fixing $m_v = 50$ inhabitants per antenna.
+After filtering with $\beta = 0.15$, we see that large portions of the country harbor potentially vulnerable individuals.
+Namely, \cref{fig:mapa_argentina} (b) shows antennas where more that 15\% of the users has social ties with the endemic region $E_Z$.
+
+\cref{fig:cba_sfe} shows a close-up for the Cordoba and Santa Fe provinces,
+where we can see a gradient from the regions closer to the endemic zone $E_Z$ to the ones further away.
+
+\begin{figure}[ht]
+	\caption{Risk map for Cordoba and Santa Fe provinces, filtered according to $\beta = 0.15$.}\label{fig:cba_sfe}
+	\centering
+	\includegraphics[width=0.95\linewidth]
+	{figures/201112_hi_res_cba_sfe_usuarios_proporcion_circulos_beta15/201112_hi_res_cba_sfe_usuarios_proporcion_circulos_beta15}
+\end{figure}
+
+
+
+\subsection{Detection of Vulnerable Argentinean Communities}
+
+As a result of inspecting the maps in \cref{fig:mapa_argentina}, we decided to focus visualizations in areas whose results were unexpected to the epidemiological experts.
+These areas included the provinces of Tierra del Fuego, Chubut, Santa Cruz and Buenos Aires, with special focus on the metropolitan area of Greater Buenos Aires whose heatmap is shown in \cref{fig:amba_map}.
+
+In some cases, antennas stood out for having a significantly higher link to the epidemic area than the adjacent ones.
+Our objective here was to enhance the visualization in areas outside of Gran Chaco looking for possible host communities of migrants from the ecoregion, inferred by the social links shown in the CDRs.
+Our assumptions were that if, in average, there was a higher percentage of vulnerable users in that non-epidemic antenna, this would mean that there's a high possibility of having more infected users in that community.
+
+As an outcome of analyzing these visualizations, we were able to locate special antennas which stand out over their neighboring ones.
+These high risk antennas were then located and separated for manual inspection along with the \textit{Mundo Sano} Foundation collaborators.
+They used this information it as an aid for their campaign planning and as education for community health workers.
+
+%\todo{preguntarle a Diego si hubo algun avance/resultado sobre esto.}
+
+\begin{figure}[p]
+	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.02$.}\label{fig:amba_map}
+	\centering
+	\includegraphics[width=0.65\linewidth]
+	{figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta2/201112_hi_res_amba_usuarios_proporcion_circulos_beta2}
+\end{figure}
+
+\begin{figure}[p]
+	\caption{Risk map for the metropolitan area of Buenos Aires, filtered with $\beta = 0.2$.}\label{fig:amba_map_beta20}
+	\begin{center}
+		\includegraphics[width=0.65\linewidth]{figures/201112_hi_res_amba_usuarios_proporcion_circulos_beta20/201112_hi_res_amba_usuarios_proporcion_circulos_beta20}
+
+	\end{center}
+\end{figure}
+
+This data exploration allowed us to specifically detect outlying communities in the focused regions.
+Some of these can be seen directly from the heatmap in \cref{fig:amba_map}, where the towns of Avellaneda, San Isidro and Parque Patricios have been pinpointed.
+
+
+\newpage
+
+\subsection{Risk Maps for Mexico}
+
+With the data provided by the CDRs and the endemic region defined in \cref{endemic_zone_mexico}, heatmaps were generated for Mexico using the methods described in \cref{subsection:home_detection}.
+The first generated visualizations are depicted in \cref{fig:mapas_mexico}, which includes a map of the country of Mexico, and a zoom-in on the South region of the country.
+We used $m_v = 80$ inhabitants per antenna, and a high filtering value $\beta = 0.50$, which means that in all the antennas shown in \cref{fig:mapas_mexico}, more that 50\% of inhabitants have a social tie with the endemic region $E_Z$.
+For space reasons, we don't provide here more specific visualizations and analysis of the regions of Mexico.
+
+\begin{figure}[p]
+	\caption{Risk maps for Mexico, filtered according to the value of $\beta$.}\label{fig:mapas_mexico}
+	\begin{minipage}{.6\linewidth}
+		\centering
+		\includegraphics[width=\columnwidth,keepaspectratio]
+		{figures/mexico_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_/mexico_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_}
+
+		(a) National map, $\beta = 0.50$
+	\end{minipage}
+	\begin{minipage}{.6\linewidth}
+		\centering
+		\includegraphics[width=\columnwidth,keepaspectratio]
+		{figures/sur_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_/sur_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_}
+
+		(b) South region of Mexico, $\beta = 0.50$
+	\end{minipage}
+
+	\begin{minipage}{.6\linewidth}
+		\centering
+		\includegraphics[width=\columnwidth]
+		{figures/estado_mexico_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_/estado_mexico_usuarios_volumen_circulos_allday_beta--50_min_volume--80_mexico_}
+
+		(c) State of Mexico, $\beta = 0.50$
+	\end{minipage}
+\end{figure}
+
+% \newpage
+
+
+\section{Data Features}
+
+The quality of any Machine Learning task on CDRs relies heavily on the ability to characterize the users and their communication patterns, in ways that are as relevant as possible to the task.
+In general, the features constructed reflect calling and mobility patterns, segmented by different time periods during the week, and tagging whether the actions or subjects are `endemic'.
+
+Our goal in building a Machine Learning model is to evaluate and analyze if long-term migrations can be accurately predicted from the CDR data.
+Added to this, we would like to know what type of information extracted from the data has most predictive power to our problem's variable.
+This result would tell us which data features are informative in detecting migrations, which in turn, would test the assumption on which we build the risk maps in \cref{section:riskmaps}.
+The CDR logs available for Argentina span a period of 5 months, whereas the Mexican dataset includes 24 months, from January 2014 to December 2015, making it more suitable for this study.
+
+To begin with, we divide the available data into two distinct periods:
+$T_0$, from January 2014 to July 2015, considered as the ``past'' in our experiment; and $T_1$, from August 2015 to December 2015, considered as the ``present''.
+Our dataset will only run from August 2015 to December 2015 (period $T_1$), where all CDRs are processed to extract information by user and by link.
+This is done because we can't introduce data from $T_0$ for a model trying to predict this same information.
+
+To begin building attributes from the data, each week is divided into time periods:
+\begin{definition}\label{def:week-periods}
+	(i) the period \textit{weekday} is from Monday to Friday, on working hours (from 8hs to 20hs); (ii) \textit{weeknight} is from Monday to Friday, between 20hs and 8hs of the following day;
+	and (iii) \textit{weekend} is Saturday and Sunday.
+\end{definition}
+
+The model consists of the following features, which can be grouped into 4 categories:
+% The data is aggregated by user and by link.0
+
+\begin{enumerate*}[label={\alph*)},]
+\item \textbf{Used and Home Antennas:} For each user $u \in \calN_C$, we register the top ten most used antennas, during each month of the training period,
+together with the number of calls made through each antenna.
+We tag all users having their home antenna in the epidemic region as \textit{EPIDEMIC}.
+In our dataset user antennas are ordered with $0$ being the most used antenna and $9$ the least.
+We ignore those users for which we don't have ten used antennas and discard users that have no calls on weeknights\footnote{This is because we wouldn't be able to detect $H1_u$.}.
+We also register the most used antennas considering only calls made during the \textit{weeknight} period, as defined in \cref{def:week-periods}.
+As explained before, a user's home antenna is defined by the most used antenna during weeknights and, with this, users were tagged as `endemic' if their home antenna is in the endemic zone $E_Z$ and `exposed' if any of the ten antennas logged is in the risk area.
+Finally, we added the user's province by referring to their home antenna's membership.
+% For our algorithms we considered two versions for this antenna: the most used antenna in all of $T_0$, and the most used antenna during the \textit{week night} for these same months.
+
+\\
+
+\item \textbf{Mobility Diameter:} The user's logged antennas define a convex hull in space and the radius of this hull is taken to be the user's mobility diameter.
+This length is representative of the area of influence of that individual.
+We expect this feature to be correlated with long-term migrations.
+We registered the mobility diameter of each user, as the diameter in kilometers of the convex hull defined by their top 10 used antennas.
+Again, we generate two values for this attribute, considering (i) all antennas used and (ii) only those used during \textit{weeknights}.
+
+\\
+
+\item \textbf{Graph Data and Communications:} We look at the social graph $\calG_C$ built from the CDRs, and the communications between nodes in $\calN_C$.
+For each edge $\left< n_i, n_j \right> \in \calE_C$, we dive into each of their interactions, segmenting call data with different criteria.
+For each month and pair of users $\left< i,j \right>$, we gather the tuple $\left< time_{ij}, calls_{ij}, direction, period \right>$ where $time$ is the sum of all calls (in seconds), $calls$ is the number of calls exchanged, $direction$ is a boolean variable indicating whether the calls were incoming or outgoing (from user $i$'s point of view) and $period$ corresponds to a segmentation of the week into the periods \textit{weekday}, \textit{weeknight}, and \textit{weekend}.
+In this sense, two users $u_i, u_j \in \calN_C, u_i \neq uj$ are \textbf{neighbors} in the social graph if $time_{ij} > 0$.
+\end{enumerate*}
+
+% \subsection{}\label{homeantenna}
+% \subsection{}\label{section:def_mobility_diameter}
+% \subsection{}\label{section:def_graph_data}
+
+
+%\begin{description}
+%     \item [Neighbors.] From the social graph built from the CDRs we extracted the total count of neighbors in the communication graph and the total count of epidemic neighbors.
+%      \item [Calls.] For each month, the total time and count of monthly calls made during is aggregated per user.This information is also segmented according to the hour of the day that the calls were made and whether they were made during the weekends.Special care was taken with calls placed to and from vulnerable users and aggregated accordingly.
+%\end{description}
+
+%if we find that user $j$ is epidemic.This may be translated as the edge is vulnerable if one of both users is epidemic.
+
+Since the samples in our dataset are users, we have to aggregate all of these variables, by grouping interactions at the user level.
+Combinations of all of these different variables amount to more than 150 features per user.
+
+To illustrate the point, in \cref{tab:data_example} we show a small example of how two calling features could look like, where we apply groupings and filters only on the user's calls.
+From here we extract the calling features by aggregating these variables up to the user's level.
+In practice, this means grouping either by $j$ or $i$, and aggregating across all of the different components.
+% summing over all columns when grouping by users.
+
+
+\begin{table}[ht]
+	\caption{An example list of features that were built from the social graph dataset.
+Each attribute has its code name and a description of the codes used to construct its name.}
+\label{tab:data_example}
+	\footnotesize
+	\centering
+	\begin{tabular} {|p{1.5cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{2cm}|p{1.5cm}|p{1cm}}
+	% \begin{tabular} {|p{1.5cm} p{1.5cm} p{2cm} p{1.5cm} p{2cm} p{1.5cm} p{1cm}}
+		%{l r r r r r r }
+		% \toprule
+		\hline
+		Feature name & Call/Time & Time Period & Direction of call & Endemicity & Month \\
+		% \midrule
+		\hline
+		Calls Weekend InVul08    & Count & Placed on Weekends & Incoming & Edges with endemic neighbors only & August\\
+		% \midrule
+		\hline
+		Time Weeknight Out12 & Sum of duration in seconds & During weekdays and on out-of-office hours & Outgoing   & No endemic filtering   & December \\
+		\hline
+		% \bottomrule
+	\end{tabular}
+\end{table}
+
+
+%TimeWeekNight_OUT_12
+%CallsWeekEnd_IN_12
+
+% Finally
+
+We also label each edge $\left< n_i, n_j \right> \in \calE_C$ if one or both users is endemic and count each user's amount of neighbors in the communication graph, as well as the endemic neighbors.
+This labeling defines user $i$ as \textit{vulnerable} whenever they have any edge with another user $j$ who lives in the endemic region $E_Z$.
+
+
+\subsection{Antenna Distribution}\label{subsection:antenna_distribution}
+
+As described before, the training data belongs to period $T_1$, from August 2015 to December 2015;
+whereas the ground truth that we use to validate the predictions belongs to $T_0$, from January 2014 to August 2015.
+Raw data logs contain between 11 million and 30 million calls per day and the volume of calls increases over the months, where most recent months have higher rates.
+After preprocessing and cleaning the dataset, we obtained a dataset with 1.6 million users.
+To create our model's input data, by means of relational database operations and algorithms that scrap the whole dataset, we transform raw CDRs into a dataset where individuals correspond to a single rows in the dataset.
+
+To compare how this sampled population compares to country-wide distribution estimates,
+\cref{tab:distribution_by_state} shows the percentage of antennas, the population (according to INEGI census 2014) and
+of TelCo users per state, for the top 10 Mexican states.
+This table describes the similarity between the population distribution of Mexico versus the TelCo's users to highlight possible sources of bias in the statistical model.
+% (Wikipedia's \url{https://en.wikipedia.org/wiki/Ranked_list_of_Mexican_states})
+
+
+\begin{table}[ht]
+	\caption{Table showing the Mexican distribution of antennas, total population and TelCo users by state.}\label{tab:distribution_by_state}
+	\centering
+	\begin{tabular}{l r r r}
+		\toprule
+		State				& Number of antennas & Population 	& TelCo users \\
+		\midrule
+		Distrito Federal      & 28.2\% 	& 8.5\%		& 20.1\%   \\
+		Mexico                     & 21.2\%		&   13.9\% 	& 23.8\%   \\
+		Jalisco                   & 10.7\% 	& 6.4\%		& 8.3\%    \\
+		Nuevo Leon               & 9.6\%	& 4.9\%		& 2.9\% \\
+		Guanajuato               & 6.1\%	& 4.8\%		& 5.9\% \\
+		Puebla                     & 5.8\%	& 5.3\%		& 4.3\% \\
+		Veracruz                  & 5.4\% 	& 6.8\%		& 4.2\% \\
+		Baja California       & 4.3\%	& 2.8\%		& 1.1\% \\
+		Yucatan                   & 4.1\%	& 1.7\%		& 2.9\% \\
+		Sinaloa                   & 4.1\%	& 2.5\%		& 0.4\% \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+As we see in \cref{tab:distribution_by_state}, there are differences in the state distribution of TelCo users in comparison with the population distribution from census data.
+This unbalance is remarkably high for both the states of Mexico and the ``Distrito Federal'' where the TelCo has a better coverage than in other states.
+
+Note that during this work we considered only postpaid users, i.e., users which have a monthly plan rate.
+This filtering was done because prepaid users have a higher churn rate, thus meaning that phone lines are not necessarily associated with one single person during the two years of analysis, making them less suitable for the purpose of this study.
+
+% (i.e.\ cellphone lines might ``jump" suddenly from one region to another).
+
+% Data was manipulated to build a ??
+
+
+\subsection{User Migrations}\label{subsection:user_migrations} % {Ground Truth.}
+
+We performed an analysis similar to the home antenna detection previously described in \cref{endemic_zone_mexico}, but considering the time period $T_0$ (from January 2014 to July 2015), in order to determine the home antenna of users during $T_0$.
+
+The number of people which maintain their home antenna between $T_0$ and $T_1$ is 1,012,416; whereas 580,425 users had a change in their home antenna.
+In terms of endemic condition, we observed that 1,551,560 users maintained their endemic condition, whether it be positive or negative, between $T_0$ and $T_1$, whereas 41,281 had a change.
+
+
+% Confusion matrix
+\cref{tab:changes} shows the matrix of changes $C$, such that $C_{i, j}$ is the number of users that were in group $i$ during period $T_0$ (the past) and moved to group $j$ during the training period $T_1$.
+As an example, lower left means was endemic, is now not endemic.
+
+\begin{table}[ht]
+	\caption{Matrix of user endemicity change across time periods $T_1$ and $T_2$.}\label{tab:changes}
+	\centering
+	\begin{tabular}{l r r }
+		\toprule
+		& Not endemic in $T_1$ & Endemic in $T_1$ \\
+		\midrule
+		Not endemic in $T_0$ & 1140360 & 18330   \\
+		Endemic in $T_0$       & 22951    & 411200 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+In relative numbers, this shows that only 2.59\% of users had a change in their endemic condition over time.
+A similar count results in that 66.0\% of users have not changed their home antenna from $T_0$ to $T_1$ and that approximately 5\% of past endemic users moved into non-endemic during this time period.
+This is not surprising given that we wouldn't expect a large number of people migrating in a time lapse of only two years.
+
+
+\subsection{Feature Correlations}
+\label{subsection:feature_correlations} % {Ground Truth.}
+
+
+The dataset used in this work shows significant correlations between communication and mobility patterns.
+Some features are essentially highly correlated across time periods.
+Thus knowing a user's current endemicity will be highly correlated to their past endemicity since a user being endemic in $T_1$ is very correlated to being endemic in $T_0$.
+The same property extends to attributes of user's interaction with vulnerable neighbors during $T_1$, where their relationship to the user's endemicity in $T_0$ is expected.
+In these cases, it is important to know the value of their correlation to the past endemicity of the user.
+In \cref{ch:ensembleMethods}, we will leverage this observation to improve our performance in predicting long-term migrations.
+
+\cref{tab:featureCorrelations} quantifies these relationships, where only features with an absolute correlation value higher than $0.25$ are shown.
+It is notable that the correlation is slightly increasing as we get closer to the split month i.e.\ the month chosen to separate $T_0$ from $T_1$.
+This behavior might be an indicator of seasonality in the data, where events from $T_1$ more closer to $T_0$ carry more intrinsic value.
+Added to this, there is a very small indication that a user's calling volume in the month of December is more related to a user's past endemicity in the sense that it carries a higher correlation with their past endemicity.
+Again, this suggests data seasonality in the data, where December is a festive month by tradition in Latin America.
+
+
+\begin{table}
+	% \parbox{0.45\linewidth}{
+	\caption{Correlations of dataset attributes and a user's endemic condition in $T_0$.}
+	\label{tab:featureCorrelations}
+	\centering
+	\begin{tabular}{l l }
+		\toprule
+		Feature & Correlation \\
+		\midrule
+		Endemic in $T_0$        & 1.0 \\
+		Endemic in $T_1$        & 0.933801 \\
+		Call Count  OUT\ 08/2015  & 0.730294 \\
+		Vuln. calls  08 &0.732498 \\
+		Vuln. calls  09   &0.714566 \\
+		Vuln. calls 12  &0.715448 \\
+		Vuln. calls  10  &0.694106 \\
+		Vuln. calls  11   &0.694265 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+

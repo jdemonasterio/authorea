@@ -1,0 +1,437 @@
+% !BIB TS-program = biber
+% !BIB program = biber
+%===============================================================================
+%          File: preamble.tex
+%        Author: Pedro Ferrari
+%       Created: 08 Feb 2017
+% Last Modified: 08 Feb 2017
+%   Description: Preamble for Thesis File
+%===============================================================================
+%---------------------------------------+
+% Source code, programming and patching |
+%---------------------------------------+
+\usepackage{etoolbox}    % Toolbox of programming tools
+\usepackage{xpatch}      % Extension of etoolbox patching commands
+
+%--------------------------------------+
+% Language, hyphenation, encoding, etc |
+%--------------------------------------+
+\usepackage[english]{babel}
+\usepackage{lmodern}             % Use Latin Modern fonts
+\usepackage[T1]{fontenc}         % Better output when a diacritic/accent is used
+\usepackage[utf8]{inputenc}      % Allows to input accented characters
+\usepackage{textcomp}            % Avoid conflicts with siunitx and microtype
+\usepackage{microtype}           % Improves justification and typography
+\usepackage[svgnames]{xcolor}    % Svgnames option loads navy (blue) colour
+
+%---------------------------------------------+
+% Page style: titles, margins, footnotes, etc |
+%---------------------------------------------+
+% A4 page layout:
+\usepackage[width=14cm,left=3.5cm,marginparwidth=3cm,marginparsep=0.35cm,
+height=21cm,top=3.7cm,headsep=1cm,footskip=1.1cm]{geometry}
+
+\usepackage[pagestyles,outermarks]{titlesec}  % Customize titles and headers
+\newpagestyle{main}[\scshape]{%
+  \headrule
+  \sethead
+  [\thepage][][\chaptertitlename\space\thechapter. \chaptertitle]
+  {\ifthesection{\thesection\space\,\sectiontitle}
+  {\chaptertitlename\space\thechapter. \chaptertitle}}{}{\thepage}
+}
+\newpagestyle{special}[\scshape]{%
+  \headrule
+  \sethead
+  [\thepage][][\chaptertitle]
+  {\ifthesection{\sectiontitle}{\chaptertitle}}{}{\thepage}
+}
+% The following pagestyle is needed because titlesec isn't compatible with
+% refsegment=chapter
+\newpagestyle{bibatend}[\scshape]{
+  \headrule
+  \sethead
+  [\thepage][][\chaptertitle]
+  {\sectiontitle}{}{\thepage}
+}
+\pagestyle{special}
+\appto{\mainmatter}{\pagestyle{main}}
+\appto{\backmatter}{\pagestyle{bibatend}}
+\appto{\printindex}{\pagestyle{special}}
+
+% Use empty page style instead of plain in parts and chapters title pages
+\patchcmd{\part}{plain}{empty}{}{}
+\patchcmd{\chapter}{plain}{empty}{}{}
+
+\usepackage{emptypage}  % Empty blank pages created by \cleardoublepage
+
+% Change chapter heading style to match titlepage
+\titleformat{\chapter}[display]
+{\bfseries\filcenter}
+{\titlerule[1.5pt]\vspace{4ex}%
+\LARGE{\chaptertitlename\space\thechapter}}{0.5cm}{\huge}
+[\vspace{2ex}{\titlerule[1.5pt]}\vspace{0.3cm}]
+% Do the same for unnumbered chapters (TOC, preface, etc)
+\titleformat{name=\chapter,numberless}[display]
+{\bfseries\filcenter}
+{\titlerule[1.5pt]\vspace{4ex}}{0.5cm}{\huge}
+[\vspace{2ex}{\titlerule[1.5pt]}\vspace{0.3cm}]
+
+\usepackage[stable,multiple]{footmisc}  % Customizations of footnotes
+\renewcommand*{\footnoterule}{\vspace*{0.3cm}\hrule width 2.5cm\vspace*{0.3cm}}
+\makeatletter
+  \renewcommand\@makefntext[1]{
+  \setlength{\parindent}{15pt}\mbox{\@thefnmark.\space}{#1}}
+\makeatother
+
+%-------------------------------+
+% Math symbols and environments |
+%-------------------------------+
+\usepackage{amsmath}               % Load new math environments
+\numberwithin{equation}{section}
+\usepackage{amssymb}               % Defines most math symbols (such as \mathbb)
+\usepackage{mathtools}             % Extension and bug fixes for amsmath package
+\usepackage{mathrsfs}              % Math script like font
+\usepackage{breqn}                 % Automatic line breaking of math expressions
+\renewcommand*{\intlimits}{\displaylimits}  % Fix breqn clash with intlimits
+
+
+%---------------------+
+% Floats and captions |
+%---------------------+
+\usepackage{graphicx}           % To include graphics files
+%\graphicspath{{/Users/Pedro/OneDrive/programming/Latex/logos/}{figures/}{tables/}}
+\usepackage{pdflscape}
+\usepackage[font=small,labelfont=bf]{caption}
+\captionsetup*[figure]{format=plain,justification=centerlast,labelsep=quad}
+\captionsetup*[table]{justification=centering,labelsep=newline}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+% Use subcaption for subfigures (to work properly with hyperref)
+\usepackage{subcaption}
+\captionsetup*[subfigure]{subrefformat=simple,labelformat=simple}
+\renewcommand*{\thesubfigure}{(\alph{subfigure})}
+
+% Further modifications of float layout
+\usepackage[captionskip=5pt]{floatrow}  % We set caption skip here
+\floatsetup[table]{style=Plaintop,font=small,footnoterule=none,footskip=2.5pt}
+
+% Add ability to show rotated figures in horizontal or vertical alignment - sidewaysfigure
+\usepackage{rotating}
+
+%----------------+
+% Table packages |
+%----------------+
+\usepackage{array}          % Flexible column formatting
+% \usepackage{spreadtab}  % Spreadsheet features
+\usepackage{multirow}       % Allows table cells that span more than one row
+\usepackage{booktabs}       % Enhance quality of tables
+\setlength{\heavyrulewidth}{1pt}
+
+% \usepackage{longtable}        % Allows to break tables through pages
+% \floatsetup[longtable]{margins=centering,LTcapwidth=table}
+
+% to build master table
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+
+%---------------------------------------------------------+
+% Miscellaneous packages: lists, setspace, todonotes, etc |
+%---------------------------------------------------------+
+\usepackage[shortlabels,inline]{enumitem}   % Customize lists
+\setlist[itemize,1]{label=$\bullet$}
+\setlist[itemize,2]{label=\footnotesize{$\blacktriangleright$}}
+\setlist[itemize,3]{label=\tiny{$\blacksquare$}}
+\setlist[itemize,4]{label=\bfseries{\large{--}}}
+% \setlist[enumerate,2]{label=\emph{\alph*})}
+\newlist{steps}{enumerate}{1}               % List of steps to be used in proofs
+\setlist[steps,1]{leftmargin=*,label=\textit{Step \arabic*.},ref=\arabic*}
+
+\usepackage{setspace}  % Commands for double and one-and-a-half spacing
+\setstretch{1.2}       % 1.2 spacing
+
+% \usepackage{listings}  % Useful for inserting code (no unicode support)
+% \lstset{basicstyle=\small\ttfamily}
+
+% \usepackage[colorinlistoftodos,textsize=small,figheight=5cm,
+% figwidth=10cm,color=red!85]{todonotes}
+
+% \usepackage{lipsum}    % Dummy text generator
+
+\usepackage{algorithm2e} % to write pseudo-code algorithms
+\usepackage{qtree} % To draw trees
+\usepackage{todonotes} % To draw trees
+
+%----------------------------------+
+% Appendix, bibliography and index |
+%----------------------------------+
+% titletoc will prefix the word `Appendix` for each appx chapter.
+\usepackage[titletoc,page]{appendix}
+% Solve bad interaction between titlesec and \
+\preto{\appendix}{\cleardoublepage}
+
+% this might insert blank pages here and there but now compilation works correctly with biber
+\usepackage[style=american]{csquotes}  % Language sensitive quotation facilities
+%\usepackage[style=authoryear-comp,backref=true,refsection=chapter,backend=biber]{biblatex}
+\usepackage[backend=biber,sortlocale=us_EN,natbib=true,style=authoryear-comp,backref=true,refsection=chapter,url=false]{biblatex}
+
+%doi=true,
+%eprint=false
+
+\addbibresource{biblio.bib}
+
+% Bibliography format
+\usepackage{mybibformat} % Modifications to authoryear-comp style and hyperlinks
+\setlength{\bibitemsep}{0.1cm}
+
+\usepackage{imakeidx}  % Creation and formatting of indexes
+\indexsetup{level=\chapter,firstpagestyle=empty,othercode=\small}
+\makeindex[title=Alphabetical Index]
+
+%------------------------------------------------------+
+% Hyperlinks, bookmarks, theorems and cross-references |
+%------------------------------------------------------+
+\usepackage[hyperfootnotes=false]{hyperref}
+\hypersetup{colorlinks=true, allcolors=Navy, linktoc=page,
+pdfstartview={XYZ null null 1}, pdfcreator={Vim LaTeX},
+pdfsubject={Machine Learning},
+pdftitle={Tesis para la Carrera de Licenciatura en Matemática Aplicada},
+pdfauthor={Juan Mateo De Monasterio},
+pdfcreator={Juan Mateo De Monasterio},
+pdfkeywords={machine learning}
+}
+\usepackage[numbered,open,openlevel=1]{bookmark}
+\usepackage{amsthm,amsmath}        % We load theorem environments here to avoid warnings
+
+\usepackage[noabbrev,capitalise]{cleveref}
+
+%-----------------------------------------------------------+
+% Comment out the math equations, figurest,etc                |
+% This will help us spell checking the doc with online tools |
+%-----------------------------------------------------------+
+
+% These allow one to compile the pdf without any figures, equations
+% etc. which will let us copy paste the output for spell checking.
+
+%\usepackage{comment}
+%\excludecomment{figure}
+%\let\endfigure\relax
+%\excludecomment{equation}
+%\let\endequation\relax
+
+%\excludecomment{lstlisting}
+%\let\endlstlisting\relax
+
+
+
+%------------------------------------+
+% Definition of theorem environments |
+%------------------------------------+
+% Declare theorem styles that remove final dot and use bold font for notes
+\newtheoremstyle{plaindotless}{\topsep}{\topsep}{\itshape}{0pt}{\bfseries}{}%
+{5pt plus 1pt minus 1pt}{\thmname{#1}\thmnumber{ #2}\bfseries{\thmnote{ (#3)}}}
+\newtheoremstyle{definitiondotless}{\topsep}{\topsep}{\normalfont}{0pt}%
+{\bfseries}{}{5pt plus 1pt minus 1pt}%
+{\thmname{#1}\thmnumber{ #2}\bfseries{\thmnote{ (#3)}}}
+\newtheoremstyle{remarkdotless}{0.5\topsep}{0.5\topsep}{\normalfont}{0pt}%
+{\itshape}{}{5pt plus 1pt minus 1pt}%
+{\thmname{#1}\normalfont\thmnumber{ #2}\itshape{\thmnote{ (#3)}}}
+
+% Define style dependent environments and number them consecutively per section
+\theoremstyle{plaindotless}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem.}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition*}{Proposition.}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{lemma*}{Lemma.}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{corollary*}{Corollary.}
+
+\theoremstyle{definitiondotless}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{definition*}{Definition.}
+\newtheorem{examplex}[theorem]{Example}
+\newtheorem*{examplestarred}{Example.}
+\newtheorem*{continuedex}{Example \continuedexref\space Continued.}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem*{exercise*}{Exercise.}
+\newtheorem*{solution*}{Solution.}
+\newtheorem{problem}{Problem}
+
+\theoremstyle{remarkdotless}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{remark*}{Remark.}
+\newtheorem*{notation*}{Notation.}
+
+% Define numbered, unnumbered and continued examples with triangle end mark
+\newcommand{\myqedsymbol}{\ensuremath{\triangle}}
+
+\newenvironment{example}
+  {\pushQED{\qed} \renewcommand{\qedsymbol}{\myqedsymbol}\examplex}
+  {\popQED\endexamplex}
+
+\newenvironment{example*}
+  {\pushQED{\qed}\renewcommand{\qedsymbol}{\myqedsymbol}\examplestarred}
+  {\popQED\endexamplestarred}
+
+\newenvironment{examcont}[1]
+  {\pushQED{\qed}\renewcommand{\qedsymbol}{\myqedsymbol}%
+    \newcommand{\continuedexref}{\ref*{#1}}\continuedex}
+  {\popQED\endcontinuedex}
+
+
+%-----------------------------------------------+
+% Cross-references settings (cleveref settings) |
+%-----------------------------------------------+
+
+\crefname{exercise}{Exercise}{Exercises}
+\crefname{enumerate}{Enumeration}{Enumerations}
+\crefname{stepsi}{Step}{Steps}
+\crefname{problem}{Problem}{Problems}
+\crefname{appsec}{Appendix}{Appendices}
+
+% Uncommenting this brings problems when referrencing equations.
+%\crefname{equation}{}{}
+%\crefformat{equation}{#2(#1)#3}
+%\crefrangeformat{equation}{#3(#1)#4 to #5(#2)#6}
+%\crefmultiformat{equation}{#2(#1)#3}{ and #2(#1)#3}{, #2(#1)#3}{ and #2(#1)#3}
+%\crefrangemultiformat{equation}{#3(#1)#4 to #5(#2)#6}{ and #3(#1)#4 to #5(#2)#6}%
+%{, #3(#1)#4 to #5(#2)#6}{ and #3(#1)#4 to #5(#2)#6}
+
+
+%-----------------------------------------------+
+% Citation settings (natbib settings)           |
+%-----------------------------------------------+
+%\usepackage[sort, numbers]{natbib}
+%% Set citation style
+%\setcitestyle{square}
+
+%----------------------------------------------+
+% Half-title, titlepage and copyright settings |
+%----------------------------------------------+
+
+\newcommand*{\halftitlepg}{%
+  \begingroup
+    \begin{center}
+      \textbf{\huge{Math Thesis}}
+    \end{center}
+  \endgroup
+  \thispagestyle{empty}\cleardoublepage
+}
+
+\newcommand*{\titlepg}{%
+  \begingroup
+    \begin{center}
+        \begin{figure}[!htbp]
+          \includegraphics[scale=0.45]{figures/uba_logo/250px-UBA.png}
+        \end{figure}
+      \medskip
+      \textbf{\LARGE{Universidad de Buenos Aires}}\\
+      \smallskip
+      \textbf{\Large{Facultad de Ciencias Exactas y Naturales}}\\
+      \smallskip
+      \textbf{\Large{Departamento de Matemática}}\\
+      \vspace{0.075\textheight}
+      %
+      \rule{\textwidth}{1.5pt}\par
+      \vspace{\baselineskip}
+      {\bfseries\huge{Exploring Migrations and Spread of Chagas Disease in Latin America with Machine Learning}\par
+      \bigskip\Large{---Explorando Migraciones y Difusión del Mal de Chagas en América
+          Latina con Aprendizaje Automático---}}\\
+      \vspace{\baselineskip}
+      \rule{\textwidth}{1.5pt}
+      \bigskip
+
+      \textsc{\Large{Juan Mateo De Monasterio}}\par
+
+      \vspace{1.2cm}
+      \begin{flushleft}
+        \textbf{Director:} \textsc{Carlos Sarraute}\par
+        \textbf{Co-director:} \textsc{Alejo Salles}\par
+        \textbf{Jurados:} \textsc{Matthieu Jonckheere, Pablo Groisman}\par
+      \end{flushleft}
+      \bigskip
+      \begin{flushright}
+      \textbf{Diciembre 2017}
+      \end{flushright}
+    \end{center}
+  \thispagestyle{empty}\clearpage
+  \endgroup
+}
+
+\newcommand*{\copyrightpg}{%
+  \begingroup
+    \footnotesize
+    \parindent 0pt
+    \null
+    \vfill
+    \textcopyright{} 2017 Juan Mateo De Monasterio. All rights reserved.\par
+    \vspace{\baselineskip}
+    This document is free; you can redistribute it and/or modify it under the
+    terms of the GNU General Public License as published by the Free Software
+    Foundation; either version 2 of the License, or (at your choice) any later
+    version.\par
+    \vspace{\baselineskip}
+    This document was typeset in Latin Modern font using \LaTeX.\par
+  \endgroup
+  \thispagestyle{empty}\clearpage
+}
+
+\newcommand*{\dedication}{%
+  \begingroup
+    \vspace*{0.3\textheight}
+    \begin{center}
+      \emph{\large{To all.}}
+      \end{center}
+    \endgroup
+%  \thispagestyle{empty}\cleardoublepage
+  \thispagestyle{empty}\clearpage
+}
+
+%-------------------+
+% Table of contents |
+%-------------------+
+% Add bookmark for table of contents and increase spacing of items
+% \preto{\tableofcontents}{\cleardoublepage\pdfbookmark[0]{\contentsname}{toc}%  \setstretch{1.1}}
+\preto{\tableofcontents}{\clearpage\pdfbookmark[0]{\contentsname}{toc}%
+  \setstretch{1.1}}
+\appto{\tableofcontents}{\singlespacing}
+
+%---------------------------------------------------+
+% (Re)Definition of new commands and math operators |
+%---------------------------------------------------+
+% Numbers
+\DeclareMathOperator{\N}{\mathbb{N}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+% Probability
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\Expect}{\mathbb{E}}
+\DeclareMathOperator{\Var}{\mathrm{Var}}
+\DeclareMathOperator{\Cov}{\mathrm{Cov}}
+% Delimiters
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lvert\lvert}{\rvert\rvert}
+% Miscellaneous
+\renewcommand{\d}{\ensuremath{\operatorname{d}\!}}  % Differential
+\renewcommand{\L}{\ensuremath{\operatorname{\mathcal{L}}}}  % Lagrangian
+\DeclareMathOperator{\calN}{\mathcal{N}}
+\DeclareMathOperator{\calG}{\mathcal{G}}
+\DeclareMathOperator{\calL}{\mathcal{L}}
+\DeclareMathOperator{\calE}{\mathcal{E}}
+% argmin and max operators
+\DeclareMathOperator*{\argmin}{argmin} % no space, limits underneath in displays
+% \DeclareMathOperator{\argmin}{argmin} % no space, limits on side in displays
+\DeclareMathOperator*{\argmax}{argmax} % no space, limits underneath in displays
+% \DeclareMathOperator{\argmax}{argmax} % no space, limits on side in displays
+
+
+
+\newcommand\MyBox[2]{
+	\fbox{\lower0.75cm
+		\vbox to 1.7cm{\vfil
+			\hbox to 1.7cm{\hfil\parbox{1.4cm}{#1\\#2}\hfil}
+			\vfil}%
+	}%
+}

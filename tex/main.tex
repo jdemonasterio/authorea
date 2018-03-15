@@ -1,0 +1,56 @@
+% !TeX document-id = {e1f4adcd-6604-437a-bbae-28a23f2aa94f}
+% !BIB TS-program = biber
+% !BIB program = biber
+%===============================================================================
+%          File: main.tex
+%        Author: Juan de Monasterio
+%       Created: 08 Feb 2017
+%   Description: Main Template File for Thesis
+%===============================================================================
+
+% \documentclass[a4paper,11pt,leqno]{book}
+
+% opcion con menos paginas en blanco
+\documentclass[a4paper,11pt,leqno,openany]{book}
+
+\input{preamble.tex}
+
+% \includeonly{}
+
+\begin{document}
+
+\frontmatter
+% not necessary
+%  \halftitlepg
+  \titlepg
+  \copyrightpg
+  \ifdef{\dedication}{\dedication}{}
+  \include{preface}
+  \include{abstract}
+
+  \tableofcontents
+
+\mainmatter
+  \include{ch_introduction}
+  \include{ch_descriptions_risk}
+  \include{ch_machine_learning}
+  \include{ch_model_selection}
+  \include{ch_ensemble_methods}
+  \include{ch_results}
+  \include{ch_conclusions}
+
+{
+\backmatter
+\printbibheading[heading=bibbook]
+%tm
+\bibbysection[heading=subbib]
+}
+
+% \appendix
+% \part*{Appendices}
+\begin{appendices}
+\include{appendix}
+\end{appendices}
+  % \printindex
+\end{document}
+
